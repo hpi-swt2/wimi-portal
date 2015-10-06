@@ -69,6 +69,6 @@ class PublicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def publication_params
-      params[:publication].permit(Publication.column_names.map(&:to_sym))
+      params[:publication].permit(Publication.column_names.map(&:to_sym), { user_ids:[] })
     end
 end

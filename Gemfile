@@ -42,6 +42,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 # Continuation of CanCan (authoriation Gem for RoR)
 gem 'cancancan'
+# for nested forms
+#gem 'cocoon'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -10,6 +10,8 @@
       <th><%= model_class.human_attribute_name(:purpose) %></th>
       <th><%= model_class.human_attribute_name(:comment) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:project_id) %></th>
+      <th><%= model_class.human_attribute_name(:trip_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -22,6 +24,8 @@
         <td><%= expense.purpose %></td>
         <td><%= expense.comment %></td>
         <td><%= expense.user_id %></td>
+        <td><%= expense.project_id %></td>
+        <td><%= expense.trip_id %></td>
         <td><%=l expense.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

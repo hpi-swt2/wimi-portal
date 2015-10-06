@@ -1,3 +1,5 @@
 class Expense < ActiveRecord::Base
-  belongs_to :users
+  has_one :user
+  has_one :project
+  has_one :trip
 end

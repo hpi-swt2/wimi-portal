@@ -12,6 +12,10 @@
   <dd><%= @expense.comment %></dd>
   <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
   <dd><%= @expense.user_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:project_id) %>:</strong></dt>
+  <dd><%= @expense.project_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:trip_id) %>:</strong></dt>
+  <dd><%= @expense.trip_id %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

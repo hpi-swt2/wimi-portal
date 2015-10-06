@@ -43,6 +43,20 @@
     </div>
     <%= error_span(@expense[:user_id]) %>
   </div>
+  <div class="control-group">
+    <%= f.label :project_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :project_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@expense[:project_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :trip_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :trip_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@expense[:trip_id]) %>
+  </div>
 
 
   <%= f.submit nil, :class => 'btn btn-primary' %>

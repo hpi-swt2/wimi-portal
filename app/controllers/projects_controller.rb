@@ -69,6 +69,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params[:project].permit(Project.column_names.map(&:to_sym))
+      params[:project].permit(Project.column_names.map(&:to_sym), { user_ids:[] })
     end
 end

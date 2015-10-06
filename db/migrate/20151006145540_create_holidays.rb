@@ -4,10 +4,8 @@ class CreateHolidays < ActiveRecord::Migration
       t.string :status
       t.datetime :start
       t.datetime :end
-      t.integer :user_id
-
+      t.belongs_to :user, index: true
       t.timestamps null: false
     end
-    add_index :holidays, :user_id
   end
 end

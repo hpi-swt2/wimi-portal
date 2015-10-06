@@ -23,6 +23,13 @@
     <%= error_span(@project[:title]) %>
   </div>
 
+  <div class="control-group">
+    <%= f.label :users, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_check_boxes(:user_ids, User.all, :id, :last_name) %>
+    </div>
+    <%= error_span(@project[:users]) %>
+  </div>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

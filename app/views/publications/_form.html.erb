@@ -36,7 +36,20 @@
     </div>
     <%= error_span(@publication[:type_]) %>
   </div>
-
+  <div class="control-group">
+    <%= f.label :project_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :project_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@publication[:project_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :users, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_check_boxes(:user_ids, User.all, :id, :last_name) %>
+    </div>
+    <%= error_span(@publication[:users]) %>
+  </div>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

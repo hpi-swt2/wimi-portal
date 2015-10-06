@@ -10,6 +10,8 @@
   <dd><%= @publication.venue %></dd>
   <dt><strong><%= model_class.human_attribute_name(:type_) %>:</strong></dt>
   <dd><%= @publication.type_ %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:project_id) %>:</strong></dt>
+  <dd><%= @publication.project_id %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
