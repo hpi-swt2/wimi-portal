@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20151006151101) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "projects_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+  end
+
+  add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id"
+  add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id"
+
   create_table "publications", force: :cascade do |t|
     t.string   "title"
     t.string   "venue"
@@ -46,6 +54,14 @@ ActiveRecord::Schema.define(version: 20151006151101) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "publications_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "publication_id"
+  end
+
+  add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
+  add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
   create_table "trips", force: :cascade do |t|
     t.string   "title"
@@ -76,21 +92,5 @@ ActiveRecord::Schema.define(version: 20151006151101) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
-  create_table "users_projects", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "project_id"
-  end
-
-  add_index "users_projects", ["project_id"], name: "index_users_projects_on_project_id"
-  add_index "users_projects", ["user_id"], name: "index_users_projects_on_user_id"
-
-  create_table "users_publications", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "publication_id"
-  end
-
-  add_index "users_publications", ["publication_id"], name: "index_users_publications_on_publication_id"
-  add_index "users_publications", ["user_id"], name: "index_users_publications_on_user_id"
 
 end
