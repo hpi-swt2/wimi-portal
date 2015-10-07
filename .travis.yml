@@ -1,0 +1,30 @@
+addons:
+  code_climate:
+    repo_token: 2bbc15899ab1b0b47c7157a5901bf6b460168b197ac2e0cf4f66a91da5b700bd
+language: ruby
+rvm:
+- 2.2.2
+before_install:
+- sudo apt-get install libicu-dev -y
+- sudo apt-get install libqt4-dev libqtwebkit-dev -y
+before_script:
+- cp config/database.psql.yml config/database.yml
+- psql -c 'create database hpi_swt2_test;' -U postgres
+script:
+- RAILS_ENV=test bundle exec rake db:migrate
+- xvfb-run bundle exec rspec spec/
+notifications:
+  email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: DuNFMV4RSf+a5ddK2cgZkXkVb+J5EpV3bbZRyi2vKpPNWm6tdaU1lN1eWBUGv0DiLz9uIOEx5c30dn3jGY7IBlj8WInKqXWp7XvwoVYUV5KM6hezT9mgrO7iFjLJpIZN8l/y2q7BzepN895UDvIZFbJwUMl5Qqc8BWUAy0IrAVtMNfav53QBKga7xzh9k09rH3W3BpEC/fqfY8JmLY7hqOwYdZd9Xq36auyb0Vsq4IYIGUhqZ8QjzrZZ11gdsR9HSzStbi8DlLiJy3VfpRJdVRhV3J/KzWibL2lqqBt3uqcPAk7bJvWO3DC5OitFUoYID4an12Y5Wl6VpLxll0Eu2Y5918gO/vdapLJiWcHSsELyI8z1NExazlrXvuEq9ibSCfEq86Qy1wydGWvMQyW61i4XPeTqHlNaylxwpdn3gtrwytGYnEHOxnoCd3G4tW+sGDiQ9miTjoGzg8jbwmvxASlUrCe4wIZESf2KW0UKYQ/QpNgiAsfkmI7LW3I2Zo8WVmgLGZM/0xRWopPvkp5ecCU9lDi6Npw4HjHBKJObuxQSnnwW+DNI0bTL49li9dU8T1nSw7huHZ0loyzW/XYElumTpHpYk1g6RfklhKeG8Yn9vV0yA530J97dEsXzq34fNjE6GNda2380n9G0EILACkvbeBTdxnyKiW98SixcN8A=
+  app:
+    master: wimi-portal
+    dev: wimi-portal-dev
+  on:
+    repo: hpi-swt2/wimi-portal
+  run:
+  - rake db:migrate
+  - rake db:seed
+  - restart

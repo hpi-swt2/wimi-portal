@@ -66,3 +66,6 @@ group :development do
   gem 'pry-rails'
 end
 
+group :test do
+  gem "codeclimate-test-reporter", require: nil
+end
