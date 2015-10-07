@@ -50,6 +50,8 @@ GEM
     builder (3.2.2)
     byebug (6.0.2)
     cancancan (1.12.0)
+    codeclimate-test-reporter (0.4.8)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -67,6 +69,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     execjs (2.6.0)
     globalid (0.3.6)
@@ -172,6 +175,11 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
     spring (1.4.0)
     sprockets (3.4.0)
@@ -215,6 +223,7 @@ DEPENDENCIES
   binding_of_caller (~> 0.7.2)
   byebug
   cancancan
+  codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   devise
   jbuilder (~> 2.0)
