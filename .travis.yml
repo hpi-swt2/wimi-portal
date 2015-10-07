@@ -15,6 +15,8 @@ script:
 - xvfb-run bundle exec rspec spec/
 notifications:
   email: false
+  slack:
+    secure: Q6Z+IGJSxPsitPHHT4tzl3du+jIG5KVo4IRTGkhAW+9ekujD7KvqSJ8hl2Cet0LUKae8c+hzuZJN4nY+b6i7hnM0m1XRRZCTTdsmyq6NVKfDzICT37C7BXaytgzirRiqajUC+znoZNOzbl4bjcXYP5Hrap/woTxP74f5/xxbCA/1sQRft/n6Yl0UbzKkWwOjdSQI13jRmwwSx77BaK+8wy55D+FTTKjgctYuAvSKOxbOAdaMgKJqrsO+ShjMDvue4YHLM5dGsmZgLUXIRYMm/3kkx29dCoUOmYQEzDxf9bMOXMCbGeGtzvA/jjNaxDuRgsB5k3w1M/klnY3cpDE1PsBMcvTRiw1P2gCPxGRzkkNbjmo/98Qo7QMHHJ1Qj11gxGNW66iiQF+tw3DfqC61bT04QZJjznr57pzAkU52Lm4G7R//nJadoy5Nv4FNLVjxOOX2kgL3m0oqX7KgcaL6BD3A14IeqKnhSU2flFiG3sn2FeE7CHgHZ+F8CwiZ870IVB/ETE7vwxE2sv9aDzxGzbXmjzVl0+Z3EszkVoOo1G+p3QKIjWhMbMMPjK/E3rURia0nnql2k8Cilk6vWfNZvM8KcfH7N4cH16/nZMoGwFvWmNeRiMC+bxBISMfvz7ZKyaSOUsVD91gCM9vfUqYAj8dQey1r7z+Ne3zH0U75ICs=
 deploy:
   provider: heroku
   api_key:
