@@ -1,8 +1,4 @@
-production:
-  <<: *default
-  database: db/production.sqlite3
-
-  default: &default
+default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
@@ -13,7 +9,7 @@ production:
 development:
   <<: *default
   database: hpi_swt2_dev
- 
+
 test:
   <<: *default
   database: hpi_swt2_test
