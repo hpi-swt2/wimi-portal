@@ -1,0 +1,1 @@
+WimiPortal::Application.config.secret_key_base = '7fac798ca2177bfd8e694ac233baa5c835659a1fc7ac17076ddaed10e48beeca1b9c688e2aadafdf5d629d5df3ae0d46a75de5a33f855a26d73584da1acc46e4'

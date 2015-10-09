@@ -1,0 +1,66 @@
+<%= form_for @expense, :html => { :class => "form-horizontal expense" } do |f| %>
+
+    <% if @expense.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @expense.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :amount, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :amount, :class => 'form-control' %>
+    </div>
+    <%= error_span(@expense[:amount]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :purpose, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :purpose, :class => 'form-control' %>
+    </div>
+    <%= error_span(@expense[:purpose]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :comment, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :comment, :class => 'form-control' %>
+    </div>
+    <%= error_span(@expense[:comment]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :user_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@expense[:user_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :project_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :project_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@expense[:project_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :trip_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :trip_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@expense[:trip_id]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            expenses_path, :class => 'btn btn-default' %>
+
+<% end %>

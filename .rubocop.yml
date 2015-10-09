@@ -1,0 +1,200 @@
+# Custom configuration file.
+
+AllCops:
+  Exclude:
+    - db/**/*
+  Include:
+    - db/migrate/*.rb
+    - db/seeds.rb
+
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%':  ()
+    '%i': '[]'
+    '%q': ()
+    '%Q': ()
+    '%r': ()
+    '%s': ()
+    '%w': '[]'
+    '%W': '[]'
+    '%x': ()
+
+Style/PerlBackrefs:
+  Enabled: false
+
+Style/AlignHash:
+  Enabled: false
+
+Style/AlignParameters:
+  Enabled: false
+
+Style/AndOr:
+  Enabled: false
+
+Style/DotPosition:
+  Enabled: false
+
+Style/SpaceBeforeBlockBraces:
+  Enabled: false
+
+Style/SpaceInsideBlockBraces:
+  Enabled: false
+
+Style/ClassCheck:
+  Enabled: false
+
+Style/EachWithObject:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Style/Lambda:
+  Enabled: false
+
+Style/LeadingCommentSpace:
+  Enabled: false
+
+Style/AccessorMethodName:
+  Enabled: false
+
+Style/TrivialAccessors:
+  Enabled: false
+
+Style/Blocks:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+Style/ColonMethodCall:
+  Enabled: false
+
+Style/CommentAnnotation:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FormatString:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/NilComparison:
+  Enabled: false
+
+Style/PredicateName:
+  Enabled: false
+
+Style/Proc:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
+
+Style/Semicolon:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SingleLineMethods:
+  Enabled: false
+
+Style/SpecialGlobalVars:
+  Enabled: false
+
+Style/TrailingComma:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/DeprecatedHashMethods:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/IndentHash:
+  Enabled: false
+
+Style/LineEndConcatenation:
+  Enabled: false
+
+Style/NonNilCheck:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+
+Lint/HandleExceptions:
+  Enabled: false
+
+Lint/Loop:
+  Enabled: false
+
+Lint/AmbiguousOperator:
+  Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
+Lint/DeprecatedClassMethods:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 45
+
+Style/GlobalVars:
+  AllowedVariables: ['$redis']
