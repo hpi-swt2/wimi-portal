@@ -71,5 +71,6 @@ end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
-  gem 'webmock'
+  # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
+  #gem 'webmock'
 end
