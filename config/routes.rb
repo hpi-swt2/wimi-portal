@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
-  resources :expenses
-  resources :projects
-  # The priority is based upon order of creation: first created -> highest priority.
+    # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   resources :publications
-  resources :trips
-  resources :expenses
   resources :projects
   resources :holidays
-
+  resources :trips
+  resources :expenses
+  
   devise_for :users
 
   # You can have the root of your site routed with "root"

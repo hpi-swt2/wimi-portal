@@ -4,8 +4,6 @@ ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', group: :development
 # Use Postgresql in production
 gem 'pg', group: :production
 # Use SCSS for stylesheets
@@ -49,6 +47,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.2'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -64,8 +64,12 @@ group :development do
   # an IRB alternative and runtime developer console
   gem 'pry'
   gem 'pry-rails'
+
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
+  gem 'webmock'
 end
