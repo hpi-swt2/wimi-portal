@@ -56,4 +56,48 @@ or by specifing the exact spec file with
 
 ```rspec spec/controller/expenses_controller_spec.rb```
 
+## Vagrant
 
+In case you want to setup this project via windows, you may want to use vagrant like described in the following. Please keep in mind, that vagrant will be slower since it is handled via VM.
+
+```
+vagrant up
+vagrant ssh
+cd hpi-swt2
+# disable docs for gems
+echo “gem: --no-document” >> ~/.gemrc
+bundle install
+gem install pg
+cp config/database.psql.yml config/database.yml
+# restarting the session
+exit
+```
+
+in case you want to use sqlite
+
+```
+bundle install --without=production
+cp config/database.sqlite.yml config/database.yml
+```
+
+And finally starting the server with
+
+```
+vagrant ssh #connect with VM
+cd hpi-swt2
+rails s #starting rails server
+```
+
+## Debugging
+
+Bug analysis via Errbit:
+
+```http://swt2-2015-errbit.herokuapp.com/```
+
+and
+
+```http://newrelic.com/```
+
+## Pull request & Scrum Board
+
+Feel free to use [review ninja](http://app.review.ninja/hpi-swt2/wimi-portal) and [Waffle.io](https://waffle.io/hpi-swt2/wimi-portal) as supporting tools.

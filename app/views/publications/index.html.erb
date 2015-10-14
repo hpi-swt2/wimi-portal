@@ -21,7 +21,7 @@
         <td><%= publication.title %></td>
         <td><%= publication.venue %></td>
         <td><%= publication.type_ %></td>
-        <td><%= publication.project_id %></td>
+        <td><%= link_to publication.project_id, project_path(publication.project_id) %></td>
         <td><%=l publication.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

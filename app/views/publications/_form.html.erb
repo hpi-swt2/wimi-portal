@@ -39,17 +39,24 @@
   <div class="control-group">
     <%= f.label :project_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :project_id, :class => 'form-control' %>
+    <%= f.collection_select :project_id, Project.all, :id, :title, {:selected => @publication.project_id, prompt: true, :include_blank =>"none"}, {} %>
     </div>
     <%= error_span(@publication[:project_id]) %>
   </div>
   <div class="control-group">
     <%= f.label :users, :class => 'control-label' %>
     <div class="controls">
-      <%= f.collection_check_boxes(:user_ids, User.all, :id, :last_name) %>
+      <%= f.collection_check_boxes(:user_ids, User.all, :id, :email) %>
     </div>
     <%= error_span(@publication[:users]) %>
   </div>
+
+  <% for user in User.all %>
+      <div>
+        <%= check_box_tag "publication[user_ids][]", user.id, @publication.users.include?(user) %>
+        <%= user.name %>  
+      </div>
+  <% end %>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

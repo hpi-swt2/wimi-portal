@@ -19,20 +19,19 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe HolidaysController, type: :controller do
-
   before(:each) do
-    login_with create ( :user )
+    login_with create ( :user)
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    skip('Add a hash of attributes valid for your model')
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    skip('Add a hash of attributes invalid for your model')
   }
 
   # This should return the minimal set of values that should be in the session
@@ -40,124 +39,123 @@ RSpec.describe HolidaysController, type: :controller do
   # HolidaysController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all holidays as @holidays" do
+  describe 'GET #index' do
+    it 'assigns all holidays as @holidays' do
       holiday = Holiday.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:holidays)).to eq([holiday])
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested holiday as @holiday" do
+  describe 'GET #show' do
+    it 'assigns the requested holiday as @holiday' do
       holiday = Holiday.create! valid_attributes
-      get :show, {:id => holiday.to_param}, valid_session
+      get :show, {id: holiday.to_param}, valid_session
       expect(assigns(:holiday)).to eq(holiday)
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new holiday as @holiday" do
+  describe 'GET #new' do
+    it 'assigns a new holiday as @holiday' do
       get :new, {}, valid_session
       expect(assigns(:holiday)).to be_a_new(Holiday)
     end
   end
 
-  describe "GET #edit" do
-    it "assigns the requested holiday as @holiday" do
+  describe 'GET #edit' do
+    it 'assigns the requested holiday as @holiday' do
       holiday = Holiday.create! valid_attributes
-      get :edit, {:id => holiday.to_param}, valid_session
+      get :edit, {id: holiday.to_param}, valid_session
       expect(assigns(:holiday)).to eq(holiday)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Holiday" do
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new Holiday' do
         expect {
-          post :create, {:holiday => valid_attributes}, valid_session
+          post :create, {holiday: valid_attributes}, valid_session
         }.to change(Holiday, :count).by(1)
       end
 
-      it "assigns a newly created holiday as @holiday" do
-        post :create, {:holiday => valid_attributes}, valid_session
+      it 'assigns a newly created holiday as @holiday' do
+        post :create, {holiday: valid_attributes}, valid_session
         expect(assigns(:holiday)).to be_a(Holiday)
         expect(assigns(:holiday)).to be_persisted
       end
 
-      it "redirects to the created holiday" do
-        post :create, {:holiday => valid_attributes}, valid_session
+      it 'redirects to the created holiday' do
+        post :create, {holiday: valid_attributes}, valid_session
         expect(response).to redirect_to(Holiday.last)
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved holiday as @holiday" do
-        post :create, {:holiday => invalid_attributes}, valid_session
+    context 'with invalid params' do
+      it 'assigns a newly created but unsaved holiday as @holiday' do
+        post :create, {holiday: invalid_attributes}, valid_session
         expect(assigns(:holiday)).to be_a_new(Holiday)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:holiday => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+        post :create, {holiday: invalid_attributes}, valid_session
+        expect(response).to render_template('new')
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
+  describe 'PUT #update' do
+    context 'with valid params' do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        skip('Add a hash of attributes valid for your model')
       }
 
-      it "updates the requested holiday" do
+      it 'updates the requested holiday' do
         holiday = Holiday.create! valid_attributes
-        put :update, {:id => holiday.to_param, :holiday => new_attributes}, valid_session
+        put :update, {id: holiday.to_param, holiday: new_attributes}, valid_session
         holiday.reload
-        skip("Add assertions for updated state")
+        skip('Add assertions for updated state')
       end
 
-      it "assigns the requested holiday as @holiday" do
+      it 'assigns the requested holiday as @holiday' do
         holiday = Holiday.create! valid_attributes
-        put :update, {:id => holiday.to_param, :holiday => valid_attributes}, valid_session
+        put :update, {id: holiday.to_param, holiday: valid_attributes}, valid_session
         expect(assigns(:holiday)).to eq(holiday)
       end
 
-      it "redirects to the holiday" do
+      it 'redirects to the holiday' do
         holiday = Holiday.create! valid_attributes
-        put :update, {:id => holiday.to_param, :holiday => valid_attributes}, valid_session
+        put :update, {id: holiday.to_param, holiday: valid_attributes}, valid_session
         expect(response).to redirect_to(holiday)
       end
     end
 
-    context "with invalid params" do
-      it "assigns the holiday as @holiday" do
+    context 'with invalid params' do
+      it 'assigns the holiday as @holiday' do
         holiday = Holiday.create! valid_attributes
-        put :update, {:id => holiday.to_param, :holiday => invalid_attributes}, valid_session
+        put :update, {id: holiday.to_param, holiday: invalid_attributes}, valid_session
         expect(assigns(:holiday)).to eq(holiday)
       end
 
       it "re-renders the 'edit' template" do
         holiday = Holiday.create! valid_attributes
-        put :update, {:id => holiday.to_param, :holiday => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put :update, {id: holiday.to_param, holiday: invalid_attributes}, valid_session
+        expect(response).to render_template('edit')
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested holiday" do
+  describe 'DELETE #destroy' do
+    it 'destroys the requested holiday' do
       holiday = Holiday.create! valid_attributes
       expect {
-        delete :destroy, {:id => holiday.to_param}, valid_session
+        delete :destroy, {id: holiday.to_param}, valid_session
       }.to change(Holiday, :count).by(-1)
     end
 
-    it "redirects to the holidays list" do
+    it 'redirects to the holidays list' do
       holiday = Holiday.create! valid_attributes
-      delete :destroy, {:id => holiday.to_param}, valid_session
+      delete :destroy, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_url)
     end
   end
-
 end

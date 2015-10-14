@@ -39,21 +39,21 @@
   <div class="control-group">
     <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :user_id, :class => 'form-control' %>
+      <%= f.collection_select :user_id, User.all, :id, :email, {:selected => @expense.user_id, prompt: true, :include_blank =>"none"}, {} %>
     </div>
     <%= error_span(@expense[:user_id]) %>
   </div>
   <div class="control-group">
     <%= f.label :project_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :project_id, :class => 'form-control' %>
+      <%= f.collection_select :project_id, Project.all, :id, :title, {:selected => @expense.project_id, prompt: true, :include_blank =>"none"}, {} %>
     </div>
     <%= error_span(@expense[:project_id]) %>
   </div>
   <div class="control-group">
     <%= f.label :trip_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :trip_id, :class => 'form-control' %>
+      <%= f.collection_select :trip_id, Trip.all, :id, :title, {:selected => @expense.trip_id, prompt: true, :include_blank =>"none"}, {} %>
     </div>
     <%= error_span(@expense[:trip_id]) %>
   </div>
