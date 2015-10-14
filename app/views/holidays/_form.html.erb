@@ -39,8 +39,9 @@
   <div class="control-group">
     <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :user_id, :class => 'form-control' %>
+    <%= f.collection_select :user_id, User.all, :id, :email, {:selected => @holiday.user_id, prompt: true, :include_blank =>"none"}, {} %>
     </div>
+
     <%= error_span(@holiday[:user_id]) %>
   </div>
 
