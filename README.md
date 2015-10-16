@@ -92,11 +92,15 @@ rails s #starting rails server
 
 Bug analysis via Errbit:
 
-```http://swt2-2015-errbit.herokuapp.com/```
+```
+http://swt2-2015-errbit.herokuapp.com/
+```
 
 and
 
-```http://newrelic.com/```
+```
+http://newrelic.com/
+```
 
 ## Pull request & Scrum Board
 
