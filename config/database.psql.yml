@@ -2,8 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: postgres
-  host: localhost
+  username: vagrant
   port: 5432
 
 development:
