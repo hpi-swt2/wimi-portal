@@ -1,12 +1,15 @@
 addons:
   code_climate:
     repo_token: 2bbc15899ab1b0b47c7157a5901bf6b460168b197ac2e0cf4f66a91da5b700bd
+  apt:
+    packages:
+    - libicu-dev
+    - libqt4-dev
+    - libqtwebkit-dev
 language: ruby
 rvm:
 - 2.2.2
-before_install:
-- sudo apt-get install libicu-dev -y
-- sudo apt-get install libqt4-dev libqtwebkit-dev -y
+sudo: false
 before_script:
 - cp config/database.travis.yml config/database.yml
 - psql -c 'create database hpi_swt2_test;' -U postgres
