@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= nav_bar fixed: :top, brand: "Wimi Portal" do %>
+<%= nav_bar fixed: :top, brand: "Wimi Portal", responsive: true do %>
   <%= menu_group do %>
       <%= menu_item "Home", root_path %>
       <%= menu_item "Projects", projects_path %>
@@ -16,13 +16,15 @@
       <%= menu_item "Holidays", holidays_path %>
       <%= menu_item "Expenses", expenses_path %>
   <% end %>
-  <% if user_signed_in? %>
-    Logged in as <strong><%= current_user.email %></strong>.
-    <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-    <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+  <%= menu_group pull: :right do %>
+    <% if user_signed_in? %>
+      <%= menu_item "#{current_user.email}" %>
+      <%= menu_item "Profile", edit_user_registration_path %>
+      <%= menu_item "Logout", destroy_user_session_path %>
+    <% else %>
+      <%= menu_item "Sign Up", new_user_registration_path %>
+      <%= menu_item "Login", new_user_session_path %>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -31,8 +33,12 @@
 
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-<%= yield %>
 
+<div class="container-fluid">
+  <div class="col-xs-12 col-md-10 col-md-offset-1">
+    <%= yield %>
+  </div>
+</div>
 
 </body>
 </html>
