@@ -10,6 +10,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe ExpensiveHelper, type: :helper do
+RSpec.describe ExpensesHelper, type: :helper do
   pending "add some examples to (or delete) #{__FILE__}"
 end
