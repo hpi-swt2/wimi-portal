@@ -85,7 +85,7 @@ And finally starting the server with
 ```
 vagrant ssh #connect with VM
 cd hpi-swt2
-rails s #starting rails server
+rails s -b 0 #starting rails server, the -b part is necessary since the app is running in a VM and would otherwise drop the requests coming from the host OS
 ```
 
 ## Debugging
@@ -102,6 +102,6 @@ and
 http://newrelic.com/
 ```
 
-## Pull request & Scrum Board
+## Scrum Board
 
-Feel free to use [review ninja](http://app.review.ninja/hpi-swt2/wimi-portal) and [Waffle.io](https://waffle.io/hpi-swt2/wimi-portal) as supporting tools.
+Feel free to use [Waffle.io](https://waffle.io/hpi-swt2/wimi-portal) as a digital Scrum board.

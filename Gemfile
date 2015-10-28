@@ -41,6 +41,8 @@ gem 'devise'
 # Use Bootstrap (app/assets/stylesheets)
 gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails'
+gem 'devise-bootstrap-views'
+
 # Use Jquery as the JS lib
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -60,13 +62,13 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-  
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'rubocop', '~> 0.29.1'
   gem 'better_errors', '~> 2.1.1'
   gem 'binding_of_caller', '~> 0.7.2'
-  
+
   # an IRB alternative and runtime developer console
   gem 'pry'
   gem 'pry-rails'
