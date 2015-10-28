@@ -34,3 +34,5 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+/nbproject/private/
+/config/database.yml
