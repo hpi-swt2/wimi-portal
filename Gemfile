@@ -36,6 +36,9 @@ gem 'airbrake'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# add current schema to models
+gem 'annotate'
+
 # Authentification
 gem 'devise'
 # openID Authentication
