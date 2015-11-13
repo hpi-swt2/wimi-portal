@@ -38,6 +38,9 @@ gem 'airbrake'
 
 # Authentification
 gem 'devise'
+# openID Authentication
+gem 'devise_openid_authenticatable'
+gem 'warden'
 # Use Bootstrap (app/assets/stylesheets)
 gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails'

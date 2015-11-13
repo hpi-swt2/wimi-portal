@@ -23,3 +23,8 @@
   <%= link_to t('.sign_in_with_provider', :provider => provider.to_s.titleize, :default => "Sign in with #{provider.to_s.titleize}"), omniauth_authorize_path(resource_name, provider) %><br />
   <% end -%>
 <% end -%>
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <%= f.hidden_field :identity_url, value: "https://openid.hpi.uni-potsdam.de/serve" %>
+  <%= f.submit "Sign in using HPI openID" %>
+<% end %>
