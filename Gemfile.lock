@@ -266,6 +266,7 @@ DEPENDENCIES
   rubocop (~> 0.29.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  simplecov
   spring
   sqlite3
   therubyracer
