@@ -42,11 +42,14 @@ class User < ActiveRecord::Base
   end
 
   def self.openid_required_fields
-    ["gender", "nickname", "email"]
+    ["http://axschema.org/contact/email"]
   end 
   
   def self.build_from_identity_url(identity_url)
-    User.new(:identity_url => identity_url)
+    username = identity_url.split('/')[-1]
+    first = username.split('.')[0].titleize
+    last_name = username.split('.')[1].titleize.delete("0-9")
+    User.new(:first => first, :last_name => last_name, :identity_url => identity_url)
   end
     
   def openid_fields=(fields)
@@ -57,12 +60,8 @@ class User < ActiveRecord::Base
       end
     
       case key.to_s
-      when "nickname"
-        self.username = value
-      when "email"
+      when "http://axschema.org/contact/email"
         self.email = value
-      when "gender"
-        self.token = value
       else
         logger.error "Unknown OpenID field: #{key}"
       end
