@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'holidays/edit', type: :view do
   before(:each) do
-    @holiday = assign(:holiday, Holiday.create!)
+  	user = FactoryGirl.create(:user)
+    @holiday = assign(:holiday, Holiday.create!(user_id: user.id))
   end
 
   it 'renders the edit holiday form' do
