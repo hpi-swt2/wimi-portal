@@ -1,6 +1,6 @@
 <%= form_for @holiday, :html => { :class => "form-horizontal holiday" } do |f| %>
 
-    <% if @holiday.errors.any? %>
+  <% if @holiday.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title"><%= pluralize(@holiday.errors.count, "error") %> prohibited this holiday from being saved:</h3>

@@ -25,6 +25,8 @@ class HolidaysController < ApplicationController
   # POST /holidays.json
   def create
     @holiday = Holiday.new(holiday_params)
+    current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year-@holiday.duration)
+    #current_user.remaining_leave_this_year = current_user.remaining_leave_this_year - @holiday.duration
 
     respond_to do |format|
       if @holiday.save

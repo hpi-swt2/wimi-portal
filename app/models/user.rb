@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :holidayds
+  has_many :holidays
   has_many :expenses
   has_many :trips
   has_and_belongs_to_many :publications
@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
 
   def name
     "#{first} #{last_name}"
+  end
+
+  def self.holidayDays
+    28
   end
 
   def name=(fullname)
