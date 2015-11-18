@@ -3,7 +3,6 @@
 #
 Project.create(title: 'Softwaretechnik II')
 User.create(email: 'test@test.de',
-  encrypted_password: '$2a$10$bM7/hI5w9x5IlJ.kPZE/x.CqwJInLufaCIgaZ2iFG3je3CFzd83B2',
   sign_in_count: 1,
   first: 'Max',
   last_name: 'Mustermann')

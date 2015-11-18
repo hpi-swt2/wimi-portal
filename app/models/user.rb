@@ -43,22 +43,22 @@ class User < ActiveRecord::Base
 
   def self.openid_required_fields
     ["http://axschema.org/contact/email"]
-  end 
-  
+  end
+
   def self.build_from_identity_url(identity_url)
     username = identity_url.split('/')[-1]
     first = username.split('.')[0].titleize
     last_name = username.split('.')[1].titleize.delete("0-9")
     User.new(:first => first, :last_name => last_name, :identity_url => identity_url)
   end
-    
+
   def openid_fields=(fields)
     fields.each do |key, value|
       # Some AX providers can return multiple values per key
       if value.is_a? Array
         value = value.first
       end
-    
+
       case key.to_s
       when "http://axschema.org/contact/email"
         self.email = value
@@ -66,5 +66,5 @@ class User < ActiveRecord::Base
         logger.error "Unknown OpenID field: #{key}"
       end
     end
-  end 
+  end
 end
