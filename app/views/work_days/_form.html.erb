@@ -1,0 +1,45 @@
+<%= form_for(@work_day) do |f| %>
+  <% if @work_day.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@work_day.errors.count, "error") %> prohibited this work_day from being saved:</h2>
+
+      <ul>
+      <% @work_day.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.time_select :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :brake %><br>
+    <%= f.number_field :brake %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.time_select :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :duration %><br>
+    <%= f.number_field :duration %>
+  </div>
+  <div class="field">
+    <%= f.label :attendance %><br>
+    <%= f.text_field :attendance %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br>
+    <%= f.text_field :notes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
