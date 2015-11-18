@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @work_month.name %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @work_month.year %>
+</p>
+
+<%= link_to 'Edit', edit_work_month_path(@work_month) %> |
+<%= link_to 'Back', work_months_path %>
