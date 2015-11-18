@@ -14,3 +14,12 @@
  *= require_self
  *= require devise_bootstrap_views
  */
+.openID{
+    height: 35px;
+    width: 80px;
+    margin-top: 5px;
+}
+
+.SignInButton {
+    margin-top: 10px;
+}

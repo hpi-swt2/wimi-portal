@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(version: 20151118102042) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "identity_url"
+    t.string   "username"
+    t.string   "token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
