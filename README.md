@@ -96,6 +96,13 @@ Bug analysis via Errbit:
 http://swt2-2015-errbit.herokuapp.com/
 ```
 
+with 
+
+```
+username: blub@blah.de
+pw: 13371337
+```
+
 and
 
 ```
