@@ -28,12 +28,8 @@
     <%= f.time_select :end_time %>
   </div>
   <div class="field">
-    <%= f.label :duration %><br>
-    <%= f.number_field :duration %>
-  </div>
-  <div class="field">
     <%= f.label :attendance %><br>
-    <%= f.text_field :attendance %>
+    <%= f.select(:attendance, [['Normal', ''], ['Ill', 'I'], ['Holiday', 'H'], ['Leave Day', 'L']]) %>
   </div>
   <div class="field">
     <%= f.label :notes %><br>
