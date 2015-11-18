@@ -18,7 +18,8 @@ class PublicationsController < ApplicationController
   def create
     @publication = Publication.new(publication_params)
     if @publication.save
-      redirect_to @publication, notice: 'Publication was successfully created.'
+      flash[:success] = 'Publication was successfully created.'
+      redirect_to @publication
     else
       render :new
     end
@@ -26,7 +27,8 @@ class PublicationsController < ApplicationController
 
   def update
     if @publication.update(publication_params)
-      redirect_to @publication, notice: 'Publication was successfully updated.'
+      flash[:success] = 'Publication was successfully updated.'
+      redirect_to @publication
     else
       render :edit
     end
@@ -34,7 +36,8 @@ class PublicationsController < ApplicationController
 
   def destroy
     @publication.destroy
-    redirect_to publications_url, notice: 'Publication was successfully destroyed.'
+    flash[:success] = 'Publication was successfully destroyed.'
+    redirect_to publications_url
   end
 
   private

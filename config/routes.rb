@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-    # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+
   resources :publications
   resources :projects
   resources :holidays
   resources :trips
   resources :expenses
-  
+
+  get '/profile', to: 'user_profile#show'
+  patch '/profile', to: 'user_profile#update'
+
   devise_for :users
 
   # You can have the root of your site routed with "root"

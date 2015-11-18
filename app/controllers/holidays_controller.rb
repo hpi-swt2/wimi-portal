@@ -18,7 +18,8 @@ class HolidaysController < ApplicationController
   def create
     @holiday = Holiday.new(holiday_params)
     if @holiday.save
-      redirect_to @holiday, notice: 'Holiday was successfully created.'
+      flash[:success] = 'Holiday was successfully created.'
+      redirect_to @holiday
     else
       render :new
     end
@@ -26,7 +27,8 @@ class HolidaysController < ApplicationController
 
   def update
     if @holiday.update(holiday_params)
-      redirect_to @holiday, notice: 'Holiday was successfully updated.'
+      flash[:success] = 'Holiday was successfully updated.'
+      redirect_to @holiday
     else
       render :edit
     end
@@ -34,7 +36,8 @@ class HolidaysController < ApplicationController
 
   def destroy
     @holiday.destroy
-    redirect_to holidays_url, notice: 'Holiday was successfully destroyed.'
+    flash[:success] = 'Holiday was successfully destroyed.'
+    redirect_to holidays_url
   end
 
   private
