@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Chairs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chairs.each do |chair| %>
+      <tr>
+        <td><%= chair.name %></td>
+        <td><%= link_to 'Show', chair %></td>
+        <% if chair.administrators.include?(current_user) %>
+          <td><%= link_to 'Edit', edit_chair_path(chair) %></td>
+          <td><%= link_to 'Destroy', chair, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if current_user.is?('superadmin') %>
+    <%= link_to 'New Chair', new_chair_path %>
+<% end %>

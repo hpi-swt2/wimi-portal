@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Chairs Candidates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Chair</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chairs_candidates.each do |chairs_candidate| %>
+      <tr>
+        <td><%= chairs_candidate.user %></td>
+        <td><%= chairs_candidate.chair %></td>
+        <td><%= link_to 'Show', chairs_candidate %></td>
+        <td><%= link_to 'Edit', edit_chairs_candidate_path(chairs_candidate) %></td>
+        <td><%= link_to 'Destroy', chairs_candidate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chairs candidate', new_chairs_candidate_path %>

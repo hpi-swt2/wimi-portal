@@ -1,0 +1,2 @@
+module ChairsAdministratorsHelper
+end

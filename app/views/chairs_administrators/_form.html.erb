@@ -1,0 +1,25 @@
+<%= form_for(@chairs_administrator) do |f| %>
+  <% if @chairs_administrator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@chairs_administrator.errors.count, "error") %> prohibited this chairs_administrator from being saved:</h2>
+
+      <ul>
+      <% @chairs_administrator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :chair_id %><br>
+    <%= f.text_field :chair_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
