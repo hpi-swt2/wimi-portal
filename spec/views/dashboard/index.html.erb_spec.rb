@@ -1,5 +1,9 @@
-require 'rails_helper'
+require 'capybara/rspec'
 
 RSpec.describe "dashboard/index.html.erb", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "displays the projects of the user"
+  	visit 'dashboard/index'
+  	expect(page).to have_content 'My Projects'
+  	expect(page).to have_table('table table-striped')
+  end
 end
