@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :holiday
   has_many :expense
+  has_many :project_applications, dependent: :destroy
   has_many :trip
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects

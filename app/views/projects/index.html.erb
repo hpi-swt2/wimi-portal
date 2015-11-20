@@ -16,8 +16,10 @@
       <tr>
         <td><%= link_to project.id, project_path(project) %></td>
         <td><%= project.title %></td>
-        <td><%=l project.created_at %></td>
+        <td><%= project.created_at %></td>
         <td>
+          <%= link_to t('.apply', :default => t("helpers.links.apply")),
+                      create_project_applications_path(:project => project), :method => :post, :class => 'btn btn-primary btn-xs' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_project_path(project), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

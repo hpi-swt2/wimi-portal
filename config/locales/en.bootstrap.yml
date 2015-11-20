@@ -16,8 +16,18 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+      apply: "Apply"
+      accept: "Accept"
+      decline: "Decline"
+      reapply: "Reapply"
+      refused_reapply: "Refused - Reapply"
+      pending_cancel: "Pending - Cancel"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
       delete: "Delete %{model}"
+    states:
+      pending: "Pending"
+      declined: "Declined"
+      accepted: "Accepted"

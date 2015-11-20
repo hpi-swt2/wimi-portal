@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006151101) do
+ActiveRecord::Schema.define(version: 20151118125736) do
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 20151006151101) do
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
+
+  create_table "project_applications", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
