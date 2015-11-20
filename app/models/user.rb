@@ -13,10 +13,6 @@ class User < ActiveRecord::Base
     "#{first} #{last_name}"
   end
 
-  def self.holidayDays
-    28
-  end
-
   def name=(fullname)
     first, last = fullname.split(' ')
     self.first = first

@@ -6,8 +6,8 @@ RSpec.describe 'holidays/index', type: :view do
   	user2 = FactoryGirl.create(:user)
   	sign_in user1
     assign(:holidays, [
-      Holiday.create!(status: 'Holiday', user_id: user1.id),
-      Holiday.create!(status: 'Holiday', user_id: user2.id)
+      FactoryGirl.create(:holiday, user_id: user1.id),
+      FactoryGirl.create(:holiday, user_id: user2.id)
     ])
   end
 

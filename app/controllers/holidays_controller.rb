@@ -24,12 +24,12 @@ class HolidaysController < ApplicationController
   # POST /holidays
   # POST /holidays.json
   def create
-    @holiday = Holiday.new(holiday_params)
-    current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year-@holiday.duration)
+    @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
     #current_user.remaining_leave_this_year = current_user.remaining_leave_this_year - @holiday.duration
 
     respond_to do |format|
       if @holiday.save
+        #current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year-@holiday.duration)
         format.html { redirect_to @holiday, notice: 'Holiday was successfully created.' }
         format.json { render :show, status: :created, location: @holiday }
       else
@@ -56,6 +56,9 @@ class HolidaysController < ApplicationController
   # DELETE /holidays/1
   # DELETE /holidays/1.json
   def destroy
+    if @holiday.end > Date.today
+      current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year+@holiday.duration)
+    end
     @holiday.destroy
     respond_to do |format|
       format.html { redirect_to holidays_url, notice: 'Holiday was successfully destroyed.' }
