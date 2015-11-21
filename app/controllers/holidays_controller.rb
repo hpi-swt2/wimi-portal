@@ -31,7 +31,13 @@ class HolidaysController < ApplicationController
       if @holiday.save
         current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year - @holiday.duration_this_year)
         current_user.update_attribute(:remaining_leave_next_year, current_user.remaining_leave_next_year - @holiday.duration_next_year)
-
+        #if((current_user.remaining_leave_this_year - @holiday.duration_next_year) < 0)
+        #    negativ = current_user.remaining_leave_this_year - @holiday.duration_next_year
+        #    current_user.update_attribute(:remaining_leave_next_year, current_user.remaining_leave_next_year + negativ)
+        #    current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year - (@holiday.duration_this_year + negativ)
+        #else
+        #    current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year - @holiday.duration_next_year)
+        #end
         format.html { redirect_to @holiday, notice: 'Holiday was successfully created.' }
         format.json { render :show, status: :created, location: @holiday }
       else
@@ -61,6 +67,7 @@ class HolidaysController < ApplicationController
     if @holiday.end > Date.today
       current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year + @holiday.duration_this_year)
       current_user.update_attribute(:remaining_leave_next_year, current_user.remaining_leave_next_year + @holiday.duration_next_year)
+      
     end
     @holiday.destroy
     respond_to do |format|

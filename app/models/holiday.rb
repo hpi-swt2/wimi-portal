@@ -72,6 +72,9 @@ class Holiday < ActiveRecord::Base
     if !(self.user.remaining_leave_next_year >= duration_next_year)
       errors.add(:Not, "enough leave for next year left")
     end
+    #if !(self.user.remaining_leave_this_year + self.user.remaining_next_year >= sum_duration)
+    #    errors.add(:Not, "enough leave left")
+    #end
   end
 
 end
