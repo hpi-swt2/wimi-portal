@@ -20,8 +20,8 @@ class Holiday < ActiveRecord::Base
 
   def duration_this_year
     
-    if (self.start.year < (Date.today.year + 1))
-      if (self.end.year < (Date.today.year + 1))
+    if (self.start.year <= (Date.today.year))
+      if (self.end.year <= (Date.today.year))
         (self.end - self.start).to_i/1.day + 1
       else
         (end_of_this_year - self.start.to_date).to_i + 1
@@ -32,8 +32,8 @@ class Holiday < ActiveRecord::Base
   end
 
   def duration_next_year
-    if (self.start.year < (Date.today.year + 1))
-      if (self.end.year < (Date.today.year + 1))
+    if (self.start.year <= (Date.today.year))
+      if (self.end.year <= (Date.today.year))
         0
       else
       (self.end.to_date - start_of_next_year).to_i + 1
@@ -47,7 +47,6 @@ class Holiday < ActiveRecord::Base
 
   def start_before_end?
   	#raise self.end.inspect
-
   	if !(self.end > self.start)
   		errors.add(:start, "must be before #{self.end}")
   	end
@@ -61,7 +60,7 @@ class Holiday < ActiveRecord::Base
 
   def to_far_in_the_future?
     if !(self.end.year < Date.today.year + 2)
-      errors.add(:Holiday, "is to far in the Future")
+      errors.add(:Holiday, "is to far in the future")
     end
   end
 
@@ -76,5 +75,4 @@ class Holiday < ActiveRecord::Base
     #    errors.add(:Not, "enough leave left")
     #end
   end
-
 end
