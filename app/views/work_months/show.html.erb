@@ -1,14 +1,28 @@
+<%- model_class = WorkDay -%>
 <p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Work hours for <%= @work_month.full_name %></h1>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @work_month.name %>
-</p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @work_month.year %>
-</p>
-
-<%= link_to 'Edit', edit_work_month_path(@work_month) %> |
-<%= link_to 'Back', work_months_path %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+      <th><%= model_class.human_attribute_name(:start_time) %></th>
+      <th><%= model_class.human_attribute_name(:brake) %></th>
+      <th><%= model_class.human_attribute_name(:end_time) %></th>
+      <th><%= model_class.human_attribute_name(:attendance) %></th>
+      <th><%= model_class.human_attribute_name(:notes) %></th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @work_month.work_days.each do |day| %>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      <% end %>
+  </tbody>
+</table>
