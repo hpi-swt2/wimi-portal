@@ -46,7 +46,6 @@ class Holiday < ActiveRecord::Base
   private
 
   def start_before_end?
-  	#raise self.end.inspect
   	if !(self.end > self.start)
   		errors.add(:start, "must be before #{self.end}")
   	end
@@ -65,14 +64,17 @@ class Holiday < ActiveRecord::Base
   end
 
   def sufficient_leave_left?
-  	if !(self.user.remaining_leave_this_year >= duration_this_year)
-  		errors.add(:Not, "enough leave for this year left!")
-  	end
-    if !(self.user.remaining_leave_next_year >= duration_next_year)
-      errors.add(:Not, "enough leave for next year left")
-    end
-    #if !(self.user.remaining_leave_this_year + self.user.remaining_next_year >= sum_duration)
-    #    errors.add(:Not, "enough leave left")
-    #end
+  	#for tests, find out why this is necessary, plx
+  	if self.user
+  	  if !(self.user.remaining_leave_this_year >= duration_this_year)
+  	    errors.add(:Not, "enough leave for this year left!")
+	  end
+	  if !(self.user.remaining_leave_next_year >= duration_next_year)
+	    errors.add(:Not, "enough leave for next year left")
+	  end
+	  #if !(self.user.remaining_leave_this_year + self.user.remaining_next_year >= sum_duration)
+	  #    errors.add(:Not, "enough leave left")
+	  #end
+	end
   end
 end

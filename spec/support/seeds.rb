@@ -3,13 +3,14 @@
 #
 Project.create(title: 'Softwaretechnik II')
 User.create(email: 'test@test.de',
-  encrypted_password: '$2a$10$bM7/hI5w9x5IlJ.kPZE/x.CqwJInLufaCIgaZ2iFG3je3CFzd83B2',
+  password: '12345678',
+  password_confirmation: '12345678',
   sign_in_count: 1,
   first: 'Max',
   last_name: 'Mustermann')
 Holiday.create(status: 'Approved',
-  start: Date.today - 1,
-  end: Date.today,
+  start: Date.today,
+  end: Date.today + 1,
   user_id: 1)
 Holiday.create(status: 'Declined',
   start: Date.today - 7,
