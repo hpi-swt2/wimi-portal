@@ -2,6 +2,6 @@
 <p>Find me in app/views/welcome/index.html.erb</p>
 <div>
 	<% @user_work_months.each do |month| %>
-	<%= link_to month.name, month %>
+	<%= link_to month.full_name, month %>
 	<% end %>
 </div>

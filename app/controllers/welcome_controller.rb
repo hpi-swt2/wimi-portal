@@ -7,7 +7,6 @@ class WelcomeController < ApplicationController
   private
 
   def check_months
-      @user_work_months = current_user.work_months.all
       #check for each month since the creation of the user if it exists
       creation_date = current_user.created_at
       (current_user.created_at.year..Date.today.year).each do |year|
@@ -25,5 +24,6 @@ class WelcomeController < ApplicationController
               end
           end
       end
+      @user_work_months = current_user.work_months.all
   end
 end
