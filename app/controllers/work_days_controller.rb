@@ -29,7 +29,7 @@ class WorkDaysController < ApplicationController
 
     respond_to do |format|
       if @work_day.save
-        format.html { redirect_to @work_day, notice: 'Work day was successfully created.' }
+        format.html { redirect_to @work_day.work_month }
         format.json { render :show, status: :created, location: @work_day }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class WorkDaysController < ApplicationController
   def update
     respond_to do |format|
       if @work_day.update(work_day_params)
-        format.html { redirect_to @work_day, notice: 'Work day was successfully updated.' }
+        format.html { redirect_to @work_day.work_month }
         format.json { render :show, status: :ok, location: @work_day }
       else
         format.html { render :edit }
@@ -55,9 +55,10 @@ class WorkDaysController < ApplicationController
   # DELETE /work_days/1
   # DELETE /work_days/1.json
   def destroy
+    month = @work_day.work_month
     @work_day.destroy
     respond_to do |format|
-      format.html { redirect_to work_days_url, notice: 'Work day was successfully destroyed.' }
+      format.html { redirect_to month }
       format.json { head :no_content }
     end
   end
