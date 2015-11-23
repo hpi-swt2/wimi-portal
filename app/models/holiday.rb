@@ -1,5 +1,6 @@
 class Holiday < ActiveRecord::Base
   validates_presence_of :user
+  validate :date_is_datetime?
   validate :start_before_end?
   validate :start_before_today?
   validate :to_far_in_the_future?
@@ -45,9 +46,20 @@ class Holiday < ActiveRecord::Base
 
   private
 
+  def date_is_datetime?
+  	if (self.start.nil?)
+  		errors.add(:start, "must be a valid date!")
+  		self.start = Date.today
+  	end
+  	if (self.end.nil?)
+  		errors.add(:end, "must be a valid date!")
+  		self.end = Date.today+1
+  	end
+  end
+
   def start_before_end?
   	if !(self.end > self.start)
-  		errors.add(:start, "must be before #{self.end}")
+  	  errors.add(:start, "must be before #{self.end}")
   	end
   end
 
