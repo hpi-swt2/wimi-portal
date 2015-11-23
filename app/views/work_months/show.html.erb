@@ -11,19 +11,23 @@
       <th><%= model_class.human_attribute_name(:start_time) %></th>
       <th><%= model_class.human_attribute_name(:brake) %></th>
       <th><%= model_class.human_attribute_name(:end_time) %></th>
-      <th><%= model_class.human_attribute_name(:attendance) %></th>
+      <th><%= model_class.human_attribute_name(:duration) %></th>
+      <th>*</th>
       <th><%= model_class.human_attribute_name(:notes) %></th>
     </tr>
   </thead>
   <tbody>
-      <% @work_month.work_days.each do |day| %>
+     <% @work_month.work_days.each do |day| %>
+     <tr>
         <td><%= day.date %></td>
         <td><%= day.start_time.strftime('%H:%M') %></td>
         <td><%= day.brake %></td>
         <td><%= day.end_time.strftime('%H:%M') %></td>
+        <td><%= day.duration %></td>
         <td><%= day.attendance %></td>
         <td><%= day.notes %></td>
-      <% end %>
+    </tr>
+    <% end %>
   </tbody>
 </table>
 

@@ -15,9 +15,6 @@ class WorkDaysController < ApplicationController
   # GET /work_days/new
   def new
     @work_day = WorkDay.new
-    p '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    p params[:work_month_id]
-    p '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     @month_id = params[:work_month_id]
   end
 
@@ -28,9 +25,6 @@ class WorkDaysController < ApplicationController
   # POST /work_days
   # POST /work_days.json
   def create
-    p '========================================='
-    p params
-    p '========================================='
     @work_day = WorkDay.new(work_day_params)
 
     respond_to do |format|
