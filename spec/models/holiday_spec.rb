@@ -24,7 +24,7 @@ RSpec.describe Holiday, type: :model do
   end
 
   it "is invalid when to far in the future" do
-    FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 2, 1, 1)).should_not be_valid
+    FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 2, 1, 1), end: Date.new(Date.today.year+2, 1, 2)).should_not be_valid
   end
 
   it "is invalid when not enough leave is left for this year" do
