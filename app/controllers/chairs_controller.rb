@@ -25,7 +25,6 @@ class ChairsController < ApplicationController
   # POST /chairs.json
   def create
     @chair = Chair.new(chair_params)
-    @chair.administrators<<current_user;
 
     respond_to do |format|
       if @chair.save
@@ -61,6 +60,15 @@ class ChairsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def apply
+    logger.debug('Testlog')
+    logger.debug(current_user.id)
+    logger.debug(params[:chair])
+    logger.debug('Testlog end')
+    ChairsCandidate.create(:user_id => current_user.id, :chair_id => params[:chair])
+  end
+  # helper_method :apply
 
   private
     # Use callbacks to share common setup or constraints between actions.

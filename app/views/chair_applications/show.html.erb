@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @chair_application.user %>
+</p>
+
+<p>
+  <strong>Chair:</strong>
+  <%= @chair_application.chair %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @chair_application.status %>
+</p>
+
+<%= link_to 'Edit', edit_chair_application_path(@chair_application) %> |
+<%= link_to 'Back', chair_applications_path %>

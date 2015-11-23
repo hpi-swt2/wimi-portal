@@ -16,6 +16,8 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+      apply: "Apply"
+      cancelApp: "Cancel Application"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

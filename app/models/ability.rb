@@ -8,7 +8,11 @@ class Ability
     if user.is?('superadmin')
       can :manage, :all
     elsif user.is?('admin')
-      can :manage, user.chair
+      can :manage, user.chairs
+    elsif user.is?('wimi')
+      can :read, user.chairs
+    elsif user.is?('hiwi')
+      can :read, user.chairs
     elsif user.is?('user')
       can :read, Chair
     else

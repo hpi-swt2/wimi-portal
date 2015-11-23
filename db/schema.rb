@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118122050) do
+ActiveRecord::Schema.define(version: 20151118153151) do
+
+  create_table "chair_applications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "chair_id"
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "chair_applications", ["chair_id"], name: "index_chair_applications_on_chair_id"
+  add_index "chair_applications", ["user_id"], name: "index_chair_applications_on_user_id"
 
   create_table "chairs", force: :cascade do |t|
     t.string   "name"
@@ -21,36 +32,6 @@ ActiveRecord::Schema.define(version: 20151118122050) do
   end
 
   add_index "chairs", ["user_id"], name: "index_chairs_on_user_id"
-
-  create_table "chairs_administrators", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "chair_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "chairs_administrators", ["chair_id"], name: "index_chairs_administrators_on_chair_id"
-  add_index "chairs_administrators", ["user_id"], name: "index_chairs_administrators_on_user_id"
-
-  create_table "chairs_candidates", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "chair_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "chairs_candidates", ["chair_id"], name: "index_chairs_candidates_on_chair_id"
-  add_index "chairs_candidates", ["user_id"], name: "index_chairs_candidates_on_user_id"
-
-  create_table "chairs_wimis", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "chair_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "chairs_wimis", ["chair_id"], name: "index_chairs_wimis_on_chair_id"
-  add_index "chairs_wimis", ["user_id"], name: "index_chairs_wimis_on_user_id"
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
