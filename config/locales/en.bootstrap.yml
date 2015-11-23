@@ -18,6 +18,8 @@ en:
       edit: "Edit"
       apply: "Apply"
       cancelApp: "Cancel Application"
+      acceptApp: "Accept Application"
+      declineApp: "Decline Application"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

@@ -37,11 +37,8 @@
                   <% if @chairapp.status == 'pending' %>
                       <%= link_to t('.cancelApp', :default => t("helpers.links.cancelApp")),
                                   chair_cancelapp_event_path(:id => @chairapp.id), :method => :post, :class => 'btn btn-default btn-xs' %>
-                  <% else %>
-                      <!--TODO-->
-                      <!--Admin muss akzeptieren/ablehnen können, User muss ggf. aus Lehrstuhl austreten können-->
                   <% end %>
-              <% else %>
+              <% elsif ChairApplication.find_by_user_id(current_user.id) == nil %>
                   <%= link_to t('.apply', :default => t("helpers.links.apply")),
                               chair_apply_event_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
               <% end %>
@@ -54,6 +51,20 @@
                           :method => :delete,
                           :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                           :class => 'btn btn-xs btn-danger' %>
+              <% ChairApplication.where(:chair_id => chair.id).each do |chairapp| %>
+                  <br />
+                  <% @chairappuser = User.find_by(:id => chairapp.user_id) %>
+                  User: <%= @chairappuser.name %> &#040;<%= @chairappuser.id %>&#041;
+                  <% if chairapp.status == 'pending' %>
+                      <%= link_to t('.acceptApp', :default => t("helpers.links.acceptApp")),
+                                  chair_acceptapp_event_path(:chair => chair, :user => chairapp.user), :method => :post, :class => 'btn btn-success btn-xs' %>
+                      <%= link_to t('.declineApp', :default => t("helpers.links.declineApp")),
+                                  chair_declineapp_event_path(:id => chairapp.id), :method => :post, :class => 'btn btn-danger btn-xs' %>
+                  <% else %>
+                      Status: <%= chairapp.status %>
+                  <% end %>
+
+              <% end %>
           <% end %>
         </td>
       </tr>

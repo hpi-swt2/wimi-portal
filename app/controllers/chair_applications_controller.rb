@@ -63,6 +63,21 @@ class ChairApplicationsController < ApplicationController
     end
   end
 
+  def decline
+    @chairapp = ChairApplication.find_by(:id => params[:id])
+    @chairapp.status = 'declined'
+
+    respond_to do |format|
+      if @chairapp.save
+        format.html { redirect_to chairs_path, notice: 'The application has been accepted!' }
+        format.json { render :show, status: :created, location: chairs_path }
+      else
+        format.html { render :new }
+        format.json { render json: @chairapp.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_chair_application
