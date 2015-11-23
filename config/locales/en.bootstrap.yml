@@ -8,6 +8,12 @@ en:
     pages:
       pages: "Pages"
   helpers:
+    application_tabs:
+      home: "Home"
+      profile: "Profile"
+      sign_up: "Sign up"
+      login: "Login"
+      logout: "Logout"
     actions: "Actions"
     links:
       back: "Back"
@@ -20,4 +26,11 @@ en:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
-      delete: "Delete %{model}"
+    language:
+      lang: "Language"
+      english: "English"
+      german: "German"
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+
