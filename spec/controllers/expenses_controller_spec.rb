@@ -159,8 +159,3 @@ RSpec.describe ExpensesController, type: :controller do
     end
   end
 end
-aram}, valid_session
-      expect(response).to redirect_to(expenses_url)
-    end
-  end
-end

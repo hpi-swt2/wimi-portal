@@ -159,8 +159,3 @@ RSpec.describe ProjectsController, type: :controller do
     end
   end
 end
-id_session
-      expect(response).to redirect_to(projects_url)
-    end
-  end
-end

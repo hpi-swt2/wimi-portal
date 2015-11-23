@@ -159,8 +159,3 @@ RSpec.describe TripsController, type: :controller do
     end
   end
 end
-elete :destroy, {id: trip.to_param}, valid_session
-      expect(response).to redirect_to(trips_url)
-    end
-  end
-end
