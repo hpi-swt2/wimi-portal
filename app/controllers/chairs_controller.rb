@@ -47,8 +47,8 @@ class ChairsController < ApplicationController
   # PATCH/PUT /chairs/1.json
   def update
     respond_to do |format|
-      ChairAdmin.where(chair_id: @chair.id).destroy_all
       if @chair.update(chair_params)
+        ChairAdmin.where(chair_id: @chair.id).destroy_all
         if params[:admin_user] != "null"
           tmp_user = User.find(params[:admin_user])
           unless @chair.admins.include? (tmp_user)
