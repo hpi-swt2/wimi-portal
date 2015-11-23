@@ -24,9 +24,17 @@ class ProjectApplicationsController < ApplicationController
   # POST /project_applications
   # POST /project_applications.json
   def create
-    @project_application = ProjectApplication.new
-    @project_application.user_id = current_user.id
-    @project_application.project_id = params[:project]
+    if ProjectApplication.where(user_id: current_user.id).exists?(project_id: params[:project])
+      @project_application = ProjectApplication.where(user_id: current_user.id, project_id: params[:project]).first()
+      if @project_application.status == :refused
+        @project_application.status = :pending
+        @project_application.save()
+      end
+    else
+      @project_application = ProjectApplication.new
+      @project_application.user_id = current_user.id
+      @project_application.project_id = params[:project]
+    end
 
     respond_to do |format|
       if @project_application.save
@@ -58,7 +66,7 @@ class ProjectApplicationsController < ApplicationController
   def destroy
     @project_application.destroy
     respond_to do |format|
-      format.html { redirect_to project_applications_url, notice: 'Project application was successfully destroyed.' }
+      format.html { redirect_to projects_url, notice: 'Project application was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

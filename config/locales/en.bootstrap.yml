@@ -22,6 +22,8 @@ en:
       reapply: "Reapply"
       refused_reapply: "Refused - Reapply"
       pending_cancel: "Pending - Cancel"
+    application:
+      accepted: "Your application has been accepted!"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
