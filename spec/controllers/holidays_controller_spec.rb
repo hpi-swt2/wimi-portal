@@ -27,7 +27,7 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
+    { }
   }
 
   let(:invalid_attributes) {
@@ -106,14 +106,14 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
+        { status: 'Active' }
       }
 
       it 'updates the requested holiday' do
         holiday = Holiday.create! valid_attributes
         put :update, {id: holiday.to_param, holiday: new_attributes}, valid_session
         holiday.reload
-        skip('Add assertions for updated state')
+        expect(holiday.status).to eq('Active')
       end
 
       it 'assigns the requested holiday as @holiday' do
