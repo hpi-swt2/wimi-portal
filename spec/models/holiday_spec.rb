@@ -37,13 +37,13 @@ RSpec.describe Holiday, type: :model do
   end
 
   it "returns the duration for this year" do
-    @holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-    expect(@holiday.duration_this_year).to eq(1)
+    holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
+    expect(holiday.duration_this_year).to eq(1)
   end
 
   it "returns the duration for next year" do
-    @holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-    expect(@holiday.duration_next_year).to eq(1)
+    holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
+    expect(holiday.duration_next_year).to eq(1)
   end
 
 #  it "subtracts the right amount of leave for this year" do
