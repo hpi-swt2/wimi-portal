@@ -10,6 +10,9 @@ class WorkMonthsController < ApplicationController
   # GET /work_months/1
   # GET /work_months/1.json
   def show
+    if invalid_user?
+      redirect_to root_path
+    end
   end
 
   # GET /work_months/new
@@ -65,6 +68,11 @@ class WorkMonthsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_work_month
       @work_month = WorkMonth.find(params[:id])
+    end
+
+    def invalid_user?
+      p @work_month.user_id != current_user.id
+      @work_month.user_id != current_user.id
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
