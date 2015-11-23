@@ -8,42 +8,42 @@ RSpec.describe Holiday, type: :model do
   end
 
   it "has a valid factory" do
-  	FactoryGirl.create(:holiday, user_id: @user.id).should be_valid
+  	expect(FactoryGirl.create(:holiday, user_id: @user.id)).to be_valid
   end
 
   it "is invalid without a user" do
-    FactoryGirl.build(:holiday, user_id: nil).should_not be_valid
+    expect(FactoryGirl.build(:holiday, user_id: nil)).to_not be_valid
   end
 
   it "is invalid when end is before start" do
-    FactoryGirl.build(:holiday, user_id: @user.id, end: Date.yesterday).should_not be_valid
+    expect(FactoryGirl.build(:holiday, user_id: @user.id, end: Date.yesterday)).to_not be_valid
   end
 
   it "is invalid when start is before today" do
-  	FactoryGirl.build(:holiday, user_id: @user.id, start: Date.yesterday).should_not be_valid
+  	expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.yesterday)).to_not be_valid
   end
 
   it "is invalid when to far in the future" do
-    FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 2, 1, 1), end: Date.new(Date.today.year+2, 1, 2)).should_not be_valid
+    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 2, 1, 1), end: Date.new(Date.today.year+2, 1, 2))).to_not be_valid
   end
 
   it "is invalid when not enough leave is left for this year" do
     @user.update_attribute(:remaining_leave_this_year, 0)
-    FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1,1)).should_not be_valid
+    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1,1))).to_not be_valid
   end
 
   it "is invalid when not enough leave is left for next year" do
-    FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 1, 1, 1), end: Date.new(Date.today.year + 1, 12, 31)).should_not be_valid
+    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 1, 1, 1), end: Date.new(Date.today.year + 1, 12, 31))).to_not be_valid
   end
 
   it "returns the duration for this year" do
     @holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-    @holiday.duration_this_year.should == 1
+    expect(@holiday.duration_this_year).to eq(1)
   end
 
   it "returns the duration for next year" do
     @holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-    @holiday.duration_next_year.should == 1
+    expect(@holiday.duration_next_year).to eq(1)
   end
 
 #  it "subtracts the right amount of leave for this year" do
