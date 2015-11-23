@@ -43,7 +43,7 @@ RSpec.describe TripsController, type: :controller do
     it 'assigns all trips as @trips' do
       trip = Trip.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:trips)).to eq([trip])
+      expect(assigns(:trips)).to eq(Trip.all)
     end
   end
 

@@ -43,7 +43,7 @@ RSpec.describe PublicationsController, type: :controller do
     it 'assigns all publications as @publications' do
       publication = Publication.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:publications)).to eq([publication])
+      expect(assigns(:publications)).to eq(Publication.all)
     end
   end
 

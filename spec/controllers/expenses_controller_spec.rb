@@ -43,7 +43,7 @@ RSpec.describe ExpensesController, type: :controller do
     it 'assigns all expenses as @expenses' do
       expense = Expense.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:expenses)).to eq([expense])
+      expect(assigns(:expenses)).to eq(Expense.all)
     end
   end
 

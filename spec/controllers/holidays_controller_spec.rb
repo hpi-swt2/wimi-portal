@@ -45,7 +45,7 @@ RSpec.describe HolidaysController, type: :controller do
     it 'assigns all holidays as @holidays' do
       holiday = Holiday.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:holidays)).to eq([holiday])
+      expect(assigns(:holidays)).to eq(Holiday.all)
     end
   end
 
