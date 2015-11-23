@@ -6,8 +6,13 @@ Rails.application.routes.draw do
   resources :holidays
   resources :trips
   resources :expenses
-  
+
   devise_for :users
+
+  #!get 'users/:id' => 'users#show', :as => :user
+  #!get 'users/:id/edit' => 'users#edit'
+
+  resources :users, :only => [:show, :edit, :update]
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'

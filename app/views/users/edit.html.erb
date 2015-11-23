@@ -1,5 +1,18 @@
-<%- model_class = User -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
-</div>
-<%= render :partial => 'form' %>
+<%= form_for(@user) do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Personenbezogene Daten</h4>
+    </div>
+    <div class="panel-body">
+        <div class="control-group">
+          <%= f.label "Vorname", :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :first, :class => 'form-control' %>
+          </div>
+          <%= error_span(@user[:first]) %>
+        </div>
+    </div>
+  </div>
+<%= f.submit nil, :class => 'btn btn-primary' %>
+
+<% end %>
