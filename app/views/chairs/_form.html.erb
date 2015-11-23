@@ -17,10 +17,24 @@
     <%= f.text_field :name %>
   </div>
   <div class="param">
+    <%= f.label :chair_admin %><br>
     <select name="admin_user">
-      <option value="null">(none)</option>
+      <option value="null">Please select</option>
       <%= User.all.each do |user| %>
           <% if ChairAdmin.find_by(:user_id => user.id, :chair_id => @chair.id) %>
+              <option value="<%= user.id %>" selected="true"><%= user.name %></option>
+          <% else %>
+              <option value="<%= user.id %>"><%= user.name %></option>
+          <% end %>
+      <% end %>
+    </select>
+  </div>
+  <div class="param">
+    <%= f.label :chair_representative %><br>
+    <select name="representative_user">
+      <option value="null">Please select</option>
+      <%= User.all.each do |user| %>
+          <% if ChairRepresentative.find_by(:user_id => user.id, :chair_id => @chair.id) %>
               <option value="<%= user.id %>" selected="true"><%= user.name %></option>
           <% else %>
               <option value="<%= user.id %>"><%= user.name %></option>

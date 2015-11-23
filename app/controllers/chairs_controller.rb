@@ -27,18 +27,29 @@ class ChairsController < ApplicationController
     @chair = Chair.new(chair_params)
 
     respond_to do |format|
-      if @chair.save
-        if params[:admin_user] != "null"
+
+      if (params[:admin_user] == "null") || (params[:representative_user] == "null")
+        format.html { redirect_to new_chair_path, alert: 'You have to set an admin and representative!' }
+        format.json { render json: @chair.errors, status: :unprocessable_entity }
+      else
+        if @chair.save
+
           tmp_user = User.find(params[:admin_user])
           unless @chair.admins.include? (tmp_user)
             ChairAdmin.create(:user_id => params[:admin_user], :chair_id => @chair.id)
           end
+
+          tmp_user = User.find(params[:representative_user])
+          unless @chair.representatives.include? (tmp_user)
+            ChairRepresentative.create(:user_id => params[:representative_user], :chair_id => @chair.id)
+          end
+
+          format.html { redirect_to @chair, notice: 'Chair was successfully created.' }
+          format.json { render :show, status: :created, location: @chair }
+        else
+          format.html { render :new }
+          format.json { render json: @chair.errors, status: :unprocessable_entity }
         end
-        format.html { redirect_to @chair, notice: 'Chair was successfully created.' }
-        format.json { render :show, status: :created, location: @chair }
-      else
-        format.html { render :new }
-        format.json { render json: @chair.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -47,19 +58,30 @@ class ChairsController < ApplicationController
   # PATCH/PUT /chairs/1.json
   def update
     respond_to do |format|
-      if @chair.update(chair_params)
-        ChairAdmin.where(chair_id: @chair.id).destroy_all
-        if params[:admin_user] != "null"
+
+      if (params[:admin_user] == "null") || (params[:representative_user] == "null")
+        format.html { redirect_to edit_chair_path, alert: 'You have to set an admin and representative!' }
+        format.json { render json: @chair.errors, status: :unprocessable_entity }
+      else
+        if @chair.update(chair_params)
+          ChairAdmin.where(chair_id: @chair.id).destroy_all
           tmp_user = User.find(params[:admin_user])
           unless @chair.admins.include? (tmp_user)
             ChairAdmin.create(:user_id => params[:admin_user], :chair_id => @chair.id)
           end
+
+          ChairRepresentative.where(chair_id: @chair.id).destroy_all
+          tmp_user = User.find(params[:representative_user])
+          unless @chair.representatives.include? (tmp_user)
+            ChairRepresentative.create(:user_id => params[:representative_user], :chair_id => @chair.id)
+          end
+
+          format.html { redirect_to @chair, notice: 'Chair was successfully updated.' }
+          format.json { render :show, status: :ok, location: @chair }
+        else
+          format.html { render :edit }
+          format.json { render json: @chair.errors, status: :unprocessable_entity }
         end
-        format.html { redirect_to @chair, notice: 'Chair was successfully updated.' }
-        format.json { render :show, status: :ok, location: @chair }
-      else
-        format.html { render :edit }
-        format.json { render json: @chair.errors, status: :unprocessable_entity }
       end
     end
   end

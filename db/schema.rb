@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151123163725) do
+ActiveRecord::Schema.define(version: 20151123170743) do
 
   create_table "chair_admins", force: :cascade do |t|
     t.integer  "user_id"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20151123163725) do
 
   add_index "chair_applications", ["chair_id"], name: "index_chair_applications_on_chair_id"
   add_index "chair_applications", ["user_id"], name: "index_chair_applications_on_user_id"
+
+  create_table "chair_representatives", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "chair_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "chair_representatives", ["chair_id"], name: "index_chair_representatives_on_chair_id"
+  add_index "chair_representatives", ["user_id"], name: "index_chair_representatives_on_user_id"
 
   create_table "chair_wimis", force: :cascade do |t|
     t.integer  "user_id"

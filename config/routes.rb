@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :chair_representatives
   resources :chair_admins
   resources :chair_wimis
   resources :chair_applications

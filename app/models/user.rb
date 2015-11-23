@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_many :chair_admins;
   has_many :chairs, through: :chair_admins;
 
+  has_many :chair_representatives;
+  has_many :chairs, through: :chair_representatives;
+
   def name
     "#{first} #{last_name}"
   end

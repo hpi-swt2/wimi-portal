@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Chair Representatives</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Chair</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chair_representatives.each do |chair_representative| %>
+      <tr>
+        <td><%= chair_representative.user %></td>
+        <td><%= chair_representative.chair %></td>
+        <td><%= link_to 'Show', chair_representative %></td>
+        <td><%= link_to 'Edit', edit_chair_representative_path(chair_representative) %></td>
+        <td><%= link_to 'Destroy', chair_representative, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chair representative', new_chair_representative_path %>
