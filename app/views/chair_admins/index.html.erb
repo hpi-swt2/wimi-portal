@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Chair Admins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Chair</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chair_admins.each do |chair_admin| %>
+      <tr>
+        <td><%= chair_admin.user %></td>
+        <td><%= chair_admin.chair %></td>
+        <td><%= link_to 'Show', chair_admin %></td>
+        <td><%= link_to 'Edit', edit_chair_admin_path(chair_admin) %></td>
+        <td><%= link_to 'Destroy', chair_admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chair admin', new_chair_admin_path %>

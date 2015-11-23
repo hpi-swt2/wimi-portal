@@ -16,6 +16,18 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+  <div class="param">
+    <select name="admin_user">
+      <option value="null">(none)</option>
+      <%= User.all.each do |user| %>
+          <% if ChairAdmin.find_by(:user_id => user.id, :chair_id => @chair.id) %>
+              <option value="<%= user.id %>" selected="true"><%= user.name %></option>
+          <% else %>
+              <option value="<%= user.id %>"><%= user.name %></option>
+          <% end %>
+      <% end %>
+    </select>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

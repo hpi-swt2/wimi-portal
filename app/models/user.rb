@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
 
+  has_many :chair_admins;
+  has_many :chairs, through: :chair_admins;
+
   def name
     "#{first} #{last_name}"
   end
