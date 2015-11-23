@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= f.hidden_field :work_month_id, :value => @month_id %>
+
   <div class="field">
     <%= f.label :date %><br>
     <%= f.date_select :date %>
@@ -29,7 +31,7 @@
   </div>
   <div class="field">
     <%= f.label :attendance %><br>
-    <%= f.select(:attendance, [['Normal', ''], ['Ill', 'I'], ['Holiday', 'H'], ['Leave Day', 'L']]) %>
+    <%= f.select(:attendance, [['Normal', ''], ['Ill', 'K'], ['Holiday', 'F'], ['Leave Day', 'U']]) %>
   </div>
   <div class="field">
     <%= f.label :notes %><br>

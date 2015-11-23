@@ -17,12 +17,15 @@
   </thead>
   <tbody>
       <% @work_month.work_days.each do |day| %>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= day.date %></td>
+        <td><%= day.start_time.strftime('%H:%M') %></td>
+        <td><%= day.brake %></td>
+        <td><%= day.end_time.strftime('%H:%M') %></td>
+        <td><%= day.attendance %></td>
+        <td><%= day.notes %></td>
       <% end %>
   </tbody>
 </table>
+
+<%= link_to "new", new_work_day_path(:work_month_id => @work_month.id),
+    :class => 'btn btn-primary' %>

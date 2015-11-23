@@ -15,6 +15,10 @@ class WorkDaysController < ApplicationController
   # GET /work_days/new
   def new
     @work_day = WorkDay.new
+    p '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    p params[:work_month_id]
+    p '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    @month_id = params[:work_month_id]
   end
 
   # GET /work_days/1/edit
@@ -24,6 +28,9 @@ class WorkDaysController < ApplicationController
   # POST /work_days
   # POST /work_days.json
   def create
+    p '========================================='
+    p params
+    p '========================================='
     @work_day = WorkDay.new(work_day_params)
 
     respond_to do |format|
@@ -69,6 +76,6 @@ class WorkDaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_day_params
-      params.require(:work_day).permit(:date, :start_time, :brake, :end_time, :duration, :attendance, :notes)
+      params.require(:work_day).permit(:date, :start_time, :brake, :end_time, :duration, :attendance, :notes, :work_month_id)
     end
 end
