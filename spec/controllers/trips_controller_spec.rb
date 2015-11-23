@@ -27,11 +27,11 @@ RSpec.describe TripsController, type: :controller do
   # Trip. As you add validations to Trip, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
+    { title: 'Trip' }
   }
 
   let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    { title: '' }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -106,14 +106,14 @@ RSpec.describe TripsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
+        { title: 'Trip 2' }
       }
 
       it 'updates the requested trip' do
         trip = Trip.create! valid_attributes
         put :update, {id: trip.to_param, trip: new_attributes}, valid_session
         trip.reload
-        skip('Add assertions for updated state')
+        expect(trip.title).to eq('Trip 2')
       end
 
       it 'assigns the requested trip as @trip' do
@@ -155,6 +155,11 @@ RSpec.describe TripsController, type: :controller do
     it 'redirects to the trips list' do
       trip = Trip.create! valid_attributes
       delete :destroy, {id: trip.to_param}, valid_session
+      expect(response).to redirect_to(trips_url)
+    end
+  end
+end
+elete :destroy, {id: trip.to_param}, valid_session
       expect(response).to redirect_to(trips_url)
     end
   end
