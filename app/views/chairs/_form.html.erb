@@ -21,12 +21,10 @@
     <select name="admin_user">
       <option value="null">Please select</option>
       <%= User.all.each do |user| %>
-          <% if user.is?('wimi') || user.is?('hiwi') %>
-              <% if ChairAdmin.find_by(:user_id => user.id, :chair_id => @chair.id) %>
-                  <option value="<%= user.id %>" selected="true"><%= user.name %></option>
-              <% else %>
-                  <option value="<%= user.id %>"><%= user.name %></option>
-              <% end %>
+          <% if ChairAdmin.find_by(:user_id => user.id, :chair_id => @chair.id) %>
+              <option value="<%= user.id %>" selected="true"><%= user.name %></option>
+          <% else %>
+              <option value="<%= user.id %>"><%= user.name %></option>
           <% end %>
       <% end %>
     </select>
@@ -36,12 +34,10 @@
     <select name="representative_user">
       <option value="null">Please select</option>
       <%= User.all.each do |user| %>
-          <% if user.is?('wimi') || user.is?('hiwi') %>
-              <% if ChairRepresentative.find_by(:user_id => user.id, :chair_id => @chair.id) %>
-                  <option value="<%= user.id %>" selected="true"><%= user.name %></option>
-              <% else %>
-                  <option value="<%= user.id %>"><%= user.name %></option>
-              <% end %>
+          <% if ChairRepresentative.find_by(:user_id => user.id, :chair_id => @chair.id) %>
+              <option value="<%= user.id %>" selected="true"><%= user.name %></option>
+          <% else %>
+              <option value="<%= user.id %>"><%= user.name %></option>
           <% end %>
       <% end %>
     </select>
