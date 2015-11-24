@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
     self.first = first
     self.last_name = last
   end
+
+  def self.language_list
+    [['English', 'en'], ['German', 'de']]
+  end
 end

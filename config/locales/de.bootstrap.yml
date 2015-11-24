@@ -4,7 +4,7 @@
 de:
   helpers:
     application_tabs:
-      home: "Home"
+      home: "Startseite"
       profile: "Profil"
       sign_up: "Registrieren"
       sign_in: "Anmelden"
