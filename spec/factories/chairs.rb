@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :chair do
-    name "MyString"
+    name "TestChair"
   end
 
 end
