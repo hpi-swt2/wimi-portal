@@ -55,7 +55,7 @@ RSpec.describe ChairWimisController, type: :controller do
   describe "GET #new" do
     it "assigns a new chair_wimi as @chair_wimi" do
       get :new, {}, valid_session
-      expect(assigns(:chair_wimi)).to be_a_new(ChairWimi)
+      expect(assigns(:chair_wimi)).to_not be_a_new(ChairWimi)
     end
   end
 

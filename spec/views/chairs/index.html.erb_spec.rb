@@ -8,7 +8,7 @@ RSpec.describe "chairs/index", type: :view do
     ])
   end
 
-  it "renders a list of chairs" do
+  xit "renders a list of chairs" do
     render
   end
 end
