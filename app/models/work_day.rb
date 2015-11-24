@@ -1,5 +1,5 @@
 class WorkDay < ActiveRecord::Base
-	belongs_to :work_month
+	belongs_to :user
 
 	validates :brake, numericality: true
 

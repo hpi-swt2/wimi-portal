@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :holiday
   has_many :expense
   has_many :trip
-  has_many :work_months
+  has_many :work_days
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
 

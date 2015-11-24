@@ -1,39 +1,48 @@
+<%- model_class = WorkDay -%>
+
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Work Days</h1>
+<div class="page-header">
+  <h1>Work hours for </h1>
+</div>
 
-<table>
+<table  class="table table-striped">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Start time</th>
-      <th>Brake</th>
-      <th>End time</th>
-      <th>Duration</th>
-      <th>Attendance</th>
-      <th>Notes</th>
-      <th colspan="3"></th>
+        <th><%= model_class.human_attribute_name(:date) %></th>
+        <th><%= model_class.human_attribute_name(:start_time) %></th>
+        <th><%= model_class.human_attribute_name(:brake) %></th>
+        <th><%= model_class.human_attribute_name(:end_time) %></th>
+        <th><%= model_class.human_attribute_name(:duration) %></th>
+        <th>*</th>
+        <th><%= model_class.human_attribute_name(:notes) %></th>
+        <th>Action</th>
     </tr>
   </thead>
 
   <tbody>
     <% @work_days.each do |work_day| %>
       <tr>
-        <td><%= work_day.date %></td>
-        <td><%= work_day.start_time %></td>
-        <td><%= work_day.brake %></td>
-        <td><%= work_day.end_time %></td>
-        <td><%= work_day.duration %></td>
-        <td><%= work_day.attendance %></td>
-        <td><%= work_day.notes %></td>
-        <td><%= link_to 'Show', work_day %></td>
-        <td><%= link_to 'Edit', edit_work_day_path(work_day) %></td>
-        <td><%= link_to 'Destroy', work_day, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= work_day.date %></td>
+          <td><%= work_day.start_time.strftime('%H:%M') %></td>
+          <td><%= work_day.brake %></td>
+          <td><%= work_day.end_time.strftime('%H:%M') %></td>
+          <td><%= work_day.duration %></td>
+          <td><%= work_day.attendance %></td>
+          <td><%= work_day.notes %></td>
+          <td>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_work_day_path(work_day), :class => 'btn btn-default btn-xs' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          work_day_path(work_day),
+                          :method => :delete,
+                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                          :class => 'btn btn-xs btn-danger' %>
+          </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
 
-<%= link_to 'New Work day', new_work_day_path %>
+<%= link_to "new", new_work_day_path, :class => 'btn btn-primary' %>

@@ -4,7 +4,9 @@ class WorkDaysController < ApplicationController
   # GET /work_days
   # GET /work_days.json
   def index
-    @work_days = WorkDay.all
+    month = params[:month].to_i
+    year = params[:year].to_i
+    @work_days = all_for(year, month)
   end
 
   # GET /work_days/1
@@ -15,7 +17,6 @@ class WorkDaysController < ApplicationController
   # GET /work_days/new
   def new
     @work_day = WorkDay.new
-    @month_id = params[:work_month_id]
   end
 
   # GET /work_days/1/edit
@@ -26,10 +27,11 @@ class WorkDaysController < ApplicationController
   # POST /work_days.json
   def create
     @work_day = WorkDay.new(work_day_params)
+    @work_day.user_id = current_user.id
 
     respond_to do |format|
       if @work_day.save
-        format.html { redirect_to @work_day.work_month }
+        format.html { redirect_to @work_day }
         format.json { render :show, status: :created, location: @work_day }
       else
         format.html { render :new }
@@ -43,7 +45,7 @@ class WorkDaysController < ApplicationController
   def update
     respond_to do |format|
       if @work_day.update(work_day_params)
-        format.html { redirect_to @work_day.work_month }
+        format.html { redirect_to @work_day }
         format.json { render :show, status: :ok, location: @work_day }
       else
         format.html { render :edit }
@@ -71,6 +73,14 @@ class WorkDaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_day_params
-      params.require(:work_day).permit(:date, :start_time, :brake, :end_time, :duration, :attendance, :notes, :work_month_id)
+      params.require(:work_day).permit(:date, :start_time, :brake, :end_time, :duration, :attendance, :notes, :user_id)
+    end
+
+    def all_for(year, month)
+        date = Date.new(year, month)
+        month_start = date.beginning_of_month
+        month_end = date.end_of_month
+        WorkDay.where("date >= ? and date <= ? and user_id = ?",
+            month_start, month_end, current_user)
     end
 end

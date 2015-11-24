@@ -5,7 +5,6 @@ class CreateWorkDays < ActiveRecord::Migration
       t.time :start_time
       t.integer :brake
       t.time :end_time
-      t.integer :duration
       t.string :attendance
       t.string :notes
 
