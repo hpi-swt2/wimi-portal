@@ -15,7 +15,7 @@
   <tbody>
   <% @chairs.each do |chair| %>
       <tr>
-        <td><%= link_to chair.id, project_path(chair) %></td>
+        <td><%= link_to chair.id, chair_path(chair) %></td>
         <td><%= chair.name %></td>
         <td><%=l chair.created_at %></td>
         <% if @chairapp = ChairApplication.find_by(:user_id => current_user.id, :chair => chair.id) %>
