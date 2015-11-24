@@ -12,11 +12,6 @@ describe 'login via OpenID' do
     end
   end
 
-  it 'should not login without authentication' do
-    page.driver.post('/users/sign_in?openid_url=tim.paul@student.hpi.uni-potsdam.de')
-    expect(page).to have_content 'Logged in successfully'
-  end
-
   it 'should be obligatory to insert a valid email' do
     @current_user = FactoryGirl.create(:user)
     login_as @current_user
