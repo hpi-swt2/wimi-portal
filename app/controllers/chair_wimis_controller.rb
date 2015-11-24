@@ -29,13 +29,16 @@ class ChairWimisController < ApplicationController
     @chair_wimi.user_id = params[:user]
 
     @chairapp = ChairApplication.find_by(:user_id => params[:user], :chair_id => params[:chair])
-    logger.debug @chairapp.id
     @chairapp.status = 'accepted'
     @chairapp.save
 
+    @user = User.find(params[:user])
+    @user.role = 'wimi'
+    @user.save
+
     respond_to do |format|
       if @chair_wimi.save
-        format.html { redirect_to @chair_wimi, notice: 'Chair wimi was successfully created.' }
+        format.html { redirect_to chairs_path, notice: 'Chair wimi was successfully created.' }
         format.json { render :show, status: :created, location: @chair_wimi }
       else
         format.html { render :new }
@@ -49,7 +52,7 @@ class ChairWimisController < ApplicationController
   def update
     respond_to do |format|
       if @chair_wimi.update(chair_wimi_params)
-        format.html { redirect_to @chair_wimi, notice: 'Chair wimi was successfully updated.' }
+        format.html { redirect_to chairs_path, notice: 'Chair wimi was successfully updated.' }
         format.json { render :show, status: :ok, location: @chair_wimi }
       else
         format.html { render :edit }

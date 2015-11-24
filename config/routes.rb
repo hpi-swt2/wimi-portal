@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   post '/chair_cancelapp_event' => 'chair_applications#destroy', :as => 'chair_cancelapp_event'
   post '/chair_acceptapp_event' => 'chair_wimis#create', :as => 'chair_acceptapp_event'
   post '/chair_declineapp_event' => 'chair_applications#decline', :as => 'chair_declineapp_event'
+  post '/chair_deleteapp_event' => 'chair_application#destroy', :as => 'chair_deleteapp_event'
 end

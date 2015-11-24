@@ -44,7 +44,7 @@ class ChairsController < ApplicationController
             ChairRepresentative.create(:user_id => params[:representative_user], :chair_id => @chair.id)
           end
 
-          format.html { redirect_to @chair, notice: 'Chair was successfully created.' }
+          format.html { redirect_to chairs_path, notice: 'Chair was successfully created.' }
           format.json { render :show, status: :created, location: @chair }
         else
           format.html { render :new }
@@ -76,7 +76,7 @@ class ChairsController < ApplicationController
             ChairRepresentative.create(:user_id => params[:representative_user], :chair_id => @chair.id)
           end
 
-          format.html { redirect_to @chair, notice: 'Chair was successfully updated.' }
+          format.html { redirect_to chairs_path, notice: 'Chair was successfully updated.' }
           format.json { render :show, status: :ok, location: @chair }
         else
           format.html { render :edit }
