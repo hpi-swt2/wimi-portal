@@ -1,5 +1,5 @@
 class Trip < ActiveRecord::Base
-  belongs_to :users
+  belongs_to :user
   has_many :expenses
 
   validates_length_of :title, minimum: 1,  allow_blank: false
