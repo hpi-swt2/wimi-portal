@@ -15,13 +15,18 @@
         <%= error_span(@user[:last_name]) %>
       </div>
       <div class="form-group">
+        <%= f.label "Wohnort", class: 'control-label' %>
+        <%= f.text_field :residence, value: @user.residence, class: 'form-control' %>
+        <%= error_span(@user[:residence]) %>
+      </div>
+      <div class="form-group">
         <%= f.label "Straße", class: 'control-label' %>
         <%= f.text_field :street, value: @user.street, class: 'form-control' %>
         <%= error_span(@user[:street]) %>
       </div>
       <div class="form-group">
         <%= f.label "Abteilung", class: 'control-label' %>
-        <%= f.text_field :division, value: @user.division, class: 'form-control' %>
+        <%= f.select :division, User::DIVISIONS, {selected: current_user.division}, {class: 'form-control'} %>
         <%= error_span(@user[:division]) %>
       </div>
       <div class="form-group">
