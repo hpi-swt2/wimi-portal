@@ -33,6 +33,9 @@ gem 'airbrake'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# Use for Acceptance Tests
+gem 'capybara'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -19,6 +19,10 @@
 class User < ActiveRecord::Base
   devise  :openid_authenticatable, :trackable
 
+  validates :first, length: { minimum: 1 }
+  validates :last_name, length: { minimum: 1 }
+  validates :email, length: { minimum: 1 }
+
   has_many :holiday
   has_many :expense
   has_many :trip
@@ -55,7 +59,7 @@ class User < ActiveRecord::Base
 
       case key.to_s
       when "http://axschema.org/contact/email"
-        self.email = value
+        update_attribute(:email, value)
       else
         logger.error "Unknown OpenID field: #{key}"
       end
