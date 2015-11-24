@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @holidays.each do |holiday| %>
+    <% current_user.holidays.each do |holiday| %>
       <tr>
         <td><%= link_to holiday.id, holiday_path(holiday) %></td>
         <td><%= holiday.status %></td>
