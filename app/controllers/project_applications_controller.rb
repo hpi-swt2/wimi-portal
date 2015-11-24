@@ -4,7 +4,7 @@ class ProjectApplicationsController < ApplicationController
   # GET /project_applications
   # GET /project_applications.json
   def index
-    @project_applications = current_user.project_applications.order(created_at: :desc)
+    @project_applications = current_user.project_applications.order(updated_at: :desc)
   end
 
   # GET /project_applications/1
@@ -21,20 +21,25 @@ class ProjectApplicationsController < ApplicationController
   def edit
   end
 
+
+  def decline
+    @project_application.status = :declined
+  end
+
+  def accept
+    @project_application.status = :accepted
+  end
+
+  def reapply
+    @project_application.status = :pending
+  end
+
   # POST /project_applications
   # POST /project_applications.json
   def create
-    if ProjectApplication.where(user_id: current_user.id).exists?(project_id: params[:project])
-      @project_application = ProjectApplication.where(user_id: current_user.id, project_id: params[:project]).first()
-      if @project_application.status == :refused
-        @project_application.status = :pending
-        @project_application.save()
-      end
-    else
-      @project_application = ProjectApplication.new
-      @project_application.user_id = current_user.id
-      @project_application.project_id = params[:project]
-    end
+    @project_application = ProjectApplication.new
+    @project_application.user_id = current_user.id
+    @project_application.project_id = params[:project]
 
     respond_to do |format|
       if @project_application.save

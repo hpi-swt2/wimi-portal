@@ -4,7 +4,14 @@ Rails.application.routes.draw do
   resources :expenses
   resources :holidays
 
-  resources :project_applications, only: [:create, :index, :destroy]
+  resources :project_applications, only: [:create, :index, :destroy] do
+    member do
+      get 'accept'
+      get 'decline'
+      get 'reapply'
+    end
+  end
+
   resources :projects
   resources :publications
   resources :trips

@@ -1,44 +1,75 @@
 <%- model_class = Project -%>
-<div class="page-header">
+<div class='page-header'>
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
+<% if @project.users.exists?(id: current_user.id) %><div class='alert alert-success text-center col-md-4' role='alert'><%= t('helpers.application.part_of_project') %></div><% end %>
+
+<dl class='dl-horizontal'>
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @project.title %></dd>
 </dl>
 
-<% if @project.project_applications.exists?(user_id: current_user.id) %>
-  <% project_application = @project.project_applications.find_by(user_id: current_user.id) %>
-  <% case project_application.status %>
-    <% when "pending" %>
-      <div class="btn-group" role="group">
-      <%= link_to t('.cancel', :default => t("helpers.links.pending_cancel")),
-        project_applications_path(project_application),
-        :method => :delete,
-        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-        :class => 'btn btn-danger' %>
-    <% when "accepted" %>
-      <div class="alert alert-success text-center col-md-4" role="alert"><%= t("helpers.application.accepted") %></div>
-      <div class="btn-group col-md-12" role="group">
-    <% when "declined" %>
-      <div class="btn-group" role="group">
-      <%= link_to t('.reapply', :default => t("helpers.links.accepted")),
-        project_applications_path(project), :method => :post, :class => 'btn btn-danger' %>
+<div class='btn-group' role='group'>
+  <% if can? :create, ProjectApplication %>
+    <% if project_application = @project.project_applications.find_by(user_id: current_user.id) %>
+      <% case project_application.status %>
+        <% when 'pending' %>
+          <%= link_to t('.cancel', :default => t('helpers.links.pending_cancel')),
+            project_applications_path(project_application),
+            :method => :delete,
+            :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?')) },
+            :class => 'btn btn-danger' %>
+        <% when 'declined' %>
+          <%= link_to t('.reapply', :default => t('helpers.links.accepted')),
+            reapply_project_application_path(project), :class => 'btn btn-danger' %>
+      <% end %>
+    <% else %>
+      <%= link_to t('.apply', :default => t('helpers.links.apply')),
+        project_applications_path(:project => @project), :method => :post, :class => 'btn btn-primary' %>
+    <% end %>
   <% end %>
-<% else %>
-    <div class="btn-group" role="group">
-    <%= link_to t('.apply', :default => t("helpers.links.apply")),
-      project_applications_path(:project => @project), :method => :post, :class => 'btn btn-primary' %>
-<% end %>
-
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              projects_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_project_path(@project), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              project_path(@project),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+  <%= link_to t('.back', :default => t('helpers.links.back')),
+    projects_path, :class => 'btn btn-default' %>
+  <% if can? :edit, @project %>
+    <%= link_to t('.edit', :default => t('helpers.links.edit')),
+      edit_project_path(@project), :class => 'btn btn-default' %>
+  <% end %>
+  <% if can? :destroy, @project %>
+    <%= link_to t('.destroy', :default => t('helpers.links.destroy')),
+      project_path(@project),
+      :method => 'delete',
+      :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?')) },
+      :class => 'btn btn-danger' %>
+  <% end %>
 </div>
+
+<% if can? :accept, ProjectApplication and @project.users.exists?(id: current_user.id) %>
+  <table class='table table-striped'>
+    <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%=t '.actions', :default => t('helpers.actions') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @projects.project_applications.each do |project_application| %>
+      <tr>
+        <td><%= link_to project_application.user.name, user_path(project_application.user) %></td>
+        <td>
+          <div class='btn-group'>
+            <%= link_to t('.accept', :default => t('helpers.links.accept_application')),
+              accept_project_application_path(project_application),
+              :method => 'post',
+              :class => 'btn btn-success' %>
+            <%= link_to t('.decline', :default => t('helpers.links.decline_application')),
+              decline_project_application_path(project_application),
+              :method => 'post',
+              :class => 'btn btn-danger' %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
