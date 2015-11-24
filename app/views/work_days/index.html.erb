@@ -25,9 +25,9 @@
       <tr>
           <td><%= work_day.date %></td>
           <td><%= work_day.start_time.strftime('%H:%M') %></td>
-          <td><%= work_day.brake %></td>
+          <td><%= work_day.brake %>min</td>
           <td><%= work_day.end_time.strftime('%H:%M') %></td>
-          <td><%= work_day.duration %></td>
+          <td><%= work_day.duration %>min</td>
           <td><%= work_day.attendance %></td>
           <td><%= work_day.notes %></td>
           <td>
@@ -45,4 +45,5 @@
 </table>
 <br>
 
-<%= link_to "new", new_work_day_path, :class => 'btn btn-primary' %>
+<%= link_to "New", new_work_day_path, :class => 'btn btn-primary' %>
+<%= link_to "Export as PDF", "#", :class => 'btn btn-primary' %>
