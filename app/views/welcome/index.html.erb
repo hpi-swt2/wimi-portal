@@ -1,9 +1,2 @@
 <h1>Welcome#index</h1>
 <p>Find me in app/views/welcome/index.html.erb</p>
-
-<div>
-	<% @year_months.each do |month| %>
-	<%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
-	 	work_days_path(month: month.last, year: month.first)%>
-	<% end %>
-</div>

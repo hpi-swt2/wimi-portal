@@ -31,7 +31,7 @@ class WorkDaysController < ApplicationController
 
     respond_to do |format|
       if @work_day.save
-        format.html { redirect_to @work_day }
+        format.html { redirect_to work_days_month_path }
         format.json { render :show, status: :created, location: @work_day }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class WorkDaysController < ApplicationController
   def update
     respond_to do |format|
       if @work_day.update(work_day_params)
-        format.html { redirect_to @work_day }
+        format.html { redirect_to work_days_month_path }
         format.json { render :show, status: :ok, location: @work_day }
       else
         format.html { render :edit }
@@ -82,5 +82,9 @@ class WorkDaysController < ApplicationController
         month_end = date.end_of_month
         WorkDay.where("date >= ? and date <= ? and user_id = ?",
             month_start, month_end, current_user)
+    end
+
+    def work_days_month_path
+        work_days_path(month: @work_day.date.month, year: @work_day.date.year)
     end
 end
