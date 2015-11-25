@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /trips
   # GET /trips.json
@@ -61,6 +61,9 @@ class TripsController < ApplicationController
     end
   end
 
+  def download
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip
@@ -69,6 +72,6 @@ class TripsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
-      params[:trip].permit(Trip.column_names.map(&:to_sym))
+      params.require(:trip).permit(:name, :destination, :reason, :start_date, :end_date, :days_abroad, :annotation, :signature)
     end
 end
