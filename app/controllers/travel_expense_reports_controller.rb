@@ -46,8 +46,16 @@ class TravelExpenseReportsController < ApplicationController
   # PATCH/PUT /travel_expense_reports/1
   # PATCH/PUT /travel_expense_reports/1.json
   def update
+    @params = travel_expense_report_params
+    @ter_item = @travel_expense_report.ter_items.build(@params[:ter_item]) if @params[:ter_item]
+    if not @ter_item.nil?
+      @success = @ter_item.save
+    else
+      @success = true
+    end
+    @params.delete :ter_item
     respond_to do |format|
-      if @travel_expense_report.update(travel_expense_report_params)
+      if @travel_expense_report.update(@params) and @success
         format.html { redirect_to trip_travel_expense_report_url(@trip,@travel_expense_report), notice: 'Travel expense report was successfully updated.' }
         format.json { render :show, status: :ok, location: @travel_expense_report }
       else
@@ -79,6 +87,6 @@ class TravelExpenseReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def travel_expense_report_params
-      params.require(:travel_expense_report).permit(:name,:advance)
+      params.require(:travel_expense_report).permit(:name,:advance, ter_item: [:amount,:purpose])
     end
 end

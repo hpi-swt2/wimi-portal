@@ -16,6 +16,12 @@ class TerItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @ter_item = @travel_expense_report.ter_items.find(params[:id])
+    @ter_item.destroy
+    redirect_to trip_travel_expense_report_path(@trip,@travel_expense_report)
+  end
+
   private
     def set_ter
       @travel_expense_report = @trip.travel_expense_reports.find(params[:travel_expense_report_id])

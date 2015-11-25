@@ -5,4 +5,7 @@
   <td>
     <%=h ter_item.purpose %>
   </td>
+  <td>
+    <%= link_to 'Delete', [ter_item.travel_expense_report.trip,ter_item.travel_expense_report,ter_item], method: :delete %>
+  </td>
 </tr>
