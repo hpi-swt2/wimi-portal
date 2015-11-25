@@ -5,7 +5,7 @@ class TravelExpenseReportsController < ApplicationController
   # GET /travel_expense_reports
   # GET /travel_expense_reports.json
   def index
-    @travel_expense_reports = TravelExpenseReport.all
+    @travel_expense_reports = @trip.travel_expense_reports
   end
 
   # GET /travel_expense_reports/1
@@ -15,7 +15,7 @@ class TravelExpenseReportsController < ApplicationController
 
   # GET /travel_expense_reports/new
   def new
-    @travel_expense_report = TravelExpenseReport.new
+    @travel_expense_report = @trip.travel_expense_reports.build
   end
 
   # GET /travel_expense_reports/1/edit
@@ -43,7 +43,7 @@ class TravelExpenseReportsController < ApplicationController
   def update
     respond_to do |format|
       if @travel_expense_report.update(travel_expense_report_params)
-        format.html { redirect_to @travel_expense_report, notice: 'Travel expense report was successfully updated.' }
+        format.html { redirect_to trip_travel_expense_report_url(@trip,@travel_expense_report), notice: 'Travel expense report was successfully updated.' }
         format.json { render :show, status: :ok, location: @travel_expense_report }
       else
         format.html { render :edit }
@@ -74,6 +74,6 @@ class TravelExpenseReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def travel_expense_report_params
-      params.require(:travel_expense_report).permit(:trip_id)
+      params.require(:travel_expense_report).permit(:name)
     end
 end

@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20151125170233) do
   add_index "ter_items", ["travel_expense_report_id"], name: "index_ter_items_on_travel_expense_report_id"
 
   create_table "travel_expense_reports", force: :cascade do |t|
+    t.string   "name"
     t.integer  "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
