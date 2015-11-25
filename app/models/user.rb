@@ -17,15 +17,17 @@
 #
 
 class User < ActiveRecord::Base
+
   devise  :openid_authenticatable, :trackable
 
   validates :first, length: { minimum: 1 }
   validates :last_name, length: { minimum: 1 }
   validates :email, length: { minimum: 1 }
 
-  has_many :holiday
-  has_many :expense
-  has_many :trip
+  has_many :holidays
+  has_many :expenses
+  has_many :trips
+
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
 

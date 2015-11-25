@@ -33,20 +33,11 @@ gem 'airbrake'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-# Use for Acceptance Tests
-gem 'capybara'
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# add current schema to models
-gem 'annotate'
-
 # Authentification
 gem 'devise'
-# openID Authentication
-gem 'devise_openid_authenticatable'
-gem 'warden'
 # Use Bootstrap (app/assets/stylesheets)
 gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails'
@@ -59,9 +50,6 @@ gem 'jquery-ui-rails'
 gem 'cancancan'
 # for nested forms
 #gem 'cocoon'
-# Coverage information
-gem 'simplecov'
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -87,11 +75,13 @@ group :development do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+
+  # Date Validator
+  gem 'validates_timeliness', '~> 3.0'
 end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
-  gem 'simplecov', :require => false
   # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
   #gem 'webmock'
 end
