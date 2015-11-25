@@ -1,6 +1,6 @@
 class TravelExpenseReportsController < ApplicationController
+  before_action :set_trip
   before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy]
-  before_action :set_trip, only: [:show, :edit, :update, :destroy]
 
   # GET /travel_expense_reports
   # GET /travel_expense_reports.json
@@ -25,11 +25,11 @@ class TravelExpenseReportsController < ApplicationController
   # POST /travel_expense_reports
   # POST /travel_expense_reports.json
   def create
-    @travel_expense_report = TravelExpenseReport.new(travel_expense_report_params)
+    @travel_expense_report = @trip.travel_expense_reports.build(travel_expense_report_params)
 
     respond_to do |format|
       if @travel_expense_report.save
-        format.html { redirect_to @travel_expense_report, notice: 'Travel expense report was successfully created.' }
+        format.html { redirect_to trip_travel_expense_report_url(@trip,@travel_expense_report), notice: 'Travel expense report was successfully created.' }
         format.json { render :show, status: :created, location: @travel_expense_report }
       else
         format.html { render :new }
@@ -57,7 +57,7 @@ class TravelExpenseReportsController < ApplicationController
   def destroy
     @travel_expense_report.destroy
     respond_to do |format|
-      format.html { redirect_to travel_expense_reports_url, notice: 'Travel expense report was successfully destroyed.' }
+      format.html { redirect_to trip_travel_expense_reports_url(@trip), notice: 'Travel expense report was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,7 +65,7 @@ class TravelExpenseReportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_travel_expense_report
-      @travel_expense_report = TravelExpenseReport.find(params[:id])
+      @travel_expense_report = @trip.travel_expense_reports.find(params[:id])
     end
 
     def set_trip

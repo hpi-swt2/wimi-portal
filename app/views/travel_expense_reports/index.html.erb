@@ -14,9 +14,9 @@
     <% @travel_expense_reports.each do |travel_expense_report| %>
       <tr>
         <td><%= travel_expense_report.trip %></td>
-        <td><%= link_to 'Show', trip_travel_expense_report %></td>
-        <td><%= link_to 'Edit', edit_trip_travel_expense_report_path(travel_expense_report) %></td>
-        <td><%= link_to 'Destroy', trip_travel_expense_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', trip_travel_expense_report_path(@trip,travel_expense_report) %></td>
+        <td><%= link_to 'Edit', edit_trip_travel_expense_report_path(@trip,travel_expense_report) %></td>
+        <td><%= link_to 'Destroy', trip_travel_expense_report_path(@trip,travel_expense_report), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Travel expense report', new_trip_travel_expense_report_path %>
+<%= link_to 'New Travel expense report', new_trip_travel_expense_report_path(@trip) %>
