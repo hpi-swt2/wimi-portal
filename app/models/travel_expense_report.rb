@@ -1,4 +1,4 @@
 class TravelExpenseReport < ActiveRecord::Base
-  has_many :ter_items
   belongs_to :trip
+  has_many :ter_items, :dependent => :destroy_all
 end

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :travel_expense_reports
   resources :trips do
-    resources :travel_expense_reports
-    member do
+      member do
       get 'download'
     end
   end

@@ -1,4 +1,4 @@
-<%= form_for(@travel_expense_report) do |f| %>
+<%= form_for([@trip,@trip.travel_expense_reports.build]) do |f| %>
   <% if @travel_expense_report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@travel_expense_report.errors.count, "error") %> prohibited this travel_expense_report from being saved:</h2>
@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :trip_id %><br>
+    <%= f.text_field :trip_id %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

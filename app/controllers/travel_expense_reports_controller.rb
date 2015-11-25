@@ -1,5 +1,6 @@
 class TravelExpenseReportsController < ApplicationController
   before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy]
 
   # GET /travel_expense_reports
   # GET /travel_expense_reports.json
@@ -67,8 +68,12 @@ class TravelExpenseReportsController < ApplicationController
       @travel_expense_report = TravelExpenseReport.find(params[:id])
     end
 
+    def set_trip
+      @trip = Trip.find(params[:trip_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def travel_expense_report_params
-      params[:travel_expense_report]
+      params.require(:travel_expense_report).permit(:trip_id)
     end
 end
