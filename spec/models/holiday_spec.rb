@@ -29,7 +29,7 @@ RSpec.describe Holiday, type: :model do
   end
 
   it "is invalid when a wrong date is entered" do
-    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: 'asdf', end: 'asdf')).to_not be_valid
+    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.today-1, end: Date.today)).to_not be_valid
   end
 
   it "is invalid when end is before start" do

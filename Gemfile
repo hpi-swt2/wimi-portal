@@ -36,6 +36,9 @@ gem 'airbrake'
 # Use for Acceptance Tests
 gem 'capybara'
 
+# Datetime validations
+gem 'validates_timeliness'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -59,9 +62,6 @@ gem 'jquery-ui-rails'
 gem 'cancancan'
 # for nested forms
 #gem 'cocoon'
-# Coverage information
-gem 'simplecov'
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -91,6 +91,7 @@ end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
+  # Coverage Information
   gem 'simplecov', :require => false
   # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
   #gem 'webmock'
