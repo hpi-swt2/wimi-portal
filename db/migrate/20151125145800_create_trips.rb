@@ -4,8 +4,8 @@ class CreateTrips < ActiveRecord::Migration
       t.string :name
       t.string :destination
       t.text :reason
-      t.date :start_date
-      t.date :end_date
+      t.datetime :start_date
+      t.datetime :end_date
       t.integer :days_abroad
       t.text :annotation
       t.string :signature
