@@ -5,5 +5,37 @@
   <%= @travel_expense_report.name %>
 </p>
 
+<p>
+  <strong>Expenses:</strong>
+</p>
+<table class="table table-striped">
+  <tr>
+    <th>
+      <strong>Amount</strong>
+    </th>
+    <th>
+      <strong>Purpose</strong>
+    </th>
+  </tr>
+  <%= render @travel_expense_report.ter_items %>
+</table>
+
+<p>
+  <strong>Subtotal:</strong>
+  <%= @sum %>
+</p>
+<p>
+  <strong>Own contribution:</strong>
+  <%= @sum*0.1 %>
+</p>
+<p>
+  <strong>Advance:</strong>
+  <%= @travel_expense_report.advance %>
+</p>
+<p>
+  <strong>Total refund:</strong>
+  <%= @sum*0.9 - @travel_expense_report.advance %>
+</p>
+
 <%= link_to 'Edit', edit_trip_travel_expense_report_path(@trip,@travel_expense_report), :class => "btn btn-primary" %> |
 <%= link_to 'Back', trip_travel_expense_reports_path(@trip), :class => "btn btn-primary" %>

@@ -11,6 +11,10 @@ class TravelExpenseReportsController < ApplicationController
   # GET /travel_expense_reports/1
   # GET /travel_expense_reports/1.json
   def show
+    @sum = 0
+    @travel_expense_report.ter_items.each do |t|
+      @sum += t.amount
+    end
   end
 
   # GET /travel_expense_reports/new
@@ -26,6 +30,7 @@ class TravelExpenseReportsController < ApplicationController
   # POST /travel_expense_reports.json
   def create
     @travel_expense_report = @trip.travel_expense_reports.build(travel_expense_report_params)
+    @travel_expense_report.advance = 0
 
     respond_to do |format|
       if @travel_expense_report.save
@@ -74,6 +79,6 @@ class TravelExpenseReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def travel_expense_report_params
-      params.require(:travel_expense_report).permit(:name)
+      params.require(:travel_expense_report).permit(:name,:advance)
     end
 end

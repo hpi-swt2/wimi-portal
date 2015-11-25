@@ -1,0 +1,13 @@
+<%= form_for([@trip,@travel_expense_report,@travel_expense_report.ter_items.build]) do |f| %>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.number_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :purpose %><br>
+    <%= f.text_field :purpose %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Add Item'%>
+  </div>
+<% end %>

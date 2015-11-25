@@ -1,6 +1,46 @@
 <h1>Editing Travel Expense Report</h1>
 
-<%= render 'form' %>
+<%= render 'form_full' %>
 
-<%= link_to 'Show', trip_travel_expense_report_path(@trip,@travel_expense_report), :class => "btn btn-primary" %> |
+<p>
+  <strong>Expenses:</strong>
+</p>
+<table class="table table-striped">
+  <tr>
+    <th>
+      <strong>Amount</strong>
+    </th>
+    <th>
+      <strong>Purpose</strong>
+    </th>
+  </tr>
+  <%= render @travel_expense_report.ter_items %>
+
+  <%= form_for([@trip,@travel_expense_report,@travel_expense_report.ter_items.build]) do |f| %>
+      <tr>
+        <td>
+          <div class="field">
+            <%= f.label :amount %><br>
+            <%= f.number_field :amount %>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <%= f.label :purpose %><br>
+            <%= f.text_field :purpose %>
+          </div>
+        </td>
+      </tr>
+
+
+
+      </table>
+
+      <div class="actions">
+        <%= f.submit 'Add Item', :class => "btn btn-primary" %>
+      </div>
+
+  <% end %>
+
+<%= link_to 'Save', trip_travel_expense_report_path(@trip,@travel_expense_report), :class => "btn btn-primary" %> |
 <%= link_to 'Back', trip_travel_expense_reports_path(@trip), :class => "btn btn-primary" %>
