@@ -11,7 +11,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118125736) do
+ActiveRecord::Schema.define(version: 20151123170743) do
+
+  create_table "chair_admins", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "chair_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "chair_admins", ["chair_id"], name: "index_chair_admins_on_chair_id"
+  add_index "chair_admins", ["user_id"], name: "index_chair_admins_on_user_id"
+
+  create_table "chair_applications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "chair_id"
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "chair_applications", ["chair_id"], name: "index_chair_applications_on_chair_id"
+  add_index "chair_applications", ["user_id"], name: "index_chair_applications_on_user_id"
+
+  create_table "chair_representatives", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "chair_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "chair_representatives", ["chair_id"], name: "index_chair_representatives_on_chair_id"
+  add_index "chair_representatives", ["user_id"], name: "index_chair_representatives_on_user_id"
+
+  create_table "chair_wimis", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "chair_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "chair_wimis", ["chair_id"], name: "index_chair_wimis_on_chair_id"
+  add_index "chair_wimis", ["user_id"], name: "index_chair_wimis_on_user_id"
+
+  create_table "chairs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "chairs", ["user_id"], name: "index_chairs_on_user_id"
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -93,20 +143,21 @@ ActiveRecord::Schema.define(version: 20151118125736) do
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",     null: false
+    t.string   "encrypted_password",     default: "",     null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,      null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "first"
     t.string   "last_name"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "role",                   default: "user"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

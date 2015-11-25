@@ -24,6 +24,9 @@ en:
       pending_cancel: "Pending - Cancel"
     application:
       part_of_project: "You are part of this project."
+      cancelApp: "Cancel Application"
+      acceptApp: "Accept Application"
+      declineApp: "Decline Application"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

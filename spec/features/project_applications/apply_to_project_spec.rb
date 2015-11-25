@@ -8,9 +8,11 @@ describe 'Applying to a project' do
     @project = FactoryGirl.create(:project)
     @wimi = FactoryGirl.create(:wimi)
 
+    @wimi.projects << @project
+
     login_as(@user)
     visit project_path(@project)
-    click_on(I18n.t("helpers.links.apply"))
+    click_on(I18n.t('helpers.links.apply'))
 
     @project_application = ProjectApplication.last()
   end
@@ -21,29 +23,29 @@ describe 'Applying to a project' do
     visit project_path(@project)
 
     expect(@project_application.user).to eq(@user)
-    expect(page).to have_text I18n.t("helpers.links.pending_cancel")
-    expect(@project_application.status).to eq("pending")
+    expect(page).to have_text I18n.t('helpers.links.pending_cancel')
+    expect(@project_application.status).to eq('pending')
   end
 
   it 'should be acceptable' do
     login_as(@wimi)
-    # visit project_path(@project)
-    click_on(I18n.t("helpers.links.accept"))
+    visit project_path(@project)
+    click_on(I18n.t('helpers.application.acceptApp'))
 
-    expect(@project_application.status).to eq("accepted")
+    expect(@project_application.status).to eq('accepted')
   end
 
   it 'should be declinable and reapplyable' do
 
     login_as(@wimi)
-    # visit project_path(@project)
-    click_on(I18n.t("helpers.links.decline"))
+    visit project_path(@project)
+    click_on(I18n.t('helpers.application.declineApp'))
 
-    expect(@project_application.status).to eq("declined")
+    expect(@project_application.status).to eq('declined')
 
     login_as(@user)
-    click_on(I18n.t("helpers.links.refused_reapply"))
+    click_on(I18n.t('helpers.links.refused_reapply'))
 
-    expect(@project_application.status).to eq("pending")
+    expect(@project_application.status).to eq('pending')
   end
 end

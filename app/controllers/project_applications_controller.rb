@@ -21,17 +21,32 @@ class ProjectApplicationsController < ApplicationController
   def edit
   end
 
+  def accept
+    @project_application = ProjectApplication.find(params[:id])
+    @project_application.status = :accepted
+    @project_application.save()
+    @user = @project_application.user
+    @user.role = :hiwi
+    @user.projects << @project_application.project
+    @user.save()
 
-  def decline
-    @project_application.status = :declined
+    redirect_to projects_path
   end
 
-  def accept
-    @project_application.status = :accepted
+  def decline
+    @project_application = ProjectApplication.find(params[:id])
+    @project_application.status = :declined
+    @project_application.save()
+
+    redirect_to projects_path
   end
 
   def reapply
+    @project_application = ProjectApplication.find(params[:id])
     @project_application.status = :pending
+    @project_application.save()
+
+    redirect_to projects_path
   end
 
   # POST /project_applications

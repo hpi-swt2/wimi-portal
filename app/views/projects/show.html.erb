@@ -3,7 +3,7 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<% if @project.users.exists?(id: current_user.id) %><div class='alert alert-success text-center col-md-4' role='alert'><%= t('helpers.application.part_of_project') %></div><% end %>
+<% if @project.users.exists?(id: current_user.id) %><div class='alert alert-success text-center col-md-12' role='alert'><%= t('helpers.application.part_of_project') %></div><% end %>
 
 <dl class='dl-horizontal'>
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
@@ -49,22 +49,22 @@
     <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%=t '.actions', :default => t('helpers.actions') %></th>
     </tr>
     </thead>
     <tbody>
-    <% @projects.project_applications.each do |project_application| %>
+    <% @project.project_applications.each do |project_application| %>
       <tr>
-        <td><%= link_to project_application.user.name, user_path(project_application.user) %></td>
+        <td><%= project_application.user.name %></td>
+        <td><%= project_application.user.email %></td>
         <td>
           <div class='btn-group'>
             <%= link_to t('.accept', :default => t('helpers.links.accept_application')),
               accept_project_application_path(project_application),
-              :method => 'post',
               :class => 'btn btn-success' %>
             <%= link_to t('.decline', :default => t('helpers.links.decline_application')),
               decline_project_application_path(project_application),
-              :method => 'post',
               :class => 'btn btn-danger' %>
           </div>
         </td>
