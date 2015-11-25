@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Travel Expense Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @travel_expense_reports.each do |travel_expense_report| %>
+      <tr>
+        <td><%= link_to 'Show', travel_expense_report %></td>
+        <td><%= link_to 'Edit', edit_travel_expense_report_path(travel_expense_report) %></td>
+        <td><%= link_to 'Destroy', travel_expense_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Travel expense report', new_travel_expense_report_path %>

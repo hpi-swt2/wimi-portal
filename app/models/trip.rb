@@ -1,4 +1,5 @@
 class Trip < ActiveRecord::Base
+  has_many :travel_expense_reports
   validates :name, presence: true
   validates :destination, presence: true
   validate 'duration_greater_than_zero'
