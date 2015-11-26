@@ -8,6 +8,12 @@
   <dd><%= @project.title %></dd>
 </dl>
 
+<% content_for :modals do %>
+  <%= render 'invite_colleague' %>
+<% end %>
+
+<%= link_to "Mitarbeiter einladen", "", id:"open-popup", data: {toggle: "modal", target: "#invite-colleagues-modal" }, class: "btn btn-default pull-right" %>
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
               projects_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
