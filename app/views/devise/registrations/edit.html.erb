@@ -30,19 +30,62 @@
   <div class="panel-heading">
     <h4><%= t("Requests and Documents") %></h4>
   </div>
-  <div class="panel-body">
-    <div class="form-group">
-      <%= "Remaining Leave for #{Date.today.year.to_s}: #{current_user.remaining_leave_this_year.to_s}" %><br>
-      <%= "Remaining Leave for #{(Date.today.year+1).to_s}: #{current_user.remaining_leave_next_year.to_s}" %>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <div class="panel-body">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%=f.label :holiday %>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <%= f.label "Remaining Leave: #{current_user.remaining_leave.to_s} days " %>
+            <% if (current_user.remaining_leave_last_year > 0) %>
+             <%= f.label "(thereof #{current_user.remaining_leave_last_year.to_s} from #{Date.today.year-1})" %><br> %>
+            <% end %>
+          </div>
+          <div class="form-group">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><%=t '.duration' %></th>
+                  <th><%=t '.start' %></th>
+                  <th><%=t '.end' %></th>
+                  <th><%=t '.status' %></th>
+                  <th><%=t '.actions', :default => t("helpers.actions") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% current_user.holidays.each do |holiday| %>
+                  <tr>
+                    <td><%= holiday.duration %><%= t(" days") %></td>
+                    <td><%= holiday.start %></td>
+                    <td><%=l holiday.end %></td>
+                    <td><%= holiday.status %></td>
+                    <td>
+                      <%= link_to t('.showDetails', :default => t("helpers.links.edit")),
+                                  holiday_path(holiday), :class => 'btn btn-default btn-xs' %>
+                      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                                  holiday_path(holiday),
+                                  :method => :delete,
+                                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                                  :class => 'btn btn-xs btn-danger' %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group"> 
+            <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %><br><br>
+            <% current_user.holidays.each do |holiday| %>
+              <%= link_to holiday.status, holiday_path(holiday.id)%>
+              <br>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group"> 
-      <%=link_to t('.request_holiday', default: 'Request Holiday'), new_holiday_path, class: "btn btn-default" %><br><br>
-      <% current_user.holidays.each do |holiday| %>
-        <%= link_to holiday.status, holiday_path(holiday.id)%>
-        <br>
-      <% end %>
-    </div>
-  </div>
+  <% end %>
 </div>
 
 <p><%= t('.unhappy', :default => 'Unhappy') %>? <%= link_to t('.cancel_my_account', :default => "Cancel my account"), registration_path(resource_name), :data => { :confirm => t('.are_you_sure', :default => "Are you sure?") }, :method => :delete %>.</p>

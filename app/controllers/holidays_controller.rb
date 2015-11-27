@@ -29,8 +29,10 @@ class HolidaysController < ApplicationController
 
     respond_to do |format|
       if @holiday.save
-        current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year - @holiday.duration_this_year)
-        current_user.update_attribute(:remaining_leave_next_year, current_user.remaining_leave_next_year - @holiday.duration_next_year)
+        current_user.update_attribute(:remaining_leave, current_user.remaining_leave - @holiday.duration)
+        if current_user.remaining_leave_last_year >= 0
+          current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year - @holiday.duration)
+        end
         #if((current_user.remaining_leave_this_year - @holiday.duration_next_year) < 0)
         #    negativ = current_user.remaining_leave_this_year - @holiday.duration_next_year
         #    current_user.update_attribute(:remaining_leave_next_year, current_user.remaining_leave_next_year + negativ)
@@ -65,9 +67,10 @@ class HolidaysController < ApplicationController
   # DELETE /holidays/1.json
   def destroy
     if @holiday.end > Date.today
-      current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year + @holiday.duration_this_year)
-      current_user.update_attribute(:remaining_leave_next_year, current_user.remaining_leave_next_year + @holiday.duration_next_year)
-      
+      current_user.update_attribute(:remaining_leave, current_user.remaining_leave + @holiday.duration)
+      if current_user.remaining_leave_last_year >= 0
+        current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year + @holiday.duration)
+      end
     end
     @holiday.destroy
     respond_to do |format|

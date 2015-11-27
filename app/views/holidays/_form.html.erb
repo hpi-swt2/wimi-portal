@@ -25,27 +25,17 @@
   <div class="control-group">
     <%= f.label :start, :class => 'control-label' %>
     <div class="controls">
-      <%= f.datetime_field :start, :class => 'form-control' %>
+      <%= f.date_field :start, :class => 'form-control' %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
     <%= f.label :end, :class => 'control-label' %>
     <div class="controls">
-      <%= f.datetime_field :end, :class => 'form-control' %>
+      <%= f.date_field :end, :class => 'form-control' %>
     </div>
     <%= error_span(@holiday[:end]) %>
   </div>
-  <!--div class="control-group">
-    <%#= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%#= f.email_field :user_id, readonly:true, class: 'form-control', value: current_user.email %>
-      <%#= f.hidden_field :user_id, value: current_user.id %>
-      <%#= f.collection_select :user_id, User.all, :id, :email, {selected: current_user.id, prompt: true}, {} %>
-    </div>
-    <%#= error_span(@holiday[:user_id]) %>
-  </div-->
-
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
