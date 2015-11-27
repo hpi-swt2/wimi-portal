@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   resources :publications
-  resources :projects
+  resources :projects do
+    member do
+      post "invite_user"
+    end
+  end
   resources :holidays
   resources :trips
   resources :expenses

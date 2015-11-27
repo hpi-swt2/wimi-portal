@@ -1,6 +1,13 @@
+<div class="col-md-12">
+  <% current_user.notifications.each do |notification| %>
+    <div class="col-md-8 flash-message">
+      <div class="alert alert-warning">
+        <%= notification.message %>
+        <% notification.destroy %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-  <h1>Welcome#index</h1>
-  <p>Find me in app/views/welcome/index.html.erb</p>
-
-
-
+<h1>Welcome#index</h1>
+<p>Find me in app/views/welcome/index.html.erb</p>

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user]
 
   def index
     @projects = Project.all
@@ -38,6 +38,12 @@ class ProjectsController < ApplicationController
     @project.destroy
     flash[:success] = 'Project was successfully destroyed.'
     redirect_to projects_url
+  end
+
+  def invite_user
+    @project.add_user params[:invite_user][:email]
+    flash[:success] = "Der Benutzer wurde erfolgreich zum Projekt hinzugefügt."
+    render :show
   end
 
   private
