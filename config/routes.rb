@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :expenses
   resources :holidays
 
-  resources :project_applications, only: [:index, :destroy] do
+  resources :project_applications, only: [:index] do
     member do
       get 'accept'
       get 'decline'

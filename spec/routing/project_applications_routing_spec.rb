@@ -7,32 +7,20 @@ RSpec.describe ProjectApplicationsController, type: :routing do
       expect(:get => "/project_applications").to route_to("project_applications#index")
     end
 
-    it "routes to #new" do
-      expect(:get => "/project_applications/new").to route_to("project_applications#new")
-    end
-
-    it "routes to #show" do
-      expect(:get => "/project_applications/1").to route_to("project_applications#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/project_applications/1/edit").to route_to("project_applications#edit", :id => "1")
-    end
-
     it "routes to #create" do
-      expect(:post => "/project_applications").to route_to("project_applications#create")
+      expect(:post => "/project_applications/apply/project_1").to route_to("project_applications#create", :id => "1")
     end
 
-    it "routes to #update via PUT" do
-      expect(:put => "/project_applications/1").to route_to("project_applications#update", :id => "1")
+    it "routes to #accept" do
+      expect(:get => "/project_applications/1/accept").to route_to("project_applications#accept", :id => "1")
     end
 
-    it "routes to #update via PATCH" do
-      expect(:patch => "/project_applications/1").to route_to("project_applications#update", :id => "1")
+    it "routes to #decline" do
+      expect(:get => "/project_applications/1/decline").to route_to("project_applications#decline", :id => "1")
     end
 
-    it "routes to #destroy" do
-      expect(:delete => "/project_applications/1").to route_to("project_applications#destroy", :id => "1")
+    it "routes to #reapply" do
+      expect(:get => "/project_applications/1/reapply").to route_to("project_applications#reapply", :id => "1")
     end
 
   end
