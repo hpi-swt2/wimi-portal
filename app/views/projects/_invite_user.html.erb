@@ -13,7 +13,7 @@
             </div>
           </div>
         </div>
-        <%= form_for :invite_user, url: invite_user_project_path do |f| %>
+        <%= form_for :invite_user, url: invite_user_project_path(@project) do |f| %>
           <div class="modal-body clearfix" >
             <div class="row invite-colleague">
               <div class="col-sm-3">
