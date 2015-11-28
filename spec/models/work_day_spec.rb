@@ -29,4 +29,9 @@ describe WorkDay, type: :model do
       FactoryGirl.build(:work_day, end_time: nil).should_not be_valid
     end
 
+    it 'returns the duration of a work_day' do
+      workday = FactoryGirl.create(:work_day) #use the standard values
+      workday.duration.should == 30
+    end
+
 end
