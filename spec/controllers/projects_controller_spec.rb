@@ -163,9 +163,13 @@ RSpec.describe ProjectsController, type: :controller do
     it 'adds the user to the project if a valid email was given' do
       project = Project.create! valid_attributes
       user = FactoryGirl.create(:user)
+      expect(Notification.all.size).to eq(0)
       expect {
         put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
       }.to change(project.users, :count).by(1)
+      expect(Notification.all.size).to eq 1
+      expect(Notification.first.user).to eq user
+      expect(Notification.first.message).to have_content project.title
     end
 
     it 'does not add the user to the project if an invalid email was given' do
@@ -174,6 +178,17 @@ RSpec.describe ProjectsController, type: :controller do
       expect {
         put :invite_user, { id: project.to_param, :invite_user => { :email => 'invalid@email' } }, valid_session
       }.to change(project.users, :count).by(0)
+    end
+  end
+
+  describe 'GET #typeahead' do
+    it 'returns the query result as json' do
+      project = Project.create! valid_attributes
+      matching_user = User.create(name: 'Max Mueller', email: 'max.mueller@student.hpi.de')
+      not_matching_user = User.create(name: 'Not Matching', email: 'not.matching@email.de')
+      get :typeahead, { query: 'hpi' }, valid_session
+      expect(response.body).to have_content matching_user.email
+      expect(response.body).to_not have_content not_matching_user.email
     end
   end
 end

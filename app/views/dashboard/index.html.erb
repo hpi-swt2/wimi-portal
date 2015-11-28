@@ -3,6 +3,17 @@
   <h1> Dashboard </h1>
 </div>
 
+<div class="col-md-12">
+  <% current_user.notifications.each do |notification| %>
+    <div class="col-md-8 flash-message">
+      <div class="alert alert-warning">
+        <%= notification.message %>
+        <% notification.destroy %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <h3> My Projects </h3>
 <table class="table table-striped">
   <thead>
