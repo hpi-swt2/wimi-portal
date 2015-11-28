@@ -8,7 +8,8 @@ RSpec.describe 'work_days/edit.html.erb', type: :view do
       :break => 30,
       :end_time => Date.today.end_of_day,
       :attendance => 'K',
-      :notes => 'MyString'
+      :notes => 'MyString',
+      :user_id => 1
     ))
   end
 
