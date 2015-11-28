@@ -11,7 +11,7 @@
     <tr>
         <th><%= model_class.human_attribute_name(:date) %></th>
         <th><%= model_class.human_attribute_name(:start_time) %></th>
-        <th><%= model_class.human_attribute_name(:brake) %></th>
+        <th><%= model_class.human_attribute_name(:break) %></th>
         <th><%= model_class.human_attribute_name(:end_time) %></th>
         <th><%= model_class.human_attribute_name(:duration) %></th>
         <th>*</th>
@@ -25,7 +25,7 @@
       <tr>
           <td><%= work_day.date %></td>
           <td><%= work_day.start_time.strftime('%H:%M') %></td>
-          <td><%= work_day.brake %>min</td>
+          <td><%= work_day.break %>min</td>
           <td><%= work_day.end_time.strftime('%H:%M') %></td>
           <td><%= work_day.duration %>min</td>
           <td><%= work_day.attendance %></td>

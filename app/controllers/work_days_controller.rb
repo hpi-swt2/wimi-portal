@@ -73,7 +73,7 @@ class WorkDaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_day_params
-      params.require(:work_day).permit(:date, :start_time, :brake, :end_time, :duration, :attendance, :notes, :user_id)
+      params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id)
     end
 
     def all_for(year, month)

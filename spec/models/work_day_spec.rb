@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe WorkDay, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+    it "has a valid date"
+    it "has a valid user_id"
+    it "is invalid without a start_time"
+    it "is invalid without a break"
+
 end
