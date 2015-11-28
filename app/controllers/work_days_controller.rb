@@ -7,9 +7,9 @@ class WorkDaysController < ApplicationController
     date = Date.today
     #redirect_to work_days_path(month: date.month, year: date.year) unless (params.require(:month).permitted? && params.require(:year).permitted?)
     if params.has_key?(:month) && params.has_key?(:year)
-      month = params[:month].to_i
-      year = params[:year].to_i
-      @work_days = all_for(year, month)
+      @month = params[:month].to_i
+      @year = params[:year].to_i
+      @work_days = all_for(@year, @month)
     else
       redirect_to work_days_path(month: date.month, year: date.year)
     end
