@@ -39,6 +39,10 @@
         <%= f.label :notes, class: "control-label"  %><br>
         <%= f.text_field :notes, class: "form-control" %>
       </div>
+      <div class="form-group">
+          <%= f.label :project, class: "control-label" %><br>
+          <%= collection_select :work_day, :project_id, current_user.projects, :id, :title, {:selected => @work_day.project_id}, class: "form-control"%>
+      </div>
       <%= f.submit nil, class:"btn btn-primary"%>
   </div>
 </div>
