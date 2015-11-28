@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  root 'dashboard#index'
+  get 'dashboard', to: 'dashboard#index'
+
   resources :publications
   resources :projects do
     member do
@@ -16,7 +19,4 @@ Rails.application.routes.draw do
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
-
-  # You can have the root of your site routed with "root"
-  root 'welcome#index'
 end
