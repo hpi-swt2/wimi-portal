@@ -4,6 +4,6 @@ class WorkDay < ActiveRecord::Base
 	validates :break, numericality: true
 
 	def duration
-        return (end_time - start_time).to_i / 60 - break
+        return (end_time - start_time).to_i / 60 - self.break
     end
 end
