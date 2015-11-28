@@ -4,9 +4,15 @@ class WorkDaysController < ApplicationController
   # GET /work_days
   # GET /work_days.json
   def index
-    month = params[:month].to_i
-    year = params[:year].to_i
-    @work_days = all_for(year, month)
+    date = Date.today
+    #redirect_to work_days_path(month: date.month, year: date.year) unless (params.require(:month).permitted? && params.require(:year).permitted?)
+    if params.has_key?(:month) && params.has_key?(:year)
+      month = params[:month].to_i
+      year = params[:year].to_i
+      @work_days = all_for(year, month)
+    else
+      redirect_to work_days_path(month: date.month, year: date.year)
+    end
   end
 
   # GET /work_days/1
@@ -17,6 +23,7 @@ class WorkDaysController < ApplicationController
   # GET /work_days/new
   def new
     @work_day = WorkDay.new
+    p @work_day
   end
 
   # GET /work_days/1/edit
@@ -75,6 +82,7 @@ class WorkDaysController < ApplicationController
     def work_day_params
       params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id)
     end
+
 
     def all_for(year, month)
         date = Date.new(year, month)
