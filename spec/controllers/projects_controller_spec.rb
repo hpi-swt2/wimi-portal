@@ -158,4 +158,22 @@ RSpec.describe ProjectsController, type: :controller do
       expect(response).to redirect_to(projects_url)
     end
   end
+
+  describe 'POST #invite_user' do
+    it 'adds the user to the project if a valid email was given' do
+      project = Project.create! valid_attributes
+      user = FactoryGirl.create(:user)
+      expect {
+        put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
+      }.to change(project.users, :count).by(1)
+    end
+
+    it 'does not add the user to the project if an invalid email was given' do
+      project = Project.create! valid_attributes
+      user = FactoryGirl.create(:user)
+      expect {
+        put :invite_user, { id: project.to_param, :invite_user => { :email => 'invalid@email' } }, valid_session
+      }.to change(project.users, :count).by(0)
+    end
+  end
 end
