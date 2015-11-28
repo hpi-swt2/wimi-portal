@@ -30,11 +30,11 @@
                 <span class='label label-success'><%= project_application.status %></span>
               <% when 'declined' %>
                 <%= link_to t('.reapply', :default => t('helpers.links.refused_reapply')),
-                  project_applications_path(:project => project_application.project), :method => :post, :class => 'btn btn-danger btn-xs' %>
+                  reapply_project_application_path(project_application), :class => 'btn btn-danger btn-xs' %>
               <% end %>
             <% else %>
               <%= link_to t('.apply', :default => t('helpers.links.apply')),
-                project_applications_path(:project => project), :method => :post, :class => 'btn btn-primary btn-xs' %>
+                apply_project_applications_path(id: project.id), :method => :post, :class => 'btn btn-primary btn-xs' %>
             <% end %>
           <% end %>
           <% if can? :edit, project%>
@@ -43,10 +43,10 @@
           <% end %>
           <% if can? :destroy, project %>
             <%= link_to t('.destroy', :default => t('helpers.links.destroy')),
-                      project_path(project),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
+              project_path(project),
+              :method => :delete,
+              :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?')) },
+              :class => 'btn btn-xs btn-danger' %>
           <% end %>
         </td>
       </tr>

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  before_create :default_values
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :holiday
@@ -32,9 +32,10 @@ class User < ActiveRecord::Base
     self.last_name = last
   end
 
-  Roles = [ :superadmin, :admin, :wimi, :hiwi, :user, :default ]
+  enum role: [ :superadmin, :admin, :wimi, :hiwi, :user ]
 
-  def is?( requested_role )
-    self.role == requested_role.to_s
-  end
+  private
+    def default_values
+      self.role ||= :user
+    end
 end

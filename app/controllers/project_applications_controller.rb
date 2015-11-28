@@ -1,5 +1,5 @@
 class ProjectApplicationsController < ApplicationController
-  before_action :set_project_application, only: [:show, :edit, :update, :destroy]
+  before_action :set_project_application, only: [:show, :edit, :destroy, :accept, :decline, :reapply]
 
   # GET /project_applications
   # GET /project_applications.json
@@ -22,31 +22,21 @@ class ProjectApplicationsController < ApplicationController
   end
 
   def accept
-    @project_application = ProjectApplication.find(params[:id])
-    @project_application.status = :accepted
-    @project_application.save()
+    @project_application.update(status: :accepted)
     @user = @project_application.user
-    @user.role = :hiwi
+    @user.update(role: :hiwi)
     @user.projects << @project_application.project
-    @user.save()
-
-    redirect_to projects_path
+    redirect_to :back
   end
 
   def decline
-    @project_application = ProjectApplication.find(params[:id])
-    @project_application.status = :declined
-    @project_application.save()
-
-    redirect_to projects_path
+    @project_application.update(status: :declined)
+    redirect_to :back
   end
 
   def reapply
-    @project_application = ProjectApplication.find(params[:id])
-    @project_application.status = :pending
-    @project_application.save()
-
-    redirect_to projects_path
+    @project_application.update(status: :pending)
+    redirect_to :back
   end
 
   # POST /project_applications
@@ -54,7 +44,7 @@ class ProjectApplicationsController < ApplicationController
   def create
     @project_application = ProjectApplication.new
     @project_application.user_id = current_user.id
-    @project_application.project_id = params[:project]
+    @project_application.project_id = params[:id]
 
     respond_to do |format|
       if @project_application.save
@@ -67,26 +57,12 @@ class ProjectApplicationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /project_applications/1
-  # PATCH/PUT /project_applications/1.json
-  def update
-    respond_to do |format|
-      if @project_application.update(project_application_params)
-        format.html { redirect_to @project_application, notice: 'Project application was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project_application }
-      else
-        format.html { render :edit }
-        format.json { render json: @project_application.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /project_applications/1
   # DELETE /project_applications/1.json
   def destroy
     @project_application.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project application was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Project application was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

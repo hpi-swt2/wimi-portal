@@ -22,6 +22,8 @@ en:
       reapply: "Reapply"
       refused_reapply: "Refused - Reapply"
       pending_cancel: "Pending - Cancel"
+      accept_application: "Accept Application"
+      decline_application: "Decline Application"
     application:
       part_of_project: "You are part of this project."
       cancelApp: "Cancel Application"

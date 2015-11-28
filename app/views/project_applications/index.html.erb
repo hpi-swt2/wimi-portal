@@ -37,7 +37,7 @@
                 </td>
                 <td>
                   <%= link_to t('.reapply', :default => t("helpers.links.reapply")),
-                              project_applications_path(:project => project_application.project), :method => :post, :class => 'btn btn-primary btn-xs' %>
+                              reapply_project_application_path(project_application), :class => 'btn btn-primary btn-xs' %>
                 </td>
           <% end %>
       </tr>
