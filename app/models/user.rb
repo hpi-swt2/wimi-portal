@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :holiday
   has_many :expense
   has_many :project_applications, dependent: :destroy
-  has_many :trip
+  has_many :trips
   # has_many :chairs_administrators
   # has_many :chairs, through: :chairs_administrators
   # has_many :chairs_wimis

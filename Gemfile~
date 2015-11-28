@@ -55,7 +55,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.2'
-  gem 'capybara', '~> 2.5'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
 end
@@ -76,11 +75,13 @@ group :development do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+
+  # Date Validator
+  gem 'validates_timeliness', '~> 3.0'
 end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
-  gem 'simplecov', :require => false
   # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
   #gem 'webmock'
 end
