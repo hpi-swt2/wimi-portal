@@ -13,7 +13,7 @@ describe WorkDay, type: :model do
 
     it 'is invalid without a user_id that is an integer' do
       FactoryGirl.build(:work_day, user_id: nil).should_not be_valid
-      FactoryGirl.build(:work_day, user_id: '1').should_not be_valid
+      FactoryGirl.build(:work_day, user_id: 'invalid').should_not be_valid
     end
 
     it 'is invalid without a start_time' do
@@ -22,7 +22,7 @@ describe WorkDay, type: :model do
 
     it 'is invalid without a break that is an integer' do
       FactoryGirl.build(:work_day, break: nil).should_not be_valid
-      FactoryGirl.build(:work_day, break: '1').should_not be_valid
+      FactoryGirl.build(:work_day, break: 'invalid').should_not be_valid
     end
 
     it 'is invalid without an end_time' do
