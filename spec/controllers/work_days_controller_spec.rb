@@ -56,7 +56,7 @@ describe WorkDaysController, type: :controller do
   describe "GET #new" do
     it "assigns a new work_day as @work_day" do
       get :new, {}, valid_session
-      #expect(assigns(:work_day)).to be_a_new(WorkDay)
+      expect(assigns(:work_day)).to be_a_new(WorkDay)
       #TODO for some reason the spec does not work but when doing it yourself it works
     end
   end
