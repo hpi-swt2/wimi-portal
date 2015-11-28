@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :publications
   resources :projects do
     member do
-      post "invite_user"
+      post 'invite_user'
     end
   end
   resources :holidays
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'user_profile#show'
   patch '/profile', to: 'user_profile#update'
+
+  get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
 

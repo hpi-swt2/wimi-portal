@@ -53,6 +53,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-typeahead-rails (0.10.5.1)
+      railties (>= 3.0)
     builder (3.2.2)
     byebug (6.0.2)
     cancancan (1.12.0)
@@ -202,6 +204,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    searchlight (4.1.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -255,6 +258,7 @@ DEPENDENCIES
   annotate
   better_errors (~> 2.1.1)
   binding_of_caller (~> 0.7.2)
+  bootstrap-typeahead-rails
   byebug
   cancancan
   capybara
@@ -278,6 +282,7 @@ DEPENDENCIES
   rubocop (~> 0.29.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  searchlight
   simplecov
   spring
   sqlite3

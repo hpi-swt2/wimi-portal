@@ -41,9 +41,20 @@ class ProjectsController < ApplicationController
   end
 
   def invite_user
-    @project.add_user params[:invite_user][:email]
-    flash[:success] = "Der Benutzer wurde erfolgreich zum Projekt hinzugefügt."
-    render :show
+    user = User.find_by_email params[:invite_user][:email]
+    if user.nil?
+      flash[:error] = "Der Benutzer existiert nicht"
+      redirect_to @project
+    else
+      @project.add_user user
+      flash[:success] = "Der Benutzer wurde erfolgreich zum Projekt hinzugefügt."
+      redirect_to @project
+    end
+  end
+
+  def typeahead
+    @search  = UserSearch.new(typeahead: params[:query])
+    render json: @search.results
   end
 
   private
