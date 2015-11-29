@@ -33,9 +33,6 @@ gem 'airbrake'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-# Use for Acceptance Tests
-gem 'capybara'
-
 # Datetime validations
 gem 'validates_timeliness'
 
@@ -67,6 +64,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.2'
+  gem 'capybara', '~> 2.5'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
 end

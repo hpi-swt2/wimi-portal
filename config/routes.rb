@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  root 'dashboard#index'
+  get 'dashboard', to: 'dashboard#index'
+
   resources :publications
   resources :projects
   resources :holidays
@@ -10,7 +13,4 @@ Rails.application.routes.draw do
   patch '/profile', to: 'user_profile#update'
 
   devise_for :users
-
-  # You can have the root of your site routed with "root"
-  root 'welcome#index'
 end
