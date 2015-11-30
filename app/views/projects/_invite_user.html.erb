@@ -3,35 +3,20 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Mitarbeiter einladen </h4>
+        <h4 class="modal-title" id="myModalLabel"> Jemanden in das Project "<%= @project.title %>" einladen</h4>
       </div>
       <div class="modal-body" >
         <div class="row invite-colleague">
           <div class="col-sm-12">
             <div class="description-text">
-              Bitte wählen Sie den einzuladenden Mitarbeiter aus
-            </div>
-          </div>
-        </div>
-        <%= form_for :invite_user, url: invite_user_project_path(@project) do |f| %>
-          <div class="modal-body clearfix" >
-            <div class="row invite-colleague">
-              <div class="col-sm-2">
-                <%= label_tag "E-Mail" %>
-              </div>
-              <div class="col-sm-10">
-                <%= f.text_field :email, { class: "typeahead form-control", placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
-              </div>
-            </div>
-          </div>
-          <%= f.submit "Mitarbeiter einladen", class: "btn btn-primary" %>
-        <% end %>
-        <div class="modal-footer">
-          <div class="row invite-colleague">
-            <div class="col-sm-12">
-              <div class="description-text">
-                Ihr(e) Kollege/Kollegin wird zum Projekt hinzugefügt und erhält eine entsprechende Benachrichtigung beim nächsten Login.
-              </div>
+              Einladung senden an:
+              <%= form_for :invite_user, url: invite_user_project_path(@project) do |f| %>
+                <div class="modal-body clearfix" >
+                  <%= f.text_field :email, { class: "typeahead form-control", size: 100, placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
+                </div>
+                <%= f.submit "Senden", class: "btn btn-primary" %>
+                <span class="btn btn-default", data-dismiss="modal">Abbrechen</span>
+              <% end %>
             </div>
           </div>
         </div>
