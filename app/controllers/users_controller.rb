@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to current_user
     else
-      redirect_to root_path
+      redirect_to edit_user_path
     end
   end
 
