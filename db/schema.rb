@@ -16,6 +16,10 @@ ActiveRecord::Schema.define(version: 20151124163045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "hstore"
+
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
     t.text     "purpose"
