@@ -25,21 +25,12 @@ class HolidaysController < ApplicationController
   # POST /holidays.json
   def create
     @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
-    #current_user.remaining_leave_this_year = current_user.remaining_leave_this_year - @holiday.duration
-
     respond_to do |format|
       if @holiday.save
         current_user.update_attribute(:remaining_leave, current_user.remaining_leave - @holiday.duration)
         if current_user.remaining_leave_last_year >= 0
           current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year - @holiday.duration)
         end
-        #if((current_user.remaining_leave_this_year - @holiday.duration_next_year) < 0)
-        #    negativ = current_user.remaining_leave_this_year - @holiday.duration_next_year
-        #    current_user.update_attribute(:remaining_leave_next_year, current_user.remaining_leave_next_year + negativ)
-        #    current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year - (@holiday.duration_this_year + negativ)
-        #else
-        #    current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year - @holiday.duration_next_year)
-        #end
         format.html { redirect_to @holiday, notice: 'Holiday was successfully created.' }
         format.json { render :show, status: :created, location: @holiday }
       else
