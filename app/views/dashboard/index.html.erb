@@ -8,8 +8,10 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= "ID" %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= "Accessibility" %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -19,6 +21,8 @@
       <tr>
         <td><%= link_to project.id, project_path(project) %></td>
         <td><%= link_to project.title, project %></td>
+        <td><%= project.status ? "Active" : "Inactive" %></td>
+        <td><%= project.status ? "Public" : "Private" %></td>
         <td><%=l project.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
