@@ -8,14 +8,15 @@ class User < ActiveRecord::Base
   has_many :trips
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
+  has_one :wimi
 
   def name
-    "#{first} #{last_name}"
+    "#{first_name} #{last_name}"
   end
 
   def name=(fullname)
     first, last = fullname.split(' ')
-    self.first = first
+    self.first_name = first
     self.last_name = last
   end
 end
