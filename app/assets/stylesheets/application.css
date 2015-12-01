@@ -14,3 +14,5 @@
  *= require_self
  *= require devise_bootstrap_views
  */
+
+h1 span { font-size:20px; }
