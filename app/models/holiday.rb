@@ -11,6 +11,14 @@ class Holiday < ActiveRecord::Base
     start.business_days_until(self.end+1)
   end
 
+  def duration_last_year
+    if(start <= Date.new(Date.today.year-1, 12, 31))
+      start.business_days_until(Date.new(Date.today.year-1, 12, 31))
+    else
+      0
+    end
+  end
+
   private
 
   def date_has_valid_format?
@@ -29,7 +37,7 @@ class Holiday < ActiveRecord::Base
   end
 
   def start_before_end?
-  	if !(self.end > self.start)
+  	if !(self.end >= self.start)
   	  errors.add(:start, "must be before #{self.end}")
   	end
   end

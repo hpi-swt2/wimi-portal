@@ -50,6 +50,9 @@ gem 'jquery-ui-rails'
 gem 'cancancan'
 # for nested forms
 #gem 'cocoon'
+gem 'business_time'
+gem 'holidays'
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -81,8 +84,6 @@ end
 group :test do
   gem "codeclimate-test-reporter", require: nil
   gem 'simplecov', :require => false
-  gem 'business_time'
-  gem 'holidays'
   # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
   #gem 'webmock'
 end

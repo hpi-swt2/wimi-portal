@@ -50,6 +50,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-datepicker-rails (1.5.0)
+      railties (>= 3.0)
     builder (3.2.2)
     business_time (0.7.4)
       activesupport (>= 3.1.0)
@@ -245,6 +247,7 @@ DEPENDENCIES
   airbrake
   better_errors (~> 2.1.1)
   binding_of_caller (~> 0.7.2)
+  bootstrap-datepicker-rails
   business_time
   byebug
   cancancan

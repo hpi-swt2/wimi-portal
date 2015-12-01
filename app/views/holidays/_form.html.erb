@@ -25,14 +25,14 @@
   <div class="control-group">
     <%= f.label :start, :class => 'control-label' %>
     <div class="controls">
-      <%= f.date_field :start, :class => 'form-control' %>
+      <%= f.text_field(:start, class: 'js-datepicker form-control', 'data-provide': "datepicker", 'data-date-format': 'dd.mm.yyyy', 'data-date-orientation':"bottom") %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
     <%= f.label :end, :class => 'control-label' %>
     <div class="controls">
-      <%= f.date_field :end, :class => 'form-control' %>
+      <%= f.text_field(:end, class: 'js-datepicker form-control', 'data-provide': "datepicker", 'data-date-format': 'dd.mm.yyyy', 'data-date-orientation':"bottom") %>
     </div>
     <%= error_span(@holiday[:end]) %>
   </div>

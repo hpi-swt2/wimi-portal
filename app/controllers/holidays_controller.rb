@@ -10,6 +10,9 @@ class HolidaysController < ApplicationController
   # GET /holidays/1
   # GET /holidays/1.json
   def show
+    unless(Holiday.find(params[:id]).user_id == current_user.id)
+      redirect_to holidays_path
+    end
   end
 
   # GET /holidays/new
@@ -28,10 +31,13 @@ class HolidaysController < ApplicationController
     respond_to do |format|
       if @holiday.save
         current_user.update_attribute(:remaining_leave, current_user.remaining_leave - @holiday.duration)
-        if current_user.remaining_leave_last_year >= 0
+        if current_user.remaining_leave_last_year > 0
           current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year - @holiday.duration)
+          if current_user.remaining_leave_last_year < 0
+            current_user.update_attribute(:remaining_leave_last_year, 0)
+          end
         end
-        format.html { redirect_to @holiday, notice: 'Holiday was successfully created.' }
+        format.html { redirect_to current_user, notice: 'Holiday was successfully created.' }
         format.json { render :show, status: :created, location: @holiday }
       else
         format.html { render :new }
@@ -59,9 +65,7 @@ class HolidaysController < ApplicationController
   def destroy
     if @holiday.end > Date.today
       current_user.update_attribute(:remaining_leave, current_user.remaining_leave + @holiday.duration)
-      if current_user.remaining_leave_last_year >= 0
-        current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year + @holiday.duration)
-      end
+      current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year + @holiday.duration_last_year)
     end
     @holiday.destroy
     respond_to do |format|

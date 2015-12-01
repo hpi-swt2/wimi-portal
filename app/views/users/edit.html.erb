@@ -1,8 +1,42 @@
-<%- model_class = User -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
-</div>
-<div class = "page-header">
-  <h1><%=t '.title', default: [:'helpers.titles.edit', 'Holidays for %{model}'], model: model_class.model_name.human.titleize %></h1>
-</div>
-<%= render :partial => 'form' %>
+<%= form_for(@user) do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Personenbezogene Daten</h4>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <%= f.label "Vorname", class: 'control-label' %>
+        <%= f.text_field :first, value: @user.first, class: 'form-control' %>
+        <%= error_span(@user[:first]) %>
+      </div>
+      <div class="form-group">
+        <%= f.label "Nachname", class: 'control-label' %>
+        <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
+        <%= error_span(@user[:last_name]) %>
+      </div>
+      <div class="form-group">
+        <%= f.label "Wohnort", class: 'control-label' %>
+        <%= f.text_field :residence, value: @user.residence, class: 'form-control' %>
+        <%= error_span(@user[:residence]) %>
+      </div>
+      <div class="form-group">
+        <%= f.label "Straße", class: 'control-label' %>
+        <%= f.text_field :street, value: @user.street, class: 'form-control' %>
+        <%= error_span(@user[:street]) %>
+      </div>
+      <div class="form-group">
+        <%= f.label "Abteilung", class: 'control-label' %>
+        <%= f.select :division, User::DIVISIONS, {selected: current_user.division}, {class: 'form-control'} %>
+        <%= error_span(@user[:division]) %>
+      </div>
+      <div class="form-group">
+        <%= f.label "Personalnummer", class: 'control-label' %>
+        <%= f.text_field :number, value: @user.number, class: 'form-control' %>
+        <%= error_span(@user[:number]) %>
+      </div>
+      <%= f.submit nil, class: 'btn btn-primary' %>
+        <%= link_to "Abbrechen", current_user, class: "btn btn-default" %>
+    </div>
+  </div>
+
+<% end %>
