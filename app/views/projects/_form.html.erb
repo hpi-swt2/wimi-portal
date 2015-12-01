@@ -18,7 +18,7 @@
   <div class="control-group">
     <%= f.label :title, :class => 'control-label' %>
     <div class="controls col-md-12">
-      <div class="col-md-4">
+      <div class="col-md-5" style="margin-left: -5px">
       <%= f.text_field :title, :class => 'form-control' %></div>
     </div>
     <%= error_span(@project[:title]) %>
@@ -49,8 +49,12 @@
 
   <div class="control-group">
     <%= f.label :users, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.collection_check_boxes(:user_ids, User.all, :id, :email) %>
+    <div class="checkbox">
+      <%= f.collection_check_boxes(:user_ids, User.all, :id, :email) do |b|%>
+        <div clas="checkbox">
+        <%= b.label(:"data-value" => b.value) { b.check_box + b.text} %>
+        </div>
+      <% end %>
     </div>
     <%= error_span(@project[:users]) %>
   </div>

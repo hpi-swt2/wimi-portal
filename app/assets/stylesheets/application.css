@@ -16,3 +16,7 @@
  */
 
 h1 span { font-size:20px; }
+
+.checkbox label {
+    margin-bottom: 10px;
+}

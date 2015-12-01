@@ -16,8 +16,8 @@
   <tbody>
   <% @projects.each do |project| %>
       <tr>
-        <td><%= link_to project.id, project_path(project) %></td>
-        <td><%= project.title %></td>
+        <td><%= link_to project.id, project %></td>
+        <td><%= link_to project.title, project %></td>
         <td><%= project.status ? "Active" : "Inactive" %></td>
         <td><%= project.public ? "Public" : "Private" %></td>
         <td><%=l project.created_at %></td>
