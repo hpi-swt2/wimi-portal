@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :holidays
   resources :trips
   resources :expenses
-  
+
   devise_for :users
 
   # You can have the root of your site routed with "root"
