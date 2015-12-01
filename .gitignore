@@ -41,3 +41,5 @@ bower.json
 .powenv
 /nbproject/private/
 /config/database.yml
+
+.idea

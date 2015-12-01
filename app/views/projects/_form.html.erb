@@ -23,6 +23,29 @@
     <%= error_span(@project[:title]) %>
   </div>
 
+
+    <div class="control-group">
+      <%= f.label :status, :class => 'control-label' %>
+      <div class="radio">
+        <div> <div class="col-md-1"> <%= label :status, "active"%></div>
+          <div class="col-md-1"> <%= f.radio_button :status, true, :value => true%></div></div>
+        <div><div class="col-md-1"><%= label :status, "inactive"%></div>
+          <div class="col-md-1"> <%= f.radio_button :status, false, :value => false%></div></div>
+      </div>
+      <%= error_span(@project[:status]) %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :public, :class => 'control-label' %>
+      <div class="radio">
+        <div> <div class="col-md-1"> <%= label :public, "public"%></div>
+         <div class="col-md-1"> <%= f.radio_button :public, true, :value => true%></div></div>
+        <div><div class="col-md-1"><%= label :public, "private"%></div>
+         <div class="col-md-1"> <%= f.radio_button :public, false, :value => false%></div></div>
+      </div>
+      <%= error_span(@project[:public]) %>
+    </div>
+
   <div class="control-group">
     <%= f.label :users, :class => 'control-label' %>
     <div class="controls">
