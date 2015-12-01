@@ -8,7 +8,7 @@
     <th><%= model_class.human_attribute_name(:id) %></th>
     <th><%= model_class.human_attribute_name(:title) %></th>
     <th><%= model_class.human_attribute_name(:status) %></th>
-    <th><%= model_class.human_attribute_name(:public) %></th>
+    <th><%= "Accessibility" %></th>
     <th><%= model_class.human_attribute_name(:created_at) %></th>
     <th><%=t '.actions', :default => t("helpers.actions") %></th>
   </tr>
@@ -18,8 +18,16 @@
       <tr>
         <td><%= link_to project.id, project_path(project) %></td>
         <td><%= project.title %></td>
-        <td><%= project.status %></td>
-        <td><%= project.public %></td>
+        <% if project.status %>
+            <td>active</td>
+        <% else %>
+            <td>inactive</td>
+        <%end%>
+        <% if project.public %>
+            <td>public</td>
+        <% else %>
+            <td>private</td>
+        <%end%>
         <td><%=l project.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

@@ -17,15 +17,16 @@
 
   <div class="control-group">
     <%= f.label :title, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :title, :class => 'form-control' %>
+    <div class="controls col-md-12">
+      <div class="col-md-4">
+      <%= f.text_field :title, :class => 'form-control' %></div>
     </div>
     <%= error_span(@project[:title]) %>
   </div>
 
 
     <div class="control-group">
-      <%= f.label :status, :class => 'control-label' %>
+      <%= f.label :status, "Status",  :class => 'control-label' %>
       <div class="radio">
         <div> <div class="col-md-1"> <%= label :status, "active"%></div>
           <div class="col-md-1"> <%= f.radio_button :status, true, :value => true%></div></div>
@@ -36,7 +37,7 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :public, :class => 'control-label' %>
+      <%= f.label :public, "Accessibility",  :class => 'control-label' %>
       <div class="radio">
         <div> <div class="col-md-1"> <%= label :public, "public"%></div>
          <div class="col-md-1"> <%= f.radio_button :public, true, :value => true%></div></div>
