@@ -1,4 +1,5 @@
 <p></p>
+<h3><%=current_user.name %></h3><br>
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
@@ -11,8 +12,6 @@
     </div>
   </div>
   <div class="panel-body">
-    <p>Vorname: <%= current_user.first %></p>
-    <p>Name: <%= current_user.last_name %></p>
     <p>Wohnort: <%= current_user.residence %></p>
     <p>Straße: <%= current_user.street %></p>
     <p>Abteilung: <%= current_user.division %></p>
