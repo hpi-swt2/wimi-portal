@@ -35,7 +35,7 @@
       <%= f.text_field(:end, class: 'js-datepicker form-control', 'data-provide': "datepicker", 'data-date-format': 'dd.mm.yyyy', 'data-date-orientation':"bottom") %>
     </div>
     <%= error_span(@holiday[:end]) %>
-  </div>
+  </div><br>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
