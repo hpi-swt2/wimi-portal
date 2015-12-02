@@ -15,16 +15,18 @@
     <div class="panel-heading">
       <h4>Time Sheet</h4>
     </div>
-    <div class="form-group">
-      <%= f.label :salary, class: "control-label" %><br>
-      <%= f.number_field :salary %>
-      <%= f.select(:salary_is_per_month, [['monthly', true], ['hourly', false]]) %>
+    <div class="panel-body">
+      <div class="form-group">
+        <%= f.label :salary, class: "control-label" %><br>
+        <%= f.number_field :salary, class: "form-control" %>
+        <%= f.select :salary_is_per_month, [['monthly', true], ['hourly', false]], {}, {class: "form-control"} %>
+      </div>
+      <div class="form-group">
+        <%= f.label :workload, class: "control-label" %><br>
+        <%= f.number_field :workload, class: "form-control" %>
+        <%= f.select :workload_is_per_month, [['monthly', true], ['weekly', false]], {}, {class: "form-control"} %>
+      </div>
+      <%= f.submit nil, class:"btn btn-primary"%>
     </div>
-    <div class="form-group">
-      <%= f.label :workload, class: "control-label" %><br>
-      <%= f.number_field :workload %>
-      <%= f.select(:salary_is_per_month, [['monthly', true], ['weekly', false]]) %>
-    </div>
-    <%= f.submit nil, class:"btn btn-primary"%>
   </div>
 <% end %>
