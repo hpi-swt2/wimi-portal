@@ -62,6 +62,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
 
+  validates :personnel_number, numericality: { only_integer: true }
+
   def name
     "#{first} #{last_name}"
   end

@@ -8,14 +8,14 @@ RSpec.describe UsersController, type: :controller do
 =end
 
   let(:valid_attributes) {
-    { password: '12345678', email: 'person@example.com', number: '1' }
+    { password: '12345678', email: 'person@example.com', personnel_number: '1' }
   }
   let(:valid_attributes2) {
-    { password: '12345678', email: 'person2@example.com', number: '2' }
+    { password: '12345678', email: 'person2@example.com', personnel_number: '2' }
   }
 
   let(:invalid_attributes) {
-    { password: '87654321', email: 'person2@example.com', number: 'a' }
+    { password: '87654321', email: 'person2example.com', personnel_number: 'a' }
   }
 
   let(:valid_session) { {} }
@@ -39,7 +39,7 @@ RSpec.describe UsersController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        { password: '87654321', email: 'person2@example.com', number: '2' }
+        { password: '87654321', email: 'person2@example.com' }
       }
 
       it "updates the requested user" do
