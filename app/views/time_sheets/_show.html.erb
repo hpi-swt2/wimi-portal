@@ -1,0 +1,15 @@
+<div class="col-sm-6">
+  <p>
+    <strong>Salary:</strong>
+    <%= @time_sheet.salary %>
+  </p>
+
+  <p>
+    <strong>Workload:</strong>
+    <%= @time_sheet.workload %>
+  </p>
+</div>
+<div class="col-sm-6 text text-right">
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+      edit_time_sheet_path(@time_sheet), :class => 'btn btn-default btn-xs' %>
+</div>
