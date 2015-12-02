@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
   it "has a valid factory" do
   	expect(FactoryGirl.create(:user)).to be_valid
   end
-  
+
   it "returns the full name of the user" do
     @user = FactoryGirl.create(:user)
     expect(@user.name).to eq('John Doe')
