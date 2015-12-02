@@ -46,9 +46,14 @@ class ProjectsController < ApplicationController
       flash[:error] = 'Der Benutzer existiert nicht'
       redirect_to @project
     else
-      @project.add_user user
-      flash[:success] = 'Der Benutzer wurde erfolgreich zum Projekt hinzugefügt.'
-      redirect_to @project
+      if @project.users.include? user
+        flash[:error] = 'Der Benutzer ist bereits Mitglied dieses Projekts'
+        redirect_to @project
+      else
+        @project.add_user user
+        flash[:success] = 'Der Benutzer wurde erfolgreich zum Projekt hinzugefügt.'
+        redirect_to @project
+      end
     end
   end
 

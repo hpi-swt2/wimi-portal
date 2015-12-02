@@ -6,12 +6,6 @@ ready = ->
     queryTokenizer: Bloodhound.tokenizers.whitespace
     remote: url: '../projects/typeahead/%QUERY')
   promise = engine.initialize()
-  promise.done(->
-    console.log 'success!'
-    return
-  ).fail ->
-    console.log 'err!'
-    return
   $('.typeahead').typeahead null,
     name: 'engine'
     displayKey: 'email'

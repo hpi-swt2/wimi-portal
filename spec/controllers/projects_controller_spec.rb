@@ -179,6 +179,15 @@ RSpec.describe ProjectsController, type: :controller do
         put :invite_user, { id: project.to_param, :invite_user => { :email => 'invalid@email' } }, valid_session
       }.to change(project.users, :count).by(0)
     end
+
+    it 'does not add the user to the project if he already is a member' do
+      project = Project.create! valid_attributes
+      user = FactoryGirl.create(:user)
+      project.users << user
+      expect {
+        put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
+      }.to change(project.users, :count).by(0)
+    end
   end
 
   describe 'GET #typeahead' do
