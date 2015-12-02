@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 20151127195914) do
     t.string   "residence"
     t.string   "street"
     t.string   "division"
-    t.integer  "personnel_number"
+    t.integer  "personnel_number",          default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
