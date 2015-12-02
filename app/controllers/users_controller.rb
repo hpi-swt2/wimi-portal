@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first, :last_name, :residence, :street, :division, :number, :remaining_leave, :remaining_leave_last_year)
+    params.require(:user).permit(:first, :last_name, :residence, :street, :division, :personnel_number, :remaining_leave, :remaining_leave_last_year)
   end
 
 end

@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
 
-  #validates_numericality_of :number, only_integer: true, default: ' '
+  validates :personnel_number, numericality: { only_integer: true }
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
 
   def name
