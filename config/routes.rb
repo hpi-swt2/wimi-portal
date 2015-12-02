@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   
   devise_for :users
 
+  post 'apply', to: 'chairs#apply'
+
   # You can have the root of your site routed with "root"
   root 'dashboard#index'
 end

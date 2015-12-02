@@ -19,16 +19,20 @@
         <td><%= chair.name %></td>
         <td><%= chair.created_at %></td>
         <td>
-          <% if current_user.wimi.nil? %> button
+          <% if current_user.is_wimi? %>
+              <% if current_user.chair == chair %> wimi
+              <% end %>
           <% else %>
-              <% if current_user.wimi.application == 'pending' %> pending
-              <% elsif current_user.wimi.application == 'accepted' %> accepted
-              <% elsif current_user.wimi.application == 'declined' %> declined
+              <% if current_user.wimi.nil? %>
+                  <%= link_to 'button', apply_path(:chair => chair), :method => :post %>
+                  <% elsif current_user.wimi.application == 'pending' && current_user.chair == chair %> pending
               <% end %>
           <% end %>
         </td>
         <% if false %>  <%= link_to t('.applyHiwi', :default => t("helpers.links.applyHiwi")),
-                           chair_hiwis_new_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %> --> <% end %>
+                                    chair_hiwis_new_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+            -->
+        <% end %>
       </tr>
   <% end %>
   </tbody>
