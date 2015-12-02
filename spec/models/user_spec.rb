@@ -11,8 +11,8 @@ RSpec.describe User, type: :model do
   end
 
   it "splits fullname into first and last name" do
-  	@user = FactoryGirl.create(:user, first: nil, last_name: nil, name: 'Jane Smith')
-  	expect(@user.first).to eq('Jane')
+  	@user = FactoryGirl.create(:user, first_name: nil, last_name: nil, name: 'Jane Smith')
+  	expect(@user.first_name).to eq('Jane')
   	expect(@user.last_name).to eq('Smith')
   end
 end

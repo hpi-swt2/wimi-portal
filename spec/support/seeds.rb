@@ -6,7 +6,7 @@ User.create(email: 'test@test.de',
   password: '12345678',
   password_confirmation: '12345678',
   sign_in_count: 1,
-  first: 'Max',
+  first_name: 'Max',
   last_name: 'Mustermann')
 Holiday.create(status: 'Approved',
   start: Date.today,

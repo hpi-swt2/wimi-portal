@@ -6,7 +6,7 @@ end
 
 FactoryGirl.define do
   factory :user, class: 'User' do
-  	first 'John'
+  	first_name 'John'
   	last_name 'Doe'
     email
     password '12345678'
