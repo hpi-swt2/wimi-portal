@@ -1,0 +1,37 @@
+<%- model_class = Chair -%>
+<div class="page-header">
+  <h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th><%= model_class.human_attribute_name(:id) %></th>
+    <th><%= model_class.human_attribute_name(:name) %></th>
+    <th><%= model_class.human_attribute_name(:created_at) %></th>
+    <th><%= model_class.human_attribute_name(:application_status) %></th>
+    <th><%= t '.actions', :default => t("helpers.actions") %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @chairs.each do |chair| %>
+      <tr>
+        <td><%= link_to chair.id, chair_path(chair) %></td>
+        <td><%= chair.name %></td>
+        <td><%= chair.created_at %></td>
+        <td>
+          <% if current_user.wimi.nil? %> button
+          <% else %>
+              <% if current_user.wimi.application == 'pending' %> pending
+              <% elsif current_user.wimi.application == 'accepted' %> accepted
+              <% elsif current_user.wimi.application == 'declined' %> declined
+              <% end %>
+          <% end %>
+        </td>
+        <% if false %>  <%= link_to t('.applyHiwi', :default => t("helpers.links.applyHiwi")),
+                           chair_hiwis_new_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %> --> <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+

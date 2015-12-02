@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'chairs/index'
+
   get 'dashboard', to: 'dashboard#index'
 
     # The priority is based upon order of creation: first created -> highest priority.
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
   resources :holidays
   resources :trips
   resources :expenses
+  resources :chairs
   
   devise_for :users
 
