@@ -3,10 +3,17 @@
 <p id="notice"><%= notice %></p>
 
 <div class="page-header">
-  <h1>Working Hours for <%= Date::MONTHNAMES[@month] + ' ' + @year.to_s %> </h1>
+  <h1>
+    Working Hours for <%= Date::MONTHNAMES[@month] + ' ' + @year.to_s %>
+    <%if not @project.nil?%>
+      <%= ' for ' + @project.title%>
+    <%end%>
+  </h1>
 </div>
 
-<%= render "time_sheets/show"%>
+<%if not @time_sheet.nil?%>
+  <%= render "time_sheets/show"%>
+<%end%>
 
 <table  class="table table-striped">
   <thead>
