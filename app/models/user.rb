@@ -19,4 +19,12 @@ class User < ActiveRecord::Base
     self.first_name = first
     self.last_name = last
   end
+
+  def is_wimi?
+    if self.wimi.nil?
+      return false
+    else
+      return true
+    end
+  end
 end
