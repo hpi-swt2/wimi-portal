@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20151202121618) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
     t.text     "purpose"
@@ -27,9 +24,9 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id", using: :btree
-  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id", using: :btree
-  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
+  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
+  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "holidays", force: :cascade do |t|
     t.string   "status"
@@ -40,7 +37,7 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "holidays", ["user_id"], name: "index_holidays_on_user_id", using: :btree
+  add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
@@ -53,8 +50,8 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.integer "project_id"
   end
 
-  add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id", using: :btree
-  add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id", using: :btree
+  add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id"
+  add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id"
 
   create_table "publications", force: :cascade do |t|
     t.string   "title"
@@ -65,15 +62,15 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "publications", ["project_id"], name: "index_publications_on_project_id", using: :btree
+  add_index "publications", ["project_id"], name: "index_publications_on_project_id"
 
   create_table "publications_users", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "publication_id"
   end
 
-  add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id", using: :btree
-  add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id", using: :btree
+  add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
+  add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
   create_table "time_sheets", force: :cascade do |t|
     t.integer  "month"
@@ -98,7 +95,7 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "trips", ["user_id"], name: "index_trips_on_user_id", using: :btree
+  add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "", null: false
@@ -123,8 +120,8 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.string   "number"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "work_days", force: :cascade do |t|
     t.date     "date"
