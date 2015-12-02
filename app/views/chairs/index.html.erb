@@ -8,7 +8,7 @@
     <th><%= model_class.human_attribute_name(:id) %></th>
     <th><%= model_class.human_attribute_name(:name) %></th>
     <th><%= model_class.human_attribute_name(:created_at) %></th>
-    <th><%= model_class.human_attribute_name(:application_status) %></th>
+    <th><%= model_class.human_attribute_name(:status) %></th>
     <th><%= t '.actions', :default => t("helpers.actions") %></th>
   </tr>
   </thead>
@@ -20,19 +20,17 @@
         <td><%= chair.created_at %></td>
         <td>
           <% if current_user.is_wimi? %>
-              <% if current_user.chair == chair %> wimi
+              <% if current_user.chair == chair %>
+                  <span class="label label-success">Wissenschaftlicher Mitarbeiter</span>
               <% end %>
           <% else %>
               <% if current_user.wimi.nil? %>
-                  <%= link_to 'button', apply_path(:chair => chair), :method => :post %>
-                  <% elsif current_user.wimi.application == 'pending' && current_user.chair == chair %> pending
+                  <%= link_to 'Apply as Wimi', apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+              <% elsif current_user.wimi.application == 'pending' && current_user.chair == chair %>
+                  <span class="label label-warning">pending</span>
               <% end %>
           <% end %>
         </td>
-        <% if false %>  <%= link_to t('.applyHiwi', :default => t("helpers.links.applyHiwi")),
-                                    chair_hiwis_new_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
-            -->
-        <% end %>
       </tr>
   <% end %>
   </tbody>
