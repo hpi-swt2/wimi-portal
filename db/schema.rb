@@ -11,14 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124163045) do
+ActiveRecord::Schema.define(version: 20151124162901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -111,7 +107,7 @@ ActiveRecord::Schema.define(version: 20151124163045) do
     t.string   "residence"
     t.string   "street"
     t.string   "division"
-    t.string   "number"
+    t.integer  "personnel_number"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

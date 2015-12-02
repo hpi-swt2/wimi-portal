@@ -31,8 +31,8 @@
       </div>
       <div class="form-group">
         <%= f.label "Personalnummer", class: 'control-label' %>
-        <%= f.text_field :number, value: @user.number, class: 'form-control' %>
-        <%= error_span(@user[:number]) %>
+        <%= f.text_field :personnel_number, value: @user.personnel_number, class: 'form-control' %>
+        <%= error_span(@user[:personnel_number]) %>
       </div>
       <%= f.submit nil, class: 'btn btn-primary' %>
         <%= link_to "Abbrechen", current_user, class: "btn btn-default" %>
