@@ -9,7 +9,8 @@ class WorkDaysController < ApplicationController
     if params.has_key?(:month) && params.has_key?(:year)
       @month = params[:month].to_i
       @year = params[:year].to_i
-      @work_days = all_for(@year, @month)
+      @project = params.has_key?(:project) ? params[:project].to_i : nil
+      @work_days = all_for(@year, @month, @project)
     else
       redirect_to work_days_path(month: date.month, year: date.year)
     end
@@ -23,7 +24,6 @@ class WorkDaysController < ApplicationController
   # GET /work_days/new
   def new
     @work_day = WorkDay.new
-    p @work_day
   end
 
   # GET /work_days/1/edit
@@ -80,16 +80,21 @@ class WorkDaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_day_params
-      params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id)
+      params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id, :project_id)
     end
 
 
-    def all_for(year, month)
-        date = Date.new(year, month)
-        month_start = date.beginning_of_month
-        month_end = date.end_of_month
-        WorkDay.where("date >= ? and date <= ? and user_id = ?",
-            month_start, month_end, current_user)
+    def all_for(year, month, project)
+      date = Date.new(year, month)
+      month_start = date.beginning_of_month
+      month_end = date.end_of_month
+      if project.nil?
+        return WorkDay.where('date >= ? and date <= ? and user_id =?',
+          month_start, month_end, current_user)
+      else
+        return WorkDay.where('date >= ? and date <= ? and user_id = ? and project_id = ?',
+          month_start, month_end, current_user, project)
+      end
     end
 
     def work_days_month_path
