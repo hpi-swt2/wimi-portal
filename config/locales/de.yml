@@ -96,6 +96,12 @@ de:
         password_confirmation: "Passwort Bestätigen"
         password: "Passwort"
         remember_me: "Angemeldet bleiben"
+        personal_data: "Benutzerdaten"
+        residence: "Wohnort"
+        street: "Straße"
+        number: "Personalnummer"
+        division: "Abteilung"
+        language: "Sprache"
 
   time:
     formats:

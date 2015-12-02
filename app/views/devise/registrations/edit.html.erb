@@ -21,15 +21,6 @@
         <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes', :default => 'we need your current password to confirm your changes') %>)</i>
         <%= f.password_field :current_password, class: "form-control" %>
       </div>
-
-      <div class="form-group" id="lang">
-        <%= f.label t('helpers.language.lang', :default => 'Language') %>
-        <%= link_to_unless_current t('helpers.language.english', :default => 'English'), locale: "en"%> |
-        <%= link_to_unless_current t('helpers.language.german', :default => 'German'), locale: "de"%> 
-
-      </div>
-
-
       <%= f.submit t('.update', :default => "Update"), class: "btn btn-primary" %>
     <% end %>
   </div>

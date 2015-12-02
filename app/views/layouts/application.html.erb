@@ -10,16 +10,16 @@
 <%= nav_bar fixed: :top, brand: "Wimi Portal", responsive: true do %>
   <%= menu_group do %>
       <%= menu_item t("helpers.application_tabs.home"), root_path %>
-      <%= menu_item t(Project.model_name.human(:count => 2)), projects_path %>
-      <%= menu_item t(Publication.model_name.human(:count => 2)), publications_path %>
-      <%= menu_item t(Trip.model_name.human(:count => 2)), trips_path %>
-      <%= menu_item t(Holiday.model_name.human(:count => 2)), holidays_path %>
-      <%= menu_item t(Expense.model_name.human(:count => 2)), expenses_path %>
+      <%= menu_item t("activerecord.models.project.other"), projects_path %>
+      <%= menu_item t("activerecord.models.publication.other"), publications_path %>
+      <%= menu_item t("activerecord.models.trip.other"), trips_path %>
+      <%= menu_item t("activerecord.models.holiday.other"), holidays_path %>
+      <%= menu_item t("activerecord.models.expense.other"), expenses_path %>
   <% end %>
   <%= menu_group pull: :right do %>
     <% if user_signed_in? %>
       <%= menu_item "#{current_user.email}" %>
-      <%= menu_item t("helpers.application_tabs.profile"), edit_user_registration_path %>
+      <%= menu_item t("helpers.application_tabs.profile"), url_for(current_user) %>
       <%= menu_item t("helpers.application_tabs.logout"), destroy_user_session_path %>
     <% else %>
       <%= menu_item t("helpers.application_tabs.sign_up"), new_user_registration_path %>

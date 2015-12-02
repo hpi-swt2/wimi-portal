@@ -95,8 +95,14 @@ en:
         password_confirmation: "Password Confirmation"
         password: "Password"
         remember_me: "Remember me"
+        personal_data: "User Data"
+        residence: "Residence"
+        street: "Street"
+        number: "Staff Number"
+        division: "Division"
+        language: "Language"
   time:
     formats:
-      default: "%d/%m/%Y"
+      default: "%m/%d/%Y"
       short: "%b %d"
       long: "%B %d, %Y"

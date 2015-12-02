@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-    # The priority is based upon order of creation: first created -> highest priority.
+  # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  #scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     resources :publications
     resources :projects
     resources :holidays
@@ -11,10 +11,12 @@ Rails.application.routes.draw do
   
     devise_for :users
 
+    resources :users, :only => [:show, :edit, :update]
+
     # You can have the root of your site routed with "root"
     root 'welcome#index'
-  end
-  #match '*path', to: redirect("/#{I18n.default_locale}/%{path}")
-  #match '', to: redirect("/#{I18n.default_locale}")
+  #end
+
+
 
 end

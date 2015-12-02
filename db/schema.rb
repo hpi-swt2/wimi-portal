@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20151124160019) do
+ActiveRecord::Schema.define(version: 20151124163045) do
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -86,25 +85,27 @@ ActiveRecord::Schema.define(version: 20151124160019) do
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "users", force: :cascade do |t|
-
-    t.string   "email",                     default: "", null: false
-    t.string   "encrypted_password",        default: "", null: false
+    t.string   "email",                     default: "",   null: false
+    t.string   "encrypted_password",        default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",             default: 0,  null: false
+    t.integer  "sign_in_count",             default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "first"
     t.string   "last_name"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.string   "language",               default: "en", null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "language",                  default: "en", null: false
     t.integer  "remaining_leave_this_year", default: 28
     t.integer  "remaining_leave_next_year", default: 28
-
+    t.string   "residence"
+    t.string   "street"
+    t.string   "division"
+    t.string   "number"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
