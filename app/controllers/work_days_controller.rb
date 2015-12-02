@@ -89,11 +89,9 @@ class WorkDaysController < ApplicationController
       month_start = date.beginning_of_month
       month_end = date.end_of_month
       if project.nil?
-        return WorkDay.where('date >= ? and date <= ? and user_id =?',
-          month_start, month_end, current_user)
+        return WorkDay.where(date: month_start..month_end, user_id: current_user)
       else
-        return WorkDay.where('date >= ? and date <= ? and user_id = ? and project_id = ?',
-          month_start, month_end, current_user, project)
+        return WorkDay.where(date: month_start..month_end, user_id: current_user, project_id: project)
       end
     end
 
