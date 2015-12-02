@@ -1,11 +1,14 @@
-<%= link_to "E-Mail anzeigen", edit_user_registration_path, class: "btn btn-default"%>
 <p></p>
 <div class="panel panel-default">
-  <div class="text text-right">
-    <%= link_to "Bearbeiten", edit_user_path %>
-  </div>
   <div class="panel-heading">
-    <h4>Personenbezogene Daten</h4>
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Personenbezogene Daten</h4>
+      </div>
+      <div class="col-sm-6 text text-right">
+        <%= link_to "Bearbeiten", edit_user_path, class: "btn btn-default" %>
+      </div>
+    </div>
   </div>
   <div class="panel-body">
     <p>Vorname: <%= current_user.first %></p>
@@ -14,5 +17,6 @@
     <p>Straße: <%= current_user.street %></p>
     <p>Abteilung: <%= current_user.division %></p>
     <p>Personalnummer: <%= current_user.personnel_number %></p>
+    <p>E-Mail: <%= current_user.email %></p>
   </div>
 </div>
