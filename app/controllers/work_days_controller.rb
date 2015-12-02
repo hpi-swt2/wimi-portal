@@ -4,14 +4,14 @@ class WorkDaysController < ApplicationController
   # GET /work_days
   # GET /work_days.json
   def index
-    date = Date.today
-    #redirect_to work_days_path(month: date.month, year: date.year) unless (params.require(:month).permitted? && params.require(:year).permitted?)
     if params.has_key?(:month) && params.has_key?(:year)
       @month = params[:month].to_i
       @year = params[:year].to_i
       @project = params.has_key?(:project) ? params[:project].to_i : nil
+      @time_sheet = time_sheet_for(@year, @month, @project)
       @work_days = all_for(@year, @month, @project)
     else
+      date = Date.today
       redirect_to work_days_path(month: date.month, year: date.year)
     end
   end
@@ -95,6 +95,25 @@ class WorkDaysController < ApplicationController
         return WorkDay.where('date >= ? and date <= ? and user_id = ? and project_id = ?',
           month_start, month_end, current_user, project)
       end
+    end
+
+    def time_sheet_for(year, month, project)
+      if project.nil?
+        return nil
+      else
+        sheets = TimeSheet.where(year: year, month: month, project: project)
+        if sheets.empty?
+          return create_new_time_sheet(year, month, project)
+        else
+          return sheets.first
+        end
+      end
+    end
+
+    def create_new_time_sheet(year, month, project)
+      sheet = TimeSheet.new({year: year, month: month, project_id: project})
+      sheet.save()
+      return sheet
     end
 
     def work_days_month_path

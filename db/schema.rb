@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20151202121618) do
 
   create_table "time_sheets", force: :cascade do |t|
     t.integer  "month"
-    t.integer  "yeat"
+    t.integer  "year"
     t.integer  "salary"
     t.boolean  "salary_is_per_month"
     t.integer  "workload"

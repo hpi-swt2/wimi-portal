@@ -2,7 +2,7 @@ class CreateTimeSheets < ActiveRecord::Migration
   def change
     create_table :time_sheets do |t|
       t.integer :month
-      t.integer :yeat
+      t.integer :year
       t.integer :salary
       t.boolean :salary_is_per_month
       t.integer :workload
