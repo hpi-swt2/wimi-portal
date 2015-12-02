@@ -42,7 +42,7 @@ class TimeSheetsController < ApplicationController
   def update
     respond_to do |format|
       if @time_sheet.update(time_sheet_params)
-        format.html { redirect_to @time_sheet, notice: 'Time sheet was successfully updated.' }
+        format.html { redirect_to work_days_path(month: @time_sheet.month, year: @time_sheet.year, project: @time_sheet.project)}
         format.json { render :show, status: :ok, location: @time_sheet }
       else
         format.html { render :edit }

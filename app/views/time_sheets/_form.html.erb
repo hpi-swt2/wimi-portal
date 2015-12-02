@@ -11,23 +11,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :salary %><br>
-    <%= f.number_field :salary %>
-  </div>
-  <div class="field">
-    <%= f.label :salary_is_per_month %><br>
-    <%= f.check_box :salary_is_per_month %>
-  </div>
-  <div class="field">
-    <%= f.label :workload %><br>
-    <%= f.number_field :workload %>
-  </div>
-  <div class="field">
-    <%= f.label :workload_is_per_month %><br>
-    <%= f.check_box :workload_is_per_month %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Time Sheet</h4>
+    </div>
+    <div class="form-group">
+      <%= f.label :salary, class: "control-label" %><br>
+      <%= f.number_field :salary %>
+      <%= f.select(:salary_is_per_month, [['monthly', true], ['hourly', false]]) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :workload, class: "control-label" %><br>
+      <%= f.number_field :workload %>
+      <%= f.select(:salary_is_per_month, [['monthly', true], ['weekly', false]]) %>
+    </div>
+    <%= f.submit nil, class:"btn btn-primary"%>
   </div>
 <% end %>
