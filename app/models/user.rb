@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
 
   validates :personnel_number, numericality: { only_integer: true }
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
+  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
 
   def name
     "#{first} #{last_name}"

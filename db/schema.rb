@@ -11,19 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-=======
-ActiveRecord::Schema.define(version: 20151124162901) do
->>>>>>> origin/10_UserData
-
 ActiveRecord::Schema.define(version: 20151127195914) do
 
-<<<<<<< HEAD
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-=======
->>>>>>> origin/10_UserData
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
     t.text     "purpose"

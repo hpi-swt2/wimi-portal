@@ -6,15 +6,16 @@
     <div class="panel-body">
       <div class="form-group">
         <%= f.label "Remaining Leave", class: 'control-label' %>
-        <%= f.number_field :remaining_leave, value: @user.remaining_leave, class: 'form-control' %>
+        <%= f.number_field :remaining_leave, value: @user.remaining_leave, min: 0, class: 'form-control' %>
         <%= error_span(@user[:remaining_leave]) %>
       </div>
       <div class="form-group">
         <%= f.label "Remaining Leave Left From Last Year", class: 'control-label' %>
-        <%= f.number_field :remaining_leave_last_year, value: @user.remaining_leave_last_year, class: 'form-control' %>
+        <%= f.number_field :remaining_leave_last_year, value: @user.remaining_leave_last_year, min: 0, class: 'form-control' %>
         <%= error_span(@user[:remaining_leave_last_year]) %>
       </div>
-      <%= f.submit nil, class: 'btn btn-primary' %>
+      <%= f.submit nil, value: 'Save', class: 'btn btn-primary' %>
+      <%= link_to t('.cancel'), user_path(@user), class: 'btn btn-danger' %>
     </div>
   </div>
 <% end %>
