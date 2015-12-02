@@ -1,0 +1,49 @@
+<%= form_for(@time_sheet) do |f| %>
+  <% if @time_sheet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@time_sheet.errors.count, "error") %> prohibited this time_sheet from being saved:</h2>
+
+      <ul>
+      <% @time_sheet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :month %><br>
+    <%= f.number_field :month %>
+  </div>
+  <div class="field">
+    <%= f.label :yeat %><br>
+    <%= f.number_field :yeat %>
+  </div>
+  <div class="field">
+    <%= f.label :salary %><br>
+    <%= f.number_field :salary %>
+  </div>
+  <div class="field">
+    <%= f.label :salary_is_per_month %><br>
+    <%= f.check_box :salary_is_per_month %>
+  </div>
+  <div class="field">
+    <%= f.label :workload %><br>
+    <%= f.number_field :workload %>
+  </div>
+  <div class="field">
+    <%= f.label :workload_is_per_month %><br>
+    <%= f.check_box :workload_is_per_month %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :project_id %><br>
+    <%= f.number_field :project_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

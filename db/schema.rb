@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128153149) do
+ActiveRecord::Schema.define(version: 20151202121618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 20151128153149) do
   create_table "projects_users", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
-    t.integer "salary"
   end
 
   add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id", using: :btree
@@ -75,6 +74,19 @@ ActiveRecord::Schema.define(version: 20151128153149) do
 
   add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id", using: :btree
   add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id", using: :btree
+
+  create_table "time_sheets", force: :cascade do |t|
+    t.integer  "month"
+    t.integer  "yeat"
+    t.integer  "salary"
+    t.boolean  "salary_is_per_month"
+    t.integer  "workload"
+    t.boolean  "workload_is_per_month"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   create_table "trips", force: :cascade do |t|
     t.string   "title"

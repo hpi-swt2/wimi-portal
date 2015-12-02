@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @time_sheet.month %>
+</p>
+
+<p>
+  <strong>Yeat:</strong>
+  <%= @time_sheet.yeat %>
+</p>
+
+<p>
+  <strong>Salary:</strong>
+  <%= @time_sheet.salary %>
+</p>
+
+<p>
+  <strong>Salary is per month:</strong>
+  <%= @time_sheet.salary_is_per_month %>
+</p>
+
+<p>
+  <strong>Workload:</strong>
+  <%= @time_sheet.workload %>
+</p>
+
+<p>
+  <strong>Workload is per month:</strong>
+  <%= @time_sheet.workload_is_per_month %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @time_sheet.user_id %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @time_sheet.project_id %>
+</p>
+
+<%= link_to 'Edit', edit_time_sheet_path(@time_sheet) %> |
+<%= link_to 'Back', time_sheets_path %>
