@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :travel_expense_reports
   resources :trips do
       resources :travel_expense_reports do
         resources :ter_items

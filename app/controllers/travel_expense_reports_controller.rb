@@ -1,25 +1,21 @@
 class TravelExpenseReportsController < ApplicationController
-  before_action :set_trip
   before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy]
 
   # GET /travel_expense_reports
   # GET /travel_expense_reports.json
   def index
-    @travel_expense_reports = @trip.travel_expense_reports
+    @travel_expense_reports = TravelExpenseReport.all
   end
 
   # GET /travel_expense_reports/1
   # GET /travel_expense_reports/1.json
   def show
-    @sum = 0
-    @travel_expense_report.ter_items.each do |t|
-      @sum += t.amount
-    end
   end
 
   # GET /travel_expense_reports/new
   def new
-    @travel_expense_report = @trip.travel_expense_reports.build
+    @travel_expense_report = TravelExpenseReport.new
+    8.times {@travel_expense_report.travel_expense_report_items.build}
   end
 
   # GET /travel_expense_reports/1/edit
@@ -29,12 +25,11 @@ class TravelExpenseReportsController < ApplicationController
   # POST /travel_expense_reports
   # POST /travel_expense_reports.json
   def create
-    @travel_expense_report = @trip.travel_expense_reports.build(travel_expense_report_params)
-    @travel_expense_report.advance = 0
+    @travel_expense_report = TravelExpenseReport.new(travel_expense_report_params)
 
     respond_to do |format|
       if @travel_expense_report.save
-        format.html { redirect_to trip_travel_expense_report_url(@trip,@travel_expense_report), notice: 'Travel expense report was successfully created.' }
+        format.html { redirect_to @travel_expense_report, notice: 'Travel expense report was successfully created.' }
         format.json { render :show, status: :created, location: @travel_expense_report }
       else
         format.html { render :new }
@@ -46,17 +41,9 @@ class TravelExpenseReportsController < ApplicationController
   # PATCH/PUT /travel_expense_reports/1
   # PATCH/PUT /travel_expense_reports/1.json
   def update
-    @params = travel_expense_report_params
-    @ter_item = @travel_expense_report.ter_items.build(@params[:ter_item]) if @params[:ter_item]
-    if not @ter_item.nil?
-      @success = @ter_item.save
-    else
-      @success = true
-    end
-    @params.delete :ter_item
     respond_to do |format|
-      if @travel_expense_report.update(@params) and @success
-        format.html { redirect_to trip_travel_expense_report_url(@trip,@travel_expense_report), notice: 'Travel expense report was successfully updated.' }
+      if @travel_expense_report.update(travel_expense_report_params)
+        format.html { redirect_to @travel_expense_report, notice: 'Travel expense report was successfully updated.' }
         format.json { render :show, status: :ok, location: @travel_expense_report }
       else
         format.html { render :edit }
@@ -70,7 +57,7 @@ class TravelExpenseReportsController < ApplicationController
   def destroy
     @travel_expense_report.destroy
     respond_to do |format|
-      format.html { redirect_to trip_travel_expense_reports_url(@trip), notice: 'Travel expense report was successfully destroyed.' }
+      format.html { redirect_to travel_expense_reports_url, notice: 'Travel expense report was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -78,15 +65,11 @@ class TravelExpenseReportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_travel_expense_report
-      @travel_expense_report = @trip.travel_expense_reports.find(params[:id])
-    end
-
-    def set_trip
-      @trip = Trip.find(params[:trip_id])
+      @travel_expense_report = TravelExpenseReport.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def travel_expense_report_params
-      params.require(:travel_expense_report).permit(:name,:advance, ter_item: [:amount,:purpose])
+      params.require(:travel_expense_report).permit(:first_name, :last_name, :inland, :country, :location_from, :location_via, :location_to, :reason, :date_start, :date_end, :car, :public_transport, :vehicle_advance, :hotel, :general_advance, :user_id, travel_expense_report_items_attributes:[:date,:breakfast,:lunch,:dinner])
     end
 end
