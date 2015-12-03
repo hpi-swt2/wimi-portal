@@ -27,6 +27,7 @@ class TravelExpenseReportsController < ApplicationController
   # POST /travel_expense_reports.json
   def create
     @travel_expense_report = TravelExpenseReport.new(travel_expense_report_params)
+    @travel_expense_report.user = current_user
 
     respond_to do |format|
       if @travel_expense_report.save

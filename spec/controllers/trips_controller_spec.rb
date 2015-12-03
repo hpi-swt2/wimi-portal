@@ -27,11 +27,27 @@ RSpec.describe TripsController, type: :controller do
   # Trip. As you add validations to Trip, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {:name => "Hana Travels",
+     :destination => "NYC Conference",
+     :reason => "Hana Things",
+     :start_date => Date.today,
+     :end_date => Date.today + 6,
+     :days_abroad => 6,
+     :annotation => "HANA pls",
+     :signature => "le Hasso",
+     :user_id => 1}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {:name => "",
+     :destination => "NYC Conference",
+     :reason => "Hana Things",
+     :start_date => Date.today + 6,
+     :end_date => Date.today,
+     :days_abroad => 20,
+     :annotation => "HANA pls",
+     :signature => "le Hasso",
+     :user_id => 1}
   }
 
   # This should return the minimal set of values that should be in the session

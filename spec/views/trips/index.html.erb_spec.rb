@@ -2,33 +2,18 @@ require 'rails_helper'
 
 RSpec.describe "trips/index", type: :view do
   before(:each) do
+    @trip1 = FactoryGirl.create(:trip)
+    @trip2 = FactoryGirl.create(:trip2)
     assign(:trips, [
-      Trip.create!(
-        :name => "Name",
-        :destination => "Destination",
-        :reason => "MyText",
-        :days_abroad => 1,
-        :annotation => "MyText",
-        :signature => "Signature"
-      ),
-      Trip.create!(
-        :name => "Name",
-        :destination => "Destination",
-        :reason => "MyText",
-        :days_abroad => 1,
-        :annotation => "MyText",
-        :signature => "Signature"
-      )
+        @trip1,
+        @trip2
     ])
   end
 
   it "renders a list of trips" do
     render
-    assert_select "tr>td", :text => "Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Destination".to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => 1.to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => "Signature".to_s, :count => 2
+    expect(rendered).to match /#{@trip1.name}/
+    expect(rendered).to match /#{@trip1.days_abroad}/
+    expect(rendered).to match /#{@trip2.name}/
   end
 end
