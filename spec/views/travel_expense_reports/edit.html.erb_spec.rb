@@ -2,22 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "travel_expense_reports/edit", type: :view do
   before(:each) do
-    @travel_expense_report = assign(:travel_expense_report, TravelExpenseReport.create!(
-      :first_name => "MyString",
-      :last_name => "MyString",
-      :inland => false,
-      :country => "MyString",
-      :location_from => "MyString",
-      :location_via => "MyString",
-      :location_to => "MyString",
-      :reason => "MyText",
-      :car => false,
-      :public_transport => false,
-      :vehicle_advance => false,
-      :hotel => false,
-      :general_advance => 1,
-      :user => nil
-    ))
+    @travel_expense_report = assign(:travel_expense_report, FactoryGirl.create(:travel_expense_report))
   end
 
   it "renders the edit travel_expense_report form" do
@@ -50,8 +35,6 @@ RSpec.describe "travel_expense_reports/edit", type: :view do
       assert_select "input#travel_expense_report_hotel[name=?]", "travel_expense_report[hotel]"
 
       assert_select "input#travel_expense_report_general_advance[name=?]", "travel_expense_report[general_advance]"
-
-      assert_select "input#travel_expense_report_user_id[name=?]", "travel_expense_report[user_id]"
     end
   end
 end

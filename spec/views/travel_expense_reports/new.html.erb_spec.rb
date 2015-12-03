@@ -51,7 +51,6 @@ RSpec.describe "travel_expense_reports/new", type: :view do
 
       assert_select "input#travel_expense_report_general_advance[name=?]", "travel_expense_report[general_advance]"
 
-      assert_select "input#travel_expense_report_user_id[name=?]", "travel_expense_report[user_id]"
     end
   end
 end
