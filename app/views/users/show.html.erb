@@ -29,10 +29,9 @@
     <div class="panel-body">
       <% @year_months.each do |month| %>
   	    <p>
-          <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
-    	 	  work_days_path(month: month.last, year: month.first)%>
+          <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s + ":  ", work_days_path(month: month.last, year: month.first)%>
           <% current_user.projects_for_month(month.first, month.last).each do |project|%>
-            <%= link_to project.title, work_days_path(month: month.last, year: month.first, project: project.id)%>
+            <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id)%>
           <% end %>
         </p>
     	<% end %>
