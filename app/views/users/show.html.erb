@@ -17,7 +17,7 @@
       <p>Nachname: <%= current_user.last_name %></p>
       <p>Wohnort: <%= current_user.residence %></p>
       <p>Straße: <%= current_user.street %></p>
-      <p>Abteilung: <%= current_user.division %></p>
+      <p>Abteilung: <%= User::DIVISIONS[current_user.division_id] %></p>
       <p>Personalnummer: <%= current_user.personnel_number %></p>
       <p>E-Mail: <%= current_user.email %></p>
     </div>

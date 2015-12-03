@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(version: 20151124162901) do
     t.integer  "remaining_leave_next_year", default: 28
     t.string   "residence"
     t.string   "street"
-    t.string   "division"
-    t.integer  "personnel_number",          default: 1
+    t.integer  "division_id",               default: 0
+    t.integer  "personnel_number",          default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

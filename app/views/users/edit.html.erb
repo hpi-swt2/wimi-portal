@@ -42,7 +42,9 @@
       </div>
       <div class="form-group">
         <%= f.label "Abteilung", class: 'control-label' %>
-        <%= f.select :division, User::DIVISIONS, {selected: current_user.division}, {class: 'form-control'} %>
+        <%= f.select :division_id,
+          User::DIVISIONS.each_with_index.collect { |division, index| [division, index]},
+          {}, { id: 'division_id', class: 'select optional form-control'} %>
         <%= error_span(@user[:division]) %>
       </div>
       <div class="form-group">
