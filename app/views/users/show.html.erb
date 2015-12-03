@@ -1,3 +1,7 @@
+<div class="page-header">
+  <h1><%=t '.title', default: "User Profile" %></h1>
+</div>
+
 <p></p>
 <h3><%= @user.name %></h3><br>
 <% if @user == current_user %>
@@ -10,20 +14,6 @@
         <div class="col-sm-6 text text-right">
           <%= link_to "Bearbeiten", edit_user_path, class: "btn btn-default" %>
         </div>
-
-<div class="page-header">
-  <h1><%=t '.title', default: "User Profile" %></h1>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="row">
-      <div class="col-sm-6">
-        <h4>Personenbezogene Daten</h4>
-      </div>
-      <div class="col-sm-6 text text-right">
-        <%= link_to "Bearbeiten", edit_user_path, class: "btn btn-default" %>
-
       </div>
     </div>
     <div class="panel-body">
@@ -36,68 +26,57 @@
       <p>E-Mail: <%= current_user.email %></p>
     </div>
   </div>
-<% end %>
 
-  <div class="panel-body">
-    <p>Vorname: <%= current_user.first %></p>
-    <p>Nachname: <%= current_user.last_name %></p>
-    <p>Wohnort: <%= current_user.residence %></p>
-    <p>Straße: <%= current_user.street %></p>
-    <p>Abteilung: <%= current_user.division %></p>
-    <p>Personalnummer: <%= current_user.personnel_number %></p>
-    <p>E-Mail: <%= current_user.email %></p>
-  </div>
-</div>
-
-<!--h4><%= t('.requestsAndDocuments') %></h4-->
-<%= form_for(@user) do |f| %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><%= t('.holiday_Requests') %></h4>
-    </div>
-    <div class="panel-body">
-      <div class="form-group">
-        <%= f.label "Remaining Leave: #{current_user.remaining_leave.to_s} days " %>
-        <% if current_user.remaining_leave_last_year > 0 %>
-          <%= f.label "(thereof #{current_user.remaining_leave_last_year.to_s} from #{Date.today.year-1})" %><br>
-          <%= link_to t('.editLeave', :default => t("helpers.links.editLeave")),
-                      users_edit_leave_path(id: current_user.id), :class => 'btn btn-default btn-xs' %><br>
-          <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
-            <%= f.label "WARNING LABEL"%><br>
-          <% end %>
-        <% end %>
+  <!--h4><%= t('.requestsAndDocuments') %></h4-->
+  <%= form_for(@user) do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%= t('.holiday_Requests') %></h4>
       </div>
-      <div class="form-group">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th><%=t '.duration' %></th>
-              <th><%=t '.start' %></th>
-              <th><%=t '.end' %></th>
-              <th><%=t '.status' %></th>
-              <th><%=t '.actions', :default => t("helpers.actions") %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% current_user.holidays.each do |holiday| %>
-              <tr>
-                <td><%= holiday.duration %><%= t(" days") %></td>
-                <td><%= holiday.start %></td>
-                <td><%=l holiday.end %></td>
-                <td><%= holiday.status %></td>
-                <td>
-                  <%= link_to t('.showDetails', default: t("helpers.links.showDetails")),
-                              holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
-                  <%= link_to t('.showPDF', default: t("helpers.links.showPDF")), user_path(current_user.id), class: 'btn btn-default btn-xs' %>
-                </td>
-              </tr>
+      <div class="panel-body">
+        <div class="form-group">
+          <%= f.label "Remaining Leave: #{current_user.remaining_leave.to_s} days " %>
+          <% if current_user.remaining_leave_last_year > 0 %>
+            <%= f.label "(thereof #{current_user.remaining_leave_last_year.to_s} from #{Date.today.year-1})" %><br>
+            <%= link_to t('.editLeave', :default => t("helpers.links.editLeave")),
+                        users_edit_leave_path(id: current_user.id), :class => 'btn btn-default btn-xs' %><br>
+            <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
+              <%= f.label "WARNING LABEL"%><br>
             <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="form-group">
-        <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %><br><br>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%=t '.duration' %></th>
+                <th><%=t '.start' %></th>
+                <th><%=t '.end' %></th>
+                <th><%=t '.status' %></th>
+                <th><%=t '.actions', :default => t("helpers.actions") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% current_user.holidays.each do |holiday| %>
+                <tr>
+                  <td><%= holiday.duration %><%= t(" days") %></td>
+                  <td><%= holiday.start %></td>
+                  <td><%=l holiday.end %></td>
+                  <td><%= holiday.status %></td>
+                  <td>
+                    <%= link_to t('.showDetails', default: t("helpers.links.showDetails")),
+                                holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
+                    <%= link_to t('.showPDF', default: t("helpers.links.showPDF")), user_path(current_user.id), class: 'btn btn-default btn-xs' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="form-group">
+          <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %><br><br>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
