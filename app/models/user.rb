@@ -110,16 +110,12 @@ class User < ActiveRecord::Base
 
   def openid_fields=(fields)
     fields.each do |key, value|
-      # Some AX providers can return multiple values per key
       if value.is_a? Array
         value = value.first
       end
 
-      case key.to_s
-      when "http://axschema.org/contact/email"
+      if key.to_s == "http://axschema.org/contact/email"
         update_attribute(:email, value)
-      else
-        logger.error "Unknown OpenID field: #{key}"
       end
     end
   end

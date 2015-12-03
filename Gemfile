@@ -89,7 +89,6 @@ end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
-
   # Coverage information
   gem 'simplecov', :require => false
   # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
