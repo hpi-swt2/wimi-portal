@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :time_sheets
+  get 'dashboard', to: 'dashboard#index'
+
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  resources :time_sheets
   resources :publications
   resources :projects
   resources :holidays
@@ -17,5 +19,5 @@ Rails.application.routes.draw do
   resources :users, :only => [:show, :edit, :update]
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'dashboard#index'
 end

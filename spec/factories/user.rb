@@ -11,5 +11,6 @@ FactoryGirl.define do
     email
     password '12345678'
     password_confirmation '12345678'
+    personnel_number '1'
   end
 end

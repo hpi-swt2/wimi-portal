@@ -1,4 +1,20 @@
 <%= form_for(@user) do |f| %>
+
+  <% if @user.errors.any? %>
+  <div id="error_expl" class="panel panel-danger">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+    </div>
+    <div class="panel-body">
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+  <% end %>
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4>Personenbezogene Daten</h4>
@@ -26,13 +42,15 @@
       </div>
       <div class="form-group">
         <%= f.label "Abteilung", class: 'control-label' %>
-        <%= f.select :division, User::DIVISIONS, {selected: current_user.division}, {class: 'form-control'} %>
+        <%= f.select :division_id,
+          User::DIVISIONS.each_with_index.collect { |division, index| [division, index]},
+          {}, { id: 'division_id', class: 'select optional form-control'} %>
         <%= error_span(@user[:division]) %>
       </div>
       <div class="form-group">
         <%= f.label "Personalnummer", class: 'control-label' %>
-        <%= f.text_field :number, value: @user.number, class: 'form-control' %>
-        <%= error_span(@user[:number]) %>
+        <%= f.text_field :personnel_number, value: @user.personnel_number, class: 'form-control' %>
+        <%= error_span(@user[:personnel_number]) %>
       </div>
       <%= f.submit nil, class: 'btn btn-primary' %>
         <%= link_to "Abbrechen", current_user, class: "btn btn-default" %>

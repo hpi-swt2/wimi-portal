@@ -1,35 +1,41 @@
-<%= link_to "E-Mail anzeigen", edit_user_registration_path, class: "btn btn-default"%>
 <p></p>
-<div class="panel panel-default">
-  <div class="text text-right">
-    <%= link_to "Bearbeiten", edit_user_path %>
+<h3><%= @user.name %></h3><br>
+<% if @user == current_user %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-sm-6">
+          <h4>Personenbezogene Daten</h4>
+        </div>
+        <div class="col-sm-6 text text-right">
+          <%= link_to "Bearbeiten", edit_user_path, class: "btn btn-default" %>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <p>Vorname: <%= current_user.first %></p>
+      <p>Nachname: <%= current_user.last_name %></p>
+      <p>Wohnort: <%= current_user.residence %></p>
+      <p>Straße: <%= current_user.street %></p>
+      <p>Abteilung: <%= User::DIVISIONS[current_user.division_id] %></p>
+      <p>Personalnummer: <%= current_user.personnel_number %></p>
+      <p>E-Mail: <%= current_user.email %></p>
+    </div>
   </div>
-  <div class="panel-heading">
-    <h4>Personenbezogene Daten</h4>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Arbeitszeiten</h4>
+    </div>
+    <div class="panel-body">
+      <% @year_months.each do |month| %>
+  	    <p>
+          <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
+    	 	  work_days_path(month: month.last, year: month.first)%>
+          <% current_user.projects_for_month(month.first, month.last).each do |project|%>
+            <%= link_to project.title, work_days_path(month: month.last, year: month.first, project: project.id)%>
+          <% end %>
+        </p>
+    	<% end %>
+    </div>
   </div>
-  <div class="panel-body">
-    <p>Vorname: <%= current_user.first %></p>
-    <p>Name: <%= current_user.last_name %></p>
-    <p>Wohnort: <%= current_user.residence %></p>
-    <p>Straße: <%= current_user.street %></p>
-    <p>Abteilung: <%= current_user.division %></p>
-    <p>Personalnummer: <%= current_user.number %></p>
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4>Arbeitszeiten</h4>
-  </div>
-  <div class="panel-body">
-    <% @year_months.each do |month| %>
-	    <p>
-        <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
-  	 	  work_days_path(month: month.last, year: month.first)%>
-        <% current_user.projects_for_month(month.first, month.last).each do |project|%>
-          <%= link_to project.title, work_days_path(month: month.last, year: month.first, project: project.id)%>
-        <% end %>
-      </p>
-  	<% end %>
-  </div>
-</div>
+<% end %>
