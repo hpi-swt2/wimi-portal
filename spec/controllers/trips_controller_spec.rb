@@ -35,7 +35,7 @@ RSpec.describe TripsController, type: :controller do
      :days_abroad => 6,
      :annotation => "HANA pls",
      :signature => "le Hasso",
-     :user_id => 1}
+     :user => User.first}
   }
 
   let(:invalid_attributes) {
@@ -47,7 +47,7 @@ RSpec.describe TripsController, type: :controller do
      :days_abroad => 20,
      :annotation => "HANA pls",
      :signature => "le Hasso",
-     :user_id => 1}
+     :user => User.first}
   }
 
   # This should return the minimal set of values that should be in the session

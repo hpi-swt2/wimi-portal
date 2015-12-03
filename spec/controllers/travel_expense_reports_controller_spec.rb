@@ -21,7 +21,7 @@ require 'rails_helper'
 RSpec.describe TravelExpenseReportsController, type: :controller do
 
   before(:each) do
-    login_with create ( :user)
+    login_with create (:user)
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -43,7 +43,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      :vehicle_advance=>  false,
      :hotel => true,
      :general_advance =>  2000,
-     :user_id => 1}
+     :user => User.first}
   }
 
   let(:invalid_attributes) {
@@ -62,7 +62,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      :vehicle_advance=>  false,
      :hotel => true,
      :general_advance => -100,
-     :user_id => 1}
+     :user => User.first}
   }
 
   # This should return the minimal set of values that should be in the session
