@@ -15,6 +15,7 @@ class TravelExpenseReportsController < ApplicationController
   # GET /travel_expense_reports/new
   def new
     @travel_expense_report = TravelExpenseReport.new
+    @travel_expense_report.user = current_user
     8.times {@travel_expense_report.travel_expense_report_items.build}
   end
 

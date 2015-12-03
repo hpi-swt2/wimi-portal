@@ -7,6 +7,7 @@ class TravelExpenseReport < ActiveRecord::Base
   validates :last_name, presence: true
   validates :general_advance, numericality: true
   validate 'start_before_end_date'
+  validate 'general_advance_positive'
 
 
   def general_advance_positive

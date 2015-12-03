@@ -27,15 +27,15 @@ FactoryGirl.define do
     location_via "London"
     location_to "NYC"
     reason "Hana Things"
-    date_start "2015-12-10 15:00:00"
-    date_end "2015-12-03 23:00:00"
+    date_start DateTime.now
+    date_end 8.days.ago
     car true
     public_transport true
     vehicle_advance false
     hotel true
     general_advance -20
-    to_create {|i| i.save(validate: false)}
     user
+    to_create {|i| i.save(validate: false)}
   end
 
   factory :travel_expense_report_changed, parent: :travel_expense_report do
@@ -46,6 +46,19 @@ FactoryGirl.define do
     hotel false
     vehicle_advance true
     date_start 5.days.ago
+  end
+
+  factory :travel_expense_report_blank_name, parent: :travel_expense_report do
+    first_name ""
+  end
+
+  factory :travel_expense_report_wrong_dates, parent: :travel_expense_report do
+    date_start DateTime.now
+    date_end 8.days.ago
+  end
+
+  factory :travel_expense_report_negative_advance, parent: :travel_expense_report do
+    general_advance -10
   end
 
 end
