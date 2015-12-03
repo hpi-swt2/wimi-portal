@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
       end
     else
       has_invalid_email = (current_user.email == User::INVALID_EMAIL)
-      visits_allowed_path = [destroy_user_session_path, edit_user_path(current_user), user_path(current_user)].include?(request.env['PATH_INFO'])
+      allowed_paths = [destroy_user_session_path, edit_user_path(current_user), user_path(current_user)].map { |x| x.split('?locale=')[0]}
+      visits_allowed_path = allowed_paths.include?(request.env['PATH_INFO'].split('?locale=')[0])
       if has_invalid_email && !visits_allowed_path
         flash[:error] = 'Please set a valid email address first'
         redirect_to edit_user_path(current_user)
