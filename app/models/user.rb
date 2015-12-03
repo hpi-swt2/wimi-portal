@@ -63,6 +63,13 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :projects
 
   validates :personnel_number, numericality: { only_integer: true }
+  validate :personnel_number_in_range
+
+  def personnel_number_in_range
+    if !personnel_number.between?(0, 999999999)
+      errors.add(:personnel_number, "needs to be between 0 and 999999999")
+    end
+  end
 
   def name
     "#{first} #{last_name}"
