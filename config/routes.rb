@@ -9,9 +9,6 @@ Rails.application.routes.draw do
   resources :trips
   resources :expenses
 
-  get '/profile', to: 'user_profile#show'
-  patch '/profile', to: 'user_profile#update'
-
   devise_for :users
   resources :users, :only => [:show, :edit, :update]
 end
