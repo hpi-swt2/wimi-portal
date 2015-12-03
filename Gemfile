@@ -55,6 +55,9 @@ gem 'jquery-ui-rails'
 gem 'cancancan'
 # for nested forms
 #gem 'cocoon'
+gem 'business_time'
+gem 'holidays'
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

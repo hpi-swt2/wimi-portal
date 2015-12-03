@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124162901) do
+ActiveRecord::Schema.define(version: 20151127195914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20151124162901) do
 
   create_table "holidays", force: :cascade do |t|
     t.string   "status"
-    t.datetime "start"
-    t.datetime "end"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date     "start"
+    t.date     "end"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id", using: :btree
@@ -102,8 +102,8 @@ ActiveRecord::Schema.define(version: 20151124162901) do
     t.string   "last_name"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.integer  "remaining_leave_this_year", default: 28
-    t.integer  "remaining_leave_next_year", default: 28
+    t.integer  "remaining_leave",           default: 28
+    t.integer  "remaining_leave_last_year", default: 0
     t.string   "residence"
     t.string   "street"
     t.integer  "division_id",               default: 0
