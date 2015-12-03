@@ -10,9 +10,10 @@ RSpec.describe 'expenses/edit', type: :view do
       trip_id: nil))
   end
 
+
   it 'renders the edit expense form' do
     render
-
+ 
     assert_select 'form[action=?][method=?]', expense_path(@expense), 'post' do
     end
   end

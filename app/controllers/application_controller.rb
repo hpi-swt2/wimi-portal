@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_action :ensure_valid_email
 
+  before_filter :set_locale
+
   def ensure_valid_email
     if current_user.nil?
       if request.env['PATH_INFO'] != '/users/sign_in'
@@ -18,4 +20,21 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  #before_action :authenticate_user!
+
+  private
+    def set_locale
+      if current_user
+        if I18n.locale !=  current_user.language
+	        I18n.locale =  current_user.language
+	  	  end
+	    else
+	  	  I18n.locale = I18n.default_locale
+	    end	
+	  end
+
+	  def default_url_options(options = {})
+		  {locale: I18n.locale}
+	  end
 end

@@ -1,0 +1,111 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+de:
+  activerecord:
+    models:
+      expense:
+        one: "Kostenabrechnung"
+        other: "Kostenabrechnungen"
+      holiday:
+        one: "Urlaubsantrag"
+        other: "Urlaubsanträge"
+      project:
+        one: "Projekt"
+        other: "Projekte"
+      publication:
+        one: "Veröffentlichung"
+        other: "Veröffentlichungen"
+      trip:
+        one: "Geschäftsreise"
+        other: "Geschäftsreisen"
+      user:
+        one: "Benutzer"
+        other: "Benutzer"
+    attributes:
+      project:
+        id: "Id"
+        title: "Titel"
+        created_at: "Erstellungsdatum"
+        users: "Benutzer"
+      holiday:
+        id: "Id"
+        status: "Status"
+        start: "Beginn"
+        end: "Ende"
+        user_id: "Benutzer"
+        created_at: "Erstellungsdatum"
+        duration: "Dauer"
+      publication:
+        id: "Id"
+        title: "Titel"
+        venue: "Erscheinungsort"
+        type_: "Typ"
+        project_id: "Projekt"
+        created_at: "Erstellungsdatum"
+        users: "Benutzer"
+      expense:
+        id: "Id"
+        amount: "Betrag"
+        purpose: "Verwendungszweck"
+        comment: "Kommentar"
+        user_id: "Benutzer"
+        project_id: "Projekt"
+        trip_id: "Geschäftsreise"
+        created_at: "Erstellungsdatum"
+      trip:
+        id: "Id"
+        title: "Titel"
+        start: "Start"
+        end: "Ende"
+        status: "Status"
+        user_id: "Benutzer"
+        created_at: "Erstellungsdatum"
+      user:
+        id: "Id"
+        email: "E-Mail"
+        encrypted_password: "Verschlüsseltes Passwort"
+        reset_password_token: "Kennwort zurücksetzen"
+        reset_password_sent_at: "Kennwort zurücksetzen versendet an"
+        remember_created_at: "Erstellungsdatum speichern"
+        current_sign_in_at: "Aktuelle Anmeldung am"
+        last_sign_in_at: "Letzte Anmeldung am"
+        current_sign_in_ip: "IP für aktuelle Anmeldung"
+        last_sign_in_ip: "IP der letzten Anmeldung"
+        first: "Vorname"
+        last_name: "Nachname"
+        created_at: "Erstellungsdatum"
+        current_password: "Aktuelles Passwort"
+        password_confirmation: "Passwort Bestätigen"
+        password: "Passwort"
+        remember_me: "Angemeldet bleiben"
+        personal_data: "Benutzerdaten"
+        residence: "Wohnort"
+        street: "Straße"
+        personnel_number: "Personalnummer"
+        division_id: "Fachgebiet"
+        language: "Sprache"
+
+  time:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
