@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :work_days
+  has_many :time_sheets
   has_many :holidays
   has_many :expenses
   has_many :trips
@@ -72,5 +73,12 @@ class User < ActiveRecord::Base
     first, last = fullname.split(' ')
     self.first = first
     self.last_name = last
+  end
+
+  def projects_for_month(year, month)
+    projects = TimeSheet.where(
+      user: self, month: month, year: year).map {|sheet| sheet.project}
+    p (projects.compact + self.projects).uniq
+    return (projects.compact + self.projects).uniq
   end
 end

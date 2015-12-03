@@ -69,6 +69,6 @@ class TimeSheetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_sheet_params
-      params.require(:time_sheet).permit(:month, :yeat, :salary, :salary_is_per_month, :workload, :workload_is_per_month, :user_id, :project_id)
+      params.require(:time_sheet).permit(:month, :year, :salary, :salary_is_per_month, :workload, :workload_is_per_month, :user_id, :project_id)
     end
 end

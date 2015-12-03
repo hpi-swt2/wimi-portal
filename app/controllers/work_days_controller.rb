@@ -109,7 +109,7 @@ class WorkDaysController < ApplicationController
     end
 
     def create_new_time_sheet(year, month, project)
-      sheet = TimeSheet.new({year: year, month: month, project_id: project})
+      sheet = TimeSheet.new({year: year, month: month, project_id: project.id, user_id: current_user.id})
       sheet.save()
       return sheet
     end
