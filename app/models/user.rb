@@ -20,57 +20,19 @@
 
 class User < ActiveRecord::Base
 
-  DIVISIONS = [
-    ['', ''],
-    [
+  DIVISIONS = [ '',
       'Enterprise Platform and Integration Concepts',
-      'Enterprise Platform and Integration Concepts'
-    ],
-    [
       'Internet-Technologien und Systeme',
-      'Internet-Technologien und Systeme'
-    ],
-    [
       'Human Computer Interaction',
-      'Human Computer Interaction'
-    ],
-    [
       'Computergrafische Systeme',
-      'Computergrafische Systeme'
-    ],
-    [
       'Algorithm Engineering',
-      'Algorithm Engineering'
-    ],
-    [
       'Systemanalyse und Modellierung',
-      'Systemanalyse und Modellierung'
-    ],
-    [
       'Software-Architekturen',
-      'Software-Architekturen'
-    ],
-    [
       'Informationssysteme',
-      'Informationssysteme'
-    ],
-    [
       'Betriebssysteme und Middleware',
-      'Betriebssysteme und Middleware'
-    ],
-    [
       'Business Process Technology',
-      'Business Process Technology'
-    ],
-    [
       'School of Design Thinking',
-      'School of Design Thinking'
-    ],
-    [
-      'Knowledge Discovery and Data Mining',
-      'Knowledge Discovery and Data Mining'
-    ]
-  ]
+      'Knowledge Discovery and Data Mining']
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -83,6 +45,13 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :projects
 
   validates :personnel_number, numericality: { only_integer: true }
+  validate :personnel_number_in_range
+
+  def personnel_number_in_range
+    if !personnel_number.between?(0, 999999999)
+      errors.add(:personnel_number, "needs to be between 0 and 999999999")
+    end
+  end
 
   def name
     "#{first} #{last_name}"
