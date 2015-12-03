@@ -8,6 +8,7 @@ end_date "2015-11-25"
 days_abroad 1
 annotation "MyText"
 signature "MyString"
+    user 1
   end
 
 end

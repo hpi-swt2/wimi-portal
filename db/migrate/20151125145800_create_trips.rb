@@ -10,6 +10,8 @@ class CreateTrips < ActiveRecord::Migration
       t.text :annotation
       t.string :signature
 
+      t.belongs_to :user, index: true
+
       t.timestamps null: false
     end
   end

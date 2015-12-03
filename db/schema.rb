@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20151125170233) do
 
   create_table "travel_expense_reports", force: :cascade do |t|
     t.string   "name"
+    t.integer  "advance"
     t.integer  "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -100,9 +101,12 @@ ActiveRecord::Schema.define(version: 20151125170233) do
     t.integer  "days_abroad"
     t.text     "annotation"
     t.string   "signature"
+    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

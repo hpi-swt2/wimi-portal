@@ -32,10 +32,12 @@ Trip.create(name: 'ME310 Kickoff USA',
             end_date: Date.today,
             days_abroad: '3',
             annotation: 'Important',
-            signature: 'Hasso')
+            signature: 'Hasso',
+            user_id: 1)
 Trip.create(name: 'Softwaretechnik Intro',
             destination: 'HPI',
             reason: 'lazy',
             start_date: Date.today - 1,
             end_date: Date.today,
-            days_abroad: 1)
+            days_abroad: 1,
+user_id: 1)

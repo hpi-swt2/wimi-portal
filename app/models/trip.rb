@@ -1,7 +1,9 @@
 class Trip < ActiveRecord::Base
+  belongs_to :user
   has_many :travel_expense_reports, :dependent => :destroy
   validates :name, presence: true
   validates :destination, presence: true
+  validates :user, presence: true
   validate 'duration_greater_than_zero'
 
   def duration
