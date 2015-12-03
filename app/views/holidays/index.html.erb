@@ -21,7 +21,7 @@
         <td><%= holiday.status %></td>
         <td><%= holiday.start %></td>
         <td><%= holiday.end %></td>
-        <td><%= holiday.user_id %></td>
+        <td><%= User.find(holiday.user_id).email %></td>
         <td><%=l holiday.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
