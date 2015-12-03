@@ -25,13 +25,17 @@ Expense.create(amount: 200,
   user_id: 1,
   project_id: nil,
   trip_id: nil)
-Trip.create(title: 'ME310 Kickoff USA',
-  start: Date.today - 3,
-  end: Date.today,
-  status: 'Approved',
-  user_id: 1)
-Trip.create(title: 'Softwaretechnik Intro',
-  start: Date.today - 1,
-  end: Date.today,
-  status: 'Declined',
-  user_id: 1)
+Trip.create(name: 'ME310 Kickoff USA',
+            destination: 'USA',
+            reason: 'Meeting',
+            start_date: Date.today - 3,
+            end_date: Date.today,
+            days_abroad: '3',
+            annotation: 'Important',
+            signature: 'Hasso')
+Trip.create(name: 'Softwaretechnik Intro',
+            destination: 'HPI',
+            reason: 'lazy',
+            start_date: Date.today - 1,
+            end_date: Date.today,
+            days_abroad: 1)
