@@ -1,6 +1,26 @@
 class ChairsController < ApplicationController
+  before_action :set_chair, only: [:show]
+
   def index
     @chairs = Chair.all
+  end
+
+  def show
+    @requests = @chair.wimis.where(:application => 'pending')
+    # Das muss auf jeden Fall noch anders gemacht werden:
+    @wimis = []
+    @chair.users.each do |w|
+      if w.is_wimi?
+        @wimis.push w
+      end
+    end
+
+
+
+
+    #@wimis = @chair.users.where(:is_wimi? => true)
+    #@hiwis = @chair.projects.users.where(:is_hiwi => false)
+
   end
 
   def apply
@@ -18,4 +38,10 @@ class ChairsController < ApplicationController
       end
     end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_chair
+      @chair = Chair.find(params[:id])
+    end
 end

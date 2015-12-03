@@ -1,0 +1,33 @@
+<%- model_class = Chair -%>
+<div class="page-header">
+  <h1><%= @chair.name %></h1>
+</div>
+
+<p>Beauftragter des Fachgebiets: <%= link_to current_user.name, edit_user_registration_path %></p>
+
+<strong>Anfragen auf Mitgliedschaft:</strong>
+<br>
+
+
+<% if @requests.nil? %>
+  <p>
+    keine Anfragen
+  </p>
+  <% else %>
+  <% @requests.each do |request| %>
+    <p>
+      <%= request.user.name %>
+    </p>
+  <% end %>
+<% end %>
+
+
+<strong>Wissenschaftliche Mitarbeiter:</strong>
+<br>
+
+<% @wimis.each do |wimi| %>
+  <p>
+    <%= wimi.name %>
+    <% if wimi.wimi.admin %>Administrator<% end %>
+  </p>
+<% end %>
