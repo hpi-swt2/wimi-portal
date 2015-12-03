@@ -52,6 +52,7 @@ en:
         end: "End"
         user_id: "User"
         created_at: "Created at"
+        duration: "Duration"
       publication:
         id: "Id"
         title: "Title"
@@ -98,8 +99,8 @@ en:
         personal_data: "User Data"
         residence: "Residence"
         street: "Street"
-        number: "Staff Number"
-        division: "Division"
+        personnel_number: "Staff Number"
+        division_id: "Division"
         language: "Language"
   time:
     formats:

@@ -21,6 +21,7 @@ de:
       destroy: "Löschen"
       new: "Neu"
       edit: "Bearbeiten"
+      edit_leave: "Resturlaub bearbeiten"
     titles:
       edit: "%{model} bearbeiten"
       save: "%{model} speichern"
@@ -33,3 +34,22 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
+  users:
+    show:
+      holiday_requests: "Urlaubsanfragen"
+      request_holiday: "Urlaub anfragen"
+      user_data: "Profilbezogene Daten"
+      remaining_leave: "Verbleibender Resturlaub"
+      days: "Tag(e)"
+      title: "Benutzerprofil"
+    edit:
+      user_data: "Profilbezogene Daten"
+    edit_leave:
+      remaining_leave: "Verbleibender Resturlaub"
+      remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
+      save: "Resturlaub Speichern"
+      title: "Resturlaub bearbeiten"
+  dashboard:
+    index:
+      dashboard_title: "Dashboard"
+      projects: "Meine Projekte"

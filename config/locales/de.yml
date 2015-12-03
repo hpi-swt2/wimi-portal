@@ -53,6 +53,7 @@ de:
         end: "Ende"
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
+        duration: "Dauer"
       publication:
         id: "Id"
         title: "Titel"
@@ -99,8 +100,8 @@ de:
         personal_data: "Benutzerdaten"
         residence: "Wohnort"
         street: "Straße"
-        number: "Personalnummer"
-        division: "Abteilung"
+        personnel_number: "Personalnummer"
+        division_id: "Fachgebiet"
         language: "Sprache"
 
   time:

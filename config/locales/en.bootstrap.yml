@@ -25,6 +25,7 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+      edit_leave: "Edit Leave"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -36,4 +37,22 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
-
+  users:
+    show:
+      holiday_requests: "Holiday Requests"
+      request_holiday: "Request Holiday"
+      user_data: "User Data"
+      remaining_leave: "Remaining Leave"
+      days: "Day(s)"
+      title: "User Profile"
+    edit:
+      user_data: "User Data"
+    edit_leave:
+      remaining_leave: "Remaining Leave"
+      remaining_leave_fly: "Remaining Leave from last year"
+      save: "Save Leave"
+      title: "Edit Leave"
+  dashboard:
+    index:
+      dashboard_title: "Dashboard"
+      projects: "My Projects"

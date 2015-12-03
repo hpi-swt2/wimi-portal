@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_action :to_current, :set_user
+  before_action :exclude_nil, :set_user
 
   def show
   end
@@ -12,14 +12,14 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to current_user
     else
-      redirect_to root_path
+      render :edit
     end
   end
 
   private
 
-  def to_current
-    if(current_user != User.find(params[:id]))
+  def exclude_nil
+    if User.where(id: params[:id]).blank?
       redirect_to root_path
     end
   end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first, :last_name, :residence, :street, :division, :number, :language)
+    params.require(:user).permit(:first, :last_name, :residence, :street, :division_id, :personnel_number, :remaining_leave, :remaining_leave_last_year, :language)
   end
 
 end

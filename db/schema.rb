@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124163045) do
+ActiveRecord::Schema.define(version: 20151127195914) do
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -30,11 +30,11 @@ ActiveRecord::Schema.define(version: 20151124163045) do
 
   create_table "holidays", force: :cascade do |t|
     t.string   "status"
-    t.datetime "start"
-    t.datetime "end"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date     "start"
+    t.date     "end"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -100,12 +100,12 @@ ActiveRecord::Schema.define(version: 20151124163045) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.string   "language",                  default: "en", null: false
-    t.integer  "remaining_leave_this_year", default: 28
-    t.integer  "remaining_leave_next_year", default: 28
     t.string   "residence"
     t.string   "street"
-    t.string   "division"
-    t.string   "number"
+    t.integer  "division_id",               default: 0
+    t.integer  "personnel_number",          default: 0
+    t.integer  "remaining_leave",           default: 28
+    t.integer  "remaining_leave_last_year", default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

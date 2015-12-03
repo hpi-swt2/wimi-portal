@@ -27,15 +27,20 @@ gem 'tzinfo-data', :platforms => [:mingw, :mswin, :x64_mingw]
 
 gem 'newrelic_rpm'
 gem 'airbrake'
+
+# add current schema to models
+gem 'annotate'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# Datetime validations
+gem 'validates_timeliness'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
 # Authentification
 gem 'devise'
 # Use Bootstrap (app/assets/stylesheets)
@@ -50,11 +55,15 @@ gem 'jquery-ui-rails'
 gem 'cancancan'
 # for nested forms
 #gem 'cocoon'
+gem 'business_time'
+gem 'holidays'
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.2'
+  gem 'capybara', '~> 2.5'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
 end
@@ -79,6 +88,7 @@ end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
+  # Coverage information
   gem 'simplecov', :require => false
   # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
   #gem 'webmock'
