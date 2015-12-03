@@ -20,15 +20,49 @@ require 'rails_helper'
 
 RSpec.describe TravelExpenseReportsController, type: :controller do
 
+  before(:each) do
+    login_with create ( :user)
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # TravelExpenseReport. As you add validations to TravelExpenseReport, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {:first_name => "Hasso",
+     :last_name => "Plattner",
+     :inland => true,
+     :country => "Germany",
+     :location_from => "Potsdam",
+     :location_via => "London",
+     :location_to => "NYC",
+     :reason => "Hana Things",
+     :date_start => 8.days.ago,
+     :date_end=>  DateTime.now,
+     :car => true,
+     :public_transport=>  true,
+     :vehicle_advance=>  false,
+     :hotel => true,
+     :general_advance =>  2000,
+     :user_id => 1}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {:first_name => "",
+     :last_name => "Plattner",
+     :inland => true,
+     :country => "Germany",
+     :location_from => "Potsdam",
+     :location_via => "London",
+     :location_to => "NYC",
+     :reason => "Hana Things",
+     :date_start => DateTime.now,
+     :date_end=>  8.days.ago,
+     :car => true,
+     :public_transport=>  true,
+     :vehicle_advance=>  false,
+     :hotel => true,
+     :general_advance => -100,
+     :user_id => 1}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +137,15 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        valid_attributes[:first_name] = "Tobias"
+        valid_attributes
       }
 
       it "updates the requested travel_expense_report" do
         travel_expense_report = TravelExpenseReport.create! valid_attributes
         put :update, {:id => travel_expense_report.to_param, :travel_expense_report => new_attributes}, valid_session
         travel_expense_report.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:travel_expense_report)).to eq(travel_expense_report)
       end
 
       it "assigns the requested travel_expense_report as @travel_expense_report" do
