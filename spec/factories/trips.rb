@@ -1,13 +1,13 @@
 FactoryGirl.define do
   factory :trip do
-    name "MyString"
-destination "MyString"
-reason "MyText"
-start_date "2015-11-25"
-end_date "2015-11-25"
-days_abroad 1
-annotation "MyText"
-signature "MyString"
+    name "Hana Travels"
+    destination "NYC Conference"
+    reason "Hana Things"
+    start_date "2015-12-03"
+    end_date "2015-12-10"
+    days_abroad 6
+    annotation "HANA pls"
+    signature "le Hasso"
     user 1
   end
 

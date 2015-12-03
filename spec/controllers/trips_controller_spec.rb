@@ -19,6 +19,9 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe TripsController, type: :controller do
+  before(:each) do
+    login_with create ( :user)
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Trip. As you add validations to Trip, be sure to
