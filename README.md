@@ -32,7 +32,7 @@ select database config (in this case we take the sqlite)
 
 ```cp database.sqlite.yml database.yml```
 
-+create a database, run the available migrations and seed the database with mandatory default values
+create a database, run the available migrations and seed the database with mandatory default values
 
 ```rake db:create db:migrate db:seed```
 
@@ -50,7 +50,7 @@ or the rails server with
 
 in case you want to run all tests go ahead and execute
 
-```rspec``` 
+```rspec ``` 
 
 or by specifing the exact spec file with
 

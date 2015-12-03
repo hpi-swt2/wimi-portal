@@ -35,4 +35,4 @@ namespace :db do
       status: "Declined",
       user_id: 1)
   end
-end 
+end
