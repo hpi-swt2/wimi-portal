@@ -36,16 +36,6 @@
     </div>
     <%= error_span(@holiday[:end]) %>
   </div>
-  <!--div class="control-group">
-    <%#= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%#= f.email_field :user_id, readonly:true, class: 'form-control', value: current_user.email %>
-      <%#= f.hidden_field :user_id, value: current_user.id %>
-      <%#= f.collection_select :user_id, User.all, :id, :email, {selected: current_user.id, prompt: true}, {} %>
-    </div>
-    <%#= error_span(@holiday[:user_id]) %>
-  </div-->
-
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
