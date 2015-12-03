@@ -26,12 +26,66 @@ class User < ActiveRecord::Base
   validates :last_name, length: { minimum: 1 }
   validates :email, length: { minimum: 1 }
 
+  DIVISIONS = [
+    ['', ''],
+    [
+      'Enterprise Platform and Integration Concepts',
+      'Enterprise Platform and Integration Concepts'
+    ],
+    [
+      'Internet-Technologien und Systeme',
+      'Internet-Technologien und Systeme'
+    ],
+    [
+      'Human Computer Interaction',
+      'Human Computer Interaction'
+    ],
+    [
+      'Computergrafische Systeme',
+      'Computergrafische Systeme'
+    ],
+    [
+      'Algorithm Engineering',
+      'Algorithm Engineering'
+    ],
+    [
+      'Systemanalyse und Modellierung',
+      'Systemanalyse und Modellierung'
+    ],
+    [
+      'Software-Architekturen',
+      'Software-Architekturen'
+    ],
+    [
+      'Informationssysteme',
+      'Informationssysteme'
+    ],
+    [
+      'Betriebssysteme und Middleware',
+      'Betriebssysteme und Middleware'
+    ],
+    [
+      'Business Process Technology',
+      'Business Process Technology'
+    ],
+    [
+      'School of Design Thinking',
+      'School of Design Thinking'
+    ],
+    [
+      'Knowledge Discovery and Data Mining',
+      'Knowledge Discovery and Data Mining'
+    ]
+  ]
+
   has_many :holidays
   has_many :expenses
   has_many :trips
 
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
+
+  validates :personnel_number, numericality: { only_integer: true }
 
   def name
     "#{first} #{last_name}"

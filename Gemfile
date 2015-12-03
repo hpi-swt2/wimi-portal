@@ -27,6 +27,9 @@ gem 'tzinfo-data', :platforms => [:mingw, :mswin, :x64_mingw]
 
 gem 'newrelic_rpm'
 gem 'airbrake'
+
+# add current schema to models
+gem 'annotate'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -38,9 +41,6 @@ gem 'validates_timeliness'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-# add current schema to models
-gem 'annotate'
 
 # Authentification
 gem 'devise'
@@ -89,7 +89,8 @@ end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
-  # Coverage Information
+
+  # Coverage information
   gem 'simplecov', :require => false
   # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
   #gem 'webmock'

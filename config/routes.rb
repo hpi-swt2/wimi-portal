@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   patch '/profile', to: 'user_profile#update'
 
   devise_for :users
+  resources :users, :only => [:show, :edit, :update]
 end

@@ -20,7 +20,8 @@
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
         <% unless current_user.email.blank? %>
-          <%= menu_item "#{current_user.email}", profile_path %>
+	  <%= menu_item "#{current_user.email}" %>
+          <%= menu_item "Profile", url_for(current_user) %>
         <% end %>
         <%= menu_item "Logout", destroy_user_session_path %>
       <% else %>
