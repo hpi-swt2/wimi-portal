@@ -27,7 +27,7 @@ class Holiday < ActiveRecord::Base
   end
 
   def duration_last_year
-    if(start <= Date.new(Date.today.year-1, 12, 31))
+    if start <= Date.new(Date.today.year-1, 12, 31)
       start.business_days_until(Date.new(Date.today.year-1, 12, 31))
     else
       0
@@ -45,7 +45,7 @@ class Holiday < ActiveRecord::Base
   def sufficient_leave_left?
     #need to assert that user is existent for tests
     if self.user
-      if !(self.user.remaining_leave >= duration)
+      unless self.user.remaining_leave >= duration
         errors.add(:not_enough_leave_left!, "" )
       end
   	end

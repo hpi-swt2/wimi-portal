@@ -33,11 +33,11 @@
     <div class="panel-body">
       <div class="form-group">
         <%= f.label "Remaining Leave: #{current_user.remaining_leave.to_s} days " %>
-        <% if (current_user.remaining_leave_last_year > 0 ) %>
+        <% if current_user.remaining_leave_last_year > 0 %>
           <%= f.label "(thereof #{current_user.remaining_leave_last_year.to_s} from #{Date.today.year-1})" %><br>
           <%= link_to t('.editLeave', :default => t("helpers.links.editLeave")), 
                       users_edit_leave_path(id: current_user.id), :class => 'btn btn-default btn-xs' %><br>
-          <% if (Date.today <= Date.new(Date.today.year, 3, 31)) %>
+          <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
             <%= f.label "WARNING LABEL"%><br>
           <% end %>
         <% end %>
