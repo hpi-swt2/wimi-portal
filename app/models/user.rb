@@ -4,10 +4,6 @@
 #
 #  id                        :integer          not null, primary key
 #  email                     :string           default(""), not null
-#  encrypted_password        :string           default(""), not null
-#  reset_password_token      :string
-#  reset_password_sent_at    :datetime
-#  remember_created_at       :datetime
 #  sign_in_count             :integer          default(0), not null
 #  current_sign_in_at        :datetime
 #  last_sign_in_at           :datetime
@@ -17,15 +13,22 @@
 #  last_name                 :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  remaining_leave           :integer          default(28)
-#  remaining_leave_last_year :integer          default(0)
+#  identity_url              :string
+#  remaining_leave_this_year :integer          default(28)
+#  remaining_leave_next_year :integer          default(28)
 #  residence                 :string
 #  street                    :string
-#  division                  :string
-#  personnel_number          :integer          default(1)
+#  division_id               :integer          default(0)
+#  personnel_number          :integer          default(0)
 #
 
 class User < ActiveRecord::Base
+
+  devise  :openid_authenticatable, :trackable
+
+  validates :first, length: { minimum: 1 }
+  validates :last_name, length: { minimum: 1 }
+  validates :email, length: { minimum: 1 }
 
   DIVISIONS = [ '',
       'Enterprise Platform and Integration Concepts',
@@ -41,13 +44,10 @@ class User < ActiveRecord::Base
       'School of Design Thinking',
       'Knowledge Discovery and Data Mining']
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
   has_many :holidays
   has_many :expenses
   has_many :trips
+
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
 
@@ -63,5 +63,28 @@ class User < ActiveRecord::Base
     first, last = fullname.split(' ')
     self.first = first
     self.last_name = last
+  end
+
+  def self.openid_required_fields
+    ["http://axschema.org/contact/email"]
+  end
+
+  def self.build_from_identity_url(identity_url)
+    username = identity_url.split('/')[-1]
+    first = username.split('.')[0].titleize
+    last_name = username.split('.')[1].titleize.delete("0-9")
+    User.new(:first => first, :last_name => last_name, :identity_url => identity_url)
+  end
+
+  def openid_fields=(fields)
+    fields.each do |key, value|
+      if value.is_a? Array
+        value = value.first
+      end
+
+      if key.to_s == "http://axschema.org/contact/email"
+        update_attribute(:email, value)
+      end
+    end
   end
 end

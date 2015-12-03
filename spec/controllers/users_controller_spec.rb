@@ -1,27 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-=begin
-  before(:each) do
-    login_with create ( :user)
-  end
-=end
 
   let(:valid_attributes) {
-    { password: '12345678', email: 'person@example.com', personnel_number: '1' }
+    { first: 'John', last_name: 'Doe', email: 'person@example.com', personnel_number: '1' }
   }
   let(:valid_attributes2) {
-    { password: '12345678', email: 'person2@example.com', personnel_number: '2' }
+    { first: 'John', last_name: 'Doe', email: 'person2@example.com', personnel_number: '2' }
   }
 
   let(:invalid_attributes) {
-    { password: '87654321', email: 'person@example.com', personnel_number: 'a' }
+    { email: 'person2example.com', personnel_number: 'a' }
   }
   let(:invalid_attributes2) {
-    { password: '87654321', email: 'person@example.com', personnel_number: '9999999999' }
+    { email: 'person@example.com', personnel_number: '9999999999' }
   }
   let(:invalid_attributes3) {
-    { password: '87654321', email: 'person@example.com', personnel_number: '-1' }
+    { email: 'person@example.com', personnel_number: '-1' }
   }
 
   let(:valid_session) { {} }
@@ -47,7 +42,7 @@ RSpec.describe UsersController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        { password: '87654321', email: 'person2@example.com' }
+        { email: 'person2@example.com' }
       }
 
       it "updates the requested user" do
