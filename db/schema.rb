@@ -95,13 +95,13 @@ ActiveRecord::Schema.define(version: 20151127195914) do
     t.string   "last_name"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.string   "identity_url"
     t.string   "residence"
     t.string   "street"
     t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
-    t.string   "identity_url"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
