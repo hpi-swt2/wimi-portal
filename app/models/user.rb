@@ -52,6 +52,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :projects
 
   validates :personnel_number, numericality: { only_integer: true }, inclusion: 0..999999999
+  validates_numericality_of :remaining_leave, greater_than_or_equal: 0
+  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
 
   def name
     "#{first} #{last_name}"
