@@ -56,6 +56,8 @@ class User < ActiveRecord::Base
     ],
   ]
 
+  INVALID_EMAIL = 'invalid_email'
+
   has_many :holidays
   has_many :expenses
   has_many :trips
@@ -95,7 +97,11 @@ class User < ActiveRecord::Base
       end
 
       if key.to_s == "http://axschema.org/contact/email"
-        update_attribute(:email, value)
+        if value.nil?
+          update_attribute(:email, INVALID_EMAIL)
+        else
+          update_attribute(:email, value)
+        end
       end
     end
   end

@@ -15,7 +15,7 @@ describe 'login via OpenID' do
   it 'should be obligatory to insert a valid email' do
     @current_user = FactoryGirl.create(:user)
     login_as @current_user
-    @current_user.update_attribute(:email, '')
+    @current_user.update_attribute(:email, 'invalid_email')
     @routes.each do |route|
       visit route
       expect(page).to have_content 'Please set a valid email address first'
