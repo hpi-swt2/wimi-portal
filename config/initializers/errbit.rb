@@ -11,7 +11,7 @@
 # -------------------------------------------------------
 
 Airbrake.configure do |config|
-  config.api_key = 'e03ec03a59077db4530328f5f20da333'
+  config.api_key = 'f52c70fc32a49a41c5e0762c267e2678'
   config.host    = 'swt2-2015-errbit.herokuapp.com'
   config.port    = 80
   config.secure  = config.port == 443

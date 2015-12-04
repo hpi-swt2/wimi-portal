@@ -25,30 +25,20 @@
   <div class="control-group">
     <%= f.label :start, :class => 'control-label' %>
     <div class="controls">
-      <%= f.datetime_field :start, :class => 'form-control' %>
+      <%= f.text_field(:start, required: true, class: 'js-datepicker form-control', 'data-provide': "datepicker", 'data-date-format': 'dd.mm.yyyy', 'data-date-orientation':"bottom") %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
     <%= f.label :end, :class => 'control-label' %>
     <div class="controls">
-      <%= f.datetime_field :end, :class => 'form-control' %>
+      <%= f.text_field(:end, required: true, class: 'js-datepicker form-control', 'data-provide': "datepicker", 'data-date-format': 'dd.mm.yyyy', 'data-date-orientation':"bottom") %>
     </div>
     <%= error_span(@holiday[:end]) %>
-  </div>
-  <!--div class="control-group">
-    <%#= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%#= f.email_field :user_id, readonly:true, class: 'form-control', value: current_user.email %>
-      <%#= f.hidden_field :user_id, value: current_user.id %>
-      <%#= f.collection_select :user_id, User.all, :id, :email, {selected: current_user.id, prompt: true}, {} %>
-    </div>
-    <%#= error_span(@holiday[:user_id]) %>
-  </div-->
-
+  </div><br>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            holidays_path, :class => 'btn btn-default' %>
+            current_user, :class => 'btn btn-default' %>
 
 <% end %>
