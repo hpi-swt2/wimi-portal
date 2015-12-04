@@ -38,7 +38,7 @@ RSpec.describe ProjectApplicationsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    { user_id: -1, project_id: wimi.projects.first.id }
+    { }
   }
 
   # This should return the minimal set of values that should be in the session

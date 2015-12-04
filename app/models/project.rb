@@ -3,4 +3,5 @@ class Project < ActiveRecord::Base
   has_many :publications
   has_many :expenses
   has_many :project_applications, dependent: :destroy
+  validates_presence_of :title
 end

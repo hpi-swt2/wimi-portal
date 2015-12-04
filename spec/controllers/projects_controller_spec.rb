@@ -27,11 +27,11 @@ RSpec.describe ProjectsController, type: :controller do
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { }
+    { title: 'Some title' }
   }
 
   let(:invalid_attributes) {
-    {  }
+    { title: '' }
   }
 
   # This should return the minimal set of values that should be in the session

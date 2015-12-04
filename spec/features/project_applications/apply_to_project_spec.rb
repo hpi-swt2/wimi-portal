@@ -27,6 +27,11 @@ describe 'Applying to a project' do
     expect(@project_application.reload.status).to eq('pending')
   end
 
+  it 'should be viewable on the project applications index' do
+    visit projects_path
+    expect(page).to have_text(@project.title)
+  end
+
   it 'should be acceptable' do
     login_as(@wimi)
     visit project_path(@project)

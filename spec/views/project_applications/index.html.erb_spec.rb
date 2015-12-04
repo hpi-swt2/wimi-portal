@@ -1,19 +1,17 @@
+require 'spec_helper'
 require 'rails_helper'
 
 RSpec.describe "project_applications/index", type: :view do
   before(:each) do
-    assign(:project_applications, [
-      ProjectApplication.create!(
-        :project_id => 1,
-        :user_id => 2,
-        :status => 3
-      ),
-      ProjectApplication.create!(
-        :project_id => 1,
-        :user_id => 2,
-        :status => 3
-      )
-    ])
+    @user = FactoryGirl.create(:user)
+    @projects = [FactoryGirl.create(:user),
+                 FactoryGirl.create(:wimi).projects.first]
+    login_as(@user)
+
+    for project in @projects
+      visit project_path(project)
+      click_on(I18n.t('helpers.links.apply'))
+    end
   end
 
   it "renders a list of project_applications" do
