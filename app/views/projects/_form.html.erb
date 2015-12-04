@@ -50,10 +50,9 @@
   <div class="control-group">
     <%= f.label :users, :class => 'control-label' %>
     <div class="checkbox">
-      <%= f.collection_check_boxes(:project, :user_ids, User.all, :id, :email) do |b|%>
+      <%= f.collection_check_boxes(:user_ids, User.all, :id, :email) do |b|%>
         <div clas="checkbox">
         <%= b.label(:"data-value" => b.value) { b.check_box + b.text} %>
-         ID: <%= @user_ids %>
         </div>
       <% end %>
     </div>
