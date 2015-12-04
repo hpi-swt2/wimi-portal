@@ -16,7 +16,7 @@
       <% case project_application.status %>
         <% when 'pending' %>
           <%= link_to t('.cancel', :default => t('helpers.links.pending_cancel')),
-            project_applications_path(project_application),
+            project_application_path(project_application),
             :method => :delete,
             :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?')) },
             :class => 'btn btn-danger' %>

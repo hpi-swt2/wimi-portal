@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
   resources :holidays
 
-  resources :project_applications, only: [:index] do
+  resources :project_applications, only: [:index, :destroy] do
     member do
       get 'accept'
       get 'decline'

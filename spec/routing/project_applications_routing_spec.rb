@@ -23,5 +23,9 @@ RSpec.describe ProjectApplicationsController, type: :routing do
       expect(:get => "/project_applications/1/reapply").to route_to("project_applications#reapply", :id => "1")
     end
 
+    it "routes to #destroy" do
+      expect(:delete => "/project_applications/1").to route_to("project_applications#destroy", :id => "1")
+    end
+
   end
 end

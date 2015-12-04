@@ -7,30 +7,16 @@ class ProjectApplicationsController < ApplicationController
     @project_applications = current_user.project_applications.order(updated_at: :desc)
   end
 
-  # GET /project_applications/1
-  # GET /project_applications/1.json
-  def show
-  end
-
-  # GET /project_applications/new
-  def new
-    @project_application = ProjectApplication.new
-  end
-
-  # GET /project_applications/1/edit
-  def edit
-  end
-
   def accept
     @project_application.update(status: :accepted)
-    @user = @project_application.user
-    @user.update(role: :hiwi)
-    @user.projects << @project_application.project
+    user = @project_application.user
+    user.update(role: :hiwi)
+    user.projects << @project_application.project
     redirect_to :back
   end
 
   def decline
-    @project_application.update(status: :declined)
+    @project_application.update_attributes(status: :declined)
     redirect_to :back
   end
 
