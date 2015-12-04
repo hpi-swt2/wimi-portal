@@ -18,19 +18,26 @@
         <td><%= link_to chair.id, chair_path(chair) %></td>
         <td><%= chair.name %></td>
         <td><%= chair.created_at %></td>
-        <td>
-          <% if current_user.is_wimi? %>
-              <% if current_user.chair == chair %>
-                  <span class="label label-success">Wissenschaftlicher Mitarbeiter</span>
-              <% end %>
-          <% else %>
-              <% if current_user.wimi.nil? %>
-                  <%= link_to 'Apply as Wimi', apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
-              <% elsif current_user.wimi.application == 'pending' && current_user.chair == chair %>
-                  <span class="label label-warning">pending</span>
-              <% end %>
+
+        <% if current_user.is_wimi? %>
+          <td>
+            <% if current_user.chair == chair %>
+              <span class="label label-success">Wissenschaftlicher Mitarbeiter</span>
+            <% end %>
+            <td>
+              <% if current_user.chair_wimi.admin %><%= link_to 'Manage Chair', chair_path(chair) %><% end %>
+            </td>
+        <% else %>
+          <td>
+          <% if current_user.chair_wimi.nil? %>
+            <%= link_to 'Apply as Wimi', chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+          <% elsif current_user.chair_wimi.application == 'pending' && current_user.chair == chair %>
+            <span class="label label-warning">pending</span>
           <% end %>
-        </td>
+          </td>   
+          <td></td>     
+        <% end %>
+
       </tr>
   <% end %>
   </tbody>

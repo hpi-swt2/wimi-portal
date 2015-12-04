@@ -7,27 +7,48 @@
 
 <strong>Anfragen auf Mitgliedschaft:</strong>
 <br>
-
-
-<% if @requests.nil? %>
-  <p>
-    keine Anfragen
-  </p>
-  <% else %>
+<% if @requests.empty? %>
+<p>
+  keine Anfragen
+</p>
+<% else %>
+<table class="table table-striped">
   <% @requests.each do |request| %>
-    <p>
-      <%= request.user.name %>
-    </p>
+  <tr>
+    <td><%= request.user.name %></td>
+    <td>
+      <%= link_to 'Bestätigen', chairs_accept_path(:id => @chair, :request => request), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <%= link_to 'Ablehnen', chairs_remove_user_path(:id => @chair, :request => request), :method => :post, :class => 'btn btn-default btn-xs' %>
+    </td>
+  </tr>
   <% end %>
+</table>
 <% end %>
-
 
 <strong>Wissenschaftliche Mitarbeiter:</strong>
 <br>
+<table class="table table-striped">
+  <% @chair.wimis.each do |wimi| %>
+  <tr>
+    <td><%= wimi.name %></td>
+    <td>Anträge anzeigen</td>
+    <td>
+      <% if wimi.chair_wimi.admin %>Administrator<% end %>
+    </td>
+    <td>
+    <%= link_to 'Aus Fachgebiet entfernen', chairs_remove_user_path(:id => @chair, :request => wimi.chair_wimi), :method => :post, :class => 'btn btn-default btn-xs' %>
+    </td>
+  </tr>
+  <% end %>
+</table>
 
-<% @wimis.each do |wimi| %>
-  <p>
-    <%= wimi.name %>
-    <% if wimi.wimi.admin %>Administrator<% end %>
-  </p>
-<% end %>
+<strong>Studentische Hilfskräfte:</strong>
+<br>
+<table class="table table-striped">
+  <% @chair.hiwis.each do |hiwi| %>
+  <tr>
+    <td><%= hiwi.name %></td>
+    <td>Stundenzettel anzeigen</td>
+  </tr>
+  <% end %>
+</table>

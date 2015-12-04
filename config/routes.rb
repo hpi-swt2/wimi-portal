@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'chairs/index'
-
   get 'dashboard', to: 'dashboard#index'
 
     # The priority is based upon order of creation: first created -> highest priority.
@@ -14,7 +12,9 @@ Rails.application.routes.draw do
   
   devise_for :users
 
-  post 'apply', to: 'chairs#apply'
+  post 'chairs/apply', to: 'chairs#apply'
+  post 'chairs/accept', to: 'chairs#accept_request'
+  post 'chairs/remove_user', to: 'chairs#remove_from_chair'
 
   # You can have the root of your site routed with "root"
   root 'dashboard#index'

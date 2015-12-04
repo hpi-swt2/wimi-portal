@@ -1,6 +1,6 @@
 class CreateWimi < ActiveRecord::Migration
   def change
-    create_table :wimis do |t|
+    create_table :chair_wimis do |t|
       t.boolean :admin, default: false
       t.boolean :representative, default: false
       t.string :application, default: nil
