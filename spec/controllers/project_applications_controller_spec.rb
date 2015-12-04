@@ -38,7 +38,7 @@ RSpec.describe ProjectApplicationsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    { user_id: -1, project_id: wimi.projects.first.id }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -75,14 +75,9 @@ RSpec.describe ProjectApplicationsController, type: :controller do
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved project_application as @project_application" do
-        post :create, {:project_application => invalid_attributes}, valid_session
-        expect(assigns(:project_application)).to be_a_new(ProjectApplication)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:project_application => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+      it "redirects back to index page" do
+        post :create, {:project_application => invalid_attributes, id: @project.id}, valid_session
+        expect(response).to redirect_to(project_applications_path)
       end
     end
   end
@@ -109,7 +104,7 @@ RSpec.describe ProjectApplicationsController, type: :controller do
       login_as @wimi
       get :accept, {:id => project_application.id}, valid_session
       expect(response).to redirect_to(:back)
-      expect(project_application.accepted?).to eq(true)
+      expect(project_application.reload.accepted?).to eq(true)
     end
   end
 
@@ -119,7 +114,7 @@ RSpec.describe ProjectApplicationsController, type: :controller do
       login_as @wimi
       get :decline, {:id => project_application.id}, valid_session
       expect(response).to redirect_to(:back)
-      expect(project_application.declined?).to eq(true)
+      expect(project_application.reload.declined?).to eq(true)
     end
   end
 
@@ -129,7 +124,7 @@ RSpec.describe ProjectApplicationsController, type: :controller do
       project_application.update(status: :declined)
       get :reapply, {:id => project_application.id}, valid_session
       expect(response).to redirect_to(:back)
-      expect(project_application.pending?).to eq(true)
+      expect(project_application.reload.pending?).to eq(true)
     end
   end
 
