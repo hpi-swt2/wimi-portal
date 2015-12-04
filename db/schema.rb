@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(version: 20151127195914) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "status",     default: true
+    t.boolean  "public",     default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "projects_users", id: false, force: :cascade do |t|
