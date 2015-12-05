@@ -30,8 +30,15 @@ class ChairsController < ApplicationController
   def remove_from_chair
     chair_wimi = ChairWimi.find(params[:request])
 
-    respond_to do |format|
+    success = false
+    unless current_user == chair_wimi.user
       if chair_wimi.destroy
+        success = true
+      end
+    end
+
+    respond_to do |format|
+      if success
         format.html { redirect_to chair_path(@chair), notice: 'User was successfully removed.' }
         format.json { render :show, status: :created, location: chair_path(@chair) }
       else
@@ -72,12 +79,15 @@ class ChairsController < ApplicationController
     def authorize
       c_wimi = current_user.chair_wimi
       if c_wimi.nil?
-        redirect_to root_path, notice: 'Not authorized for this chair.'
+        not_authorized
+      else
+        unless (c_wimi.admin == true || c_wimi.representative == true) && c_wimi.chair == @chair
+          not_authorized
+        end
       end
-      correct_chair = (c_wimi.chair == @chair)
-      correct_rights = c_wimi.admin == true || c_wimi.representative == true
-      unless correct_chair && correct_rights 
-        redirect_to root_path, notice: 'Not authorized for this chair.'
-      end
+    end
+
+    def not_authorized
+      redirect_to root_path, notice: 'Not authorized for this chair.'
     end
 end

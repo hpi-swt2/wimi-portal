@@ -33,7 +33,9 @@
     <td><%= wimi.name %></td>
     <td>Anträge anzeigen</td>
     <td>
-      <% if wimi.chair_wimi.admin %>Administrator<% end %>
+      <% if wimi.chair_wimi.admin %>Administrator
+      <% elsif wimi.chair_wimi.representative %>FG-Beauftragter
+      <% end %>
     </td>
     <td>
     <%= link_to 'Aus Fachgebiet entfernen', chairs_remove_user_path(:id => @chair, :request => wimi.chair_wimi), :method => :post, :class => 'btn btn-default btn-xs' %>
@@ -48,7 +50,11 @@
   <% @chair.hiwis.each do |hiwi| %>
   <tr>
     <td><%= hiwi.name %></td>
-    <td>Stundenzettel anzeigen</td>
+    <td>
+      <% if current_user.chair_wimi.representative %>
+        Stundenzettel anzeigen
+      <% end %>
+    </td>
   </tr>
   <% end %>
 </table>

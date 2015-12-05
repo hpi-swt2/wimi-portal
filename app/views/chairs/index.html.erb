@@ -23,10 +23,14 @@
           <td>
             <% if current_user.chair == chair %>
               <span class="label label-success">Wissenschaftlicher Mitarbeiter</span>
+              </td><td>
+                <% if current_user.chair_wimi.admin || current_user.chair_wimi.representative %>
+                  <%= link_to 'Manage Chair', chair_path(chair) %>
+                <% end %>
+            <% else %>
+              </td><td>
             <% end %>
-            <td>
-              <% if current_user.chair_wimi.admin %><%= link_to 'Manage Chair', chair_path(chair) %><% end %>
-            </td>
+          </td>
         <% else %>
           <td>
           <% if current_user.chair_wimi.nil? %>
@@ -35,7 +39,7 @@
             <span class="label label-warning">pending</span>
           <% end %>
           </td>   
-          <td></td>     
+          <td></td>
         <% end %>
 
       </tr>
