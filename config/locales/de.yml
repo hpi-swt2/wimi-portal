@@ -103,6 +103,9 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
+  users:
+    update:
+      user_updated: "Benutzer erfolgreich aktualisiert"
 
   time:
     formats:

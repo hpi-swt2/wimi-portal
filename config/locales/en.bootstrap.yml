@@ -26,6 +26,8 @@ en:
       new: "New"
       edit: "Edit"
       edit_leave: "Edit Leave"
+      show_details: "Show Details"
+      show_pdf: "Show PDF"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

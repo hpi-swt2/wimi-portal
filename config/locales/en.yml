@@ -102,8 +102,11 @@ en:
         personnel_number: "Staff Number"
         division_id: "Division"
         language: "Language"
+  users:
+    update:
+      user_updated: "User updated successfully"
   time:
     formats:
-      default: "%m/%d/%Y"
+      default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"
