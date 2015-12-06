@@ -39,7 +39,7 @@
           <% if current_user.remaining_leave_last_year > 0 %>
             <%= f.label "(thereof #{current_user.remaining_leave_last_year.to_s} from #{Date.today.year-1})" %>
             <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
-              <br><%= f.label "WARNING LABEL"%>
+              <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000')%>
             <% end %>
           <% end %>
           <br><%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
@@ -53,20 +53,20 @@
                 <th><%= t('activerecord.attributes.holiday.start') %></th>
                 <th><%= t('activerecord.attributes.holiday.end') %></th>
                 <th><%= t('activerecord.attributes.holiday.status') %></th>
-                <th><%= t("helpers.actions") %></th>
+                <th><%= t('helpers.actions') %></th>
               </tr>
             </thead>
             <tbody>
               <% current_user.holidays.each do |holiday| %>
                 <tr>
-                  <td><%= holiday.duration %><%= t(" days") %></td>
+                  <td><%= holiday.duration %>&nbsp<%= t('.days') %></td>
                   <td><%= holiday.start %></td>
-                  <td><%=l holiday.end %></td>
+                  <td><%= holiday.end %></td>
                   <td><%= holiday.status %></td>
                   <td>
-                    <%= link_to t('.showDetails', default: t("helpers.links.showDetails")),
+                    <%= link_to t("helpers.links.show_details"),
                                 holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
-                    <%= link_to t('.showPDF', default: t("helpers.links.showPDF")), user_path(current_user.id), class: 'btn btn-default btn-xs' %>
+                    <%= link_to t("helpers.links.show_pdf"), user_path(current_user.id), class: 'btn btn-default btn-xs' %>
                   </td>
                 </tr>
               <% end %>

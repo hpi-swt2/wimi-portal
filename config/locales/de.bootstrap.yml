@@ -21,6 +21,8 @@ de:
       new: "Neu"
       edit: "Bearbeiten"
       edit_leave: "Resturlaub bearbeiten"
+      show_details: "Details anzeigen"
+      show_pdf: "Als PDF anzeigen"
     titles:
       edit: "%{model} bearbeiten"
       save: "%{model} speichern"

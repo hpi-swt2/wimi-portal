@@ -79,6 +79,11 @@ class User < ActiveRecord::Base
     self.last_name = last
   end
 
+  def prepare_leave_for_new_year
+    self.remaining_leave_last_year = self.remaining_leave
+    self.remaining_leave = 28
+  end
+
   def self.openid_required_fields
     ["http://axschema.org/contact/email"]
   end
