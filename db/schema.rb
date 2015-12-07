@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203144554) do
+ActiveRecord::Schema.define(version: 20151207094449) do
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -107,13 +107,21 @@ ActiveRecord::Schema.define(version: 20151203144554) do
 
   add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
 
+  create_table "trip_datespans", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "days_abroad"
+    t.integer  "trip_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "trip_datespans", ["trip_id"], name: "index_trip_datespans_on_trip_id"
+
   create_table "trips", force: :cascade do |t|
     t.string   "name"
     t.string   "destination"
     t.text     "reason"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "days_abroad"
     t.text     "annotation"
     t.string   "signature"
     t.integer  "user_id"

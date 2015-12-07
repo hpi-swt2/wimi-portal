@@ -16,8 +16,6 @@ RSpec.describe "trips/edit", type: :view do
 
       assert_select "textarea#trip_reason[name=?]", "trip[reason]"
 
-      assert_select "input#trip_days_abroad[name=?]", "trip[days_abroad]"
-
       assert_select "textarea#trip_annotation[name=?]", "trip[annotation]"
 
       assert_select "input#trip_signature[name=?]", "trip[signature]"

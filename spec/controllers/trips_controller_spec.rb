@@ -30,9 +30,6 @@ RSpec.describe TripsController, type: :controller do
     {:name => "Hana Travels",
      :destination => "NYC Conference",
      :reason => "Hana Things",
-     :start_date => Date.today,
-     :end_date => Date.today + 6,
-     :days_abroad => 6,
      :annotation => "HANA pls",
      :signature => "le Hasso",
      :user => User.first}
@@ -42,9 +39,6 @@ RSpec.describe TripsController, type: :controller do
     {:name => "",
      :destination => "NYC Conference",
      :reason => "Hana Things",
-     :start_date => Date.today + 6,
-     :end_date => Date.today,
-     :days_abroad => 20,
      :annotation => "HANA pls",
      :signature => "le Hasso",
      :user => User.first}

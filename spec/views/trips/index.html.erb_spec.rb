@@ -13,7 +13,6 @@ RSpec.describe "trips/index", type: :view do
   it "renders a list of trips" do
     render
     expect(rendered).to match /#{@trip1.name}/
-    expect(rendered).to match /#{@trip1.days_abroad}/
     expect(rendered).to match /#{@trip2.name}/
   end
 end

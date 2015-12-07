@@ -15,6 +15,7 @@ class TripsController < ApplicationController
   # GET /trips/new
   def new
     @trip = Trip.new
+    2.times {@trip.trip_datespans.build} 
   end
 
   # GET /trips/1/edit
@@ -73,6 +74,6 @@ class TripsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
-      params.require(:trip).permit(:name, :destination, :reason, :start_date, :end_date, :days_abroad, :annotation, :signature)
+	    params.require(:trip).permit(:name, :destination, :reason, :annotation, :signature, trip_datespans_attributes:[:start_date, :end_date,:days_abroad])
     end
 end

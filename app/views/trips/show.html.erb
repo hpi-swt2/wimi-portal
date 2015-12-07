@@ -14,22 +14,9 @@
   <strong>Reason:</strong>
   <%= @trip.reason %>
 </p>
-
-<p>
-  <strong>Start date:</strong>
-  <%= @trip.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @trip.end_date %>
-</p>
-
-<p>
-  <strong>Days abroad:</strong>
-  <%= @trip.days_abroad %>
-</p>
-
+<ul>
+	<%= render @trip.trip_datespans %>
+</ul>
 <p>
   <strong>Annotation:</strong>
   <%= @trip.annotation %>

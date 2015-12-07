@@ -23,18 +23,17 @@
     <%= f.label :reason %><br>
     <%= f.text_area :reason %>
   </div>
-  <div class="field">
-    <%= f.label :start_date %><br>
-    <%= f.datetime_select :start_date %>
-  </div>
-  <div class="field">
-    <%= f.label :end_date %><br>
-    <%= f.datetime_select :end_date %>
-  </div>
-  <div class="field">
-    <%= f.label :days_abroad %><br>
-    <%= f.number_field :days_abroad %>
-  </div>
+  <%= f.fields_for :trip_datespans do |d| %>
+	<li>
+  		<%= d.label :start_date %>
+		<%= d.date_select :start_date,order: [:day,:month,:year] %>
+  		<%= d.label :end_date %>
+		<%= d.date_select :end_date, order: [:day,:month,:year]%>
+  		<%= d.label :days_abroad %>
+		<%= d.number_field :days_abroad %>
+	</li>
+  <% end %>
+
   <div class="field">
     <%= f.label :annotation %><br>
     <%= f.text_area :annotation %>
