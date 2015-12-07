@@ -16,3 +16,5 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-datepicker
+
+ $('.datepicker').datepicker();
