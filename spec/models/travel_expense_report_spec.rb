@@ -13,13 +13,13 @@ RSpec.describe TravelExpenseReport, type: :model do
 
   context "with invalid input" do
     it "rejects blank names" do
-      expect{FactoryGirl.create(:travel_expense_report_blank_name)}.to raise_error
+      expect(FactoryGirl.build(:travel_expense_report_blank_name).valid?).to be false
     end
     it "rejects wrong dates" do
-      expect{FactoryGirl.create(:travel_expense_report_wrong_dates)}.to raise_error
+      expect(FactoryGirl.build(:travel_expense_report_wrong_dates).valid?).to be false
     end
     it "rejects negative advances" do
-      expect{FactoryGirl.create(:travel_expense_report_negative_advance)}.to raise_error
+      expect(FactoryGirl.build(:travel_expense_report_negative_advance).valid?).to be false
     end
   end
 end

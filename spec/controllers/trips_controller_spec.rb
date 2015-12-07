@@ -116,14 +116,19 @@ RSpec.describe TripsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {:name => "Hana",
+     :destination => "NYC",
+     :reason => "Hana",
+     :annotation => "HANA",
+     :signature => "le",
+     :user => User.first}
       }
 
       it "updates the requested trip" do
         trip = Trip.create! valid_attributes
         put :update, {:id => trip.to_param, :trip => new_attributes}, valid_session
         trip.reload
-        skip("Add assertions for updated state")
+	expect(trip.name).to eq("Hana")
       end
 
       it "assigns the requested trip as @trip" do
