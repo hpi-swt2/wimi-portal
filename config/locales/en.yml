@@ -107,6 +107,7 @@ en:
       user_updated: "User updated successfully"
     show:
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+
   time:
     formats:
       default: "%d-%m-%Y"

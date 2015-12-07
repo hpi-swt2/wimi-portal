@@ -132,5 +132,4 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.integer  "user_id"
     t.integer  "project_id"
   end
-
 end
