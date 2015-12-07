@@ -1,0 +1,2 @@
+class TripDatespansController < ApplicationController
+end
