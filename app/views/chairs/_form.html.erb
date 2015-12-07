@@ -1,0 +1,64 @@
+<%= form_for @chair, :html => { :class => "form-horizontal project" } do |f| %>
+
+    <% if @chair.errors.any? %>
+        <div id="error_expl" class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(@chair.errors.count, "error") %> prohibited this project from being saved:</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <% @chair.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'form-control' %>
+      </div>
+      <%= error_span(@chair[:title]) %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :chair_admin, :class => 'control-label' %><br>
+      <div class="controls">
+        <select name="admin_user" id="admin_user">
+          <option value="null">Please select</option>
+          <%= User.all.each do |user| %>
+              <% # if ChairAdmin.find_by(:user_id => user.id, :chair_id => @chair.id) %>
+                  <!--<option value="<%= user.id %>" selected="true"><%= user.name %></option>-->
+              <% # else %>
+                  <option value="<%= user.id %>"><%= user.name %></option>
+              <% # end %>
+          <% end %>
+        </select>
+        <%= error_span(@chair[:chair_admin]) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :chair_representative, :class => 'control-label' %><br>
+      <div class="controls">
+        <select name="representative_user">
+          <option value="null">Please select</option>
+          <%= User.all.each do |user| %>
+              <% # if ChairRepresentative.find_by(:user_id => user.id, :chair_id => @chair.id) %>
+                  <!--<option value="<%= user.id %>" selected="true"><%= user.name %></option>-->
+              <% # else %>
+                  <option value="<%= user.id %>"><%= user.name %></option>
+              <% # end %>
+          <% end %>
+        </select>
+        <%= error_span(@chair[:chair_representative]) %>
+      </div>
+    </div>
+    <br />
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                chairs_path, :class => 'btn btn-default' %>
+
+<% end %>

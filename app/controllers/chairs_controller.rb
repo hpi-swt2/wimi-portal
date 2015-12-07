@@ -1,8 +1,8 @@
 class ChairsController < ApplicationController
   before_action :set_chair, only: [:show, :accept_request, :remove_from_chair]
   
-  before_action :authorize
-  skip_before_action :authorize, only: [:index, :apply ]
+  # before_action :authorize
+  # skip_before_action :authorize, only: [:index, :apply ]
 
   def index
     @chairs = Chair.all
@@ -10,6 +10,11 @@ class ChairsController < ApplicationController
 
   def show
     @requests = @chair.chair_wimis.where(:application => 'pending')
+  end
+
+  # GET /chairs/new
+  def new
+    @chair = Chair.new
   end
 
   def accept_request

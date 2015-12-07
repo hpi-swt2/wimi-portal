@@ -46,5 +46,9 @@
   <% end %>
   </tbody>
 </table>
-
+<% if current_user.is?('superadmin') %>
+    <%= link_to t('.new', :default => t("helpers.links.new")),
+                new_chair_path,
+                :class => 'btn btn-primary' %>
+<% end %>
 
