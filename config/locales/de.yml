@@ -103,12 +103,7 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
-  users:
-    update:
-      user_updated: "Benutzer erfolgreich aktualisiert"
-    show:
-      warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
-
+      
   time:
     formats:
       default: "%d/%m/%Y"

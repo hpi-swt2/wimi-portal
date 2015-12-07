@@ -35,9 +35,9 @@
       </div>
       <div class="panel-body">
         <div class="form-group">
-          <%= f.label :remaining_leave, t('.remaining_leave')+": #{current_user.remaining_leave.to_s} "+t('.days') %>
+          <%= f.label :remaining_leave, t('.remaining_leave', leave: current_user.remaining_leave.to_s) %>
           <% if current_user.remaining_leave_last_year > 0 %>
-            <%= f.label "(thereof #{current_user.remaining_leave_last_year.to_s} from #{Date.today.year-1})" %>
+            <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: current_user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
             <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
               <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000')%>
             <% end %>

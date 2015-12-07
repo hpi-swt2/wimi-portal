@@ -36,13 +36,17 @@ de:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
   users:
+    update:
+      user_updated: "Benutzer erfolgreich aktualisiert"
     show:
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"
-      remaining_leave: "Verbleibender Resturlaub"
+      remaining_leave: "Verbleibender Resturlaub: %{leave} Tag(e)"
+      remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
       days: "Tag(e)"
       title: "Benutzerprofil"
+      warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
     edit:
       user_data: "Profilbezogene Daten"
     edit_leave:

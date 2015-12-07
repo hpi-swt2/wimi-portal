@@ -102,11 +102,6 @@ en:
         personnel_number: "Staff Number"
         division_id: "Division"
         language: "Language"
-  users:
-    update:
-      user_updated: "User updated successfully"
-    show:
-      warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
 
   time:
     formats:
