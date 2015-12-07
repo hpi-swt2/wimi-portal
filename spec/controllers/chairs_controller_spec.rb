@@ -54,18 +54,19 @@ RSpec.describe ChairsController, type: :controller do
       expect(User.find(@wimi.id).is_wimi?).to eq(false)
     end
 
-    it 'tries to remove himself' do
+    it 'tries to remove admin' do
       login_with @admin
       post :remove_from_chair, {id: @chair, request: @admin.chair_wimi}
       expect(User.find(@wimi.id).is_wimi?).to eq(true)
     end
 
     it 'accepts application request' do
+      wimi_count = @chair.wimis.count
       login_with @user
       post :apply, {chair: @chair}
       login_with @admin
       post :accept_request, {id: @chair, request: ChairWimi.find_by(user: @user)}
-      expect(User.find(@user.id).is_wimi?).to eq(true)
+      expect(Chair.find(@chair.id).wimis.count).to eq(wimi_count+1)
     end
   end
 end

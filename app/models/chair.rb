@@ -6,15 +6,11 @@ class Chair < ActiveRecord::Base
   validates :name, presence: true
 
   def wimis
-  	return users.select { |u| u.is_wimi? }
+  	users.select { |u| u.is_wimi? }
   end
 
   def hiwis
-  	arr = []
-  	projects.each do |p|
-  		arr += p.hiwis
-  	end
-  	return arr
+  	projects.collect { |p| p.hiwis }
   end
 
 end
