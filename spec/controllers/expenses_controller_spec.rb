@@ -27,11 +27,11 @@ RSpec.describe ExpensesController, type: :controller do
   # Expense. As you add validations to Expense, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
+    { amount: 1, purpose: 'Purpose' }
   }
 
   let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    { amount: 0, purpose: 'Purpose' }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -43,7 +43,7 @@ RSpec.describe ExpensesController, type: :controller do
     it 'assigns all expenses as @expenses' do
       expense = Expense.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:expenses)).to eq([expense])
+      expect(assigns(:expenses)).to eq(Expense.all)
     end
   end
 
@@ -106,14 +106,14 @@ RSpec.describe ExpensesController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
+        { amount: 2 }
       }
 
       it 'updates the requested expense' do
         expense = Expense.create! valid_attributes
         put :update, {id: expense.to_param, expense: new_attributes}, valid_session
         expense.reload
-        skip('Add assertions for updated state')
+        expect(expense.amount).to eq(2)
       end
 
       it 'assigns the requested expense as @expense' do
