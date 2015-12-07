@@ -4,13 +4,13 @@ Rails.application.routes.draw do
 
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  resources :time_sheets
   resources :publications
   resources :projects
   resources :holidays
   resources :trips
   resources :expenses
   resources :work_days
+  resources :time_sheets, :only => [:edit, :update, :delete]
 
   devise_for :users
 

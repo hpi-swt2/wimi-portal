@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'work_days/edit.html.erb', type: :view do
   before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
     @work_day = assign(:work_day, WorkDay.create!(
       :date => '11-11-2015',
       :start_time => Date.today.beginning_of_day,
@@ -9,7 +11,7 @@ RSpec.describe 'work_days/edit.html.erb', type: :view do
       :end_time => Date.today.end_of_day,
       :attendance => 'K',
       :notes => 'MyString',
-      :user_id => 1
+      :user_id => @user.id
     ))
   end
 
