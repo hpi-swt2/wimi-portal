@@ -8,6 +8,7 @@
     <%if not @project.nil?%>
       <%= ' for ' + @project.title%>
     <%end%>
+    <%= ' by ' + @time_sheet.user.name%>
   </h1>
 </div>
 
@@ -25,7 +26,6 @@
         <th><%= model_class.human_attribute_name(:duration) %></th>
         <th>*</th>
         <th><%= model_class.human_attribute_name(:notes) %></th>
-        <th>Action</th>
     </tr>
   </thead>
 
@@ -39,20 +39,19 @@
           <td><%= work_day.duration %>min</td>
           <td><%= work_day.attendance %></td>
           <td><%= work_day.notes %></td>
-          <td>
-              <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                  edit_work_day_path(work_day), :class => 'btn btn-default btn-xs' %>
-              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                          work_day_path(work_day),
-                          :method => :delete,
-                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                          :class => 'btn btn-xs btn-danger' %>
-          </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-
-<%= link_to "New", new_work_day_path, :class => 'btn btn-primary' %>
-<%= link_to "Export as PDF", "#", :class => 'btn btn-primary' %>
+<div class="form-group">
+  Acceptence requested on: <%= @time_sheet.sign_in_date %><br>
+  Was signed by requester: <%= @time_sheet.signed %><br>
+</div>
+<br>
+<div class="form-group">
+  <%= link_to "Export as PDF", "#", :class => 'btn btn-primary' %><br>
+  <br>
+  <%= link_to "Sign", "#", :class => 'btn btn-primary' %>
+  <%= link_to "Accept", "#", :class => 'btn btn-primary' %>
+</div>  

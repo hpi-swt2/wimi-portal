@@ -101,7 +101,8 @@ class User < ActiveRecord::Base
         end
       end
     end
-
+  end
+  
   def projects_for_month(year, month)
     projects = TimeSheet.where(
       user: self, month: month, year: year).map {|sheet| sheet.project}
