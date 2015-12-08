@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'chairs/apply', to: 'chairs#apply'
   post 'chairs/accept', to: 'chairs#accept_request'
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'
+  post 'chairs/destroy', to: 'chairs#destroy'
 
   devise_for :users
 

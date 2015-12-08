@@ -90,7 +90,7 @@ RSpec.describe ChairsController, type: :controller do
       expect(response).to have_http_status(302)
     end
   end
-  
+
   describe 'POST #create' do
     before(:each) do
       @superadmin = FactoryGirl.create(:user)
@@ -105,5 +105,30 @@ RSpec.describe ChairsController, type: :controller do
         post :create, { :chair => {:name => 'Test'}, :admin_user => @user, :representative_user => user1}
       }.to change(Chair, :count).by(1)
     end
+
+    it 'does not create chair with wrong parameters' do
+      user1 = FactoryGirl.create(:user)
+      login_with @superadmin
+      chair_count = Chair.all.count
+      post :create, { :chair => {:name => 'Test'}}
+      expect(Chair.all.count).to eq(chair_count)
+    end
   end
+
+  describe 'POST #destroy' do
+    before(:each) do
+      @superadmin = FactoryGirl.create(:user)
+      @superadmin.superadmin = true
+      @chair = FactoryGirl.create(:chair)
+      @user = FactoryGirl.create(:user)
+    end
+
+    it 'destroys an existing chair' do
+      login_with @superadmin
+      expect {
+        delete :destroy, { id: @chair.id }
+      }.to change(Chair, :count).by(-1)
+    end
+  end
+
 end
