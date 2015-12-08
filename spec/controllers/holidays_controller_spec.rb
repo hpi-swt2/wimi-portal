@@ -29,12 +29,10 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    #skip('Add a hash of attributes valid for your model')
     {start: Date.today, end: Date.today+1, user_id: @user.id}
   }
 
   let(:invalid_attributes) {
-    #skip('Add a hash of attributes invalid for your model')
     {start: Date.today-1, end: Date.today, user_id: @user.id}
   }
 
@@ -88,9 +86,9 @@ RSpec.describe HolidaysController, type: :controller do
         expect(assigns(:holiday)).to be_persisted
       end
 
-      it 'redirects to the created holiday' do
+      it 'redirects to the user profile' do
         post :create, {holiday: valid_attributes}, valid_session
-        expect(response).to redirect_to(Holiday.last)
+        expect(response).to redirect_to(@user)
       end
     end
 

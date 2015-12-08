@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  get 'dashboard', to: 'dashboard#index'
 
-    # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  root 'dashboard#index'
+  get 'dashboard', to: 'dashboard#index'
+  get 'users/edit_leave', to: 'users#edit_leave'
+
   resources :publications
   resources :projects
   resources :holidays
@@ -10,12 +11,12 @@ Rails.application.routes.draw do
   resources :expenses
   resources :chairs
   
-  devise_for :users
-
   post 'chairs/apply', to: 'chairs#apply'
   post 'chairs/accept', to: 'chairs#accept_request'
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'
 
-  # You can have the root of your site routed with "root"
-  root 'dashboard#index'
+  devise_for :users
+
+  resources :users, :only => [:show, :edit, :edit_leave, :update]
+
 end
