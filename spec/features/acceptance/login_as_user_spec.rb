@@ -14,4 +14,9 @@ feature "First login as User" do
     end
   end
 
+  scenario "Change button layout after applying" do
+    Click "Berwerben"
+    expect(page).to have_content("Gestellt")
+  end
+
 end
