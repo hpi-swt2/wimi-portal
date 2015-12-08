@@ -44,8 +44,16 @@ class User < ActiveRecord::Base
       'School of Design Thinking',
       'Knowledge Discovery and Data Mining']
 
+
   INVALID_EMAIL = 'invalid_email'
 
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :work_days
+  has_many :time_sheets
   has_many :holidays
   has_many :expenses
   has_many :trips
@@ -66,6 +74,7 @@ class User < ActiveRecord::Base
     self.first = first
     self.last_name = last
   end
+
 
   def self.openid_required_fields
     ["http://axschema.org/contact/email"]
@@ -92,5 +101,12 @@ class User < ActiveRecord::Base
         end
       end
     end
+
+  def projects_for_month(year, month)
+    projects = TimeSheet.where(
+      user: self, month: month, year: year).map {|sheet| sheet.project}
+    p (projects.compact + self.projects).uniq
+    return (projects.compact + self.projects).uniq
+
   end
 end

@@ -42,3 +42,5 @@ bower.json
 .powenv
 /nbproject/private/
 /config/database.yml
+
+app/controllers/welcome_controller.rb
