@@ -13,5 +13,4 @@ require 'rails_helper'
       expect(page).to have_content('Sichtbarkeit')
       expect(page).to have_content('Teamleiter')
     end
-
 end
