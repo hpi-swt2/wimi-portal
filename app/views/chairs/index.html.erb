@@ -19,35 +19,33 @@
         <td><%= chair.name %></td>
         <td><%= chair.created_at %></td>
 
-        <% if current_user.is_wimi? %>
-          <td>
-            <% if current_user.chair == chair %>
+        <td>
+          <% if current_user.chair == chair %>
+            <% if current_user.is_wimi? %>
               <span class="label label-success">Wissenschaftlicher Mitarbeiter</span>
-              </td><td>
-                <% if current_user.chair_wimi.admin || current_user.chair_wimi.representative %>
-                  <%= link_to 'Manage Chair', chair_path(chair) %>
-                <% end %>
             <% else %>
-              </td><td>
+              <span class="label label-warning">pending</span>
             <% end %>
-          </td>
-        <% else %>
-          <td>
-          <% if current_user.chair_wimi.nil? %>
+          <% else %>
             <%= link_to 'Apply as Wimi', chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
-          <% elsif current_user.chair_wimi.application == 'pending' && current_user.chair == chair %>
-            <span class="label label-warning">pending</span>
           <% end %>
-          </td>   
-          <td></td>
-        <% end %>
-        <td> <%= link_to 'Destroy Chair', chair_path(:id => chair), :method => :delete, :class => 'btn btn-danger btn-xs' %></td>
+        </td>
+
+        <td>
+          <% if !current_user.chair_wimi.nil? %>
+            <% if current_user.chair_wimi.admin || current_user.chair_wimi.representative %>
+              <%= link_to 'Manage Chair', chair_path(chair) %>
+            <% end %>
+          <% end %>
+        </td>
+
+        <% if current_user.superadmin %><td><%= link_to 'Destroy Chair', chair_path(:id => chair), :method => :delete, :class => 'btn btn-danger btn-xs' %></td><% end %>
 
       </tr>
   <% end %>
   </tbody>
 </table>
-<% if current_user.is?('superadmin') %>
+<% if current_user.superadmin %>
     <%= link_to t('.new', :default => t("helpers.links.new")),
                 new_chair_path,
                 :class => 'btn btn-primary' %>

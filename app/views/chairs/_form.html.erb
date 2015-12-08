@@ -45,7 +45,7 @@
         <select name="representative_user">
           <option value="null">Please select</option>
           <%= User.all.each do |user| %>
-                  <option value="<%= user.id %>"><%= user.name %><% if user.is_wimi? %>(WiMi) <% end %></option>
+                  <option value="<%= user.id %>"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
           <% end %>
         </select>
         <%= error_span(@chair[:chair_representative]) %>

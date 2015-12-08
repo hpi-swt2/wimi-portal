@@ -6,8 +6,6 @@ RSpec.describe ChairsController, type: :controller do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @admin = FactoryGirl.create(:user)
-      @superadmin = FactoryGirl.create(:user)
-      @superadmin.superadmin = true
       ChairWimi.create(:user => @admin, :chair => @chair, :admin => true, :application => 'accepted')
       @wimi = FactoryGirl.create(:user)
       ChairWimi.create(:user => @wimi, :chair => @chair, :application => 'accepted')
@@ -72,13 +70,14 @@ RSpec.describe ChairsController, type: :controller do
     end
   end
 
-  before(:each) do
-    @superadmin = FactoryGirl.create(:user)
-    @superadmin.superadmin = true
-    @user = FactoryGirl.create(:user)
-  end
 
   describe 'GET #new' do
+    before(:each) do
+      @superadmin = FactoryGirl.create(:user)
+      @superadmin.superadmin = true
+      @user = FactoryGirl.create(:user)
+    end
+
     it 'returns Chairs page for superadmin' do
       login_with @superadmin
       get :new
@@ -91,20 +90,20 @@ RSpec.describe ChairsController, type: :controller do
       expect(response).to have_http_status(302)
     end
   end
+  
+  describe 'POST #create' do
+    before(:each) do
+      @superadmin = FactoryGirl.create(:user)
+      @superadmin.superadmin = true
+      @user = FactoryGirl.create(:user)
+    end
 
-  # before(:each) do
-  #   @superadmin = FactoryGirl.create(:user)
-  #   @superadmin.superadmin = true
-  #   @user = FactoryGirl.create(:user).save
-  # end
-  #
-  # describe 'POST #create' do
-  #   it 'creates a new Chair' do
-  #     user1 = FactoryGirl.create(:user)
-  #     login_with @superadmin
-  #     expect {
-  #       post :create, :chair => {:name => 'Test', :admin_user => @user.id, :representative_user => user1.id}
-  #     }.to change(Chair, :count).by(1)
-  #   end
-  # end
+    it 'creates a new Chair' do
+      user1 = FactoryGirl.create(:user)
+      login_with @superadmin
+      expect {
+        post :create, { :chair => {:name => 'Test'}, :admin_user => @user, :representative_user => user1}
+      }.to change(Chair, :count).by(1)
+    end
+  end
 end

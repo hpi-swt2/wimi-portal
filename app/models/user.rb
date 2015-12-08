@@ -26,9 +26,4 @@ class User < ActiveRecord::Base
     return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
   end
 
-  Roles = [ :superadmin, :admin, :representative, :wimi, :hiwi, :user ]
-
-  def is?( requested_role )
-    self.role == requested_role.to_s
-  end
 end

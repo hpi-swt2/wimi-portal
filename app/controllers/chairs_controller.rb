@@ -1,21 +1,15 @@
 class ChairsController < ApplicationController
   before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy]
 
-  before_action :authorize
-  skip_before_action :authorize, only: [:index, :apply, :create, :new, :destroy]
+  before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair]
+  before_action :authorize_superadmin, only: [:destroy, :new, :create]
 
   def index
     @chairs = Chair.all
   end
 
-  def show
-    @requests = @chair.chair_wimis.where(:application => 'pending')
-  end
-
+  # Superadmin tasks:
   def destroy
-    unless current_user.superadmin
-      not_authorized
-    end
     @chair.destroy
     respond_to do |format|
       format.html { redirect_to chairs_path, notice: 'Chair was successfully destroyed.' }
@@ -23,16 +17,11 @@ class ChairsController < ApplicationController
     end
   end
 
-  # GET /chairs/new
   def new
-    current_user.superadmin ? @chair = Chair.new : not_authorized
+    @chair = Chair.new
   end
 
   def create
-    unless current_user.superadmin
-      not_authorized
-    end
-
     @chair = Chair.new(chair_params)
 
     success = false
@@ -40,13 +29,13 @@ class ChairsController < ApplicationController
     representative = User.find_by(id: params[:representative_user])
 
     if (admin && representative) && admin != representative
-
       unless admin.is_wimi? || representative.is_wimi?
-
-        @chair.save
-        ChairWimi.create(:admin => true, :chair => @chair, :user => admin, :application => 'accepted')
-        ChairWimi.create(:admin => true, :chair => @chair, :user => representative, :application => 'accepted')
-        success = true
+        c1 = ChairWimi.new(:admin => true, :chair => @chair, :user => admin, :application => 'accepted')
+        c2 = ChairWimi.new(:representative => true, :chair => @chair, :user => representative, :application => 'accepted')
+        
+        if @chair.save && c1.save && c2.save
+          success = true
+        end
       end
     end
 
@@ -58,8 +47,12 @@ class ChairsController < ApplicationController
         format.html { render :new }
         format.json { render json: @chair.errors, status: :unprocessable_entity }
       end
-
     end
+  end
+
+  # Admin / Representative tasks:
+  def show
+    @requests = @chair.chair_wimis.where(:application => 'pending')
   end
 
   def accept_request
@@ -98,6 +91,7 @@ class ChairsController < ApplicationController
     end
   end
 
+  # User task:
   def apply
     wimi = ChairWimi.new(:chair_id => params[:chair])
     wimi.user = current_user
@@ -130,7 +124,13 @@ class ChairsController < ApplicationController
   end
 
   protected
-  def authorize
+  def authorize_superadmin
+    unless current_user.superadmin
+      not_authorized
+    end
+  end
+
+  def authorize_admin
     c_wimi = current_user.chair_wimi
     if c_wimi.nil?
       not_authorized
