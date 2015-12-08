@@ -29,14 +29,14 @@ RSpec.describe TimeSheetsController, type: :controller do
   # TimeSheet. As you add validations to TimeSheet, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { month: 1, year: 2015, salary: 100, salary_is_per_month: false,
+    { month: 1, year: 2015, salary: 100, salary_is_per_month: true,
       workload: 100, workload_is_per_month: true, user_id: @user.id,
       project_id: @project.id }
   }
 
   let(:invalid_attributes) {
     { month:1, year: 2015, salary: -100, salary_is_per_month: false,
-      workload: 100, workload_is_per_month: true, user_id: @user.id,
+      workload: 100, workload_is_per_month: nil, user_id: @user.id,
       project_id: @project.id }
   }
 
