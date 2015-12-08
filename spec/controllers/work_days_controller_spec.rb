@@ -21,18 +21,20 @@ require 'spec_helper'
 
 describe WorkDaysController, type: :controller do
   before(:each) do
-    login_with create ( :user)
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+    @project = FactoryGirl.create(:project)
   end
 
   # This should return the minimal set of attributes required to create a valid
   # WorkDay. As you add validations to WorkDay, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {date: '2015-11-18', start_time: '2015-11-18 15:00:00', end_time: '2015-11-18 17:00:00', break: 10, attendance: '', notes: 'some note', user_id: @user.id, project_id: @project.id}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {date: '2015-11-18', start_time: '2015-11-18 15:00:00', end_time: '2015-11-18 17:00:00', break: nil, attendance: '', notes: 'some note', user_id: @user.id}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -41,9 +43,21 @@ describe WorkDaysController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all work_days as @work_days" do
+    it "assigns work_days in November 2015 as @work_days" do
+      work_day = WorkDay.create! valid_attributes
+      get :index, {month:11, year:2015}, valid_session
+      expect(assigns(:work_days)).to eq([work_day])
+    end
+
+    it "redirects to work days of current month when no month is given" do
       work_day = WorkDay.create! valid_attributes
       get :index, {}, valid_session
+      expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year))
+    end
+
+    it "shows work_days for month and project" do
+      work_day = WorkDay.create! valid_attributes
+      get :index, {month:11, year:2015, project:@project.id}, valid_session
       expect(assigns(:work_days)).to eq([work_day])
     end
   end
@@ -60,7 +74,6 @@ describe WorkDaysController, type: :controller do
     it "assigns a new work_day as @work_day" do
       get :new, {}, valid_session
       expect(assigns(:work_day)).to be_a_new(WorkDay)
-      #TODO for some reason the spec does not work but when doing it yourself it works
     end
   end
 
@@ -86,9 +99,9 @@ describe WorkDaysController, type: :controller do
         expect(assigns(:work_day)).to be_persisted
       end
 
-      it "redirects to the created work_day" do
+      it "redirects to the work_day list for the work_days month" do
         post :create, {:work_day => valid_attributes}, valid_session
-        expect(response).to redirect_to(WorkDay.last)
+        expect(response).to redirect_to(work_days_path(month: 11, year: 2015))
       end
     end
 
@@ -108,14 +121,15 @@ describe WorkDaysController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {date: '2015-11-18', start_time: '2015-11-18 14:00:00', end_time: '2015-11-18 17:00:00', break: 20, attendance: '', notes: 'some note', user_id: @user.id}
       }
 
       it "updates the requested work_day" do
         work_day = WorkDay.create! valid_attributes
         put :update, {:id => work_day.to_param, :work_day => new_attributes}, valid_session
         work_day.reload
-        skip("Add assertions for updated state")
+        expect(work_day.start_time.hour).to equal(14)
+        expect(work_day.break).to equal(20)
       end
 
       it "assigns the requested work_day as @work_day" do
@@ -124,10 +138,10 @@ describe WorkDaysController, type: :controller do
         expect(assigns(:work_day)).to eq(work_day)
       end
 
-      it "redirects to the work_day" do
+      it "redirects to work_day list for November 2015" do
         work_day = WorkDay.create! valid_attributes
         put :update, {:id => work_day.to_param, :work_day => valid_attributes}, valid_session
-        expect(response).to redirect_to(work_day)
+        expect(response).to redirect_to(work_days_path(month: 11, year:2015))
       end
     end
 
@@ -154,10 +168,10 @@ describe WorkDaysController, type: :controller do
       }.to change(WorkDay, :count).by(-1)
     end
 
-    it "redirects to the work_days list" do
+    it "redirects to the work_days list for November 2015" do
       work_day = WorkDay.create! valid_attributes
       delete :destroy, {:id => work_day.to_param}, valid_session
-      expect(response).to redirect_to(work_days_url)
+      expect(response).to redirect_to(work_days_path(month: work_day.date.month, year: work_day.date.year))
     end
   end
 

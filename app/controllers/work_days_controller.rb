@@ -64,10 +64,10 @@ class WorkDaysController < ApplicationController
   # DELETE /work_days/1
   # DELETE /work_days/1.json
   def destroy
-    month = @work_day.work_month
+    date = @work_day.date
     @work_day.destroy
     respond_to do |format|
-      format.html { redirect_to month }
+      format.html { redirect_to work_days_path(month: date.month, year: date.year) }
       format.json { head :no_content }
     end
   end
