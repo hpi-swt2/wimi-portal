@@ -48,14 +48,7 @@ class ChairsController < ApplicationController
   def remove_from_chair
     chair_wimi = ChairWimi.find(params[:request])
 
-    success = false
-    unless current_user == chair_wimi.user || chair_wimi.representative
-      if chair_wimi.destroy
-        success = true
-      end
-    end
-
-    if success
+    if chair_wimi.remove(current_user)
       redirect_to chair_path(@chair), notice: 'User was successfully removed.'
     else
       redirect_to chair_path(@chair), notice: 'Destroying Chair_wimi failed'
