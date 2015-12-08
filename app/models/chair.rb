@@ -18,13 +18,54 @@ class Chair < ActiveRecord::Base
     admin = User.find_by(id: admin_id)
     representative = User.find_by(id: representative_id)
 
-    if (admin && representative) && admin != representative
-      unless admin.is_wimi? || representative.is_wimi?
-        c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
-        c2 = ChairWimi.new(representative: true, chair: self, user: representative, application: 'accepted')
-        
-        if self.save && c1.save && c2.save
-          success = true
+    if (admin && representative)
+      if admin != representative
+        unless admin.is_wimi? || representative.is_wimi?
+          c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
+          c2 = ChairWimi.new(representative: true, chair: self, user: representative, application: 'accepted')
+
+          if self.save && c1.save && c2.save
+            success = true
+          end
+        end
+      else
+        unless admin.is_wimi?
+          c = ChairWimi.new(admin: true, representative: true, chair: self, user: admin, application: 'accepted')
+
+          if self.save && c.save
+            success = true
+          end
+        end
+      end
+    end
+    return success
+  end
+
+  def edit_users(admin_id, representative_id)
+    success = false
+    admin = User.find_by(id: admin_id)
+    representative = User.find_by(id: representative_id)
+
+    ChairWimi.destroy(:chair => self, :admin => true)
+    ChairWimi.destroy(:chair => self, :representative => true)
+
+    if (admin && representative)
+      if admin != representative
+        unless admin.is_wimi? || representative.is_wimi?
+          c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
+          c2 = ChairWimi.new(representative: true, chair: self, user: representative, application: 'accepted')
+
+          if self.save && c1.save && c2.save
+            success = true
+          end
+        end
+      else
+        unless admin.is_wimi?
+          c = ChairWimi.new(admin: true, representative: true, chair: self, user: admin, application: 'accepted')
+
+          if self.save && c.save
+            success = true
+          end
         end
       end
     end

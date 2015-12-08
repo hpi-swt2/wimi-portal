@@ -2,7 +2,7 @@ class ChairsController < ApplicationController
   before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy]
 
   before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair]
-  before_action :authorize_superadmin, only: [:destroy, :new, :create]
+  before_action :authorize_superadmin, only: [:destroy, :new, :create, :edit]
 
   def index
     @chairs = Chair.all
@@ -23,6 +23,20 @@ class ChairsController < ApplicationController
     @chair = Chair.new(chair_params)
     
     if @chair.add_users(params[:admin_user], params[:representative_user])
+      redirect_to chairs_path, notice: 'Chair successfully created.'
+    else
+      render :new
+    end
+  end
+
+  def edit
+    @chair = Chair.find(params[:id])
+  end
+
+  def update
+    @chair.update(chair_params)
+
+    if @chair.edit_users(params[:admin_user], params[:representative_user])
       redirect_to chairs_path, notice: 'Chair successfully created.'
     else
       render :new

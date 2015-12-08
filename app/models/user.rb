@@ -74,6 +74,15 @@ class User < ActiveRecord::Base
     return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
   end
 
+  def is_hiwi?
+    return false if projects.nil? || projects.size == 0
+    return (projects.size > 0 && !is_wimi?)
+  end
+
+  def is_superadmin?
+    return self.superadmin
+  end
+
   def self.openid_required_fields
     ["http://axschema.org/contact/email"]
   end
