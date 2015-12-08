@@ -54,3 +54,16 @@ body {
     margin-top: 15px;
 }
 
+.userProjectCheckbox {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.projectCheckbox {
+    margin-left: -30px;
+}
+
+.projectTitleControl {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
