@@ -8,13 +8,15 @@
     <%if not @project.nil?%>
       <%= ' for ' + @project.title%>
     <%end%>
-    <%= ' by ' + @time_sheet.user.name%>
+    <% unless @time_sheet.nil? %>
+      <%= ' by ' + @time_sheet.user.name%>
+    <% end %>
   </h1>
 </div>
 
-<%if not @time_sheet.nil?%>
+<% unless @time_sheet.nil? %>
   <%= render "time_sheets/show"%>
-<%end%>
+<% end %>
 
 <table  class="table table-striped">
   <thead>
@@ -45,13 +47,20 @@
 </table>
 <br>
 <div class="form-group">
-  Acceptence requested on: <%= @time_sheet.sign_in_date %><br>
-  Was signed by requester: <%= @time_sheet.signed %><br>
+  <% unless @time_sheet.nil? %>
+    <% if @time_sheet.handed_in? %>
+      Acceptence requested on: <%= @time_sheet.haned_in_date %><br>
+      Was signed by requester: <%= @time_sheet.signed %><br>
+    <% end %>
+  <% end %>
 </div>
 <br>
 <div class="form-group">
+  <%= link_to "New", new_work_day_path, class: 'btn btn-primary' %>
   <%= link_to "Export as PDF", "#", :class => 'btn btn-primary' %><br>
   <br>
-  <%= link_to "Sign", "#", :class => 'btn btn-primary' %>
-  <%= link_to "Accept", "#", :class => 'btn btn-primary' %>
+  <% unless @time_sheet.nil? %>
+    <%= link_to "Sign", "#", :class => 'btn btn-primary' %>
+    <%= link_to "Accept", @time_sheet.accepted = true, :class => 'btn btn-primary' %>
+  <% end %>
 </div>  

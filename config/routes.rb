@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
     # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  resources :time_sheets
   resources :publications
   resources :projects
   resources :holidays
@@ -20,6 +19,7 @@ Rails.application.routes.draw do
   post 'chairs/accept', to: 'chairs#accept_request'
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'
   post 'chairs/destroy', to: 'chairs#destroy'
+  resources :time_sheets, :only => [:edit, :update, :delete]
 
   devise_for :users
 

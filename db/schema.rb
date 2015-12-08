@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202142044) do
+ActiveRecord::Schema.define(version: 20151208195032) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -103,8 +103,9 @@ ActiveRecord::Schema.define(version: 20151202142044) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.boolean  "signed",                default: false
-    t.datetime "sign_in_date"
-    t.boolean  "signed_in",             default: false
+    t.boolean  "handed_in",             default: false
+    t.date     "handed_in_date"
+    t.boolean  "accepted",              default: false
   end
 
   create_table "trips", force: :cascade do |t|
@@ -120,20 +121,20 @@ ActiveRecord::Schema.define(version: 20151202142044) do
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                     default: "", null: false
-    t.string   "encrypted_password",        default: "", null: false
+    t.string   "email",                     default: "",    null: false
+    t.string   "encrypted_password",        default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",             default: 0,  null: false
+    t.integer  "sign_in_count",             default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "residence"
     t.string   "identity_url"
     t.string   "street"

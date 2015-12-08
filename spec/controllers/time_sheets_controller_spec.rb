@@ -19,45 +19,31 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe TimeSheetsController, type: :controller do
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+    @project = FactoryGirl.create(:project)
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # TimeSheet. As you add validations to TimeSheet, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { month: 1, year: 2015, salary: 100, salary_is_per_month: false,
+      workload: 100, workload_is_per_month: true, user_id: @user.id,
+      project_id: @project.id }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { month:1, year: 2015, salary: -100, salary_is_per_month: false,
+      workload: 100, workload_is_per_month: true, user_id: @user.id,
+      project_id: @project.id }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # TimeSheetsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-
-  describe "GET #index" do
-    it "assigns all time_sheets as @time_sheets" do
-      time_sheet = TimeSheet.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:time_sheets)).to eq([time_sheet])
-    end
-  end
-
-  describe "GET #show" do
-    it "assigns the requested time_sheet as @time_sheet" do
-      time_sheet = TimeSheet.create! valid_attributes
-      get :show, {:id => time_sheet.to_param}, valid_session
-      expect(assigns(:time_sheet)).to eq(time_sheet)
-    end
-  end
-
-  describe "GET #new" do
-    it "assigns a new time_sheet as @time_sheet" do
-      get :new, {}, valid_session
-      expect(assigns(:time_sheet)).to be_a_new(TimeSheet)
-    end
-  end
 
   describe "GET #edit" do
     it "assigns the requested time_sheet as @time_sheet" do
@@ -67,92 +53,46 @@ RSpec.describe TimeSheetsController, type: :controller do
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new TimeSheet" do
-        expect {
-          post :create, {:time_sheet => valid_attributes}, valid_session
-        }.to change(TimeSheet, :count).by(1)
-      end
-
-      it "assigns a newly created time_sheet as @time_sheet" do
-        post :create, {:time_sheet => valid_attributes}, valid_session
-        expect(assigns(:time_sheet)).to be_a(TimeSheet)
-        expect(assigns(:time_sheet)).to be_persisted
-      end
-
-      it "redirects to the created time_sheet" do
-        post :create, {:time_sheet => valid_attributes}, valid_session
-        expect(response).to redirect_to(TimeSheet.last)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns a newly created but unsaved time_sheet as @time_sheet" do
-        post :create, {:time_sheet => invalid_attributes}, valid_session
-        expect(assigns(:time_sheet)).to be_a_new(TimeSheet)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:time_sheet => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
-  end
-
-  describe "PUT #update" do
-    context "with valid params" do
+  describe 'PUT #update' do
+    context 'with valid params' do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { month: 1, year: 2015, salary: 100, salary_is_per_month: false,
+          workload: 200, workload_is_per_month: true, user_id: @user.id,
+          project_id: @project.id }
       }
 
-      it "updates the requested time_sheet" do
+      it 'updates the requested time_sheet' do
         time_sheet = TimeSheet.create! valid_attributes
-        put :update, {:id => time_sheet.to_param, :time_sheet => new_attributes}, valid_session
+        put :update, {id: time_sheet.to_param, time_sheet: new_attributes}, valid_session
         time_sheet.reload
-        skip("Add assertions for updated state")
+        expect(time_sheet.workload).to eq(200)
       end
 
-      it "assigns the requested time_sheet as @time_sheet" do
+      it 'assigns the requested time_sheet as @time_sheet' do
         time_sheet = TimeSheet.create! valid_attributes
-        put :update, {:id => time_sheet.to_param, :time_sheet => valid_attributes}, valid_session
+        put :update, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
         expect(assigns(:time_sheet)).to eq(time_sheet)
       end
 
-      it "redirects to the time_sheet" do
+      it 'redirects to the time_sheet' do
         time_sheet = TimeSheet.create! valid_attributes
-        put :update, {:id => time_sheet.to_param, :time_sheet => valid_attributes}, valid_session
-        expect(response).to redirect_to(time_sheet)
+        put :update, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
+        expect(response).to redirect_to(work_days_path(month: time_sheet.month, year: time_sheet.year, project: time_sheet.project))
       end
     end
 
-    context "with invalid params" do
-      it "assigns the time_sheet as @time_sheet" do
+    context 'with invalid params' do
+      it 'assigns the time_sheet as @time_sheet' do
         time_sheet = TimeSheet.create! valid_attributes
-        put :update, {:id => time_sheet.to_param, :time_sheet => invalid_attributes}, valid_session
+        put :update, {id: time_sheet.to_param, time_sheet: invalid_attributes}, valid_session
         expect(assigns(:time_sheet)).to eq(time_sheet)
       end
 
       it "re-renders the 'edit' template" do
         time_sheet = TimeSheet.create! valid_attributes
-        put :update, {:id => time_sheet.to_param, :time_sheet => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put :update, {id: time_sheet.to_param, time_sheet: invalid_attributes}, valid_session
+        expect(response).to render_template('edit')
       end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested time_sheet" do
-      time_sheet = TimeSheet.create! valid_attributes
-      expect {
-        delete :destroy, {:id => time_sheet.to_param}, valid_session
-      }.to change(TimeSheet, :count).by(-1)
-    end
-
-    it "redirects to the time_sheets list" do
-      time_sheet = TimeSheet.create! valid_attributes
-      delete :destroy, {:id => time_sheet.to_param}, valid_session
-      expect(response).to redirect_to(time_sheets_url)
     end
   end
 
