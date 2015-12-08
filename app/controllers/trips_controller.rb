@@ -18,7 +18,8 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     if @trip.save
-      redirect_to @trip, notice: 'Trip was successfully created.'
+      flash[:success] = 'Trip was successfully created.'
+      redirect_to @trip
     else
       render :new
     end
@@ -26,7 +27,8 @@ class TripsController < ApplicationController
 
   def update
     if @trip.update(trip_params)
-      redirect_to @trip, notice: 'Trip was successfully updated.'
+      flash[:success] = 'Trip was successfully updated.'
+      redirect_to @trip
     else
       render :edit
     end
@@ -34,7 +36,8 @@ class TripsController < ApplicationController
 
   def destroy
     @trip.destroy
-    redirect_to trips_url, notice: 'Trip was successfully destroyed.'
+    flash[:success] = 'Trip was successfully destroyed.'
+    redirect_to trips_url
   end
 
   private

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_action :exclude_nil, :set_user, :get_months
+  before_action :user_exists, :set_user, :get_months
 
   def show
   end
@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      flash[:success] = 'User was successfully updated.'
       redirect_to current_user
     else
       render :edit
@@ -18,8 +19,8 @@ class UsersController < ApplicationController
 
   private
 
-  def exclude_nil
-    if User.where(id: params[:id]).blank?
+  def user_exists
+    unless User.find_by(id: params[:id])
       redirect_to root_path
     end
   end
@@ -29,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first, :last_name, :residence, :street, :division, :personnel_number, :remaining_leave, :remaining_leave_last_year)
+    params.require(:user).permit(:first, :last_name, :email, :residence, :street, :division_id, :personnel_number, :remaining_leave, :remaining_leave_last_year)
   end
 
   def get_months

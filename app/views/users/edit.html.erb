@@ -31,6 +31,11 @@
         <%= error_span(@user[:last_name]) %>
       </div>
       <div class="form-group">
+        <%= f.label "Email", class: 'control-label' %>
+        <%= f.text_field :email, value: @user.email, class: 'form-control' %>
+        <%= error_span(@user[:email]) %>
+      </div>
+      <div class="form-group">
         <%= f.label "Wohnort", class: 'control-label' %>
         <%= f.text_field :residence, value: @user.residence, class: 'form-control' %>
         <%= error_span(@user[:residence]) %>
