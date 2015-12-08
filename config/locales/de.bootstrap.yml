@@ -1,0 +1,54 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+de:
+  home:
+    index:
+      welcome: "wilkommen"
+  helpers:
+    application_tabs:
+      home: "Startseite"
+      profile: "Profil"
+      sign_in: "Anmelden"
+      login: "Anmelden"
+      logout: "Abmelden"
+    actions: "Aktionen"
+    links:
+      back: "Zurück"
+      cancel: "Abbrechen"
+      confirm: "Sicher?"
+      destroy: "Löschen"
+      new: "Neu"
+      edit: "Bearbeiten"
+      edit_leave: "Resturlaub bearbeiten"
+    titles:
+      edit: "%{model} bearbeiten"
+      save: "%{model} speichern"
+      new: "%{model} erstellen"
+      delete: "%{model} löschen"
+    language:
+      lang: "Sprache"
+      english: "Englisch"
+      german: "Deutsch"
+    submit:
+      create: "Erstelle %{model}"
+      update: "Aktualisiere %{model}"
+  users:
+    show:
+      holiday_requests: "Urlaubsanfragen"
+      request_holiday: "Urlaub anfragen"
+      user_data: "Profilbezogene Daten"
+      remaining_leave: "Verbleibender Resturlaub"
+      days: "Tag(e)"
+      title: "Benutzerprofil"
+    edit:
+      user_data: "Profilbezogene Daten"
+    edit_leave:
+      remaining_leave: "Verbleibender Resturlaub"
+      remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
+      save: "Resturlaub Speichern"
+      title: "Resturlaub bearbeiten"
+  dashboard:
+    index:
+      dashboard_title: "Dashboard"
+      projects: "Meine Projekte"

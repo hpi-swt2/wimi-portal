@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20151127195914) do
     t.string   "last_sign_in_ip"
     t.string   "first"
     t.string   "last_name"
+    t.string   "language",                  default: "en", null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "identity_url"
@@ -105,5 +106,4 @@ ActiveRecord::Schema.define(version: 20151127195914) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-
 end

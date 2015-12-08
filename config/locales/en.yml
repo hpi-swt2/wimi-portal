@@ -20,13 +20,89 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  errors:
-    messages:
-      invalid_date: "is not a valid date"
-      invalid_time: "is not a valid time"
-      invalid_datetime: "is not a valid datetime"
-      is_at: "must be at %{restriction}"
-      before: "must be before %{restriction}"
-      on_or_before: "must be on or before %{restriction}"
-      after: "must be after %{restriction}"
-      on_or_after: "must be on or after %{restriction}"
+  activerecord:
+    models:
+      expense:
+        one: "Expense"
+        other: "Expenses"
+      holiday:
+        one: "Holiday"
+        other: "Holidays"
+      project:
+        one: "Project"
+        other: "Projects"
+      publication:
+        one: "Publication"
+        other: "Publications"
+      trip:
+        one: "Business Trip"
+        other: "Business Trips"
+      user:
+        one: "User"
+        other: "Users"
+    attributes:
+      project:
+        title: "Title"
+        created_at: "Created at"
+        users: "Users"
+      holiday:
+        id: "Id"
+        status: "Status"
+        start: "Start"
+        end: "End"
+        user_id: "User"
+        created_at: "Created at"
+        duration: "Duration"
+      publication:
+        id: "Id"
+        title: "Title"
+        venue: "Venue"
+        type_: "Type"
+        project_id: "Project"
+        created_at: "Created at"
+        users: "Users"
+      expense:
+        id: "Id"
+        amount: "Amount"
+        purpose: "Purpose"
+        comment: "Comment"
+        user_id: "User"
+        project_id: "Project"
+        trip_id: "Business Trip"
+        created_at: "Created at"
+      trip:
+        id: "Id"
+        title: "Title"
+        start: "Start"
+        end: "End"
+        status: "Status"
+        user_id: "User"
+        created_at: "Created at"
+      user:
+        id: "Id"
+        email: "Email"
+        reset_password_token: "Reset Password Token"
+        reset_password_sent_at: "Reset Password sent at"
+        remember_created_at: "Remember Created at"
+        current_sign_in_at: "Current Sign In at"
+        last_sign_in_at: "Last Sign In at"
+        current_sign_in_ip: "Current Sign In IP"
+        last_sign_in_ip: "Last Sign In IP"
+        first: "First Name"
+        last_name: "Last Name"
+        created_at: "Created at"
+        current_password: "Current Password"
+        password_confirmation: "Password Confirmation"
+        password: "Password"
+        remember_me: "Remember me"
+        personal_data: "User Data"
+        residence: "Residence"
+        street: "Street"
+        personnel_number: "Staff Number"
+        division_id: "Division"
+        language: "Language"
+  time:
+    formats:
+      default: "%m/%d/%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"

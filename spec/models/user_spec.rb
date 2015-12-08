@@ -13,13 +13,13 @@
 #  last_name                 :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  identity_url              :string
-#  remaining_leave_this_year :integer          default(28)
-#  remaining_leave_next_year :integer          default(28)
 #  residence                 :string
 #  street                    :string
 #  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
+#  remaining_leave           :integer          default(28)
+#  remaining_leave_last_year :integer          default(0)
+#  identity_url              :string
 #
 
 require 'rails_helper'
