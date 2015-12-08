@@ -15,8 +15,15 @@ feature "First login as User" do
   end
 
   scenario "Change button layout after applying" do
-    Click "Berwerben"
+    Click "Bewerben"
     expect(page).to have_content("Gestellt")
+  end
+
+  scenario "Unique chair applications" do
+    if have_content("Gestellt")
+      Click "Bewerben"
+       expect(page).to have_content("Gestellt", count: 1)
+    end
   end
 
 end
