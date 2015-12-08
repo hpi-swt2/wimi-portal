@@ -16,11 +16,11 @@ class Project < ActiveRecord::Base
   validates :title, presence: true
 
   def hiwis
-  	return users.select { |u| !u.is_wimi? }
+  	users.select { |u| !u.is_wimi? }
   end
 
   def wimis
-  	return users.select { |u| u.is_wimi? }
+  	users.select { |u| u.is_wimi? }
   end
 
 end

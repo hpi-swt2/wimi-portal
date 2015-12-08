@@ -3,7 +3,7 @@
   <h1><%= @chair.name %></h1>
 </div>
 
-<p>Beauftragter des Fachgebiets: <%= link_to current_user.name, edit_user_registration_path %></p>
+<p>Beauftragter des Fachgebiets: <%= link_to @chair.chair_wimis.find_by(representative: true).user.name, 'http://google.com' %></p>
 
 <strong>Anfragen auf Mitgliedschaft:</strong>
 <br>
