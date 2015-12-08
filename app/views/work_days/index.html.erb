@@ -57,10 +57,10 @@
 <br>
 <div class="form-group">
   <%= link_to "New", new_work_day_path, class: 'btn btn-primary' %>
-  <%= link_to "Export as PDF", "#", :class => 'btn btn-primary' %><br>
+  <%= link_to "Export as PDF", "#", class: 'btn btn-primary' %><br>
   <br>
   <% unless @time_sheet.nil? %>
-    <%= link_to "Sign", "#", :class => 'btn btn-primary' %>
-    <%= link_to "Accept", @time_sheet.accepted = true, :class => 'btn btn-primary' %>
+    <%= link_to "Sign", {method: :show_add_signature_prompt, remote: true}, class: 'btn btn-primary' %>
+    <%= link_to "Accept", {method: @time_sheet.update_attribute(:accepted, true), remote: true}, class: 'btn btn-primary' %>
   <% end %>
 </div>  
