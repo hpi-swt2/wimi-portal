@@ -81,7 +81,6 @@ en:
       user:
         id: "Id"
         email: "Email"
-        encrypted_password: "Encrypted Password"
         reset_password_token: "Reset Password Token"
         reset_password_sent_at: "Reset Password sent at"
         remember_created_at: "Remember Created at"
