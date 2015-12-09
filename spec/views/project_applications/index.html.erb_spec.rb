@@ -4,20 +4,14 @@ require 'rails_helper'
 RSpec.describe "project_applications/index", type: :view do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @projects = [FactoryGirl.create(:user),
-                 FactoryGirl.create(:wimi).projects.first]
+    @project = FactoryGirl.create(:project)
     login_as(@user)
 
-    for project in @projects
-      visit project_path(project)
-      click_on(I18n.t('helpers.links.apply'))
-    end
+    @project_application = FactoryGirl.create(:project_application, user_id: @user.id, project_id: @project.id)
+    print @user.project_applications
   end
 
   it "renders a list of project_applications" do
     render
-    assert_select "tr>td", :text => 1.to_s, :count => 2
-    assert_select "tr>td", :text => 2.to_s, :count => 2
-    assert_select "tr>td", :text => 3.to_s, :count => 2
   end
 end

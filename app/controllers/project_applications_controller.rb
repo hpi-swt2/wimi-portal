@@ -1,5 +1,5 @@
 class ProjectApplicationsController < ApplicationController
-  before_action :set_project_application, only: [:show, :edit, :destroy, :accept, :decline, :reapply]
+  before_action :set_project_application, only: [:destroy, :accept, :decline, :reapply]
 
   # GET /project_applications
   # GET /project_applications.json
