@@ -12,22 +12,6 @@ class Ability
     end
   end
 
-  def initialize_superadmin(user)
-    can :manage, :all
-  end
-
-  def initialize_admin(user)
-    can :manage, user.projectsgit 
-  end
-
-  def initialize_wimi(user)
-    can :manage, user.projects
-  end
-
-  def initialize_hiwi(user)
-
-  end
-
   def initialize_user(user)
     cannot :create, Project
   end
