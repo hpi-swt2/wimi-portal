@@ -82,7 +82,6 @@ de:
       user:
         id: "Id"
         email: "E-Mail"
-        encrypted_password: "Verschlüsseltes Passwort"
         reset_password_token: "Kennwort zurücksetzen"
         reset_password_sent_at: "Kennwort zurücksetzen versendet an"
         remember_created_at: "Erstellungsdatum speichern"
