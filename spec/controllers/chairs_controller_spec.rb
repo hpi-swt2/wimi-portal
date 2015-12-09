@@ -162,6 +162,22 @@ RSpec.describe ChairsController, type: :controller do
       expect(Chair.last.admins.select{ |admin| (admin.user.id == @superadmin.id) }.size).to eq(1)
       expect(Chair.last.representative.user.id).to eq(@user.id)
     end
+
+    it 'does not modify a chair with wrong parameters' do
+      login_with @superadmin
+      expect(Chair.all.size).to eq(0)
+      post :create, { :chair => {:name => 'Test'}, :admin_user => @user, :representative_user => @superadmin}
+      expect(Chair.all.size).to eq(1)
+      expect(Chair.last.name).to eq('Test')
+      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
+      expect(Chair.last.representative.user.id).to eq(@superadmin.id)
+
+      put :update, :id => Chair.last.id, :chair => {:name => 'NewTest'}, :admin_user => nil, :representative_user => nil
+      expect(Chair.all.size).to eq(1)
+      expect(Chair.last.name).to eq('Test')
+      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
+      expect(Chair.last.representative.user.id).to eq(@superadmin.id)
+    end
   end
 
   describe 'POST #destroy' do

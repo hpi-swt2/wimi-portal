@@ -34,9 +34,8 @@ class ChairsController < ApplicationController
   end
 
   def update
-    @chair.update(chair_params)
-
     if @chair.edit_users(params[:admin_user], params[:representative_user])
+      @chair.update(chair_params)
       redirect_to chairs_path, notice: 'Chair successfully updated.'
     else
       render :new

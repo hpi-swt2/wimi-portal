@@ -54,16 +54,16 @@ class Chair < ActiveRecord::Base
     admin = User.find_by(id: admin_id)
     representative = User.find_by(id: representative_id)
 
-    chairwimi1 = ChairWimi.find_by(:chair => self, :admin => true)
-    chairwimi2 = ChairWimi.find_by(:chair => self, :representative => true)
-    if chairwimi1 != nil
-      ChairWimi.destroy(chairwimi1.id)
-    end
-    if chairwimi2 != nil && chairwimi1 != chairwimi2
-      ChairWimi.destroy(chairwimi2.id)
-    end
-
     if (admin && representative)
+      chairwimi1 = ChairWimi.find_by(:chair => self, :admin => true)
+      chairwimi2 = ChairWimi.find_by(:chair => self, :representative => true)
+      if chairwimi1 != nil
+        ChairWimi.destroy(chairwimi1.id)
+      end
+      if chairwimi2 != nil && chairwimi1 != chairwimi2
+        ChairWimi.destroy(chairwimi2.id)
+      end
+
       if admin != representative
         unless admin.is_wimi? || representative.is_wimi?
           c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
