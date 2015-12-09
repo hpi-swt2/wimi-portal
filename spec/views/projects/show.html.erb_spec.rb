@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'projects/show', type: :view do
   before(:each) do
-    login_as FactoryGirl.create(:user)
+    sign_in FactoryGirl.create(:user)
     @project = FactoryGirl.create(:project)
   end
 
