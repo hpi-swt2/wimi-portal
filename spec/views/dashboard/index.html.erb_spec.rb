@@ -6,7 +6,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     sign_in @user
   end
 
-  it 'displays the projects of the @user' do
+  it 'displays the projects of the user' do
     project1 = FactoryGirl.create(:project)
     project2 = FactoryGirl.create(:project, title: 'Unassigned Project')
     project1.users << @user

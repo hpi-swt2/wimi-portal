@@ -44,50 +44,13 @@ RSpec.describe Holiday, type: :model do
     expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 2, 1, 1), end: Date.new(Date.today.year+2, 1, 2))).to_not be_valid
   end
 
-  it "is invalid when not enough leave is left for this year" do
-    @user.update_attribute(:remaining_leave_this_year, 0)
+  it "is invalid when not enough leave is left" do
+    @user.update_attribute(:remaining_leave, 0)
     expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1,1))).to_not be_valid
   end
 
-  it "is invalid when not enough leave is left for next year" do
-    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 1, 1, 1), end: Date.new(Date.today.year + 1, 12, 31))).to_not be_valid
-  end
-
-  it "returns the duration for this year" do
+  it "returns the duration" do
     holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-    expect(holiday.duration_this_year).to eq(1)
+    expect(holiday.duration).to eq(1)
   end
-
-  it "returns the duration for next year" do
-    holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-    expect(holiday.duration_next_year).to eq(1)
-  end
-
-#  it "subtracts the right amount of leave for this year" do
-#    @leave_left_this_year = @user.remaining_leave_this_year
-#    @holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-#    @user.remaining_leave_this_year -= @holiday.duration_this_year
-#    @user.remaining_leave_this_year.should == (@leave_left_this_year - 1)
-#  end
-
-#  it "subtracts the right amount of leave for next year" do
-#    @leave_left_next_year = @user.remaining_leave_next_year
-#    FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-#    @user.remaining_leave_next_year.should == (@leave_left_next_year - 1)
-#  end
-
-#  it "refunds the duration for this year" do
-#    @leave_left_this_year = @user.remaining_leave_this_year
-#    @holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-#    @holiday.destroy
-#    @user.remaining_leave_this_year.should == @leave_left_this_year
-#  end
-
-# it "refunds the duration for next year" do
-#    @leave_left_next_year = @user.remaining_leave_next_year
-#    @holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-#    @user.remaining_leave_next_year.should == (@leave_left_next_year-1)
-#    @holiday.destroy
-#    @user.remaining_leave_next_year.should == @leave_left_next_year
-#  end
 end

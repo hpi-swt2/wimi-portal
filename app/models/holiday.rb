@@ -14,47 +14,23 @@
 class Holiday < ActiveRecord::Base
   belongs_to :user
 
-  validates_presence_of :user
-  validates_datetime :start
-  validates_datetime :end
-  validates_datetime :start, :on_or_after => :today
-  validates_datetime :end, :after => :start
+  validates_presence_of :user, :start, :end
+  validates_date :start
+  validates_date :end
+  validates_date :start, :on_or_after => :today
+  validates_date :end, :after => :start
   validate :too_far_in_the_future?
   validate :sufficient_leave_left?
 
-  def sum_duration
-    duration_this_year + duration_next_year
+  def duration
+    start.business_days_until(self.end+1)
   end
 
-  def end_of_this_year
-    Date.today.change(day: 31, month: 12)
-  end
-
-  def start_of_next_year
-    Date.today.change(year: Date.today.year + 1, day: 1, month: 1)
-  end
-
-  def duration_this_year
-    if (self.start.year <= (Date.today.year))
-      if (self.end.year <= (Date.today.year))
-        (self.end - self.start).to_i/1.day + 1
-      else
-        (end_of_this_year - self.start.to_date).to_i + 1
-      end
+  def duration_last_year
+    if start <= Date.new(Date.today.year-1, 12, 31)
+      start.business_days_until(Date.new(Date.today.year-1, 12, 31))
     else
       0
-    end
-  end
-
-  def duration_next_year
-    if (self.start.year <= (Date.today.year))
-      if (self.end.year <= (Date.today.year))
-        0
-      else
-      (self.end.to_date - start_of_next_year).to_i + 1
-      end
-    else
-      (self.end - self.start).to_i/1.day + 1
     end
   end
 
@@ -67,13 +43,11 @@ class Holiday < ActiveRecord::Base
   end
 
   def sufficient_leave_left?
+    #need to assert that user is existent for tests
     if self.user
-      unless self.user.remaining_leave_this_year >= duration_this_year
-        errors.add(:Not, "enough leave for this year left!")
+      unless self.user.remaining_leave >= duration
+        errors.add(:not_enough_leave_left!, "" )
       end
-      unless self.user.remaining_leave_next_year >= duration_next_year
-        errors.add(:Not, "enough leave for next year left")
-      end
-    end
+  	end
   end
 end

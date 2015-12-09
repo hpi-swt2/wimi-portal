@@ -16,6 +16,10 @@
 #  identity_url              :string
 #  remaining_leave_this_year :integer          default(28)
 #  remaining_leave_next_year :integer          default(28)
+#  residence                 :string
+#  street                    :string
+#  division_id               :integer          default(0)
+#  personnel_number          :integer          default(0)
 #
 
 require 'rails_helper'

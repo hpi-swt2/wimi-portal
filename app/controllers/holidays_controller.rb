@@ -6,6 +6,9 @@ class HolidaysController < ApplicationController
   end
 
   def show
+    unless Holiday.find(params[:id]).user_id == current_user.id
+      redirect_to holidays_path
+    end
   end
 
   def new
@@ -17,11 +20,10 @@ class HolidaysController < ApplicationController
 
   def create
     @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
-
     if @holiday.save
       subtract_leave
       flash[:success] = 'Holiday was successfully created.'
-      redirect_to @holiday
+      redirect_to current_user
     else
       render :new
     end
@@ -42,7 +44,7 @@ class HolidaysController < ApplicationController
     end
     @holiday.destroy
     flash[:success] = 'Holiday was successfully destroyed.'
-    redirect_to holidays_url
+    redirect_to holidays_path
   end
 
   private
@@ -55,8 +57,8 @@ class HolidaysController < ApplicationController
     end
 
     def calculate_leave(operator)
-      current_user.update_attribute(:remaining_leave_this_year, current_user.remaining_leave_this_year.send(operator, @holiday.duration_this_year))
-      current_user.update_attribute(:remaining_leave_next_year, current_user.remaining_leave_next_year.send(operator, @holiday.duration_next_year))
+      current_user.update_attribute(:remaining_leave, current_user.remaining_leave.send(operator, @holiday.duration))
+      current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year.send(operator, @holiday.duration_last_year))
     end
 
     def add_leave

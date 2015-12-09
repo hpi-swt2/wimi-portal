@@ -16,6 +16,10 @@
 #  identity_url              :string
 #  remaining_leave_this_year :integer          default(28)
 #  remaining_leave_next_year :integer          default(28)
+#  residence                 :string
+#  street                    :string
+#  division_id               :integer          default(0)
+#  personnel_number          :integer          default(0)
 #
 
 class User < ActiveRecord::Base
@@ -26,6 +30,22 @@ class User < ActiveRecord::Base
   validates :last_name, length: { minimum: 1 }
   validates :email, length: { minimum: 1 }
 
+  DIVISIONS = [ '',
+      'Enterprise Platform and Integration Concepts',
+      'Internet-Technologien und Systeme',
+      'Human Computer Interaction',
+      'Computergrafische Systeme',
+      'Algorithm Engineering',
+      'Systemanalyse und Modellierung',
+      'Software-Architekturen',
+      'Informationssysteme',
+      'Betriebssysteme und Middleware',
+      'Business Process Technology',
+      'School of Design Thinking',
+      'Knowledge Discovery and Data Mining']
+
+  INVALID_EMAIL = 'invalid_email'
+
   has_many :holidays
   has_many :expenses
   has_many :trips
@@ -33,6 +53,10 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
+
+  validates :personnel_number, numericality: { only_integer: true }, inclusion: 0..999999999
+  validates_numericality_of :remaining_leave, greater_than_or_equal: 0
+  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
 
   def name
     "#{first} #{last_name}"
@@ -57,16 +81,16 @@ class User < ActiveRecord::Base
 
   def openid_fields=(fields)
     fields.each do |key, value|
-      # Some AX providers can return multiple values per key
       if value.is_a? Array
         value = value.first
       end
 
-      case key.to_s
-      when "http://axschema.org/contact/email"
-        update_attribute(:email, value)
-      else
-        logger.error "Unknown OpenID field: #{key}"
+      if key.to_s == "http://axschema.org/contact/email"
+        if value.nil?
+          update_attribute(:email, INVALID_EMAIL)
+        else
+          update_attribute(:email, value)
+        end
       end
     end
   end
