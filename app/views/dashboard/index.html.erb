@@ -34,6 +34,8 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_project_path,
-            :class => 'btn btn-primary' %>
+<% if can? :create, Project %>
+    <%= link_to t('.new', :default => t("helpers.project.new")),
+                new_project_path,
+                :class => 'btn btn-primary' %>
+<% end %>

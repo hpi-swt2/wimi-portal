@@ -23,6 +23,7 @@
 #
 
 class User < ActiveRecord::Base
+  before_create :default_values
 
   devise  :openid_authenticatable, :trackable
 
@@ -45,6 +46,8 @@ class User < ActiveRecord::Base
       'Knowledge Discovery and Data Mining']
 
   INVALID_EMAIL = 'invalid_email'
+
+  enum role: [ :superadmin, :admin, :wimi, :hiwi, :user ]
 
   has_many :holidays
   has_many :expenses
@@ -93,4 +96,9 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  private
+    def default_values
+      self.role ||= :user
+    end
 end

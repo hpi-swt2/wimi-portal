@@ -16,6 +16,8 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+    project:
+      new: "Add Project"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
