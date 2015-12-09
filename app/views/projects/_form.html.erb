@@ -19,7 +19,8 @@
     <%= f.label :title, :class => 'control-label' %>
     <div class="controls col-md-12 projectTitleControl">
       <div class="col-md-6" style="margin-left: -5px">
-      <%= f.text_field :title, :class => 'form-control' %></div>
+      <%= f.text_field :title, :class => 'form-control' %>
+      </div>
     </div>
     <%= error_span(@project[:title]) %>
   </div>
@@ -28,10 +29,18 @@
     <div class="control-group">
       <%= f.label :status, "Status",  :class => 'control-label' %>
       <div class="radio">
-        <div> <div class="col-md-1"> <%= label :status, "active"%></div>
-          <div class="col-md-1"> <%= f.radio_button :status, true, :value => true%></div></div>
-        <div><div class="col-md-1"><%= label :status, "inactive"%></div>
-          <div class="col-md-1"> <%= f.radio_button :status, false, :value => false%></div></div>
+        <div>
+          <div class="col-md-1"> <%= label :status, "active"%>
+          </div>
+          <div class="col-md-1"> <%= f.radio_button :status, true, :value => true%>
+          </div>
+        </div>
+        <div>
+          <div class="col-md-1"><%= label :status, "inactive"%>
+          </div>
+          <div class="col-md-1"> <%= f.radio_button :status, false, :value => false%>
+          </div>
+        </div>
       </div>
       <%= error_span(@project[:status]) %>
     </div>
@@ -59,7 +68,7 @@
             <% is_member = @project.users.include?(user) %>
             <% element_id = (user == current_user && is_member ? "currentUserCheckbox" : "project_user_ids_#{user.id}") %>
               <div class="checkbox" >
-              <input value="<%= user.id %>" name="project[user_ids][]" id="<%= element_id %>" type="checkbox" <%= "checked" if is_member || user == current_user %>
+              <input value="<%= user.id %>" name="project[user_ids][]" id="<%= element_id %>" type="checkbox" <%= "checked" if is_member %> >
               <label for="<%= element_id %>"><%= user.email %></label>
               </div>
           <% end %>
