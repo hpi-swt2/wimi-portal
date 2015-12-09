@@ -8,7 +8,6 @@ RSpec.describe "project_applications/index", type: :view do
     login_as(@user)
 
     @project_application = FactoryGirl.create(:project_application, user_id: @user.id, project_id: @project.id)
-    print @user.project_applications
   end
 
   it "renders a list of project_applications" do

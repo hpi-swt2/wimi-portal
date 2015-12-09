@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
-  resources :chair_representatives
-  resources :chair_admins
-  resources :chair_wimis
   resources :chair_applications
   resources :chairs
 
   resources :expenses
-  get 'dashboard', to: 'dashboard#index'
   resources :holidays
 
   resources :project_applications, only: [:index, :destroy] do
@@ -20,15 +16,16 @@ Rails.application.routes.draw do
     end
   end
 
+  root 'dashboard#index'
+  get 'dashboard', to: 'dashboard#index'
+  get 'users/edit_leave', to: 'users#edit_leave'
+
   resources :projects
   resources :publications
   resources :trips
-  
+
   devise_for :users
 
-  post '/chair_apply_event' => 'chair_applications#create', :as => 'chair_apply_event'
-  post '/chair_cancelapp_event' => 'chair_applications#destroy', :as => 'chair_cancelapp_event'
-  post '/chair_acceptapp_event' => 'chair_wimis#create', :as => 'chair_acceptapp_event'
-  post '/chair_declineapp_event' => 'chair_applications#decline', :as => 'chair_declineapp_event'
-  root 'dashboard#index'
+  resources :users, :only => [:show, :edit, :edit_leave, :update]
+
 end

@@ -3,7 +3,6 @@ class Ability
 
   def initialize(user)
     unless user.nil?
-      can :read, Chair
 
       initialize_superadmin user and return if user.superadmin?
       initialize_admin user and return if user.admin?

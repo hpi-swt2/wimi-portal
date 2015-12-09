@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :wimi, class: 'User' do
+    first 'John'
+    last_name 'Doe'
     email
-    password '12345678'
-    password_confirmation '12345678'
     role :wimi
     projects {build_list :project, 1}
   end

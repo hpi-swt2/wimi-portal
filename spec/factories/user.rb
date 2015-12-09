@@ -9,8 +9,6 @@ FactoryGirl.define do
   	first 'John'
   	last_name 'Doe'
     email
-    password '12345678'
-    password_confirmation '12345678'
     role :user
   end
 end
