@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :holidays
   resources :trips
   resources :expenses
+  resources :work_days
+  resources :time_sheets, :only => [:edit, :update, :delete]
 
   devise_for :users
 
