@@ -43,15 +43,15 @@ class ProjectsController < ApplicationController
   def invite_user
     user = User.find_by_email params[:invite_user][:email]
     if user.nil?
-      flash[:error] = 'Der Benutzer existiert nicht'
+      flash[:error] = I18n.t('project.user.doesnt_exist', default: 'Der Benutzer existiert nicht')
       redirect_to @project
     else
       if @project.users.include? user
-        flash[:error] = 'Der Benutzer ist bereits Mitglied dieses Projekts'
+        flash[:error] = I18n.t('project.user.already_is_member', default: 'Der Benutzer ist bereits Mitglied dieses Projekts')
         redirect_to @project
       else
         @project.add_user user
-        flash[:success] = 'Der Benutzer wurde erfolgreich zum Projekt hinzugefügt.'
+        flash[:success] = I18n.t('project.user.was_successfully_added', default: 'Der Benutzer wurde erfolgreich zum Projekt hinzugefügt.')
         redirect_to @project
       end
     end

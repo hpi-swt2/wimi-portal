@@ -14,9 +14,6 @@ Rails.application.routes.draw do
   resources :trips
   resources :expenses
 
-  get '/profile', to: 'user_profile#show'
-  patch '/profile', to: 'user_profile#update'
-
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
