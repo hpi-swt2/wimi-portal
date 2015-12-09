@@ -12,10 +12,20 @@ RSpec.describe 'projects/index', type: :view do
     check "project_user_ids_#{@user.id}"
     click_button('Update Project')
     visit "/projects/#{project1.id}/edit"
-    print page.html
     page.find('#currentUserCheckbox')
   end
 
+  it 'has the accessibility public after a project was newly created' do
+    project2 = FactoryGirl.create(:project)
+    visit "/projects/#{project2.id}/edit"
+    expect(page).to have_selector 'input[type=radio][checked=checked][id=project_public_true]'
+  end
+
+  it 'has the status active after a project was newly created' do
+    project3 = FactoryGirl.create(:project)
+    visit "/projects/#{project3.id}/edit"
+    expect(page).to have_selector 'input[type=radio][checked=checked][id=project_status_true]'
+  end
 
 end
 
