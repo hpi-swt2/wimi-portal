@@ -49,7 +49,7 @@
         <select name="representative_user">
           <option value="null">Please select</option>
           <%= User.all.each do |user| %>
-              <% if @chair.representative.user.id == user.id %>
+              <% if @chair.representative != nil && @chair.representative.user.id == user.id %>
                   <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
               <% else %>
                   <option value="<%= user.id %>"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
