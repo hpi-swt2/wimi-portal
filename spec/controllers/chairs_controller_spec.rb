@@ -98,11 +98,18 @@ RSpec.describe ChairsController, type: :controller do
       @user = FactoryGirl.create(:user)
     end
 
-    it 'creates a new Chair' do
+    it 'creates a new Chair with admin and representative different' do
       user1 = FactoryGirl.create(:user)
       login_with @superadmin
       expect {
         post :create, { :chair => {:name => 'Test'}, :admin_user => @user, :representative_user => user1}
+      }.to change(Chair, :count).by(1)
+    end
+
+    it 'creates a new Chair with one user as admin and representative' do
+      login_with @superadmin
+      expect {
+        post :create, { :chair => {:name => 'Test'}, :admin_user => @user, :representative_user => @user}
       }.to change(Chair, :count).by(1)
     end
 
@@ -112,6 +119,48 @@ RSpec.describe ChairsController, type: :controller do
       chair_count = Chair.all.count
       post :create, { :chair => {:name => 'Test'}}
       expect(Chair.all.count).to eq(chair_count)
+    end
+  end
+
+  describe 'POST #update' do
+    before(:each) do
+      @superadmin = FactoryGirl.create(:user)
+      @superadmin.superadmin = true
+      @user = FactoryGirl.create(:user)
+    end
+
+    it 'modifies an existing chair with same admin and representative' do
+      login_with @superadmin
+      expect(Chair.all.size).to eq(0)
+      post :create, { :chair => {:name => 'Test'}, :admin_user => @user, :representative_user => @user}
+      expect(Chair.all.size).to eq(1)
+      expect(Chair.last.name).to eq('Test')
+      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
+      expect(Chair.last.representative.user.id).to eq(@user.id)
+      put :update, :id => Chair.last.id, :chair => {:name => 'NewTest'}, :admin_user => @superadmin, :representative_user => @superadmin
+      expect(Chair.all.size).to eq(1)
+      expect(Chair.last.name).to eq('NewTest')
+      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(0)
+      expect(Chair.last.representative.user.id).to_not eq(@user.id)
+      expect(Chair.last.admins.select{ |admin| (admin.user.id == @superadmin.id) }.size).to eq(1)
+      expect(Chair.last.representative.user.id).to eq(@superadmin.id)
+    end
+
+    it 'modifies an existing chair with different admin and representative' do
+      login_with @superadmin
+      expect(Chair.all.size).to eq(0)
+      post :create, { :chair => {:name => 'Test'}, :admin_user => @user, :representative_user => @superadmin}
+      expect(Chair.all.size).to eq(1)
+      expect(Chair.last.name).to eq('Test')
+      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
+      expect(Chair.last.representative.user.id).to eq(@superadmin.id)
+      put :update, :id => Chair.last.id, :chair => {:name => 'NewTest'}, :admin_user => @superadmin, :representative_user => @user
+      expect(Chair.all.size).to eq(1)
+      expect(Chair.last.name).to eq('NewTest')
+      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(0)
+      expect(Chair.last.representative.user.id).to_not eq(@superadmin.id)
+      expect(Chair.last.admins.select{ |admin| (admin.user.id == @superadmin.id) }.size).to eq(1)
+      expect(Chair.last.representative.user.id).to eq(@user.id)
     end
   end
 
