@@ -25,6 +25,7 @@ class ChairsController < ApplicationController
     if @chair.add_users(params[:admin_user], params[:representative_user])
       redirect_to chairs_path, notice: 'Chair successfully created.'
     else
+      flash[:error] = "The form is not filled completely!"
       render :new
     end
   end
@@ -38,6 +39,7 @@ class ChairsController < ApplicationController
       @chair.update(chair_params)
       redirect_to chairs_path, notice: 'Chair successfully updated.'
     else
+      flash[:error] = "The form is not filled completely!"
       render :new
     end
   end
@@ -113,6 +115,6 @@ class ChairsController < ApplicationController
   end
 
   def not_authorized
-    redirect_to root_path, notice: 'Not authorized for this chair.'
+    redirect_to chairs_path, notice: 'Not authorized for this chair.'
   end
 end

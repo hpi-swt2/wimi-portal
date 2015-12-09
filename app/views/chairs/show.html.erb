@@ -38,7 +38,9 @@
       <% end %>
     </td>
     <td>
-    <%= link_to 'Aus Fachgebiet entfernen', chairs_remove_user_path(:id => @chair, :request => wimi.chair_wimi), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <% if wimi.id != current_user.id %>
+        <%= link_to 'Aus Fachgebiet entfernen', chairs_remove_user_path(:id => @chair, :request => wimi.chair_wimi), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <% end %>
     </td>
   </tr>
   <% end %>

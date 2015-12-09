@@ -27,7 +27,7 @@
               <span class="label label-warning">pending</span>
             <% end %>
           <% else %>
-            <% if !current_user.is_wimi? && !current_user.is_superadmin? %>
+            <% if !current_user.is_wimi? && !current_user.is_superadmin? && current_user.chair_wimi.nil? %>
               <%= link_to 'Apply as Wimi', chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
             <% end %>
           <% end %>
@@ -35,7 +35,7 @@
 
         <td>
           <% if !current_user.chair_wimi.nil? %>
-            <% if current_user.chair_wimi.admin || current_user.chair_wimi.representative %>
+            <% if (current_user.chair_wimi.admin || current_user.chair_wimi.representative) && (chair.id == current_user.chair_wimi.chair.id) %>
               <%= link_to 'Manage Chair', chair_path(chair) %>
             <% end %>
           <% end %>

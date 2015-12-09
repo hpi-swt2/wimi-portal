@@ -10,6 +10,8 @@ RSpec.describe ChairsController, type: :controller do
       @wimi = FactoryGirl.create(:user)
       ChairWimi.create(:user => @wimi, :chair => @chair, :application => 'accepted')
       @user = FactoryGirl.create(:user)
+      @superadmin = FactoryGirl.create(:user)
+      @superadmin.superadmin = true
     end
 
     it 'shows index of all chairs' do
@@ -24,16 +26,21 @@ RSpec.describe ChairsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it 'redirects to root as not authorized user / wimi' do
+    it 'redirects to root as not authorized user / wimi / superadmin' do
       login_with(@user)
       get :show, {id: @chair}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(chairs_path)
 
       login_with(@wimi)
       get :show, {id: @chair}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(chairs_path)
+
+      login_with(@superadmin)
+      get :show, {id: @chair}
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(chairs_path)
     end
 
     it 'creates a new Wimi application' do
