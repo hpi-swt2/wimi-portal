@@ -1,8 +1,8 @@
 class ChairsController < ApplicationController
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy]
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update]
 
   before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair]
-  before_action :authorize_superadmin, only: [:destroy, :new, :create, :edit]
+  before_action :authorize_superadmin, only: [:destroy, :new, :create, :edit, :update]
 
   def index
     @chairs = Chair.all
