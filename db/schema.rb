@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127195914) do
+ActiveRecord::Schema.define(version: 20151209144904) do
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20151127195914) do
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
+    t.integer  "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

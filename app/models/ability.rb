@@ -17,19 +17,11 @@ class Ability
   end
 
   def initialize_admin(user)
-    can :manage, user.projects
-    can :manage, ProjectApplication do |project_application|
-      user.projects.exists?(project_application.project_id)
-    end
-    cannot :create, ProjectApplication
+    can :manage, user.projectsgit 
   end
 
   def initialize_wimi(user)
     can :manage, user.projects
-    can :manage, ProjectApplication do |project_application|
-      user.projects.exists?(project_application.project_id)
-    end
-    cannot :create, ProjectApplication
   end
 
   def initialize_hiwi(user)
@@ -37,7 +29,6 @@ class Ability
   end
 
   def initialize_user(user)
-    can :create, ProjectApplication
     cannot :create, Project
   end
 end
