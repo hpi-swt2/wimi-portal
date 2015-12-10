@@ -2,6 +2,7 @@ class Chair < ActiveRecord::Base
   has_many :chair_wimis, dependent: :destroy
   has_many :users, through: :chair_wimis
   has_many :projects
+  has_many :requests
 
   validates :name, presence: true
 

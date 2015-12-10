@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'
   post 'chairs/destroy', to: 'chairs#destroy'
 
+  get 'chairs/:id/requests' => 'requests#requests', :as => 'requests'
+
   devise_for :users
 
   resources :users, :only => [:show, :edit, :edit_leave, :update]

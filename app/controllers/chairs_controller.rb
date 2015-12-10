@@ -1,8 +1,9 @@
 class ChairsController < ApplicationController
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy]
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :requests]
 
   before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair]
   before_action :authorize_superadmin, only: [:destroy, :new, :create]
+  before_action :authorize_representative, only: [:requests]
 
   def index
     @chairs = Chair.all
@@ -94,6 +95,17 @@ class ChairsController < ApplicationController
       not_authorized
     else
       unless (c_wimi.admin == true || c_wimi.representative == true) && c_wimi.chair == @chair
+        not_authorized
+      end
+    end
+  end
+
+  def authorize_representative
+    c_representative = current_user.chair_wimi
+    if c_representative.nil?
+      not_authorized
+    else
+      unless c_representative.representative == true && c_representative.chair == @chair
         not_authorized
       end
     end
