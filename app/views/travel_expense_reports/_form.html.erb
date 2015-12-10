@@ -1,0 +1,96 @@
+<%= form_for(@travel_expense_report) do |f| %>
+  <% if @travel_expense_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@travel_expense_report.errors.count, "error") %> prohibited this travel_expense_report from being saved:</h2>
+
+      <ul>
+      <% @travel_expense_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :inland %><br>
+    <%= f.check_box :inland %>
+  </div>
+  <div class="field">
+    <%= f.label :country %><br>
+    <%= f.text_field :country %>
+  </div>
+  <div class="field">
+    <%= f.label :location_from %><br>
+    <%= f.text_field :location_from %>
+  </div>
+  <div class="field">
+    <%= f.label :location_via %><br>
+    <%= f.text_field :location_via %>
+  </div>
+  <div class="field">
+    <%= f.label :location_to %><br>
+    <%= f.text_field :location_to %>
+  </div>
+  <div class="field">
+    <%= f.label :reason %><br>
+    <%= f.text_area :reason %>
+  </div>
+  <div class="field">
+    <%= f.label :date_start %><br>
+    <%= f.datetime_select :date_start %>
+  </div>
+  <div class="field">
+    <%= f.label :date_end %><br>
+    <%= f.datetime_select :date_end %>
+  </div>
+  <div class="field">
+    <%= f.label :car %><br>
+    <%= f.check_box :car %>
+  </div>
+  <div class="field">
+    <%= f.label :public_transport %><br>
+    <%= f.check_box :public_transport %>
+  </div>
+  <div class="field">
+    <%= f.label :vehicle_advance %><br>
+    <%= f.check_box :vehicle_advance %>
+  </div>
+  <div class="field">
+    <%= f.label :hotel %><br>
+    <%= f.check_box :hotel %>
+  </div>
+  <div class="field">
+    <%= f.label :general_advance %><br>
+    <%= f.number_field :general_advance %>
+  </div>
+
+    <div id="date_items">
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>F</th>
+          <th>M</th>
+          <th>A</th>
+        </tr>
+        <%= f.fields_for :travel_expense_report_items do |t| %>
+        <tr>
+          <td><%= t.date_select :date, {include_blank: true, order: [:day,:month,:year]}%></td>
+          <td><%= t.check_box :breakfast %></td>
+          <td><%= t.check_box :lunch %></td>
+          <td><%= t.check_box :dinner %></td>
+         </tr>
+        <% end %>
+</table>
+</div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

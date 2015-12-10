@@ -9,8 +9,13 @@ Rails.application.routes.draw do
   resources :publications
   resources :projects
   resources :holidays
-  resources :trips
   resources :expenses
+  resources :travel_expense_reports
+  resources :trips do
+    member do
+      get 'download'
+    end
+  end
 
   devise_for :users
 
