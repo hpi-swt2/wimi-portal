@@ -27,11 +27,11 @@ RSpec.describe PublicationsController, type: :controller do
   # Publication. As you add validations to Publication, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
+    { title: 'Publication 1', venue: 'Venue', type_: 'Typ' }
   }
 
   let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    { title: '', venue: 'Venue', type_: 'Typ' }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -43,7 +43,7 @@ RSpec.describe PublicationsController, type: :controller do
     it 'assigns all publications as @publications' do
       publication = Publication.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:publications)).to eq([publication])
+      expect(assigns(:publications)).to eq(Publication.all)
     end
   end
 
@@ -106,14 +106,14 @@ RSpec.describe PublicationsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
+        { title: 'Publication 2', venue: 'Venue', type_: 'Typ' }
       }
 
       it 'updates the requested publication' do
         publication = Publication.create! valid_attributes
         put :update, {id: publication.to_param, publication: new_attributes}, valid_session
         publication.reload
-        skip('Add assertions for updated state')
+        expect(publication.title).to eq('Publication 2')
       end
 
       it 'assigns the requested publication as @publication' do
