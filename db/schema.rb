@@ -12,9 +12,12 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20151202121618) do
+<<<<<<< HEAD
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+=======
+>>>>>>> team3review
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -88,6 +91,19 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.datetime "updated_at",            null: false
   end
 
+  create_table "time_sheets", force: :cascade do |t|
+    t.integer  "month"
+    t.integer  "year"
+    t.integer  "salary"
+    t.boolean  "salary_is_per_month"
+    t.integer  "workload"
+    t.boolean  "workload_is_per_month"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
   create_table "trips", force: :cascade do |t|
     t.string   "title"
     t.datetime "start"
@@ -101,23 +117,24 @@ ActiveRecord::Schema.define(version: 20151202121618) do
   add_index "trips", ["user_id"], name: "index_trips_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                     default: "", null: false
-    t.integer  "sign_in_count",             default: 0,  null: false
+    t.string   "email",                     default: "",   null: false
+    t.integer  "sign_in_count",             default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "first"
     t.string   "last_name"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "identity_url"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "residence"
     t.string   "street"
     t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
+    t.string   "identity_url"
+    t.string   "language",                  default: "en", null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -135,4 +152,16 @@ ActiveRecord::Schema.define(version: 20151202121618) do
     t.integer  "project_id"
   end
 
+  create_table "work_days", force: :cascade do |t|
+    t.date     "date"
+    t.time     "start_time"
+    t.integer  "break"
+    t.time     "end_time"
+    t.string   "attendance"
+    t.string   "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "project_id"
+  end
 end
