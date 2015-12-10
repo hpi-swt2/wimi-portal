@@ -75,6 +75,19 @@ class User < ActiveRecord::Base
     return (projects.compact + self.projects).uniq
   end
 
+  def years_and_months_of_existence
+    year_months = []
+    creation_date = self.created_at
+    (creation_date.year..Date.today.year).each do |year|
+      start_month = (creation_date.year == year) ? creation_date.month : 1
+      end_month = (Date.today.year == year) ? Date.today.month : 12
+      (start_month..end_month).each do |month|
+        year_months.push([year, month])
+      end
+    end
+    return year_months
+  end
+
   def self.openid_required_fields
     ["http://axschema.org/contact/email"]
   end
