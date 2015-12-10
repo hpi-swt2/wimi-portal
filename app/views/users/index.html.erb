@@ -15,7 +15,7 @@
       <th><%= model_class.human_attribute_name(:last_sign_in_at) %></th>
       <th><%= model_class.human_attribute_name(:current_sign_in_ip) %></th>
       <th><%= model_class.human_attribute_name(:last_sign_in_ip) %></th>
-      <th><%= model_class.human_attribute_name(:first) %></th>
+      <th><%= model_class.human_attribute_name(:first_name) %></th>
       <th><%= model_class.human_attribute_name(:last_name) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -34,7 +34,7 @@
         <td><%= user.last_sign_in_at %></td>
         <td><%= user.current_sign_in_ip %></td>
         <td><%= user.last_sign_in_ip %></td>
-        <td><%= user.first %></td>
+        <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%=l user.created_at %></td>
         <td>
