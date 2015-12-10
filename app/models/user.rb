@@ -72,7 +72,6 @@ class User < ActiveRecord::Base
   def projects_for_month(year, month)
     projects = TimeSheet.where(
       user: self, month: month, year: year).map {|sheet| sheet.project}
-    p (projects.compact + self.projects).uniq
     return (projects.compact + self.projects).uniq
   end
 

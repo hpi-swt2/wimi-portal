@@ -18,14 +18,10 @@ class TimeSheetsController < ApplicationController
   # PATCH/PUT /time_sheets/1
   # PATCH/PUT /time_sheets/1.json
   def update
-    respond_to do |format|
-      if @time_sheet.update(time_sheet_params)
-        format.html { redirect_to work_days_path(month: @time_sheet.month, year: @time_sheet.year, project: @time_sheet.project)}
-        format.json { render :show, status: :ok, location: @time_sheet }
-      else
-        format.html { render :edit }
-        format.json { render json: @time_sheet.errors, status: :unprocessable_entity }
-      end
+    if @time_sheet.update(time_sheet_params)
+      redirect_to work_days_path(month: @time_sheet.month, year: @time_sheet.year, project: @time_sheet.project)
+    else
+      render :edit
     end
   end
 
