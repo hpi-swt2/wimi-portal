@@ -40,7 +40,7 @@ div.input-block > span, .big {
   font-size: 14.0pt;
 }
 
-table > tbody > tr > td {
+table.pdf_table > tbody > tr > td {
   border: solid 1.0pt;
   text-align: center;
   padding: 5px;
