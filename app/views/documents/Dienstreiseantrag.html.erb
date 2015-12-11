@@ -38,12 +38,22 @@
   <td><b>Tage</b></td>
   <td><b style='font-size:10.0pt'>davon Auslandstage</b></td>
  </tr>
- <tr>
-  <td width=96><%= trip.start_date.strftime("%d.%m.%Y") %></td>
-  <td width=96><%= trip.end_date.strftime("%d.%m.%Y") %></td>
-  <td width=96><%= trip.days %></td>
-  <td width=120><%= trip.days_abroad %></td>
- </tr>
+ <% trip.trip_datespans.each do |datespan| %>
+   <tr>
+    <td width=96><%= datespan.start_date.strftime("%d.%m.%Y") %></td>
+    <td width=96><%= datespan.end_date.strftime("%d.%m.%Y") %></td>
+    <td width=96><%= datespan.total_days %></td>
+    <td width=120><%= datespan.days_abroad %></td>
+   </tr>
+ <% end %>
+ <% (2 - trip.trip_datespans.size).times do |i| %
+   <tr>
+    <td width=96>&nbsp;</td>
+    <td width=96>&nbsp;</td>
+    <td width=96>&nbsp;</td>
+    <td width=120>&nbsp;</td>
+   </tr>
+ <% end %>
 </table>
 
 <p class='big' style='margin:40 0 20 0'>Anmerkungen:</p>
