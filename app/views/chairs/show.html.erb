@@ -32,8 +32,9 @@
     <td><%= wimi.name %></td>
     <td>Anträge anzeigen</td>
     <td>
-      <% if wimi.chair_wimi.admin %>Administrator
+      <% if wimi.chair_wimi.admin %>Administrator <%= link_to '(Rechte entziehen)', chairs_withdraw_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %>
       <% elsif wimi.chair_wimi.representative %>FG-Beauftragter
+      <% else %><%= link_to 'Als Admin ernennen', chairs_set_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %>
       <% end %>
     </td>
     <td>
