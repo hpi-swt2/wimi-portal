@@ -1,5 +1,5 @@
 class ChairsController < ApplicationController
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :requests]
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy,  :set_admin, :withdraw_admin]
 
   before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair, :set_admin, :withdraw_admin]
   before_action :authorize_superadmin, only: [:destroy, :new, :create]
