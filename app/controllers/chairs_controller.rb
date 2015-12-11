@@ -3,7 +3,7 @@ class ChairsController < ApplicationController
 
   before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair]
   before_action :authorize_superadmin, only: [:destroy, :new, :create]
-  before_action :authorize_representative, only: [:requests]
+
 
   def index
     @chairs = Chair.all
@@ -100,16 +100,6 @@ class ChairsController < ApplicationController
     end
   end
 
-  def authorize_representative
-    c_representative = current_user.chair_wimi
-    if c_representative.nil?
-      not_authorized
-    else
-      unless c_representative.representative == true && c_representative.chair == @chair
-        not_authorized
-      end
-    end
-  end
 
   def not_authorized
     redirect_to root_path, notice: 'Not authorized for this chair.'
