@@ -4,6 +4,7 @@ RSpec.describe 'projects/index', type: :view do
   before(:each) do
     @user = FactoryGirl.create(:user)
     login_as @user
+
   end
 
   it 'changes checkbox id after user was assigned to a project' do
