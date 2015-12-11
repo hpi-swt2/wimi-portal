@@ -6,7 +6,7 @@ class DocumentsController < ApplicationController
       else
         self.init_params
         # WickedPDF looks for stylesheet files in app/assets/stylesheets
-        @tmp_vars[:css_file] = "styles.css"
+        @tmp_vars[:css_file] = "../../views/documents/styles.css"
         @tmp_vars[:hpi_logo] = "#{Rails.root}/app/views/documents/img/HPI-logo.jpg"
 
         pdf = WickedPdf.new.pdf_from_string(render_to_string(
