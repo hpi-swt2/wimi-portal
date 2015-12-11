@@ -10,7 +10,6 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-offset">
   <%= nav_bar fixed: :top, brand: "Wimi Portal", responsive: true do %>
     <%= menu_group do %>
-      <%= menu_item "Dashboard", dashboard_path %>
       <%= menu_item "Projects", projects_path %>
       <%= menu_item "Publications", publications_path %>
       <%= menu_item "Business Trip", trips_path %>
@@ -19,6 +18,9 @@
     <% end %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
+          <% unless current_user.chair_wimi == nil %>   
+      <%= menu_item "Chair", chair_path(current_user.chair) %>
+    <% end %>
         <% unless current_user.email.blank? %>
 	  <%= menu_item "#{current_user.email}" %>
           <%= menu_item "Profile", url_for(current_user) %>

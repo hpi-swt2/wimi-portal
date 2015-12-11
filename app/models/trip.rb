@@ -19,4 +19,7 @@ class Trip < ActiveRecord::Base
   validates :name, presence: true
   validates :destination, presence: true
   validates :user, presence: true
+  has_many :expenses
+  enum status: [ :saved, :applied, :accepted, :declined ]
+
 end
