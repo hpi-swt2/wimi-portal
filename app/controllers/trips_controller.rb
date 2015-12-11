@@ -30,13 +30,11 @@ class TripsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
       if @trip.update(trip_params)
-        format.html { redirect_to @trip, notice: 'Trip was successfully updated.' }
+        redirect_to @trip, notice: 'Trip was successfully updated.'
       else
-        format.html { render :edit }
+      	render :edit
       end
-    end
   end
 
   def destroy
@@ -55,6 +53,6 @@ class TripsController < ApplicationController
     end
 
     def trip_params
-	    params.require(:trip).permit(:name, :destination, :reason, :annotation, :signature, trip_datespans_attributes:[:start_date, :end_date,:days_abroad])
+	    params.require(:trip).permit(:name, :destination, :reason, :annotation, :signature, trip_datespans_attributes:[:id,:start_date, :end_date,:days_abroad])
     end
 end
