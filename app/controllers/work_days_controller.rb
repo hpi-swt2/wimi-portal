@@ -3,11 +3,11 @@ class WorkDaysController < ApplicationController
 
   def index
     if params.has_key?(:month) && params.has_key?(:year)
-      month = params[:month].to_i
-      year = params[:year].to_i
+      @month = params[:month].to_i
+      @year = params[:year].to_i
       @project = params.has_key?(:project) ? Project.find(params[:project].to_i) : nil
-      @time_sheet = time_sheet_for(year, month, @project)
-      @work_days = all_for(year, month, @project)
+      @time_sheet = time_sheet_for(@year, @month, @project)
+      @work_days = all_for(@year, @month, @project)
     else
       date = Date.today
       redirect_to work_days_path(month: date.month, year: date.year)
@@ -85,7 +85,7 @@ class WorkDaysController < ApplicationController
     end
 
     def create_new_time_sheet(year, month, project)
-      sheet = TimeSheet.new({year: year, month: month, project_id: project.id, user_id: current_user.id})
+      sheet = TimeSheet.create!({year: year, month: month, project_id: project.id, user_id: current_user.id, workload_is_per_month: true, salary_is_per_month: true})
       sheet.save()
       return sheet
     end
