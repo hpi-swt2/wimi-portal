@@ -29,6 +29,7 @@ class WorkDaysController < ApplicationController
     @work_day.user_id = current_user.id
 
     if @work_day.save
+      flash[:success] = 'Work Day was successfully created.'
       redirect_to work_days_month_path
     else
       render :new
@@ -37,6 +38,7 @@ class WorkDaysController < ApplicationController
 
   def update
     if @work_day.update(work_day_params)
+      flash[:success] = 'Work Day was successfully updated.'
       redirect_to work_days_month_path
     else
       render :edit
@@ -46,6 +48,7 @@ class WorkDaysController < ApplicationController
   def destroy
     date = @work_day.date
     @work_day.destroy
+    flash[:success] = 'Work Day was successfully destroyed.'
     redirect_to work_days_path(month: date.month, year: date.year)
   end
 
