@@ -1,7 +1,7 @@
 class ChairsController < ApplicationController
   before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :requests]
 
-  before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair]
+  before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair, :set_admin, :withdraw_admin]
   before_action :authorize_superadmin, only: [:destroy, :new, :create]
   before_action :authorize_representative, only: [:requests]
 
@@ -53,6 +53,26 @@ class ChairsController < ApplicationController
       redirect_to chair_path(@chair), notice: 'User was successfully removed.'
     else
       redirect_to chair_path(@chair), notice: 'Destroying Chair_wimi failed'
+    end
+  end
+
+  def set_admin
+    chair_wimi = ChairWimi.find(params[:request])
+    chair_wimi.admin = true
+    
+    if chair_wimi.save
+      redirect_to chair_path(@chair), notice: 'Admin was successfully set.'
+    else
+      redirect_to chair_path(@chair), notice: 'Admin setting failed.'
+    end
+  end
+
+  def withdraw_admin
+    chair_wimi = ChairWimi.find(params[:request])
+    if chair_wimi.withdraw_admin(current_user)
+      redirect_to chair_path(@chair), notice: 'Admin rights was successfully removed.'
+    else
+      redirect_to chair_path(@chair), notice: 'Admin right removing failed.'
     end
   end
 

@@ -10,4 +10,11 @@ class ChairWimi < ActiveRecord::Base
     self.destroy
   end
 
+  def withdraw_admin(current_user)
+    if current_user == self.user
+      return false
+    end
+    admin = false
+    self.save
+  end
 end
