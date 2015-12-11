@@ -49,12 +49,12 @@ ActiveRecord::Schema.define(version: 20151211102142) do
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "holidays", force: :cascade do |t|
-    t.integer  "status",     default: 1
     t.integer  "user_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.date     "start"
     t.date     "end"
+    t.integer  "status",     default: 1
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
