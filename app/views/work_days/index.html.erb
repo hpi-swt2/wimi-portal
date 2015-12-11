@@ -5,13 +5,13 @@
 <div class="page-header">
   <h1>
     Working Hours for <%= Date::MONTHNAMES[@month] + ' ' + @year.to_s %>
-    <%if not @project.nil?%>
+    <%unless @project.nil?%>
       <%= ' for ' + @project.title%>
     <%end%>
   </h1>
 </div>
 
-<%if not @time_sheet.nil?%>
+<%unless @time_sheet.nil?%>
   <%= render "time_sheets/show"%>
 <%end%>
 
