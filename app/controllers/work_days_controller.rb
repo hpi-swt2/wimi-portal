@@ -3,11 +3,11 @@ class WorkDaysController < ApplicationController
 
   def index
     if params.has_key?(:month) && params.has_key?(:year)
-      @month = params[:month].to_i
-      @year = params[:year].to_i
+      month = params[:month].to_i
+      year = params[:year].to_i
       @project = params.has_key?(:project) ? Project.find(params[:project].to_i) : nil
-      @time_sheet = time_sheet_for(@year, @month, @project)
-      @work_days = all_for(@year, @month, @project)
+      @time_sheet = time_sheet_for(year, month, @project)
+      @work_days = all_for(year, month, @project)
     else
       date = Date.today
       redirect_to work_days_path(month: date.month, year: date.year)
