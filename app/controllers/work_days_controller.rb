@@ -7,7 +7,7 @@ class WorkDaysController < ApplicationController
       @year = params[:year].to_i
       @project = params.has_key?(:project) ? Project.find(params[:project].to_i) : nil
       @time_sheet = time_sheet_for(@year, @month, @project)
-      @work_days = all_for(@year, @month, @project)
+      @work_days = WorkDay.all_for(@year, @month, @project, current_user)
     else
       date = Date.today
       redirect_to work_days_path(month: date.month, year: date.year)
@@ -57,18 +57,6 @@ class WorkDaysController < ApplicationController
 
     def work_day_params
       params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id, :project_id)
-    end
-
-
-    def all_for(year, month, project)
-      date = Date.new(year, month)
-      month_start = date.beginning_of_month
-      month_end = date.end_of_month
-      if project.nil?
-        return WorkDay.where(date: month_start..month_end, user_id: current_user)
-      else
-        return WorkDay.where(date: month_start..month_end, user_id: current_user, project_id: project)
-      end
     end
 
     def time_sheet_for(year, month, project)
