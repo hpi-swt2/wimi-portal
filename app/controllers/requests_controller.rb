@@ -1,5 +1,7 @@
 class RequestsController < ApplicationController
   before_action :set_chair, only: [:requests]
+  before_action :authorize_representative, only: [:requests]
+
 
   def set_chair
     @chair = Chair.find(params[:id])
@@ -27,5 +29,22 @@ class RequestsController < ApplicationController
       end
     end
     @allrequests = @allrequests.sort_by { |v| v[:handed_in] }.reverse
+  end
+
+
+  private
+  def authorize_representative
+    c_representative = current_user.chair_wimi
+    if c_representative.nil?
+      not_authorized
+    else
+      unless c_representative.representative == true && c_representative.chair == @chair
+        not_authorized
+      end
+    end
+  end
+
+  def not_authorized
+    redirect_to root_path, notice: 'Not authorized for this chair.'
   end
 end
