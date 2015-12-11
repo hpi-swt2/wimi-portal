@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Urlaubsantrag (Ausdruck auf weissem Papier mit Logo)</title>
+<title>Dienstreise-Antrag</title>
 <%= wicked_pdf_stylesheet_link_tag css_file %>
 </head>
 <body>
@@ -10,11 +10,11 @@
   <span class='big-headline'>Dienstreise-Antrag</span>
   <p style='margin-bottom:40px'>&nbsp;</p>
   <div class='logo'>
-    <img width='200px' src='<%= hpi_logo %>'>
+    <img width='160px' src='<%= hpi_logo %>'>
   </div>
+</div>
 
 <div>
-
 <div class='input-block' style='border-bottom:solid 1.0pt'>
   <span>Name: <%= trip.name %></span>
 </div>
@@ -46,7 +46,7 @@
     <td width=120><%= datespan.days_abroad %></td>
    </tr>
  <% end %>
- <% (2 - trip.trip_datespans.size).times do |i| %
+ <% (2 - trip.trip_datespans.size).times do |i| %>
    <tr>
     <td width=96>&nbsp;</td>
     <td width=96>&nbsp;</td>
