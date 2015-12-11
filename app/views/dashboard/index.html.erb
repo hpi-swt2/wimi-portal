@@ -38,7 +38,7 @@
             new_project_path,
             :class => 'btn btn-primary' %>
 
-<% if current_user.chair_wimi.representative? %>
+<% if current_user.is_representative? %>
     <br/>
     <div>
       <h3> Requests </h3>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202142044) do
+ActiveRecord::Schema.define(version: 20151211102142) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(version: 20151202142044) do
     t.integer  "user_id"
     t.integer  "project_id"
     t.integer  "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "status",     default: 1
   end
 
   add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
@@ -48,10 +49,10 @@ ActiveRecord::Schema.define(version: 20151202142044) do
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "holidays", force: :cascade do |t|
-    t.string   "status"
+    t.integer  "status",     default: 1
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.date     "start"
     t.date     "end"
   end
@@ -101,10 +102,10 @@ ActiveRecord::Schema.define(version: 20151202142044) do
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
-    t.string   "status"
+    t.integer  "status",     default: 1
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"

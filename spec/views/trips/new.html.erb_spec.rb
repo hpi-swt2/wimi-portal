@@ -5,7 +5,7 @@ RSpec.describe 'trips/new', type: :view do
     assign(:trip, Trip.new(title: 'ME310 Kickoff USA',
   start: Date.today - 3,
   end: Date.today,
-  status: 'Approved',
+  status: 'accepted',
   user_id: 1))
   end
 

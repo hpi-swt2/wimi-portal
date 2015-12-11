@@ -74,6 +74,11 @@ class User < ActiveRecord::Base
     return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
   end
 
+  def is_representative?
+    return false if chair_wimi.nil?
+    return chair_wimi.representative
+  end
+
   def self.openid_required_fields
     ["http://axschema.org/contact/email"]
   end

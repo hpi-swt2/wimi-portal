@@ -15,6 +15,7 @@
 class Trip < ActiveRecord::Base
   belongs_to :user
   has_many :expenses
+  enum status: [ :saved, :applied, :accepted, :declined ]
 
   validates_length_of :title, minimum: 1,  allow_blank: false
 end

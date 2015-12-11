@@ -6,12 +6,12 @@ RSpec.describe 'trips/index', type: :view do
       Trip.create!(title: 'ME310 Kickoff USA',
   start: Date.today - 3,
   end: Date.today,
-  status: 'Approved',
+  status: 'accepted',
   user_id: 1),
       Trip.create!(title: 'ME310 Kickoff USA',
   start: Date.today - 3,
   end: Date.today,
-  status: 'Approved',
+  status: 'accepted',
   user_id: 1)
     ])
   end
