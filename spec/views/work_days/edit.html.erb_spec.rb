@@ -21,9 +21,7 @@ RSpec.describe 'work_days/edit.html.erb', type: :view do
     render
 
     assert_select 'form[action=?][method=?]', work_day_path(@work_day), 'post' do
-        assert_select 'select#work_day_date_1i[name=?]', 'work_day[date(1i)]'
-        assert_select 'select#work_day_date_2i[name=?]', 'work_day[date(2i)]'
-        assert_select 'select#work_day_date_3i[name=?]', 'work_day[date(3i)]'
+        assert_select 'input#work_day_date[name=?]', 'work_day[date]'
 
         assert_select 'select#work_day_start_time_4i[name=?]', 'work_day[start_time(4i)]'
         assert_select 'select#work_day_start_time_5i[name=?]', 'work_day[start_time(5i)]'
