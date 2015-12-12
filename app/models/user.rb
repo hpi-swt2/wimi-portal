@@ -69,18 +69,31 @@ class User < ActiveRecord::Base
     self.last_name = last
   end
 
+  def is_user?
+    not is_wimi? and not is_superadmin? and not is_hiwi?
+  end
+
   def is_wimi?
-    return false if chair_wimi.nil?
-    return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
+    chair_wimi and \
+      (chair_wimi.admin or \
+      chair_wimi.representative or \
+      chair_wimi.application == 'accepted')
   end
 
   def is_hiwi?
-    return false if projects.nil? || projects.size == 0
-    return (projects.size > 0 && !is_wimi?)
+    projects and projects.size > 0 and not is_wimi?
+  end
+
+  def is_representative?
+    chair_wimi and chair_wimi.representative
+  end
+
+  def is_admin?
+    chair_wimi and chair_wimi.admin
   end
 
   def is_superadmin?
-    return self.superadmin
+    self.superadmin
   end
 
   def self.openid_required_fields
