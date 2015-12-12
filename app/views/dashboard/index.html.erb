@@ -4,13 +4,19 @@
 </div>
 
 <div class="col-md-12">
-  <% current_user.notifications.each do |notification| %>
-    <div class="col-md-8 flash-message">
-      <div class="alert alert-warning">
-        <%= notification.message %>
-        <% notification.destroy %>
+ <% unless @invitations.nil? %>
+    <% @invitations.each do |invitation| %>
+      <div class="col-md-8 flash-message">
+        <div class="alert alert-warning col-md-12">
+          <%= t("user.invited_to_project",
+            default: "Du wurdest zum Project #{Project.find(invitation.project_id).title} eingeladen.") %>
+          <br>
+          <br>
+          <%= link_to t("links.accept", default: "Annehmen"), accept_invitation_project_path(invitation.project_id), :class => "btn btn-primary" %>
+          <%= link_to t("links.decline", default: "Ablehnen"), decline_invitation_project_path(invitation.project_id), :class => "btn btn-default" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
 
