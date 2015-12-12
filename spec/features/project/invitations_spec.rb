@@ -8,14 +8,14 @@ describe 'project inviations' do
   end
 
   it 'shows an inviation after the user has been invited' do
-    Invitation.create(user: @user, project: @project)
+    FactoryGirl.create(:invitation, user: @user, project: @project)
     visit '/dashboard'
     expect(page).to have_content('Du wurdest zum Project Invitation Project eingeladen.')
   end
 
   it 'adds the user to the project if he accepts' do
     expect(@project.users.size).to eq 0
-    Invitation.create(user: @user, project: @project)
+    FactoryGirl.create(:invitation, user: @user, project: @project)
     visit '/dashboard'
     click_on 'Annehmen'
     expect(page).to have_content "Du bist nun Mitglied dieses Projekts!"
@@ -25,10 +25,38 @@ describe 'project inviations' do
 
   it 'does not add the user to the project if he declines' do
     expect(@project.users.size).to eq 0
-    Invitation.create(user: @user, project: @project)
+    FactoryGirl.create(:invitation, user: @user, project: @project)
     visit '/dashboard'
     click_on 'Ablehnen'
     @project.reload
     expect(@project.users.size).to eq 0
+  end
+
+  it 'assigns the user as a wimi if he already is a wimi' do
+    chair1 = FactoryGirl.create(:chair)
+    wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: chair1, application: 'accepted')
+
+    chair2 = FactoryGirl.create(:chair)
+    chair2.projects << @project
+    expect(@user.is_wimi?).to be true
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project)
+
+    visit '/dashboard'
+    click_on 'Annehmen'
+    expect(@user.is_wimi?).to be true
+  end
+
+  it 'assigns the user as a hiwi if he has no role yet' do
+    chair = FactoryGirl.create(:chair, name: 'Test Chair')
+    chair.projects << @project
+    expect(chair.hiwis.size).to eq 0
+
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project)
+    visit '/dashboard'
+    click_on 'Annehmen'
+
+    @project.reload
+    expect(@project.hiwis.size).to eq 1
+    expect(chair.hiwis.include?(@user)).to be true
   end
 end
