@@ -26,9 +26,9 @@
     </div>
     <div class="panel-body">
       <div class="form-group">
-        <%= f.label :first , class: 'control-label' %>
-        <%= f.text_field :first, value: @user.first, class: 'form-control' %>
-        <%= error_span(@user[:first]) %>
+        <%= f.label :first_name, class: 'control-label' %>
+        <%= f.text_field :first_name, value: @user.first_name, class: 'form-control' %>
+        <%= error_span(@user[:first_name]) %>
       </div>
       <div class="form-group">
         <%= f.label :last_name, class: 'control-label' %>

@@ -17,15 +17,15 @@
         </div>
       </div>
     </div>
-<div class="panel panel-body">
-  <p><strong><%= model_class.human_attribute_name(:first)+": " %></strong><%= current_user.first %></p>
-  <p><strong><%= model_class.human_attribute_name(:last_name)+": " %></strong><%= current_user.last_name %></p>
-  <p><strong><%= model_class.human_attribute_name(:residence)+": " %></strong><%= current_user.residence %></p>
-  <p><strong><%= model_class.human_attribute_name(:street)+": " %></strong><%= current_user.street %></p>
-  <p><strong><%= model_class.human_attribute_name(:division_id)+": " %></strong><%= User::DIVISIONS[current_user.division_id] %></p>
-  <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= current_user.personnel_number %></p>
-  <p><strong><%= model_class.human_attribute_name(:language)+": " %></strong><%= current_user.language %></p>
-</div>
+    <div class="panel panel-body">
+      <p><strong><%= model_class.human_attribute_name(:first_name)+": " %></strong><%= current_user.first_name %></p>
+      <p><strong><%= model_class.human_attribute_name(:last_name)+": " %></strong><%= current_user.last_name %></p>
+      <p><strong><%= model_class.human_attribute_name(:residence)+": " %></strong><%= current_user.residence %></p>
+      <p><strong><%= model_class.human_attribute_name(:street)+": " %></strong><%= current_user.street %></p>
+      <p><strong><%= model_class.human_attribute_name(:division_id)+": " %></strong><%= User::DIVISIONS[current_user.division_id] %></p>
+      <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= current_user.personnel_number %></p>
+      <p><strong><%= model_class.human_attribute_name(:language)+": " %></strong><%= current_user.language %></p>
+    </div>
   </div>
 
   <%= form_for(@user) do |f| %>
