@@ -2,6 +2,11 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+<% if current_user.is_wimi? %>
+    <%= link_to t('.new', :default => t("projects.new")),
+                new_project_path,
+                :class => 'pull-right text-success' %>
+<% end %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -30,7 +35,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_project_path,
-            :class => 'btn btn-primary' %>
