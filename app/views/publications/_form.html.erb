@@ -54,7 +54,7 @@
   <% for user in User.all %>
       <div>
         <%= check_box_tag "publication[user_ids][]", user.id, @publication.users.include?(user) %>
-        <%= user.name %>  
+        <%= user.name %>
       </div>
   <% end %>
 

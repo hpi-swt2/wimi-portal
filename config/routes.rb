@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :trips
   resources :expenses
   resources :chairs
-  
+
   post 'chairs/apply', to: 'chairs#apply'
   post 'chairs/accept', to: 'chairs#accept_request'
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'

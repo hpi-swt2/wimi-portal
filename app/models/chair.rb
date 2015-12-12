@@ -34,7 +34,7 @@ class Chair < ActiveRecord::Base
       unless admin.is_wimi? || representative.is_wimi?
         c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
         c2 = ChairWimi.new(representative: true, chair: self, user: representative, application: 'accepted')
-        
+
         if self.save && c1.save && c2.save
           success = true
         end
