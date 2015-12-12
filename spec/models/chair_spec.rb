@@ -34,4 +34,16 @@ RSpec.describe Chair, type: :model do
 
     expect(chair.hiwis).to eq [user1, user2, user3]
   end
+
+  it "returns all wimis in an unique array" do
+    chair = FactoryGirl.create(:chair)
+    user1 = FactoryGirl.create(:user)
+    user2 = FactoryGirl.create(:user)
+    user3 = FactoryGirl.create(:user)
+    chair_wimi1 = FactoryGirl.create(:chair_wimi, application: 'accepted', user: user1, chair: chair)
+    chair_wimi2 = FactoryGirl.create(:chair_wimi, application: 'accepted', user: user2, chair: chair)
+    chair_wimi3 = FactoryGirl.create(:chair_wimi, application: 'accepted', user: user3, chair: chair)
+
+    expect(chair.wimis).to eq [user1, user2, user3]
+  end
 end
