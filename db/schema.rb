@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127195914) do
+ActiveRecord::Schema.define(version: 20151202142044) do
+
+  create_table "chair_wimis", force: :cascade do |t|
+    t.boolean "admin",          default: false
+    t.boolean "representative", default: false
+    t.string  "application"
+    t.integer "user_id"
+    t.integer "chair_id"
+  end
+
+  add_index "chair_wimis", ["chair_id"], name: "index_chair_wimis_on_chair_id"
+  add_index "chair_wimis", ["user_id"], name: "index_chair_wimis_on_user_id"
+
+  create_table "chairs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "abbreviation"
+    t.string   "description"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -48,9 +67,15 @@ ActiveRecord::Schema.define(version: 20151127195914) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "description", default: ""
+    t.boolean  "public",      default: false
+    t.boolean  "active",      default: true
+    t.integer  "chair_id"
   end
+
+  add_index "projects", ["chair_id"], name: "index_projects_on_chair_id"
 
   create_table "projects_users", id: false, force: :cascade do |t|
     t.integer "user_id"
@@ -92,16 +117,16 @@ ActiveRecord::Schema.define(version: 20151127195914) do
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                     default: "", null: false
-    t.integer  "sign_in_count",             default: 0,  null: false
+    t.string   "email",                     default: "",    null: false
+    t.integer  "sign_in_count",             default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "first"
+    t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "identity_url"
     t.string   "residence"
     t.string   "street"
@@ -109,6 +134,7 @@ ActiveRecord::Schema.define(version: 20151127195914) do
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
+    t.boolean  "superadmin",                default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
