@@ -27,27 +27,25 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   it 'displays all chairs if user is superadmin' do
     superadmin = FactoryGirl.create(:user)
     superadmin.superadmin = true
-    sign_in superadmin
+    login_as(superadmin, :scope => :user)
 
     chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     chair2 = FactoryGirl.create(:chair, name: 'Chair2')
 
-    render
-
-    expect(rendered).to have_content('Chairs')
-    expect(rendered).to have_content(chair1.name)
-    expect(rendered).to have_content(chair2.name)
-    expect(rendered).to have_link('Add Chair')
+    visit dashboard_path
+    expect(page).to have_content('Chairs')
+    expect(page).to have_content(chair1.name)
+    expect(page).to have_content(chair2.name)
+    expect(page).to have_link('Add Chair')
   end
 
   it 'does not display the chair overview for users without superadmin privileges' do
     chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-    render
+    visit dashboard_path
 
-    expect(rendered).to_not have_content('Chairs')
-    expect(rendered).to_not have_content(chair1.name)
-    expect(rendered).to_not have_content(chair2.name)
-    expect(rendered).to_not have_link('Add Chair')
+    expect(page).to_not have_content(chair1.name)
+    expect(page).to_not have_content(chair2.name)
+    expect(page).to_not have_link('Add Chair')
   end
 end
