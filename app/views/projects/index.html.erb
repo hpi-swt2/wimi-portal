@@ -5,7 +5,7 @@
 <%= form_tag projects_path, :method => :get, :id => 'Form', :class => "form-horizontal" do %>
   <div class="col-md-12">
     <div class="col-md-2">
-      Filter nach Fachgebiet
+      <%= t('project.filter_chair', default: 'Filter nach Fachgebiet') %>
     </div>
     <div class="col-md-2">
       <%= select_tag :chair, options_for_select(Chair.all.map { |chair| [chair.name, chair.name]}, params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
@@ -16,7 +16,7 @@
       <%= text_field_tag :title, params[:title], :placeholder => "Titel des Projekts", :class => "form-control" %>
     </div>
     <div class="col-md-2">
-      <%= submit_tag "Go", :class => "btn btn-primary" %>
+      <%= submit_tag t('links.search', default: 'Suchen'), :class => "btn btn-primary" %>
     </div>
   </div>
 <% end %>
