@@ -1,8 +1,11 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
+  has_scope :title
+  has_scope :chair
+
   def index
-    @projects = Project.all
+    @projects = apply_scopes(Project.all)
   end
 
   def show
