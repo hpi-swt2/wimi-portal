@@ -23,4 +23,31 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(rendered).to have_content('You have been invited to a project')
     expect(Notification.where(user: @user).size).to eq 0
   end
+
+  it 'displays all chairs if user is superadmin' do
+    superadmin = FactoryGirl.create(:user)
+    superadmin.superadmin = true
+    sign_in superadmin
+
+    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
+    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
+
+    render
+
+    expect(rendered).to have_content('Chairs')
+    expect(rendered).to have_content(chair1.name)
+    expect(rendered).to have_content(chair2.name)
+    expect(rendered).to have_link('Add Chair')
+  end
+
+  it 'does not display the chair overview for users without superadmin privileges' do
+    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
+    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
+    render
+
+    expect(rendered).to_not have_content('Chairs')
+    expect(rendered).to_not have_content(chair1.name)
+    expect(rendered).to_not have_content(chair2.name)
+    expect(rendered).to_not have_link('Add Chair')
+  end
 end
