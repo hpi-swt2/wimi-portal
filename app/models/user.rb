@@ -74,10 +74,7 @@ class User < ActiveRecord::Base
   end
 
   def is_wimi?
-    chair_wimi and \
-      (chair_wimi.admin or \
-      chair_wimi.representative or \
-      chair_wimi.application == 'accepted')
+    not chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
   end
 
   def is_hiwi?
@@ -85,11 +82,11 @@ class User < ActiveRecord::Base
   end
 
   def is_representative?
-    chair_wimi and chair_wimi.representative
+    not chair_wimi.nil? and chair_wimi.representative
   end
 
   def is_admin?
-    chair_wimi and chair_wimi.admin
+    not chair_wimi.nil? and chair_wimi.admin
   end
 
   def is_superadmin?
