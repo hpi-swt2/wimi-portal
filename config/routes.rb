@@ -23,6 +23,13 @@ Rails.application.routes.draw do
   resources :projects
   resources :publications
   resources :trips
+  resources :expenses
+  resources :chairs
+  
+  post 'chairs/apply', to: 'chairs#apply'
+  post 'chairs/accept', to: 'chairs#accept_request'
+  post 'chairs/remove_user', to: 'chairs#remove_from_chair'
+  post 'chairs/destroy', to: 'chairs#destroy'
 
   devise_for :users
 

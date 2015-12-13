@@ -9,7 +9,7 @@
 #  last_sign_in_at           :datetime
 #  current_sign_in_ip        :string
 #  last_sign_in_ip           :string
-#  first                     :string
+#  first_name                :string
 #  last_name                 :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
@@ -31,12 +31,28 @@ RSpec.describe User, type: :model do
 
   it "returns the full name of the user" do
     user = FactoryGirl.create(:user)
-    expect(user.name).to eq("John Doe")
+    expect(user.name).to eq("Joe Doe")
   end
 
   it "splits fullname into first and last name" do
-  	user = FactoryGirl.create(:user, first: nil, last_name: nil, name: 'Jane Smith')
-  	expect(user.first).to eq('Jane')
+  	user = FactoryGirl.create(:user, first_name: nil, last_name: nil, name: 'Jane Smith')
+  	expect(user.first_name).to eq('Jane')
   	expect(user.last_name).to eq('Smith')
+  end
+
+  it 'checks functionality of is_wimi? function' do
+    user = FactoryGirl.create(:user)
+    chair = FactoryGirl.create(:chair)
+    expect(user.is_wimi?).to eq(false)
+    chairwimi = ChairWimi.create(:user => user, :chair => chair, :application => 'accepted')
+    expect(user.is_wimi?).to eq(true)
+  end
+
+  it 'checks functionality of is_hiwi? function' do
+    user = FactoryGirl.create(:user)
+    project = FactoryGirl.create(:project)
+    expect(User.find(user.id).is_hiwi?).to eq(false)
+    project.users << user
+    expect(User.find(user.id).is_hiwi?).to eq(true)
   end
 end

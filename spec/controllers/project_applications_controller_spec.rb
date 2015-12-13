@@ -20,21 +20,18 @@ require 'rails_helper'
 
 RSpec.describe ProjectApplicationsController, type: :controller do
   before(:each) do
-    @user = user
-    @wimi = wimi
-    @project = wimi.projects.first
+    @user = FactoryGirl.create(:user)
+    @wimi = FactoryGirl.create(:wimi)
+    @project = @wimi.projects.first
     login_with @user
     @request.env['HTTP_REFERER'] = 'http://test.host/'
   end
-
-  let(:user) {FactoryGirl.create( :user )}
-  let(:wimi) {FactoryGirl.create( :wimi )}
 
   # This should return the minimal set of attributes required to create a valid
   # ProjectApplication. As you add validations to ProjectApplication, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { user_id: user.id, project_id: wimi.projects.first.id }
+    { user_id: @user.id, project_id: @wimi.projects.first.id }
   }
 
   let(:invalid_attributes) {

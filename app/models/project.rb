@@ -13,5 +13,14 @@ class Project < ActiveRecord::Base
   has_many :publications
   has_many :expenses
   has_many :project_applications, dependent: :destroy
-  validates_presence_of :title
+  belongs_to :chair
+  validates :title, presence: true
+
+  def hiwis
+    users.select { |u| !u.is_wimi? }
+  end
+
+  def wimis
+    users.select { |u| u.is_wimi? }
+  end
 end

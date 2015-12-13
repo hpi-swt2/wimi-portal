@@ -37,7 +37,7 @@ describe 'Applying to a project' do
     visit project_path(@project)
     click_on(I18n.t('helpers.links.accept_application'))
 
-    expect(@user.reload.role).to eq('hiwi')
+    expect(@user.reload.is_hiwi?).to eq(true)
     expect(@project_application.reload.status).to eq('accepted')
   end
 

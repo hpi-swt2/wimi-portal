@@ -10,7 +10,6 @@ class ProjectApplicationsController < ApplicationController
   def accept
     @project_application.update(status: :accepted)
     user = @project_application.user
-    user.update(role: :hiwi)
     user.projects << @project_application.project
     redirect_to :back
   end

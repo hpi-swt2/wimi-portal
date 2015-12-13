@@ -20,14 +20,14 @@ require 'rails_helper'
 
 RSpec.describe ProjectsController, type: :controller do
   before(:each) do
-    login_with create ( :user)
+    login_with create (:user)
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { title: 'Some title' }
+    {:title => 'My Project'}
   }
 
   let(:invalid_attributes) {
@@ -106,7 +106,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { title: 'New Title' }
+        {title: 'New Title'}
       }
 
       it 'updates the requested project' do
