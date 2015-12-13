@@ -55,6 +55,8 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-datepicker-rails (1.5.0)
       railties (>= 3.0)
+    bootstrap-typeahead-rails (0.10.5.1)
+      railties (>= 3.0)
     builder (3.2.2)
     business_time (0.7.4)
       activesupport (>= 3.1.0)
@@ -208,6 +210,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    searchlight (4.1.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -262,6 +265,7 @@ DEPENDENCIES
   better_errors (~> 2.1.1)
   binding_of_caller (~> 0.7.2)
   bootstrap-datepicker-rails
+  bootstrap-typeahead-rails
   business_time
   byebug
   cancancan
@@ -287,6 +291,7 @@ DEPENDENCIES
   rubocop (~> 0.29.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  searchlight
   simplecov
   spring
   sqlite3

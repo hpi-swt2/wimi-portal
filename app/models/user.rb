@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   has_many :holidays
   has_many :expenses
   has_many :trips
+  has_many :notifications
 
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
