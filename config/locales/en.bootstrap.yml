@@ -2,12 +2,21 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  home:
+    index:
+      welcome: "welcome"
   breadcrumbs:
     application:
       root: "Index"
     pages:
       pages: "Pages"
   helpers:
+    application_tabs:
+      home: "Home"
+      profile: "Profile"
+      sign_in: "Sign in"
+      login: "Login"
+      logout: "Logout"
     actions: "Actions"
     links:
       back: "Back"
@@ -16,8 +25,40 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+      edit_leave: "Edit Leave"
+      show_details: "Show Details"
+      show_pdf: "Show PDF"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
-      delete: "Delete %{model}"
+    language:
+      lang: "Language"
+      english: "English"
+      german: "German"
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+  users:
+    update:
+      user_updated: "User updated successfully"
+    show:
+      holiday_requests: "Holiday Requests"
+      request_holiday: "Request Holiday"
+      user_data: "User Data"
+      remaining_leave: "Remaining Leave: %{leave} Day(s)"
+      remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
+      days: "Day(s)"
+      title: "User Profile"
+      warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+    edit:
+      user_data: "User Data"
+    edit_leave:
+      remaining_leave: "Remaining Leave"
+      remaining_leave_fly: "Remaining Leave from last year"
+      save: "Save Leave"
+      title: "Edit Leave"
+  dashboard:
+    index:
+      dashboard_title: "Dashboard"
+      projects: "My Projects"

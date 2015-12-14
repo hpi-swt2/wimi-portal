@@ -13,4 +13,36 @@
  *= require_tree .
  *= require_self
  *= require devise_bootstrap_views
+ *= require bootstrap-datepicker3
  */
+.openID{
+    height: 35px;
+    width: 80px;
+    margin-top: 5px;
+}
+
+.SignInButton {
+    margin-top: 10px;
+}
+
+html, body {
+    height: 100%; /*Fixes the height to 100% of the viewport*/
+}
+body {
+    padding-top: 50px; /*50px for the height of the navbar*/
+    padding-bottom: 50px; /*50px for the height of the bottom navbar*/
+}
+
+.container-fluid.scrollable {
+    height: 100%; /*Sets the scrollable area to 100% of the viewport*/
+    overflow: auto; /*Allows the scrollable area to have a scrollbar based on the height of its content*/
+    background: #ccc;
+}
+
+.navbar-fixed-top {
+    height:50px;
+}
+
+.flash-message {
+    margin-top: 15px;
+}

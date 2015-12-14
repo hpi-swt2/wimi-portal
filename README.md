@@ -2,7 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/hpi-swt2/wimi-portal/badges/gpa.svg)](https://codeclimate.com/github/hpi-swt2/wimi-portal)
 [![Test Coverage](https://codeclimate.com/github/hpi-swt2/wimi-portal/badges/coverage.svg)](https://codeclimate.com/github/hpi-swt2/wimi-portal/coverage)
-[![Build Status](https://travis-ci.org/hpi-swt2/wimi-portal.svg?branch=master)](https://travis-ci.org/hpi-swt2/wimi-portal)
+[![Build Status](https://travis-ci.org/hpi-swt2/wimi-portal.svg?branch=dev)](https://travis-ci.org/hpi-swt2/wimi-portal)
 [![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal)](http://wimi-portal.herokuapp.com/)
 [![License](http://img.shields.io/badge/license-AGPL-blue.svg)](https://github.com/hpi-swt2/wimi-portal/blob/master/LICENSE)
 
@@ -32,13 +32,13 @@ select database config (in this case we take the sqlite)
 
 ```cp database.sqlite.yml database.yml```
 
-display all available rake tasks
+create a database, run the available migrations and seed the database with mandatory default values
 
-```rake -T```
+```rake db:create db:migrate db:seed```
 
-create a database and run the available migrations
+you can also run a rake task to add demo data
 
-```rake db:create && rake db:migrate```
+```rake db:add_demo_data```
 
 then we can run either the rails console with
 
@@ -50,7 +50,7 @@ or the rails server with
 
 in case you want to run all tests go ahead and execute
 
-```rspec .``` 
+```rspec ``` 
 
 or by specifing the exact spec file with
 

@@ -1,6 +1,6 @@
 <%= form_for @holiday, :html => { :class => "form-horizontal holiday" } do |f| %>
 
-    <% if @holiday.errors.any? %>
+  <% if @holiday.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title"><%= pluralize(@holiday.errors.count, "error") %> prohibited this holiday from being saved:</h3>
@@ -25,29 +25,20 @@
   <div class="control-group">
     <%= f.label :start, :class => 'control-label' %>
     <div class="controls">
-      <%= f.datetime_field :start, :class => 'form-control' %>
+      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
     <%= f.label :end, :class => 'control-label' %>
     <div class="controls">
-      <%= f.datetime_field :end, :class => 'form-control' %>
+      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
     </div>
     <%= error_span(@holiday[:end]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-    <%= f.collection_select :user_id, User.all, :id, :email, {:selected => @holiday.user_id, prompt: true, :include_blank =>"none"}, {} %>
-    </div>
-
-    <%= error_span(@holiday[:user_id]) %>
-  </div>
-
+  </div><br>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            holidays_path, :class => 'btn btn-default' %>
+            current_user, :class => 'btn btn-default' %>
 
 <% end %>

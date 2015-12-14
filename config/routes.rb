@@ -1,14 +1,29 @@
 Rails.application.routes.draw do
-    # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+
+  root 'dashboard#index'
+  get 'dashboard', to: 'dashboard#index'
+  get 'users/edit_leave', to: 'users#edit_leave'
+
   resources :publications
-  resources :projects
+  resources :projects do
+    member do
+      post 'invite_user'
+    end
+  end
   resources :holidays
   resources :trips
   resources :expenses
+  resources :chairs
   
+  post 'chairs/apply', to: 'chairs#apply'
+  post 'chairs/accept', to: 'chairs#accept_request'
+  post 'chairs/remove_user', to: 'chairs#remove_from_chair'
+  post 'chairs/destroy', to: 'chairs#destroy'
+
+  get 'projects/typeahead/:query' => 'projects#typeahead'
+
   devise_for :users
 
-  # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  resources :users, :only => [:show, :edit, :edit_leave, :update]
+
 end

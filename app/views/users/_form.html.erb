@@ -16,11 +16,11 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :first, :class => 'control-label' %>
+    <%= f.label :first_name, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :first, :class => 'form-control' %>
+      <%= f.text_field :first_name, :class => 'form-control' %>
     </div>
-    <%= error_span(@user[:first]) %>
+    <%= error_span(@user[:first_name]) %>
   </div>
     <div class="control-group">
     <%= f.label :last_name, :class => 'control-label' %>
@@ -93,11 +93,11 @@
     <%= error_span(@user[:last_sign_in_ip]) %>
   </div>
   <div class="control-group">
-    <%= f.label :first, :class => 'control-label' %>
+    <%= f.label :first_name, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :first, :class => 'form-control' %>
+      <%= f.text_field :first_name, :class => 'form-control' %>
     </div>
-    <%= error_span(@user[:first]) %>
+    <%= error_span(@user[:first_name]) %>
   </div>
   <div class="control-group">
     <%= f.label :last_name, :class => 'control-label' %>
@@ -107,9 +107,14 @@
     <%= error_span(@user[:last_name]) %>
   </div>
 
-
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             users_path, :class => 'btn btn-default' %>
 
+<% end %>
+
+<%= form_for @user, :html => { :class => "form-horizontal user" } do |f| %>
+  <div>
+    
+  </div>
 <% end %>
