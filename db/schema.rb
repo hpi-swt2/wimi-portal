@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
+    t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
     t.integer  "division_id",               default: 0
