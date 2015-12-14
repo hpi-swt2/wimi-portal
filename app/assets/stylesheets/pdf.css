@@ -1,89 +1,92 @@
-.pdf-document.* {
+.pdf-document * {
   font-size: 12.0pt;
   font-family: "Times New Roman", serif;
 }
 
-.big-headline {
+.pdf-document .big-headline {
   font-size: 26.0pt;
   font-weight: bold;
   text-decoration: underline;
   font-family: "Times New Roman", serif;
 }
 
-.headline {
+.pdf-document .headline {
   font-size: 20.0pt;
   font-weight: bold;
   font-family: "Times New Roman", serif;
 }
 
-.small {
+.pdf-document .small {
   font-size: 10.0pt;
 }
 
-.page-break {
+.pdf-document .page-break {
   display: block;
   clear: both;
   page-break-after: always;
 }
 
-div.header-block {
+.pdf-document div.header-block {
   margin-top: 40px;
 }
 
-div.logo {
+.pdf-document div.logo {
   position: absolute;
   top: 20px;
   right: 50px;
   width: 200px;
 }
 
-div.input-block {
+.pdf-document div.input-block {
   margin: 0cm;
   margin-bottom: 0.4cm;
   padding: 0 10
 }
 
-div.input-block > span, .big {
+.pdf-document div.input-block > span, .big {
   font-size: 14.0pt;
 }
 
-table.pdf_table > tbody > tr > td {
+.pdf-document table.pdf_table > tbody > tr > td {
   border: solid 1.0pt;
   text-align: center;
   padding: 5px;
 }
 
-table.pdf_costs_table > tbody > tr > td {
+.pdf-document table.pdf_costs_table > tbody > tr > td {
   text-align: center;
 }
 
-div.seperating-line {
+.pdf-document div.seperating-line {
   border-bottom: solid 2.0pt;
   padding: 0 0 1.0pt 0;
   margin-bottom: 20px;
 }
 
-div.underlined-field {
+.pdf-document div.underlined-field {
   margin: 2 10;
   border-bottom: solid 1.0pt;
 }
 
-div.text-field, div.signature {
+.pdf-document div.text-field {
   border-bottom: solid 1.0pt;
   padding: 0 0 1.0pt 0;
   margin-bottom: 10px;
 }
 
-div.signature {
+.pdf-document div.signature {
+  border-bottom: solid 1.0pt;
+  padding: 0 0 1.0pt 0;
+  margin-bottom: 10px;
   border-bottom-width: 1.5pt;
 }
 
-div.signature + p {
+.pdf-document div.signature + p {
   margin-top: -7px;
   margin-bottom: 50px;
 }
 
-div.signature + p > span {
+.pdf-document div.signature + p > span {
   display: block;
   text-align: left;
   float: left;
@@ -91,7 +94,7 @@ div.signature + p > span {
   margin-left: 5px;
 }
 
-div.signature + p > span + span {
+.pdf-document div.signature + p > span + span {
   display: block;
   text-align: right;
   float: right;
