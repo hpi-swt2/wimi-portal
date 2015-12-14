@@ -18,4 +18,12 @@ class ChairWimi < ActiveRecord::Base
       self.save
     end
   end
+  
+  def is_admin?
+    return self.admin
+  end
+
+  def is_representative?
+    return self.representative
+  end
 end

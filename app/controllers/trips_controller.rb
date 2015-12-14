@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download]
 
   def index
     @trips = Trip.all
@@ -10,6 +10,7 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
+    2.times {@trip.trip_datespans.build} 
   end
 
   def edit
@@ -17,27 +18,33 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
-    if @trip.save
-      flash[:success] = 'Trip was successfully created.'
-      redirect_to @trip
-    else
-      render :new
+    @trip.user = current_user
+
+    respond_to do |format|
+      if @trip.save
+        format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
+      else
+        format.html { render :new }
+      end
     end
   end
 
   def update
-    if @trip.update(trip_params)
-      flash[:success] = 'Trip was successfully updated.'
-      redirect_to @trip
-    else
-      render :edit
-    end
+      if @trip.update(trip_params)
+        redirect_to @trip, notice: 'Trip was successfully updated.'
+      else
+      	render :edit
+      end
   end
 
   def destroy
     @trip.destroy
-    flash[:success] = 'Trip was successfully destroyed.'
-    redirect_to trips_url
+    respond_to do |format|
+      format.html { redirect_to trips_url, notice: 'Trip was successfully destroyed.' }
+    end
+  end
+
+  def download
   end
 
   private
@@ -46,6 +53,6 @@ class TripsController < ApplicationController
     end
 
     def trip_params
-      params[:trip].permit(Trip.column_names.map(&:to_sym))
+	    params.require(:trip).permit(:name, :destination, :reason, :annotation, :signature, trip_datespans_attributes:[:id,:start_date, :end_date,:days_abroad])
     end
 end

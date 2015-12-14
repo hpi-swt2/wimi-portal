@@ -49,15 +49,22 @@ ActiveRecord::Schema.define(version: 20151211102142) do
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "holidays", force: :cascade do |t|
-    t.integer  "status",     default: 1
     t.integer  "user_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.date     "start"
     t.date     "end"
+    t.integer  "status",     default: 1
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
@@ -98,14 +105,62 @@ ActiveRecord::Schema.define(version: 20151211102142) do
   add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
   add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
-  create_table "trips", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "start"
-    t.datetime "end"
-    t.integer  "status",     default: 1
+  create_table "travel_expense_report_items", force: :cascade do |t|
+    t.date     "date"
+    t.boolean  "breakfast"
+    t.boolean  "lunch"
+    t.boolean  "dinner"
+    t.integer  "travel_expense_report_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"
+
+  create_table "travel_expense_reports", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.boolean  "inland"
+    t.string   "country"
+    t.string   "location_from"
+    t.string   "location_via"
+    t.string   "location_to"
+    t.text     "reason"
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.boolean  "car"
+    t.boolean  "public_transport"
+    t.boolean  "vehicle_advance"
+    t.boolean  "hotel"
+    t.integer  "general_advance"
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
+
+  create_table "trip_datespans", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "days_abroad"
+    t.integer  "trip_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "trip_datespans", ["trip_id"], name: "index_trip_datespans_on_trip_id"
+
+  create_table "trips", force: :cascade do |t|
+    t.string   "name"
+    t.string   "destination"
+    t.text     "reason"
+    t.text     "annotation"
+    t.string   "signature"
+    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "status",      default: 1
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
@@ -129,6 +184,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false
+    t.string   "language",                  default: "en",  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

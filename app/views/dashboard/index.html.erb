@@ -1,7 +1,18 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <!--<h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>-->
-  <h1> Dashboard </h1>
+
+  <h1> <%= t('.dashboard_title')%></h1>
+</div>
+
+<div class="col-md-12">
+  <% current_user.notifications.each do |notification| %>
+    <div class="col-md-8 flash-message">
+      <div class="alert alert-warning">
+        <%= notification.message %>
+        <% notification.destroy %>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <h3> My Projects </h3>
@@ -34,9 +45,7 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_project_path,
-            :class => 'btn btn-primary' %>
+<%= link_to t('.new', :default => t("helpers.links.new")), new_project_path, :class => 'btn btn-primary' %>
 
 <% if current_user.is_representative? %>
     <br/>
