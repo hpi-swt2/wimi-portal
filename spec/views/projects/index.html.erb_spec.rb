@@ -19,7 +19,6 @@ RSpec.describe 'projects/index', type: :view do
   it 'has the accessibility public after a project was newly created' do
     project2 = FactoryGirl.create(:project)
     visit "/projects/#{project2.id}/edit"
-    print page.html
     expect(page).to have_selector 'input[type=radio][checked=checked][id=project_public_true]'
   end
 
