@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211130308) do
+ActiveRecord::Schema.define(version: 20151214152711) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -67,12 +67,13 @@ ActiveRecord::Schema.define(version: 20151211130308) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "description", default: ""
-    t.boolean  "public",      default: true
-    t.boolean  "status",      default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "description",    default: ""
+    t.boolean  "public",         default: true
+    t.boolean  "status",         default: true
     t.integer  "chair_id"
+    t.string   "project_leader", default: ""
   end
 
   add_index "projects", ["chair_id"], name: "index_projects_on_chair_id"

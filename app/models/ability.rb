@@ -34,6 +34,7 @@ class Ability
     can     :create,  Project
     can     :edit,    Project
     can     :destroy, Project
+    can     :update,  Project
   end
 
   def initialize_hiwi(user)

@@ -97,6 +97,15 @@ class User < ActiveRecord::Base
     return (projects.size > 0 && !is_wimi?)
   end
 
+
+  def is_representative?
+    not chair_wimi.nil? and chair_wimi.representative
+  end
+
+  def is_admin?
+    not chair_wimi.nil? and chair_wimi.admin
+  end
+
   def is_superadmin?
     return self.superadmin
   end
