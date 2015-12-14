@@ -11,28 +11,31 @@
     <th><%= "Accessibility" %></th>
     <th><%= model_class.human_attribute_name(:created_at) %></th>
     <th><%=t '.actions', :default => t("helpers.actions") %></th>
+
   </tr>
 
   </thead>
   <tbody>
   <% @projects.each do |project| %>
-      <tr>
-        <td><%= link_to project.id, project %></td>
-        <td><%= link_to project.title, project %></td>
-        <td><%= project.status ? "Active" : "Inactive" %></td>
-        <td><%= project.public ? "Public" : "Private" %></td>
+    <tr>
+      <td><%= link_to project.id, project %></td>
+      <td><%= link_to project.title, project %></td>
+      <td><%= project.status ? "Active" : "Inactive" %></td>
+      <td><%= project.public ? "Public" : "Private" %></td>
 
-        <td><%=l project.created_at %></td>
-        <td>
+      <td><%=l project.created_at %></td>
+      <td>
+        <% if current_user.is_wimi? and current_user.projects.exists?(project) %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_project_path(project), :class => 'btn btn-default btn-xs' %>
+                edit_project_path(project), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      project_path(project),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
-      </tr>
+              project_path(project),
+                :method => :delete,
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-xs btn-danger' %>
+        <% end %>
+      </td>
+    </tr>
   <% end %>
   </tbody>
 </table>
