@@ -6,7 +6,9 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @project.title %></dd>
-  <dt><strong><%= "Status:" %></strong></dt>
+  <dt><strong><%= 'Chair:' %>:</strong></dt>
+  <dd><%= @project.chair %></dd>
+  <dt><strong><%= 'Status:' %></strong></dt>
   <dd><%= @project.status ? "Active" : "Inactive" %></dd>
   <dt><strong><%= "Accessibility:" %></strong></dt>
   <dd><%= @project.public ? "Public" : "Private" %></dd>

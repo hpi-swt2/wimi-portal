@@ -29,7 +29,8 @@
     <%= f.label current_user.chair, 'Chair', :class => 'control-label' %>
     <div class="controls col-md-12 projectTitleControl">
       <div class="col-md-6" style="margin-left: -5px">
-        <%= f.label current_user.chair.name, :class => 'form-control-static' %>
+        <% @project.chair = current_user.chair %>
+        <div class ='form-control'>  <%= @project.chair.name %> </div>
       </div>
     </div>
     <%= error_span(current_user.chair) %>
