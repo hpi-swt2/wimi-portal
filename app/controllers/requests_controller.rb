@@ -34,14 +34,7 @@ class RequestsController < ApplicationController
 
   private
   def authorize_representative
-    c_representative = current_user.chair_wimi
-    if c_representative.nil?
-      not_authorized
-    else
-      unless c_representative.representative == true && c_representative.chair == @chair
-        not_authorized
-      end
-    end
+    not_authorized unless current_user.is_representative?(@chair) 
   end
 
   def not_authorized
