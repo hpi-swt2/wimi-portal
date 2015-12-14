@@ -104,9 +104,14 @@ en:
         personnel_number: "Staff Number"
         division_id: "Division"
         language: "Language"
-
-  time:
+  date:
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
     formats:
       default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  time:
+    formats:
+      default: "%d.%m.%Y"
       short: "%b %d"
       long: "%B %d, %Y"

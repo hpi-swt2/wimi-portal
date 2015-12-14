@@ -60,8 +60,8 @@
               <% current_user.holidays.each do |holiday| %>
                 <tr>
                   <td><%= holiday.duration %>&nbsp<%= t('.days') %></td>
-                  <td><%= holiday.start %></td>
-                  <td><%= holiday.end %></td>
+                  <td><%=l holiday.start %></td>
+                  <td><%=l holiday.end %></td>
                   <td><%= holiday.status %></td>
                   <td>
                     <%= link_to t("helpers.links.show_details"),

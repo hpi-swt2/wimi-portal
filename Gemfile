@@ -51,6 +51,8 @@ gem 'warden'
 gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails'
 gem 'devise-bootstrap-views'
+#use Bootstrap Tooltips
+gem 'bootstrap-tooltip-rails'
 
 # Use Jquery as the JS lib
 gem 'jquery-rails'

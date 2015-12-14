@@ -54,6 +54,10 @@ de:
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
       save: "Resturlaub Speichern"
       title: "Resturlaub bearbeiten"
+  holidays:
+    show:
+      days: "Tag(e)"
+      file: "Antrag einreichen"
   dashboard:
     index:
       dashboard_title: "Dashboard"
