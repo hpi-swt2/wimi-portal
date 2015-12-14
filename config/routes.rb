@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   get 'chairs/:id/requests' => 'requests#requests', :as => 'requests'
 
+  post 'trips/apply', to: 'trips#apply'
+
   devise_for :users
 
   resources :users, :only => [:show, :edit, :edit_leave, :update]

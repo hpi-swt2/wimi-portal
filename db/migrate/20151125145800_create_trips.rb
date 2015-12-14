@@ -6,6 +6,7 @@ class CreateTrips < ActiveRecord::Migration
       t.text :reason
       t.text :annotation
       t.string :signature
+      t.string :status
 
       t.belongs_to :user, index: true
 

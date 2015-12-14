@@ -5,6 +5,7 @@ FactoryGirl.define do
     reason "Hana Things"
     annotation "HANA pls"
     signature "le Hasso"
+    status "saved"
     user
   end
 
