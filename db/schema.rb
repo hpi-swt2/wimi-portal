@@ -104,19 +104,6 @@ ActiveRecord::Schema.define(version: 20151211130308) do
   add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
   add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
-  create_table "time_sheets", force: :cascade do |t|
-    t.integer  "month"
-    t.integer  "year"
-    t.integer  "salary"
-    t.boolean  "salary_is_per_month"
-    t.integer  "workload"
-    t.boolean  "workload_is_per_month"
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
   create_table "trips", force: :cascade do |t|
     t.string   "title"
     t.datetime "start"
@@ -141,9 +128,9 @@ ActiveRecord::Schema.define(version: 20151211130308) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
+    t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
-    t.string   "language",                  default: "en", null: false
     t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
@@ -153,16 +140,4 @@ ActiveRecord::Schema.define(version: 20151211130308) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
 
-  create_table "work_days", force: :cascade do |t|
-    t.date     "date"
-    t.time     "start_time"
-    t.integer  "break"
-    t.time     "end_time"
-    t.string   "attendance"
-    t.string   "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-    t.integer  "project_id"
-  end
 end
