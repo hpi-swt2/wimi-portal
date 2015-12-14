@@ -40,6 +40,7 @@
   </tbody>
 </table>
 
+<% if current_user.is_wimi? and current_user.projects.exists?(project) %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_project_path,
             :class => 'btn btn-primary' %>
