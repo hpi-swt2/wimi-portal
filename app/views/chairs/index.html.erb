@@ -21,25 +21,28 @@
 
         <td>
           <% if current_user.chair == chair %>
-            <% if current_user.is_wimi? %>
-              <span class="label label-success">Wissenschaftlicher Mitarbeiter</span>
-            <% else %>
-              <span class="label label-warning">pending</span>
-            <% end %>
-          <% else %>
-            <%= link_to 'Apply as Wimi', chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+              <% if current_user.is_wimi? %>
+                  <span class="label label-success">Wissenschaftlicher Mitarbeiter</span>
+              <% else %>
+                  <span class="label label-warning">pending</span>
+              <% end %>
+          <% end %>
+          <% unless current_user.is_wimi? || current_user.chair_wimi.application == 'pending' %>
+              <%= link_to 'Apply as Wimi', chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
           <% end %>
         </td>
 
         <td>
           <% if !current_user.chair_wimi.nil? %>
-            <% if current_user.chair_wimi.admin || current_user.chair_wimi.representative %>
-              <%= link_to 'Manage Chair', chair_path(chair) %>
-            <% end %>
+              <% if (current_user.chair_wimi.admin || current_user.chair_wimi.representative) && current_user.chair == chair %>
+                  <%= link_to 'Manage Chair', chair_path(chair) %>
+              <% end %>
           <% end %>
         </td>
 
-        <% if current_user.superadmin %><td><%= link_to 'Destroy Chair', chair_path(:id => chair), :method => :delete, :class => 'btn btn-danger btn-xs' %></td><% end %>
+        <% if current_user.superadmin %>
+            <td><%= link_to 'Destroy Chair', chair_path(:id => chair), :method => :delete, :class => 'btn btn-danger btn-xs' %></td>
+        <% end %>
 
       </tr>
   <% end %>
