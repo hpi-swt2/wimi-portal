@@ -10,4 +10,12 @@ class ChairWimi < ActiveRecord::Base
     self.destroy
   end
 
+  def is_admin?
+    return self.admin
+  end
+
+  def is_representative?
+    return self.representative
+  end
+
 end

@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(version: 20151202142044) do
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at",                  null: false
@@ -136,6 +143,7 @@ ActiveRecord::Schema.define(version: 20151202142044) do
     t.string   "identity_url"
     t.string   "residence"
     t.string   "street"
+    t.string   "language",                  default: "en", null: false
     t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28

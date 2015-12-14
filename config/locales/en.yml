@@ -22,6 +22,9 @@
 en:
   activerecord:
     models:
+      chair:
+        one: "Chair"
+        other: "Chairs"
       expense:
         one: "Expense"
         other: "Expenses"

@@ -3,7 +3,18 @@
   <h1> <%= t('.dashboard_title')%></h1>
 </div>
 
-<h3> <%= t('.projects')%> </h3>
+<div class="col-md-12">
+  <% current_user.notifications.each do |notification| %>
+    <div class="col-md-8 flash-message">
+      <div class="alert alert-warning">
+        <%= notification.message %>
+        <% notification.destroy %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<h3> My Projects </h3>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -33,6 +44,4 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_project_path,
-            :class => 'btn btn-primary' %>
+<%= link_to t('.new', :default => t("helpers.links.new")), new_project_path, :class => 'btn btn-primary' %>

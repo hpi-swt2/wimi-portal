@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
   has_many :holidays
   has_many :expenses
   has_many :trips
+  has_many :notifications
 
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
@@ -89,6 +90,15 @@ class User < ActiveRecord::Base
   def is_wimi?
     return false if chair_wimi.nil?
     return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
+  end
+
+  def is_hiwi?
+    return false if projects.nil? || projects.size == 0
+    return (projects.size > 0 && !is_wimi?)
+  end
+
+  def is_superadmin?
+    return self.superadmin
   end
 
   def self.openid_required_fields
