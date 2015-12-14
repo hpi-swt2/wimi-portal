@@ -20,35 +20,31 @@
         <td><%= chair.created_at %></td>
 
         <td>
-          <% if current_user.chair == chair %>
-
-            <% if current_user.is_wimi? %>
-              <span class="label label-success"><%= I18n.t('roles.wimi.long', default: 'Research Assistant') %></span>
-            <% else %>
-              <span class="label label-warning"><%= I18n.t('status.pending', default: 'pending') %></span>
-            <% end %>
+          <% if current_user.chair_wimi.nil? && !current_user.superadmin %>
+            <%= link_to I18n.t('chair.apply', default: 'Apply as Wimi'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
           <% else %>
-            <% unless current_user.is_wimi? || current_user.chair_wimi.application == 'pending' %>
-              <%= link_to I18n.t('chair.apply', default: 'Apply as Wimi'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+            <% if current_user.chair == chair %>
+              <% if current_user.is_wimi? %>
+                <span class="label label-success"><%= I18n.t('roles.wimi.long', default: 'Research Assistant') %></span>
+              <% else %>
+                <span class="label label-warning"><%= I18n.t('status.pending', default: 'pending') %></span>
+              <% end %>
             <% end %>
           <% end %>
         </td>
 
         <td>
-          <% if !current_user.chair_wimi.nil? %>
-            <% if (current_user.chair_wimi.admin || current_user.chair_wimi.representative) && (chair.id == current_user.chair_wimi.chair.id) %>
-              <%= link_to I18n.t('chair.manage', default: 'Manage Chair'), chair_path(chair), :class => 'btn btn-warning btn-xs' %>
-            <% end %>
-          <% end %>
           <% if current_user.superadmin %>
             <%= link_to I18n.t('chair.edit', default: 'Edit Chair'), edit_chair_path(chair), :class => 'btn btn-warning btn-xs' %>
             <%= link_to I18n.t('chair.destroy', default: 'Destroy Chair'), chair_path(:id => chair), :method => :delete, :class => 'btn btn-danger btn-xs' %>
+          <% else %>
+            <% unless current_user.chair_wimi.nil? %>
+              <% if current_user.is_admin?(chair) || current_user.is_representative?(chair) %>
+                <%= link_to I18n.t('chair.manage', default: 'Manage Chair'), chair_path(chair), :class => 'btn btn-warning btn-xs' %>
+              <% end %>
+            <% end %>
           <% end %>
         </td>
-
-        <% if current_user.superadmin %>
-            <td><%= link_to 'Destroy Chair', chair_path(:id => chair), :method => :delete, :class => 'btn btn-danger btn-xs' %></td>
-        <% end %>
 
       </tr>
   <% end %>

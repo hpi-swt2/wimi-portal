@@ -1,8 +1,9 @@
 class ChairsController < ApplicationController
   before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update,  :set_admin, :withdraw_admin]
 
-  before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair, :set_admin, :withdraw_admin]
+  before_action :authorize_admin, only: [:accept_request, :remove_from_chair, :set_admin, :withdraw_admin]
   before_action :authorize_superadmin, only: [:destroy, :new, :create, :edit, :update]
+  before_action :authorize_admin_or_representative, only: [:show]
 
   def index
     @chairs = Chair.all
@@ -55,6 +56,7 @@ class ChairsController < ApplicationController
     @requests = @chair.chair_wimis.where(application: 'pending')
   end
 
+  # Admin tasks:
   def accept_request
     chair_wimi = ChairWimi.find(params[:request])
     chair_wimi.application = 'accepted'
@@ -130,22 +132,16 @@ class ChairsController < ApplicationController
 
   protected
   def authorize_superadmin
-    unless current_user.superadmin
-      not_authorized
-    end
+    not_authorized unless current_user.superadmin
   end
 
   def authorize_admin
-    c_wimi = current_user.chair_wimi
-    if c_wimi.nil?
-      not_authorized
-    else
-      unless (c_wimi.admin == true || c_wimi.representative == true) && c_wimi.chair == @chair
-        not_authorized
-      end
-    end
+    not_authorized unless current_user.is_admin?(@chair)
   end
 
+  def authorize_admin_or_representative
+    not_authorized unless current_user.is_admin?(@chair) || current_user.is_representative?(@chair)
+  end
 
   def not_authorized
     flash[:error] = I18n.t('chair.not_authorized', default: 'Not authorized for this chair.')
