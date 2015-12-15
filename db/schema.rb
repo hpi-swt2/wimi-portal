@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.integer  "trip_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "status",     default: 1
+    t.integer  "status",     default: 0
   end
 
   add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.datetime "updated_at",             null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",     default: 1
+    t.integer  "status",     default: 0
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.integer  "user_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "status",      default: 1
+    t.integer  "status",      default: 0
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
@@ -185,7 +185,6 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false
-    t.string   "language",                  default: "en",  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

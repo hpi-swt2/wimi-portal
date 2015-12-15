@@ -20,28 +20,24 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_user
 
-    respond_to do |format|
-      if @trip.save
-        format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @trip.save
+      redirect_to @trip, notice: 'Trip was successfully created.'
+    else
+      render :new 
     end
   end
 
   def update
-      if @trip.update(trip_params)
-        redirect_to @trip, notice: 'Trip was successfully updated.'
-      else
-      	render :edit
-      end
+    if @trip.update(trip_params)
+       redirect_to @trip, notice: 'Trip was successfully updated.'
+    else
+       render :edit
+    end
   end
 
   def destroy
     @trip.destroy
-    respond_to do |format|
-      format.html { redirect_to trips_url, notice: 'Trip was successfully destroyed.' }
-    end
+    redirect_to trips_url, notice: 'Trip was successfully destroyed.'
   end
 
   def download
@@ -53,6 +49,6 @@ class TripsController < ApplicationController
     end
 
     def trip_params
-	    params.require(:trip).permit(:name, :destination, :reason, :annotation, :signature, trip_datespans_attributes:[:id,:start_date, :end_date,:days_abroad])
+      params.require(:trip).permit(:name, :destination, :reason, :annotation, :signature, trip_datespans_attributes: [:id,:start_date, :end_date,:days_abroad])
     end
 end
