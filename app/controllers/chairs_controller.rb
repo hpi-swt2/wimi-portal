@@ -87,18 +87,22 @@ class ChairsController < ApplicationController
     chair_wimi.admin = true
     
     if chair_wimi.save
-      redirect_to chair_path(@chair), notice: 'Admin was successfully set.'
+      flash[:success] = I18n.t('chair.set_admin.success', default: 'Admin was successfully set.')
+      redirect_to chair_path(@chair)
     else
-      redirect_to chair_path(@chair), notice: 'Admin setting failed.'
+      flash[:error] = I18n.t('chair.set_admin.error', default: 'Admin setting failed.')
+      redirect_to chair_path(@chair)
     end
   end
 
   def withdraw_admin
     chair_wimi = ChairWimi.find(params[:request])
     if chair_wimi.withdraw_admin(current_user)
-      redirect_to chair_path(@chair), notice: 'Admin rights was successfully removed.'
+      flash[:success] = I18n.t('chair.withdraw.success', default: 'Admin rights was successfully removed.')
+      redirect_to chair_path(@chair)
     else
-      redirect_to chair_path(@chair), notice: 'Admin right removing failed.'
+      flash[:error] = I18n.t('chair.withdraw.error', default: 'Admin right removing failed.')
+      redirect_to chair_path(@chair)
     end
   end
 
