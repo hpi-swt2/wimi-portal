@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require devise_bootstrap_views
+ *= require bootstrap-datepicker3
  */
 .openID{
     height: 35px;

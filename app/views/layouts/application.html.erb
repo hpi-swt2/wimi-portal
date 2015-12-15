@@ -11,23 +11,24 @@
   <%= nav_bar fixed: :top, brand: "Wimi Portal", responsive: true do %>
     <%= menu_group do %>
       <%= menu_item "Dashboard", dashboard_path %>
-      <%= menu_item "Projects", projects_path %>
-      <%= menu_item "Publications", publications_path %>
-      <%= menu_item "Business Trip", trips_path %>
-      <%= menu_item "Holidays", holidays_path %>
-      <%= menu_item "Expenses", expenses_path %>
+      <%= menu_item t("activerecord.models.chair.other"), chairs_path %>
+      <%= menu_item t("activerecord.models.project.other"), projects_path %>
+      <%= menu_item t("activerecord.models.publication.other"), publications_path %>
+      <%= menu_item t("activerecord.models.trip.other"), trips_path %>
+      <%= menu_item t("activerecord.models.holiday.other"), holidays_path %>
+      <%= menu_item t("activerecord.models.expense.other"), expenses_path %>
     <% end %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
         <% unless current_user.email.blank? %>
-	  <%= menu_item "#{current_user.email}" %>
-          <%= menu_item "Profile", url_for(current_user) %>
+	        <%= menu_item "#{current_user.email}" %>
+          <%= menu_item t("helpers.application_tabs.profile"), url_for(current_user) %>
         <% end %>
-        <%= menu_item "Logout", destroy_user_session_path %>
+        <%= menu_item t("helpers.application_tabs.logout"), destroy_user_session_path %>
       <% else %>
         <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
           <%= f.hidden_field :identity_url, value: "https://openid.hpi.uni-potsdam.de/serve" %>
-          <%= f.submit "Sign in", class: "SignInButton btn btn-primary" %>
+          <%= f.submit t("helpers.application_tabs.sign_in"), class: "SignInButton btn btn-primary" %>
           <img src='<%=asset_path "openid-logo.png" %>' class="openID" />
         <% end %>
       <% end %>

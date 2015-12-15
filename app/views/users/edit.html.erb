@@ -1,3 +1,8 @@
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+
 <%= form_for(@user) do |f| %>
 
   <% if @user.errors.any? %>
@@ -17,49 +22,53 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4>Personenbezogene Daten</h4>
+      <h4><%= t('.user_data') %></h4>
     </div>
     <div class="panel-body">
       <div class="form-group">
-        <%= f.label "Vorname", class: 'control-label' %>
+        <%= f.label :first_name, class: 'control-label' %>
         <%= f.text_field :first_name, value: @user.first_name, class: 'form-control' %>
         <%= error_span(@user[:first_name]) %>
       </div>
       <div class="form-group">
-        <%= f.label "Nachname", class: 'control-label' %>
+        <%= f.label :last_name, class: 'control-label' %>
         <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
         <%= error_span(@user[:last_name]) %>
       </div>
       <div class="form-group">
-        <%= f.label "Email", class: 'control-label' %>
+        <%= f.label :email, class: 'control-label' %>
         <%= f.text_field :email, value: @user.email, class: 'form-control' %>
         <%= error_span(@user[:email]) %>
       </div>
       <div class="form-group">
-        <%= f.label "Wohnort", class: 'control-label' %>
+        <%= f.label :residence, class: 'control-label' %>
         <%= f.text_field :residence, value: @user.residence, class: 'form-control' %>
         <%= error_span(@user[:residence]) %>
       </div>
       <div class="form-group">
-        <%= f.label "Straße", class: 'control-label' %>
+        <%= f.label :street, class: 'control-label' %>
         <%= f.text_field :street, value: @user.street, class: 'form-control' %>
         <%= error_span(@user[:street]) %>
       </div>
       <div class="form-group">
-        <%= f.label "Abteilung", class: 'control-label' %>
+        <%= f.label :division_id, class: 'control-label' %>
         <%= f.select :division_id,
           User::DIVISIONS.each_with_index.collect { |division, index| [division, index]},
           {}, { id: 'division_id', class: 'select optional form-control'} %>
         <%= error_span(@user[:division]) %>
       </div>
       <div class="form-group">
-        <%= f.label "Personalnummer", class: 'control-label' %>
+        <%= f.label :personnel_number, class: 'control-label' %>
         <%= f.text_field :personnel_number, value: @user.personnel_number, class: 'form-control' %>
         <%= error_span(@user[:personnel_number]) %>
       </div>
-      <%= f.submit nil, class: 'btn btn-primary' %>
-        <%= link_to "Abbrechen", current_user, class: "btn btn-default" %>
+      <div class="control-group">
+        <%= f.label :language, class: 'control-label' %>
+        <%= f.select :language, User::LANGUAGES, {selected: current_user.language}, {class: 'form-control'} %>
+        <%= error_span(@user[:language]) %>
+      </div>
     </div>
   </div>
-
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), current_user, class: "btn btn-default" %>
 <% end %>

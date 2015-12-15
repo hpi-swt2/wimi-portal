@@ -1,8 +1,8 @@
 class ChairsController < ApplicationController
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy]
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update]
 
   before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair]
-  before_action :authorize_superadmin, only: [:destroy, :new, :create]
+  before_action :authorize_superadmin, only: [:destroy, :new, :create, :edit, :update]
 
   def index
     @chairs = Chair.all
@@ -11,7 +11,11 @@ class ChairsController < ApplicationController
   # Superadmin tasks:
   def destroy
     if @chair.destroy
-      redirect_to chairs_path, notice: 'Chair was successfully destroyed.'
+      flash[:success] = I18n.t('chair.destroy.success', default: 'Chair was successfully destroyed.')
+      redirect_to chairs_path
+    else
+      flash[:error] = I18n.t('chair.destroy.error', default: 'Chair could not be destroyed.')
+      redirect_to chairs_path
     end
   end
 
@@ -23,8 +27,25 @@ class ChairsController < ApplicationController
     @chair = Chair.new(chair_params)
 
     if @chair.add_users(params[:admin_user], params[:representative_user])
-      redirect_to chairs_path, notice: 'Chair successfully created.'
+      flash[:success] = I18n.t('chair.create.success', default: 'Chair successfully created.')
+      redirect_to chairs_path
     else
+      flash[:error] = I18n.t('chair.create.error', default: 'The form is not filled completely!')
+      render :new
+    end
+  end
+
+  def edit
+    @chair = Chair.find(params[:id])
+  end
+
+  def update
+    if @chair.edit_users(params[:admin_user], params[:representative_user])
+      @chair.update(chair_params)
+      flash[:success] = I18n.t('chair.update.success', default: 'Chair successfully updated.')
+      redirect_to chairs_path
+    else
+      flash[:error] = I18n.t('chair.update.error', default: 'The form is not filled completely!')
       render :new
     end
   end
@@ -39,9 +60,11 @@ class ChairsController < ApplicationController
     chair_wimi.application = 'accepted'
 
     if chair_wimi.save
-      redirect_to chair_path(@chair), notice: 'Application was successfully accepted.'
+      flash[:success] = I18n.t('chair.accept_request.success', default: 'Application was successfully accepted.')
+      redirect_to chair_path(@chair)
     else
-      redirect_to chair_path(@chair), notice: 'Accepting application failed'
+      flash[:error] = I18n.t('chair.accept_request.error', default: 'Accepting application failed')
+      redirect_to chair_path(@chair)
     end
   end
 
@@ -49,9 +72,11 @@ class ChairsController < ApplicationController
     chair_wimi = ChairWimi.find(params[:request])
 
     if chair_wimi.remove(current_user)
-      redirect_to chair_path(@chair), notice: 'User was successfully removed.'
+      flash[:success] = I18n.t('chair.remove_from_chair.success', default: 'User was successfully removed.')
+      redirect_to chair_path(@chair)
     else
-      redirect_to chair_path(@chair), notice: 'Destroying Chair_wimi failed'
+      flash[:error] = I18n.t('chair.remove_from_chair.error', default: 'Destroying Chair_wimi failed')
+      redirect_to chair_path(@chair)
     end
   end
 
@@ -65,9 +90,11 @@ class ChairsController < ApplicationController
     end
 
     if success
-      redirect_to chairs_path, notice: 'Chair wimi application was successfully created.'
+      flash[:success] = I18n.t('chair.apply.success', default: 'Chair wimi application was successfully created.')
+      redirect_to chairs_path
     else
-      redirect_to chairs_path, notice: 'Saving failed'
+      flash[:error] = I18n.t('chair.apply.error', default: 'Saving chair wimi application failed')
+      redirect_to chairs_path
     end
   end
 
@@ -100,6 +127,7 @@ class ChairsController < ApplicationController
   end
 
   def not_authorized
-    redirect_to root_path, notice: 'Not authorized for this chair.'
+    flash[:error] = I18n.t('chair.not_authorized', default: 'Not authorized for this chair.')
+    redirect_to chairs_path
   end
 end

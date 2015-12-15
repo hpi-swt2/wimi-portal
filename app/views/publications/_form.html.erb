@@ -1,4 +1,5 @@
 <%= form_for @publication, :html => { :class => "form-horizontal publication" } do |f| %>
+<%- model_class = Publication -%>
 
     <% if @publication.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
