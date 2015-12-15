@@ -1,16 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>First name:</strong>
-  <%= @travel_expense_report.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @travel_expense_report.last_name %>
-</p>
-
-<p>
   <strong>Inland:</strong>
   <%= @travel_expense_report.inland %>
 </p>
@@ -79,6 +69,9 @@
   <strong>Signature:</strong>
   <%= @travel_expense_report.signature %>
 </p>
+<ul>
+  <%= render @travel_expense_report.travel_expense_report_items %>
+</ul>
 
 <%= link_to 'Edit', edit_travel_expense_report_path(@travel_expense_report) %> |
 <%= link_to 'Back', travel_expense_reports_path %>

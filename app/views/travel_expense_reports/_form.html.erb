@@ -71,6 +71,7 @@
         <th>F</th>
         <th>M</th>
         <th>A</th>
+        <th>Description</th>
       </tr>
       <%= f.fields_for :travel_expense_report_items do |t| %>
       <tr>
@@ -78,6 +79,7 @@
         <td><%= t.check_box :breakfast %></td>
         <td><%= t.check_box :lunch %></td>
         <td><%= t.check_box :dinner %></td>
+        <td><%= t.text_field :annotation %></td>
        </tr>
       <% end %>
     </table>
