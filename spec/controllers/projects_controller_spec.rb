@@ -160,33 +160,41 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe 'POST #invite_user' do
-    it 'adds the user to the project if a valid email was given' do
+    it 'send the user an invitation if a valid email was given' do
       project = Project.create! valid_attributes
       user = FactoryGirl.create(:user)
-      expect(Notification.all.size).to eq(0)
+      expect(Invitation.all.size).to eq(0)
       expect {
         put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
-      }.to change(project.users, :count).by(1)
-      expect(Notification.all.size).to eq 1
-      expect(Notification.first.user).to eq user
-      expect(Notification.first.message).to have_content project.title
+      }.to change(Invitation.all, :count).by(1)
+      expect(Invitation.first.user).to eq user
+      expect(Invitation.first.project).to eq project
     end
 
-    it 'does not add the user to the project if an invalid email was given' do
+    it 'does not invite the user to the project if an invalid email was given' do
       project = Project.create! valid_attributes
       user = FactoryGirl.create(:user)
       expect {
         put :invite_user, { id: project.to_param, :invite_user => { :email => 'invalid@email' } }, valid_session
-      }.to change(project.users, :count).by(0)
+      }.to change(Invitation.all, :count).by(0)
     end
 
-    it 'does not add the user to the project if he already is a member' do
+    it 'does not invite the user to the project if he already is a member' do
       project = Project.create! valid_attributes
       user = FactoryGirl.create(:user)
       project.users << user
       expect {
         put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
-      }.to change(project.users, :count).by(0)
+      }.to change(Invitation.all, :count).by(0)
+    end
+
+    it 'does not add the user to the project if he already is invited' do
+      project = Project.create! valid_attributes
+      user = FactoryGirl.create(:user)
+      Invitation.create(user: user, project: project)
+      expect {
+        put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
+      }.to change(Invitation.all, :count).by(0)
     end
   end
 

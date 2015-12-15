@@ -1,6 +1,6 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+ <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
 <dl class="dl-horizontal">
@@ -11,8 +11,9 @@
 <% content_for :modals do %>
   <%= render 'invite_user' %>
 <% end %>
-
-<%= link_to t('project.invite_someone_to_project', default: "Jemanden in das Projekt einladen"), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }, class: "btn btn-default pull-right" %>
+<% if current_user.is_wimi? %>
+  <%= link_to t('project.invite_someone_to_project', default: "Invite someone to the project"), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }, class: "btn btn-default pull-right" %>
+<% end %>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               projects_path, :class => 'btn btn-default'  %>

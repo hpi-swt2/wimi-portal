@@ -8,19 +8,21 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       post 'invite_user'
+      get 'accept_invitation'
+      get 'decline_invitation'
     end
   end
+  get 'projects/typeahead/:query' => 'projects#typeahead'
+
   resources :holidays
   resources :trips
   resources :expenses
+
   resources :chairs
-  
   post 'chairs/apply', to: 'chairs#apply'
   post 'chairs/accept', to: 'chairs#accept_request'
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'
   post 'chairs/destroy', to: 'chairs#destroy'
-
-  get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
 
