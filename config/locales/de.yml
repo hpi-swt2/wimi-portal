@@ -103,7 +103,6 @@ de:
         residence: "Wohnort"
         street: "Straße"
         personnel_number: "Personalnummer"
-        division_id: "Fachgebiet"
         language: "Sprache"
       
   time:

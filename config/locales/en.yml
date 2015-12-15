@@ -102,7 +102,6 @@ en:
         residence: "Residence"
         street: "Street"
         personnel_number: "Staff Number"
-        division_id: "Division"
         language: "Language"
 
   time:

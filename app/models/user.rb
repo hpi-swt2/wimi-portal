@@ -15,7 +15,6 @@
 #  updated_at                :datetime         not null
 #  residence                 :string
 #  street                    :string
-#  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
@@ -29,20 +28,6 @@ class User < ActiveRecord::Base
   validates :first_name, length: { minimum: 1 }
   validates :last_name, length: { minimum: 1 }
   validates :email, length: { minimum: 1 }
-
-  DIVISIONS = [ '',
-      'Enterprise Platform and Integration Concepts',
-      'Internet-Technologien und Systeme',
-      'Human Computer Interaction',
-      'Computergrafische Systeme',
-      'Algorithm Engineering',
-      'Systemanalyse und Modellierung',
-      'Software-Architekturen',
-      'Informationssysteme',
-      'Betriebssysteme und Middleware',
-      'Business Process Technology',
-      'School of Design Thinking',
-      'Knowledge Discovery and Data Mining']
 
   LANGUAGES = [
     ['', ''],
