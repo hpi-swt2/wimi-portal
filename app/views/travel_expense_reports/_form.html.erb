@@ -1,4 +1,4 @@
-<%= form_for(@travel_expense_report) do |f| %>
+<%= form_for @travel_expense_report,:html => { :class => "form-horizontal travel_expense_report" } do |f| %>
   <% if @travel_expense_report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@travel_expense_report.errors.count, "error") %> prohibited this travel_expense_report from being saved:</h2>
@@ -67,11 +67,11 @@
   <div id="date_items">
     <table>
       <tr>
-        <th>Date</th>
-        <th>F</th>
-        <th>M</th>
-        <th>A</th>
-        <th>Description</th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.date') %></th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.breakfast') %></th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.lunch') %></th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.dinner') %></th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.annotation') %></th>
       </tr>
       <%= f.fields_for :travel_expense_report_items do |t| %>
       <tr>
