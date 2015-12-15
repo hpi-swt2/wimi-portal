@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211102142) do
+ActiveRecord::Schema.define(version: 20151215132637) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -118,8 +118,6 @@ ActiveRecord::Schema.define(version: 20151211102142) do
   add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"
 
   create_table "travel_expense_reports", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.boolean  "inland"
     t.string   "country"
     t.string   "location_from"
@@ -136,6 +134,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.boolean  "signature"
   end
 
   add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"

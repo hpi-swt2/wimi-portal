@@ -1,7 +1,5 @@
 FactoryGirl.define do
   factory :travel_expense_report do
-    first_name "Hasso"
-    last_name "Plattner"
     inland true
     country "Germany"
     location_from "Potsdam"
@@ -15,12 +13,11 @@ FactoryGirl.define do
     vehicle_advance false
     hotel true
     general_advance 2000
+    signature true
     user
   end
 
   factory :travel_expense_report_invalid, class: TravelExpenseReport do
-    first_name ""
-    last_name "Plattner"
     inland true
     country "Germany"
     location_from "Potsdam"
@@ -34,13 +31,12 @@ FactoryGirl.define do
     vehicle_advance false
     hotel true
     general_advance -20
-    user
+    signature true
+    user 
     to_create {|i| i.save(validate: false)}
   end
 
   factory :travel_expense_report_changed, parent: :travel_expense_report do
-    first_name "Tobias"
-    last_name "Friedrich"
     general_advance 1337
     car false
     hotel false

@@ -7,14 +7,10 @@ RSpec.describe "travel_expense_reports/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/First name/)
-    expect(rendered).to match(/Last name/)
     expect(rendered).to match(/false/)
-    expect(rendered).to match(/Country/)
-    expect(rendered).to match(/Location from/)
-    expect(rendered).to match(/Location via/)
-    expect(rendered).to match(/Location to/)
-    expect(rendered).to match(/Hasso/)
+    expect(rendered).to match(/Germany/)
+    expect(rendered).to match(/NYC/)
     expect(rendered).to match(/2000/)
+    expect(rendered).to match(/Potsdam/)
   end
 end

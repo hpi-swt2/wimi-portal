@@ -72,6 +72,11 @@ class User < ActiveRecord::Base
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
 
+  # TODO: implement signature upload, this is a placeholder
+  def signature
+    'placeholder'
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
