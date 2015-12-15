@@ -72,6 +72,11 @@ class User < ActiveRecord::Base
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
 
+  # TODO: implement signature upload, this is a placeholder
+  def signature
+    'placeholder'
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
@@ -90,6 +95,22 @@ class User < ActiveRecord::Base
   def is_wimi?
     return false if chair_wimi.nil?
     return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
+  end
+
+  def is_representative?(opt_chair = false)
+    return false if chair_wimi.nil?
+    if opt_chair
+      return false if opt_chair != chair
+    end
+    return chair_wimi.representative
+  end
+
+  def is_admin?(opt_chair = false)
+    return false if chair_wimi.nil?
+    if opt_chair
+      return false if opt_chair != chair
+    end
+    return chair_wimi.admin
   end
 
   def is_hiwi?
