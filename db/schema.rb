@@ -114,8 +114,9 @@ ActiveRecord::Schema.define(version: 20151215142703) do
     t.datetime "updated_at",                            null: false
     t.boolean  "signed",                default: false
     t.boolean  "handed_in",             default: false
-    t.date     "handed_in_date"
-    t.boolean  "accepted",              default: false
+    t.date     "last_modified"
+    t.integer  "status",                default: 0
+    t.integer  "signer"
   end
 
 
@@ -151,10 +152,16 @@ ActiveRecord::Schema.define(version: 20151215142703) do
     t.boolean  "signature"
   end
 
-
+  create_table "trip_datespans", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "days_abroad"
+    t.integer  "trip_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   add_index "trip_datespans", ["trip_id"], name: "index_trip_datespans_on_trip_id"
-
 
   create_table "trips", force: :cascade do |t|
     t.string   "destination"

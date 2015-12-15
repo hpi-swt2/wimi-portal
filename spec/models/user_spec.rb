@@ -4,6 +4,10 @@
 #
 #  id                        :integer          not null, primary key
 #  email                     :string           default(""), not null
+#  encrypted_password        :string           default(""), not null
+#  reset_password_token      :string
+#  reset_password_sent_at    :datetime
+#  remember_created_at       :datetime
 #  sign_in_count             :integer          default(0), not null
 #  current_sign_in_at        :datetime
 #  last_sign_in_at           :datetime
@@ -13,13 +17,15 @@
 #  last_name                 :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  identity_url              :string
+#  language                  :string           default("en"), not null
 #  residence                 :string
 #  street                    :string
 #  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
-#  identity_url              :string
+#  superadmin                :boolean          default(FALSE)
 #
 
 require 'rails_helper'

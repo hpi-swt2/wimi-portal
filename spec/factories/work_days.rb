@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: work_days
+#
+#  id         :integer          not null, primary key
+#  date       :date
+#  start_time :time
+#  break      :integer
+#  end_time   :time
+#  attendance :string
+#  notes      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#  project_id :integer
+#
+
 FactoryGirl.define do
   factory :work_day, class: 'WorkDay' do |f|
     f.date "2015-11-18"

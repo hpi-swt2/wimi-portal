@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: chairs
+#
+#  id           :integer          not null, primary key
+#  name         :string
+#  abbreviation :string
+#  description  :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Chair < ActiveRecord::Base
   has_many :chair_wimis, dependent: :destroy
   has_many :users, through: :chair_wimis

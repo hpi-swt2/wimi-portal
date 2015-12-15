@@ -8,7 +8,7 @@ class TimeSheetsController < ApplicationController
 
   # GET /time_sheets/new
   def new
-    @time_sheet = TimeSheet.new
+    @time_sheet = TimeSheet.new(handed_in: false)
   end
 
   # GET /time_sheets/1/edit
