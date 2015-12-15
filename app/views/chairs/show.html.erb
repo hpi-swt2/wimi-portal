@@ -3,13 +3,13 @@
   <h1><%= @chair.name %></h1>
 </div>
 
-<p>Beauftragter des Fachgebiets: <%= link_to @chair.chair_wimis.find_by(representative: true).user.name, 'http://google.com' %></p>
+<p><%= I18n.t('roles.chair_representative.long', default: 'Chair Representative') %>: <%= @chair.chair_wimis.find_by(representative: true).user.name %></p>
 
-<strong>Anfragen auf Mitgliedschaft:</strong>
+<strong><%= I18n.t('chair.applications.long_plural', default: 'Applications') %>:</strong>
 <br>
 <% if @requests.empty? %>
 <p>
-  keine Anfragen
+  <%= I18n.t('chair.applications.no_applications', default: 'No Applications') %>
 </p>
 <% else %>
 <table class="table table-striped">
@@ -17,34 +17,46 @@
   <tr>
     <td><%= request.user.name %></td>
     <td>
-      <%= link_to 'Bestätigen', chairs_accept_path(:id => @chair, :request => request), :method => :post, :class => 'btn btn-default btn-xs' %>
-      <%= link_to 'Ablehnen', chairs_remove_user_path(:id => @chair, :request => request), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <% if current_user.is_admin? %>
+      <%= link_to I18n.t('chair.applications.accept', default: 'Accept'), chairs_accept_path(:id => @chair, :request => request), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <%= link_to I18n.t('chair.applications.decline', default: 'Decline'), chairs_remove_user_path(:id => @chair, :request => request), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <% end %>
     </td>
   </tr>
   <% end %>
 </table>
 <% end %>
 
-<strong>Wissenschaftliche Mitarbeiter:</strong>
+<strong><%= I18n.t('roles.wimi.long_plural', default: 'Research Assistants') %>:</strong>
 <br>
 <table class="table table-striped">
   <% @chair.wimis.each do |wimi| %>
   <tr>
     <td><%= wimi.name %></td>
-    <td>Anträge anzeigen</td>
+    <td><% if current_user.is_representative?(@chair) %><%= I18n.t('chair.wimi.show_requests', default: 'Show Requests') %><% end %></td>
     <td>
-      <% if wimi.chair_wimi.admin %>Administrator
-      <% elsif wimi.chair_wimi.representative %>FG-Beauftragter
+
+      <% if wimi.is_admin?(@chair) %><%= I18n.t('roles.admin.long', default: 'Administrator') %>
+        <% if current_user.is_admin?(@chair) %>
+          <%= link_to '(Rechte entziehen)', chairs_withdraw_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %>
+        <% end %>
+      <% elsif wimi.is_representative?(@chair) %>
+        <%= I18n.t('roles.chair_representative.long', default: 'Chair Representative') %>
+      <% else %>
+        <% if current_user.is_admin?(@chair) %><%= link_to 'Als Admin ernennen', chairs_set_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %><% end %>
       <% end %>
+
     </td>
     <td>
-    <%= link_to 'Aus Fachgebiet entfernen', chairs_remove_user_path(:id => @chair, :request => wimi.chair_wimi), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <% if wimi.id != current_user.id && current_user.is_admin?(@chair) %>
+        <%= link_to I18n.t('chair.wimi.remove_from_chair', default: 'Remove from chair'), chairs_remove_user_path(:id => @chair, :request => wimi.chair_wimi), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <% end %>
     </td>
   </tr>
   <% end %>
 </table>
 
-<strong>Studentische Hilfskräfte:</strong>
+<strong><%= I18n.t('roles.hiwi.long_plural', default: 'Student Assistants') %>:</strong>
 <br>
 <table class="table table-striped">
   <% @chair.hiwis.each do |hiwi| %>
@@ -52,7 +64,7 @@
     <td><%= hiwi.name %></td>
     <td>
       <% if current_user.chair_wimi.representative %>
-        Stundenzettel anzeigen
+          <%= I18n.t('chair.hiwi.show_timesheets', default: 'Show Timesheets') %>
       <% end %>
     </td>
   </tr>

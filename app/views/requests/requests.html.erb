@@ -1,0 +1,78 @@
+<%- model_class = Chair -%>
+<div class="page-header">
+  <h1><%= @chair.name %></h1>
+</div>
+<div>
+  <h3>Requests</h3>
+  <br/>
+  <table>
+    <colgroup>
+      <col span="0" style="width: 30%;">
+      <col span="0" style="width: 30%;">
+    </colgroup>
+    <thead>
+    <th><strong>Filters by type:</strong></th>
+    <th><strong>Filters by status:</strong></th>
+    </thead>
+    <tbody>
+    <tr>
+      <td>
+        <%= check_box_tag(:holiday_filter, "Holiday Request", true) %>
+        <%= label_tag(:holiday_filter, "Holiday Request") %>
+      </td>
+      <td>
+        <%= check_box_tag(:applied_filter, "Applied", true) %>
+        <%= label_tag(:applied_filter, "Applied") %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= check_box_tag(:trip_filter, "Trip Request", true) %>
+        <%= label_tag(:trip_filter, "Trip Request") %>
+      </td>
+      <td>
+        <%= check_box_tag(:accept_filter, "Accepted", true) %>
+        <%= label_tag(:accept_filter, "Accepted") %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= check_box_tag(:expense_filter, "Expense Request", true) %>
+        <%= label_tag(:expense_filter, "Expense Request") %>
+      </td>
+      <td>
+        <%= check_box_tag(:declined_filter, "Declined", true) %>
+        <%= label_tag(:declined_filter, "Declined") %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:type) %></th>
+      <th><%= model_class.human_attribute_name(:handed_in) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:action) %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @allrequests.each do |request| %>
+    <tr>
+        <td><%= request[:name] %></td>
+      <td><%= request[:type] %></td>
+      <td><%= request[:handed_in] %></td>
+      <td><%= request[:status] %></td>
+      <td><%= link_to 'Show', request[:action] %></td>
+
+    <% end %>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
