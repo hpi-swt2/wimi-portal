@@ -2,13 +2,16 @@
 #
 # Table name: holidays
 #
-#  id         :integer          not null, primary key
-#  status     :string
-#  user_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  start      :date
-#  end        :date
+#  id                  :integer          not null, primary key
+#  user_id             :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  start               :date
+#  end                 :date
+#  reason              :string
+#  annotation          :string
+#  replacement_user_id :integer
+#  status              :integer          default(0)
 #
 
 require 'rails_helper'

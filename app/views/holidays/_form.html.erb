@@ -16,33 +16,46 @@
   <% end %>
 
   <div class="control-group">
+    <% if I18n.locale = 'en' %>
+      <% language = 'en-GB' %>
+    <% else %>
+      <% language = I18n.locale %>
+    <% end %>
     <%= f.label :start, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-autoclose': true, 'data-date-language': language %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
     <%= f.label :end, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-autoclose': true, 'data-date-language': language %>
     </div>
     <%= error_span(@holiday[:end]) %>
   </div>
   <div class="control-group">
-    <%= f.label :comment, :class => 'control-label' %>
+    <%= f.label :reason, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :comment, class: 'form-control' %>
+      <%= f.text_field :reason, class: 'form-control' %>
     </div>
-    <%= error_span(@holiday[:end]) %>
+    <%= error_span(@holiday[:reason]) %>
   </div>
   <div class="control-group">
+    <%= f.check_box :replacement_user_id, id: "replacement_checkbox" %>
     <%= f.label :replacement, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.collection_select :replacement_user_id, User.all, :id, :name %>
-    </div>
-    <%= error_span(@holiday[:end]) %>
+    <%# unless @holiday.replacement_user_id.eq? 0 %>
+      <div class="controls">
+        <%= f.collection_select :replacement_user_id, User.all, :id, :name, include_blank: true %>
+      </div>
+    <%# end %>
+    <%= error_span(@holiday[:replacement_user_id]) %>
   </div><br>
+  <script type="text/javascript">
+    $('#replacement_checkbox').click(function(){
+      $(:replacement_user_id).attr('include_blank',! this.checked)
+    });
+  </script>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

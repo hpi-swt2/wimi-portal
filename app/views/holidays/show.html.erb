@@ -10,15 +10,12 @@
       <div class="col-sm-6">
       </div>
       <div class="col-sm-6 text text-right">
-        <% if @holiday.status.include? 'edited' %>
+        <% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')  %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                         edit_holiday_path(@holiday), class: 'btn btn-primary' %>
         <% else %>
-          <!--div title=i18n:translate="string:filed_request_cant_be_edited" rel="tooltip"-->
-          <div data-i18n="[title]filed_request_cant_be_edited", rel="tooltip">
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_holiday_path(@holiday), class: 'btn btn-primary', disabled: true %>
-          </div>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        '#', class: 'btn btn-primary', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
         <% end %>
       </div>
     </div>
@@ -32,19 +29,25 @@
       <dt><strong><%= model_class.human_attribute_name(:duration) %>:</strong></dt>
       <dd><%= @holiday.duration %>&nbsp<%= t('.days') %></dd>
       <dt><strong><%= model_class.human_attribute_name(:reason_for_special_leave) %>:</strong></dt>
-      <dd><%= @holiday.comment %></dd>
+      <dd><%= @holiday.reason %></dd>
       <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>
       <dd><%= @holiday.annotation %></dd>
       <dt><strong><%= model_class.human_attribute_name(:replacement) %>:</strong></dt>
-      <dd><%= User.find(@holiday.replacement_user_id).name %></dd>
+      <dd>
+        <% unless @holiday.replacement_user_id.nil? %>
+          <%= User.find(@holiday.replacement_user_id).name %>
+        <% end %>
+      </dd>
       <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
       <dd><%= @holiday.status %></dd>
     </dl>
   </div>
 </div>
 
-<%= link_to t('.file'), 
-            holiday_path(@holiday),
-            method: @holiday.update_attribute(:status, 'filed'),
-            remote: true,
-            class: 'btn btn-primary' %>
+  <%= link_to 'Download', generate_pdf_path(:doc_type => 'Urlaubsantrag', :doc_id => @holiday) %>
+<% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined') %>
+  <%= form_for @holiday do |f| %>
+    <%= f.hidden_field :status, value: :applied %>
+    <%= f.submit t('.file'), class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

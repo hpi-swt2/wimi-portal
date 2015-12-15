@@ -62,6 +62,7 @@ en:
     show:
       days: "Day(s)"
       file: "File Request"
+      filed_request_cant_be_edited: "A filed request can't be edited"
   dashboard:
     index:
       dashboard_title: "Dashboard"
