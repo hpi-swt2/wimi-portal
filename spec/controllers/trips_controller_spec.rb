@@ -27,21 +27,20 @@ RSpec.describe TripsController, type: :controller do
   # Trip. As you add validations to Trip, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {:name => "Hana Travels",
-     :destination => "NYC Conference",
+    {:destination => "NYC Conference",
      :reason => "Hana Things",
      :annotation => "HANA pls",
-     :signature => "le Hasso",
-     :user => User.first}
+     :signature => true,
+     :user => FactoryGirl.create(:user)}
   }
 
   let(:invalid_attributes) {
-    {:name => "",
-     :destination => "NYC Conference",
+    {
+     :destination => "",
      :reason => "Hana Things",
      :annotation => "HANA pls",
-     :signature => "le Hasso",
-     :user => User.first}
+     :signature => true,
+     :user => FactoryGirl.create(:user)}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -116,11 +115,11 @@ RSpec.describe TripsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        {:name => "Hana",
+        {
      :destination => "NYC",
      :reason => "Hana",
      :annotation => "HANA",
-     :signature => "le",
+     :signature => false,
      :user => User.first}
       }
 
@@ -128,7 +127,7 @@ RSpec.describe TripsController, type: :controller do
         trip = Trip.create! valid_attributes
         put :update, {:id => trip.to_param, :trip => new_attributes}, valid_session
         trip.reload
-	expect(trip.name).to eq("Hana")
+	expect(trip.destination).to eq('NYC')
       end
 
       it "assigns the requested trip as @trip" do

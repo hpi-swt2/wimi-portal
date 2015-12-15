@@ -7,10 +7,9 @@ RSpec.describe "trips/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/Name/)
     expect(rendered).to match(/Destination/)
-    expect(rendered).to match(/Hana Travels/)
-    expect(rendered).to match(/HANA pls/)
+    expect(rendered).to match(/Hana Things/)
+    expect(rendered).to match(/NYC/)
     expect(rendered).to match(/Signature/)
   end
 end

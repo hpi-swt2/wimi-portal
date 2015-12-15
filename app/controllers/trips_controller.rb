@@ -49,6 +49,6 @@ class TripsController < ApplicationController
     end
 
     def trip_params
-      params.require(:trip).permit(:name, :destination, :reason, :annotation, :signature, trip_datespans_attributes: [:id,:start_date, :end_date,:days_abroad])
+      params.require(:trip).permit(Trip.column_names.map(&:to_sym), trip_datespans_attributes: [:id,:start_date, :end_date,:days_abroad])
     end
 end

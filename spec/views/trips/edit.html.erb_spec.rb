@@ -10,8 +10,6 @@ RSpec.describe "trips/edit", type: :view do
 
     assert_select "form[action=?][method=?]", trip_path(@trip), "post" do
 
-      assert_select "input#trip_name[name=?]", "trip[name]"
-
       assert_select "input#trip_destination[name=?]", "trip[destination]"
 
       assert_select "textarea#trip_reason[name=?]", "trip[reason]"

@@ -10,10 +10,6 @@ RSpec.describe "travel_expense_reports/edit", type: :view do
 
     assert_select "form[action=?][method=?]", travel_expense_report_path(@travel_expense_report), "post" do
 
-      assert_select "input#travel_expense_report_first_name[name=?]", "travel_expense_report[first_name]"
-
-      assert_select "input#travel_expense_report_last_name[name=?]", "travel_expense_report[last_name]"
-
       assert_select "input#travel_expense_report_inland[name=?]", "travel_expense_report[inland]"
 
       assert_select "input#travel_expense_report_country[name=?]", "travel_expense_report[country]"
