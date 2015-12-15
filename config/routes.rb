@@ -17,32 +17,26 @@ Rails.application.routes.draw do
   end
   resources :holidays
   resources :expenses
-<<<<<<< HEAD
   resources :work_days
-=======
   resources :travel_expense_reports
   resources :trips do
     member do
       get 'download'
     end
   end
->>>>>>> dev
+
   resources :chairs
   
   post 'chairs/apply', to: 'chairs#apply'
   post 'chairs/accept', to: 'chairs#accept_request'
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'
   post 'chairs/destroy', to: 'chairs#destroy'
-<<<<<<< HEAD
-  resources :time_sheets, :only => [:edit, :update, :delete]
-=======
-  post 'chairs/set_admin', to: 'chairs#set_admin'
-  post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
 
-  get 'chairs/:id/requests' => 'requests#requests', :as => 'requests'
+  resources :time_sheets, :only => [:edit, :update, :delete]
+
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
->>>>>>> dev
+
 
   devise_for :users
 

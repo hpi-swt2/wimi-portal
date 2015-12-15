@@ -11,11 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20151208195032) do
-=======
+
 ActiveRecord::Schema.define(version: 20151215142703) do
->>>>>>> dev
+
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -103,7 +101,6 @@ ActiveRecord::Schema.define(version: 20151215142703) do
   add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
   add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
-<<<<<<< HEAD
   create_table "time_sheets", force: :cascade do |t|
     t.integer  "month"
     t.integer  "year"
@@ -121,7 +118,7 @@ ActiveRecord::Schema.define(version: 20151215142703) do
     t.boolean  "accepted",              default: false
   end
 
-=======
+
   create_table "travel_expense_report_items", force: :cascade do |t|
     t.date     "date"
     t.boolean  "breakfast"
@@ -154,20 +151,11 @@ ActiveRecord::Schema.define(version: 20151215142703) do
     t.boolean  "signature"
   end
 
-  add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
 
-  create_table "trip_datespans", force: :cascade do |t|
-    t.date     "start_date"
-    t.date     "end_date"
-    t.integer  "days_abroad"
-    t.integer  "trip_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
 
   add_index "trip_datespans", ["trip_id"], name: "index_trip_datespans_on_trip_id"
 
->>>>>>> dev
+
   create_table "trips", force: :cascade do |t|
     t.string   "destination"
     t.text     "reason"
@@ -196,11 +184,8 @@ ActiveRecord::Schema.define(version: 20151215142703) do
     t.string   "last_name"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
-<<<<<<< HEAD
-=======
     t.string   "identity_url"
     t.string   "language",                  default: "en",  null: false
->>>>>>> dev
     t.string   "residence"
     t.string   "identity_url"
     t.string   "street"

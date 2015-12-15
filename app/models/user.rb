@@ -44,8 +44,7 @@ class User < ActiveRecord::Base
       'School of Design Thinking',
       'Knowledge Discovery and Data Mining']
 
-<<<<<<< HEAD
-=======
+
   LANGUAGES = [
     ['', ''],
     [
@@ -57,7 +56,7 @@ class User < ActiveRecord::Base
       'de'
     ],
   ]
->>>>>>> dev
+
 
   INVALID_EMAIL = 'invalid_email'
 
