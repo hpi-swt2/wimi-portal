@@ -2,14 +2,14 @@
 #
 # Table name: trips
 #
-#  id         :integer          not null, primary key
-#  title      :string
-#  start      :datetime
-#  end        :datetime
-#  status     :string
-#  user_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  destination :string
+#  reason      :text
+#  annotation  :text
+#  status      :string
+#  user_id     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class Trip < ActiveRecord::Base
@@ -22,6 +22,6 @@ class Trip < ActiveRecord::Base
   enum status: [ :saved, :applied, :accepted, :declined ]
 
   def name
-    self.user.first_name + ' ' + self.user.last_name
+    self.user.name
   end
 end
