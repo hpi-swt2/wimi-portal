@@ -26,27 +26,6 @@
   </div>
 
   <div class="control-group">
-    <%= f.label current_user.chair, 'Chair', :class => 'control-label' %>
-    <div class="controls col-md-12 projectTitleControl">
-      <div class="col-md-6" style="margin-left: -5px">
-        <% @project.chair = current_user.chair %>
-        <div class ='form-control'>  <%= @project.chair.name %> </div>
-      </div>
-    </div>
-    <%= error_span(current_user.chair) %>
-  </div>
-
-  <div class="control-group">
-    <%= f.label current_user.chair, 'Head of Chair', :class => 'control-label' %>
-    <div class="controls col-md-12 projectTitleControl">
-      <div class="col-md-6" style="margin-left: -5px">
-        <%= f.label current_user.chair.representative.user.first_name + ' ' + current_user.chair.representative.user.last_name , :class => 'form-control-static' %>
-      </div>
-    </div>
-    <%= error_span(@project[:title]) %>
-  </div>
-
-  <div class="control-group">
     <%= f.label :project_leader, 'Project Leader', :class => 'control-label' %>
     <div class="controls col-md-12 projectTitleControl">
       <div class="col-md-6" style="margin-left: -5px">
@@ -97,12 +76,13 @@
     <div class="control-group">
       <div class="col-md-12">
         <div class="col-md-5 projectCheckbox" >
-          <%= f.label :users, :class => 'control-label' %>
+          <%= f.label :users, 'WiMis', :class => 'control-label' %>
         </div>
       </div>
       <div class="col-md-12">
       <div class="col-md-4 userProjectCheckbox">
           <%= User.find_each do |user| %>
+            <% if user.is_wimi?%>
             <% is_member = @project.users.include?(user) %>
             <% element_id = (user == current_user && is_member ? 'currentUserCheckbox' : "project_user_ids_#{user.id}") %>
               <div class="checkbox" >
@@ -110,11 +90,38 @@
               <label for="<%= element_id %>"><%= user.email %></label>
               </div>
           <% end %>
+          <% end %>
         <input name="project[user_ids][]" value="" type="hidden">
       </div>
       </div>
     </div>
     <%= error_span(@project[:users]) %>
+
+    <div class="control-group">
+      <div class="col-md-12">
+        <div class="col-md-5 projectCheckbox" >
+          <%= f.label :users, 'Hiwis', :class => 'control-label' %>
+          </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4 userProjectCheckbox">
+          <%= User.find_each do |user| %>
+            <% if !user.is_wimi?%>
+              <% is_member = @project.users.include?(user) %>
+              <% element_id = (user == current_user && is_member ? 'currentUserCheckbox' : "project_user_ids_#{user.id}") %>
+              <div class="checkbox" >
+                <input value="<%= user.id %>" name="project[user_ids][]" id="<%= element_id %>" type="checkbox" <%= 'checked' if is_member %> >
+                <label for="<%= element_id %>"><%= user.email %></label>
+              </div>
+            <% end %>
+          <% end %>
+          <input name="project[user_ids][]" value="" type="hidden">
+        </div>
+      </div>
+    </div>
+    <%= error_span(@project[:users]) %>
+
+
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

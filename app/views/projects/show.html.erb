@@ -6,12 +6,37 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @project.title %></dd>
-  <dt><strong><%= 'Chair:' %>:</strong></dt>
-  <dd><%= @project.chair %></dd>
+  <dt><strong><%= 'Chair' %>:</strong></dt>
+  <dd><%= @project.chair.name %></dd>
+  <dt><strong><%= 'Chair Representative' %>:</strong></dt>
+  <dd><%= @project.chair.representative.user.name %></dd>
   <dt><strong><%= 'Status:' %></strong></dt>
   <dd><%= @project.status ? "Active" : "Inactive" %></dd>
   <dt><strong><%= "Accessibility:" %></strong></dt>
   <dd><%= @project.public ? "Public" : "Private" %></dd>
+  <dt><strong><%='Project Users' %>:</strong> </dt>
+
+
+  <dd>
+  <div class="col-md-5 UserTable">
+  <table class="table table-striped">
+    <thead>
+
+    </thead>
+    <tbody>
+    <%@project.users.each_slice(3) do |slice| %>
+    <tr>
+      <% slice.each do |user|%>
+      <td>
+        <%= user.name %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+  </div>
+  </dd>
 
 </dl>
 
