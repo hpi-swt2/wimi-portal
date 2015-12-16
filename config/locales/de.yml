@@ -23,8 +23,8 @@ de:
   activerecord:
     models:
       chair:
-        one: "Chair"
-        other: "Chairs"
+        one: "Lehrstuhl"
+        other: "Lehrstühle"
       expense:
         one: "Kostenabrechnung"
         other: "Kostenabrechnungen"
@@ -44,6 +44,11 @@ de:
         one: "Benutzer"
         other: "Benutzer"
     attributes:
+      chair:
+        id: "Id"
+        name: "Name"
+        created_at: "Erstellungsdatum"
+        status: "Status"
       project:
         id: "Id"
         title: "Titel"
