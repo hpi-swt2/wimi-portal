@@ -24,9 +24,9 @@
         <td><%= trip.reason %></td>
         <td><%= trip.annotation %></td>
         <td><%= trip.status %></td>
-        <td><%= link_to 'Show', trip %></td>
-        <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
-        <td><%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('helpers.links.show_details'), trip %></td>
+        <td><%= link_to t('helpers.links.edit'), edit_trip_path(trip) %></td>
+        <td><%= link_to t('helpers.links.destroy'), trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
