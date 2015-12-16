@@ -13,6 +13,9 @@
 #
 
 class Project < ActiveRecord::Base
+  scope :title, -> title { where('LOWER(title) LIKE ?', "%#{title.downcase}%") }
+  scope :chair, -> name { joins(:chair).where("LOWER(name) LIKE ?", "%#{name.downcase}%") }
+
   has_and_belongs_to_many :users
   has_many :publications
   has_many :expenses
