@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+
   end
 
   def edit
@@ -17,6 +18,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.update(chair: current_user.chair)
     if @project.save
       flash[:success] = 'Project was successfully created.'
       redirect_to @project

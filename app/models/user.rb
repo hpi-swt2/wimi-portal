@@ -92,6 +92,10 @@ class User < ActiveRecord::Base
     self.remaining_leave = 28
   end
 
+  def is_user?
+    not is_wimi? and not is_superadmin? and not is_hiwi?
+  end
+
   def is_wimi?
     return false if chair_wimi.nil?
     return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
@@ -116,6 +120,15 @@ class User < ActiveRecord::Base
   def is_hiwi?
     return false if projects.nil? || projects.size == 0
     return (projects.size > 0 && !is_wimi?)
+  end
+
+
+  def is_representative?
+    not chair_wimi.nil? and chair_wimi.representative
+  end
+
+  def is_admin?
+    not chair_wimi.nil? and chair_wimi.admin
   end
 
   def is_superadmin?
