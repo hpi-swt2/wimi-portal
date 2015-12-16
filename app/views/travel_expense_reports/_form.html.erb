@@ -11,13 +11,13 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field" >
     <%= f.label :inland %><br>
-    <%= f.check_box :inland %>
+    <%= f.check_box :inland , {:onclick => "toggleField(div_inland,field_inland,checkbox_inland)", :id => "checkbox_inland"}%>
   </div>
-  <div class="field">
+  <div class="field" id="div_inland">
     <%= f.label :country %><br>
-    <%= f.text_field :country %>
+    <%= f.text_field :country, { :id => "field_inland" }%>
   </div>
   <div class="field">
     <%= f.label :location_from %><br>
