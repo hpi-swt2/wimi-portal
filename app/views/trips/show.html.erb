@@ -1,29 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @trip.name %>
-</p>
-
-<p>
-  <strong>Destination:</strong>
+  <strong><%= t('.destination') %>:</strong>
   <%= @trip.destination %>
 </p>
 
 <p>
-  <strong>Reason:</strong>
+  <strong><%= t('.reason') %>:</strong>
   <%= @trip.reason %>
 </p>
 <ul>
 	<%= render @trip.trip_datespans %>
 </ul>
 <p>
-  <strong>Annotation:</strong>
+  <strong><%= t('.annotation') %>:</strong>
   <%= @trip.annotation %>
 </p>
 
 <p>
-  <strong>Signature:</strong>
+  <strong><%= t('.signature') %>:</strong>
   <%= @trip.signature %>
 </p>
 
