@@ -47,7 +47,7 @@ en:
       chair:
         id: "Id"
         name: "Name"
-        created_at: "Erstellungsdatum"
+        created_at: "Created at"
         status: "Status"
       project:
         title: "Title"
