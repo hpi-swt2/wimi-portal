@@ -30,15 +30,14 @@ class Ability
   end
 
   def initialize_wimi(user)
-    cannot  :manage,  :all
     can     :create,  Project
-    can     :edit,    Project
-    can     :destroy, Project
-    can     :update,  Project
+    can     :manage, Project do |project|
+      user.projects.exists?(project)
+    end
   end
 
   def initialize_hiwi(user)
-    cannot  :manage,  :all
+
   end
 
   def initialize_user(user)

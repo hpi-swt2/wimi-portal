@@ -25,11 +25,11 @@
 
       <td><%=l project.created_at %></td>
       <td>
-        <% if can? :edit, @project %>
+        <% if can? :edit, project %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_project_path(project), :class => 'btn btn-default btn-xs' %>
         <% end %>
-        <% if can? :destroy, @project %>
+        <% if can? :destroy, project %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               project_path(project),
                 :method => :delete,
@@ -41,7 +41,7 @@
   <% end %>
   </tbody>
 </table>
-<% if can? :create, @project %>
+<% if can? :create, Project %>
   <%= link_to t('.new', :default => t("helpers.links.new")),
               new_project_path,
               :class => 'btn btn-primary' %>
