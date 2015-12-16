@@ -9,11 +9,10 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Destination</th>
-      <th>Reason</th>
-      <th>Annotation</th>
-      <th>Signature</th>
+      <th><%= model_class.human_attribute_name(:destination) %></th>
+      <th><%= model_class.human_attribute_name(:reason) %></th>
+      <th><%= model_class.human_attribute_name(:annotation) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -21,11 +20,10 @@
   <tbody>
     <% @trips.each do |trip| %>
       <tr>
-        <td><%= trip.name %></td>
         <td><%= trip.destination %></td>
         <td><%= trip.reason %></td>
         <td><%= trip.annotation %></td>
-        <td><%= trip.signature %></td>
+        <td><%= trip.status %></td>
         <td><%= link_to 'Show', trip %></td>
         <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
         <td><%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
