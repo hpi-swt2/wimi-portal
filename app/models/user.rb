@@ -13,22 +13,18 @@
 #  last_name                 :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  identity_url              :string
+#  language                  :string           default("en"), not null
 #  residence                 :string
 #  street                    :string
 #  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
-#  identity_url              :string
+#  superadmin                :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
-
-  devise  :openid_authenticatable, :trackable
-
-  validates :first_name, length: { minimum: 1 }
-  validates :last_name, length: { minimum: 1 }
-  validates :email, length: { minimum: 1 }
 
   DIVISIONS = [ '',
       'Enterprise Platform and Integration Concepts',
@@ -58,16 +54,20 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
+  devise  :openid_authenticatable, :trackable
+
   has_many :holidays
   has_many :expenses
   has_many :trips
-  has_many :notifications
-
+  has_many :invitations
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
 
+  validates :first_name, length: { minimum: 1 }
+  validates :last_name, length: { minimum: 1 }
+  validates :email, length: { minimum: 1 }
   validates :personnel_number, numericality: { only_integer: true }, inclusion: 0..999999999
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0

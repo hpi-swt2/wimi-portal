@@ -1,14 +1,17 @@
 # == Schema Information
 #
-# Table name: notifications
+# Table name: invitations
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
-#  message    :string
+#  project_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class Notification < ActiveRecord::Base
-  belongs_to :user
+FactoryGirl.define do
+  factory :invitation do
+    project_id 0
+    user_id 0
+  end
 end

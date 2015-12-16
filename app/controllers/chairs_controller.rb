@@ -26,7 +26,7 @@ class ChairsController < ApplicationController
 
   def create
     @chair = Chair.new(chair_params)
-    
+
     if @chair.add_users(params[:admin_user], params[:representative_user])
       flash[:success] = I18n.t('chair.create.success', default: 'Chair successfully created.')
       redirect_to chairs_path

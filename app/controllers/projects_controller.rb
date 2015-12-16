@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :accept_invitation, :decline_invitation]
 
   has_scope :title
   has_scope :chair
@@ -46,18 +46,36 @@ class ProjectsController < ApplicationController
   def invite_user
     user = User.find_by_email params[:invite_user][:email]
     if user.nil?
-      flash[:error] = I18n.t('project.user.doesnt_exist', default: 'Der Benutzer existiert nicht')
+      flash[:error] = I18n.t('project.user.doesnt_exist', default: 'The user does not exist.')
       redirect_to @project
     else
-      if @project.users.include? user
-        flash[:error] = I18n.t('project.user.already_is_member', default: 'Der Benutzer ist bereits Mitglied dieses Projekts')
+      if Invitation.where(project: @project, user: user).size > 0
+        flash[:error] = I18n.t('project.user.already_invited', default: 'The user is already invited.')
         redirect_to @project
       else
-        @project.add_user user
-        flash[:success] = I18n.t('project.user.was_successfully_added', default: 'Der Benutzer wurde erfolgreich zum Projekt hinzugefügt.')
-        redirect_to @project
+        if @project.users.include? user
+          flash[:error] = I18n.t('project.user.already_is_member', default: 'The user is already member of this project.')
+          redirect_to @project
+        else
+          @project.invite_user user
+          flash[:success] = I18n.t('project.user.was_successfully_invited', default: 'The user has been invited to this project successfully.')
+          redirect_to @project
+        end
       end
     end
+  end
+
+  def accept_invitation
+    @project.add_user current_user
+    @project.destroy_invitation current_user
+    flash[:success] = I18n.t('project.user.invitation_accepted', default: 'You are now a member of this project!')
+    redirect_to @project
+  end
+
+  def decline_invitation
+    @project.destroy_invitation current_user
+    flash[:success] = I18n.t('project.user.invitation_declined', default: 'The invitation was declined.')
+    redirect_to root_path
   end
 
   def typeahead
