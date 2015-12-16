@@ -20,6 +20,7 @@ de:
       destroy: "Löschen"
       new: "Neu"
       edit: "Bearbeiten"
+      leave: "Verlassen"
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
       show_pdf: "Als PDF anzeigen"

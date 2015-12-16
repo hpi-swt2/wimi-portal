@@ -18,6 +18,14 @@
               projects_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_project_path(@project), :class => 'btn btn-default' %>
+<% if current_user.is_hiwi? %>
+    <%= link_to t('project.leave', :default => t("helpers.links.leave")),
+                remove_user_project_path(id: @project, user_id: current_user.id),
+                :method => 'get',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+<% end %>
+
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               project_path(@project),
               :method => 'delete',

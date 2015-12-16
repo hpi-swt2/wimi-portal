@@ -19,6 +19,12 @@ class Project < ActiveRecord::Base
     user.notifications << Notification.create(message: I18n.t('project.was_added_to_project', title: title,  default: "Du wurdest zum Projekt '#{title}' hinzugefügt."))
   end
 
+  def remove_user(user)
+    users.delete(user)
+    print users.first
+    user.notifications << Notification.create(message: I18n.t('project.was_removed_from_project', title: title,  default: "Du wurdest vom Projekt '#{title}' ausgetragen."))
+  end
+
   validates :title, presence: true
 
   def hiwis

@@ -25,6 +25,7 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+      leave: "Leave"
       edit_leave: "Edit Leave"
       show_details: "Show Details"
       show_pdf: "Show PDF"

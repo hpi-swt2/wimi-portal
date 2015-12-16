@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user]
 
   def index
     @projects = Project.all
@@ -54,6 +54,22 @@ class ProjectsController < ApplicationController
         flash[:success] = I18n.t('project.user.was_successfully_added', default: 'Der Benutzer wurde erfolgreich zum Projekt hinzugefügt.')
         redirect_to @project
       end
+    end
+  end
+
+  def remove_user
+    user = User.find_by_id params[:user_id]
+    if user.nil?
+      flash[:error] = I18n.t('project.user.doesnt_exist', default: 'Der Benutzer existiert nicht')
+      redirect_to @project
+    elsif @project.users.include? user
+      print "user included"
+      @project.remove_user user
+      flash[:success] = I18n.t('project.user.was_successfully_removed', default: 'Der Benutzer wurde erfolgreich vom Projekt entfernt.')
+      redirect_to @project
+    else
+      flash[:error] = I18n.t('project.user.is_not_member', default: 'Der Benutzer ist kein Mitglied dieses Projekts')
+      redirect_to @project
     end
   end
 

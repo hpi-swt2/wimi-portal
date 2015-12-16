@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       post 'invite_user'
+      get 'remove_user'
     end
   end
   resources :holidays

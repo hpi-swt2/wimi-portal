@@ -190,6 +190,38 @@ RSpec.describe ProjectsController, type: :controller do
     end
   end
 
+  describe 'POST #remove_user' do
+    before(:each) do
+      @project = Project.create! valid_attributes
+      @user = FactoryGirl.create(:user)
+      @project.users << @user
+    end
+
+    it 'removes the user from the project if a valid id was given' do
+      expect(Notification.all.size).to eq(0)
+      print @project.id
+      expect {
+        get :remove_user, { id: @project.to_param, :user_id => @user.id }, valid_session
+      }.to change(@project.users, :count).by(-1)
+      expect(Notification.all.size).to eq 1
+      expect(Notification.first.user).to eq @user
+      expect(Notification.first.message).to have_content @project.title
+    end
+
+    it 'does not remove the user from the project if an invalid id was given' do
+      expect {
+        get :remove_user, { id: @project.to_param, :user_id => 7 }, valid_session
+      }.to change(@project.users, :count).by(0)
+    end
+
+    it 'does not remove the user from the project if he is not a member' do
+      @project.users.delete(@user)
+      expect {
+        get :remove_user, { id: @project.to_param, :user_id => @user.id }, valid_session
+      }.to change(@project.users, :count).by(0)
+    end
+  end
+
   describe 'GET #typeahead' do
     it 'returns the query result as json' do
       project = Project.create! valid_attributes
