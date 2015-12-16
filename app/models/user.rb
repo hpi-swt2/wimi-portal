@@ -139,11 +139,14 @@ class User < ActiveRecord::Base
         value = value.first
       end
 
+      # if no email is saved yet and we receive no address, set INVALID_EMAIL as address, otherwise save the received value
       if key.to_s == "http://axschema.org/contact/email"
-        if value.nil?
-          update_attribute(:email, INVALID_EMAIL)
-        else
-          update_attribute(:email, value)
+        if email.blank?
+          if value.blank?
+            update_attribute(:email, INVALID_EMAIL)
+          else
+            update_attribute(:email, value)
+          end
         end
       end
     end
