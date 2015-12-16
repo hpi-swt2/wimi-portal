@@ -32,7 +32,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
 
     expect(page).to have_content(chair1.name)
     expect(page).to have_content(chair2.name)
-    expect(page).to have_content('Apply')
+    expect(page).to have_content('Apply as Wimi')
   end
 
   it 'performs an application after click on Apply' do
@@ -41,9 +41,9 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     visit dashboard_path
 
     expect(page).to have_content(chair1.name)
-    expect(page).to have_content('Apply')
+    expect(page).to have_content('Apply as Wimi')
     expect(page).to_not have_content('pending')
-    click_on 'Apply'
+    click_on 'Apply as Wimi'
     expect(page).to have_content('pending')
     expect(page).to_not have_content('Apply')
   end
@@ -61,6 +61,6 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
 
     expect(page).to_not have_content(chair1.name)
     expect(page).to_not have_content(chair2.name)
-    expect(page).to_not have_content('Apply')
+    expect(page).to_not have_content('Apply as Wimi')
   end
 end
