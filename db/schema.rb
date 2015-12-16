@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214152711) do
+ActiveRecord::Schema.define(version: 20151215142703) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(version: 20151214152711) do
     t.integer  "user_id"
     t.integer  "project_id"
     t.integer  "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "status",     default: 0
   end
 
   add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
@@ -48,12 +49,12 @@ ActiveRecord::Schema.define(version: 20151214152711) do
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "holidays", force: :cascade do |t|
-    t.string   "status"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.date     "start"
     t.date     "end"
+    t.integer  "status",     default: 0
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -67,13 +68,12 @@ ActiveRecord::Schema.define(version: 20151214152711) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "description",    default: ""
-    t.boolean  "public",         default: true
-    t.boolean  "status",         default: true
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "description", default: ""
+    t.boolean  "public",      default: false
+    t.boolean  "active",      default: true
     t.integer  "chair_id"
-    t.string   "project_leader", default: ""
   end
 
   add_index "projects", ["chair_id"], name: "index_projects_on_chair_id"
@@ -105,14 +105,60 @@ ActiveRecord::Schema.define(version: 20151214152711) do
   add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
   add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
-  create_table "trips", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "start"
-    t.datetime "end"
-    t.string   "status"
+  create_table "travel_expense_report_items", force: :cascade do |t|
+    t.date     "date"
+    t.boolean  "breakfast"
+    t.boolean  "lunch"
+    t.boolean  "dinner"
+    t.integer  "travel_expense_report_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"
+
+  create_table "travel_expense_reports", force: :cascade do |t|
+    t.boolean  "inland"
+    t.string   "country"
+    t.string   "location_from"
+    t.string   "location_via"
+    t.string   "location_to"
+    t.text     "reason"
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.boolean  "car"
+    t.boolean  "public_transport"
+    t.boolean  "vehicle_advance"
+    t.boolean  "hotel"
+    t.integer  "general_advance"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.boolean  "signature"
+  end
+
+  add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
+
+  create_table "trip_datespans", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "days_abroad"
+    t.integer  "trip_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "trip_datespans", ["trip_id"], name: "index_trip_datespans_on_trip_id"
+
+  create_table "trips", force: :cascade do |t|
+    t.string   "destination"
+    t.text     "reason"
+    t.text     "annotation"
+    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "status",      default: 0
+    t.boolean  "signature"
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
