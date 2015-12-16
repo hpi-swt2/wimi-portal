@@ -55,7 +55,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   it 'hides the content for chairless and projectless users for all other users' do
     chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-    chairwimi = ChairWimi.create(user_id: @user.id, chair_id: chair1.id)
+    chairwimi = ChairWimi.create(user_id: @user.id, chair_id: chair1.id, application: 'accepted')
     login_as(@user, :scope => :user)
     visit dashboard_path
 
