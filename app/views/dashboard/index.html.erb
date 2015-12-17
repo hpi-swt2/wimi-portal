@@ -15,7 +15,7 @@
   <% end %>
 </div>
 
-<% if current_user.is_hiwi? || current_user.is_wimi? %>
+<% if current_user.is_hiwi? || current_user.is_wimi? || current_user.is_superadmin? %>
     <h3> My Projects </h3>
     <table class="table table-striped">
       <thead>
