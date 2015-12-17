@@ -23,6 +23,8 @@ de:
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
       show_pdf: "Als PDF anzeigen"
+      download: "Herunterladen"
+      apply_trip: "Antrag stellen"
     titles:
       edit: "%{model} bearbeiten"
       save: "%{model} speichern"

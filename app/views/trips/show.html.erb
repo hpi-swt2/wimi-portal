@@ -23,7 +23,7 @@
 </p>
 
 </p>
-  <strong>Status:</strong>
+  <strong><%=t('.status') %>:</strong>
   <%= @trip.status =%>
   <% if @trip.status == 'declined' %>
     by:
@@ -31,15 +31,20 @@
 </p>
 
 <% if @trip.status != 'applied' %>
-  <%= link_to 'Edit', edit_trip_path(@trip) %> |
-  <%= link_to 'Apply', trips_apply_path(id: @trip), method: post %> |
+  <%= link_to t('.edit', default: t("helpers.links.edit")), edit_trip_path(@trip), class: 'btn btn-default' %> |
+  <%= link_to t('.apply_trip',:default => t("helpers.links.apply_trip")), trips_apply_path(id: @trip), method: post %> |
+  <%=link_to t('.destroy', :default => t("helpers.links.destroy")),
+             trips_path(@trip),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
 <%end%>
 
-<%= link_to 'Back', trips_path %> |
+<%= link_to t('.back', :default => t("helpers.links.back")),
+             trips_path, :class => 'btn btn-default'  %> |
 <%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip) %>
 
 <p>
   <strong>Reisekosten</strong>
   <%= link_to 'Reisekosten eintragen', edit_travel_expense_report_path() %> <!--TODO: zum richtigen Report linken -->
 </p>
-

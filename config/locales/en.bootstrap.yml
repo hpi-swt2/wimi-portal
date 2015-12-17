@@ -28,6 +28,8 @@ en:
       edit_leave: "Edit Leave"
       show_details: "Show Details"
       show_pdf: "Show PDF"
+      download: "Download"
+      apply_trip: "Apply Trip"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

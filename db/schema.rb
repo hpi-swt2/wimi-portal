@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.integer  "trip_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "status",     default: 0
+    t.integer  "status",     default: 1
   end
 
   add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
@@ -49,12 +49,12 @@ ActiveRecord::Schema.define(version: 20151215145322) do
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "holidays", force: :cascade do |t|
+    t.integer  "status",     default: 1
     t.integer  "user_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",     default: 0
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.integer  "user_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "status",      default: 0
+    t.integer  "status",      default: 1
     t.boolean  "signature"
   end
 
@@ -176,7 +176,6 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
-    t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
     t.integer  "division_id",               default: 0
@@ -184,6 +183,7 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false
+    t.string   "language",                  default: "en",  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
