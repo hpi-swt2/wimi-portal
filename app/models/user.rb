@@ -122,7 +122,6 @@ class User < ActiveRecord::Base
     return (projects.size > 0 && !is_wimi?)
   end
 
-
   def is_superadmin?
     return self.superadmin
   end
