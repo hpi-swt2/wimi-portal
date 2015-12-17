@@ -4,5 +4,4 @@ class EventAdminRightsChanged < ActiveRecord::Base
 
   validates :admin, presence: true
   validates :user, presence: true
-  validates :user_is_admin, presence: true
 end

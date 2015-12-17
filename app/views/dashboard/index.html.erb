@@ -46,17 +46,11 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")), new_project_path, :class => 'btn btn-primary' %>
-
-<table>
-  <tr>
-    <th>Admin</th>
-    <th>User</th>
-    <th>user_is_admin</th>
-  </tr>
+<p>
   <% @notifications.each do |event| %>
     <%= render event %>
   <% end %>
-</table>
+</p>
 <% if current_user.is_representative? %>
     <br/>
     <div>
