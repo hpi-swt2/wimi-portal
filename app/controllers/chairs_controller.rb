@@ -87,6 +87,7 @@ class ChairsController < ApplicationController
     chair_wimi.admin = true
     
     if chair_wimi.save
+      ActiveSupport::Notifications.instrument("event.admin.rights_changed", {:admin => current_user, :user => chair_wimi.user, :user_is_admin => true})
       flash[:success] = I18n.t('chair.set_admin.success', default: 'Admin was successfully set.')
       redirect_to chair_path(@chair)
     else
