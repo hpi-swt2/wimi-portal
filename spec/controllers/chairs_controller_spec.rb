@@ -30,17 +30,33 @@ RSpec.describe ChairsController, type: :controller do
       login_with(@user)
       get :show, {id: @chair}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(chairs_path)
+      expect(response).to redirect_to(dashboard_path)
 
       login_with(@wimi)
       get :show, {id: @chair}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(chairs_path)
+      expect(response).to redirect_to(dashboard_path)
 
       login_with(@superadmin)
       get :show, {id: @chair}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(chairs_path)
+      expect(response).to redirect_to(dashboard_path)
+    end
+
+    it 'redirects to to own chair as not authorized admin / representative' do
+      @anotherchair = FactoryGirl.create(:chair)
+      @representative = FactoryGirl.create(:user)
+      ChairWimi.create(:user => @representative, :chair => @chair, :representative => true, :application => 'accepted')
+
+      login_with(@admin)
+      get :show, {id: @anotherchair}
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(chair_path(@admin.chair))
+
+      login_with(@representative)
+      get :show, {id: @anotherchair}
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(chair_path(@admin.chair))
     end
 
     it 'creates a new Wimi application' do
@@ -88,6 +104,27 @@ RSpec.describe ChairsController, type: :controller do
       login_with @admin
       post :withdraw_admin, {id: @chair, request: ChairWimi.find_by(user: @admin)}
       expect(User.find(@admin.id).is_admin?(@chair)).to eq(true)
+    end
+  end
+
+  describe 'GET #edit' do
+    before(:each) do
+      @superadmin = FactoryGirl.create(:user)
+      @superadmin.superadmin = true
+      @user = FactoryGirl.create(:user)
+      @chair = FactoryGirl.create(:chair)
+    end
+
+    it 'returns Chairs page for superadmin' do
+      login_with @superadmin
+      get :edit, {id: @chair}
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'returns dashboard page for user' do
+      login_with @user
+      get :edit, {id: @chair}
+      expect(response).to have_http_status(302)
     end
   end
 
