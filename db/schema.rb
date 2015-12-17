@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 20151215185150) do
     t.integer  "travel_expense_report_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.text     "annotation"
   end
 
   add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"

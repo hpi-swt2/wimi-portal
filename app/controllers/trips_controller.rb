@@ -14,6 +14,7 @@ class TripsController < ApplicationController
   end
 
   def edit
+    (2-@trip.trip_datespans.size).times {@trip.trip_datespans.build}
   end
 
   def create

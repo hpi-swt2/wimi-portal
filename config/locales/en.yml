@@ -44,6 +44,11 @@ en:
         one: "User"
         other: "Users"
     attributes:
+      chair:
+        id: "Id"
+        name: "Name"
+        created_at: "Created at"
+        status: "Status"
       project:
         title: "Title"
         created_at: "Created at"
@@ -75,12 +80,39 @@ en:
         created_at: "Created at"
       trip:
         id: "Id"
-        title: "Title"
-        start: "Start"
-        end: "End"
+        destination: "Destination"
+        reason: "Reason"
+        annotation: "Annotations"
+        signature: "Add signature?"
         status: "Status"
         user_id: "User"
         created_at: "Created at"
+      trip_datespan:
+        start_date: "Start at"
+        end_date: "End at"
+        days_abroad: "Days abroad"
+      travel_expense_report:
+        inland: "Inland Travel"
+        country: "Country"
+        location_from: "Starting in"
+        location_via: "Via"
+        location_to: "To"
+        reason: "Reason"
+        date_start: "Start at"
+        vehicle: "Vehicle"
+        date_end: "End at:"
+        car: "Travel by car"
+        public_transport: "Travel by Bus/Train/Plane"
+        vehicle_advance: "Travel paid by HPI"
+        hotel: "Hotel"
+        general_advance: "Advance"
+        signature: "Add signature?"
+      travel_expense_report_item:
+        date: "Date"
+        breakfast: "Breakfast"
+        lunch: "Lunch"
+        dinner: "Dinner"
+        annotation: "Description"
       user:
         id: "Id"
         email: "Email"
@@ -103,9 +135,11 @@ en:
         street: "Street"
         personnel_number: "Staff Number"
         language: "Language"
-
+  
   time:
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+
+  
