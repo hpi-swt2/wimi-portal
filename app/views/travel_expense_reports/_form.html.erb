@@ -11,61 +11,61 @@
     </div>
   <% end %>
 
-  <div class="field" >
+  <div class="control-group" >
     <%= f.label :inland %><br>
     <%= f.check_box :inland , {:onclick => "toggleField(div_inland,field_inland,checkbox_inland)", :id => "checkbox_inland"}%>
   </div>
-  <div class="field" id="div_inland">
+  <div class="control-group" id="div_inland">
     <%= f.label :country %><br>
     <%= f.text_field :country, { :id => "field_inland" }%>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :location_from %><br>
     <%= f.text_field :location_from %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :location_via %><br>
     <%= f.text_field :location_via %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :location_to %><br>
     <%= f.text_field :location_to %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :reason %><br>
     <%= f.text_area :reason %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :date_start %><br>
     <%= f.datetime_select :date_start %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :date_end %><br>
     <%= f.datetime_select :date_end %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :car %><br>
     <%= f.check_box :car %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :public_transport %><br>
     <%= f.check_box :public_transport %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :vehicle_advance %><br>
     <%= f.check_box :vehicle_advance %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :hotel %><br>
     <%= f.check_box :hotel %>
   </div>
-  <div class="field">
+  <div class="control-group">
     <%= f.label :general_advance %><br>
-    <%= f.number_field :general_advance %>
+    <%= f.number_field :general_advance, :value => "0" %>
   </div>
 
   <div id="date_items">
-    <table>
+    <table class="table table-striped">
       <tr>
         <th><%= t('activerecord.attributes.travel_expense_report_item.date') %></th>
         <th><%= t('activerecord.attributes.travel_expense_report_item.breakfast') %></th>

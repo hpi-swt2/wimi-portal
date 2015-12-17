@@ -1,12 +1,11 @@
+<%- model_class = TravelExpenseReport -%>
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Travel Expense Reports</h1>
-
-<table>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human(:count => 2).titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
       <th>Inland</th>
       <th>Country</th>
       <th>Location from</th>
@@ -20,7 +19,6 @@
       <th>Vehicle advance</th>
       <th>Hotel</th>
       <th>General advance</th>
-      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -28,8 +26,6 @@
   <tbody>
     <% @travel_expense_reports.each do |travel_expense_report| %>
       <tr>
-        <td><%= travel_expense_report.first_name %></td>
-        <td><%= travel_expense_report.last_name %></td>
         <td><%= travel_expense_report.inland %></td>
         <td><%= travel_expense_report.country %></td>
         <td><%= travel_expense_report.location_from %></td>
@@ -43,10 +39,9 @@
         <td><%= travel_expense_report.vehicle_advance %></td>
         <td><%= travel_expense_report.hotel %></td>
         <td><%= travel_expense_report.general_advance %></td>
-        <td><%= travel_expense_report.user %></td>
-        <td><%= link_to 'Show', travel_expense_report %></td>
-        <td><%= link_to 'Edit', edit_travel_expense_report_path(travel_expense_report) %></td>
-        <td><%= link_to 'Destroy', travel_expense_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', travel_expense_report ,:class => "btn btn-default btn-xs"%></td>
+        <td><%= link_to 'Edit', edit_travel_expense_report_path(travel_expense_report),:class => "btn btn-default btn-xs" %></td>
+        <td><%= link_to 'Destroy', travel_expense_report, method: :delete, data: { confirm: 'Are you sure?' },:class => "btn btn-danger btn-xs" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -54,4 +49,4 @@
 
 <br>
 
-<%= link_to 'New Travel expense report', new_travel_expense_report_path %>
+<%= link_to t('helpers.links.new'), new_travel_expense_report_path, :class => "btn btn-primary" %>
