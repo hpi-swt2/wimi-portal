@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user]
 
   def index
     @projects = Project.all
@@ -38,6 +38,28 @@ class ProjectsController < ApplicationController
     @project.destroy
     flash[:success] = 'Project was successfully destroyed.'
     redirect_to projects_url
+  end
+
+  def invite_user
+    user = User.find_by_email params[:invite_user][:email]
+    if user.nil?
+      flash[:error] = I18n.t('project.user.doesnt_exist', default: 'Der Benutzer existiert nicht')
+      redirect_to @project
+    else
+      if @project.users.include? user
+        flash[:error] = I18n.t('project.user.already_is_member', default: 'Der Benutzer ist bereits Mitglied dieses Projekts')
+        redirect_to @project
+      else
+        @project.add_user user
+        flash[:success] = I18n.t('project.user.was_successfully_added', default: 'Der Benutzer wurde erfolgreich zum Projekt hinzugefügt.')
+        redirect_to @project
+      end
+    end
+  end
+
+  def typeahead
+    @search = UserSearch.new(typeahead: params[:query])
+    render json: @search.results
   end
 
   private

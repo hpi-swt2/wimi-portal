@@ -57,11 +57,17 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 # Continuation of CanCan (authoriation Gem for RoR)
 gem 'cancancan'
+
+# Typeahead gem
+gem 'bootstrap-typeahead-rails'
+# Search Gem
+gem 'searchlight'
 # for nested forms
 #gem 'cocoon'
 gem 'business_time'
 gem 'holidays'
 gem 'bootstrap-datepicker-rails'
+gem 'whenever'
 
 # For generating pdfs from documents
 gem 'wicked_pdf'

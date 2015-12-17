@@ -28,9 +28,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
   # TravelExpenseReport. As you add validations to TravelExpenseReport, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {:first_name => "Hasso",
-     :last_name => "Plattner",
-     :inland => true,
+    {:inland => true,
      :country => "Germany",
      :location_from => "Potsdam",
      :location_via => "London",
@@ -43,13 +41,12 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      :vehicle_advance=>  false,
      :hotel => true,
      :general_advance =>  2000,
+     :signature => true,
      :user => User.first}
   }
 
   let(:invalid_attributes) {
-    {:first_name => "",
-     :last_name => "Plattner",
-     :inland => true,
+    {:inland => true,
      :country => "Germany",
      :location_from => "Potsdam",
      :location_via => "London",
@@ -62,6 +59,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      :vehicle_advance=>  false,
      :hotel => true,
      :general_advance => -100,
+     :signature => true,
      :user => User.first}
   }
 

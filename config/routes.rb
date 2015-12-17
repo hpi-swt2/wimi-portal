@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   get 'users/edit_leave', to: 'users#edit_leave'
 
   resources :publications
-  resources :projects
+  resources :projects do
+    member do
+      post 'invite_user'
+    end
+  end
   resources :holidays
   resources :expenses
   resources :travel_expense_reports
@@ -28,6 +32,8 @@ Rails.application.routes.draw do
   get 'chairs/:id/requests' => 'requests#requests', :as => 'requests'
 
   post 'trips/apply', to: 'trips#apply'
+
+  get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
 

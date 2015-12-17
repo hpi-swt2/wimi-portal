@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211102142) do
+ActiveRecord::Schema.define(version: 20151215145322) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.integer  "trip_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "status",     default: 1
+    t.integer  "status",     default: 0
   end
 
   add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
@@ -49,15 +49,22 @@ ActiveRecord::Schema.define(version: 20151211102142) do
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "holidays", force: :cascade do |t|
-    t.integer  "status",     default: 1
     t.integer  "user_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.date     "start"
     t.date     "end"
+    t.integer  "status",     default: 0
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
@@ -106,13 +113,12 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.integer  "travel_expense_report_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.text     "annotation"
   end
 
   add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"
 
   create_table "travel_expense_reports", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.boolean  "inland"
     t.string   "country"
     t.string   "location_from"
@@ -129,6 +135,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.boolean  "signature"
   end
 
   add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
@@ -145,15 +152,14 @@ ActiveRecord::Schema.define(version: 20151211102142) do
   add_index "trip_datespans", ["trip_id"], name: "index_trip_datespans_on_trip_id"
 
   create_table "trips", force: :cascade do |t|
-    t.string   "name"
     t.string   "destination"
     t.text     "reason"
     t.text     "annotation"
-    t.string   "signature"
     t.integer  "user_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "status",      default: 1
+    t.integer  "status",      default: 0
+    t.boolean  "signature"
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
@@ -170,6 +176,7 @@ ActiveRecord::Schema.define(version: 20151211102142) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
+    t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
     t.integer  "division_id",               default: 0

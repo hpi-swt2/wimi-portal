@@ -1,12 +1,18 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+ <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @project.title %></dd>
 </dl>
+
+<% content_for :modals do %>
+  <%= render 'invite_user' %>
+<% end %>
+
+<%= link_to t('project.invite_someone_to_project', default: "Jemanden in das Projekt einladen"), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }, class: "btn btn-default pull-right" %>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               projects_path, :class => 'btn btn-default'  %>
