@@ -6,19 +6,14 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Inland</th>
-      <th>Country</th>
-      <th>Location from</th>
-      <th>Location via</th>
-      <th>Location to</th>
-      <th>Reason</th>
-      <th>Date start</th>
-      <th>Date end</th>
-      <th>Car</th>
-      <th>Public transport</th>
-      <th>Vehicle advance</th>
-      <th>Hotel</th>
-      <th>General advance</th>
+      <th><%=model_class.human_attribute_name(:inland)%></th>
+      <th><%=model_class.human_attribute_name(:country)%></th>
+      <th><%=model_class.human_attribute_name(:location_from)%></th>
+      <th><%=model_class.human_attribute_name(:location_via)%></th>
+      <th><%=model_class.human_attribute_name(:location_to)%></th>
+      <th><%=model_class.human_attribute_name(:reason)%></th>
+      <th><%=model_class.human_attribute_name(:date_start)%></th>
+      <th><%=model_class.human_attribute_name(:date_end)%></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -32,16 +27,11 @@
         <td><%= travel_expense_report.location_via %></td>
         <td><%= travel_expense_report.location_to %></td>
         <td><%= travel_expense_report.reason %></td>
-        <td><%= travel_expense_report.date_start %></td>
-        <td><%= travel_expense_report.date_end %></td>
-        <td><%= travel_expense_report.car %></td>
-        <td><%= travel_expense_report.public_transport %></td>
-        <td><%= travel_expense_report.vehicle_advance %></td>
-        <td><%= travel_expense_report.hotel %></td>
-        <td><%= travel_expense_report.general_advance %></td>
-        <td><%= link_to 'Show', travel_expense_report ,:class => "btn btn-default btn-xs"%></td>
-        <td><%= link_to 'Edit', edit_travel_expense_report_path(travel_expense_report),:class => "btn btn-default btn-xs" %></td>
-        <td><%= link_to 'Destroy', travel_expense_report, method: :delete, data: { confirm: 'Are you sure?' },:class => "btn btn-danger btn-xs" %></td>
+        <td><%= l travel_expense_report.date_start %></td>
+        <td><%= l travel_expense_report.date_end %></td>
+        <td><%= link_to t('helpers.links.show_details'), travel_expense_report ,:class => "btn btn-default btn-xs"%></td>
+        <td><%= link_to t('helpers.links.edit'),edit_travel_expense_report_path(travel_expense_report),:class => "btn btn-default btn-xs" %></td>
+        <td><%= link_to t('helpers.links.destroy'), travel_expense_report, method: :delete, data: { confirm: 'Are you sure?' },:class => "btn btn-danger btn-xs" %></td>
       </tr>
     <% end %>
   </tbody>
