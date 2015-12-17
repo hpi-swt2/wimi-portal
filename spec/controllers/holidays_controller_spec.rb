@@ -55,6 +55,13 @@ RSpec.describe HolidaysController, type: :controller do
       get :show, {id: holiday.to_param}, valid_session
       expect(assigns(:holiday)).to eq(holiday)
     end
+
+    it 'redirects to the holidays page if holiday belongs to another user' do
+      user2 = FactoryGirl.create(:user)
+      holiday = Holiday.create(start: Date.today, end: Date.today+1, user_id: user2.id)
+      get :show, {id: holiday.to_param}, valid_session
+      expect(response).to redirect_to(holidays_path)
+    end
   end
 
   describe 'GET #new' do
@@ -108,14 +115,14 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { status: 'Active' }
+        { status: 'applied' }
       }
 
       it 'updates the requested holiday' do
         holiday = Holiday.create! valid_attributes
         put :update, {id: holiday.to_param, holiday: new_attributes}, valid_session
         holiday.reload
-        expect(holiday.status).to eq('Active')
+        expect(holiday.status).to eq('applied')
       end
 
       it 'assigns the requested holiday as @holiday' do

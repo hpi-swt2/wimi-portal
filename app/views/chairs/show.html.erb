@@ -3,7 +3,7 @@
   <h1><%= @chair.name %></h1>
 </div>
 
-<p><%= I18n.t('roles.chair_representative.long', default: 'Chair Representative') %>: <%= link_to @chair.chair_wimis.find_by(representative: true).user.name, 'http://google.com' %></p>
+<p><%= I18n.t('roles.chair_representative.long', default: 'Chair Representative') %>: <%= @chair.chair_wimis.find_by(representative: true).user.name %></p>
 
 <strong><%= I18n.t('chair.applications.long_plural', default: 'Applications') %>:</strong>
 <br>
@@ -17,8 +17,10 @@
   <tr>
     <td><%= request.user.name %></td>
     <td>
+      <% if current_user.is_admin? %>
       <%= link_to I18n.t('chair.applications.accept', default: 'Accept'), chairs_accept_path(:id => @chair, :request => request), :method => :post, :class => 'btn btn-default btn-xs' %>
       <%= link_to I18n.t('chair.applications.decline', default: 'Decline'), chairs_remove_user_path(:id => @chair, :request => request), :method => :post, :class => 'btn btn-default btn-xs' %>
+      <% end %>
     </td>
   </tr>
   <% end %>
@@ -31,14 +33,22 @@
   <% @chair.wimis.each do |wimi| %>
   <tr>
     <td><%= wimi.name %></td>
-    <td><%= I18n.t('chair.wimi.show_requests', default: 'Show Requests') %></td>
+    <td><% if current_user.is_representative?(@chair) %><%= I18n.t('chair.wimi.show_requests', default: 'Show Requests') %><% end %></td>
     <td>
-      <% if wimi.chair_wimi.admin %><%= I18n.t('roles.admin.long', default: 'Administrator') %>
-      <% elsif wimi.chair_wimi.representative %><%= I18n.t('roles.chair_representative.long', default: 'Chair Representative') %>
+
+      <% if wimi.is_admin?(@chair) %><%= I18n.t('roles.admin.long', default: 'Administrator') %>
+        <% if current_user.is_admin?(@chair) %>
+          <%= link_to '(Rechte entziehen)', chairs_withdraw_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %>
+        <% end %>
+      <% elsif wimi.is_representative?(@chair) %>
+        <%= I18n.t('roles.chair_representative.long', default: 'Chair Representative') %>
+      <% else %>
+        <% if current_user.is_admin?(@chair) %><%= link_to 'Als Admin ernennen', chairs_set_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %><% end %>
       <% end %>
+
     </td>
     <td>
-      <% if wimi.id != current_user.id %>
+      <% if wimi.id != current_user.id && current_user.is_admin?(@chair) %>
         <%= link_to I18n.t('chair.wimi.remove_from_chair', default: 'Remove from chair'), chairs_remove_user_path(:id => @chair, :request => wimi.chair_wimi), :method => :post, :class => 'btn btn-default btn-xs' %>
       <% end %>
     </td>
