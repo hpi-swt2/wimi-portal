@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :wimi, class: 'User' do
-    first_name          'Jim'
+    first_name          'John'
     last_name           'Doe'
-    sequence(:email)    { |n| 'person#{n}@example.com' }
+    sequence(:email)    { |n| "person#{n}@example.com" }
     chair               FactoryGirl.create(:chair)
     projects            {build_list :project, 1}
 
