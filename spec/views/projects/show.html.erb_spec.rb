@@ -2,11 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'projects/show', type: :view do
   before(:each) do
-    @project = assign(:project, Project.create!(:title => 'My Project'))
-    @wimi = FactoryGirl.create(:wimi)
+
+    @wimi = FactoryGirl.create(:chair_representative, first_name:'Theresa', last_name:'Zobel', superadmin: true)
     @user = FactoryGirl.create(:user)
+    # @project = assign(:project, Project.create!(:title => 'My Project'))
   end
 
+
+  it 'has information about the project on page as a Wimi' do
+    login_as @wimi
+    @project = FactoryGirl.create(:project, title:'BP1', chair: @wimi.chair, project_leader:'')
+    byebug
+    visit "/projects/#{@project.id}"
+    # print page.html
+
+    # expect(page).to have_content(@project.title)
+    # expect(page).to have_content(@project.chair.name)
+    # expect(page).to have_content(@project.chair.representative.user.name)
+    # expect(page).to have_content(@project.status)
+    # expect(page).to have_content(@project.public)
+    # expect(page).to have_content(@wimi.name)
+  end
 
 
   # it 'has information about the project on page as Hiwi' do

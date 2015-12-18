@@ -79,7 +79,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.2'
   gem 'capybara', '~> 2.5'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', require: false
 end
 
 group :development do
