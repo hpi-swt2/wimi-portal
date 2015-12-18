@@ -1,0 +1,233 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Reisekostenabrechnung</title>
+<%= wicked_pdf_stylesheet_link_tag css_file %>
+</head>
+<body class='pdf-document'>
+
+<div class='header-block'>
+  <span class='big-headline' styles='text-decoration: none'>Reisekostenabrechnung</span>
+  <p style='margin-bottom:40px'>&nbsp;</p>
+  <div class='logo' style='right:0'>
+    <img width='140px' src='<%= hpi_logo %>'>
+  </div>
+</div>
+
+<div class'doc-body'>
+<div class='seperating-line'>&nbsp;</div>
+
+<b>Name</b>
+<div class='input-block' style='margin-right: 70px; display: inline; border-bottom:solid 1.0pt'>
+  <span><%= report.last_name %></span>
+</div>
+<div style='text-align: right; display: inline'>
+  <b>Vorname</b>
+  <div class='input-block' style='display: inline; border-bottom:solid 1.0pt'>
+    <span><%= report.first_name %></span>
+  </div>
+</div>
+
+<p style='margin:0px'>&nbsp;</p>
+
+<b>Inlandsreise</b>
+<div class='input-block' style='margin-right: 130px; display: inline'>
+  <input type='checkbox' <%= report.inland ? 'checked' : '' %> ></input>
+</div>
+<div style='text-align: right; display: inline'>
+  <b>Auslandsreise</b>
+  <div class='input-block' style='display: inline'>
+    <input type='checkbox' <%= report.inland ? '' : 'checked' %> ></input>
+  </div>
+</div>
+
+<p style='margin:0px'>&nbsp;</p>
+
+<div style='margin-left: 260px'>
+  Land:
+  <div class='input-block' style='border-bottom:solid 1.0pt; display:inline'>
+    <span><%= report.country %></span>
+  </div>
+</div>
+
+<div class='seperating-line'>&nbsp;</div>
+
+<b>Abfahrtsort</b>&nbsp;
+<div class='input-block' style='margin-right: 35px; display: inline; border-bottom:solid 1.0pt'>
+  <span><%= report.location_from %></span>
+</div>
+<div style='text-align: right; display: inline'>
+  <b>Zwischenort</b>
+  <div class='input-block' style='display: inline; border-bottom:solid 1.0pt'>
+    <span><%= report.location_via %></span>
+  </div>
+</div>
+<p style='margin:0px'>&nbsp;</p>
+
+<b>Zielort</b>
+<div class='input-block' style='margin-left: 50px; display: inline; border-bottom:solid 1.0pt'>
+  <span><%= report.location_to %></span>
+</div>
+<p style='margin:0px'>&nbsp;</p>
+
+<b>Zweck der Reise</b>&nbsp;
+
+<% reason_splitted.each do |reason_line| %>
+  <div class='input-block' style='margin: 10px 30px; text-align: center; border-bottom:solid 1.0pt; right: 0'>
+    <span><%= reason_line %></span>
+  </div>
+<% end %>
+<% (2 - reason_splitted.size).times do |i| %>
+  <div class='input-block' style='margin: 10px 30px; text-align: center; border-bottom:solid 1.0pt; right: 0'>
+    <span>&nbsp;</span>
+  </div>
+<% end %>
+
+<div class='seperating-line'>&nbsp;</div>
+
+<table style='border-spacing: 10px'>
+  <tr>
+    <td width='90'><b>Reisebeginn</b></td>
+    <td width='65'>Datum:</td>
+    <td>
+      <div class='input-block' style='display: inline; border-bottom:solid 1.0pt'>
+        <span>&nbsp;<%= report.date_start.strftime("%d.%m.%Y") %>&nbsp;</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Uhrzeit:</td>
+    <td>
+      <div class='input-block' style='display: inline; border-bottom:solid 1.0pt'>
+        <span>&nbsp;<%= report.date_start.strftime("%H:%M") %>&nbsp;</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td width='90'><b>Reiseende</b></td>
+    <td width='65'>Datum:</td>
+    <td>
+      <div class='input-block' style='display: inline; border-bottom:solid 1.0pt'>
+        <span>&nbsp;<%= report.date_end.strftime("%d.%m.%Y") %>&nbsp;</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Uhrzeit:</td>
+    <td>
+      <div class='input-block' style='display: inline; border-bottom:solid 1.0pt'>
+        <span>&nbsp;<%= report.date_end.strftime("%H:%M") %>&nbsp;</span>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<div class='seperating-line'>&nbsp;</div>
+
+<table style='border-spacing: 15px; margin-bottom: 40px'>
+  <tr>
+    <td colspan=3><b>Fahrzeug</b></td>
+  </tr>
+  <tr>
+    <td>PKW <input type='checkbox' <%= report.car ? "checked" : "" %> ></input></td>
+    <td colspan=2>Bus/Bahn/Flug &nbsp; <input type='checkbox' <%= report.public_transport ? "checked" : "" %> ></input></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+      vom HPI im Voraus bezahlt &nbsp;&nbsp;&nbsp;
+      ja <input type='checkbox' style='margin-right: 50px' <%= report.vehicle_advance ? "checked" : "" %> ></input>
+      nein <input type='checkbox' <%= report.vehicle_advance ? "" : "checked" %> ></input>
+</table>
+
+
+<div class='page-break'></div>
+
+
+<b>Übernachtung</b><br/><br/>
+&nbsp; privat <input type='checkbox' style='margin-right: 70px' <%= report.hotel ? "" : "checked" %> ></input>
+Hotel (mit Beleg) <input type='checkbox' <%= report.hotel ? "checked" : "" %>></input>
+
+<div class='seperating-line'>&nbsp;</div>
+
+<b>Tagensangaben Beköstigung</b><br/><br/>
+
+Bitte ankreuzen, welche Mahlzeiten eingenommen wurden,
+aber nicht seperat aus privaten Mitteln bezahlt worden sind
+(z.B. Frühstück im Hotel).<br/><br/>
+<table class='pdf_costs_table' cellspacing=10>
+  <tr>
+    <td width=110 style='padding-left:10;text-align:left'>Datum</td>
+    <td width=40>F</td>
+    <td width=40>M</td>
+    <td width=40>A</td>
+    <td width=140>&nbsp;</td>
+  </tr>
+  <% report.travel_expense_report_items.each do |report_item|%>
+    <tr>
+      <td>
+        <div class="underlined-field">
+          <%= report_item.date %>
+        </div>
+      </td>
+      <td><input type='checkbox' <%= report_item.breakfast ? "checked" : "" %> ></input></td>
+      <td><input type='checkbox' <%= report_item.lunch ? "checked" : "" %> ></input></td>
+      <td><input type='checkbox' <%= report_item.dinner ? "checked" : "" %> ></input></td>
+      <td></td>
+    </tr>
+  <% end %>
+  <% (9 - report.travel_expense_report_items.size).times do |i| %>
+    <tr>
+      <td>
+        <div class="underlined-field">
+          &nbsp;
+        </div>
+      </td>
+      <td><input type='checkbox'></input></td>
+      <td><input type='checkbox'></input></td>
+      <td><input type='checkbox'></input></td>
+      <td>&nbsp;</td>
+    </tr>
+  <% end %>
+  <!-- For loop (9 times) -->
+  <tr>
+    <td colspan=5 style='text-align:left'>
+      (F - Frühstück, M - Mittagessen, A - Abendessen)
+    </td>
+  </tr>
+</table>
+
+<div class='seperating-line'>&nbsp;</div>
+
+<b>Vorschuss</b><br/><br/>
+&nbsp; Ja <input type='checkbox' style='margin-right: 180px' <%= report.general_advance > 0 ? "checked" : "" %> ></input>
+Nein <input type='checkbox' <%= report.general_advance <= 0 ? "checked" : "" %> ></input><br/><br/>
+&nbsp; Höhe:
+<div class='input-block' style='margin-left: 5px; display: inline; border-bottom:solid 1.0pt'>
+  <span><%= report.general_advance %></span>
+</div>
+<p style='margin:0px'>&nbsp;</p>
+
+<div class='seperating-line'>&nbsp;</div>
+
+<b>Datum</b> &nbsp;
+<div class='input-block' style='margin-right: 35px; display: inline; border-bottom:solid 1.0pt'>
+  <span><%= Date.today.strftime("%d.%m.%Y") %></span>
+</div>
+<div style='text-align: right; display: inline'>
+  <b>Unterschrift</b> &nbsp;
+  <div class='input-block' style='display: inline; border-bottom:solid 1.0pt'>
+    <span style="padding-right:100px">&nbsp;</span>
+  </div>
+</div>
+
+
+
+
+</div>
+
+</body>
+
+</html>

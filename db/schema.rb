@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215142703) do
+ActiveRecord::Schema.define(version: 20151215145322) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20151215142703) do
     t.integer  "travel_expense_report_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.text     "annotation"
   end
 
   add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"
