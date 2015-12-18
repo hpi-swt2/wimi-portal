@@ -32,6 +32,17 @@ class User < ActiveRecord::Base
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
 
+  has_many :holidays
+  has_many :expenses
+  has_many :trips
+  has_many :project_applications, dependent: :destroy
+  has_many :notifications
+
+  has_and_belongs_to_many :publications
+  has_and_belongs_to_many :projects
+  has_one :chair_wimi
+  has_one :chair, through: :chair_wimi
+
   DIVISIONS = [ '',
       'Enterprise Platform and Integration Concepts',
       'Internet-Technologien und Systeme',
@@ -58,18 +69,6 @@ class User < ActiveRecord::Base
   ]
 
   INVALID_EMAIL = 'invalid_email'
-
-  has_many :holidays
-  has_many :expenses
-  has_many :trips
-  has_many :project_applications, dependent: :destroy
-  has_many :notifications
-
-  has_and_belongs_to_many :publications
-  has_and_belongs_to_many :projects
-  has_one :chair_wimi
-  has_one :chair, through: :chair_wimi
-
 
   # TODO: implement signature upload, this is a placeholder
   def signature
