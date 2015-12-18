@@ -15,28 +15,36 @@ class Ability
   end
 
   def initialize_superadmin(user)
-    cannot  :manage,  :all
     can     :create,  Chair
     can     :edit,    Chair
+    #assign representative/admin role to user
   end
 
   def initialize_admin(user)
-    cannot  :manage,  :all
+    #can :manage, own chair
+    #can accept application from wimi to project
+    #can remove wimis from project
+    initialize_wimi user
   end
 
   def initialize_representative(user)
-    cannot  :manage,  :all
+    #can accept, Anträge
+    #can show, Holidays of chair members
   end
 
   def initialize_wimi(user)
-    cannot  :manage,  :all
+    can :crud, Project
+    #can :set aktive/inaktive
+    #can :manage, Documents of hiwis in own projects
   end
 
   def initialize_hiwi(user)
-    cannot  :manage,  :all
+    # can :accept_invitation, Project
+    # can :manage, Stundenzettel
   end
 
   def initialize_user(user)
-    cannot  :manage,  :all
+    can :apply, Chair
+    # can :accept_invitation, Project
   end
 end
