@@ -77,6 +77,20 @@ RSpec.describe ChairsController, type: :controller do
       post :accept_request, {id: @chair, request: ChairWimi.find_by(user: @user)}
       expect(Chair.find(@chair.id).wimis.count).to eq(wimi_count+1)
     end
+
+    it 'sets admin and withdraws' do
+      login_with @admin
+      post :set_admin, {id: @chair, request: ChairWimi.find_by(user: @wimi)}
+      expect(User.find(@wimi.id).is_admin?(@chair)).to eq(true)
+      post :withdraw_admin, {id: @chair, request: ChairWimi.find_by(user: @wimi)}
+      expect(User.find(@wimi.id).is_admin?(@chair)).to eq(false)
+    end
+
+    it 'withdraws admin rights of last admin' do
+      login_with @admin
+      post :withdraw_admin, {id: @chair, request: ChairWimi.find_by(user: @admin)}
+      expect(User.find(@admin.id).is_admin?(@chair)).to eq(true)
+    end
   end
 
 

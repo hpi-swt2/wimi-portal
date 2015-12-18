@@ -46,11 +46,23 @@ class User < ActiveRecord::Base
       'School of Design Thinking',
       'Knowledge Discovery and Data Mining']
 
+  LANGUAGES = [
+    [
+      'English',
+      'en'
+    ],
+    [
+      'Deutsch',
+      'de'
+    ],
+  ]
+
   INVALID_EMAIL = 'invalid_email'
 
   has_many :holidays
   has_many :expenses
   has_many :trips
+  has_many :notifications
 
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
@@ -60,6 +72,11 @@ class User < ActiveRecord::Base
   validates :personnel_number, numericality: { only_integer: true }, inclusion: 0..999999999
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
+
+  # TODO: implement signature upload, this is a placeholder
+  def signature
+    'placeholder'
+  end
 
   def name
     "#{first_name} #{last_name}"
@@ -75,8 +92,29 @@ class User < ActiveRecord::Base
     not is_wimi? and not is_superadmin? and not is_hiwi?
   end
 
+  def prepare_leave_for_new_year
+    self.remaining_leave_last_year = self.remaining_leave
+    self.remaining_leave = 28
+  end
+
   def is_wimi?
     not chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
+  end
+
+  def is_representative?(opt_chair = false)
+    return false if chair_wimi.nil?
+    if opt_chair
+      return false if opt_chair != chair
+    end
+    return chair_wimi.representative
+  end
+
+  def is_admin?(opt_chair = false)
+    return false if chair_wimi.nil?
+    if opt_chair
+      return false if opt_chair != chair
+    end
+    return chair_wimi.admin
   end
 
   def is_hiwi?
@@ -112,11 +150,14 @@ class User < ActiveRecord::Base
         value = value.first
       end
 
+      # if no email is saved yet and we receive no address, set INVALID_EMAIL as address, otherwise save the received value
       if key.to_s == "http://axschema.org/contact/email"
-        if value.nil?
-          update_attribute(:email, INVALID_EMAIL)
-        else
-          update_attribute(:email, value)
+        if email.blank?
+          if value.blank?
+            update_attribute(:email, INVALID_EMAIL)
+          else
+            update_attribute(:email, value)
+          end
         end
       end
     end

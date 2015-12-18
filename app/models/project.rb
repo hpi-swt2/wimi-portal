@@ -17,6 +17,12 @@ class Project < ActiveRecord::Base
   has_many :publications
   has_many :expenses
   belongs_to :chair
+
+  def add_user(user)
+    users << user
+    user.notifications << Notification.create(message: I18n.t('project.was_added_to_project', title: title,  default: "Du wurdest zum Projekt '#{title}' hinzugefügt."))
+  end
+
   validates :title, presence: true
 
   def hiwis
