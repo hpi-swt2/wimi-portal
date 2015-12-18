@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe DashboardController, type: :controller do
   it 'returns http success' do
-  	login_with create(:user)
+    login_with create(:user)
     get :index
     expect(response).to have_http_status(:success)
   end
@@ -13,9 +13,8 @@ RSpec.describe DashboardController, type: :controller do
   end
 
   it 'renders the Dashboard template' do
-  	login_with create(:user)
-  	get :index
+    login_with create(:user)
+    get :index
     expect(response).to render_template('index')
   end
-
 end

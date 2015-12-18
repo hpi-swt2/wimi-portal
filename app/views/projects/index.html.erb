@@ -1,6 +1,6 @@
 <%- model_class = Project -%>
-<div class='page-header'>
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human(:count => 2).titleize %></h1>
 </div>
 <table class='table table-striped'>
   <thead>
@@ -13,8 +13,8 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= link_to project.title, project_path(project)%></td>
-        <td><%= project.created_at %></td>
+        <td><%= link_to project.title, project %></td>
+        <td><%=l project.created_at %></td>
         <td>
           <% if can? :create, ProjectApplication %>
             <% if project.project_applications.exists?(user_id: current_user.id) %>

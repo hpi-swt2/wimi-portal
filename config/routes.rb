@@ -2,9 +2,6 @@ Rails.application.routes.draw do
   resources :chair_applications
   resources :chairs
 
-  resources :expenses
-  resources :holidays
-
   resources :project_applications, only: [:index, :destroy] do
     member do
       get 'accept'
@@ -16,20 +13,37 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'documents/generate_pdf' => 'documents#generate_pdf', :as => 'generate_pdf'
+
   root 'dashboard#index'
   get 'dashboard', to: 'dashboard#index'
   get 'users/edit_leave', to: 'users#edit_leave'
 
-  resources :projects
   resources :publications
-  resources :trips
+  resources :projects do
+    member do
+      post 'invite_user'
+    end
+  end
+  resources :holidays
   resources :expenses
-  resources :chairs
+  resources :travel_expense_reports
+  resources :trips do
+    member do
+      get 'download'
+    end
+  end
   
   post 'chairs/apply', to: 'chairs#apply'
   post 'chairs/accept', to: 'chairs#accept_request'
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'
   post 'chairs/destroy', to: 'chairs#destroy'
+  post 'chairs/set_admin', to: 'chairs#set_admin'
+  post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
+
+  get 'chairs/:id/requests' => 'requests#requests', :as => 'requests'
+
+  get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
 

@@ -13,13 +13,13 @@
 #  last_name                 :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  identity_url              :string
-#  remaining_leave_this_year :integer          default(28)
-#  remaining_leave_next_year :integer          default(28)
 #  residence                 :string
 #  street                    :string
 #  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
+#  remaining_leave           :integer          default(28)
+#  remaining_leave_last_year :integer          default(0)
+#  identity_url              :string
 #
 
 class User < ActiveRecord::Base
@@ -46,18 +46,36 @@ class User < ActiveRecord::Base
       'School of Design Thinking',
       'Knowledge Discovery and Data Mining']
 
+  LANGUAGES = [
+    ['', ''],
+    [
+      'English',
+      'en'
+    ],
+    [
+      'Deutsch',
+      'de'
+    ],
+  ]
+
   INVALID_EMAIL = 'invalid_email'
 
   has_many :holidays
   has_many :expenses
   has_many :trips
   has_many :project_applications, dependent: :destroy
+  has_many :notifications
 
   has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
 
+
+  # TODO: implement signature upload, this is a placeholder
+  def signature
+    'placeholder'
+  end
 
   def name
     "#{first_name} #{last_name}"
@@ -67,6 +85,11 @@ class User < ActiveRecord::Base
     first, last = fullname.split(' ')
     self.first_name = first
     self.last_name = last
+  end
+
+  def prepare_leave_for_new_year
+    self.remaining_leave_last_year = self.remaining_leave
+    self.remaining_leave = 28
   end
 
   def is_wimi?
@@ -79,12 +102,20 @@ class User < ActiveRecord::Base
     return (projects.size > 0 && !is_wimi?)
   end
 
-  def is_admin?
-    chair_wimi and chair_wimi.admin
+  def is_representative?(opt_chair = false)
+    return false if chair_wimi.nil?
+    if opt_chair
+      return false if opt_chair != chair
+    end
+    return chair_wimi.representative
   end
 
-  def is_representative?
-    chair_wimi and chair_wimi.representative
+  def is_admin?(opt_chair = false)
+    return false if chair_wimi.nil?
+    if opt_chair
+      return false if opt_chair != chair
+    end
+    return chair_wimi.admin
   end
 
   def is_superadmin?
@@ -108,11 +139,14 @@ class User < ActiveRecord::Base
         value = value.first
       end
 
+      # if no email is saved yet and we receive no address, set INVALID_EMAIL as address, otherwise save the received value
       if key.to_s == "http://axschema.org/contact/email"
-        if value.nil?
-          update_attribute(:email, INVALID_EMAIL)
-        else
-          update_attribute(:email, value)
+        if email.blank?
+          if value.blank?
+            update_attribute(:email, INVALID_EMAIL)
+          else
+            update_attribute(:email, value)
+          end
         end
       end
     end
