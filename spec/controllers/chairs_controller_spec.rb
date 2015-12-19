@@ -6,9 +6,9 @@ RSpec.describe ChairsController, type: :controller do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @admin = FactoryGirl.create(:user)
-      ChairWimi.create(:user => @admin, :chair => @chair, :admin => true, :application => 'accepted')
+      FactoryGirl.create(:chair_wimi, user: @admin, chair: @chair, admin: true, application: 'accepted')
       @wimi = FactoryGirl.create(:user)
-      ChairWimi.create(:user => @wimi, :chair => @chair, :application => 'accepted')
+      FactoryGirl.create(:chair_wimi, user: @wimi, chair: @chair, admin: true, application: 'accepted')
       @user = FactoryGirl.create(:user)
       @superadmin = FactoryGirl.create(:user)
       @superadmin.superadmin = true
@@ -43,23 +43,9 @@ RSpec.describe ChairsController, type: :controller do
       expect(response).to redirect_to(chairs_path)
     end
 
-    it 'creates a new Wimi application' do
-      login_with @user
-      expect {
-        post :apply, {chair: @chair}
-      }.to change(ChairWimi, :count).by(1)
-
-      # a user has 0..1 applications
-      expect {
-        post :apply, {chair: @chair}
-      }.to change(ChairWimi, :count).by(0)
-    end
-
     it 'removes wimi from chair' do
       login_with @admin
       post :remove_from_chair, {id: @chair, request: @wimi.chair_wimi}
-      print @wimi.reload.name
-      print @wimi.reload.is_wimi?
       expect(@wimi.reload.is_wimi?).to eq(false)
     end
 
@@ -67,15 +53,6 @@ RSpec.describe ChairsController, type: :controller do
       login_with @admin
       post :remove_from_chair, {id: @chair, request: @admin.chair_wimi}
       expect(@wimi.reload.is_wimi?).to eq(true)
-    end
-
-    it 'accepts application request' do
-      wimi_count = @chair.wimis.count
-      login_with @user
-      post :apply, {chair: @chair}
-      login_with @admin
-      post :accept_request, {id: @chair, request: ChairWimi.find_by(user: @user)}
-      expect(Chair.find(@chair.id).wimis.count).to eq(wimi_count+1)
     end
 
     it 'sets admin and withdraws' do
@@ -93,6 +70,49 @@ RSpec.describe ChairsController, type: :controller do
     end
   end
 
+    describe 'POST #apply' do
+      before :each do
+        @chair = FactoryGirl.create(:chair)
+        @user = FactoryGirl.create(:user)
+      end
+
+      it 'applies for a chair' do
+        login_with @user
+        expect {
+          post :apply, { chair: @chair }
+        }.to change(ChairWimi, :count).by(1)
+        expect(ChairWimi.find_by(user: @user, chair: @chair).application).to eq 'pending'
+      end
+
+      it 'creates only one new chair application' do
+        login_with @user
+        expect {
+          post :apply, { chair: @chair }
+        }.to change(ChairWimi, :count).by(1)
+
+        expect {
+          post :apply, { chair: @chair }
+        }.to change(ChairWimi, :count).by(0)
+      end
+    end
+
+  describe 'POST #accept_request' do
+    it 'accepts a hiwi' do
+      chair = FactoryGirl.create(:chair)
+      user = FactoryGirl.create(:user)
+      pending_wimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      admin = FactoryGirl.create(:user)
+      FactoryGirl.create(:chair_wimi, user: admin, chair: chair, admin: true, application: 'accepted')
+
+      login_with admin
+      old_wimi_amount = chair.wimis.count
+      post :accept_request, { id: chair, request: pending_wimi }
+      pending_wimi.reload
+      expect(pending_wimi.application).to eq 'accepted'
+      chair.reload
+      expect(chair.wimis.count).to eq(old_wimi_amount + 1)
+      end
+    end
 
   describe 'GET #new' do
     before(:each) do
