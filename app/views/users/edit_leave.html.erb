@@ -15,5 +15,5 @@
     <%= error_span(@user[:remaining_leave_last_year]) %>
   </div>
   <%= f.submit t('.save'), class: 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(@user), class: 'btn btn-danger' %>
+  <%= link_to t('.cancel', default: t("helpers.links.cancel")), user_path(@user), class: 'btn btn-danger' %>
 <% end %>
