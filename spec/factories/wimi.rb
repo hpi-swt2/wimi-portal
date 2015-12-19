@@ -3,7 +3,7 @@ FactoryGirl.define do
     first_name          'Jim'
     last_name           'Doe'
     sequence(:email)    { |n| "person#{n}@example.com" }
-    chair               FactoryGirl.create(:chair, name: 'EPIC')
+    chair               {FactoryGirl.create(:chair, name: 'EPIC')}
 
 
     after(:create) do |user|
