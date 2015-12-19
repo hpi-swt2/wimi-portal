@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'requests/requests.html.erb', type: :view do
+RSpec.describe 'chairs/requests.html.erb', type: :view do
   before :each do
     @user = FactoryGirl.create(:user)
     @chair = FactoryGirl.create(:chair)

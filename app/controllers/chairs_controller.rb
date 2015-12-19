@@ -1,6 +1,6 @@
 class ChairsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update,  :set_admin, :withdraw_admin]
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = 'You are not authorized to visit this page.'
@@ -85,6 +85,10 @@ class ChairsController < ApplicationController
     end
   end
 
+  def requests
+    @allrequests = @chair.get_all_requests
+  end
+
   def set_admin
     chair_wimi = ChairWimi.find(params[:request])
     chair_wimi.admin = true
@@ -128,7 +132,6 @@ class ChairsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_chair
     @chair = Chair.find(params[:id])
   end
@@ -136,5 +139,4 @@ class ChairsController < ApplicationController
   def chair_params
     params.require(:chair).permit(:name)
   end
-
 end
