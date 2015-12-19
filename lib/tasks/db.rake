@@ -1,5 +1,5 @@
 namespace :db do
-  task :add_demo_data => :environment do
+  task add_demo_data: :environment do
     Project.create(title: "Softwaretechnik II")
     User.create(email: "test@test.de",
       sign_in_count: 1,

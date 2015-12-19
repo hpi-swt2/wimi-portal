@@ -13,7 +13,7 @@ class DocumentsController < ApplicationController
           'documents/'<<@doc_type<<'.html.erb',
           layout: false,
           locals: @tmp_vars))
-        send_data(pdf, filename: @doc_type<<'.pdf',  :type=> 'application/pdf')
+        send_data(pdf, filename: @doc_type << '.pdf',  type: 'application/pdf')
       end
   end
 
