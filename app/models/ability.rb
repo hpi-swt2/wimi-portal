@@ -3,13 +3,17 @@ class Ability
 
   def initialize(user)
     unless user.nil?
-      initialize_admin user and return if user.is_admin?
-      initialize_representative user and return if user.is_representative?
-      initialize_wimi user and return if user.is_wimi?
+      check_functions = [ :is_admin?, :is_representative?,
+        :is_wimi?, :is_superadmin?, :is_hiwi?, :is_user? ]
+      initialize_functions = [ :initialize_admin, :initialize_representative,
+        :initialize_wimi, :initialize_superadmin, :initialize_hiwi, :initialize_user ]
 
-      initialize_superadmin user and return if user.is_superadmin?
-      initialize_hiwi user and return if user.is_hiwi?
-      initialize_user user and return if user.is_user?
+      check_functions.each_with_index do |check_func, index|
+        if user.send check_func
+          self.send initialize_functions[index], user
+          return
+        end
+      end
     end
   end
 
@@ -32,6 +36,7 @@ class Ability
   end
 
   def initialize_representative(user)
+    initialize_wimi user
     can :read,      Chair
     can :requests,  Chair do |chair|
       user.is_representative?(chair)
@@ -40,6 +45,7 @@ class Ability
   end
 
   def initialize_admin(user)
+    initialize_wimi user
     can :read,              Chair
     can :accept_request,    Chair
     can :remove_from_chair, Chair
