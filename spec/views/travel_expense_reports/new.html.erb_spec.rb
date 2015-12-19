@@ -3,19 +3,19 @@ require 'rails_helper'
 RSpec.describe "travel_expense_reports/new", type: :view do
   before(:each) do
     assign(:travel_expense_report, TravelExpenseReport.new(
-      :inland => true,
-      :country => "MyString",
-      :location_from => "MyString",
-      :location_via => "MyString",
-      :location_to => "MyString",
-      :reason => "MyText",
-      :car => false,
-      :public_transport => false,
-      :vehicle_advance => false,
-      :hotel => false,
-      :general_advance => 1,
-      :signature => false,
-      :user => FactoryGirl.create(:user)
+      inland: true,
+      country: "MyString",
+      location_from: "MyString",
+      location_via: "MyString",
+      location_to: "MyString",
+      reason: "MyText",
+      car: false,
+      public_transport: false,
+      vehicle_advance: false,
+      hotel: false,
+      general_advance: 1,
+      signature: false,
+      user: FactoryGirl.create(:user)
     ))
   end
 

@@ -11,9 +11,9 @@ class DocumentsController < ApplicationController
 
         pdf = WickedPdf.new.pdf_from_string(render_to_string(
           'documents/'<<@doc_type<<'.html.erb',
-          :layout => false,
-          :locals => @tmp_vars))
-        send_data(pdf, :filename => @doc_type<<'.pdf',  :type=> 'application/pdf')
+          layout: false,
+          locals: @tmp_vars))
+        send_data(pdf, filename: @doc_type<<'.pdf',  :type=> 'application/pdf')
       end
   end
 

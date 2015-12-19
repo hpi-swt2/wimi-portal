@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TravelExpenseReport, type: :model do
   before :each do
-    @Report = FactoryGirl.create(:travel_expense_report, :user => FactoryGirl.create(:user))
+    @Report = FactoryGirl.create(:travel_expense_report, user: FactoryGirl.create(:user))
   end
 
   context "with valid input" do
