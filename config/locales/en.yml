@@ -136,11 +136,10 @@ en:
         personnel_number: "Staff Number"
         division_id: "Division"
         language: "Language"
-  
+    chair:
+      not_authorized: "You're not authorized to do that for this chair."
   time:
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"
-
-  

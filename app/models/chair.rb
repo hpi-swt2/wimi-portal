@@ -103,7 +103,6 @@ class Chair < ActiveRecord::Base
 
   def get_all_requests
     allrequests = Array.new
-
     users.each do |user|
       user.holidays.each do |holidays|
         unless holidays.status == 'saved'

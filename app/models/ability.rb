@@ -36,7 +36,6 @@ class Ability
     can :requests,  Chair do |chair|
       user.is_representative?(chair)
     end
-    #can accept, Anträge
     #can show, Holidays of chair members
   end
 

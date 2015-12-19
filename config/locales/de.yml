@@ -124,7 +124,7 @@ de:
         last_sign_in_at: "Letzte Anmeldung am"
         current_sign_in_ip: "IP für aktuelle Anmeldung"
         last_sign_in_ip: "IP der letzten Anmeldung"
-        first: "Vorname"
+        first_name: "Vorname"
         last_name: "Nachname"
         created_at: "Erstellungsdatum"
         current_password: "Aktuelles Passwort"
@@ -137,6 +137,8 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
+    chair:
+      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
       default: "%d/%m/%Y"

@@ -3,7 +3,7 @@ class ChairsController < ApplicationController
   before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = 'You are not authorized to visit this page.'
+    flash[:error] = I18n.t('chair.not_authorized')
     redirect_to chairs_path
   end
 
