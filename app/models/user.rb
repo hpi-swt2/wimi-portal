@@ -41,7 +41,6 @@ class User < ActiveRecord::Base
       'Knowledge Discovery and Data Mining']
 
   LANGUAGES = [
-    ['', ''],
     [
       'English',
       'en'

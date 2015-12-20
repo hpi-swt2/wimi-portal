@@ -10,6 +10,6 @@ RSpec.describe "trips/show", type: :view do
     expect(rendered).to match(/Destination/)
     expect(rendered).to match(/Hana Things/)
     expect(rendered).to match(/NYC/)
-    expect(rendered).to match(/Signature/)
+    expect(rendered).to match(/signature/)
   end
 end
