@@ -18,7 +18,7 @@ describe 'project inviations' do
     FactoryGirl.create(:invitation, user: @user, project: @project)
     visit '/dashboard'
     click_on 'Accept'
-    expect(page).to have_content 'You are now a member of this project!'
+    expect(page).to have_content 'You are now a member of this project.'
     @project.reload
     expect(@project.users.size).to eq 1
   end
