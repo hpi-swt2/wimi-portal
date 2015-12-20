@@ -57,4 +57,5 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::DSL
+
 end

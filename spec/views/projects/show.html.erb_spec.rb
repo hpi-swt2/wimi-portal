@@ -10,7 +10,7 @@ RSpec.describe 'projects/show', type: :view do
     representative = FactoryGirl.create(:chair_representative, chair: @chair)
     login_as representative
     project = FactoryGirl.create(:project, chair: representative.chair, status: true)
-    representative.projects`                                  ` << project
+    representative.projects << project
     visit project_path(project.id)
 
     expect(page).to have_content(project.title)
