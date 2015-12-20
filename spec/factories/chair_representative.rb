@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :chair_representative, class: 'User' do
-    first_name          'Jim'
-    last_name           'Doe'
+    first_name          'Peter'
+    last_name           'Parker'
     sequence(:email)    { |n| "person#{n}@example.com" }
-    chair               {FactoryGirl.create(:chair, name: 'EPIC')}
+    chair               {FactoryGirl.create(:chair, name: 'Grafik')}
 
 
     after(:create) do |user|
