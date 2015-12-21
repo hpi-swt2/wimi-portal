@@ -8,7 +8,7 @@
       <%= t('project.filter_chair') %>
     </div>
     <div class="col-md-2">
-      <%= select_tag :chair, options_for_select(Chair.all.map { |chair| [chair.name, chair.name]}, params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
+      <%= select_tag :chair, options_from_collection_for_select(Chair.all, 'name', 'name', params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
     </div>
   </div>
   <div class="col-md-12">
