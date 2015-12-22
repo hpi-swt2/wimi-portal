@@ -32,7 +32,7 @@ class Ability
   def initialize_wimi(user)
     can     :create,  Project
     can     :manage, Project do |project|
-      user.projects.exists?(project)
+      user.projects.exists?(project.id)
     end
   end
 
