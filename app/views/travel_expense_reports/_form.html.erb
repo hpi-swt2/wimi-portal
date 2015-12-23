@@ -1,4 +1,4 @@
-<%= form_for @travel_expense_report,:html => { :class => "form-horizontal travel_expense_report" } do |f| %>
+<%= form_for @travel_expense_report,html: { class: "form-horizontal travel_expense_report" } do |f| %>
   <% if @travel_expense_report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@travel_expense_report.errors.count, "error") %> prohibited this travel_expense_report from being saved:</h2>
@@ -13,11 +13,11 @@
 
   <div class="field" >
     <%= f.label :inland %><br>
-    <%= f.check_box :inland , {:onclick => "toggleField(div_inland,field_inland,checkbox_inland)", :id => "checkbox_inland"}%>
+    <%= f.check_box :inland , {onclick: "toggleField(div_inland,field_inland,checkbox_inland)", id: "checkbox_inland"}%>
   </div>
   <div class="field" id="div_inland">
     <%= f.label :country %><br>
-    <%= f.text_field :country, { :id => "field_inland" }%>
+    <%= f.text_field :country, { id: "field_inland" }%>
   </div>
   <div class="field">
     <%= f.label :location_from %><br>

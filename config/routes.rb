@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'documents/generate_pdf' => 'documents#generate_pdf', :as => 'generate_pdf'
+  get 'documents/generate_pdf' => 'documents#generate_pdf', as: 'generate_pdf'
 
   root 'dashboard#index'
   get 'dashboard', to: 'dashboard#index'
@@ -29,12 +29,12 @@ Rails.application.routes.draw do
   post 'chairs/set_admin', to: 'chairs#set_admin'
   post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
 
-  get 'chairs/:id/requests' => 'requests#requests', :as => 'requests'
+  get 'chairs/:id/requests' => 'requests#requests', as: 'requests'
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
 
-  resources :users, :only => [:show, :edit, :edit_leave, :update]
+  resources :users, only: [:show, :edit, :edit_leave, :update]
 
 end

@@ -44,6 +44,11 @@ en:
         one: "User"
         other: "Users"
     attributes:
+      chair:
+        id: "Id"
+        name: "Name"
+        created_at: "Created at"
+        status: "Status"
       project:
         title: "Title"
         created_at: "Created at"

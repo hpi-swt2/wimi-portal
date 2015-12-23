@@ -45,7 +45,6 @@ class User < ActiveRecord::Base
       'Knowledge Discovery and Data Mining']
 
   LANGUAGES = [
-    ['', ''],
     [
       'English',
       'en'
@@ -130,7 +129,7 @@ class User < ActiveRecord::Base
     username = identity_url.split('/')[-1]
     first_name = username.split('.')[0].titleize
     last_name = username.split('.')[1].titleize.delete("0-9")
-    User.new(:first_name => first_name, :last_name => last_name, :identity_url => identity_url)
+    User.new(first_name: first_name, last_name: last_name, identity_url: identity_url)
   end
 
   def openid_fields=(fields)
@@ -139,11 +138,14 @@ class User < ActiveRecord::Base
         value = value.first
       end
 
+      # if no email is saved yet and we receive no address, set INVALID_EMAIL as address, otherwise save the received value
       if key.to_s == "http://axschema.org/contact/email"
-        if value.nil?
-          update_attribute(:email, INVALID_EMAIL)
-        else
-          update_attribute(:email, value)
+        if email.blank?
+          if value.blank?
+            update_attribute(:email, INVALID_EMAIL)
+          else
+            update_attribute(:email, value)
+          end
         end
       end
     end

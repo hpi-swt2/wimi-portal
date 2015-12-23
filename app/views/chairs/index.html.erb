@@ -1,6 +1,6 @@
 <%- model_class = Chair -%>
 <div class="page-header">
-  <h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%= t 'activerecord.models.chair.other', default: model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
@@ -9,7 +9,7 @@
     <th><%= model_class.human_attribute_name(:name) %></th>
     <th><%= model_class.human_attribute_name(:created_at) %></th>
     <th><%= model_class.human_attribute_name(:status) %></th>
-    <th><%= t '.actions', :default => t("helpers.actions") %></th>
+    <th><%= t '.actions', default: t("helpers.actions") %></th>
   </tr>
   </thead>
   <tbody>
@@ -21,7 +21,7 @@
 
         <td>
           <% if current_user.chair_wimi.nil? && !current_user.superadmin %>
-            <%= link_to I18n.t('chair.apply', default: 'Apply as Wimi'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+            <%= link_to I18n.t('chair.apply', default: 'Apply as Wimi'), chairs_apply_path(chair: chair), method: :post, class: 'btn btn-default btn-xs' %>
           <% else %>
             <% if current_user.chair == chair %>
               <% if current_user.is_wimi? %>
@@ -35,12 +35,12 @@
 
         <td>
           <% if current_user.superadmin %>
-            <%= link_to I18n.t('chair.edit', default: 'Edit Chair'), edit_chair_path(chair), :class => 'btn btn-warning btn-xs' %>
-            <%= link_to I18n.t('chair.destroy', default: 'Destroy Chair'), chair_path(:id => chair), :method => :delete, :class => 'btn btn-danger btn-xs' %>
+            <%= link_to I18n.t('chair.edit', default: 'Edit Chair'), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
+            <%= link_to I18n.t('chair.destroy', default: 'Destroy Chair'), chair_path(id: chair), method: :delete, class: 'btn btn-danger btn-xs' %>
           <% else %>
             <% unless current_user.chair_wimi.nil? %>
               <% if current_user.is_admin?(chair) || current_user.is_representative?(chair) %>
-                <%= link_to I18n.t('chair.manage', default: 'Manage Chair'), chair_path(chair), :class => 'btn btn-warning btn-xs' %>
+                <%= link_to I18n.t('chair.manage', default: 'Manage Chair'), chair_path(chair), class: 'btn btn-warning btn-xs' %>
               <% end %>
             <% end %>
           <% end %>
@@ -51,8 +51,8 @@
   </tbody>
 </table>
 <% if current_user.superadmin %>
-    <%= link_to t('.new', :default => t("helpers.links.new")),
+    <%= link_to t('.new', default: t("helpers.links.new")),
                 new_chair_path,
-                :class => 'btn btn-primary' %>
+                class: 'btn btn-primary' %>
 <% end %>
 

@@ -1,4 +1,4 @@
-<%= form_for @project, :html => { :class => "form-horizontal project" } do |f| %>
+<%= form_for @project, html: { class: "form-horizontal project" } do |f| %>
 
     <% if @project.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -16,23 +16,23 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
+    <%= f.label :title, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :title, :class => 'form-control' %>
+      <%= f.text_field :title, class: 'form-control' %>
     </div>
     <%= error_span(@project[:title]) %>
   </div>
 
   <div class="control-group">
-    <%= f.label :users, :class => 'control-label' %>
+    <%= f.label :users, class: 'control-label' %>
     <div class="controls">
       <%= f.collection_check_boxes(:user_ids, User.all, :id, :email) %>
     </div>
     <%= error_span(@project[:users]) %>
   </div>
 
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            projects_path, :class => 'btn btn-default' %>
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+            projects_path, class: 'btn btn-default' %>
 
 <% end %>
