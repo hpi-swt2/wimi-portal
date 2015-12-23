@@ -13,13 +13,15 @@
 #  last_name                 :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  identity_url              :string
+#  language                  :string           default("en"), not null
 #  residence                 :string
 #  street                    :string
 #  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
-#  identity_url              :string
+#  superadmin                :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
@@ -86,14 +88,17 @@ class User < ActiveRecord::Base
     self.last_name = last
   end
 
+  def is_user?
+    not is_wimi? and not is_superadmin? and not is_hiwi?
+  end
+
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = self.remaining_leave
     self.remaining_leave = 28
   end
 
   def is_wimi?
-    return false if chair_wimi.nil?
-    return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
+    not chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
   end
 
   def is_representative?(opt_chair = false)
@@ -113,12 +118,11 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    return false if projects.nil? || projects.size == 0
-    return (projects.size > 0 && !is_wimi?)
+    projects and projects.size > 0 and not is_wimi?
   end
 
   def is_superadmin?
-    return self.superadmin
+    self.superadmin
   end
 
   def self.openid_required_fields
