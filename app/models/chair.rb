@@ -56,8 +56,8 @@ class Chair < ActiveRecord::Base
     representative = User.find_by(id: representative_id)
 
     if (admin && representative)
-      chairwimi1 = ChairWimi.find_by(:chair => self, :admin => true)
-      chairwimi2 = ChairWimi.find_by(:chair => self, :representative => true)
+      chairwimi1 = ChairWimi.find_by(chair: self, admin: true)
+      chairwimi2 = ChairWimi.find_by(chair: self, representative: true)
       if chairwimi1 != nil
         ChairWimi.destroy(chairwimi1.id)
       end
