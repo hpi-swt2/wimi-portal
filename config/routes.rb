@@ -31,7 +31,7 @@ Rails.application.routes.draw do
 
   get 'chairs/:id/requests' => 'requests#requests', :as => 'requests'
 
-  post 'trips/apply', to: 'trips#apply'
+  put 'trips/:id/apply', to: 'trips#apply', as: 'trips_apply'
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
 

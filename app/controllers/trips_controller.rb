@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download, :apply]
 
   def index
     @trips = Trip.all
@@ -20,6 +20,7 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
+    @trip.status = 'saved'
 
     if @trip.save
       redirect_to @trip, notice: 'Trip was successfully created.'
@@ -29,6 +30,7 @@ class TripsController < ApplicationController
   end
 
   def update
+    @trip.update(status: 'saved')
     if @trip.update(trip_params)
        redirect_to @trip, notice: 'Trip was successfully updated.'
     else
@@ -42,6 +44,16 @@ class TripsController < ApplicationController
   end
 
   def download
+  end
+
+  def apply
+    @trip.status = 'applied'
+    if @trip.save
+       redirect_to @trip, notice: 'Trip was successfully updated.'
+    else
+       render :edit
+    end
+
   end
 
   private
