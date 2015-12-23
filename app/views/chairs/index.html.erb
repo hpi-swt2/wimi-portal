@@ -2,11 +2,6 @@
 <div class="page-header">
   <h1><%= t 'activerecord.models.chair.other', default: model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<% if can? :create, Chair %>
-    <%= link_to t('.new', :default => t("helpers.links.new")),
-                new_chair_path,
-                :class => 'pull-right text-success' %>
-<% end %>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -55,4 +50,8 @@
   <% end %>
   </tbody>
 </table>
-
+<% if can? :create, Chair %>
+    <%= link_to t('.new', default: t("helpers.links.new")),
+                new_chair_path,
+                class: 'btn btn-primary' %>
+<% end %>
