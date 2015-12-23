@@ -67,7 +67,7 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     @chair = FactoryGirl.create(:chair)
     login_as(@superadmin, scope: :user)
     visit chairs_path
-    print page.html
+
     click_on 'New'
     expect(page).to have_current_path(new_chair_path+'?locale='+I18n.locale.to_s)
   end
