@@ -1,4 +1,4 @@
-<%= form_for @publication, :html => { :class => "form-horizontal publication" } do |f| %>
+<%= form_for @publication, html: { class: "form-horizontal publication" } do |f| %>
 <%- model_class = Publication -%>
 
     <% if @publication.errors.any? %>
@@ -17,35 +17,35 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
+    <%= f.label :title, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :title, :class => 'form-control' %>
+      <%= f.text_field :title, class: 'form-control' %>
     </div>
     <%= error_span(@publication[:title]) %>
   </div>
   <div class="control-group">
-    <%= f.label :venue, :class => 'control-label' %>
+    <%= f.label :venue, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :venue, :class => 'form-control' %>
+      <%= f.text_field :venue, class: 'form-control' %>
     </div>
     <%= error_span(@publication[:venue]) %>
   </div>
   <div class="control-group">
-    <%= f.label :type_, :class => 'control-label' %>
+    <%= f.label :type_, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :type_, :class => 'form-control' %>
+      <%= f.text_field :type_, class: 'form-control' %>
     </div>
     <%= error_span(@publication[:type_]) %>
   </div>
   <div class="control-group">
-    <%= f.label :project_id, :class => 'control-label' %>
+    <%= f.label :project_id, class: 'control-label' %>
     <div class="controls">
-    <%= f.collection_select :project_id, Project.all, :id, :title, {:selected => @publication.project_id, prompt: true, :include_blank =>"none"}, {} %>
+    <%= f.collection_select :project_id, Project.all, :id, :title, {selected: @publication.project_id, prompt: true, include_blank:"none"}, {} %>
     </div>
     <%= error_span(@publication[:project_id]) %>
   </div>
   <div class="control-group">
-    <%= f.label :users, :class => 'control-label' %>
+    <%= f.label :users, class: 'control-label' %>
     <div class="controls">
       <%= f.collection_check_boxes(:user_ids, User.all, :id, :email) %>
     </div>
@@ -59,8 +59,8 @@
       </div>
   <% end %>
 
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            publications_path, :class => 'btn btn-default' %>
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+            publications_path, class: 'btn btn-default' %>
 
 <% end %>

@@ -1,4 +1,4 @@
-<%= form_for @expense, :html => { :class => "form-horizontal expense" } do |f| %>
+<%= form_for @expense, html: { class: "form-horizontal expense" } do |f| %>
 
     <% if @expense.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -16,51 +16,51 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :amount, :class => 'control-label' %>
+    <%= f.label :amount, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :amount, :class => 'form-control' %>
+      <%= f.text_field :amount, class: 'form-control' %>
     </div>
     <%= error_span(@expense[:amount]) %>
   </div>
   <div class="control-group">
-    <%= f.label :purpose, :class => 'control-label' %>
+    <%= f.label :purpose, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :purpose, :class => 'form-control' %>
+      <%= f.text_field :purpose, class: 'form-control' %>
     </div>
     <%= error_span(@expense[:purpose]) %>
   </div>
   <div class="control-group">
-    <%= f.label :comment, :class => 'control-label' %>
+    <%= f.label :comment, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :comment, :class => 'form-control' %>
+      <%= f.text_field :comment, class: 'form-control' %>
     </div>
     <%= error_span(@expense[:comment]) %>
   </div>
   <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
+    <%= f.label :user_id, class: 'control-label' %>
     <div class="controls">
-      <%= f.collection_select :user_id, User.all, :id, :email, {:selected => @expense.user_id, prompt: true, :include_blank =>"none"}, {} %>
+      <%= f.collection_select :user_id, User.all, :id, :email, {selected: @expense.user_id, prompt: true, include_blank:"none"}, {} %>
     </div>
     <%= error_span(@expense[:user_id]) %>
   </div>
   <div class="control-group">
-    <%= f.label :project_id, :class => 'control-label' %>
+    <%= f.label :project_id, class: 'control-label' %>
     <div class="controls">
-      <%= f.collection_select :project_id, Project.all, :id, :title, {:selected => @expense.project_id, prompt: true, :include_blank =>"none"}, {} %>
+      <%= f.collection_select :project_id, Project.all, :id, :title, {selected: @expense.project_id, prompt: true, include_blank:"none"}, {} %>
     </div>
     <%= error_span(@expense[:project_id]) %>
   </div>
   <div class="control-group">
-    <%= f.label :trip_id, :class => 'control-label' %>
+    <%= f.label :trip_id, class: 'control-label' %>
     <div class="controls">
-      <%= f.collection_select :trip_id, Trip.all, :id, :title, {:selected => @expense.trip_id, prompt: true, :include_blank =>"none"}, {} %>
+      <%= f.collection_select :trip_id, Trip.all, :id, :title, {selected: @expense.trip_id, prompt: true, include_blank:"none"}, {} %>
     </div>
     <%= error_span(@expense[:trip_id]) %>
   </div>
 
 
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            expenses_path, :class => 'btn btn-default' %>
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+            expenses_path, class: 'btn btn-default' %>
 
 <% end %>

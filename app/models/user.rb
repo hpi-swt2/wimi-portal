@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
     username = identity_url.split('/')[-1]
     first_name = username.split('.')[0].titleize
     last_name = username.split('.')[1].titleize.delete("0-9")
-    User.new(:first_name => first_name, :last_name => last_name, :identity_url => identity_url)
+    User.new(first_name: first_name, last_name: last_name, identity_url: identity_url)
   end
 
   def openid_fields=(fields)
