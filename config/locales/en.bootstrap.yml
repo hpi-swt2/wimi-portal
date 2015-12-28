@@ -62,6 +62,7 @@ en:
     index:
       dashboard_title: "Dashboard"
       projects: "My Projects"
+      representative_actions: "Representative - Actions"
   travel_expense_reports:
     show:
       inland: "Inland Travel"

@@ -58,6 +58,7 @@ de:
     index:
       dashboard_title: "Dashboard"
       projects: "Meine Projekte"
+      representative_actions: "LS-Beauftragter - Aktionen"
   travel_expense_reports:
     show:
       inland: "Inlandsreise"

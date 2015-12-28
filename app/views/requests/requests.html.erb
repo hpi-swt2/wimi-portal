@@ -10,43 +10,50 @@
       <col span="0" style="width: 30%;">
       <col span="0" style="width: 30%;">
     </colgroup>
-    <thead>
-    <th><strong>Filters by type:</strong></th>
-    <th><strong>Filters by status:</strong></th>
-    </thead>
-    <tbody>
-    <tr>
-      <td>
-        <%= check_box_tag(:holiday_filter, "Holiday Request", true) %>
-        <%= label_tag(:holiday_filter, "Holiday Request") %>
-      </td>
-      <td>
-        <%= check_box_tag(:applied_filter, "Applied", true) %>
-        <%= label_tag(:applied_filter, "Applied") %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= check_box_tag(:trip_filter, "Trip Request", true) %>
-        <%= label_tag(:trip_filter, "Trip Request") %>
-      </td>
-      <td>
-        <%= check_box_tag(:accept_filter, "Accepted", true) %>
-        <%= label_tag(:accept_filter, "Accepted") %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= check_box_tag(:expense_filter, "Expense Request", true) %>
-        <%= label_tag(:expense_filter, "Expense Request") %>
-      </td>
-      <td>
-        <%= check_box_tag(:declined_filter, "Declined", true) %>
-        <%= label_tag(:declined_filter, "Declined") %>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+
+    <%= form_for(requests_path(@chair.id), method: :post) do |f| %>
+
+      <thead>
+      <th><strong>Filters by type:</strong></th>
+      <th><strong>Filters by status:</strong></th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <%= check_box_tag(:holiday_filter, "Holiday Request", ("holidays".in? @types)) %>
+          <%= label_tag(:holiday_filter, "Holiday Request") %>
+        </td>
+        <td>
+          <%= check_box_tag(:applied_filter, "Applied", ("applied".in? @statuses)) %>
+          <%= label_tag(:applied_filter, "Applied") %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= check_box_tag(:trip_filter, "Trip Request", ("trips".in? @types)) %>
+          <%= label_tag(:trip_filter, "Trip Request") %>
+        </td>
+        <td>
+          <%= check_box_tag(:accepted_filter, "Accepted", ("accepted".in? @statuses)) %>
+          <%= label_tag(:accepted_filter, "Accepted") %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= check_box_tag(:expense_filter, "Expense Request", ("expenses".in? @types)) %>
+          <%= label_tag(:expense_filter, "Expense Request") %>
+        </td>
+        <td>
+          <%= check_box_tag(:declined_filter, "Declined", ("declined".in? @statuses)) %>
+          <%= label_tag(:declined_filter, "Declined") %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <%= submit_tag "Apply Filters" %>
+  <% end %>
+
 
   <table class="table table-striped">
     <thead>

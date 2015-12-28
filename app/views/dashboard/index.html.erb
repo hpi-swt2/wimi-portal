@@ -54,3 +54,19 @@
       <%= link_to 'Manage requests', requests_path(current_user.chair_wimi.chair_id) %>
     </div>
 <% end %>
+
+
+<% if current_user.is_representative? %>
+    <br/>
+    <div>
+      <h3> <%= t('.representative_actions') %> </h3>
+      <table>
+      <tbody>
+        <tr><td><%= link_to 'Manage requests', requests_path(current_user.chair.id, holiday_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %></td></tr>
+        <tr><td><%= link_to 'Manage requests', requests_path(current_user.chair.id, expense_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %></td></tr>
+        <tr><td><%= link_to 'Manage requests', requests_path(current_user.chair.id, trip_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %></td></tr>
+      </tbody>
+      </table>
+
+    </div>
+<% end %>

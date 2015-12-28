@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
 
   get 'chairs/:id/requests' => 'requests#requests', as: 'requests'
+  post 'chairs/:id/requests', to: 'requests#requests_filtered'
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
 

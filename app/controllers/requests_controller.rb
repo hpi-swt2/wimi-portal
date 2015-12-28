@@ -1,38 +1,56 @@
 class RequestsController < ApplicationController
-  before_action :set_chair, only: [:requests]
-  before_action :authorize_representative, only: [:requests]
+  before_action :set_chair, only: [:requests, :requests_filtered]
+  before_action :authorize_representative, only: [:requests, :requests_filtered]
 
 
   def set_chair
     @chair = Chair.find(params[:id])
   end
 
-
   def requests
-    @allrequests = Array.new
+    @types = ['holidays', 'expenses', 'trips']
+    @statuses = ['applied', 'accepted', 'declined']
 
-    @chair.users.each do |user|
-      user.holidays.each do |holidays|
-        unless holidays.status == 'saved'
-          @allrequests << {name: holidays.user.name, type: 'Holiday Request', handed_in: holidays.created_at, status: holidays.status, action: holiday_path(holidays)}
-        end
-      end
-      user.expenses.each do |expense|
-        unless expense.status == 'saved'
-          @allrequests << {name: expense.user.name, type: 'Expense Request', handed_in: expense.created_at, status: expense.status, action: expense_path(expense)}
-        end
-      end
-      user.trips.each do |trips|
-        unless trips.status == 'saved'
-          @allrequests << {name: trips.user.name, type: 'Trip Request', handed_in: trips.created_at, status: trips.status, action: trip_path(trips)}
-        end
-      end
-    end
-    @allrequests = @allrequests.sort_by { |v| v[:handed_in] }.reverse
+    create_allrequests
+  end
+
+  def requests_filtered
+    @types = Array.new
+    @types << 'holidays' if params.has_key?('holiday_filter') 
+    @types << 'expenses' if params.has_key?('expense_filter') 
+    @types << 'trips' if params.has_key?('trip_filter')
+
+    @statuses = Array.new
+    @statuses << 'applied' if params.has_key?('applied_filter')
+    @statuses << 'accepted' if params.has_key?('accepted_filter')
+    @statuses << 'declined' if params.has_key?('declined_filter')
+
+    create_allrequests
+    render 'requests'
   end
 
 
   private
+  def create_allrequests
+    @allrequests = Array.new
+
+    @chair.users.each do |user|
+      add_requests('Holiday Request', user.holidays) if @types.include? 'holidays'
+      add_requests('Expense Request', user.expenses) if @types.include? 'expenses'
+      add_requests('Trip Request', user.trips) if @types.include? 'trips'
+    end
+    
+    @allrequests = @allrequests.sort_by { |v| v[:handed_in] }.reverse
+  end
+
+  def add_requests(type, array)
+    array.each do |r|
+      if @statuses.include? r.status
+        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r}
+      end
+    end
+  end
+
   def authorize_representative
     not_authorized unless current_user.is_representative?(@chair) 
   end
