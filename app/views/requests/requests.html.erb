@@ -11,7 +11,7 @@
       <col span="0" style="width: 30%;">
     </colgroup>
 
-    <%= form_for(requests_path(@chair.id), method: :post) do |f| %>
+    <%= form_tag(requests_filtered_path(@chair.id), method: :post) do %>
 
       <thead>
       <th><strong>Filters by type:</strong></th>
