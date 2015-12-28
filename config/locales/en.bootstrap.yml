@@ -63,6 +63,12 @@ en:
       dashboard_title: "Dashboard"
       projects: "My Projects"
       representative_actions: "Representative - Actions"
+      show_holiday_requests: "Show holiday requests"
+      show_expense_requests: "Show expense requests"
+      show_trip_requests: "Show trip requests"
+  requests:
+    requests:
+      apply_filter: "Apply Filters"
   travel_expense_reports:
     show:
       inland: "Inland Travel"

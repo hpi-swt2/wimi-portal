@@ -15,7 +15,7 @@
   <% end %>
 </div>
 
-<h3> My Projects </h3>
+<h3> <%= t('.projects') %> </h3>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -47,14 +47,6 @@
 
 <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
 
-<% if current_user.is_representative? %>
-    <br/>
-    <div>
-      <h3> Requests </h3>
-      <%= link_to 'Manage requests', requests_path(current_user.chair_wimi.chair_id) %>
-    </div>
-<% end %>
-
 
 <% if current_user.is_representative? %>
     <br/>
@@ -62,9 +54,15 @@
       <h3> <%= t('.representative_actions') %> </h3>
       <table>
       <tbody>
-        <tr><td><%= link_to 'Manage requests', requests_path(current_user.chair.id, holiday_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %></td></tr>
-        <tr><td><%= link_to 'Manage requests', requests_path(current_user.chair.id, expense_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %></td></tr>
-        <tr><td><%= link_to 'Manage requests', requests_path(current_user.chair.id, trip_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %></td></tr>
+        <tr><td>
+          <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holiday_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
+        </td></tr>
+        <tr><td>
+          <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expense_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %>
+        </td></tr>
+        <tr><td>
+          <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trip_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %>
+        </td></tr>
       </tbody>
       </table>
 

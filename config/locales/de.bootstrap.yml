@@ -59,6 +59,12 @@ de:
       dashboard_title: "Dashboard"
       projects: "Meine Projekte"
       representative_actions: "LS-Beauftragter - Aktionen"
+      show_holiday_requests: "Urlaubsanträge anzeigen"
+      show_expense_requests: "Reisekostenabrechnung anzeigen"
+      show_trip_requests: "Dienstreiseanträge anzeigen"
+  requests:
+    requests:
+      apply_filter: "Filter anwenden"
   travel_expense_reports:
     show:
       inland: "Inlandsreise"
