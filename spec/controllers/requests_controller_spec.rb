@@ -39,5 +39,11 @@ RSpec.describe RequestsController, type: :controller do
       get :requests, {id: @chair}
       expect(response).to render_template('requests')
     end
+
+    it 'shows filtered requests' do
+      sign_in @representative
+      post :requests_filtered, {id: @chair}
+      expect(response).to have_http_status(:success)
+    end
   end
 end
