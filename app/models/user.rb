@@ -59,6 +59,8 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
+  has_many :work_days
+  has_many :time_sheets
   has_many :holidays
   has_many :expenses
   has_many :trips
@@ -86,6 +88,25 @@ class User < ActiveRecord::Base
     first, last = fullname.split(' ')
     self.first_name = first
     self.last_name = last
+  end
+
+  def projects_for_month(year, month)
+    projects = TimeSheet.where(
+      user: self, month: month, year: year).map {|sheet| sheet.project}
+    return (projects.compact + self.projects).uniq
+  end
+
+  def years_and_months_of_existence
+    year_months = []
+    creation_date = self.created_at
+    (creation_date.year..Date.today.year).each do |year|
+      start_month = (creation_date.year == year) ? creation_date.month : 1
+      end_month = (Date.today.year == year) ? Date.today.month : 12
+      (start_month..end_month).each do |month|
+        year_months.push([year, month])
+      end
+    end
+    return year_months
   end
 
   def is_user?

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   end
   resources :holidays
   resources :expenses
+  resources :work_days
+  resources :time_sheets, :only => [:edit, :update, :delete]
   resources :travel_expense_reports
   resources :trips do
     member do
