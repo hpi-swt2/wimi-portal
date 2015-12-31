@@ -13,7 +13,7 @@
           <h4><%= t('.user_data')%></h4>
         </div>
         <div class="col-sm-6 text text-right">
-          <%= link_to t('.edit', :default => t('helpers.links.edit')), edit_user_path, :class => 'btn btn-primary' %>
+          <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-primary' %>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
             <% end %>
           <% end %>
           <br><%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
-                        users_edit_leave_path(id: current_user.id), :class => 'btn btn-default btn-xs' %><br>
+                        users_edit_leave_path(id: current_user.id), class: 'btn btn-default btn-xs' %><br>
         </div>
         <div class="form-group">
           <table class="table table-striped">

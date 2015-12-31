@@ -23,8 +23,8 @@ de:
   activerecord:
     models:
       chair:
-        one: "Chair"
-        other: "Chairs"
+        one: "Lehrstuhl"
+        other: "Lehrstühle"
       expense:
         one: "Kostenabrechnung"
         other: "Kostenabrechnungen"
@@ -44,6 +44,11 @@ de:
         one: "Benutzer"
         other: "Benutzer"
     attributes:
+      chair:
+        id: "Id"
+        name: "Name"
+        created_at: "Erstellungsdatum"
+        status: "Status"
       project:
         id: "Id"
         title: "Titel"
@@ -76,12 +81,39 @@ de:
         created_at: "Erstellungsdatum"
       trip:
         id: "Id"
-        title: "Titel"
-        start: "Start"
-        end: "Ende"
+        destination: "Ziel"
+        reason: "Grund"
+        annotation: "Bemerkungen"
+        signature: "Unterschreiben?"
         status: "Status"
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
+      trip_datespan:
+        start_date: "Start"
+        end_date: "Ende"
+        days_abroad: "Auslandstage"
+      travel_expense_report:
+        inland: "Inlandsreise"
+        country: "Land"
+        location_from: "Startort"
+        location_via: "Zwischenhalt"
+        location_to: "Zielort"
+        reason: "Grund"
+        date_start: "Startet am"
+        date_end: "Endet am"
+        vehicle: "Fahrzeug"
+        car: "PKW"
+        public_transport: "Bus/Bahn/Flug"
+        vehicle_advance: "vom HPI im Voraus bezahlt"
+        hotel: "Hotel"
+        general_advance: "Vorschuss"
+        signature: "Unterschreiben?"
+      travel_expense_report_item:
+        date: "Datum"
+        breakfast: "Frühstück"
+        lunch: "Mittagessen"
+        dinner: "Abendessen"
+        annotation: "Beschreibung"
       user:
         id: "Id"
         email: "E-Mail"
@@ -92,7 +124,7 @@ de:
         last_sign_in_at: "Letzte Anmeldung am"
         current_sign_in_ip: "IP für aktuelle Anmeldung"
         last_sign_in_ip: "IP der letzten Anmeldung"
-        first: "Vorname"
+        first_name: "Vorname"
         last_name: "Nachname"
         created_at: "Erstellungsdatum"
         current_password: "Aktuelles Passwort"
@@ -105,7 +137,8 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
-      
+    chair:
+      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
       default: "%d/%m/%Y"
