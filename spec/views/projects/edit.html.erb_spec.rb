@@ -33,4 +33,8 @@ RSpec.describe 'projects/edit', type: :view do
     expect(page).to have_content('Project was successfully destroyed.')
     expect(page).to have_no_content(projectTitle)
   end
+
+  it ' ' do
+
+  end
 end
