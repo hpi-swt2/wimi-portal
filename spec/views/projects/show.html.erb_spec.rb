@@ -54,6 +54,8 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content('Public')
     expect(page).to have_content(hiwi.name)
   end
-  
+
+
+
 
 end
