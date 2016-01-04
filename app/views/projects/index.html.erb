@@ -5,7 +5,6 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th><%= "ID" %></th>
     <th><%= model_class.human_attribute_name(:title) %></th>
     <th><%= model_class.human_attribute_name(:status) %></th>
     <th><%= "Accessibility" %></th>
@@ -18,7 +17,6 @@
   <tbody>
   <% @projects.each do |project| %>
     <tr>
-      <td><%= link_to project.id, project %></td>
       <td><%= link_to project.title, project %></td>
       <td><%= project.status ? "Active" : "Inactive" %></td>
       <td><%= project.public ? "Public" : "Private" %></td>
