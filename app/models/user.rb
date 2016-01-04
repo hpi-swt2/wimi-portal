@@ -13,13 +13,15 @@
 #  last_name                 :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  identity_url              :string
+#  language                  :string           default("en"), not null
 #  residence                 :string
 #  street                    :string
 #  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
-#  identity_url              :string
+#  superadmin                :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
@@ -57,6 +59,8 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
+  has_many :work_days
+  has_many :time_sheets
   has_many :holidays
   has_many :expenses
   has_many :trips
@@ -86,6 +90,29 @@ class User < ActiveRecord::Base
     self.last_name = last
   end
 
+  def projects_for_month(year, month)
+    projects = TimeSheet.where(
+      user: self, month: month, year: year).map {|sheet| sheet.project}
+    return (projects.compact + self.projects).uniq
+  end
+
+  def years_and_months_of_existence
+    year_months = []
+    creation_date = self.created_at
+    (creation_date.year..Date.today.year).each do |year|
+      start_month = (creation_date.year == year) ? creation_date.month : 1
+      end_month = (Date.today.year == year) ? Date.today.month : 12
+      (start_month..end_month).each do |month|
+        year_months.push([year, month])
+      end
+    end
+    return year_months
+  end
+
+  def is_user?
+    not is_wimi? and not is_superadmin? and not is_hiwi?
+  end
+
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = self.remaining_leave
     self.remaining_leave = 28
@@ -96,8 +123,7 @@ class User < ActiveRecord::Base
   end
 
   def is_wimi?
-    return false if chair_wimi.nil?
-    return chair_wimi.admin || chair_wimi.representative || chair_wimi.application == 'accepted'
+    not chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
   end
 
   def is_representative?(opt_chair = false)
@@ -117,12 +143,11 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    return false if projects.nil? || projects.size == 0
-    return (projects.size > 0 && !is_wimi?)
+    projects and projects.size > 0 and not is_wimi?
   end
 
   def is_superadmin?
-    return self.superadmin
+    self.superadmin
   end
 
   def self.openid_required_fields
@@ -133,7 +158,7 @@ class User < ActiveRecord::Base
     username = identity_url.split('/')[-1]
     first_name = username.split('.')[0].titleize
     last_name = username.split('.')[1].titleize.delete("0-9")
-    User.new(:first_name => first_name, :last_name => last_name, :identity_url => identity_url)
+    User.new(first_name: first_name, last_name: last_name, identity_url: identity_url)
   end
 
   def openid_fields=(fields)

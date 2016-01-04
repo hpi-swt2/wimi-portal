@@ -22,8 +22,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # for Windows users
-gem 'nokogiri', '1.6.7.rc3', :platforms => [:mswin, :mingw, :x64_mingw]
-gem 'tzinfo-data', :platforms => [:mingw, :mswin, :x64_mingw]
+gem 'nokogiri', '1.6.7.rc3', platforms: [:mswin, :mingw, :x64_mingw]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'newrelic_rpm'
 gem 'airbrake'
