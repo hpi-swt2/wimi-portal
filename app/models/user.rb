@@ -109,10 +109,6 @@ class User < ActiveRecord::Base
     return year_months
   end
 
-  def is_user?
-    not is_wimi? and not is_superadmin? and not is_hiwi?
-  end
-
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = self.remaining_leave
     self.remaining_leave = 28

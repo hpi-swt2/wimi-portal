@@ -3,11 +3,13 @@ require 'rails_helper'
 RSpec.describe 'projects/show', type: :view do
   before(:each) do
     @chair = FactoryGirl.create(:chair)
+    @user = FactoryGirl.create(:user)
+
   end
 
 
   it 'has information about the project on page as a chair representative' do
-    representative = FactoryGirl.create(:chair_representative, chair: @chair)
+    representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
     login_as representative
     project = FactoryGirl.create(:project, chair: representative.chair, status: true)
     representative.projects << project
@@ -22,8 +24,9 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'has information about the project on page as a wimi' do
-    chair_representative = FactoryGirl.create(:chair_representative, chair: @chair)
-    wimi = FactoryGirl.create(:wimi, chair: @chair)
+    representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    @wimi_user = FactoryGirl.create(:user)
+    wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
 
     login_as wimi
     project = FactoryGirl.create(:project, chair: wimi.chair, status: true)
@@ -39,7 +42,7 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'has information about the project on page as a hiwi' do
-    chair_representative = FactoryGirl.create(:chair_representative, chair: @chair)
+    chair_representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
     hiwi = FactoryGirl.create(:user)
 
     login_as hiwi
