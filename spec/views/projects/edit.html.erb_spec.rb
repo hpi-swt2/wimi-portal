@@ -21,4 +21,16 @@ RSpec.describe 'projects/edit', type: :view do
     project.reload
     expect(project.title).to eq('My New Project')
   end
+
+  it 'can be deleted by a wimi' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
+    projectTitle = project.title
+    @wimi.projects << project
+    visit projects_path
+    expect(page).to have_selector(:link_or_button, 'Delete')
+    click_on 'Delete'
+    expect(page).to have_content('Project was successfully destroyed.')
+    expect(page).to have_no_content(projectTitle)
+  end
 end
