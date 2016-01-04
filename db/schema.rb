@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215145322) do
+ActiveRecord::Schema.define(version: 20151215181135) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -50,11 +50,14 @@ ActiveRecord::Schema.define(version: 20151215145322) do
 
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",     default: 0
+    t.string   "reason"
+    t.string   "annotation"
+    t.integer  "replacement_user_id"
+    t.integer  "status",              default: 0
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
