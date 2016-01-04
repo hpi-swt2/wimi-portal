@@ -30,7 +30,7 @@ class ChairWimi < ActiveRecord::Base
       self.save
     end
   end
-  
+
   def is_admin?
     return self.admin
   end

@@ -10,7 +10,7 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    2.times {@trip.trip_datespans.build} 
+    2.times {@trip.trip_datespans.build}
   end
 
   def edit
@@ -24,7 +24,7 @@ class TripsController < ApplicationController
     if @trip.save
       redirect_to @trip, notice: 'Trip was successfully created.'
     else
-      render :new 
+      render :new
     end
   end
 

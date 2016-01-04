@@ -124,7 +124,7 @@ de:
         last_sign_in_at: "Letzte Anmeldung am"
         current_sign_in_ip: "IP für aktuelle Anmeldung"
         last_sign_in_ip: "IP der letzten Anmeldung"
-        first: "Vorname"
+        first_name: "Vorname"
         last_name: "Nachname"
         created_at: "Erstellungsdatum"
         current_password: "Aktuelles Passwort"
@@ -151,6 +151,8 @@ de:
       already_is_member: 'Dieser Benutzer ist bereits Mitglied des Projekts.'
       was_successfully_invited: 'Der Benutzer wurde erfolgreich eingeladen.'
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
+    chair:
+      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
       default: "%d/%m/%Y"
