@@ -2,6 +2,28 @@
 <div class="page-header">
   <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
 </div>
+<%= form_tag projects_path, :method => :get, :id => 'Form', :class => "form-horizontal" do %>
+  <div class="col-md-12">
+    <div class="col-md-2">
+      <%= t('project.filter_chair') %>
+    </div>
+    <div class="col-md-2">
+      <%= select_tag :chair, options_from_collection_for_select(Chair.all, 'name', 'name', params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <%= text_field_tag :title, params[:title], :placeholder => t('activerecord.attributes.project.title'), :class => "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= submit_tag t('links.search'), :class => "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<div class="col-md-12">
+  </br>
+</div>
+
 <table class="table table-striped">
   <thead>
   <tr>

@@ -75,8 +75,9 @@
   <%= render 'invite_user' %>
 <% end %>
 
-<%= link_to t('project.invite_someone_to_project', default: "Jemanden in das Projekt einladen"), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }, class: "btn btn-info pull-right" %>
-
+<% if can?(:invite_user, @project) %>
+    <%= link_to t('project.invite_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }, class: "btn btn-default pull-right" %>
+<% end %>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               projects_path, :class => 'btn btn-default'  %>
@@ -93,4 +94,7 @@
                 :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                 :class => 'btn btn-danger' %>
 <% end %>
+
+
+
 

@@ -20,6 +20,11 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.chair.representative.user.name)
     expect(page).to have_content('Public')
     expect(page).to have_content(representative.name)
+
+    # @user = FactoryGirl.create(:user)
+    # allow(view).to receive(:current_user).and_return(@user)
+    # @project = assign(:project, Project.create!(title: 'My Project'))
+
   end
 
   it 'has information about the project on page as a wimi' do

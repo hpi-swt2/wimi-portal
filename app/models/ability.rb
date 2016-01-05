@@ -34,6 +34,10 @@ class Ability
     can :manage, Project do |project|
       user.projects.exists?(project.id)
     end
+    can :invite_user, Project do |project|
+      project.users.include? user
+
+    end
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end
