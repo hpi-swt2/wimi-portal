@@ -46,11 +46,11 @@ RSpec.describe Holiday, type: :model do
 
   it "is invalid when not enough leave is left" do
     @user.update_attribute(:remaining_leave, 0)
-    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1,1))).to_not be_valid
+    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 20), end: Date.new(Date.today.year + 1, 1,1))).to_not be_valid
   end
 
   it "returns the duration" do
-    holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-    expect(holiday.duration).to eq(1)
+    holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 1, 12, 25), end: Date.new(Date.today.year + 1, 12, 26))
+    expect(holiday.duration).to eq(0)
   end
 end
