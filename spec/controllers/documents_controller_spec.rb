@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe DocumentsController, type: :controller do
 
   before(:each) do
-    login_with create ( :user)
+    @user = FactoryGirl.create(:user)
+    login_with @user
   end
 
   describe "GET generate_pdf" do
@@ -35,7 +36,7 @@ RSpec.describe DocumentsController, type: :controller do
     end
 
     it 'should generate a PDF file for a holidays' do
-      holiday = FactoryGirl.create(:holiday)
+      holiday = FactoryGirl.create(:holiday, user_id: @user.id)
       params = {doc_type: 'Urlaubsantrag', doc_id: holiday.id}
       get :generate_pdf, params
       expect(response.headers["Content-Type"]).to eq("application/pdf")
