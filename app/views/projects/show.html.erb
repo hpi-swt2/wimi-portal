@@ -4,66 +4,63 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
-  <dd><%= @project.title %></dd>
-  <dt><strong><%= 'Chair' %>:</strong></dt>
+  <dt><%= 'Chair' %>:</dt>
   <dd><%= @project.chair.name %></dd>
-  <dt><strong><%= 'Chair Representative' %>:</strong></dt>
+  <dt><%= 'Chair Representative' %>:</dt>
   <dd><%= @project.chair.representative.user.name %></dd>
-  <dt><strong><%= 'Project Leader' %>:</strong></dt>
-  <dd><%= @project.project_leader %></dd>
-  <dt><strong><%= 'Status:' %></strong></dt>
-  <dd><%= @project.status ? "Active" : "Inactive" %></dd>
-  <dt><strong><%= "Accessibility:" %></strong></dt>
+  <dt><%= 'Status:' %></dt>
   <dd><%= @project.public ? "Public" : "Private" %></dd>
-  <dt><strong><%='WiMis' %>:</strong> </dt>
-
-
+  <dt><%= 'Project Leader' %>:</dt>
   <dd>
-  <div class="col-md-5 UserTable">
-  <table class="table table-striped">
-    <thead>
-
-    </thead>
-    <tbody>
-    <%@project.users.each_slice(3) do |slice| %>
-    <tr>
-      <% slice.each do |user|%>
-        <% if user.is_wimi? %>
-        <td>
-          <%= user.name %>
-        </td>
-        <% end %>
-      <% end %>
-    </tr>
+    <%if @project.project_leader.blank? %>
+      <i><%= 'not defined' %></i>
+    <% else %>
+      <%= @project.project_leader %></dd>
     <% end %>
-    </tbody>
-  </table>
-  </div>
-  </dd>
+</dl>
 
-  <dt><strong><%='HiWis' %>:</strong> </dt>
+<dl class="dl-horizontal">
+  <dt><strong><%='Wissenschaftliche Mitarbeiter' %>:</strong> </dt>
   <dd>
-    <div class="col-md-5 UserTable">
-      <table class="table table-striped">
-        <thead>
+      <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
+          <div <%= "class='current'" if user == @user%>>
+            <% if user.is_wimi?%>
 
-        </thead>
-        <tbody>
-        <%@project.users.each_slice(3) do |slice| %>
-          <tr>
-            <% slice.each do |user|%>
-              <% if !user.is_wimi? %>
-                <td>
                   <%= user.name %>
-                </td>
-              <% end %>
+
+                <% if user == current_user %>
+                  <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOutMyself') do %>
+                      <i class="icon-ok icon-white pull-right"></i> sign out
+                  <% end %>
+                <% else %>
+                    <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOut') do %>
+                        <i class="icon-ok icon-white pull-right"></i> sign out
+                    <% end %>
+                <% end %>
             <% end %>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
+          </div>
+      <% end %>
+  </dd>
+</dl>
+<dl class="dl-horizontal">
+  <dt><strong><%='Studentische Hilfskräfte' %>:</strong> </dt>
+  <dd>
+    <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
+        <div <%= "class='current'" if user == @user %>>
+          <% if user.is_hiwi?%>
+              <%= user.name %>
+              <% if user == current_user %>
+                  <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOutMyself') do %>
+                      <i class="icon-ok icon-white pull-right"></i> sign out
+                  <% end %>
+              <% else %>
+                  <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOut') do %>
+                      <i class="icon-ok icon-white pull-right"></i> sign out
+                  <% end %>
+              <% end %>
+          <% end %>
+        </div>
+    <% end %>
   </dd>
 
 
@@ -82,6 +79,14 @@
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_project_path(@project), :class => 'btn btn-default' %>
 <% end %>
+
+
+<% if can? :edit, @project %>
+    <%= button_tag(type: 'submit', class: 'btn btn-primary', id: 'setInactiveButton') do %>
+        <i class="icon-ok icon-white"></i> Set Project inactive
+    <% end %>
+<% end %>
+
 <% if can? :destroy, @project %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                 project_path(@project),

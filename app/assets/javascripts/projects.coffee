@@ -24,7 +24,7 @@ $(document).on 'page:load', ready
 
 
 ready = ->
-  $('#currentUserCheckbox').change ->
+  $('#SignOutMyself').click ->
     if !@checked
       alert 'You won\'t be able to perform any more actions on the project after you\'re unenrolled!'
     return
@@ -34,3 +34,10 @@ ready = ->
 $(document).ready ready
 $(document).on 'page:load', ready
 
+ready = ->
+  $('#setInactiveButton').click ->
+    alert 'You\'re going to set the project status to inactive'
+  return
+
+$(document).ready ready
+$(document).on 'page:load', ready

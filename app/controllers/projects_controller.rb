@@ -19,6 +19,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.update(chair: current_user.chair)
+    current_user.projects << @project
     if @project.save
       flash[:success] = 'Project was successfully created.'
       redirect_to @project
@@ -57,6 +58,11 @@ class ProjectsController < ApplicationController
         redirect_to @project
       end
     end
+  end
+
+  def set_inactive
+    @project.update(status: false)
+    redirect_to @project
   end
 
   def typeahead
