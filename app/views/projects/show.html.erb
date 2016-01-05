@@ -82,6 +82,7 @@
                 edit_project_path(@project), :class => 'btn btn-default' %>
 <% end %>
 
+<%= button_to 'Set inactive', set_inactive_project_path, method: :get %>
 
 <% if can? :edit, @project %>
     <%= button_tag(type: 'submit', class: 'btn btn-primary', id: 'setInactiveButton') do %>

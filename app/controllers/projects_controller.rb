@@ -61,6 +61,7 @@ class ProjectsController < ApplicationController
   end
 
   def set_inactive
+    @project = Project.find(params[:id])
     @project.update(status: false)
     redirect_to @project
   end

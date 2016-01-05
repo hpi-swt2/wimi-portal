@@ -12,6 +12,11 @@ Rails.application.routes.draw do
       post 'invite_user'
     end
   end
+  resources :projects do
+    member do
+      get 'set_inactive'
+    end
+  end
   resources :holidays
   resources :expenses
   resources :work_days
