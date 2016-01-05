@@ -62,7 +62,20 @@ class ProjectsController < ApplicationController
 
   def set_inactive
     @project = Project.find(params[:id])
-    @project.update(status: false)
+    if @project.status == true
+      @project.update(status: false)
+    else
+      @project.update(status: true)
+    end
+    @project.reload
+    redirect_to @project
+  end
+
+
+  def sign_user_out
+    @user = User.find(params[:user_id])
+    @project = Project.find(params[:id])
+    @project.remove_user(@user)
     redirect_to @project
   end
 

@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       get 'set_inactive'
     end
   end
+
+  delete 'projects/:id/sign_user_out/:user_id' => 'projects#sign_user_out', as: 'sign_user_out_project'
+
   resources :holidays
   resources :expenses
   resources :work_days

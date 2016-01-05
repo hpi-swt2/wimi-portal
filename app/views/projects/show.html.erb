@@ -1,6 +1,13 @@
 <%- model_class = Project -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %> #<%= @project.id %>: <%= @project.title %> <span> <%= @project.status ? "" : " (Inactive)" %></span></h1>
+  <% if can? :edit, @project%>
+    <% if @project.status == true%>
+      <%= button_to 'Set inactive', set_inactive_project_path, method: :get, class: 'btn btn-danger btn-xs pull-right', style:'margin-top: -20px', id: 'setInactiveButton' %>
+    <% else %>
+        <%= button_to 'Set active', set_inactive_project_path, method: :get, class: 'btn btn-success btn-xs pull-right', style:'margin-top: -20px'%>
+    <% end %>
+  <% end %>
 </div>
 
 <dl class="dl-horizontal">
@@ -28,13 +35,10 @@
               <div style="margin-bottom: 15px">
                   <%= user.name %>
                 <% if user == current_user %>
-                  <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOutMyself') do %>
-                      <i class="icon-ok icon-white pull-right"></i> sign out
-                  <% end %>
+                    <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
+
                 <% else %>
-                    <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOut') do %>
-                        <i class="icon-ok icon-white pull-right"></i> sign out
-                    <% end %>
+                    <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
                 <% end %>
               </div>
             <% end %>
@@ -51,13 +55,9 @@
               <div style="margin-bottom: 15px">
                 <%= user.name %>
               <% if user == current_user %>
-                  <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOutMyself') do %>
-                      <i class="icon-ok icon-white pull-right"></i> sign out
-                  <% end %>
+                <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
               <% else %>
-                  <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOut') do %>
-                      <i class="icon-ok icon-white pull-right"></i> sign out
-                  <% end %>
+                <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
               <% end %>
               </div>
           <% end %>
@@ -82,13 +82,6 @@
                 edit_project_path(@project), :class => 'btn btn-default' %>
 <% end %>
 
-<%= button_to 'Set inactive', set_inactive_project_path, method: :get %>
-
-<% if can? :edit, @project %>
-    <%= button_tag(type: 'submit', class: 'btn btn-primary', id: 'setInactiveButton') do %>
-        <i class="icon-ok icon-white"></i> Set Project inactive
-    <% end %>
-<% end %>
 
 <% if can? :destroy, @project %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
