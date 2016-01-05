@@ -1,5 +1,92 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %></h1>
+  <h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %> #<%= @project.id %>: <%= @project.title %> <span> <%= @project.status ? "" : " (Inactive)" %></span></h1>
+  <% if can? :edit, @project%>
+      <% if @project.status == true%>
+          <%= button_to 'Set inactive', set_inactive_project_path, method: :get, class: 'btn btn-danger btn-xs pull-right', style:'margin-top: -20px', id: 'setInactiveButton' %>
+      <% else %>
+          <%= button_to 'Set active', set_inactive_project_path, method: :get, class: 'btn btn-success btn-xs pull-right', style:'margin-top: -20px'%>
+      <% end %>
+  <% end %>
 </div>
-<%= render partial: 'form' %>
+
+<%= form_for @project, html: { class: "form-horizontal project" } do |f| %>
+
+  <dl class="dl-horizontal">
+    <dt><%= 'Title'%>:</dt>
+    <dd>
+
+          <div class="control-group">
+            <div class="col-md-6" style="margin-left: -15px; margin-bottom: 10px; margin-top: -10px">
+              <%= f.text_field :title, :class => 'form-control' %>
+            </div>
+            <%= error_span(@project[:title]) %>
+          </div>
+
+    </dd>
+    <dt><%= 'Chair' %>:</dt>
+    <dd><%= @project.chair.name %></dd>
+    <dt><%= 'Chair Representative' %>:</dt>
+    <dd><%= @project.chair.representative.user.name %></dd>
+    <dt><%= 'Status:' %></dt>
+    <dd><%= @project.public ? "Public" : "Private" %></dd>
+    <dt><%= 'Project Leader' %>:</dt>
+    <dd>
+      <%if @project.project_leader.blank? %>
+          <i><%= 'not defined' %></i>
+      <% else %>
+          <%= @project.project_leader %></dd>
+      <% end %>
+      </dl>
+
+  <dl class="dl-horizontal">
+    <dt><strong><%='Wissenschaftliche Mitarbeiter' %>:</strong> </dt>
+    <dd>
+      <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
+          <div <%= "class='current'" if user == @user%>>
+            <% if user.is_wimi?%>
+                <div style="margin-bottom: 15px">
+                  <%= user.name %>
+                  <% if can? :edit, @project%>
+                      <% if user == current_user %>
+                          <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
+                      <% else %>
+                          <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
+                      <% end %>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt><strong><%='Studentische Hilfskräfte' %>:</strong> </dt>
+    <dd>
+      <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
+          <div <%= "class='current'" if user == @user %>>
+            <% if user.is_hiwi?%>
+                <div style="margin-bottom: 15px">
+                  <%= user.name %>
+                  <% if can? :edit, @project%>
+                      <% if user == current_user %>
+                          <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
+                      <% else %>
+                          <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
+                      <% end %>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+    </dd>
+
+
+  </dl>
+
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              project_path(@project), :class => 'btn btn-default' %>
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+
+<% end %>
