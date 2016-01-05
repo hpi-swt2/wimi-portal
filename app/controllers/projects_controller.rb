@@ -68,7 +68,7 @@ class ProjectsController < ApplicationController
       @project.update(status: true)
     end
     @project.reload
-    redirect_to @project
+    redirect_to edit_project_path(@project)
   end
 
 
