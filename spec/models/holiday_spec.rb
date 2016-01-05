@@ -74,5 +74,6 @@ RSpec.describe Holiday, type: :model do
 
     holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: startdate, end: enddate)
     expect(holiday.duration).to eq(2)
+
   end
 end
