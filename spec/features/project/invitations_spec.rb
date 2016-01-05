@@ -7,6 +7,23 @@ describe 'project inviations' do
     login_as @user
   end
 
+  it 'does not show the invitation button if the wimi does not belong to the project' do
+    chair1 = FactoryGirl.create(:chair)
+    wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: chair1, application: 'accepted')
+    expect(@user.is_wimi?).to be true
+    visit "/projects/#{@project.id}"
+    expect(page).to_not have_link(I18n.t('project.invite_someone_to_project'))
+  end
+
+  it 'does show the invitation button if the wimi belongs to the project' do
+    chair1 = FactoryGirl.create(:chair)
+    wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: chair1, application: 'accepted')
+    expect(@user.is_wimi?).to be true
+    @project.users << @user
+    visit "/projects/#{@project.id}"
+    expect(page).to have_link(I18n.t('project.invite_someone_to_project'))
+  end
+
   it 'shows an inviation after the user has been invited' do
     FactoryGirl.create(:invitation, user: @user, project: @project)
     visit '/dashboard'
