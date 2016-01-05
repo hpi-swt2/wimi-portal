@@ -33,5 +33,13 @@ RSpec.describe DocumentsController, type: :controller do
       expect(response.headers["Content-Type"]).to eq("application/pdf")
       expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"Dienstreiseantrag.pdf\"")
     end
+
+    it 'should generate a PDF file for a holidays' do
+      holiday = FactoryGirl.create(:holiday)
+      params = {doc_type: 'Urlaubsantrag', doc_id: holiday.id}
+      get :generate_pdf, params
+      expect(response.headers["Content-Type"]).to eq("application/pdf")
+      expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"Urlaubsantrag.pdf\"")
+    end
   end
 end

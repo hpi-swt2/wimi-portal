@@ -27,8 +27,6 @@ class DocumentsController < ApplicationController
         @tmp_vars[:annotation_splitted] = @tmp_vars[:trip].annotation.split("\n")[0,4]
       when 'Urlaubsantrag'
         @tmp_vars[:holiday] = Holiday.find(params[:doc_id])
-        @tmp_vars[:holiday].annotation = @tmp_vars[:holiday].annotation || ""
-        @tmp_vars[:annotation_splitted] = @tmp_vars[:holiday].annotation.split("\n")
       when 'Reisekostenabrechnung'
         @tmp_vars[:report] = TravelExpenseReport.find(params[:doc_id])
         @tmp_vars[:reason_splitted] = @tmp_vars[:report].reason.split("\n")
