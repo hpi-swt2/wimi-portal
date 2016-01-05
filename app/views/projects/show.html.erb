@@ -34,11 +34,12 @@
             <% if user.is_wimi?%>
               <div style="margin-bottom: 15px">
                   <%= user.name %>
-                <% if user == current_user %>
-                    <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
-
-                <% else %>
-                    <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
+                <% if can? :edit, @project%>
+                    <% if user == current_user %>
+                        <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
+                    <% else %>
+                        <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
+                    <% end %>
                 <% end %>
               </div>
             <% end %>
@@ -54,11 +55,13 @@
           <% if user.is_hiwi?%>
               <div style="margin-bottom: 15px">
                 <%= user.name %>
-              <% if user == current_user %>
-                <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
-              <% else %>
-                <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
-              <% end %>
+                <% if can? :edit, @project%>
+                    <% if user == current_user %>
+                        <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
+                    <% else %>
+                        <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
+                    <% end %>
+                <% end %>
               </div>
           <% end %>
         </div>
