@@ -10,10 +10,15 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       post 'invite_user'
+      get 'accept_invitation'
+      get 'decline_invitation'
     end
   end
+  get 'projects/typeahead/:query' => 'projects#typeahead'
+
   resources :holidays
   resources :expenses
+
   resources :work_days
   resources :time_sheets, :only => [:edit, :update, :delete]
   resources :travel_expense_reports
@@ -31,8 +36,6 @@ Rails.application.routes.draw do
   post 'chairs/set_admin', to: 'chairs#set_admin'
   post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
   get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
-
-  get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
 

@@ -31,6 +31,9 @@ class Ability
   def initialize_wimi(user)
     initialize_user user
     can :crud, Project
+    can :invite_user, Project do |project|
+      project.users.include? user
+    end
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end

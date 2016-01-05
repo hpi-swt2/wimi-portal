@@ -1,6 +1,8 @@
 FactoryGirl.define do
-  factory :chair_wimi, class: 'ChairWimi' do
-    user_id nil
-    chair_id nil
+  factory :chair_wimi do
+    user_id 0
+    chair_id 0
+    representative false
+    application ""
   end
 end
