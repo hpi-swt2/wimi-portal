@@ -25,9 +25,8 @@
       <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
           <div <%= "class='current'" if user == @user%>>
             <% if user.is_wimi?%>
-
+              <div style="margin-bottom: 15px">
                   <%= user.name %>
-
                 <% if user == current_user %>
                   <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOutMyself') do %>
                       <i class="icon-ok icon-white pull-right"></i> sign out
@@ -37,6 +36,7 @@
                         <i class="icon-ok icon-white pull-right"></i> sign out
                     <% end %>
                 <% end %>
+              </div>
             <% end %>
           </div>
       <% end %>
@@ -48,7 +48,8 @@
     <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
         <div <%= "class='current'" if user == @user %>>
           <% if user.is_hiwi?%>
-              <%= user.name %>
+              <div style="margin-bottom: 15px">
+                <%= user.name %>
               <% if user == current_user %>
                   <%= button_tag(type: 'submit', class: 'btn btn-danger btn-xs pull-right', style: 'margin-right: 600px', id: 'SignOutMyself') do %>
                       <i class="icon-ok icon-white pull-right"></i> sign out
@@ -58,6 +59,7 @@
                       <i class="icon-ok icon-white pull-right"></i> sign out
                   <% end %>
               <% end %>
+              </div>
           <% end %>
         </div>
     <% end %>
