@@ -15,9 +15,9 @@
   <dd><%= @project.chair.name %></dd>
   <dt><%= t('.chair_representative', default: 'Chair Representative') %>:</dt>
   <dd><%= @project.chair.representative.user.name %></dd>
-  <dt><%= t('.Project_visibility', default:'Visibility') %>:</dt>
+  <dt><%= t('.project_visibility', default:'Visibility') %>:</dt>
   <dd><%= @project.public ? t('.public', default:'Public') : t('.private', default:'private') %></dd>
-  <dt><%= 'Project Leader' %>:</dt>
+  <dt><%= t('.project_leader', default: 'Project Leader') %>:</dt>
   <dd>
     <%if @project.project_leader.blank? %>
       <i><%= t('.not_defined', default:'not defined') %></i>
