@@ -27,7 +27,7 @@
         <% if (chair = current_user.chair) != nil %>
             <%= chair.name %>
         <% else %>
-            <%= I18n.t('chairs.not_member_of_chair', default: 'You are not a member of a chair.') %>
+            <%= I18n.t('activerecord.attributes.user.not_member_of_chair') %>
         <% end %>
       </p>
       <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= current_user.personnel_number %></p>

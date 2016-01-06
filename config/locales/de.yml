@@ -136,6 +136,7 @@ de:
         street: "Straße"
         personnel_number: "Personalnummer"
         language: "Sprache"
+        not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
   links:
     search: 'Suchen'
     submit: 'Abschicken'

@@ -135,6 +135,7 @@ en:
         street: "Street"
         personnel_number: "Staff Number"
         language: "Language"
+        not_member_of_chair: "You are not a member of a chair."
   links:
     search: 'Search'
     submit: 'Submit'
