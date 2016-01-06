@@ -1,9 +1,12 @@
 class ChairsController < ApplicationController
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update,  :set_admin, :withdraw_admin]
+  load_and_authorize_resource
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
 
-  before_action :authorize_admin, only: [:accept_request, :remove_from_chair, :set_admin, :withdraw_admin]
-  before_action :authorize_superadmin, only: [:destroy, :new, :create, :edit, :update]
-  before_action :authorize_admin_or_representative, only: [:show]
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = I18n.t('chair.not_authorized')
+    redirect_to chairs_path
+  end
+
 
   def index
     @chairs = Chair.all
@@ -82,10 +85,14 @@ class ChairsController < ApplicationController
     end
   end
 
+  def requests
+    @allrequests = @chair.get_all_requests
+  end
+
   def set_admin
     chair_wimi = ChairWimi.find(params[:request])
     chair_wimi.admin = true
-    
+
     if chair_wimi.save
       flash[:success] = I18n.t('chair.set_admin.success', default: 'Admin was successfully set.')
       redirect_to chair_path(@chair)
@@ -125,30 +132,11 @@ class ChairsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_chair
     @chair = Chair.find(params[:id])
   end
 
   def chair_params
     params.require(:chair).permit(:name)
-  end
-
-  protected
-  def authorize_superadmin
-    not_authorized unless current_user.superadmin
-  end
-
-  def authorize_admin
-    not_authorized unless current_user.is_admin?(@chair)
-  end
-
-  def authorize_admin_or_representative
-    not_authorized unless current_user.is_admin?(@chair) || current_user.is_representative?(@chair)
-  end
-
-  def not_authorized
-    flash[:error] = I18n.t('chair.not_authorized', default: 'Not authorized for this chair.')
-    redirect_to chairs_path
   end
 end

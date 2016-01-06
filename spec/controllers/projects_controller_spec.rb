@@ -27,7 +27,7 @@ RSpec.describe ProjectsController, type: :controller do
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {:title => 'My Project'}
+    {title: 'My Project'}
   }
 
   let(:invalid_attributes) {
@@ -165,7 +165,7 @@ RSpec.describe ProjectsController, type: :controller do
       user = FactoryGirl.create(:user)
       expect(Invitation.all.size).to eq(0)
       expect {
-        put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
+        put :invite_user, { id: project.to_param, invite_user: { email: user.email } }, valid_session
       }.to change(Invitation.all, :count).by(1)
       expect(Invitation.first.user).to eq user
       expect(Invitation.first.project).to eq project
@@ -175,7 +175,7 @@ RSpec.describe ProjectsController, type: :controller do
       project = Project.create! valid_attributes
       user = FactoryGirl.create(:user)
       expect {
-        put :invite_user, { id: project.to_param, :invite_user => { :email => 'invalid@email' } }, valid_session
+        put :invite_user, { id: project.to_param, invite_user: { email: 'invalid@email' } }, valid_session
       }.to change(Invitation.all, :count).by(0)
     end
 
@@ -193,8 +193,8 @@ RSpec.describe ProjectsController, type: :controller do
       user = FactoryGirl.create(:user)
       Invitation.create(user: user, project: project)
       expect {
-        put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
-      }.to change(Invitation.all, :count).by(0)
+        put :invite_user, { id: project.to_param, invite_user: { email: user.email } }, valid_session
+      }.to change(project.users, :count).by(0)
     end
   end
 

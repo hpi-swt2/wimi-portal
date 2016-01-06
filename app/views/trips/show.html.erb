@@ -24,4 +24,4 @@
 
 <%= link_to 'Edit', edit_trip_path(@trip) %> |
 <%= link_to 'Back', trips_path %> |
-<%= link_to 'Download', generate_pdf_path(:doc_type => 'Dienstreiseantrag', :doc_id => @trip) %>
+<%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip) %>

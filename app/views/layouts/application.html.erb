@@ -30,7 +30,7 @@
         <% end %>
         <%= menu_item t("helpers.application_tabs.logout"), destroy_user_session_path %>
       <% else %>
-        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= f.hidden_field :identity_url, value: "https://openid.hpi.uni-potsdam.de/serve" %>
           <%= f.submit t("helpers.application_tabs.sign_in"), class: "SignInButton btn btn-primary" %>
           <img src='<%=asset_path "openid-logo.png" %>' class="openID" />
