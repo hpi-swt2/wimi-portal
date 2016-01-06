@@ -13,7 +13,7 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
-    visit projects_path
+    visit project_path(project)
     expect(page).to have_selector(:link_or_button, 'Edit')
     click_on 'Edit'
     fill_in 'project_title', with: 'My New Project'
@@ -27,14 +27,113 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     projectTitle = project.title
     @wimi.projects << project
-    visit projects_path
+    visit project_path(project)
     expect(page).to have_selector(:link_or_button, 'Delete')
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed.')
     expect(page).to have_no_content(projectTitle)
   end
 
-  it ' ' do
-
+  it 'can be set inactive by a wimi' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
+    @wimi.projects << project
+    visit project_path(project)
+    expect(page).to have_selector(:link_or_button, 'set inactive')
+    click_on 'set inactive'
+    project.reload
+    expect(project.status).to be false
   end
+
+  it 'can be set active by a wimi' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, status: false)
+    @wimi.projects << project
+    visit project_path(project)
+    expect(page).to have_selector(:link_or_button, 'set active')
+    click_on 'set active'
+    project.reload
+    expect(project.status).to be true
+  end
+
+  it 'can be set private by a wimi' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: true)
+    @wimi.projects << project
+    visit edit_project_path(project)
+    find(:css, "#project_public_false").set(true)
+    click_on 'Update Project'
+    project.reload
+    expect(project.public).to be false
+  end
+
+  it 'can be set public by a wimi' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    visit edit_project_path(project)
+    find(:css, '#project_public_true').set(true)
+    click_on 'Update Project'
+    project.reload
+    expect(project.public).to be true
+  end
+
+  it 'is possible for a wimi to sign himself out of the project' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    visit edit_project_path(project)
+    find('a[id="SignOutMyself"]').click
+    project.reload
+    expect(current_path).to eq(project_path(project))
+  end
+
+  it 'is possible for a wimi to sign a wimi out of the project' do
+    user = FactoryGirl.create(:user)
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    user.projects << project
+    visit edit_project_path(project)
+    find('a[id="SignOut"]').click
+    project.reload
+    expect(current_path).to eq(edit_project_path(project))
+    expect(project.users).not_to include(user)
+  end
+
+  it 'shows a button for a wimi to inspect a user specific working hour report for this project' do
+    user = FactoryGirl.create(:user)
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    user.projects << project
+    visit edit_project_path(project)
+    expect(page).to have_selector(:link_or_button, 'Show working hours')
+  end
+
+  it 'shows a button for a wimi to inspect all working hour report for this project' do
+    user = FactoryGirl.create(:user)
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    user.projects << project
+    visit edit_project_path(project)
+    expect(page).to have_selector(:link_or_button, 'Show all working hours')
+  end
+
+  it 'not possible for wimi to edit or delete a project he just signed out' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    visit edit_project_path(project)
+    find('a[id="SignOutMyself"]').click
+    project.reload
+    expect(current_path).to eq(project_path(project))
+    expect(page).not_to have_selector(:link_or_button, 'Edit')
+    expect(page).not_to have_selector(:link_or_button, 'Delete')
+    expect(page).not_to have_selector(:link_or_button, 'set inactive')
+    expect(page).to have_selector(:link_or_button, 'Back')
+  end
+
+
 end
