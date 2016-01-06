@@ -1,7 +1,7 @@
 <%= form_for @project, html: { class: "form-horizontal project" } do |f| %>
 
     <% if @project.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
+    <div id="error_explanation" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title"><%= pluralize(@project.errors.count, "error") %> <%= t('.prohibited_this_project_from_being_saved:', default:'prohibited this project from being saved:') %></h3>
       </div>
