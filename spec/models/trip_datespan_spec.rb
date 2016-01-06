@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: trip_datespans
+#
+#  id          :integer          not null, primary key
+#  start_date  :date
+#  end_date    :date
+#  days_abroad :integer
+#  trip_id     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe TripDatespan, type: :model do

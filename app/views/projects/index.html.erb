@@ -1,13 +1,35 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human(:count => 2).titleize %></h1>
+  <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
 </div>
-<table class='table table-striped'>
+<%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
+  <div class="col-md-12">
+    <div class="col-md-2">
+      <%= t('project.filter_chair') %>
+    </div>
+    <div class="col-md-2">
+      <%= select_tag :chair, options_from_collection_for_select(Chair.all, 'name', 'name', params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <%= text_field_tag :title, params[:title], placeholder: t('activerecord.attributes.project.title'), class: "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= submit_tag t('links.search'), class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<div class="col-md-12">
+  </br>
+</div>
+
+<table class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t('helpers.actions') %></th>
+      <th><%=t '.actions', default: t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -21,39 +43,40 @@
               <% project_application = project.project_applications.find_by(user_id: current_user.id) %>
               <% case project_application.status %>
               <% when 'pending' %>
-                <%= link_to t('.cancel', :default => t('helpers.links.pending_cancel')),
-                  project_application_path(project_application),
-                  :method => :delete,
-                  :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?')) },
-                  :class => 'btn btn-danger btn-xs' %>
+                <%= link_to t('.cancel', default: t('helpers.links.pending_cancel')),
+                  project_application_path(project_application), 
+                            method: :delete,
+                            data: { confirm: t('.confirm', default: t('helpers.links.confirm', default: 'Are you sure?')) },
+                            class: 'btn btn-danger btn-xs' %>
               <% when 'accepted' %>
                 <span class='label label-success'><%= project_application.status %></span>
               <% when 'declined' %>
-                <%= link_to t('.reapply', :default => t('helpers.links.refused_reapply')),
-                  reapply_project_application_path(project_application), :class => 'btn btn-danger btn-xs' %>
+                <%= link_to t('.reapply', default: t('helpers.links.refused_reapply')),
+                  reapply_project_application_path(project_application), class: 'btn btn-danger btn-xs' %>
               <% end %>
             <% else %>
-              <%= link_to t('.apply', :default => t('helpers.links.apply')),
-                apply_project_applications_path(id: project.id), :method => :post, :class => 'btn btn-primary btn-xs' %>
+              <%= link_to t('.apply', default: t('helpers.links.apply')),
+                apply_project_applications_path(id: project.id), method: :post, class: 'btn btn-primary btn-xs' %>
             <% end %>
           <% end %>
           <% if can? :edit, project%>
-            <%= link_to t('.edit', :default => t('helpers.links.edit')),
-                      edit_project_path(project), :class => 'btn btn-default btn-xs' %>
+              <%= link_to t('.edit', default: t("helpers.links.edit")),
+                          edit_project_path(project), class: 'btn btn-default btn-xs' %>
           <% end %>
           <% if can? :destroy, project %>
-            <%= link_to t('.destroy', :default => t('helpers.links.destroy')),
-              project_path(project),
-              :method => :delete,
-              :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?')) },
-              :class => 'btn btn-xs btn-danger' %>
+              <%= link_to t('.destroy', default: t("helpers.links.destroy")),
+                          project_path(project),
+                          method: :delete,
+                          data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
+                          class: 'btn btn-xs btn-danger' %>
           <% end %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t('helpers.links.new')),
-            new_project_path,
-            :class => 'btn btn-primary' %>
+  <% if can? :create, Project %>
+      <%= link_to t('.new', default: t("helpers.links.new")),
+                  new_project_path,
+                  class: 'btn btn-primary' %>
+  <% end %>

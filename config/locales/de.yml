@@ -124,7 +124,7 @@ de:
         last_sign_in_at: "Letzte Anmeldung am"
         current_sign_in_ip: "IP für aktuelle Anmeldung"
         last_sign_in_ip: "IP der letzten Anmeldung"
-        first: "Vorname"
+        first_name: "Vorname"
         last_name: "Nachname"
         created_at: "Erstellungsdatum"
         current_password: "Aktuelles Passwort"
@@ -137,6 +137,22 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
+  links:
+    search: 'Suchen'
+    submit: 'Abschicken'
+  project:
+    filter_chair: 'Nach Fachgebiet filtern'
+    invite_someone_to_project: 'Jemanden zum Projekt einladen'
+    invite_someone_to_the_project: "Jemanden zum Projekt \"%{title}\" einladen"
+    send_invitation_to: 'Einladung senden an:'
+    user:
+      does_not_exist: 'Dieser Benutzer existiert nicht.'
+      already_invited: 'Dieser Benutzer wurde bereits eingeladen.'
+      already_is_member: 'Dieser Benutzer ist bereits Mitglied des Projekts.'
+      was_successfully_invited: 'Der Benutzer wurde erfolgreich eingeladen.'
+      invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
+    chair:
+      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
       default: "%d/%m/%Y"
