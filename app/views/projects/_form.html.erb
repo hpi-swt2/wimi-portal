@@ -32,7 +32,7 @@
         <%= f.text_field :project_leader , :class => 'form-control' %>
       </div>
     </div>
-    <%= error_span(@project[:title]) %>
+    <%= error_span(@project[:project_leader]) %>
   </div>
 
 
@@ -98,6 +98,6 @@
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            projects_path, :class => 'btn btn-default' %>
+            project_path, :class => 'btn btn-default' %>
 
 <% end %>
