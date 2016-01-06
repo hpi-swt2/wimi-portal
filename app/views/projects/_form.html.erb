@@ -26,7 +26,6 @@
   </div>
 
   <div class="control-group">
-
     <%= f.label :project_leader, 'Project Leader', :class => 'control-label' %>
     <div class="controls col-md-12 projectTitleControl">
       <div class="col-md-6" style="margin-left: -5px">
@@ -36,72 +35,65 @@
     <%= error_span(@project[:title]) %>
   </div>
 
-  <div class="control-group">
-    <%= f.label :public, 'Accessibility',  :class => 'control-label' %>
-    <div class="radio">
-      <div>
-        <div class="col-md-1"> <%= label :public, 'public'%>
-        </div>
-       <div class="col-md-1"> <%= f.radio_button :public, true, :value => true%>
-       </div>
-      </div>
-      <div>
-        <div class="col-md-1"><%= label :public, 'private'%>
-        </div>
-       <div class="col-md-1"> <%= f.radio_button :public, false, :value => false%>
-       </div>
-      </div>
-    </div>
-    <%= error_span(@project[:public]) %>
-  </div>
 
-  <div>
-    <%= f.label :users, 'Wissenschaftliche Mitarbeiter:',  :class => 'control-label', style: 'margin-bottom: 20px' %>
+    <div class="control-group">
+      <%= f.label :public, 'Accessibility',  :class => 'control-label' %>
+      <div class="radio">
+        <div>
+          <div class="col-md-1"> <%= label :public, 'public'%>
+          </div>
+         <div class="col-md-1"> <%= f.radio_button :public, true, :value => true%>
+         </div>
+        </div>
+        <div>
+          <div class="col-md-1"><%= label :public, 'private'%>
+          </div>
+         <div class="col-md-1"> <%= f.radio_button :public, false, :value => false%>
+         </div>
+        </div>
+      </div>
+      <%= error_span(@project[:public]) %>
+    </div>
+
     <div>
-      <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
-          <div <%= "class='current'" if user == @user%>>
+      <%= f.label :users, 'Wissenschaftliche Mitarbeiter:',  :class => 'control-label', style: 'margin-bottom: 20px' %>
+      <div>
+        <% @project.users.order('last_name').each do |user| %>
             <% if user.is_wimi?%>
                 <div style="margin-bottom: 15px">
                   <%= user.name %>
                   <% if can? :edit, @project%>
                       <% if user == current_user %>
-                          <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px', id: 'SignOutMyself' %>
+                          <%= link_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
                       <% else %>
-                          <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px', id: 'SignOut' %>
+                          <%= link_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
                       <% end %>
                   <% end %>
                 </div>
             <% end %>
-          </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
 
-  </div>
-
-  <div>
-    <%= f.label :users, 'Studentische Hilfskräfte:',  :class => 'control-label', style:'margin-bottom: 20px' %>
     <div>
-      <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
-          <div <%= "class='current'" if user == @user %>>
+      <%= f.label :users, 'Studentische Hilfskräfte:',  :class => 'control-label', style: 'margin-bottom: 20px' %>
+      <div>
+        <% @project.users.order('last_name').each do |user| %>
             <% if user.is_hiwi?%>
                 <div style="margin-bottom: 15px">
                   <%= user.name %>
                   <% if can? :edit, @project%>
                       <% if user == current_user %>
-                          <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOutMyself' %>
+                          <%= link_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
                       <% else %>
-                          <%= button_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px', id: 'SignOut' %>
+                          <%= link_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
                       <% end %>
                   <% end %>
                 </div>
             <% end %>
-          </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-
-  </div>
-
-
 
 
   <%= f.submit nil, :class => 'btn btn-primary' %>

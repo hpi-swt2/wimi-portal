@@ -46,7 +46,6 @@ class Project < ActiveRecord::Base
 
   def remove_user(user)
     users.delete(user)
-    user.notifications << Notification.create(message: I18n.t('project.was_signed_out_project', title: title,  default: "'#{user}' was signed out of the project."))
   end
 
 end

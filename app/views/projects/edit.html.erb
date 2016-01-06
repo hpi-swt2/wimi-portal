@@ -1,12 +1,12 @@
 <%- model_class = Project -%>
 <div class="page-header">
   <h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %>#<%= @project.id %>: <%= @project.title %> <span> <%= @project.status ? "" : " (Inactive)" %></span></h1>
-    <% if can? :edit, @project%>
-        <% if @project.status == true%>
-            <%= button_to 'Set inactive', set_inactive_project_path, method: :get, class: 'btn btn-danger btn-xs pull-right', style:'margin-top: -20px', id: 'setInactiveButton' %>
-        <% else %>
-            <%= button_to 'Set active', set_inactive_project_path, method: :get, class: 'btn btn-success btn-xs pull-right', style:'margin-top: -20px'%>
-        <% end %>
-    <% end %>
+  <% if can? :edit, @project%>
+      <% if @project.status == true%>
+          <%= button_to 'Set inactive', set_inactive_project_path, method: :get, class: 'btn btn-danger btn-xs pull-right', style:'margin-top: -20px', id: 'setInactiveButton' %>
+      <% else %>
+          <%= button_to 'Set active', set_inactive_project_path, method: :get, class: 'btn btn-success btn-xs pull-right', style:'margin-top: -20px'%>
+      <% end %>
+  <% end %>
 </div>
 <%= render partial: 'form' %>

@@ -85,7 +85,11 @@ class ProjectsController < ApplicationController
     @user = User.find(params[:user_id])
     @project = Project.find(params[:id])
     @project.remove_user(@user)
-    redirect_to @project
+    if @user == current_user
+      redirect_to @project
+    else
+      redirect_to edit_project_path(@project)
+    end
   end
 
   def accept_invitation
