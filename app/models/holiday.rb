@@ -3,12 +3,12 @@
 # Table name: holidays
 #
 #  id         :integer          not null, primary key
-#  status     :string
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  start      :date
 #  end        :date
+#  status     :integer          default(0)
 #
 
 class Holiday < ActiveRecord::Base
@@ -17,8 +17,8 @@ class Holiday < ActiveRecord::Base
   validates_presence_of :user, :start, :end
   validates_date :start
   validates_date :end
-  validates_date :start, :on_or_after => :today
-  validates_date :end, :after => :start
+  validates_date :start, on_or_after: :today
+  validates_date :end, after: :start
   validate :too_far_in_the_future?
   validate :sufficient_leave_left?
   enum status: [ :saved, :applied, :accepted, :declined ]

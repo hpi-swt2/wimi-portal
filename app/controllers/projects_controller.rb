@@ -46,19 +46,19 @@ class ProjectsController < ApplicationController
   def invite_user
     user = User.find_by_email params[:invite_user][:email]
     if user.nil?
-      flash[:error] = I18n.t('project.user.doesnt_exist', default: 'The user does not exist.')
+      flash[:error] = I18n.t('project.user.doesnt_exist')
       redirect_to @project
     else
       if Invitation.where(project: @project, user: user).size > 0
-        flash[:error] = I18n.t('project.user.already_invited', default: 'The user is already invited.')
+        flash[:error] = I18n.t('project.user.already_invited')
         redirect_to @project
       else
         if @project.users.include? user
-          flash[:error] = I18n.t('project.user.already_is_member', default: 'The user is already member of this project.')
+          flash[:error] = I18n.t('project.user.already_is_member')
           redirect_to @project
         else
           @project.invite_user user
-          flash[:success] = I18n.t('project.user.was_successfully_invited', default: 'The user has been invited to this project successfully.')
+          flash[:success] = I18n.t('project.user.was_successfully_invited')
           redirect_to @project
         end
       end
@@ -68,13 +68,13 @@ class ProjectsController < ApplicationController
   def accept_invitation
     @project.add_user current_user
     @project.destroy_invitation current_user
-    flash[:success] = I18n.t('project.user.invitation_accepted', default: 'You are now a member of this project!')
+    flash[:success] = I18n.t('project.user.invitation_accepted')
     redirect_to @project
   end
 
   def decline_invitation
     @project.destroy_invitation current_user
-    flash[:success] = I18n.t('project.user.invitation_declined', default: 'The invitation was declined.')
+    flash[:success] = I18n.t('project.user.invitation_declined')
     redirect_to root_path
   end
 

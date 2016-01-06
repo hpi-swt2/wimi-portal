@@ -3,19 +3,19 @@ require 'rails_helper'
 RSpec.describe "travel_expense_reports/new", type: :view do
   before(:each) do
     assign(:travel_expense_report, TravelExpenseReport.new(
-      :inland => false,
-      :country => "MyString",
-      :location_from => "MyString",
-      :location_via => "MyString",
-      :location_to => "MyString",
-      :reason => "MyText",
-      :car => false,
-      :public_transport => false,
-      :vehicle_advance => false,
-      :hotel => false,
-      :general_advance => 1,
-      :signature => false,
-      :user => FactoryGirl.create(:user)
+      inland: true,
+      country: "MyString",
+      location_from: "MyString",
+      location_via: "MyString",
+      location_to: "MyString",
+      reason: "MyText",
+      car: false,
+      public_transport: false,
+      vehicle_advance: false,
+      hotel: false,
+      general_advance: 1,
+      signature: false,
+      user: FactoryGirl.create(:user)
     ))
   end
 
@@ -24,9 +24,6 @@ RSpec.describe "travel_expense_reports/new", type: :view do
 
     assert_select "form[action=?][method=?]", travel_expense_reports_path, "post" do
 
-      assert_select "input#travel_expense_report_inland[name=?]", "travel_expense_report[inland]"
-
-      assert_select "input#travel_expense_report_country[name=?]", "travel_expense_report[country]"
 
       assert_select "input#travel_expense_report_location_from[name=?]", "travel_expense_report[location_from]"
 
