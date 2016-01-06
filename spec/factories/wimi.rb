@@ -6,7 +6,7 @@ FactoryGirl.define do
     chair               @chair
 
     before(:create) do
-      @chair = Chair.new(name: 'Another Test chair')
+      @chair = FactoryGirl.create(:chair)
     end
 
     after(:create) do |user, factory|
