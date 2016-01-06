@@ -24,5 +24,6 @@ FactoryGirl.define do
     f.attendance ""
     f.notes "some note"
     f.user_id 1
+    f.project
   end
 end

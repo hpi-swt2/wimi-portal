@@ -15,12 +15,13 @@ class TravelExpenseReportsController < ApplicationController
   end
 
   def edit
+    (8-@travel_expense_report.travel_expense_report_items.size).times {@travel_expense_report.travel_expense_report_items.build}
   end
 
   def create
     @travel_expense_report = TravelExpenseReport.new(travel_expense_report_params)
     @travel_expense_report.user = current_user
-    
+
     if @travel_expense_report.save
       redirect_to @travel_expense_report, notice: 'Travel expense report was successfully created.'
     else
@@ -47,6 +48,6 @@ class TravelExpenseReportsController < ApplicationController
     end
 
     def travel_expense_report_params
-      params.require(:travel_expense_report).permit(TravelExpenseReport.column_names.map(&:to_sym), travel_expense_report_items_attributes:[:date,:breakfast,:lunch,:dinner])
+      params.require(:travel_expense_report).permit(TravelExpenseReport.column_names.map(&:to_sym), travel_expense_report_items_attributes:[:id,:date,:breakfast,:lunch,:dinner,:annotation])
     end
 end

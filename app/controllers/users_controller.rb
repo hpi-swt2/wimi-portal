@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+<<<<<<< HEAD
   before_action :set_user, :get_months
+=======
+  before_action :user_exists, :set_user
+>>>>>>> dev
 
   def show
   end
@@ -32,18 +36,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :residence, :street, :division_id, :personnel_number, :remaining_leave, :remaining_leave_last_year, :language)
   end
-
-  def get_months
-    @year_months = []
-    creation_date = current_user.created_at
-    (current_user.created_at.year..Date.today.year).each do |year|
-      start_month = (creation_date.year == year) ? creation_date.month : 1
-      end_month = (Date.today.year == year) ? Date.today.month : 12
-
-      (start_month..end_month).each do |month|
-        @year_months.push([year, month])
-      end
-    end
-  end
-
 end

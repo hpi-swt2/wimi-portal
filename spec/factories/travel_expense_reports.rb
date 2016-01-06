@@ -39,6 +39,9 @@ FactoryGirl.define do
     general_advance 2000
     signature true
     user
+    after(:create) do |report|
+      report.travel_expense_report_items << FactoryGirl.build(:travel_expense_report_item, travel_expense_report: report)
+    end
   end
 
   factory :travel_expense_report_invalid, class: TravelExpenseReport do
@@ -56,7 +59,7 @@ FactoryGirl.define do
     hotel true
     general_advance -20
     signature true
-    user 
+    user
     to_create {|i| i.save(validate: false)}
   end
 

@@ -15,12 +15,4 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(rendered).to have_content(project1.title)
     expect(rendered).to_not have_content(project2.title)
   end
-
-  it 'shows a notification once after the user has been invited' do
-    Notification.create(user: @user, message: 'You have been invited to a project')
-    sign_in @user
-    render
-    expect(rendered).to have_content('You have been invited to a project')
-    expect(Notification.where(user: @user).size).to eq 0
-  end
 end
