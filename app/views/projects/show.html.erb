@@ -15,13 +15,13 @@
     <% if project_application = @project.project_applications.find_by(user_id: current_user.id) %>
       <% case project_application.status %>
         <% when 'pending' %>
-          <%= link_to t('.cancel', default: t('helpers.links.pending_cancel')),
+          <%= link_to t('project_applications.pending_cancel', default: 'Application Pending - Cancel'),
             project_application_path(project_application),
             method: :delete,
             data: { confirm: t('.confirm', default: t('helpers.links.confirm', default: 'Are you sure?')) },
             class: 'btn btn-danger' %>
         <% when 'declined' %>
-          <%= link_to t('.reapply', default: t('helpers.links.refused_reapply')),
+          <%= link_to t('project_applications.refused_reapply', default: 'Application refused - Reapply'),
             reapply_project_application_path(project_application), class: 'btn btn-danger' %>
       <% end %>
     <% else %>
@@ -68,10 +68,10 @@
           <td><%= project_application.user.email %></td>
           <td>
             <div class='btn-group'>
-              <%= link_to t('.accept', default: t('helpers.links.accept_application')),
+              <%= link_to t('project_applications.accept_application', default: 'Accept application'),
                 accept_project_application_path(project_application),
                 class: 'btn btn-success' %>
-              <%= link_to t('.decline', default: t('helpers.links.decline_application')),
+              <%= link_to t('project_applications.decline_application', default: 'Decline Application'),
                 decline_project_application_path(project_application),
                 class: 'btn btn-danger' %>
             </div>

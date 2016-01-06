@@ -35,6 +35,14 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
+  project_applications:
+    index:
+      cancel: "Bewerbung zurückziehen"
+    reapply: "Erneut bewerben"
+    refused_reapply: "Bewerbung abgelehnt - Erneut bewerben"
+    pending_cancel: "Bewerbung ausstehend - Zurückziehen"
+    accept_application: "Bewerbung akzeptieren"
+    decline_application: "Bewerbung ablehnen"
   users:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"

@@ -20,7 +20,7 @@
                 <span class="label label-xs label-info"><%= project_application.status %></span>
               </td>
               <td>
-                <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+                <%= link_to t('.cancel', default: 'Cancel Application'),
                   project_application_path(project_application),
                   method: :delete,
                   data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
@@ -36,7 +36,7 @@
                   <span class="label label-xs label-danger"><%= project_application.status %></span>
                 </td>
                 <td>
-                  <%= link_to t('.reapply', default: t("helpers.links.reapply")),
+                  <%= link_to t('project_applications.reapply', default: 'Reapply'),
                               reapply_project_application_path(project_application), class: 'btn btn-primary btn-xs' %>
                 </td>
           <% end %>
