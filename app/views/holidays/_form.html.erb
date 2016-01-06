@@ -1,4 +1,4 @@
-<%= form_for @holiday, :html => { :class => "form-horizontal holiday" } do |f| %>
+<%= form_for @holiday, html: { class: "form-horizontal holiday" } do |f| %>
 
   <% if @holiday.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -16,29 +16,29 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :status, :class => 'control-label' %>
+    <%= f.label :status, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :status, :class => 'form-control' %>
+      <%= f.text_field :status, class: 'form-control' %>
     </div>
     <%= error_span(@holiday[:status]) %>
   </div>
   <div class="control-group">
-    <%= f.label :start, :class => 'control-label' %>
+    <%= f.label :start, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field(:start, required: true, class: 'js-datepicker form-control', 'data-provide': "datepicker", 'data-date-format': 'dd.mm.yyyy', 'data-date-orientation':"bottom") %>
+      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
-    <%= f.label :end, :class => 'control-label' %>
+    <%= f.label :end, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field(:end, required: true, class: 'js-datepicker form-control', 'data-provide': "datepicker", 'data-date-format': 'dd.mm.yyyy', 'data-date-orientation':"bottom") %>
+      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
     </div>
     <%= error_span(@holiday[:end]) %>
   </div><br>
 
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            current_user, :class => 'btn btn-default' %>
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+            current_user, class: 'btn btn-default' %>
 
 <% end %>

@@ -4,8 +4,8 @@ RSpec.describe 'projects/index', type: :view do
   before(:each) do
     sign_in FactoryGirl.create(:user)
     assign(:projects, [
-      Project.create!(:title => 'My Project'),
-      Project.create!(:title => 'My Project')
+      Project.create!(title: 'My Project'),
+      Project.create!(title: 'My Project')
     ])
   end
 

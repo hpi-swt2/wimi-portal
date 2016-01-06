@@ -22,8 +22,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # for Windows users
-gem 'nokogiri', '1.6.7.rc3', :platforms => [:mswin, :mingw, :x64_mingw]
-gem 'tzinfo-data', :platforms => [:mingw, :mswin, :x64_mingw]
+gem 'nokogiri', '1.6.7.rc3', platforms: [:mswin, :mingw, :x64_mingw]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'newrelic_rpm'
 gem 'airbrake'
@@ -57,11 +57,24 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 # Continuation of CanCan (authoriation Gem for RoR)
 gem 'cancancan'
+
+# Typeahead gem
+gem 'bootstrap-typeahead-rails'
+# Search Gem
+gem 'searchlight'
 # for nested forms
 #gem 'cocoon'
 gem 'business_time'
 gem 'holidays'
 gem 'bootstrap-datepicker-rails'
+gem 'whenever'
+
+# For generating pdfs from documents
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
+# Create filters easily with scopes
+gem 'has_scope'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

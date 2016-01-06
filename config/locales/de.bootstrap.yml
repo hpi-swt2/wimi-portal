@@ -1,0 +1,108 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+de:
+  home:
+    index:
+      welcome: "wilkommen"
+  helpers:
+    application_tabs:
+      home: "Startseite"
+      profile: "Profil"
+      sign_in: "Anmelden"
+      login: "Anmelden"
+      logout: "Abmelden"
+    actions: "Aktionen"
+    links:
+      back: "Zurück"
+      cancel: "Abbrechen"
+      confirm: "Sicher?"
+      destroy: "Löschen"
+      new: "Neu"
+      edit: "Bearbeiten"
+      edit_leave: "Resturlaub bearbeiten"
+      show_details: "Details anzeigen"
+      show_pdf: "Als PDF anzeigen"
+    titles:
+      edit: "%{model} bearbeiten"
+      save: "%{model} speichern"
+      new: "%{model} erstellen"
+      delete: "%{model} löschen"
+    language:
+      lang: "Sprache"
+      english: "Englisch"
+      german: "Deutsch"
+    submit:
+      create: "Erstelle %{model}"
+      update: "Aktualisiere %{model}"
+  users:
+    update:
+      user_updated: "Benutzer erfolgreich aktualisiert"
+    show:
+      holiday_requests: "Urlaubsanfragen"
+      request_holiday: "Urlaub anfragen"
+      user_data: "Profilbezogene Daten"
+      remaining_leave: "Verbleibender Resturlaub: %{leave} Tag(e)"
+      remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
+      days: "Tag(e)"
+      title: "Benutzerprofil"
+      warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+    edit:
+      user_data: "Profilbezogene Daten"
+    edit_leave:
+      remaining_leave: "Verbleibender Resturlaub"
+      remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
+      save: "Resturlaub Speichern"
+      title: "Resturlaub bearbeiten"
+  dashboard:
+    index:
+      dashboard_title: "Dashboard"
+      projects: "Meine Projekte"
+  travel_expense_reports:
+    show:
+      inland: "Inlandsreise"
+      country: "Land"
+      location_from: "Startort"
+      location_via: "Zwischenhalt"
+      location_to: "Zielort"
+      reason: "Grund"
+      date_start: "Startet am"
+      date_end: "Endet am"
+      vehicle: "Fahrzeug"
+      car: "PKW"
+      public_transport: "Bus/Bahn/Flug"
+      vehicle_advance: "vom HPI im Voraus bezahlt"
+      hotel: "Hotel"
+      general_advance: "Vorschuss"
+      signature: "Unterschreiben"
+  trips:
+    show:
+      id: "Id"
+      destination: "Ziel"
+      reason: "Grund"
+      annotation: "Bemerkungen"
+      signature: "Unterschreiben"
+      status: "Status"
+      user_id: "Benutzer"
+      created_at: "Erstellungsdatum"
+  date:
+    formats:
+      default: "%d.%m.%Y"
+    order:
+      - :day
+      - :month
+      - :year
+    month_names:
+      - 
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Dezember

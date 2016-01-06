@@ -14,6 +14,7 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  identity_url              :string
+#  language                  :string           default("en"), not null
 #  residence                 :string
 #  street                    :string
 #  division_id               :integer          default(0)
@@ -45,7 +46,7 @@ RSpec.describe User, type: :model do
     user = FactoryGirl.create(:user)
     chair = FactoryGirl.create(:chair)
     expect(user.is_wimi?).to eq(false)
-    chairwimi = ChairWimi.create(:user => user, :chair => chair, :application => 'accepted')
+    chairwimi = ChairWimi.create(user: user, chair: chair, application: 'accepted')
     expect(user.is_wimi?).to eq(true)
   end
 

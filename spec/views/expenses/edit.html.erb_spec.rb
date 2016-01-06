@@ -10,6 +10,7 @@ RSpec.describe 'expenses/edit', type: :view do
       trip_id: nil))
   end
 
+
   it 'renders the edit expense form' do
     render
 

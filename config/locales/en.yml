@@ -20,13 +20,141 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  errors:
-    messages:
-      invalid_date: "is not a valid date"
-      invalid_time: "is not a valid time"
-      invalid_datetime: "is not a valid datetime"
-      is_at: "must be at %{restriction}"
-      before: "must be before %{restriction}"
-      on_or_before: "must be on or before %{restriction}"
-      after: "must be after %{restriction}"
-      on_or_after: "must be on or after %{restriction}"
+  activerecord:
+    models:
+      chair:
+        one: "Chair"
+        other: "Chairs"
+      expense:
+        one: "Expense"
+        other: "Expenses"
+      holiday:
+        one: "Holiday"
+        other: "Holidays"
+      project:
+        one: "Project"
+        other: "Projects"
+      publication:
+        one: "Publication"
+        other: "Publications"
+      trip:
+        one: "Business Trip"
+        other: "Business Trips"
+      user:
+        one: "User"
+        other: "Users"
+    attributes:
+      chair:
+        id: "Id"
+        name: "Name"
+        created_at: "Created at"
+        status: "Status"
+      project:
+        title: "Title"
+        created_at: "Created at"
+        users: "Users"
+      holiday:
+        id: "Id"
+        status: "Status"
+        start: "Start"
+        end: "End"
+        user_id: "User"
+        created_at: "Created at"
+        duration: "Duration"
+      publication:
+        id: "Id"
+        title: "Title"
+        venue: "Venue"
+        type_: "Type"
+        project_id: "Project"
+        created_at: "Created at"
+        users: "Users"
+      expense:
+        id: "Id"
+        amount: "Amount"
+        purpose: "Purpose"
+        comment: "Comment"
+        user_id: "User"
+        project_id: "Project"
+        trip_id: "Business Trip"
+        created_at: "Created at"
+      trip:
+        id: "Id"
+        destination: "Destination"
+        reason: "Reason"
+        annotation: "Annotations"
+        signature: "Add signature?"
+        status: "Status"
+        user_id: "User"
+        created_at: "Created at"
+      trip_datespan:
+        start_date: "Start at"
+        end_date: "End at"
+        days_abroad: "Days abroad"
+      travel_expense_report:
+        inland: "Inland Travel"
+        country: "Country"
+        location_from: "Starting in"
+        location_via: "Via"
+        location_to: "To"
+        reason: "Reason"
+        date_start: "Start at"
+        vehicle: "Vehicle"
+        date_end: "End at:"
+        car: "Travel by car"
+        public_transport: "Travel by Bus/Train/Plane"
+        vehicle_advance: "Travel paid by HPI"
+        hotel: "Hotel"
+        general_advance: "Advance"
+        signature: "Add signature?"
+      travel_expense_report_item:
+        date: "Date"
+        breakfast: "Breakfast"
+        lunch: "Lunch"
+        dinner: "Dinner"
+        annotation: "Description"
+      user:
+        id: "Id"
+        email: "Email"
+        reset_password_token: "Reset Password Token"
+        reset_password_sent_at: "Reset Password sent at"
+        remember_created_at: "Remember Created at"
+        current_sign_in_at: "Current Sign In at"
+        last_sign_in_at: "Last Sign In at"
+        current_sign_in_ip: "Current Sign In IP"
+        last_sign_in_ip: "Last Sign In IP"
+        first: "First Name"
+        last_name: "Last Name"
+        created_at: "Created at"
+        current_password: "Current Password"
+        password_confirmation: "Password Confirmation"
+        password: "Password"
+        remember_me: "Remember me"
+        personal_data: "User Data"
+        residence: "Residence"
+        street: "Street"
+        personnel_number: "Staff Number"
+        division_id: "Division"
+        language: "Language"
+  links:
+    search: 'Search'
+    submit: 'Submit'
+  project:
+    filter_chair: 'Filter for chair'
+    invite_someone_to_project: 'Invite someone to the project'
+    invite_someone_to_the_project: "Invite someone to the project \"%{title}\""
+    send_invitation_to: 'Send invitation to:'
+    user:
+      does_not_exist: 'This user does not exist.'
+      already_invited: 'This user is already invited to the project.'
+      already_is_member: 'This user is already a member of this project.'
+      was_successfully_invited: 'The user has been invited successfully.'
+      invitation_accepted: 'You are now a member of this project.'
+      invitation_declined: 'You declined the invitation.'
+    chair:
+      not_authorized: "You're not authorized to do that for this chair."
+  time:
+    formats:
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"

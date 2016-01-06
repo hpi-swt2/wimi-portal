@@ -1,0 +1,26 @@
+<div class="modal fade" id="invite-colleagues-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><%= t('project.invite_someone_to_the_project', title: @project.title) %></h4>
+      </div>
+      <div class="modal-body" >
+        <div class="row invite-colleague">
+          <div class="col-sm-12">
+            <div class="description-text">
+              <%= t('project.send_invitation_to') %>
+              <%= form_for :invite_user, url: invite_user_project_path(@project) do |f| %>
+                <div class="modal-body clearfix" >
+                  <%= f.text_field :email, { class: "typeahead form-control", size: 100, placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
+                </div>
+                <%= f.submit t('links.submit'), class: "btn btn-primary" %>
+                <span class="btn btn-default", data-dismiss="modal"><%= t("helpers.links.back") %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
