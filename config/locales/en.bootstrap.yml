@@ -48,6 +48,8 @@ en:
       project_leader: "Project Leader"
       title: "Title"
       prohibited_this_project_from_being_saved: "prohibited this project from being saved"
+      show_working_hours: "Show working hours"
+      show_all_working_hours: "Show all working hours"
     show:
       inactive: "(inactive)"
       set_inactive: "set inactive"

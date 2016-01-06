@@ -55,7 +55,7 @@
 
     <div>
       <%= f.label :users, t('projects.form.wimi', default: 'Research Assistants:'),  :class => 'control-label', style: 'margin-bottom: 20px' %>
-      <div>
+      <div class="col-md-12">
         <% @project.users.order('last_name').each do |user| %>
             <% if user.is_wimi?%>
                 <div style="margin-bottom: 15px">
@@ -73,19 +73,20 @@
       </div>
     </div>
 
-    <div>
+    <div style="margin-bottom: 30px">
       <%= f.label :users, t('projects.form.hiwi', default:'Student Assistants:'),  :class => 'control-label', style: 'margin-bottom: 20px' %>
       <div>
         <% @project.users.order('last_name').each do |user| %>
             <% if user.is_hiwi?%>
                 <div style="margin-bottom: 15px">
-                  <%= user.name %>
+                  <div class="col-md-2"> <%= user.name %> </div>
                   <% if can? :edit, @project%>
                       <% if user == current_user %>
-                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
+                        <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 615px; margin-bottom: 20px', id: 'SignOutMyself' %>
                       <% else %>
-                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
+                        <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 615px; margin-bottom: 20px', id: 'SignOut' %>
                       <% end %>
+                      <%= link_to t('projects.form.show_working_hours', default:'Show working hours'), work_days_path(month: 1, year: 2016, project: @project.id), class: 'btn btn-warning btn-xs' %>
                   <% end %>
                 </div>
             <% end %>
@@ -97,5 +98,7 @@
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             projects_path, :class => 'btn btn-default' %>
+    <%= link_to t('projects.form.show_all_working_hours', default:'Show all working hours'),
+                work_days_path(month: 1, year: 2016, project: @project.id), class: 'btn btn-warning pull-right' %>
 
 <% end %>

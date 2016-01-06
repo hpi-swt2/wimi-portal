@@ -44,6 +44,8 @@ de:
       project_leader: "Teamleiter"
       title: "Titel"
       prohibited_this_project_from_being_saved: "verbietet das Projekt zu speichern"
+      show_working_hours: "Stundenzettel anzeigen"
+      show_all_working_hours: "Alle Stundenzettel anzeigen"
     show:
       inactive: "(inaktiv)"
       set_inactive: "inaktiv schalten "
