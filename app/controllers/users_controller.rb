@@ -1,10 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-<<<<<<< HEAD
-  before_action :set_user, :get_months
-=======
   before_action :user_exists, :set_user
->>>>>>> dev
+
 
   def show
   end

@@ -10,10 +10,7 @@
 #  travel_expense_report_id :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
-<<<<<<< HEAD
-=======
 #  annotation               :text
->>>>>>> dev
 #
 
 class TravelExpenseReportItem < ActiveRecord::Base

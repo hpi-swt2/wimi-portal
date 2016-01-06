@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-
-ActiveRecord::Schema.define(version: 20151215142703) do
-
-=======
 ActiveRecord::Schema.define(version: 20151215145322) do
->>>>>>> dev
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -114,7 +108,6 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-<<<<<<< HEAD
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.boolean  "signed",                default: false
@@ -124,13 +117,6 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.integer  "signer"
   end
 
-
-=======
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
->>>>>>> dev
   create_table "travel_expense_report_items", force: :cascade do |t|
     t.date     "date"
     t.boolean  "breakfast"
@@ -206,7 +192,6 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.string   "identity_url"
     t.string   "language",                  default: "en",  null: false
     t.string   "residence"
-    t.string   "identity_url"
     t.string   "street"
     t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0

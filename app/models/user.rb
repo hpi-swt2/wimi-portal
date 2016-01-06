@@ -44,10 +44,7 @@ class User < ActiveRecord::Base
       'School of Design Thinking',
       'Knowledge Discovery and Data Mining']
 
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
   LANGUAGES = [
     [
       'English',
@@ -62,14 +59,8 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
-<<<<<<< HEAD
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-=======
   devise  :openid_authenticatable, :trackable
->>>>>>> dev
+
 
   has_many :work_days
   has_many :time_sheets
@@ -104,8 +95,7 @@ class User < ActiveRecord::Base
     self.last_name = last
   end
 
-<<<<<<< HEAD
-=======
+
   def projects_for_month(year, month)
     projects = TimeSheet.where(
       user: self, month: month, year: year).map {|sheet| sheet.project}
@@ -129,7 +119,6 @@ class User < ActiveRecord::Base
     not is_wimi? and not is_superadmin? and not is_hiwi?
   end
 
->>>>>>> dev
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = self.remaining_leave
     self.remaining_leave = 28
@@ -191,16 +180,5 @@ class User < ActiveRecord::Base
         end
       end
     end
-<<<<<<< HEAD
-  end
-  
-  def projects_for_month(year, month)
-    projects = TimeSheet.where(
-      user: self, month: month, year: year).map {|sheet| sheet.project}
-    p (projects.compact + self.projects).uniq
-    return (projects.compact + self.projects).uniq
-
-=======
->>>>>>> dev
   end
 end

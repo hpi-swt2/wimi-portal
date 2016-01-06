@@ -21,13 +21,9 @@ Rails.application.routes.draw do
 
   resources :holidays
   resources :expenses
-<<<<<<< HEAD
-  resources :work_days
-=======
-
   resources :work_days
   resources :time_sheets, :only => [:edit, :update, :delete]
->>>>>>> dev
+
   resources :travel_expense_reports
   resources :trips do
     member do
@@ -41,17 +37,10 @@ Rails.application.routes.draw do
   post 'chairs/accept', to: 'chairs#accept_request'
   post 'chairs/remove_user', to: 'chairs#remove_from_chair'
   post 'chairs/destroy', to: 'chairs#destroy'
-<<<<<<< HEAD
-
-  resources :time_sheets, :only => [:edit, :update, :delete]
-
-
-  get 'projects/typeahead/:query' => 'projects#typeahead'
-=======
   post 'chairs/set_admin', to: 'chairs#set_admin'
   post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
   get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
->>>>>>> dev
+
 
 
   devise_for :users
