@@ -1,33 +1,33 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %> #<%= @project.id %>: <%= @project.title %> <span> <%= @project.status ? "" : " (Inactive)" %></span></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %> #<%= @project.id %>: <%= @project.title %> <span> <%= @project.status ? '' : t('.inactive', default:'(inactive)') %></span></h1>
   <% if can? :edit, @project%>
       <% if @project.status == true%>
-          <%= button_to 'Set inactive', set_inactive_project_path, method: :get, class: 'btn btn-danger btn-xs pull-right', style:'margin-top: -20px', id: 'setInactiveButton' %>
+          <%= button_to t('.set_inactive', default: 'set inactive'), set_inactive_project_path, method: :get, class: 'btn btn-danger btn-xs pull-right', style:'margin-top: -20px', id: 'setInactiveButton' %>
       <% else %>
-          <%= button_to 'Set active', set_inactive_project_path, method: :get, class: 'btn btn-success btn-xs pull-right', style:'margin-top: -20px'%>
+          <%= button_to t('.set_active', default: 'set active'), set_inactive_project_path, method: :get, class: 'btn btn-success btn-xs pull-right', style:'margin-top: -20px'%>
       <% end %>
   <% end %>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><%= 'Chair' %>:</dt>
+  <dt><%= t('.chair', default:'Chair') %>:</dt>
   <dd><%= @project.chair.name %></dd>
-  <dt><%= 'Chair Representative' %>:</dt>
+  <dt><%= t('.chair_representative', default: 'Chair Representative') %>:</dt>
   <dd><%= @project.chair.representative.user.name %></dd>
-  <dt><%= 'Status:' %></dt>
-  <dd><%= @project.public ? "Public" : "Private" %></dd>
+  <dt><%= t('.Project_visibility', default:'Visibility') %>:</dt>
+  <dd><%= @project.public ? t('.public', default:'Public') : t('.private', default:'private') %></dd>
   <dt><%= 'Project Leader' %>:</dt>
   <dd>
     <%if @project.project_leader.blank? %>
-      <i><%= 'not defined' %></i>
+      <i><%= t('.not_defined', default:'not defined') %></i>
     <% else %>
       <%= @project.project_leader %></dd>
     <% end %>
 </dl>
 
 <dl class="dl-horizontal">
-  <dt><strong><%='Wissenschaftliche Mitarbeiter' %>:</strong> </dt>
+  <dt><strong><%= t('.research_assistants', default:'Research Assistants') %>:</strong> </dt>
   <dd>
       <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
           <div <%= "class='current'" if user == @user%>>
@@ -41,7 +41,7 @@
   </dd>
 </dl>
 <dl class="dl-horizontal">
-  <dt><strong><%='Studentische Hilfskräfte' %>:</strong> </dt>
+  <dt><strong><%= t('.student_assistants', default:'Student Assistants') %>:</strong> </dt>
   <dd>
     <% @project.users.sort { |a,b| a.name <=> b.name }.each do |user| %>
         <div <%= "class='current'" if user == @user %>>

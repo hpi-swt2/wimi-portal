@@ -3,7 +3,7 @@
     <% if @project.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h3>
+        <h3 class="panel-title"><%= pluralize(@project.errors.count, "error") %> <%= t('.prohibited_this_project_from_being_saved:', default:'prohibited this project from being saved:') %></h3>
       </div>
       <div class="panel-body">
         <ul>
@@ -16,7 +16,7 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
+    <%= f.label :title, t('projects.form.title', default: 'Title'), :class => 'control-label' %>
     <div class="controls col-md-12 projectTitleControl">
       <div class="col-md-6" style="margin-left: -5px">
       <%= f.text_field :title, :class => 'form-control' %>
@@ -26,7 +26,7 @@
   </div>
 
   <div class="control-group">
-    <%= f.label :project_leader, 'Project Leader', :class => 'control-label' %>
+    <%= f.label :project_leader, t('projects.form.project_leader', default:'Project Leader'), :class => 'control-label' %>
     <div class="controls col-md-12 projectTitleControl">
       <div class="col-md-6" style="margin-left: -5px">
         <%= f.text_field :project_leader , :class => 'form-control' %>
@@ -37,26 +37,24 @@
 
 
     <div class="control-group">
-      <%= f.label :public, 'Accessibility',  :class => 'control-label' %>
+      <%= f.label :public, t('projects.form.accessibility', default: 'Accessibility'),  :class => 'control-label' %>
       <div class="radio">
-        <div>
-          <div class="col-md-1"> <%= label :public, 'public'%>
+        <div class="col-md-2">
+          <div style="margin-left: 20px"> <%= f.radio_button :public, true, :value => true%>
+          <%= label :public, t('projects.show.public', default:t("projects.show.public"))%>
           </div>
-         <div class="col-md-1"> <%= f.radio_button :public, true, :value => true%>
-         </div>
         </div>
-        <div>
-          <div class="col-md-1"><%= label :public, 'private'%>
+        <div class="col-md-2">
+          <div style="margin-left: 20px"> <%= f.radio_button :public, false, :value => false%>
+            <%= label :public, t('projects.show.private', default:t("projects.show.private"))%>
           </div>
-         <div class="col-md-1"> <%= f.radio_button :public, false, :value => false%>
-         </div>
         </div>
       </div>
       <%= error_span(@project[:public]) %>
     </div>
 
     <div>
-      <%= f.label :users, 'Wissenschaftliche Mitarbeiter:',  :class => 'control-label', style: 'margin-bottom: 20px' %>
+      <%= f.label :users, t('projects.form.wimi', default: 'Research Assistants:'),  :class => 'control-label', style: 'margin-bottom: 20px' %>
       <div>
         <% @project.users.order('last_name').each do |user| %>
             <% if user.is_wimi?%>
@@ -64,9 +62,9 @@
                   <%= user.name %>
                   <% if can? :edit, @project%>
                       <% if user == current_user %>
-                          <%= link_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
+                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
                       <% else %>
-                          <%= link_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
+                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
                       <% end %>
                   <% end %>
                 </div>
@@ -76,7 +74,7 @@
     </div>
 
     <div>
-      <%= f.label :users, 'Studentische Hilfskräfte:',  :class => 'control-label', style: 'margin-bottom: 20px' %>
+      <%= f.label :users, t('projects.form.hiwi', default:'Student Assistants:'),  :class => 'control-label', style: 'margin-bottom: 20px' %>
       <div>
         <% @project.users.order('last_name').each do |user| %>
             <% if user.is_hiwi?%>
@@ -84,9 +82,9 @@
                   <%= user.name %>
                   <% if can? :edit, @project%>
                       <% if user == current_user %>
-                          <%= link_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
+                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
                       <% else %>
-                          <%= link_to 'Sign Out', sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
+                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
                       <% end %>
                   <% end %>
                 </div>
@@ -98,6 +96,6 @@
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            project_path, :class => 'btn btn-default' %>
+            projects_path, :class => 'btn btn-default' %>
 
 <% end %>

@@ -28,10 +28,10 @@
   <thead>
   <tr>
     <th><%= "ID" %></th>
-    <th><%= model_class.human_attribute_name(:title) %></th>
-    <th><%= model_class.human_attribute_name(:status) %></th>
-    <th><%= "Accessibility" %></th>
-    <th><%= model_class.human_attribute_name(:created_at) %></th>
+    <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
+    <th><%= t('.project_visibility', default: t("projects.show.project_visibility")) %></th>
+    <th><%= t('.accessibility', default:'Accessibility') %></th>
+    <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
     <th><%=t '.actions', :default => t("helpers.actions") %></th>
 
   </tr>
@@ -42,8 +42,8 @@
     <tr>
       <td><%= link_to project.id, project %></td>
       <td><%= link_to project.title, project %></td>
-      <td><%= project.status ? "Active" : "Inactive" %></td>
-      <td><%= project.public ? "Public" : "Private" %></td>
+      <td><%= project.status ? t('.active', default:'active') : t('.inactive', default:'inactive') %></td>
+      <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
 
       <td><%=l project.created_at %></td>
       <td>

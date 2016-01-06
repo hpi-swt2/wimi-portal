@@ -35,6 +35,36 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
+  projects:
+    form:
+      wimi: "Wissenschaftliche Mitarbeiter"
+      hiwi: "Studentische Hilfskräfte"
+      sign_out_of_project: "Aus dem Projekt austragen"
+      accessibility: "Sichtbarkeit"
+      project_leader: "Projektleiter"
+      title: "Titel"
+      prohibited_this_project_from_being_saved: "verbietet das Projekt zu speichern"
+    show:
+      inactive: "(inaktiv)"
+      set_inactive: "inaktiv schalten "
+      set_active: "aktiv schalten"
+      chair: "Lehrstuhl"
+      chair_representative: "Lehrstuhlbeauftragter"
+      project_visibility: "Sichtbarkeit"
+      project_leader: "Projektleiter"
+      public: "öffentlich"
+      private: "privat"
+      not_defined: "nicht festgelegt"
+      research_assistants: "Wisenschaftliche Mitarbeiter"
+      student_assistants: "Studentische Hilfskräfte"
+    index:
+      title: "Titel"
+      accessibility: "Verfügbarkeit"
+      created_at: "erstellt am"
+      acive: "aktiv"
+      inactive: "inaktiv"
+      private: "privat"
+      public: "öffentlich"
   users:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
