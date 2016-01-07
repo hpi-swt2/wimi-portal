@@ -28,21 +28,21 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
   # TravelExpenseReport. As you add validations to TravelExpenseReport, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {:inland => true,
-     :country => "Germany",
-     :location_from => "Potsdam",
-     :location_via => "London",
-     :location_to => "NYC",
-     :reason => "Hana Things",
-     :date_start => 8.days.ago,
-     :date_end=>  DateTime.now,
-     :car => true,
-     :public_transport=>  true,
-     :vehicle_advance=>  false,
-     :hotel => true,
-     :general_advance =>  2000,
-     :signature => true,
-     :user => User.first}
+    {inland: true,
+     country: "Germany",
+     location_from: "Potsdam",
+     location_via: "London",
+     location_to: "NYC",
+     reason: "Hana Things",
+     date_start: 8.days.ago,
+     date_end:  DateTime.now,
+     car: true,
+     public_transport:  true,
+     vehicle_advance:  false,
+     hotel: true,
+     general_advance:  2000,
+     signature: true,
+     user: User.first}
   }
   
   let(:advance_blank_attributes) {
@@ -64,21 +64,21 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    {:inland => true,
-     :country => "Germany",
-     :location_from => "Potsdam",
-     :location_via => "London",
-     :location_to => "NYC",
-     :reason => "Hana Things",
-     :date_start => DateTime.now,
-     :date_end=>  8.days.ago,
-     :car => true,
-     :public_transport=>  true,
-     :vehicle_advance=>  false,
-     :hotel => true,
-     :general_advance => -100,
-     :signature => true,
-     :user => User.first}
+    {inland: true,
+     country: "Germany",
+     location_from: "Potsdam",
+     location_via: "London",
+     location_to: "NYC",
+     reason: "Hana Things",
+     date_start: DateTime.now,
+     date_end:  8.days.ago,
+     car: true,
+     public_transport:  true,
+     vehicle_advance:  false,
+     hotel: true,
+     general_advance: -100,
+     signature: true,
+     user: User.first}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -97,7 +97,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested travel_expense_report as @travel_expense_report" do
       travel_expense_report = TravelExpenseReport.create! valid_attributes
-      get :show, {:id => travel_expense_report.to_param}, valid_session
+      get :show, {id: travel_expense_report.to_param}, valid_session
       expect(assigns(:travel_expense_report)).to eq(travel_expense_report)
     end
   end
@@ -112,7 +112,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested travel_expense_report as @travel_expense_report" do
       travel_expense_report = TravelExpenseReport.create! valid_attributes
-      get :edit, {:id => travel_expense_report.to_param}, valid_session
+      get :edit, {id: travel_expense_report.to_param}, valid_session
       expect(assigns(:travel_expense_report)).to eq(travel_expense_report)
     end
   end
@@ -121,18 +121,18 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
     context "with valid params" do
       it "creates a new TravelExpenseReport" do
         expect {
-          post :create, {:travel_expense_report => valid_attributes}, valid_session
+          post :create, {travel_expense_report: valid_attributes}, valid_session
         }.to change(TravelExpenseReport, :count).by(1)
       end
 
       it "assigns a newly created travel_expense_report as @travel_expense_report" do
-        post :create, {:travel_expense_report => valid_attributes}, valid_session
+        post :create, {travel_expense_report: valid_attributes}, valid_session
         expect(assigns(:travel_expense_report)).to be_a(TravelExpenseReport)
         expect(assigns(:travel_expense_report)).to be_persisted
       end
 
       it "redirects to the created travel_expense_report" do
-        post :create, {:travel_expense_report => valid_attributes}, valid_session
+        post :create, {travel_expense_report: valid_attributes}, valid_session
         expect(response).to redirect_to(TravelExpenseReport.last)
       end
 
@@ -141,12 +141,12 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
 
     context "with invalid params" do
       it "assigns a newly created but unsaved travel_expense_report as @travel_expense_report" do
-        post :create, {:travel_expense_report => invalid_attributes}, valid_session
+        post :create, {travel_expense_report: invalid_attributes}, valid_session
         expect(assigns(:travel_expense_report)).to be_a_new(TravelExpenseReport)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:travel_expense_report => invalid_attributes}, valid_session
+        post :create, {travel_expense_report: invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
       it 'rejects blank values for advance' do
@@ -165,20 +165,20 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
 
       it "updates the requested travel_expense_report" do
         travel_expense_report = TravelExpenseReport.create! valid_attributes
-        put :update, {:id => travel_expense_report.to_param, :travel_expense_report => new_attributes}, valid_session
+        put :update, {id: travel_expense_report.to_param, travel_expense_report: new_attributes}, valid_session
         travel_expense_report.reload
         expect(assigns(:travel_expense_report)).to eq(travel_expense_report)
       end
 
       it "assigns the requested travel_expense_report as @travel_expense_report" do
         travel_expense_report = TravelExpenseReport.create! valid_attributes
-        put :update, {:id => travel_expense_report.to_param, :travel_expense_report => valid_attributes}, valid_session
+        put :update, {id: travel_expense_report.to_param, travel_expense_report: valid_attributes}, valid_session
         expect(assigns(:travel_expense_report)).to eq(travel_expense_report)
       end
 
       it "redirects to the travel_expense_report" do
         travel_expense_report = TravelExpenseReport.create! valid_attributes
-        put :update, {:id => travel_expense_report.to_param, :travel_expense_report => valid_attributes}, valid_session
+        put :update, {id: travel_expense_report.to_param, travel_expense_report: valid_attributes}, valid_session
         expect(response).to redirect_to(travel_expense_report)
       end
     end
@@ -186,13 +186,13 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
     context "with invalid params" do
       it "assigns the travel_expense_report as @travel_expense_report" do
         travel_expense_report = TravelExpenseReport.create! valid_attributes
-        put :update, {:id => travel_expense_report.to_param, :travel_expense_report => invalid_attributes}, valid_session
+        put :update, {id: travel_expense_report.to_param, travel_expense_report: invalid_attributes}, valid_session
         expect(assigns(:travel_expense_report)).to eq(travel_expense_report)
       end
 
       it "re-renders the 'edit' template" do
         travel_expense_report = TravelExpenseReport.create! valid_attributes
-        put :update, {:id => travel_expense_report.to_param, :travel_expense_report => invalid_attributes}, valid_session
+        put :update, {id: travel_expense_report.to_param, travel_expense_report: invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -202,13 +202,13 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
     it "destroys the requested travel_expense_report" do
       travel_expense_report = TravelExpenseReport.create! valid_attributes
       expect {
-        delete :destroy, {:id => travel_expense_report.to_param}, valid_session
+        delete :destroy, {id: travel_expense_report.to_param}, valid_session
       }.to change(TravelExpenseReport, :count).by(-1)
     end
 
     it "redirects to the travel_expense_reports list" do
       travel_expense_report = TravelExpenseReport.create! valid_attributes
-      delete :destroy, {:id => travel_expense_report.to_param}, valid_session
+      delete :destroy, {id: travel_expense_report.to_param}, valid_session
       expect(response).to redirect_to(travel_expense_reports_url)
     end
   end

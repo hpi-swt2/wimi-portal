@@ -21,7 +21,7 @@ class TravelExpenseReportsController < ApplicationController
   def create
     @travel_expense_report = TravelExpenseReport.new(travel_expense_report_params)
     @travel_expense_report.user = current_user
-    
+
     if @travel_expense_report.save
       redirect_to @travel_expense_report, notice: 'Travel expense report was successfully created.'
     else
