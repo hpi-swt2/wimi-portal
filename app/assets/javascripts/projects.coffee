@@ -26,6 +26,8 @@ $(document).on 'page:load', ready
 ready = ->
   $('#SignOutMyself').click ->
     if !@checked
+      url = document.URL
+
       alert 'You won\'t be able to perform any more actions on the project after you\'re unenrolled!'
     return
   return

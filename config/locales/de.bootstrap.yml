@@ -63,7 +63,7 @@ de:
       title: "Titel"
       accessibility: "Verfügbarkeit"
       created_at: "erstellt am"
-      acive: "aktiv"
+      active: "aktiv"
       inactive: "inaktiv"
       private: "privat"
       public: "öffentlich"

@@ -63,6 +63,7 @@ en:
       not_defined: "not defined"
       research_assistants: "Research Assistants"
       student_assistants: "Student Assistants"
+      active: "aktiv"
     index:
       title: "Title"
       project_status: "Project Status"
