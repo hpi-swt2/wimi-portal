@@ -1,6 +1,6 @@
 <%- model_class = Trip -%>
-<h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+<h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %></h1>
 
 <%= render 'form' %>
 
-<%= link_to t('helpers.links.back'), trips_path , :class => "btn btn-default btn-xs"%>
+<%= link_to t('helpers.links.back'), trips_path , class: "btn btn-default btn-xs"%>

@@ -1,5 +1,5 @@
 <%- model_class = TravelExpenseReport -%>
-<h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+<h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %></h1>
 <%= render 'form' %>
 
 <%= link_to t('helpers.links.back'), travel_expense_reports_path %>

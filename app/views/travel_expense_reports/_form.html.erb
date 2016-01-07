@@ -37,11 +37,11 @@
   </div>
   <div class="control-group">
     <%= f.label :date_start %><br>
-    <%= f.datetime_select :date_start %>
+    <%= f.text_field :date_start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
   </div>
   <div class="control-group">
     <%= f.label :date_end %><br>
-    <%= f.datetime_select :date_end %>
+    <%= f.text_field :date_end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
   </div>
   <div class="control-group">
     <%= f.label :car %><br>
@@ -75,7 +75,7 @@
       </tr>
       <%= f.fields_for :travel_expense_report_items do |t| %>
       <tr>
-        <td><%= t.date_select :date, {include_blank: true, order: [:day,:month,:year]}%></td>
+        <td><%= t.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %></td>
         <td><%= t.check_box :breakfast %></td>
         <td><%= t.check_box :lunch %></td>
         <td><%= t.check_box :dinner %></td>

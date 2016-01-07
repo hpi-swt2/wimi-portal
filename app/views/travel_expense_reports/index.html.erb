@@ -1,7 +1,7 @@
 <%- model_class = TravelExpenseReport -%>
 <p id="notice"><%= notice %></p>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human(:count => 2).titleize %></h1>
+  <h1><%=t '.title', default: model_class.model_name.human(:count => 2).titleize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
@@ -29,9 +29,9 @@
         <td><%= travel_expense_report.reason %></td>
         <td><%= l travel_expense_report.date_start %></td>
         <td><%= l travel_expense_report.date_end %></td>
-        <td><%= link_to t('helpers.links.show_details'), travel_expense_report ,:class => "btn btn-default btn-xs"%></td>
-        <td><%= link_to t('helpers.links.edit'),edit_travel_expense_report_path(travel_expense_report),:class => "btn btn-default btn-xs" %></td>
-        <td><%= link_to t('helpers.links.destroy'), travel_expense_report, method: :delete, data: { confirm: 'Are you sure?' },:class => "btn btn-danger btn-xs" %></td>
+        <td><%= link_to t('helpers.links.show_details'), travel_expense_report ,class: "btn btn-default btn-xs"%></td>
+        <td><%= link_to t('helpers.links.edit'),edit_travel_expense_report_path(travel_expense_report),class: "btn btn-default btn-xs" %></td>
+        <td><%= link_to t('helpers.links.destroy'), travel_expense_report, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-xs" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -39,4 +39,4 @@
 
 <br>
 
-<%= link_to t('helpers.links.new'), new_travel_expense_report_path, :class => "btn btn-primary" %>
+<%= link_to t('helpers.links.new'), new_travel_expense_report_path, class: "btn btn-primary" %>
