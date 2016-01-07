@@ -97,6 +97,10 @@ RSpec.describe TripsController, type: :controller do
         post :create, {:trip => valid_attributes}, valid_session
         expect(response).to redirect_to(Trip.last)
       end
+      it "has the status saved" do
+        trip = Trip.create! valid_attributes
+        expect(trip.status).to eq('saved')
+      end
     end
 
     context "with invalid params" do
@@ -128,6 +132,7 @@ RSpec.describe TripsController, type: :controller do
         put :update, {:id => trip.to_param, :trip => new_attributes}, valid_session
         trip.reload
 	expect(trip.destination).to eq('NYC')
+  expect(trip.status).to eq('saved')
       end
 
       it "assigns the requested trip as @trip" do

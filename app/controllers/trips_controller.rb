@@ -14,13 +14,17 @@ class TripsController < ApplicationController
   end
 
   def edit
-    (2-@trip.trip_datespans.size).times {@trip.trip_datespans.build}
+    if @trip.status == 'applied'
+      redirect_to @trip, notice: 'Trip is already applied.'
+    else
+      (2-@trip.trip_datespans.size).times {@trip.trip_datespans.build}
+    end
   end
 
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    @trip.status = 'saved'
+    
 
     if @trip.save
       redirect_to @trip, notice: 'Trip was successfully created.'

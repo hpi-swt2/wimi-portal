@@ -21,6 +21,10 @@ class Trip < ActiveRecord::Base
   has_many :expenses
   enum status: [ :saved, :applied, :accepted, :declined ]
 
+  before_validation(on: :create) do
+    self.status = 'saved'
+  end
+
   def name
     self.user.name
   end
