@@ -1,4 +1,18 @@
+# == Schema Information
+#
+# Table name: chairs
+#
+#  id           :integer          not null, primary key
+#  name         :string
+#  abbreviation :string
+#  description  :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Chair < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   has_many :chair_wimis, dependent: :destroy
   has_many :users, through: :chair_wimis
   has_many :projects
@@ -11,7 +25,7 @@ class Chair < ActiveRecord::Base
   end
 
   def hiwis
-    projects.collect { |p| p.hiwis }
+    projects.collect { |p| p.hiwis }.flatten.uniq
   end
 
   def admins

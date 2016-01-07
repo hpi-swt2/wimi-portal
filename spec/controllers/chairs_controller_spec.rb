@@ -6,9 +6,9 @@ RSpec.describe ChairsController, type: :controller do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @admin = FactoryGirl.create(:user)
-      ChairWimi.create(user: @admin, chair: @chair, admin: true, application: 'accepted')
+      FactoryGirl.create(:chair_wimi, user: @admin, chair: @chair, admin: true, application: 'accepted')
       @wimi = FactoryGirl.create(:user)
-      ChairWimi.create(user: @wimi, chair: @chair, application: 'accepted')
+      FactoryGirl.create(:chair_wimi, user: @wimi, chair: @chair, admin: false, application: 'accepted')
       @user = FactoryGirl.create(:user)
       @superadmin = FactoryGirl.create(:user)
       @superadmin.superadmin = true
@@ -59,37 +59,16 @@ RSpec.describe ChairsController, type: :controller do
       expect(response).to redirect_to(chair_path(@admin.chair))
     end
 
-    it 'creates a new Wimi application' do
-      login_with @user
-      expect {
-        post :apply, {chair: @chair}
-      }.to change(ChairWimi, :count).by(1)
-
-      # a user has 0..1 applications
-      expect {
-        post :apply, {chair: @chair}
-      }.to change(ChairWimi, :count).by(0)
-    end
-
     it 'removes wimi from chair' do
       login_with @admin
       post :remove_from_chair, {id: @chair, request: @wimi.chair_wimi}
-      expect(User.find(@wimi.id).is_wimi?).to eq(false)
+      expect(@wimi.reload.is_wimi?).to eq(false)
     end
 
     it 'tries to remove admin' do
       login_with @admin
       post :remove_from_chair, {id: @chair, request: @admin.chair_wimi}
-      expect(User.find(@wimi.id).is_wimi?).to eq(true)
-    end
-
-    it 'accepts application request' do
-      wimi_count = @chair.wimis.count
-      login_with @user
-      post :apply, {chair: @chair}
-      login_with @admin
-      post :accept_request, {id: @chair, request: ChairWimi.find_by(user: @user)}
-      expect(Chair.find(@chair.id).wimis.count).to eq(wimi_count+1)
+      expect(@wimi.reload.is_wimi?).to eq(true)
     end
 
     it 'sets admin and withdraws' do
@@ -129,6 +108,50 @@ RSpec.describe ChairsController, type: :controller do
   end
 
 
+  describe 'POST #apply' do
+    before :each do
+      @chair = FactoryGirl.create(:chair)
+      @user = FactoryGirl.create(:user)
+    end
+
+    it 'applies for a chair' do
+      login_with @user
+      expect {
+        post :apply, {chair: @chair}
+      }.to change(ChairWimi, :count).by(1)
+      expect(ChairWimi.find_by(user: @user, chair: @chair).application).to eq 'pending'
+    end
+
+    it 'creates only one new chair application' do
+      login_with @user
+      expect {
+        post :apply, {chair: @chair}
+      }.to change(ChairWimi, :count).by(1)
+
+      expect {
+        post :apply, {chair: @chair}
+      }.to change(ChairWimi, :count).by(0)
+    end
+  end
+
+  describe 'POST #accept_request' do
+    it 'accepts a hiwi' do
+      chair = FactoryGirl.create(:chair)
+      user = FactoryGirl.create(:user)
+      pending_wimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      admin = FactoryGirl.create(:user)
+      FactoryGirl.create(:chair_wimi, user: admin, chair: chair, admin: true, application: 'accepted')
+
+      login_with admin
+      old_wimi_amount = chair.wimis.count
+      post :accept_request, {id: chair, request: pending_wimi}
+      pending_wimi.reload
+      expect(pending_wimi.application).to eq 'accepted'
+      chair.reload
+      expect(chair.wimis.count).to eq(old_wimi_amount + 1)
+    end
+  end
+
   describe 'GET #new' do
     before(:each) do
       @superadmin = FactoryGirl.create(:user)
@@ -160,14 +183,14 @@ RSpec.describe ChairsController, type: :controller do
       user1 = FactoryGirl.create(:user)
       login_with @superadmin
       expect {
-        post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: user1}
+        post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: user1}
       }.to change(Chair, :count).by(1)
     end
 
     it 'creates a new Chair with one user as admin and representative' do
       login_with @superadmin
       expect {
-        post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
+        post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
       }.to change(Chair, :count).by(1)
     end
 
@@ -175,7 +198,7 @@ RSpec.describe ChairsController, type: :controller do
       user1 = FactoryGirl.create(:user)
       login_with @superadmin
       chair_count = Chair.all.count
-      post :create, { chair: {name: 'Test'}}
+      post :create, {chair: {name: 'Test'}}
       expect(Chair.all.count).to eq(chair_count)
     end
   end
@@ -190,50 +213,50 @@ RSpec.describe ChairsController, type: :controller do
     it 'modifies an existing chair with same admin and representative' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
+      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
-      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
+      expect(Chair.last.admins.select { |admin| (admin.user.id == @user.id) }.size).to eq(1)
       expect(Chair.last.representative.user.id).to eq(@user.id)
       put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: @superadmin, representative_user: @superadmin
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
-      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(0)
+      expect(Chair.last.admins.select { |admin| (admin.user.id == @user.id) }.size).to eq(0)
       expect(Chair.last.representative.user.id).to_not eq(@user.id)
-      expect(Chair.last.admins.select{ |admin| (admin.user.id == @superadmin.id) }.size).to eq(1)
+      expect(Chair.last.admins.select { |admin| (admin.user.id == @superadmin.id) }.size).to eq(1)
       expect(Chair.last.representative.user.id).to eq(@superadmin.id)
     end
 
     it 'modifies an existing chair with different admin and representative' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
+      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
-      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
+      expect(Chair.last.admins.select { |admin| (admin.user.id == @user.id) }.size).to eq(1)
       expect(Chair.last.representative.user.id).to eq(@superadmin.id)
       put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: @superadmin, representative_user: @user
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
-      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(0)
+      expect(Chair.last.admins.select { |admin| (admin.user.id == @user.id) }.size).to eq(0)
       expect(Chair.last.representative.user.id).to_not eq(@superadmin.id)
-      expect(Chair.last.admins.select{ |admin| (admin.user.id == @superadmin.id) }.size).to eq(1)
+      expect(Chair.last.admins.select { |admin| (admin.user.id == @superadmin.id) }.size).to eq(1)
       expect(Chair.last.representative.user.id).to eq(@user.id)
     end
 
     it 'does not modify a chair with wrong parameters' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
+      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
-      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
+      expect(Chair.last.admins.select { |admin| (admin.user.id == @user.id) }.size).to eq(1)
       expect(Chair.last.representative.user.id).to eq(@superadmin.id)
 
       put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: nil, representative_user: nil
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
-      expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
+      expect(Chair.last.admins.select { |admin| (admin.user.id == @user.id) }.size).to eq(1)
       expect(Chair.last.representative.user.id).to eq(@superadmin.id)
     end
   end
@@ -249,9 +272,90 @@ RSpec.describe ChairsController, type: :controller do
     it 'destroys an existing chair' do
       login_with @superadmin
       expect {
-        delete :destroy, { id: @chair.id }
+        delete :destroy, {id: @chair.id}
       }.to change(Chair, :count).by(-1)
     end
   end
 
+  describe 'GET #requests' do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @chair = FactoryGirl.create(:chair)
+      @representative = FactoryGirl.create(:user)
+      ChairWimi.create(user_id: @representative.id, chair_id: @chair.id, representative: true)
+    end
+
+    it 'does not show requests for users' do
+      sign_in @user
+      get :requests, {id: @chair}
+      expect(response).to have_http_status(302)
+    end
+
+    it 'shows request page for chairs representative' do
+      sign_in @representative
+      get :requests, {id: @chair}
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'does not show request page for another chair' do
+      chair1 = FactoryGirl.create(:chair)
+      sign_in @representative
+      get :requests, {id: chair1}
+      expect(response).to have_http_status(302)
+    end
+
+    it 'show all requests of chair' do
+      FactoryGirl.create(:holiday, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:trip, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:expense, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:holiday, user_id: @user.id, status: 1)
+      sign_in @representative
+      get :requests, {id: @chair}
+      expect(response).to render_template('requests')
+    end
+  end
+
+  describe 'GET #requests' do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @chair = FactoryGirl.create(:chair)
+      @representative = FactoryGirl.create(:user)
+      ChairWimi.create(user_id: @representative.id, chair_id: @chair.id, representative: true)
+    end
+
+    it 'does not show requests for users' do
+      sign_in @user
+      get :requests, {id: @chair}
+      expect(response).to have_http_status(302)
+    end
+
+    it 'shows request page for chairs representative' do
+      sign_in @representative
+      get :requests, {id: @chair}
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'does not show request page for another chair' do
+      chair1 = FactoryGirl.create(:chair)
+      sign_in @representative
+      get :requests, {id: chair1}
+      expect(response).to have_http_status(302)
+    end
+
+    it 'show all requests of chair' do
+      FactoryGirl.create(:holiday, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:trip, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:expense, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:holiday, user_id: @user.id, status: 1)
+      sign_in @representative
+      get :requests, {id: @chair}
+      expect(response).to render_template('requests')
+    end
+
+    it 'shows filtered requests' do
+      sign_in @representative
+      post :requests_filtered, {id: @chair}
+      expect(response).to have_http_status(:success)
+    end
+  end
 end

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @work_day.date %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @work_day.start_time %>
+</p>
+
+<p>
+  <strong>break:</strong>
+  <%= @work_day.break %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @work_day.end_time %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @work_day.duration %>
+</p>
+
+<p>
+  <strong>Attendance:</strong>
+  <%= @work_day.attendance %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @work_day.notes %>
+</p>
+
+<%= link_to 'Edit', edit_work_day_path(@work_day) %> |
+<%= link_to 'Back', work_days_path %>
