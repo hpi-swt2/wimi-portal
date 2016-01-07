@@ -3,10 +3,10 @@ class Ability
 
   def initialize(user)
     unless user.nil?
-      check_functions = [ :is_admin?, :is_representative?,
-        :is_wimi?, :is_superadmin?, :is_hiwi?, :is_user? ]
-      initialize_functions = [ :initialize_admin, :initialize_representative,
-        :initialize_wimi, :initialize_superadmin, :initialize_hiwi, :initialize_user ]
+      check_functions = [ :is_superadmin?, :is_admin?, :is_representative?,
+        :is_wimi?, :is_hiwi?, :is_user? ]
+      initialize_functions = [ :initialize_superadmin, :initialize_admin, :initialize_representative,
+        :initialize_wimi, :initialize_hiwi, :initialize_user ]
 
       check_functions.each_with_index do |check_func, index|
         if user.send check_func
