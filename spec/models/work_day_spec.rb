@@ -4,34 +4,34 @@ require 'spec_helper'
 describe WorkDay, type: :model do
 
     it 'has a valid factory' do
-      FactoryGirl.create(:work_day).should be_valid
+      expect(FactoryGirl.create(:work_day)).to be_valid
     end
 
     it 'is invalid without a date' do
-      FactoryGirl.build(:work_day, date: nil).should_not be_valid
+      expect(FactoryGirl.build(:work_day, date: nil)).not_to be_valid
     end
 
     it 'is invalid without a user_id that is an integer' do
-      FactoryGirl.build(:work_day, user_id: nil).should_not be_valid
-      FactoryGirl.build(:work_day, user_id: 'invalid').should_not be_valid
+      expect(FactoryGirl.build(:work_day, user_id: nil)).not_to be_valid
+      expect(FactoryGirl.build(:work_day, user_id: 'invalid')).not_to be_valid
     end
 
     it 'is invalid without a start_time' do
-      FactoryGirl.build(:work_day, start_time: nil).should_not be_valid
+      expect(FactoryGirl.build(:work_day, start_time: nil)).not_to be_valid
     end
 
     it 'is invalid without a break that is an integer' do
-      FactoryGirl.build(:work_day, break: nil).should_not be_valid
-      FactoryGirl.build(:work_day, break: 'invalid').should_not be_valid
+      expect(FactoryGirl.build(:work_day, break: nil)).not_to be_valid
+      expect(FactoryGirl.build(:work_day, break: 'invalid')).not_to be_valid
     end
 
     it 'is invalid without an end_time' do
-      FactoryGirl.build(:work_day, end_time: nil).should_not be_valid
+      expect(FactoryGirl.build(:work_day, end_time: nil)).not_to be_valid
     end
 
     it 'returns the duration of a work_day' do
       workday = FactoryGirl.create(:work_day) #use the standard values
-      workday.duration.should == 30
+      expect(workday.duration).to eq(30)
     end
 
 end
