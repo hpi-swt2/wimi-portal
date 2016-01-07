@@ -59,6 +59,32 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(hiwi.name)
   end
 
+  it 'shows a button for a wimi to inspect a user specific working hour report for this project' do
+    @representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    @wimi_user = FactoryGirl.create(:user)
+    @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+    user = FactoryGirl.create(:user)
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    user.projects << project
+    visit project_path(project)
+    expect(page).to have_selector(:link_or_button, 'Show working hours')
+  end
+
+  it 'shows a button for a wimi to inspect all working hour report for this project' do
+    @representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    @wimi_user = FactoryGirl.create(:user)
+    @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+    user = FactoryGirl.create(:user)
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    user.projects << project
+    visit project_path(project)
+    expect(page).to have_selector(:link_or_button, 'Show all working hours')
+  end
+
 
 
 

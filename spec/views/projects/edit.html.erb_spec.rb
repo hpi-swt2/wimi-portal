@@ -101,25 +101,6 @@ RSpec.describe 'projects/edit', type: :view do
     expect(project.users).not_to include(user)
   end
 
-  it 'shows a button for a wimi to inspect a user specific working hour report for this project' do
-    user = FactoryGirl.create(:user)
-    login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
-    @wimi.projects << project
-    user.projects << project
-    visit edit_project_path(project)
-    expect(page).to have_selector(:link_or_button, 'Show working hours')
-  end
-
-  it 'shows a button for a wimi to inspect all working hour report for this project' do
-    user = FactoryGirl.create(:user)
-    login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
-    @wimi.projects << project
-    user.projects << project
-    visit edit_project_path(project)
-    expect(page).to have_selector(:link_or_button, 'Show all working hours')
-  end
 
   it 'not possible for wimi to edit or delete a project he just signed out' do
     login_as @wimi
