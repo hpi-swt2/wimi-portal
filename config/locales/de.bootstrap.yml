@@ -35,6 +35,11 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
+  chairs:
+    navigation:
+      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+    requests:
+      apply_filter: "Filter anwenden"
   users:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
@@ -58,6 +63,10 @@ de:
     index:
       dashboard_title: "Dashboard"
       projects: "Meine Projekte"
+      representative_actions: "LS-Beauftragter - Aktionen"
+      show_holiday_requests: "Urlaubsanträge anzeigen"
+      show_expense_requests: "Reisekostenabrechnung anzeigen"
+      show_trip_requests: "Dienstreiseanträge anzeigen"
   travel_expense_reports:
     show:
       inland: "Inlandsreise"

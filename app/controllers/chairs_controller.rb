@@ -1,9 +1,16 @@
 class ChairsController < ApplicationController
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update,  :set_admin, :withdraw_admin]
 
-  before_action :authorize_admin, only: [:accept_request, :remove_from_chair, :set_admin, :withdraw_admin]
-  before_action :authorize_superadmin, only: [:destroy, :new, :create, :edit, :update]
-  before_action :authorize_admin_or_representative, only: [:show]
+  load_and_authorize_resource
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = I18n.t('chairs.navigation.not_authorized')
+    if (current_user.is_admin? || current_user.is_representative?)
+      redirect_to chair_path(current_user.chair)
+    else
+      redirect_to dashboard_path
+    end
+  end
 
   def index
     @chairs = Chair.all
@@ -26,7 +33,7 @@ class ChairsController < ApplicationController
 
   def create
     @chair = Chair.new(chair_params)
-    
+
     if @chair.add_users(params[:admin_user], params[:representative_user])
       flash[:success] = I18n.t('chair.create.success', default: 'Chair successfully created.')
       redirect_to chairs_path
@@ -82,10 +89,48 @@ class ChairsController < ApplicationController
     end
   end
 
+  def requests
+    @allrequests = @chair.get_all_requests
+  end
+
+  # New stuff here
+
+
+  def requests
+    @types = ['holidays', 'expenses', 'trips']
+    @statuses = ['applied', 'accepted', 'declined']
+
+    create_allrequests
+  end
+
+  def requests_filtered
+    @types = Array.new
+    @types << 'holidays' if params.has_key?('holiday_filter')
+    @types << 'expenses' if params.has_key?('expense_filter')
+    @types << 'trips' if params.has_key?('trip_filter')
+
+    @statuses = Array.new
+    @statuses << 'applied' if params.has_key?('applied_filter')
+    @statuses << 'accepted' if params.has_key?('accepted_filter')
+    @statuses << 'declined' if params.has_key?('declined_filter')
+
+    create_allrequests
+    render 'requests'
+  end
+
+  def add_requests(type, array)
+    array.each do |r|
+      if @statuses.include? r.status
+        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r}
+      end
+    end
+  end
+
+
   def set_admin
     chair_wimi = ChairWimi.find(params[:request])
     chair_wimi.admin = true
-    
+
     if chair_wimi.save
       ActiveSupport::Notifications.instrument("event.admin.rights_changed", {:admin => current_user, :user => chair_wimi.user, :user_is_admin => true})
       flash[:success] = I18n.t('chair.set_admin.success', default: 'Admin was successfully set.')
@@ -127,7 +172,6 @@ class ChairsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_chair
     @chair = Chair.find(params[:id])
   end
@@ -136,21 +180,16 @@ class ChairsController < ApplicationController
     params.require(:chair).permit(:name)
   end
 
-  protected
-  def authorize_superadmin
-    not_authorized unless current_user.superadmin
-  end
 
-  def authorize_admin
-    not_authorized unless current_user.is_admin?(@chair)
-  end
+  def create_allrequests
+    @allrequests = Array.new
 
-  def authorize_admin_or_representative
-    not_authorized unless current_user.is_admin?(@chair) || current_user.is_representative?(@chair)
-  end
+    @chair.users.each do |user|
+      add_requests('Holiday Request', user.holidays) if @types.include? 'holidays'
+      add_requests('Expense Request', user.expenses) if @types.include? 'expenses'
+      add_requests('Trip Request', user.trips) if @types.include? 'trips'
+    end
 
-  def not_authorized
-    flash[:error] = I18n.t('chair.not_authorized', default: 'Not authorized for this chair.')
-    redirect_to chairs_path
+    @allrequests = @allrequests.sort_by { |v| v[:handed_in] }.reverse
   end
 end
