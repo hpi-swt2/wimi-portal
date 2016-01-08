@@ -14,10 +14,10 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
     visit project_path(project)
-    expect(page).to have_selector(:link_or_button, 'Edit')
-    click_on 'Edit'
+    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
+    click_on I18n.t('helpers.links.edit')
     fill_in 'project_title', with: 'My New Project'
-    click_on 'Update Project'
+    click_on I18n.t('projects.form.update_project')
     project.reload
     expect(project.title).to eq('My New Project')
   end
@@ -28,7 +28,7 @@ RSpec.describe 'projects/edit', type: :view do
     projectTitle = project.title
     @wimi.projects << project
     visit project_path(project)
-    expect(page).to have_selector(:link_or_button, 'Delete')
+    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed.')
     expect(page).to have_no_content(projectTitle)
@@ -39,8 +39,8 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
     visit project_path(project)
-    expect(page).to have_selector(:link_or_button, 'set inactive')
-    click_on 'set inactive'
+    expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
+    click_on I18n.t('projects.show.set_inactive')
     project.reload
     expect(project.status).to be false
   end
@@ -50,8 +50,8 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: false)
     @wimi.projects << project
     visit project_path(project)
-    expect(page).to have_selector(:link_or_button, 'set active')
-    click_on 'set active'
+    expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_active'))
+    click_on I18n.t('projects.show.set_active')
     project.reload
     expect(project.status).to be true
   end
@@ -62,7 +62,7 @@ RSpec.describe 'projects/edit', type: :view do
     @wimi.projects << project
     visit edit_project_path(project)
     find(:css, "#project_public_false").set(true)
-    click_on 'Update Project'
+    click_on I18n.t('projects.form.update_project')
     project.reload
     expect(project.public).to be false
   end
@@ -73,7 +73,7 @@ RSpec.describe 'projects/edit', type: :view do
     @wimi.projects << project
     visit edit_project_path(project)
     find(:css, '#project_public_true').set(true)
-    click_on 'Update Project'
+    click_on I18n.t('projects.form.update_project')
     project.reload
     expect(project.public).to be true
   end
@@ -110,10 +110,10 @@ RSpec.describe 'projects/edit', type: :view do
     find('a[id="SignOutMyself"]').click
     project.reload
     expect(current_path).to eq(project_path(project))
-    expect(page).not_to have_selector(:link_or_button, 'Edit')
-    expect(page).not_to have_selector(:link_or_button, 'Delete')
-    expect(page).not_to have_selector(:link_or_button, 'set inactive')
-    expect(page).to have_selector(:link_or_button, 'Back')
+    expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
+    expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
+    expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
+    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
   end
 
 

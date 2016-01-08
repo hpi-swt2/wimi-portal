@@ -18,8 +18,8 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.title)
     expect(page).to have_content(project.chair.name)
     expect(page).to have_content(project.chair.representative.user.name)
-    expect(page).to have_content('Public')
-    expect(page).to have_content('Project Leader')
+    expect(page).to have_content(I18n.t('projects.show.public'))
+    expect(page).to have_content(I18n.t('projects.show.project_leader'))
     expect(page).to have_content(representative.name)
 
   end
@@ -37,8 +37,8 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.title)
     expect(page).to have_content(project.chair.name)
     expect(page).to have_content(project.chair.representative.user.name)
-    expect(page).to have_content('Public')
-    expect(page).to have_content('Project Leader')
+    expect(page).to have_content(I18n.t('projects.show.public'))
+    expect(page).to have_content(I18n.t('projects.show.project_leader'))
     expect(page).to have_content(wimi.name)
   end
 
@@ -54,8 +54,8 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.title)
     expect(page).to have_content(project.chair.name)
     expect(page).to have_content(project.chair.representative.user.name)
-    expect(page).to have_content('Public')
-    expect(page).to have_content('Project Leader')
+    expect(page).to have_content(I18n.t('projects.show.public'))
+    expect(page).to have_content(I18n.t('projects.show.project_leader'))
     expect(page).to have_content(hiwi.name)
   end
 
@@ -69,7 +69,7 @@ RSpec.describe 'projects/show', type: :view do
     @wimi.projects << project
     user.projects << project
     visit project_path(project)
-    expect(page).to have_selector(:link_or_button, 'Show working hours')
+    expect(page).to have_selector(:link_or_button, I18n.t('projects.form.show_working_hours'))
   end
 
   it 'shows a button for a wimi to inspect all working hour report for this project' do
@@ -82,7 +82,7 @@ RSpec.describe 'projects/show', type: :view do
     @wimi.projects << project
     user.projects << project
     visit project_path(project)
-    expect(page).to have_selector(:link_or_button, 'Show all working hours')
+    expect(page).to have_selector(:link_or_button, I18n.t('projects.form.show_all_working_hours'))
   end
 
 

@@ -50,6 +50,8 @@ en:
       prohibited_this_project_from_being_saved: "prohibited this project from being saved"
       show_working_hours: "Show working hours"
       show_all_working_hours: "Show all working hours"
+      create_project: "Create Project"
+      update_project: "Update Project"
     show:
       inactive: "(inactive)"
       set_inactive: "set inactive"
@@ -64,12 +66,13 @@ en:
       research_assistants: "Research Assistants"
       student_assistants: "Student Assistants"
       active: "aktiv"
+      leave_project: "Leave Project"
     index:
       title: "Title"
       project_status: "Project Status"
       accessibility: "Accessibility"
       created_at: "created_at"
-      acive: "active"
+      active: "active"
       inactive: "inactive"
       private: "private"
       public: "public"

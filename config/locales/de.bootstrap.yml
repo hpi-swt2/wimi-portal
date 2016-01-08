@@ -46,6 +46,8 @@ de:
       prohibited_this_project_from_being_saved: "verbietet das Projekt zu speichern"
       show_working_hours: "Stundenzettel anzeigen"
       show_all_working_hours: "Alle Stundenzettel anzeigen"
+      create_project: "Erstelle Projekt"
+      update_project: "Aktualisiere Project"
     show:
       inactive: "(inaktiv)"
       set_inactive: "inaktiv schalten "
@@ -59,6 +61,7 @@ de:
       not_defined: "nicht festgelegt"
       research_assistants: "Wisenschaftliche Mitarbeiter"
       student_assistants: "Studentische Hilfskräfte"
+      leave_project: "Verlasse Projekt"
     index:
       title: "Titel"
       accessibility: "Verfügbarkeit"
