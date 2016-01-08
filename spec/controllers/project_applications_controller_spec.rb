@@ -21,8 +21,9 @@ require 'rails_helper'
 RSpec.describe ProjectApplicationsController, type: :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:wimi)
-    @project = @wimi.projects.first
+    @wimi = FactoryGirl.create(:wimi, user_id: FactoryGirl.create(:user).id, chair_id: FactoryGirl.create(:chair).id, representative: true).user
+    @project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
+    @wimi.projects << @project
     login_with @user
     @request.env['HTTP_REFERER'] = 'http://test.host/'
   end

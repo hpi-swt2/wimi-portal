@@ -38,8 +38,12 @@ class Ability
   def initialize_wimi(user)
     initialize_user user
     can :crud, Project
+    can :manage, Project do |project|
+      project.users.include?(user)
+    end
     can :invite_user, Project do |project|
       project.users.include? user
+
     end
     can :manage, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
