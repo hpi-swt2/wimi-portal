@@ -18,10 +18,10 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       get 'toggle_status'
+      delete 'sign_user_out/:user_id', action: 'sign_user_out', as: 'sign_user_out'
     end
   end
-
-  delete 'projects/:id/sign_user_out/:user_id' => 'projects#sign_user_out', as: 'sign_user_out_project'
+  
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
