@@ -40,6 +40,11 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
+  projects:
+    show:
+      leave: "Leave project"
+      working_hours: "Working hours"
+      add_working_hours: "Add working hours"
   users:
     update:
       user_updated: "User updated successfully"

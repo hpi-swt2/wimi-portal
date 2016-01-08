@@ -18,12 +18,18 @@ RSpec.describe 'projects/show', type: :view do
     it 'expects leave project button if part of project' do
       @project.users << @user
       render
-      expect(rendered).to have_content('Leave')
+      expect(rendered).to have_content(t("projects.show.leave"))
     end
 
     it 'expects no leave project button if not part of project' do
       render
-      expect(rendered).to_not have_content('Leave')
+      expect(rendered).to_not have_content(t("projects.show.leave"))
+    end
+
+    it 'expects add working hours button' do
+      @project.users << @user
+      render
+      expect(rendered).to have_content(t("projects.show.add_working_hours"))
     end
 
   end
