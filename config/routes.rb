@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       delete 'sign_user_out/:user_id', action: 'sign_user_out', as: 'sign_user_out'
     end
   end
-  
+
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
