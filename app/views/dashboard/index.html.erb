@@ -5,33 +5,33 @@
 </div>
 
 <div class="col-md-12">
- <% unless @invitations.nil? %>
-    <% @invitations.each do |invitation| %>
-      <div class="col-md-8 flash-message">
-        <div class="alert alert-warning col-md-12">
-          <%= t("user.invited_to_project",
-            default: "You have been invited to the project \"#{Project.find(invitation.project_id).title}\"") %>
-          <br>
-          <br>
-          <%= link_to t("links.accept", default: "Accept"), accept_invitation_project_path(invitation.project_id), :class => "btn btn-primary" %>
-          <%= link_to t("links.decline", default: "Decline"), decline_invitation_project_path(invitation.project_id), :class => "btn btn-default" %>
-        </div>
-      </div>
-    <% end %>
+  <% unless @invitations.nil? %>
+      <% @invitations.each do |invitation| %>
+          <div class="col-md-8 flash-message">
+            <div class="alert alert-warning col-md-12">
+              <%= t("user.invited_to_project",
+                    default: "You have been invited to the project \"#{Project.find(invitation.project_id).title}\"") %>
+              <br>
+              <br>
+              <%= link_to t("links.accept", default: "Accept"), accept_invitation_project_path(invitation.project_id), class: "btn btn-primary" %>
+              <%= link_to t("links.decline", default: "Decline"), decline_invitation_project_path(invitation.project_id), class: "btn btn-default" %>
+            </div>
+          </div>
+      <% end %>
   <% end %>
 </div>
 
 <h3> My Projects </h3>
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th><%= "ID" %></th>
-      <th><%= t('projects.index.title', default: model_class.human_attribute_name(:title)) %></th>
-      <th><%= t('projects.index.accessibility', default:'Accessibility') %></th>
-      <th><%= t('projects.show.project_visibility', default:'Visibility')%> </th>
-      <th><%= t('projects.index.created_at' , default: model_class.human_attribute_name(:created_at)) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
+  <tr>
+    <th><%= "ID" %></th>
+    <th><%= t('projects.index.title', default: model_class.human_attribute_name(:title)) %></th>
+    <th><%= t('projects.index.accessibility', default:'Accessibility') %></th>
+    <th><%= t('projects.show.project_visibility', default:'Visibility')%> </th>
+    <th><%= t('projects.index.created_at' , default: model_class.human_attribute_name(:created_at)) %></th>
+    <th><%=t '.actions', default: t("helpers.actions") %></th>
+  </tr>
   </thead>
   <tbody>
   <% current_user.projects.each do |project| %>
