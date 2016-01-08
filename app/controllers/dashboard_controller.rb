@@ -13,8 +13,8 @@ class DashboardController < ApplicationController
     #add all other Events
     # TODO: implement security tests
 
-    @notifications << Event.where(seclevel: Event.seclevels[:representative]
-    @notifications << Event.where(seclevel: Event.seclevels[:user]
-    @notifications << Event.where(seclevel: Event.seclevels[:wimi]
+    @notifications << Event.where(seclevel: Event.seclevels[:representative])
+    @notifications << Event.where(seclevel: Event.seclevels[:user])
+    @notifications << Event.where(seclevel: Event.seclevels[:wimi])
   end
 end
