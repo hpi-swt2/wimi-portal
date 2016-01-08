@@ -21,41 +21,45 @@
   <% end %>
 </div>
 
-<h3> My Projects </h3>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th><%= "ID" %></th>
-    <th><%= t('projects.index.title', default: model_class.human_attribute_name(:title)) %></th>
-    <th><%= t('projects.index.accessibility', default:'Accessibility') %></th>
-    <th><%= t('projects.show.project_visibility', default:'Visibility')%> </th>
-    <th><%= t('projects.index.created_at' , default: model_class.human_attribute_name(:created_at)) %></th>
-    <th><%=t '.actions', default: t("helpers.actions") %></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% current_user.projects.each do |project| %>
-      <tr>
-        <td><%= link_to project.id, project_path(project) %></td>
-        <td><%= link_to project.title, project %></td>
-        <td><%= project.status ? t('projects.index.active') : t('projects.index.inactive') %></td>
-        <td><%= project.public ? t('projects.show.public') : t('projects.index.private') %></td>
-        <td><%=l project.created_at %></td>
-        <td>
-          <%= link_to t('.edit', default: t("helpers.links.edit")),
-                      edit_project_path(project), class: 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', default: t("helpers.links.destroy")),
-                      project_path(project),
-                      method: :delete,
-                      data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))},
-                      class: 'btn btn-xs btn-danger' %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="col-md-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><%=t('.notifications')%></h4> <!--TODO Translate-->
+    </div>
+    <div class="panel-body">
+    </div>
+  </div>
+</div>
 
-<%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
+<div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><%=t('.projects')%></h4> <!--TODO Translate-->
+    </div>
+    <div class="panel-body">
+      <% current_user.projects.each do |project|%>
+        <p>
+          <%= link_to project.title, project %>
+        </p>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4 col-md-offset-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><%=t('.actions')%></h4> <!--TODO Translate-->
+    </div>
+    <div class="panel-body">
+      <% if current_user.is_wimi? %>
+        <%= render partial: 'wimi_actions' %>
+      <% else %>
+        <%= render partial: 'hiwi_actions' %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <% if current_user.is_representative? %>
     <br/>

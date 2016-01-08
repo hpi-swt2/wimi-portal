@@ -99,6 +99,8 @@ en:
     index:
       dashboard_title: "Dashboard"
       projects: "My Projects"
+      notifications: "Notifications"
+      actions: "Actions"
   travel_expense_reports:
     show:
       inland: "Inland Travel"
@@ -134,7 +136,7 @@ en:
       - :month
       - :year
     month_names:
-      - 
+      -
       - January
       - February
       - March
