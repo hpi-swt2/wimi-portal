@@ -136,6 +136,11 @@ en:
         personnel_number: "Staff Number"
         division_id: "Division"
         language: "Language"
+      request:
+        name: "Name"
+        type: "Type"
+        handed_in: "Handed in"
+        status: "Status"
   links:
     search: 'Search'
     submit: 'Submit'
@@ -158,3 +163,28 @@ en:
       default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  chair:
+    destroy:
+      error: "Chair could not be destroyed"
+      success: "Chair was successfully destroyed"
+    create:
+      success: "Chair successfully created"
+      error: "The form is not filled completely!"
+    update:
+      success: "Chair successfully updated"
+      error: "The form is not filled completely!"
+    accept_request:
+      success: "Application was successfully accepted"
+      error: "Accepting application failed"
+    remove_from_chair:
+      success: "User was successfully removed"
+      error: "Failed to remove the user"
+    set_admin:
+      success: "Admin was successfully set"
+      error: "Admin setting failed"
+    withdraw:
+      success: "Admin rights were successfully removed"
+      error: "Failed to remove admin rights"
+    apply:
+      success: "Wimi application was successfully created."
+      error: "Saving wimi application failed"

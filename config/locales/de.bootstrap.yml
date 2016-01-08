@@ -4,7 +4,7 @@
 de:
   home:
     index:
-      welcome: "wilkommen"
+      welcome: "Willkommen"
   helpers:
     application_tabs:
       home: "Startseite"
@@ -35,11 +35,7 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
-  chairs:
-    navigation:
-      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
-    requests:
-      apply_filter: "Filter anwenden"
+    list_select: "Bitte auswählen"
   users:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
@@ -115,3 +111,34 @@ de:
       - Oktober
       - November
       - Dezember
+  chairs:
+    navigation:
+      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+      apply_wimi: "Als Wimi bewerben"
+      manage: "Lehrstuhl verwalten"
+      show_timesheets: "Stundenzettel anzeigen"
+    requests:
+      apply_filter: "Filter anwenden"
+      requests: "Anfragen"
+      type_filter: "Filtern nach Art"
+      status_filter: "Filtern nach Status"
+      holiday_request: "Urlaubsanfrage"
+      trip_request: "Dienstreiseantrag"
+      expense_request: "Reisekostenabrechnung"
+      applied: "Offene Anfragen"
+      accepted: "Angenommen"
+      declined: "Abgelehnt"
+      pending: "Ausstehend"
+      show_requests: "Anfragen anzeigen"
+      remove_from_chair: "Vom Lehrstuhl entfernen"
+    applications:
+      long_plural: "Anfragen"
+      no_applications: "Keine Anfragen"
+      accept: "Annehmen"
+      decline: "Ablehnen"
+  roles:  
+    wimi_long: "Wissenschaftlicher Mitarbeiter"
+    wimi_long_plural: "Wissenschaftliche Mitarbeiter"
+    chair_representative: "Fachgebietsbeauftragter"
+    admin_long: "Administrator"
+    hiwi_long_plural: "Studentische Hilfskräfte"

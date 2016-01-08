@@ -32,6 +32,7 @@ en:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
+      delete: "Destroy %{model}"
     language:
       lang: "Language"
       english: "English"
@@ -39,11 +40,7 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
-  chairs:
-    navigation:
-      not_authorized: "You are not allowed to do this action for this chair."
-    requests:
-      apply_filter: "Apply Filters"
+    list_select: "Please select"
   users:
     update:
       user_updated: "User updated successfully"
@@ -119,3 +116,34 @@ en:
       - October
       - November
       - December
+  chairs:
+    navigation:
+      not_authorized: "You are not allowed to do this action for this chair."
+      apply_wimi: "Apply as Wimi"
+      manage: "Manage Chair"
+      show_timesheets: "Show timesheets"
+    requests:
+      apply_filter: "Apply Filters"
+      requests: "Requests"
+      type_filter: "Filters by type"
+      status_filter: "Filters by status"
+      holiday_request: "Holiday request"
+      trip_request: "Trip request"
+      expense_request: "Expense request"
+      applied: "Open requests"
+      accepted: "Accepted"
+      declined: "Declined"
+      pending: "Pending"
+      show_requests: "Show requests"
+      remove_from_chair: "Remove from chair"
+    applications:
+      long_plural: "Applications"
+      no_applications: "No applications"
+      accept: "Accept"
+      decline: "Decline"
+  roles:
+    wimi_long: "Research Assistant"
+    wimi_long_plural: "Research Assistants"
+    chair_representative: "Chair Representative"
+    admin_long: "Administrator"
+    hiwi_long_plural: "Student Assistants"

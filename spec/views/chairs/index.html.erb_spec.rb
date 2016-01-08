@@ -109,9 +109,9 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     login_as(@user, scope: :user)
     visit chairs_path
 
-    expect(page).to_not have_content('pending')
+    expect(page).to_not have_content('Pending')
     click_on 'Apply as Wimi'
     expect(page).to have_current_path(chairs_path+'?locale='+I18n.locale.to_s)
-    expect(page).to have_content('pending')
+    expect(page).to have_content('Pending')
   end
 end

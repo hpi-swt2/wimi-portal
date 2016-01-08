@@ -137,6 +137,11 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
+      request:
+        name: "Name"
+        type: "Art"
+        handed_in: "Eingereicht am"
+        status: "Status"
   links:
     search: 'Suchen'
     submit: 'Abschicken'
@@ -158,3 +163,29 @@ de:
       default: "%d/%m/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  chair:
+    destroy:
+      error: "Lehrstuhl konnte nicht gelöscht werden"
+      success: "Lehrstuhl wurde erfolgreich gelöscht"
+    create:
+      success: "Lehrstuhl wurde erfolgreich erstellt"
+      error: "Das Formular wurde nicht vollständig ausgefüllt!"
+    update:
+      success: "Lehrstuhl erfolgreich aktualisiert"
+      error: "Das Formular wurde nicht vollständig ausgefüllt!"
+    accept_request:
+      success: "Anfrage erfolgreich angenommen"
+      error: "Fehler beim Annehmen der Anfrage"
+    remove_from_chair:
+      success: "Benutzer erfolgreich entfernt"
+      error: "Nutzer konnte nicht entfernt werden"
+    set_admin:
+      success: "User wurde erfolgreich zum Admin ernannt"
+      error: "User konnte nicht zum Admin ernannt werden"
+    withdraw:
+      success: "Adminrechte wurden erfolgreich entzogen"
+      error: "Adminrechte konnten nicht entzogen werden"
+    apply:
+      success: "Wimi-Anfrage erfolgreich erstellt"
+      error: "Wimi-Anfrage konnte nicht erstellt werden"
+
