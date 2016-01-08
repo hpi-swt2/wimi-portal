@@ -2,7 +2,7 @@
 
 <%- model_class = Trip -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human(:count => 2).titleize %></h1>
+  <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
 </div>
 
 
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Trip', new_trip_path,:class => "btn btn-primary"%>
+<%= link_to 'New Trip', new_trip_path,class: "btn btn-primary"%>

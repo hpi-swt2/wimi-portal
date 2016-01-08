@@ -3,12 +3,12 @@
 # Table name: holidays
 #
 #  id         :integer          not null, primary key
-#  status     :string
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  start      :date
 #  end        :date
+#  status     :integer          default(0)
 #
 
 require 'rails_helper'
@@ -46,11 +46,34 @@ RSpec.describe Holiday, type: :model do
 
   it "is invalid when not enough leave is left" do
     @user.update_attribute(:remaining_leave, 0)
-    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1,1))).to_not be_valid
+    #if Jan 2nd isn't a business day this test would fail otherwise
+    startdate = Date.new(Date.today.year, 12, 31)
+    if startdate.wday == 6 || startdate.wday == 0
+      startdate -= 1.days until startdate.wday == 5
+    end
+    
+    enddate = Date.new(Date.today.year + 1, 1, 2)
+    if enddate.wday == 6 || enddate.wday == 0
+      enddate += 1.days until enddate.wday == 1
+    end
+
+    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: enddate)).to_not be_valid
   end
 
   it "returns the duration" do
-    holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: Date.new(Date.today.year + 1, 1, 1))
-    expect(holiday.duration).to eq(1)
+    #if Jan 2nd isn't a business day this test would fail otherwise
+    startdate = Date.new(Date.today.year, 12, 31)
+    if startdate.wday == 6 || startdate.wday == 0
+      startdate -= 1.days until startdate.wday == 5
+    end
+
+    enddate = Date.new(Date.today.year + 1, 1, 2)
+    if enddate.wday == 6 || enddate.wday == 0
+      enddate += 1.days until enddate.wday == 1
+    end
+
+    holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: startdate, end: enddate)
+    expect(holiday.duration).to eq(2)
+
   end
 end

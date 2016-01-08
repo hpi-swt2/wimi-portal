@@ -5,24 +5,30 @@
 </div>
 
 <div class="col-md-12">
-  <% current_user.notifications.each do |notification| %>
-    <div class="col-md-8 flash-message">
-      <div class="alert alert-warning">
-        <%= notification.message %>
-        <% notification.destroy %>
+ <% unless @invitations.nil? %>
+    <% @invitations.each do |invitation| %>
+      <div class="col-md-8 flash-message">
+        <div class="alert alert-warning col-md-12">
+          <%= t("user.invited_to_project",
+            default: "You have been invited to the project \"#{Project.find(invitation.project_id).title}\"") %>
+          <br>
+          <br>
+          <%= link_to t("links.accept", default: "Accept"), accept_invitation_project_path(invitation.project_id), :class => "btn btn-primary" %>
+          <%= link_to t("links.decline", default: "Decline"), decline_invitation_project_path(invitation.project_id), :class => "btn btn-default" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
 
-<h3> My Projects </h3>
+<h3> <%= t('.projects') %> </h3>
 <table class="table table-striped">
   <thead>
   <tr>
     <th><%= model_class.human_attribute_name(:id) %></th>
     <th><%= model_class.human_attribute_name(:title) %></th>
     <th><%= model_class.human_attribute_name(:created_at) %></th>
-    <th><%= t '.actions', :default => t("helpers.actions") %></th>
+    <th><%= t '.actions', default: t("helpers.actions") %></th>
   </tr>
   </thead>
   <tbody>
@@ -32,32 +38,48 @@
         <td><%= link_to project.title, project %></td>
         <td><%= l project.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_project_path(project), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <%= link_to t('.edit', default: t("helpers.links.edit")),
+                      edit_project_path(project), class: 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', default: t("helpers.links.destroy")),
                       project_path(project),
-                      :method => :delete,
-                      :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
-                      :class => 'btn btn-xs btn-danger' %>
+                      method: :delete,
+                      data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))},
+                      class: 'btn btn-xs btn-danger' %>
         </td>
       </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")), new_project_path, :class => 'btn btn-primary' %>
+<%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
 <div>
   <h3>Benachrichtungen</h3>
+  <% unless @notifications.nil? %>
   <p>
     <% @notifications.each do |event| %>
       <%= render event %>
     <% end %>
   </p>
+  <% end %>
 </div>
+
 <% if current_user.is_representative? %>
     <br/>
     <div>
-      <h3> Requests </h3>
-      <%= link_to 'Manage requests', requests_path(current_user.chair_wimi.chair_id) %>
+      <h3> <%= t('.representative_actions') %> </h3>
+      <table>
+      <tbody>
+        <tr><td>
+          <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holiday_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
+        </td></tr>
+        <tr><td>
+          <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expense_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %>
+        </td></tr>
+        <tr><td>
+          <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trip_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %>
+        </td></tr>
+      </tbody>
+      </table>
+
     </div>
 <% end %>

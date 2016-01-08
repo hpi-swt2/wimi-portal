@@ -16,5 +16,7 @@ class DashboardController < ApplicationController
     @notifications << Event.where(seclevel: Event.seclevels[:representative])
     @notifications << Event.where(seclevel: Event.seclevels[:user])
     @notifications << Event.where(seclevel: Event.seclevels[:wimi])
+
+    @invitations = Invitation.where(user: current_user)
   end
 end

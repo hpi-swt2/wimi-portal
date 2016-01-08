@@ -7,13 +7,13 @@ class DocumentsController < ApplicationController
         self.init_params
         # WickedPDF looks for stylesheet files in app/assets/stylesheets
         @tmp_vars[:css_file] = "pdf.css"
-        @tmp_vars[:hpi_logo] = "#{Rails.root}/app/assets/images/HPI-logo.jpg"
+        @tmp_vars[:hpi_logo] = "#{Rails.root}/app/assets/images/HPI-Logo.jpg"
 
         pdf = WickedPdf.new.pdf_from_string(render_to_string(
           'documents/'<<@doc_type<<'.html.erb',
-          :layout => false,
-          :locals => @tmp_vars))
-        send_data(pdf, :filename => @doc_type<<'.pdf',  :type=> 'application/pdf')
+          layout: false,
+          locals: @tmp_vars))
+        send_data(pdf, filename: @doc_type << '.pdf',  type: 'application/pdf')
       end
   end
 
@@ -27,8 +27,6 @@ class DocumentsController < ApplicationController
         @tmp_vars[:annotation_splitted] = @tmp_vars[:trip].annotation.split("\n")[0,4]
       when 'Urlaubsantrag'
         @tmp_vars[:holiday] = Holiday.find(params[:doc_id])
-        @tmp_vars[:holiday].annotation = @tmp_vars[:holiday].annotation || ""
-        @tmp_vars[:annotation_splitted] = @tmp_vars[:holiday].annotation.split("\n")
       when 'Reisekostenabrechnung'
         @tmp_vars[:report] = TravelExpenseReport.find(params[:doc_id])
         @tmp_vars[:reason_splitted] = @tmp_vars[:report].reason.split("\n")

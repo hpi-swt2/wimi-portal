@@ -39,6 +39,11 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
+  chairs:
+    navigation:
+      not_authorized: "You are not allowed to do this action for this chair."
+    requests:
+      apply_filter: "Apply Filters"
   users:
     update:
       user_updated: "User updated successfully"
@@ -62,6 +67,10 @@ en:
     index:
       dashboard_title: "Dashboard"
       projects: "My Projects"
+      representative_actions: "Representative - Actions"
+      show_holiday_requests: "Show holiday requests"
+      show_expense_requests: "Show expense requests"
+      show_trip_requests: "Show trip requests"
   travel_expense_reports:
     show:
       inland: "Inland Travel"
