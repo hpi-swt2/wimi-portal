@@ -95,6 +95,10 @@ de:
       projects: "Meine Projekte"
       notifications: "Benachrichtigungen"
       actions: "Aktionen"
+    wimi_actions:
+      create_project: "Projekt erstellen"
+      request_holiday: "Urlaub beantragen"
+      request_business_trip: "Dienstreise beantragen"
   travel_expense_reports:
     show:
       inland: "Inlandsreise"
