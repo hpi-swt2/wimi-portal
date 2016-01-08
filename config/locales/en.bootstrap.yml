@@ -102,7 +102,12 @@ en:
       notifications: "Notifications"
       actions: "Actions"
     hiwi_actions:
-      action: "Enter working hours for %{project_name}" 
+      action: "Enter working hours for %{project_name}"
+    wimi_actions:
+      create_project: "Create Project"
+      request_holiday: "Request Holiday"
+      request_business_trip: "Request Business Trip"
+      file_travel_expenses: "File Travel Expenses"
   travel_expense_reports:
     show:
       inland: "Inland Travel"

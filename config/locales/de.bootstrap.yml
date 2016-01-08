@@ -96,7 +96,12 @@ de:
       notifications: "Benachrichtigungen"
       actions: "Aktionen"
     hiwi_actions:
-      action: "Arbeitsstunden für das Projekt %{project_name} eintragen" 
+      action: "Arbeitsstunden für das Projekt %{project_name} eintragen"
+    wimi_actions:
+      create_project: "Projekt erstellen"
+      request_holiday: "Urlaub beantragen"
+      request_business_trip: "Dienstreise beantragen"
+      file_travel_expenses: "Reisekosten abrechnen"
   travel_expense_reports:
     show:
       inland: "Inlandsreise"
