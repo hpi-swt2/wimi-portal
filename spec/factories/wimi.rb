@@ -4,7 +4,7 @@ FactoryGirl.define do
     last_name           "Doe"
     sequence(:email)    { |n| "person#{n}@example.com" }
     projects            {build_list :project, 1}
-    chair               FactoryGirl.create(:chair)
+    chair               {FactoryGirl.create(:chair)}
 
     after(:create) do |user|
       user.chair_wimi.update(application: "accepted")
