@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+
   end
 
   def edit
@@ -22,6 +23,8 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
+      @project.update(chair: current_user.chair)
+      current_user.projects << @project
       flash[:success] = 'Project was successfully created.'
       redirect_to @project
     else
@@ -82,6 +85,29 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def toggle_status
+    @project = Project.find(params[:id])
+    if @project.status
+      @project.update(status: false)
+    else
+      @project.update(status: true)
+    end
+    @project.reload
+    redirect_to project_path(@project)
+  end
+
+
+  def sign_user_out
+    user = User.find(params[:user_id])
+    @project = Project.find(params[:id])
+    @project.remove_user(user)
+    if user == current_user
+      redirect_to @project
+    else
+      redirect_to edit_project_path(@project)
+    end
+  end
+
   def accept_invitation
     @project.add_user current_user
     @project.destroy_invitation current_user
@@ -93,6 +119,7 @@ class ProjectsController < ApplicationController
     @project.destroy_invitation current_user
     flash[:success] = I18n.t('project.user.invitation_declined')
     redirect_to root_path
+
   end
 
   def typeahead
