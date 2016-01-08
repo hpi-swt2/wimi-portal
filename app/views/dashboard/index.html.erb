@@ -52,6 +52,11 @@
       <h4><%=t('.actions')%></h4> <!--TODO Translate-->
     </div>
     <div class="panel-body">
+      <% if current_user.is_wimi? %>
+        <%= render partial: 'wimi_actions' %>
+      <% else %>
+        <%= render partial: 'hiwi_actions' %>
+      <% end %>
     </div>
   </div>
 </div>
