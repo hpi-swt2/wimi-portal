@@ -37,6 +37,11 @@
       <h4>Meine Projekte</h4> <!--TODO Translate-->
     </div>
     <div class="panel-body">
+      <% current_user.projects.each do |project|%>
+        <p>
+          <%= link_to project.title, project %>
+        </p>
+      <%end%>
     </div>
   </div>
 </div>
