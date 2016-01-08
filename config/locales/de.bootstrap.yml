@@ -95,6 +95,8 @@ de:
       projects: "Meine Projekte"
       notifications: "Benachrichtigungen"
       actions: "Aktionen"
+    hiwi_actions:
+      action: "Arbeitsstunden für das Projekt %{project_name} eintragen" 
   travel_expense_reports:
     show:
       inland: "Inlandsreise"
