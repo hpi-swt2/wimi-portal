@@ -51,6 +51,9 @@ en:
       days: "Day(s)"
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+      work_times: "Work times"
+      handed_in_timesheets: "Handed in time sheets:"
+      by: "by"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -89,9 +92,35 @@ en:
       status: "Status"
       user_id: "User"
       created_at: "Created at"
+  work_days:
+    index:
+      working_hours_for: "Working hours for: "
+      new: "new"
+      for: "for"
+      in: "in"
+      by: "by"
+      sign: "sign"
+      handed_in_at: "handed in at: "
+      reject: "reject"
+      reject_reason: "Rejetion reason:"
+      rejected_by: "rejected by: "
+      accepted_by: "accepted by: "
+      at: "at"
+      export_as_PDF: "export as PDF"
+      handed_in_at: "handed in at:"
+      status: "status"
+  time_sheets:
+    show:
+      salary: "Salary:"
+      salary_per_month: "Euro / Month"
+      salary_per_hour: "Euro / Hour"
+      workload: "Workload:"
+      workload_per_month: "Hours / Month"
+      workload_per_week: "Hours / Week"
   date:
     formats:
       default: "%d.%m.%Y"
+      without_day: "%B %Y"
     order:
       - :day
       - :month

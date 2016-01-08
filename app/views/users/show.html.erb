@@ -30,12 +30,12 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4>Work Times</h4>
+      <h4><%= t('.work_times') %></h4>
     </div>
     <div class="panel-body">
       <% @user.years_and_months_of_existence.each do |month| %>
   	    <p>
-          <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s + ":  ", work_days_path(month: month.last, year: month.first)%>
+          <%= link_to l(Date.new(month.first,month.last, 1), format: :without_day), work_days_path(month: month.last, year: month.first) %>
           <% current_user.projects_for_month(month.first, month.last).each do |project|%>
             <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user.id)%>
           <% end %>
@@ -47,16 +47,16 @@
   <% if current_user.is_wimi? %>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4>Handed in Timesheets</h4>
+        <h4><%= t('.handed_in_timesheets') %></h4>
       </div>
       <div class="panel-body">
         <% @user.years_and_months_of_existence.each do |month| %>
           <p>
-            <%= Date::MONTHNAMES[month.last] + " " + month.first.to_s + ":  " %>
+            <%= l(Date.new(month.first,month.last, 1), format: :without_day)%>
             <% current_user.projects_for_month(month.first, month.last).each do |project|%>
               <% TimeSheet.all.each do |timesheet| %>
                 <% if timesheet.month == month.last && timesheet.year == month.first && timesheet.project_id == project.id && timesheet.handed_in == true && (timesheet.status.include? 'pending') %>
-                  <%= link_to project.title + " by " + User.find(timesheet.user_id).name, work_days_path(month: month.last, year: month.first, project: project.id, user_id: timesheet.user_id)%>
+                  <%= link_to project.title + ' ' + t('.by') + ' ' + User.find(timesheet.user_id).name, work_days_path(month: month.last, year: month.first, project: project.id, user_id: timesheet.user_id)%>
                 <% end %>
               <% end %>
             <% end %>

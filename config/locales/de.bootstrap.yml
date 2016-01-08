@@ -47,6 +47,9 @@ de:
       days: "Tag(e)"
       title: "Benutzerprofil"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      work_times: "Arbeitszeit"
+      handed_in_timesheets: "Eingereichte Stundenzettel:"
+      by: "von"
     edit:
       user_data: "Profilbezogene Daten"
     edit_leave:
@@ -85,9 +88,35 @@ de:
       status: "Status"
       user_id: "Benutzer"
       created_at: "Erstellungsdatum"
+  work_days:
+    index:
+      working_hours_for: "Arbeitsstunden für: "
+      new: "neu"
+      for: "für"
+      in: "im"
+      by: "von"
+      sign: "Unterschreiben"
+      handed_in_at: "eingereicht am: "
+      reject: "ablehnen"
+      reject_reason: "Ablehnungsgrund:"
+      rejected_by: "abgelehnt von: "
+      accepted_by: "angenommen von: "
+      at: "am"
+      export_as_PDF: "als PDF exportieren"
+      handed_in_at: "eingereicht am:"
+      status: "Status"
+  time_sheets:
+    show:
+      salary: "Bezahlung:"
+      salary_per_month: "Euro / Monat"
+      salary_per_hour: "Euro / Stunde"
+      workload: "Arbeitszeit"
+      workload_per_month: "Stunden / Monat"
+      workload_per_week: "Stunden / Woche"
   date:
     formats:
       default: "%d.%m.%Y"
+      without_day: "%B %Y"
     order:
       - :day
       - :month

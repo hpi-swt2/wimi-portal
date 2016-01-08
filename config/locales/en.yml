@@ -43,6 +43,12 @@ en:
       user:
         one: "User"
         other: "Users"
+      work_day:
+        one: "Workday"
+        other: "Workdays"
+      time_sheet:
+        one: "Timesheet"
+        other: "Timesheets"  
     attributes:
       chair:
         id: "Id"
@@ -136,6 +142,13 @@ en:
         personnel_number: "Staff Number"
         division_id: "Division"
         language: "Language"
+      work_day:
+        date: "Date"
+        start_time: "Start time"
+        break: "Break"
+        end_time: "End time"
+        duration: "Duration"
+        notes: "Notes"
   links:
     search: 'Search'
     submit: 'Submit'
