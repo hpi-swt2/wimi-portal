@@ -28,6 +28,9 @@ class Ability
   end
 
   def initialize_hiwi(user)
+    cannot :create, ProjectApplication do |project_application|
+      user.projects.exists?(project_application.project_id)
+    end
     # can :accept_invitation, Project
     # can :manage, Stundenzettel
   end
@@ -41,6 +44,7 @@ class Ability
     can :manage, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
+    cannot :create, ProjectApplication
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end

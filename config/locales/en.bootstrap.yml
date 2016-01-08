@@ -31,20 +31,11 @@ en:
       apply: "Apply"
       accept: "Accept"
       decline: "Decline"
-    application:
-      part_of_project: "You are part of this project."
-      cancelApp: "Cancel Application"
-      acceptApp: "Accept Application"
-      declineApp: "Decline Application"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
       delete: "Delete %{model}"
-    states:
-      pending: "Pending"
-      declined: "Declined"
-      accepted: "Accepted"
     language:
       lang: "Language"
       english: "English"
@@ -53,6 +44,13 @@ en:
       create: "Create %{model}"
       update: "Update %{model}"
   project_applications:
+    states:
+      pending: "Pending"
+      declined: "Declined"
+      accepted: "Accepted"
+    created: "Application was successfully created"
+    not_created: "Application was not created"
+    destroy: "Application was deleted"
     index:
       cancel: "Cancel Application"
     reapply: "Reapply"

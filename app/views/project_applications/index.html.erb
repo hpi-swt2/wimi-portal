@@ -17,7 +17,7 @@
           <% case project_application.status %>
             <% when "pending" %>
               <td>
-                <span class="label label-xs label-info"><%= project_application.status %></span>
+                <span class="label label-xs label-info"><%= I18n.t('project_applications.states.pending') %></span>
               </td>
               <td>
                 <%= link_to t('.cancel', default: 'Cancel Application'),
@@ -28,12 +28,12 @@
               </td>
             <% when "accepted" %>
               <td>
-                <span class="label label-xs label-success"><%= project_application.status %></span>
+                <span class="label label-xs label-success"><%= I18n.t('project_applications.states.accepted') %></span>
               </td>
               <td></td>
             <% when "declined"%>
                 <td>
-                  <span class="label label-xs label-danger"><%= project_application.status %></span>
+                  <span class="label label-xs label-danger"><%= I18n.t('project_applications.states.declined') %></span>
                 </td>
                 <td>
                   <%= link_to t('project_applications.reapply', default: 'Reapply'),

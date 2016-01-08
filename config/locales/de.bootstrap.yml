@@ -19,6 +19,7 @@ de:
       confirm: "Sicher?"
       destroy: "Löschen"
       new: "Neu"
+      apply: "Bewerben"
       edit: "Bearbeiten"
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
@@ -36,6 +37,13 @@ de:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
   project_applications:
+    states:
+      pending: "Ausstehend"
+      declined: "Abgelehnt"
+      accepted: "Akzeptiert"
+    created: "Bewerbung wurde erfolgreich erstellt"
+    not_created: "Bewerbung konnte nicht erstellt werden"
+    destroy: "Bewerbung wurde zurückgezogen"
     index:
       cancel: "Bewerbung zurückziehen"
     reapply: "Erneut bewerben"

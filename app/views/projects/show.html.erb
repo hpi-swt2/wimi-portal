@@ -3,14 +3,12 @@
  <h1><%=t '.title', default: model_class.model_name.human.titleize %></h1>
 </div>
 
-<% if @project.users.exists?(id: current_user.id) %><div class='alert alert-success text-center col-md-12' role='alert'><%= t('helpers.application.part_of_project') %></div><% end %>
-
 <dl class='dl-horizontal'>
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @project.title %></dd>
 </dl>
 
-<div class='btn-group' role='group'>
+<div>
   <% if can? :create, ProjectApplication %>
     <% if project_application = @project.project_applications.find_by(user_id: current_user.id) %>
       <% case project_application.status %>
@@ -67,7 +65,7 @@
           <td><%= project_application.user.name %></td>
           <td><%= project_application.user.email %></td>
           <td>
-            <div class='btn-group'>
+            <div>
               <%= link_to t('project_applications.accept_application', default: 'Accept application'),
                 accept_project_application_path(project_application),
                 class: 'btn btn-success' %>
