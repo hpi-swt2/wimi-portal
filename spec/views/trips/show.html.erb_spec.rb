@@ -13,23 +13,20 @@ RSpec.describe "trips/show", type: :view do
     expect(rendered).to match(/signature/)
   end
 
-  it "should render links according to the status" do
-  #find("a[href='#{trips_path(@trip)}'][data-method='delete']")
+  it "displays links for editing, applying ind destroing when status is not applied" do
     render
-    case @trip.status
-    when 'saved', 'gespeichert'
-      expect(rendered).to have_link('.edit', :default => t("helpers.links.edit"))
-      expect(rendered).to have_link('Apply', trips_apply_path(id: @trip), method: post)
-    when 'applied', 'gestellt'
-      expect(rendered).not_to have_link('.edit', :default => t("helpers.links.edit"))
-      expect(rendered).not_to have_link(t('.destroy', :default => t("helpers.links.destroy")),
-                      trip_path(@trip),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-danger')
-    else
-      expect(rendered).to have_link('.edit', :default => t("helpers.links.edit"))
-    end
+    expect(rendered).to have_link(I18n.t('helpers.links.apply_trip'))
+    expect(rendered).to have_link(t('helpers.links.edit'))
+    expect(rendered).to have_link(t('helpers.links.destroy'))
+  end
+
+  it "does not display links for editing, applying ind destroing when status is applied " do
+    @trip.update({status: t('status.applied')})
+    render
+    expect(@trip.status).to eq(t('status.applied'))
+    expect(rendered).not_to have_link(t('helpers.links.apply_trip'))
+    expect(rendered).not_to have_link(t('helpers.links.edit'))
+    expect(rendered).not_to have_link(t('helpers.links.destroy'))
   end
 
 end

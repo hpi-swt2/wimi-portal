@@ -19,10 +19,10 @@ class Trip < ActiveRecord::Base
   validates :destination, presence: true
   validates :user, presence: true
   has_many :expenses
-  enum status: [ :saved, :applied, :accepted, :declined ]
+  enum status: [ I18n.t('status.saved'), I18n.t('status.applied'),I18n.t('status.accepted'),I18n.t('status.declined')]
 
   before_validation(on: :create) do
-    self.status = 'saved'
+    self.status = I18n.t('status.saved')
   end
 
   def name

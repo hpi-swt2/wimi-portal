@@ -137,4 +137,9 @@ de:
       default: "%d/%m/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  status:
+    saved: "gespeichert"
+    applied: "beantragt"
+    accepted: "genehmigt"
+    declined: "abgelehnt"
   

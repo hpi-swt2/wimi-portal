@@ -25,12 +25,12 @@
 </p>
   <strong><%=t('.status') %>:</strong>
   <%= @trip.status =%>
-  <% if @trip.status == 'declined' %>
+  <% if @trip.status == t('status.declined') %>
     by:
   <% end %>
 </p>
 
-<% if @trip.status != 'applied' %>
+<% if @trip.status != t('status.applied') %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_trip_path(@trip), :class => 'btn btn-default' %>
   <%= link_to t('.apply_trip',:default => t("helpers.links.apply_trip")), 
                       trips_apply_path(id: @trip), 

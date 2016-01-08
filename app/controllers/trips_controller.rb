@@ -14,7 +14,7 @@ class TripsController < ApplicationController
   end
 
   def edit
-    if @trip.status == 'applied'
+    if @trip.status == t('status.applied')
       redirect_to @trip, notice: 'Trip is already applied.'
     else
       (2-@trip.trip_datespans.size).times {@trip.trip_datespans.build}
@@ -34,7 +34,7 @@ class TripsController < ApplicationController
   end
 
   def update
-    @trip.update(status: 'saved')
+    @trip.update(status: t('status.saved'))
     if @trip.update(trip_params)
        redirect_to @trip, notice: 'Trip was successfully updated.'
     else
@@ -51,9 +51,9 @@ class TripsController < ApplicationController
   end
 
   def apply
-    @trip.status = 'applied'
+    @trip.status = t('status.applied')
     if @trip.save
-       redirect_to @trip, notice: 'Trip was successfully updated.'
+       redirect_to @trip, notice: 'Trip was successfully applied.'
     else
        render :edit
     end

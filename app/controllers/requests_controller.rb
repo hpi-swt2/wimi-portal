@@ -13,17 +13,17 @@ class RequestsController < ApplicationController
 
     @chair.users.each do |user|
       user.holidays.each do |holidays|
-        unless holidays.status == 'saved'
+        unless holidays.status == t('status.saved')
           @allrequests << {:name => holidays.user.name, :type => 'Holiday Request', :handed_in => holidays.created_at, :status => holidays.status, :action => holiday_path(holidays)}
         end
       end
       user.expenses.each do |expense|
-        unless expense.status == 'saved'
+        unless expense.status == t('status.saved')
           @allrequests << {:name => expense.user.name, :type => 'Expense Request', :handed_in => expense.created_at, :status => expense.status, :action => expense_path(expense)}
         end
       end
       user.trips.each do |trips|
-        unless trips.status == 'saved'
+        unless trips.status == t('status.saved')
           @allrequests << {:name => trips.user.name, :type => 'Trip Request', :handed_in => trips.created_at, :status => trips.status, :action => trip_path(trips)}
         end
       end

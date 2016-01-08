@@ -137,5 +137,10 @@ en:
       default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  status:
+    saved: "saved"
+    applied: "applied"
+    accepted: "accepted"
+    declined: "declined"
 
   
