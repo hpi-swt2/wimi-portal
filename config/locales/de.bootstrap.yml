@@ -59,3 +59,51 @@ de:
     index:
       dashboard_title: "Dashboard"
       projects: "Meine Projekte"
+  travel_expense_reports:
+    show:
+      inland: "Inlandsreise"
+      country: "Land"
+      location_from: "Startort"
+      location_via: "Zwischenhalt"
+      location_to: "Zielort"
+      reason: "Grund"
+      date_start: "Startet am"
+      date_end: "Endet am"
+      vehicle: "Fahrzeug"
+      car: "PKW"
+      public_transport: "Bus/Bahn/Flug"
+      vehicle_advance: "vom HPI im Voraus bezahlt"
+      hotel: "Hotel"
+      general_advance: "Vorschuss"
+      signature: "Unterschreiben"
+  trips:
+    show:
+      id: "Id"
+      destination: "Ziel"
+      reason: "Grund"
+      annotation: "Bemerkungen"
+      signature: "Unterschreiben"
+      status: "Status"
+      user_id: "Benutzer"
+      created_at: "Erstellungsdatum"
+  date:
+    formats:
+      default: "%d.%m.%Y"
+    order:
+      - :day
+      - :month
+      - :year
+    month_names:
+      - 
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Dezember

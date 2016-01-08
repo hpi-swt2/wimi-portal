@@ -25,7 +25,7 @@ RSpec.describe UsersController, type: :controller do
     it "shows my page" do
       user = User.create! valid_attributes
       login_with user
-      get :show, {:id => user.to_param}
+      get :show, {id: user.to_param}
       expect(assigns(:user)).to eq(user)
     end
 
@@ -33,7 +33,7 @@ RSpec.describe UsersController, type: :controller do
       it "redirects to the root_path" do
         user = User.create! valid_attributes
         login_with user
-        get :show, {:id => -1}
+        get :show, {id: -1}
         expect(response).to redirect_to(root_path)
       end
     end
@@ -48,7 +48,7 @@ RSpec.describe UsersController, type: :controller do
       it "updates the requested user" do
         user = User.create! valid_attributes
         login_with user
-        put :update, {:id => user.to_param, :user => new_attributes}
+        put :update, {id: user.to_param, user: new_attributes}
         user.reload
         expect(assigns(:user)).to eq(user)
       end
@@ -56,7 +56,7 @@ RSpec.describe UsersController, type: :controller do
       it "redirects to the user" do
         user = User.create! valid_attributes
         login_with user
-        put :update, {:id => user.to_param, :user => new_attributes}
+        put :update, {id: user.to_param, user: new_attributes}
         expect(response).to redirect_to(user)
       end
 
@@ -66,28 +66,28 @@ RSpec.describe UsersController, type: :controller do
       it "assigns the user as @user" do
         user = User.create! valid_attributes
         login_with user
-        put :update, {:id => user.to_param, :user => invalid_attributes}
+        put :update, {id: user.to_param, user: invalid_attributes}
         expect(assigns(:user)).to eq(user)
       end
 
       it "re-renders the edit page if the personnel_number is no number" do
         user = User.create! valid_attributes
         login_with user
-        put :update, {:id => user.to_param, :user => invalid_attributes}
+        put :update, {id: user.to_param, user: invalid_attributes}
         expect(subject).to render_template(:edit)
       end
 
       it "re-renders the edit page if the personnel_number is too large" do
         user = User.create! valid_attributes
         login_with user
-        put :update, {:id => user.to_param, :user => invalid_attributes2}
+        put :update, {id: user.to_param, user: invalid_attributes2}
         expect(subject).to render_template(:edit)
       end
 
       it "re-renders the edit page if the personnel_number is too small" do
         user = User.create! valid_attributes
         login_with user
-        put :update, {:id => user.to_param, :user => invalid_attributes3}
+        put :update, {id: user.to_param, user: invalid_attributes3}
         expect(subject).to render_template(:edit)
       end
     end

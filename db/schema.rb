@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215142703) do
+ActiveRecord::Schema.define(version: 20151215145322) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -59,9 +59,9 @@ ActiveRecord::Schema.define(version: 20151215142703) do
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
 
-  create_table "notifications", force: :cascade do |t|
+  create_table "invitations", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "message"
+    t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -105,6 +105,19 @@ ActiveRecord::Schema.define(version: 20151215142703) do
   add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
   add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
+  create_table "time_sheets", force: :cascade do |t|
+    t.integer  "month"
+    t.integer  "year"
+    t.integer  "salary"
+    t.boolean  "salary_is_per_month"
+    t.integer  "workload"
+    t.boolean  "workload_is_per_month"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
   create_table "travel_expense_report_items", force: :cascade do |t|
     t.date     "date"
     t.boolean  "breakfast"
@@ -113,6 +126,7 @@ ActiveRecord::Schema.define(version: 20151215142703) do
     t.integer  "travel_expense_report_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.text     "annotation"
   end
 
   add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"
@@ -186,5 +200,18 @@ ActiveRecord::Schema.define(version: 20151215142703) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+
+  create_table "work_days", force: :cascade do |t|
+    t.date     "date"
+    t.time     "start_time"
+    t.integer  "break"
+    t.time     "end_time"
+    t.string   "attendance"
+    t.string   "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "project_id"
+  end
 
 end

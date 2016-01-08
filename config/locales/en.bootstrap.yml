@@ -63,3 +63,51 @@ en:
     index:
       dashboard_title: "Dashboard"
       projects: "My Projects"
+  travel_expense_reports:
+    show:
+      inland: "Inland Travel"
+      country: "Country"
+      location_from: "Starting in"
+      location_via: "Via"
+      location_to: "To"
+      reason: "Reason"
+      date_start: "Start at"
+      vehicle: "Vehicle"
+      date_end: "End at:"
+      car: "Travel by car"
+      public_transport: "Travel by Bus/Train/Plane"
+      vehicle_advance: "Travel paid by HPI"
+      hotel: "Hotel"
+      general_advance: "Advance"
+      signature: "Add signature"
+  trips:
+    show:
+      id: "Id"
+      destination: "Destination"
+      reason: "Reason"
+      annotation: "Annotations"
+      signature: "Add signature"
+      status: "Status"
+      user_id: "User"
+      created_at: "Created at"
+  date:
+    formats:
+      default: "%d.%m.%Y"
+    order:
+      - :day
+      - :month
+      - :year
+    month_names:
+      - 
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December

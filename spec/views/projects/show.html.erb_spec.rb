@@ -5,6 +5,7 @@ RSpec.describe 'projects/show', type: :view do
     @user = FactoryGirl.create(:user)
     sign_in @user
     @project = assign(:project, FactoryGirl.create(:project))
+    allow(view).to receive(:current_user).and_return(@user)
   end
 
   it 'renders attributes in <p>' do
