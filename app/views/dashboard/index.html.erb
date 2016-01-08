@@ -4,8 +4,8 @@
   <h1> <%= t('.dashboard_title')%></h1>
 </div>
 
-<% if current_user.is_representative? %>
 <div class="notification-block">
+  <% if current_user.is_representative? %>
   <table class="notification-table">
     <thead>
     <tr>
@@ -27,8 +27,9 @@
       <% end %>
     </tbody>
   </table>
+  <% end %>
+  <!-- admin notification -->
 </div>
-<% end %>
 
 <div class="col-md-12">
  <% unless @invitations.nil? %>
