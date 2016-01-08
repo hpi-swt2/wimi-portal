@@ -31,13 +31,26 @@ class HolidaysController < ApplicationController
   end
 
   def update
-      old_length = holiday_params.length
+    old_length = @holiday.length
+    new_length = holiday_params['length']
+
+    unless new_length == ""
+      length_difference = new_length.to_i - old_length
+    else
+      new_length = @holiday.duration
+      length_difference = @holiday.duration - old_length
+    end
+
+    old_params =  holiday_params
+    holiday_params = old_params.merge(length: length_difference)
+    
     if @holiday.update(holiday_params)
       flash[:success] = 'Holiday was successfully updated.'
-      raise
-      add_leave(old_length.to_i-holiday_params.length.to_i)
+      @holiday.update_attribute(:length, new_length)
+      subtract_leave(length_difference)
       redirect_to @holiday
     else
+      @holiday.update_attribute(:length, old_length)
       render :edit
     end
   end

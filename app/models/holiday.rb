@@ -43,14 +43,14 @@ class Holiday < ActiveRecord::Base
 
   def too_far_in_the_future?
     unless self.end.year < Date.today.year + 2
-      errors.add(:Holiday, "is too far in the future")
+      errors.add(:Holiday, 'is too far in the future')
     end
   end
 
   def sufficient_leave_left?
     #need to assert that user is existent for tests
-    if self.user && self.length > 0
-      unless self.user.remaining_leave >= duration
+    if self.user
+      unless self.user.remaining_leave >= length
         errors.add(:not_enough_leave_left!, "" )
       end
   	end
