@@ -27,11 +27,20 @@ RSpec.describe TripsController, type: :controller do
   # Trip. As you add validations to Trip, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { title: 'Trip' }
+    {destination: "NYC Conference",
+     reason: "Hana Things",
+     annotation: "HANA pls",
+     signature: true,
+     user: FactoryGirl.create(:user)}
   }
 
   let(:invalid_attributes) {
-    { title: '' }
+    {
+     destination: "",
+     reason: "Hana Things",
+     annotation: "HANA pls",
+     signature: true,
+     user: FactoryGirl.create(:user)}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -39,98 +48,103 @@ RSpec.describe TripsController, type: :controller do
   # TripsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe 'GET #index' do
-    it 'assigns all trips as @trips' do
+  describe "GET #index" do
+    it "assigns all trips as @trips" do
       trip = Trip.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:trips)).to eq(Trip.all)
     end
   end
 
-  describe 'GET #show' do
-    it 'assigns the requested trip as @trip' do
+  describe "GET #show" do
+    it "assigns the requested trip as @trip" do
       trip = Trip.create! valid_attributes
       get :show, {id: trip.to_param}, valid_session
       expect(assigns(:trip)).to eq(trip)
     end
   end
 
-  describe 'GET #new' do
-    it 'assigns a new trip as @trip' do
+  describe "GET #new" do
+    it "assigns a new trip as @trip" do
       get :new, {}, valid_session
       expect(assigns(:trip)).to be_a_new(Trip)
     end
   end
 
-  describe 'GET #edit' do
-    it 'assigns the requested trip as @trip' do
+  describe "GET #edit" do
+    it "assigns the requested trip as @trip" do
       trip = Trip.create! valid_attributes
       get :edit, {id: trip.to_param}, valid_session
       expect(assigns(:trip)).to eq(trip)
     end
   end
 
-  describe 'POST #create' do
-    context 'with valid params' do
-      it 'creates a new Trip' do
+  describe "POST #create" do
+    context "with valid params" do
+      it "creates a new Trip" do
         expect {
           post :create, {trip: valid_attributes}, valid_session
         }.to change(Trip, :count).by(1)
       end
 
-      it 'assigns a newly created trip as @trip' do
+      it "assigns a newly created trip as @trip" do
         post :create, {trip: valid_attributes}, valid_session
         expect(assigns(:trip)).to be_a(Trip)
         expect(assigns(:trip)).to be_persisted
       end
 
-      it 'redirects to the created trip' do
+      it "redirects to the created trip" do
         post :create, {trip: valid_attributes}, valid_session
         expect(response).to redirect_to(Trip.last)
       end
     end
 
-    context 'with invalid params' do
-      it 'assigns a newly created but unsaved trip as @trip' do
+    context "with invalid params" do
+      it "assigns a newly created but unsaved trip as @trip" do
         post :create, {trip: invalid_attributes}, valid_session
         expect(assigns(:trip)).to be_a_new(Trip)
       end
 
       it "re-renders the 'new' template" do
         post :create, {trip: invalid_attributes}, valid_session
-        expect(response).to render_template('new')
+        expect(response).to render_template("new")
       end
     end
   end
 
-  describe 'PUT #update' do
-    context 'with valid params' do
+  describe "PUT #update" do
+    context "with valid params" do
       let(:new_attributes) {
-        { title: 'Trip 2' }
+        {
+     destination: "NYC",
+     reason: "Hana",
+     annotation: "HANA",
+     signature: false,
+     user: User.first}
       }
 
-      it 'updates the requested trip' do
+      it "updates the requested trip" do
         trip = Trip.create! valid_attributes
         put :update, {id: trip.to_param, trip: new_attributes}, valid_session
         trip.reload
-        expect(trip.title).to eq('Trip 2')
+	expect(trip.destination).to eq('NYC')
       end
 
-      it 'assigns the requested trip as @trip' do
+      it "assigns the requested trip as @trip" do
         trip = Trip.create! valid_attributes
         put :update, {id: trip.to_param, trip: valid_attributes}, valid_session
         expect(assigns(:trip)).to eq(trip)
       end
 
-      it 'redirects to the trip' do
+      it "redirects to the trip" do
         trip = Trip.create! valid_attributes
         put :update, {id: trip.to_param, trip: valid_attributes}, valid_session
         expect(response).to redirect_to(trip)
       end
     end
 
-    context 'with invalid params' do
-      it 'assigns the trip as @trip' do
+    context "with invalid params" do
+      it "assigns the trip as @trip" do
         trip = Trip.create! valid_attributes
         put :update, {id: trip.to_param, trip: invalid_attributes}, valid_session
         expect(assigns(:trip)).to eq(trip)
@@ -139,23 +153,24 @@ RSpec.describe TripsController, type: :controller do
       it "re-renders the 'edit' template" do
         trip = Trip.create! valid_attributes
         put :update, {id: trip.to_param, trip: invalid_attributes}, valid_session
-        expect(response).to render_template('edit')
+        expect(response).to render_template("edit")
       end
     end
   end
 
-  describe 'DELETE #destroy' do
-    it 'destroys the requested trip' do
+  describe "DELETE #destroy" do
+    it "destroys the requested trip" do
       trip = Trip.create! valid_attributes
       expect {
         delete :destroy, {id: trip.to_param}, valid_session
       }.to change(Trip, :count).by(-1)
     end
 
-    it 'redirects to the trips list' do
+    it "redirects to the trips list" do
       trip = Trip.create! valid_attributes
       delete :destroy, {id: trip.to_param}, valid_session
       expect(response).to redirect_to(trips_url)
     end
   end
+
 end

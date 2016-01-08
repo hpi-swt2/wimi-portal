@@ -24,8 +24,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #before_action :authenticate_user!
-
   private
     def set_locale
       if current_user
@@ -34,7 +32,7 @@ class ApplicationController < ActionController::Base
         end
       else
         I18n.locale = I18n.default_locale
-      end 
+      end
     end
 
     def default_url_options(options = {})

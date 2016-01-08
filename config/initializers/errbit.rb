@@ -2,10 +2,10 @@
 # ---------------------------------------------
 #
 # Rails 3 - In your Gemfile
-# gem 'airbrake'
+# gem 'airbreak'
 #
 # Rails 2 - In environment.rb
-# config.gem 'airbrake'
+# config.gem 'airbreak'
 #
 # Then add the following to config/initializers/errbit.rb
 # -------------------------------------------------------
