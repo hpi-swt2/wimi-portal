@@ -181,7 +181,7 @@ class ChairsController < ApplicationController
 
   def create_allrequests
     @allrequests = Array.new
-
+    
     @chair.users.each do |user|
       add_requests('Holiday Request', user.holidays) if @types.include? 'holidays'
       add_requests('Expense Request', user.expenses) if @types.include? 'expenses'

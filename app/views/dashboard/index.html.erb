@@ -4,10 +4,31 @@
   <h1> <%= t('.dashboard_title')%></h1>
 </div>
 
+<% if current_user.is_representative? %>
 <div class="notification-block">
-  <b>Benachrichtigungen</b><br/>
-  Minna von Barnheim hat einen Urlaubsantrag gestellt. &nbsp; Anzeigen</br>
+  <table class="notification-table">
+    <thead>
+    <tr>
+      <th><%= t("chair.notifications", default: "Notifications") %></th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @applied_requests.each do |request| %>
+        <tr>
+          <td>
+            <%= link_to(request[:request].user.name, request[:request].user) %>
+            <!-- request[:type] might be 'holiday' / 'expense' / 'trip'-->
+            <%= t("chair.submitted_"+request[:type]+"_request", default: "has submitted an "+request[:type]+" request.") %>
+          </td>
+          <td>
+            <%= link_to(t("chair.show", default: "Show"), request[:request]) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
+<% end %>
 
 <div class="col-md-12">
  <% unless @invitations.nil? %>
