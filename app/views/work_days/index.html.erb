@@ -9,7 +9,7 @@
       <%= ' for ' + @project.title%>
     <%end%>
     <% unless @time_sheet.nil? %>
-      <%= ' by ' + @time_sheet.user.name%>
+      <%= ' by ' + User.find(@time_sheet.user_id).name%>
     <% end %>
   </h1>
 </div>
@@ -46,37 +46,64 @@
   </tbody>
 </table>
 <br>
-<div class="form-group">
-  <% if @time_sheet.user_id == current_user.id && !@time_sheet.handed_in? %>
-    <%= link_to "New", new_work_day_path, class: 'btn btn-primary' %>
-  <% end %>
-  <br>
-  <br>
-  <br>
-  <% unless @time_sheet.nil? %>
-    <% if !@time_sheet.nil? && current_user.is_wimi? && @time_sheet.handed_in? %>
+<% unless @time_sheet.nil? %>
+  <div class="form-group">
+    <% if @time_sheet.user_id == current_user.id && !@time_sheet.handed_in? %>
+      <%= link_to "New", new_work_day_path, class: 'btn btn-primary' %>
+    <% end %>
+    <br>
+    <br>
+    <br>
+    <% if current_user.is_wimi? && @time_sheet.handed_in? %>
         Acceptence requested at: <%= @time_sheet.last_modified %><br>
         Status: <%= @time_sheet.status %><br>
       <% if @time_sheet.status.include? 'pending' %>
-        <%= link_to "Sign", {method: :show_add_signature_prompt, method:@time_sheet.update_attribute(:status, 1), method: @time_sheet.update_attribute(:last_modified, Date.today), method: @time_sheet.update_attribute(:signer, current_user.id), remote: true}, class: 'btn btn-primary' %>
-        <%= link_to "Reject", {method: @time_sheet.update_attribute(:status, 2), method: @time_sheet.update_attribute(:last_modified, Date.today), method: @time_sheet.update_attribute(:signer, current_user.id), remote: true}, class: 'btn btn-primary' %>
-        <% end %>
+        <%= form_for @time_sheet do |f| %>
+           <%= f.hidden_field :status, value: 'accepted' %>
+           <%= f.hidden_field :last_modified, value: Date.today %>
+           <%= f.hidden_field :signer, value: current_user.id %>
+           <%= f.submit 'sign', class: 'btn btn-primary' %>
+        <% end %> 
+        <%= form_for @time_sheet do |f| %>
+           <%= f.hidden_field :status, value: 'rejected' %>
+           <%= f.hidden_field :last_modified, value: Date.today %>
+           <%= f.hidden_field :signer, value: current_user.id %>
+           <%= f.hidden_field :handed_in, value: false %>
+           <%= f.submit 'reject', class: 'btn btn-primary' %>   
+           <%= f.text_field :rejection_message, class: "form-control" %> 
+        <% end %>   
+      <% end %>
     <% else %>
       <% if @time_sheet.handed_in? %>
         <% if @time_sheet.status.include? 'pending' %>
           <%= 'Handed in at ' + @time_sheet.last_modified.to_s + ' status: ' + @time_sheet.status %><br> 
           <%= link_to "Export as PDF", "#", class: 'btn btn-primary' %><br>
         <% end %>
-        <% if @time_sheet.status.include? 'accepted' %>
-          <%= 'Accepted by ' + User.find(@time_sheet.signer).name + ' at ' + @time_sheet.last_modified %><br>
+        <% if @time_sheet.status.include? 'accepted'%>
+          <%= 'Accepted by ' + User.find(@time_sheet.signer).name + ' at ' + @time_sheet.last_modified.to_s %><br>
           <%= link_to "Export as PDF", "#", class: 'btn btn-primary' %><br>
         <% end %>
-        <% if @time_sheet.status.include? 'rejected' %>
-          <%= 'Rejected by ' + User.find(@time_sheet.signer).name + ' at ' + @time_sheet.last_modified %>
-        <% end %>
       <% else %>
-        <%= link_to "Sign", {method: :show_add_signature_prompt, method: @time_sheet.update_attribute(:handed_in, true), method: @time_sheet.update_attribute(:last_modified, Date.today), remote: true}, class: 'btn btn-primary' %>
+        <% if @time_sheet.status.include? 'rejected' %>
+          <%= 'Rejected by ' + User.find(@time_sheet.signer).name + ' at ' + @time_sheet.last_modified.to_s %>
+          <br>
+          <%= 'rejection message: ' + @time_sheet.rejection_message %>
+          <%= form_for @time_sheet do |f| %>
+            <%= f.hidden_field :status, value: 'pending' %>
+            <%= f.hidden_field :handed_in, value: true %>
+            <%= f.hidden_field :last_modified, value: Date.today %>
+            <%= f.submit 'sign',  class: 'btn btn-primary' %>
+          <% end %>
+        <% else %>
+          <%= form_for @time_sheet do |f| %>
+             <%= f.hidden_field :handed_in, value: true %>
+             <%= f.hidden_field :last_modified, value: Date.today %>
+             <%= f.submit 'sign', class: 'btn btn-primary' %>
+        <% end %>   
+        <% end %>   
       <% end %>
     <% end %>
-  <% end %>
-</div>  
+  </div>
+<% else %>  
+ <%= link_to "New", new_work_day_path, class: 'btn btn-primary' %>
+<% end %>

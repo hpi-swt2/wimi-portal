@@ -11,7 +11,6 @@
 
   <p>
     <strong>Workload: </strong>
-    <%= @time_sheet.status %>
     <%= @time_sheet.workload %>
     <% if @time_sheet.workload_is_per_month %>
       <%= ' Hours / Month' %>
@@ -20,7 +19,7 @@
     <% end %>
   </p>
 </div>
-<% if current_user.id == @time_sheet.id && !@time_sheet.handed_in? %>
+<% if current_user.id == @time_sheet.user_id && !@time_sheet.handed_in? %>
   <div class="col-sm-6 text text-right">
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
         edit_time_sheet_path(@time_sheet), :class => 'btn btn-default btn-xs' %>
