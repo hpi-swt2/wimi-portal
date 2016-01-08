@@ -4,6 +4,11 @@
   <h1> <%= t('.dashboard_title')%></h1>
 </div>
 
+<div class="notification-block">
+  <b>Benachrichtigungen</b><br/>
+  Minna von Barnheim hat einen Urlaubsantrag gestellt. &nbsp; Anzeigen</br>
+</div>
+
 <div class="col-md-12">
  <% unless @invitations.nil? %>
     <% @invitations.each do |invitation| %>
