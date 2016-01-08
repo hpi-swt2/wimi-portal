@@ -93,6 +93,8 @@ de:
     index:
       dashboard_title: "Dashboard"
       projects: "Meine Projekte"
+      notifications: "Benachrichtigungen"
+      actions: "Aktionen"
   travel_expense_reports:
     show:
       inland: "Inlandsreise"
@@ -128,7 +130,7 @@ de:
       - :month
       - :year
     month_names:
-      - 
+      -
       - Januar
       - Februar
       - März
