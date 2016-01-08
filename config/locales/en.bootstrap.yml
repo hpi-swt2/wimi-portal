@@ -101,6 +101,8 @@ en:
       projects: "My Projects"
       notifications: "Notifications"
       actions: "Actions"
+    hiwi_actions:
+      action: "Enter working hours for %{project_name}" 
   travel_expense_reports:
     show:
       inland: "Inland Travel"
