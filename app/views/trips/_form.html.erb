@@ -29,8 +29,16 @@
     </tr>
     <%= f.fields_for :trip_datespans do |d| %>
     <tr>
-      <td><%= d.date_select :start_date,order: [:day,:month,:year] %></td>
-      <td><%= d.date_select :end_date, order: [:day,:month,:year]%></td>
+      <td>
+        <div class="control-group">
+        <%= d.text_field :start_date, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+        </div>
+      </td>
+      <td>
+        <div class="control-group">
+        <%= d.text_field :end_date, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+        </div>
+      </td>
       <td><%= d.number_field :days_abroad %></td>
     </tr>
     <% end %>
