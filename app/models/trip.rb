@@ -23,6 +23,6 @@ class Trip < ActiveRecord::Base
   enum status: [ :saved, :applied, :accepted, :declined ]
 
   def name
-    self.user.first_name + ' ' + self.user.last_name
+    self.user.name
   end
 end

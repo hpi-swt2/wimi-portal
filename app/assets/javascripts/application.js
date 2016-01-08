@@ -20,6 +20,7 @@
 //= require_tree .
 
 $('.datepicker').datepicker();
+
 $(function(){
   $("a[rel='tooltip']").tooltip();
 })

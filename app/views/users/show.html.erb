@@ -13,7 +13,7 @@
           <h4><%= t('.user_data')%></h4>
         </div>
         <div class="col-sm-6 text text-right">
-          <%= link_to t('.edit', :default => t('helpers.links.edit')), edit_user_path, :class => 'btn btn-primary' %>
+          <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-primary' %>
         </div>
       </div>
     </div>
@@ -25,6 +25,22 @@
       <p><strong><%= model_class.human_attribute_name(:division_id)+": " %></strong><%= User::DIVISIONS[current_user.division_id] %></p>
       <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= current_user.personnel_number %></p>
       <p><strong><%= model_class.human_attribute_name(:language)+": " %></strong><%= current_user.language %></p>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Work Times</h4>
+    </div>
+    <div class="panel-body">
+      <% @user.years_and_months_of_existence.each do |month| %>
+  	    <p>
+          <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s + ":  ", work_days_path(month: month.last, year: month.first)%>
+          <% current_user.projects_for_month(month.first, month.last).each do |project|%>
+            <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id)%>
+          <% end %>
+        </p>
+    	<% end %>
     </div>
   </div>
 
@@ -43,7 +59,7 @@
             <% end %>
           <% end %>
           <br><%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
-                        users_edit_leave_path(id: current_user.id), :class => 'btn btn-default btn-xs' %><br>
+                        users_edit_leave_path(id: current_user.id), class: 'btn btn-default btn-xs' %><br>
         </div>
         <div class="form-group">
           <table class="table table-striped">

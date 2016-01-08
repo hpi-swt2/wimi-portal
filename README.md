@@ -50,7 +50,7 @@ or the rails server with
 
 in case you want to run all tests go ahead and execute
 
-```rspec ``` 
+```rspec ```
 
 or by specifing the exact spec file with
 
@@ -96,7 +96,7 @@ Bug analysis via Errbit:
 http://swt2-2015-errbit.herokuapp.com/
 ```
 
-with 
+with
 
 ```
 username: blub@blah.de

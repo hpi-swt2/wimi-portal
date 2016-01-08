@@ -18,10 +18,11 @@ class HolidaysController < ApplicationController
   def edit
   end
 
-  def create
+  def create 
     @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
     if @holiday.save
-      subtract_leave
+      @holiday.update_attribute(:length, @holiday.duration)
+      subtract_leave(@holiday.length)
       flash[:success] = 'Holiday was successfully created.'
       redirect_to current_user
     else
@@ -30,8 +31,11 @@ class HolidaysController < ApplicationController
   end
 
   def update
+      old_length = holiday_params.length
     if @holiday.update(holiday_params)
       flash[:success] = 'Holiday was successfully updated.'
+      raise
+      add_leave(old_length.to_i-holiday_params.length.to_i)
       redirect_to @holiday
     else
       render :edit
@@ -40,11 +44,15 @@ class HolidaysController < ApplicationController
 
   def destroy
     if @holiday.end > Date.today
-      add_leave
+      add_leave(@holiday.length)
     end
     @holiday.destroy
     flash[:success] = 'Holiday was successfully destroyed.'
     redirect_to holidays_path
+  end
+
+  def duration(startdate, enddate)
+    startdate.business_days_until(enddate+1)
   end
 
   private
@@ -56,16 +64,16 @@ class HolidaysController < ApplicationController
       params[:holiday].permit(Holiday.column_names.map(&:to_sym))
     end
 
-    def calculate_leave(operator)
-      current_user.update_attribute(:remaining_leave, current_user.remaining_leave.send(operator, @holiday.duration))
+    def calculate_leave(operator, length)
+      current_user.update_attribute(:remaining_leave, current_user.remaining_leave.send(operator, length))
       current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year.send(operator, @holiday.duration_last_year))
     end
 
-    def add_leave
-      calculate_leave(:+)
+    def add_leave(length)
+      calculate_leave(:+, length)
     end
 
-    def subtract_leave
-      calculate_leave(:-)
+    def subtract_leave(length)
+      calculate_leave(:-, length)
     end
 end

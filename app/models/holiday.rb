@@ -8,10 +8,11 @@
 #  updated_at          :datetime         not null
 #  start               :date
 #  end                 :date
+#  status              :integer          default(0), not null
 #  reason              :string
 #  annotation          :string
 #  replacement_user_id :integer
-#  status              :integer          default(0)
+#  length              :integer
 #
 
 class Holiday < ActiveRecord::Base
@@ -20,8 +21,8 @@ class Holiday < ActiveRecord::Base
   validates_presence_of :user, :start, :end
   validates_date :start
   validates_date :end
-  validates_date :start, :on_or_after => :today
-  validates_date :end, :after => :start
+  validates_date :start, on_or_after: :today
+  validates_date :end, after: :start
   validate :too_far_in_the_future?
   validate :sufficient_leave_left?
   enum status: [ :saved, :applied, :accepted, :declined ]
@@ -48,7 +49,7 @@ class Holiday < ActiveRecord::Base
 
   def sufficient_leave_left?
     #need to assert that user is existent for tests
-    if self.user
+    if self.user && self.length > 0
       unless self.user.remaining_leave >= duration
         errors.add(:not_enough_leave_left!, "" )
       end
