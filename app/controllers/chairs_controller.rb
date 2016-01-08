@@ -1,8 +1,12 @@
 class ChairsController < ApplicationController
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update]
+  load_and_authorize_resource
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
 
-  before_action :authorize_admin, only: [:show, :accept_request, :remove_from_chair]
-  before_action :authorize_superadmin, only: [:destroy, :new, :create, :edit, :update]
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = I18n.t('chair.not_authorized')
+    redirect_to chairs_path
+  end
+
 
   def index
     @chairs = Chair.all
@@ -25,7 +29,7 @@ class ChairsController < ApplicationController
 
   def create
     @chair = Chair.new(chair_params)
-    
+
     if @chair.add_users(params[:admin_user], params[:representative_user])
       flash[:success] = I18n.t('chair.create.success', default: 'Chair successfully created.')
       redirect_to chairs_path
@@ -55,6 +59,7 @@ class ChairsController < ApplicationController
     @requests = @chair.chair_wimis.where(application: 'pending')
   end
 
+  # Admin tasks:
   def accept_request
     chair_wimi = ChairWimi.find(params[:request])
     chair_wimi.application = 'accepted'
@@ -80,6 +85,34 @@ class ChairsController < ApplicationController
     end
   end
 
+  def requests
+    @allrequests = @chair.get_all_requests
+  end
+
+  def set_admin
+    chair_wimi = ChairWimi.find(params[:request])
+    chair_wimi.admin = true
+
+    if chair_wimi.save
+      flash[:success] = I18n.t('chair.set_admin.success', default: 'Admin was successfully set.')
+      redirect_to chair_path(@chair)
+    else
+      flash[:error] = I18n.t('chair.set_admin.error', default: 'Admin setting failed.')
+      redirect_to chair_path(@chair)
+    end
+  end
+
+  def withdraw_admin
+    chair_wimi = ChairWimi.find(params[:request])
+    if chair_wimi.withdraw_admin(current_user)
+      flash[:success] = I18n.t('chair.withdraw.success', default: 'Admin rights was successfully removed.')
+      redirect_to chair_path(@chair)
+    else
+      flash[:error] = I18n.t('chair.withdraw.error', default: 'Admin right removing failed.')
+      redirect_to chair_path(@chair)
+    end
+  end
+
   # User task:
   def apply
     wimi = ChairWimi.new(chair_id: params[:chair], user: current_user, application: 'pending')
@@ -99,35 +132,11 @@ class ChairsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_chair
     @chair = Chair.find(params[:id])
   end
 
   def chair_params
     params.require(:chair).permit(:name)
-  end
-
-  protected
-  def authorize_superadmin
-    unless current_user.superadmin
-      not_authorized
-    end
-  end
-
-  def authorize_admin
-    c_wimi = current_user.chair_wimi
-    if c_wimi.nil?
-      not_authorized
-    else
-      unless (c_wimi.admin == true || c_wimi.representative == true) && c_wimi.chair == @chair
-        not_authorized
-      end
-    end
-  end
-
-  def not_authorized
-    flash[:error] = I18n.t('chair.not_authorized', default: 'Not authorized for this chair.')
-    redirect_to chairs_path
   end
 end

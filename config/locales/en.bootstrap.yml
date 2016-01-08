@@ -39,6 +39,43 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
+  projects:
+    form:
+      wimi: "Research Assistants"
+      hiwi: "Student Assistants"
+      sign_out_of_project: "Sign out of project"
+      accessibility: "Accessibility"
+      project_leader: "Project Leader"
+      title: "Title"
+      prohibited_this_project_from_being_saved: "prohibited this project from being saved"
+      show_working_hours: "Show working hours"
+      show_all_working_hours: "Show all working hours"
+      create_project: "Create Project"
+      update_project: "Update Project"
+    show:
+      inactive: "(inactive)"
+      set_inactive: "set inactive"
+      set_active: "set active"
+      chair: "Chair"
+      chair_representative: "Chair Representative"
+      project_visibility: "Visibility"
+      project_leader: "Project Leader"
+      public: "public"
+      private: "private"
+      not_defined: "not defined"
+      research_assistants: "Research Assistants"
+      student_assistants: "Student Assistants"
+      active: "aktiv"
+      leave_project: "Leave Project"
+    index:
+      title: "Title"
+      project_status: "Project Status"
+      accessibility: "Accessibility"
+      created_at: "created_at"
+      active: "active"
+      inactive: "inactive"
+      private: "private"
+      public: "public"
   users:
     update:
       user_updated: "User updated successfully"
@@ -62,3 +99,51 @@ en:
     index:
       dashboard_title: "Dashboard"
       projects: "My Projects"
+  travel_expense_reports:
+    show:
+      inland: "Inland Travel"
+      country: "Country"
+      location_from: "Starting in"
+      location_via: "Via"
+      location_to: "To"
+      reason: "Reason"
+      date_start: "Start at"
+      vehicle: "Vehicle"
+      date_end: "End at:"
+      car: "Travel by car"
+      public_transport: "Travel by Bus/Train/Plane"
+      vehicle_advance: "Travel paid by HPI"
+      hotel: "Hotel"
+      general_advance: "Advance"
+      signature: "Add signature"
+  trips:
+    show:
+      id: "Id"
+      destination: "Destination"
+      reason: "Reason"
+      annotation: "Annotations"
+      signature: "Add signature"
+      status: "Status"
+      user_id: "User"
+      created_at: "Created at"
+  date:
+    formats:
+      default: "%d.%m.%Y"
+    order:
+      - :day
+      - :month
+      - :year
+    month_names:
+      - 
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
