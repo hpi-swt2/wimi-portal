@@ -69,9 +69,9 @@ class ProjectsController < ApplicationController
   end
 
 
-  def set_inactive
+  def toggle_status
     @project = Project.find(params[:id])
-    if @project.status == true
+    if @project.status
       @project.update(status: false)
     else
       @project.update(status: true)
@@ -82,10 +82,10 @@ class ProjectsController < ApplicationController
 
 
   def sign_user_out
-    @user = User.find(params[:user_id])
+    user = User.find(params[:user_id])
     @project = Project.find(params[:id])
-    @project.remove_user(@user)
-    if @user == current_user
+    @project.remove_user(user)
+    if user == current_user
       redirect_to @project
     else
       redirect_to edit_project_path(@project)

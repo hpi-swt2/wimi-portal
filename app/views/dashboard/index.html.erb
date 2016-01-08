@@ -38,8 +38,8 @@
       <tr>
         <td><%= link_to project.id, project_path(project) %></td>
         <td><%= link_to project.title, project %></td>
-        <td><%= project.status ? "Active" : "Inactive" %></td>
-        <td><%= project.status ? "Public" : "Private" %></td>
+        <td><%= project.status ? t('projects.index.active') : t('projects.index.inactive') %></td>
+        <td><%= project.public ? t('projects.show.public') : t('projects.index.private') %></td>
         <td><%=l project.created_at %></td>
         <td>
           <%= link_to t('.edit', default: t("helpers.links.edit")),

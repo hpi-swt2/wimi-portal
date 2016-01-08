@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     member do
-      get 'set_inactive'
+      get 'toggle_status'
     end
   end
 

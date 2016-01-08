@@ -84,8 +84,4 @@ RSpec.describe 'projects/show', type: :view do
     visit project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.form.show_all_working_hours'))
   end
-
-
-
-
 end
