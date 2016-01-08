@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217152040) do
+ActiveRecord::Schema.define(version: 20160108133718) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 20151217152040) do
 
   add_index "event_admin_rights_changeds", ["admin_id"], name: "index_event_admin_rights_changeds_on_admin_id"
   add_index "event_admin_rights_changeds", ["user_id"], name: "index_event_admin_rights_changeds_on_user_id"
+
+  create_table "events", force: :cascade do |t|
+    t.integer "trigger_id"
+    t.integer "target_id"
+    t.integer "chair_id"
+    t.integer "seclevel"
+    t.string  "type"
+  end
+
+  add_index "events", ["chair_id"], name: "index_events_on_chair_id"
+  add_index "events", ["target_id"], name: "index_events_on_target_id"
+  add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"

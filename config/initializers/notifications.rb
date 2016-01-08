@@ -1,27 +1,23 @@
-# Event Template:
+# This call interrupts all Events
 #
-# ActiveSupport::Notifications.subscribe "<event_name>" do |name,start,finish,id,payload|
-# --handle your event here--
-# --for example make a new model (MyEvent)  and save the payload within:
-#   MyEvent.create! do |event|
-#     event.attribute = payload[:key]
-#   end
-# end
+# To trigger an event call the instrument function where your event should be created (for example in the controller) with
+#
+# ActiveSupport::Notifications.instrument("event", { trigger: object.id, target: object2.id, chair: chair, seclevel: <seclevel> , type: "EventName"})
+#
+# You will have to create a new Model that inherits from Event (look at EventAdminAdded for an example)
+# Your event will be automatically displayed on the dashboard (hooks for that are in dashboard controller and view)
+#
+# In order for it to display correctly you have to add a partial that renders your Event
+# (look in app/views/event_admin_addeds/_event_admin_added.html.erb for an example)
 # 
-# To trigger the event call the instrument function where your event should be created (for example in the controller) with
-#
-# ActiveSupport::Notifications.instrument("<event_name>", { :key => value })
-#
-# where { :key => value } can be any custom hashmap you like.
-# this map will be available through the payload variable in the subscribe function
-#
-# add new events here
+# !!! make sure that the folder name is pluralized, otherwise rails wont find it (even if it sounds stupid, like event_admin_addeds )
 
-ActiveSupport::Notifications.subscribe "event.admin.rights_changed" do |name,start,finish,id,payload|
-  EventAdminRightsChanged.create! do |event|
-    event.admin = payload[:admin]
-    event.user = payload[:user]
-    event.user_is_admin = payload[:user_is_admin]
+ActiveSupport::Notifications.subscribe "event" do |name,start,finish,id,payload|
+  Event.create! do |event|
+    event.trigger_id = payload[:trigger]
+    event.target_id = payload[:target]
+    event.chair = payload[:chair]
+    event.seclevel = payload[:seclevel]
+    event.type = payload[:type]
   end
 end
-
