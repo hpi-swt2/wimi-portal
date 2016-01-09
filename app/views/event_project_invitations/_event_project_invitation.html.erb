@@ -1,10 +1,14 @@
 <p>
-  <%= link_to(event_project_invitation.trigger.name, user_path(event_project_invitation.trigger)) %>
-  hat Sie in das Projekt
-  <%= link_to(event_project_invitation.project.title, project_path(event_project_invitation.project)) %>
-  eingeladen.
+  <%= t(
+    '.full_html',
+    trigger_name: link_to(
+      event_project_invitation.trigger.name,
+      user_path(event_project_invitation.trigger)),
+    project_name: link_to(
+      event_project_invitation.project.title,
+      project_path(event_project_invitation.project))) %>
   <nobr>
-    <%= link_to("Annehmen", user_path(current_user), class: 'btn btn-default') %>
-    <%= link_to("Ablehnen", user_path(current_user), class: 'btn btn-danger') %>
+    <%= link_to(t('.accept'), user_path(current_user), class: 'btn btn-default') %>
+    <%= link_to(t('.decline'), user_path(current_user), class: 'btn btn-danger') %>
   </nobr>
 </p>
