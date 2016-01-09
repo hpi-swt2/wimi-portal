@@ -43,4 +43,8 @@ bower.json
 /nbproject/private/
 /config/database.yml
 
+<<<<<<< HEAD
 app/controllers/welcome_controller.rb
+=======
+.idea
+>>>>>>> dev
