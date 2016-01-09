@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109183135) do
+ActiveRecord::Schema.define(version: 20160109133332) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20160109183135) do
     t.integer "chair_id"
     t.integer "seclevel"
     t.string  "type"
-    t.integer "invitation_id"
   end
 
   add_index "events", ["chair_id"], name: "index_events_on_chair_id"
