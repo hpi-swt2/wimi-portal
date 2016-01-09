@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106182047) do
+ActiveRecord::Schema.define(version: 20160109205725) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20160106182047) do
     t.string   "project_leader", default: ""
   end
 
+  add_index "projects", ["chair_id"], name: "index_projects_on_chair_id"
+
   create_table "projects_users", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
@@ -115,12 +117,12 @@ ActiveRecord::Schema.define(version: 20160106182047) do
     t.integer  "project_id"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-    t.boolean  "signed",                default: false
     t.boolean  "handed_in",             default: false
-    t.date     "last_modified"
+    t.text     "rejection_message"
+    t.boolean  "signed",                default: false
+    t.date     "last_midified"
     t.integer  "status",                default: 0
     t.integer  "signer"
-    t.text     "rejection_message"
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|
@@ -156,6 +158,8 @@ ActiveRecord::Schema.define(version: 20160106182047) do
     t.boolean  "signature"
   end
 
+  add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
+
   create_table "trip_datespans", force: :cascade do |t|
     t.date     "start_date"
     t.date     "end_date"
@@ -182,10 +186,6 @@ ActiveRecord::Schema.define(version: 20160106182047) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "",    null: false
-    t.string   "encrypted_password",        default: "",    null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
     t.integer  "sign_in_count",             default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
@@ -207,7 +207,6 @@ ActiveRecord::Schema.define(version: 20160106182047) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "work_days", force: :cascade do |t|
     t.date     "date"
