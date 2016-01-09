@@ -108,6 +108,11 @@ en:
       request_holiday: "Request Holiday"
       request_business_trip: "Request Business Trip"
       file_travel_expenses: "File Travel Expenses"
+  event_project_invitations:
+    event_project_invitation:
+      accept: "Accept"
+      decline: "Decline"
+      full_html: "%{trigger_name} invites you to join the project %{project_name}."
   travel_expense_reports:
     show:
       inland: "Inland Travel"

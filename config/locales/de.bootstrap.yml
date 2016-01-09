@@ -102,6 +102,11 @@ de:
       request_holiday: "Urlaub beantragen"
       request_business_trip: "Dienstreise beantragen"
       file_travel_expenses: "Reisekosten abrechnen"
+  event_project_invitations:
+    event_project_invitation:
+      accept: "Annehmen"
+      decline: "Ablehnen"
+      full_html: "%{trigger_name} hat Sie in das Projekt %{project_name} eingeladen."
   travel_expense_reports:
     show:
       inland: "Inlandsreise"
