@@ -14,7 +14,6 @@ class Event < ActiveRecord::Base
   belongs_to :trigger, class_name: 'User'
 
   validates :type, presence: true
-  validates :chair, presence: true
   validates :seclevel, presence: true
 
   enum seclevel: [ :superadmin, :admin, :representative, :wimi, :hiwi, :user]
