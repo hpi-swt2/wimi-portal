@@ -36,11 +36,13 @@ ActiveRecord::Schema.define(version: 20160109133332) do
     t.integer "trigger_id"
     t.integer "target_id"
     t.integer "chair_id"
+    t.integer "project_id"
     t.integer "seclevel"
     t.string  "type"
   end
 
   add_index "events", ["chair_id"], name: "index_events_on_chair_id"
+  add_index "events", ["project_id"], name: "index_events_on_project_id"
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 

@@ -4,6 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.references :trigger, index: true, foreign_key: true
       t.references :target, index: true, foreign_key: true
       t.references :chair, index: true, foreign_key: true
+      t.references :project, index: true, foreign_key: true
       t.integer :seclevel
       t.string :type
     end

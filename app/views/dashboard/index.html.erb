@@ -27,6 +27,9 @@
       <h4><%=t('.notifications')%></h4> <!--TODO Translate-->
     </div>
     <div class="panel-body">
+      <% @notifications.each do |event| %>
+        <%= render event %>
+      <% end %>
     </div>
   </div>
 </div>

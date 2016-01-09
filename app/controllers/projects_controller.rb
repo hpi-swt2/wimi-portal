@@ -62,6 +62,7 @@ class ProjectsController < ApplicationController
         else
           @project.invite_user user
           flash[:success] = I18n.t('project.user.was_successfully_invited')
+          ActiveSupport::Notifications.instrument("event", {trigger: current_user.id, target: user.id, chair: Chair.find(@project.chair_id), project: @project, seclevel: :hiwi, type: "EventProjectInvitation"})
           redirect_to @project
         end
       end

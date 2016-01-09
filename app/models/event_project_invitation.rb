@@ -2,8 +2,10 @@ class EventProjectInvitation < Event
   before_save :set_defaults
   belongs_to :target, class_name: 'User'
 
+  validates :project, presence: true
+
   def set_defaults
-    self.seclevel = :hiwi
-    self.type = "EventProjectInvitation"
+      self.seclevel = :hiwi
+      self.type = "EventProjectInvitation"
   end
 end
