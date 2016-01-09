@@ -6,10 +6,11 @@
 # trigger     :integer      foreign key
 # target      :integer      foreign key
 # chair       :integer      foreign key
-# seclevel    :integer     
+# seclevel    :integer
 # type        :string
 class Event < ActiveRecord::Base
   belongs_to :chair
+  belongs_to :project
   belongs_to :trigger, class_name: 'User'
 
   validates :type, presence: true
