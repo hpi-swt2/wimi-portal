@@ -20,7 +20,6 @@ class Project < ActiveRecord::Base
   has_many :publications
   has_many :expenses
   has_many :invitations
-  has_many :events
   belongs_to :chair
 
   validates :title, presence: true
