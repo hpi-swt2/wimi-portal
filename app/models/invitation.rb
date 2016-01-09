@@ -12,6 +12,5 @@
 class Invitation < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-
-  has_many :events
+  belongs_to :sender, class_name: 'User'
 end
