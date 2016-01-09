@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 20160109205725) do
     t.boolean  "handed_in",             default: false
     t.text     "rejection_message"
     t.boolean  "signed",                default: false
-    t.date     "last_midified"
+    t.date     "last_modified"
     t.integer  "status",                default: 0
     t.integer  "signer"
   end
