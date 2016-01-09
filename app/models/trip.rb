@@ -20,9 +20,22 @@ class Trip < ActiveRecord::Base
   validates :destination, presence: true
   validates :user, presence: true
   has_many :expenses
+  belongs_to :person_in_power, class_name: 'User'
   enum status: [ :saved, :applied, :accepted, :declined ]
 
   def name
     self.user.name
+  end
+
+  def accept(accepter)
+    self.person_in_power = accepter
+    self.status = :accepted
+    ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestAccepted"})
+  end
+
+  def decline(declined_by)
+    self.person_in_power = declined_by
+    self.status = :declined
+    ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestDeclined"})
   end
 end
