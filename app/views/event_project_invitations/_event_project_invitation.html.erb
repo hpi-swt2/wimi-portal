@@ -11,7 +11,7 @@
         project_path(invitation.project)))
   %>
   <nobr>
-    <%= link_to(t('.accept'), accept_invitation_project_path(invitation), class: 'btn btn-default') %>
-    <%= link_to(t('.decline'), decline_invitation_project_path(invitation), class: 'btn btn-danger') %>
+    <%= link_to(t('.accept'), accept_invitation_project_path(invitation.project), class: 'btn btn-default') %>
+    <%= link_to(t('.decline'), decline_invitation_project_path(invitation.project), class: 'btn btn-danger') %>
   </nobr>
 </p>
