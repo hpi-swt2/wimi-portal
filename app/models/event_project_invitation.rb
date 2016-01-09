@@ -1,4 +1,4 @@
-class EventProjectInvitation < events
+class EventProjectInvitation < Event
   before_save :set_defaults
   belongs_to :target, class_name: 'User'
 
