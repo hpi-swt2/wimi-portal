@@ -76,7 +76,10 @@ ActiveRecord::Schema.define(version: 20160109214346) do
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "sender_id"
   end
+
+  add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"

@@ -1,14 +1,17 @@
 <p>
-  <%= t(
-    '.full_html',
-    trigger_name: link_to(
-      event_project_invitation.trigger.name,
-      user_path(event_project_invitation.trigger)),
-    project_name: link_to(
-      event_project_invitation.project.title,
-      project_path(event_project_invitation.project))) %>
+  <%=
+    invitation = Invitation.find(event_project_invitation.trigger)
+    t(
+      '.full_html',
+      trigger_name: link_to(
+        invitation.sender.name,
+        user_path(invitation.sender)),
+      project_name: link_to(
+        invitation.project.title,
+        project_path(invitation.project)))
+  %>
   <nobr>
-    <%= link_to(t('.accept'), user_path(current_user), class: 'btn btn-default') %>
-    <%= link_to(t('.decline'), user_path(current_user), class: 'btn btn-danger') %>
+    <%= link_to(t('.accept'), accept_invitation_project_path(invitation), class: 'btn btn-default') %>
+    <%= link_to(t('.decline'), decline_invitation_project_path(invitation), class: 'btn btn-danger') %>
   </nobr>
 </p>
