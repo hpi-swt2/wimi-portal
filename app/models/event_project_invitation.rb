@@ -3,7 +3,7 @@ class EventProjectInvitation < events
   belongs_to :target, class_name: 'User'
 
   def set_defaults
-    self.seclevel = :hiwis
+    self.seclevel = :hiwi
     self.type = "EventProjectInvitation"
   end
 end
