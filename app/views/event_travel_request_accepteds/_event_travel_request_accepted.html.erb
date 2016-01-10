@@ -5,7 +5,7 @@
     t(
       '.full_html',
       link_to_request: link_to(t('.request'), trip),
-      date: trip.created_at,
+      date: l(trip.created_at),
       person_in_power: link_to(person_in_power.name, person_in_power),
       link_to_view: link_to(t('.view'), trip))
   %>
