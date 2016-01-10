@@ -89,6 +89,11 @@ de:
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
       save: "Resturlaub Speichern"
       title: "Resturlaub bearbeiten"
+  holidays:
+    show:
+      days: "Tag(e)"
+      file: "Antrag einreichen"
+      filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
   dashboard:
     index:
       dashboard_title: "Dashboard"

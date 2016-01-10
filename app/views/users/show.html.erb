@@ -75,14 +75,14 @@
             <tbody>
               <% current_user.holidays.each do |holiday| %>
                 <tr>
-                  <td><%= holiday.duration %>&nbsp<%= t('.days') %></td>
-                  <td><%= holiday.start %></td>
-                  <td><%= holiday.end %></td>
+                  <td><%= holiday.length %>&nbsp<%= t('.days') %></td>
+                  <td><%=l holiday.start %></td>
+                  <td><%=l holiday.end %></td>
                   <td><%= holiday.status %></td>
                   <td>
                     <%= link_to t("helpers.links.show_details"),
                                 holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
-                    <%= link_to t("helpers.links.show_pdf"), user_path(current_user.id), class: 'btn btn-default btn-xs' %>
+                    <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: holiday), class: 'btn btn-default btn-xs' %>
                   </td>
                 </tr>
               <% end %>

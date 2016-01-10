@@ -2,13 +2,17 @@
 #
 # Table name: holidays
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  start      :date
-#  end        :date
-#  status     :integer          default(0)
+#  id                  :integer          not null, primary key
+#  user_id             :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  start               :date
+#  end                 :date
+#  status              :integer          default(0), not null
+#  reason              :string
+#  annotation          :string
+#  replacement_user_id :integer
+#  length              :integer
 #
 
 require 'rails_helper'
@@ -16,8 +20,6 @@ require 'rails_helper'
 RSpec.describe Holiday, type: :model do
   before(:each) do
   	 @user = FactoryGirl.create(:user)
-     #sign_in @user
-     #@user.save!
   end
 
   it "has a valid factory" do

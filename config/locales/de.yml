@@ -62,6 +62,9 @@ de:
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
         duration: "Dauer"
+        reason: "Grund für Sonderurlaub"
+        annotations: "Anmerkungen"
+        replacement: "Vertretung"
       publication:
         id: "Id"
         title: "Titel"
@@ -137,6 +140,12 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
+  date:
+    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+    formats:
+      default: "%d.%m.%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
   links:
     search: 'Suchen'
     submit: 'Abschicken'
@@ -155,6 +164,6 @@ de:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
-      default: "%d/%m/%Y"
+      default: "%d.%m.%Y"
       short: "%b %d"
       long: "%B %d, %Y"

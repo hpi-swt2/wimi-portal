@@ -61,6 +61,9 @@ en:
         user_id: "User"
         created_at: "Created at"
         duration: "Duration"
+        reason: "Reason for Special Leave"
+        annotations: "Annotations"
+        replacement: "Replacement"
       publication:
         id: "Id"
         title: "Title"
@@ -153,8 +156,14 @@ en:
       invitation_declined: 'You declined the invitation.'
     chair:
       not_authorized: "You're not authorized to do that for this chair."
-  time:
+  date:
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
     formats:
       default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  time:
+    formats:
+      default: "%d.%m.%Y"
       short: "%b %d"
       long: "%B %d, %Y"
