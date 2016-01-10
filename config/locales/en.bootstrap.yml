@@ -126,6 +126,10 @@ en:
       view: "View"
       request: "travel request"
       full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
+  event_time_sheet_submitteds:
+    event_time_sheet_submitted:
+      view: "View"
+      full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
   travel_expense_reports:
     show:
       inland: "Inland Travel"
