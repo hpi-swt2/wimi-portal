@@ -33,14 +33,19 @@ class HolidaysController < ApplicationController
   end
 
   def update
-    calculate_length_difference
+    #Not too happy with this... Is there a way to make this better?
+    old_length = holiday_params['length'].blank? ? 0 : @holiday.length
+    length_difference = @holiday.calculate_length_difference(old_length, holiday_params['length'])
+    new_length = holiday_params['length'].blank? ? @holiday.duration : holiday_params['length']
+    params['holiday']['length'] = length_difference
+
     if @holiday.update(holiday_params)
       flash[:success] = 'Holiday was successfully updated.'
-      @holiday.update_attribute(:length, @new_length.to_i)
-      subtract_leave(@length_difference)
+      @holiday.update_attribute(:length, new_length)
+      subtract_leave(length_difference)
       redirect_to @holiday
     else
-      @holiday.update_attribute(:length, @old_length)
+      @holiday.update_attribute(:length, old_length)
       render :edit
     end
   end
@@ -75,19 +80,5 @@ class HolidaysController < ApplicationController
 
     def subtract_leave(length)
       calculate_leave(:-, length)
-    end
-
-    def calculate_length_difference
-      @old_length = @holiday.length.nil? ? 0 : @holiday.length
-      @new_length = holiday_params['length']
-
-      unless @new_length == "" || @new_length.nil?
-        @length_difference = @new_length.to_i - @old_length
-      else
-        @new_length = @holiday.duration
-        @length_difference = @holiday.duration - @old_length
-      end
-
-      params['holiday']['length'] = @length_difference
     end
 end

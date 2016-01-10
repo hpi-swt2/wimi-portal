@@ -26,7 +26,7 @@
       <dt><strong><%= model_class.human_attribute_name(:end) %>:</strong></dt>
       <dd><%=l @holiday.end %><%=l @holiday.end, format: ' (%A)' %></dd>
       <dt><strong><%= model_class.human_attribute_name(:duration) %>:</strong></dt>
-      <dd><%= @holiday.length %>&nbsp<%= t('.days') %></dd>
+      <dd><%= @holiday.length %> <%= t('.days') %></dd>
       <dt><strong><%= model_class.human_attribute_name(:reason) %>:</strong></dt>
       <dd><%= @holiday.reason %></dd>
       <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>

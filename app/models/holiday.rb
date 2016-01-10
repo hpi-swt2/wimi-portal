@@ -31,6 +31,16 @@ class Holiday < ActiveRecord::Base
     start.business_days_until(self.end+1)
   end
 
+  def calculate_length_difference(old_length, new_length)
+    unless new_length.blank?
+      length_difference = new_length.to_i - old_length
+    else
+      length_difference = duration - old_length
+    end
+
+    return length_difference
+  end
+
   private
 
   def too_far_in_the_future?
