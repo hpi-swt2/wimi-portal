@@ -21,19 +21,19 @@ describe WorkDaysController, type: :controller do
   describe "GET #index" do
     it "assigns work_days in November 2015 as @work_days" do
       work_day = WorkDay.create! valid_attributes
-      get :index, {month:11, year:2015}, valid_session
+      get :index, {month: 11, year: 2015, user_id: @user.id}, valid_session
       expect(assigns(:work_days)).to eq([work_day])
     end
 
     it "redirects to work days of current month when no month is given" do
       work_day = WorkDay.create! valid_attributes
       get :index, {}, valid_session
-      expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year))
+      expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user_id: @user.id))
     end
 
     it "shows work_days for month and project" do
       work_day = WorkDay.create! valid_attributes
-      get :index, {month:11, year:2015, project:@project.id}, valid_session
+      get :index, {month:11, year:2015, user_id: @user.id,project:@project.id}, valid_session
       expect(assigns(:work_days)).to eq([work_day])
     end
   end

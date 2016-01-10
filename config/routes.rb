@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
   get 'users/edit_leave', to: 'users#edit_leave'
 
+
+    # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
   resources :publications
   resources :projects do
     member do
@@ -28,15 +31,16 @@ Rails.application.routes.draw do
 
   resources :holidays
   resources :expenses
-
   resources :work_days
   resources :time_sheets, :only => [:edit, :update, :delete]
+
   resources :travel_expense_reports
   resources :trips do
     member do
       get 'download'
     end
   end
+
   resources :chairs
 
   post 'chairs/apply', to: 'chairs#apply'
@@ -46,6 +50,8 @@ Rails.application.routes.draw do
   post 'chairs/set_admin', to: 'chairs#set_admin'
   post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
   get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
+
+
 
   devise_for :users
 

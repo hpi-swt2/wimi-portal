@@ -27,6 +27,6 @@ class TimeSheetsController < ApplicationController
     end
 
     def time_sheet_params
-      params.require(:time_sheet).permit(:month, :year, :salary, :salary_is_per_month, :workload, :workload_is_per_month, :user_id, :project_id)
+      params.require(:time_sheet).permit(:month, :year, :salary, :salary_is_per_month, :workload, :workload_is_per_month, :user_id, :project_id, :handed_in, :last_modified, :status, :signer, :rejection_message)
     end
 end

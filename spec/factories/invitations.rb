@@ -13,5 +13,6 @@ FactoryGirl.define do
   factory :invitation do
     project_id 0
     user_id 0
+    sender_id 0
   end
 end
