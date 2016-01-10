@@ -33,19 +33,16 @@ class HolidaysController < ApplicationController
   end
 
   def update
-    #Not too happy with this... Is there a way to make this better?
-    old_length = holiday_params['length'].blank? ? 0 : @holiday.length
-    length_difference = @holiday.calculate_length_difference(old_length, holiday_params['length'])
-    new_length = holiday_params['length'].blank? ? @holiday.duration : holiday_params['length']
-    params['holiday']['length'] = length_difference
+    lengths = @holiday.calculate_length_difference(holiday_params['length'])
+    params['holiday']['length'] = lengths[:length_difference]
 
     if @holiday.update(holiday_params)
       flash[:success] = 'Holiday was successfully updated.'
-      @holiday.update_attribute(:length, new_length)
-      subtract_leave(length_difference)
+      @holiday.update_attribute(:length, lengths[:new_length])
+      subtract_leave(lengths[:length_difference])
       redirect_to @holiday
     else
-      @holiday.update_attribute(:length, old_length)
+      @holiday.update_attribute(:length, lengths[:old_length])
       render :edit
     end
   end
