@@ -93,9 +93,9 @@ RSpec.describe HolidaysController, type: :controller do
         expect(assigns(:holiday)).to be_persisted
       end
 
-      it 'redirects to the user profile' do
+      it 'redirects to the holiday detail page' do
         post :create, {holiday: valid_attributes}, valid_session
-        expect(response).to redirect_to(@user)
+        expect(response).to redirect_to(assigns(:holiday))
       end
     end
 
