@@ -130,8 +130,14 @@ ActiveRecord::Schema.define(version: 20160109214346) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "handed_in",             default: false
+    t.text     "rejection_message"
+    t.boolean  "signed",                default: false
+    t.date     "last_modified"
+    t.integer  "status",                default: 0
+    t.integer  "signer"
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|
