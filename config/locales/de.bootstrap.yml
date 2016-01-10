@@ -105,6 +105,14 @@ de:
       request_holiday: "Urlaub beantragen"
       request_business_trip: "Dienstreise beantragen"
       file_travel_expenses: "Reisekosten abrechnen"
+  event_time_sheet_declineds:
+    event_time_sheet_declined:
+      view: "Ansehen"
+      full_html: "%{signer} hat Ihren Stundenzettel für das Projekt %{project} - %{month} <b>abgelehnt</b>."
+  event_time_sheet_accepteds:
+    event_time_sheet_accepted:
+      view: "Ansehen"
+      full_html: "%{signer} hat Ihren Stundenzettel für das Projekt %{project} - %{month} <b>bestätigt</b>."
   event_project_invitations:
     event_project_invitation:
       accept: "Annehmen"
@@ -176,6 +184,7 @@ de:
     formats:
       default: "%d.%m.%Y"
       without_day: "%B %Y"
+      without_day_year: "%B"
     order:
       - :day
       - :month
