@@ -111,6 +111,14 @@ en:
       request_holiday: "Request Holiday"
       request_business_trip: "Request Business Trip"
       file_travel_expenses: "File Travel Expenses"
+  event_time_sheet_declineds:
+    event_time_sheet_declined:
+      view: "View"
+      full_html: "%{signer} <b>declined</b> your time sheet for %{project} - %{month}."
+  event_time_sheet_accepteds:
+    event_time_sheet_accepted:
+      view: "View"
+      full_html: "%{signer} <b>accepted</b> your time sheet for %{project} - %{month}."
   event_project_invitations:
     event_project_invitation:
       accept: "Accept"
@@ -186,6 +194,7 @@ en:
     formats:
       default: "%d.%m.%Y"
       without_day: "%B %Y"
+      without_day_year: "%B"
     order:
       - :day
       - :month

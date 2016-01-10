@@ -44,7 +44,7 @@
     <div class="panel-body">
       <% if current_user.is_wimi? %>
         <%= render partial: 'wimi_actions' %>
-      <% else %>
+      <% elsif current_user.is_hiwi %>
         <%= render partial: 'hiwi_actions' %>
       <% end %>
     </div>
