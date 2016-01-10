@@ -133,7 +133,7 @@ en:
       created_at: "Created at"
   date:
     formats:
-      default: "%d.%m.%Y"
+      default: "%d-%m-%Y"
     order:
       - :day
       - :month

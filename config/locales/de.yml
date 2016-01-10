@@ -62,6 +62,9 @@ de:
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
         duration: "Dauer"
+        reason: "Grund für Sonderurlaub"
+        annotations: "Anmerkungen"
+        replacement: "Vertretung"
       publication:
         id: "Id"
         title: "Titel"

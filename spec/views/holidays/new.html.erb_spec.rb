@@ -24,8 +24,9 @@ RSpec.describe 'holidays/new', type: :view do
   	login_as user1
 
   	visit new_holiday_path
-  	check('checkbox')
-  	replacement_select = page.find(:xpath, '//html//body//div//div//form//div[5]//div//select')
-  	expect(replacement_select).to have_option(1)
+
+  	expect(page).to have_select 'holiday_replacement_user_id', with_options: [user2.name]
+  	expect(page).not_to have_select 'holiday_replacement_user_id', with_options: [user3.name]
+  	expect(page).not_to have_select 'holiday_replacement_user_id', with_options: [user4.name]
   end
 end

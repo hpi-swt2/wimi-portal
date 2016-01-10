@@ -26,7 +26,7 @@ class HolidaysController < ApplicationController
     if @holiday.save
       subtract_leave(@holiday.length)
       flash[:success] = 'Holiday was successfully created.'
-      redirect_to current_user
+      redirect_to @holiday
     else
       render :new
     end

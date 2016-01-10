@@ -12,15 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap
-//= require turbolinks
 //= require bootstrap-datepicker
 //= require bootstrap-typeahead-rails
+//= require turbolinks
 //= require_tree .
-
-$('.datepicker').datepicker();
-
-$(function(){
-  $("a[rel='tooltip']").tooltip();
-})

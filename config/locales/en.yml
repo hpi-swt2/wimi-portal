@@ -61,6 +61,9 @@ en:
         user_id: "User"
         created_at: "Created at"
         duration: "Duration"
+        reason: "Reason for Special Leave"
+        annotations: "Annotations"
+        replacement: "Replacement"
       publication:
         id: "Id"
         title: "Title"

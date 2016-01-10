@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160106163408) do
     t.string   "annotation"
     t.integer  "replacement_user_id"
     t.integer  "length"
+    t.boolean  "signature"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"

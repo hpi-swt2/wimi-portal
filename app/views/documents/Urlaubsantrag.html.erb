@@ -48,7 +48,7 @@
  	<td width=30><%#= holiday.remainig_days %></td>
  	<td width=110><b><%= holiday.start.strftime("%d.%m.%Y") %></b></td>
  	<td width=110><b><%= holiday.end.strftime("%d.%m.%Y") %></b></td>
- 	<td width=30><b><%= holiday.duration %></b></td>
+ 	<td width=30><b><%= holiday.length %></b></td>
   <td width=30><%= User.find(holiday.user_id).remaining_leave %></td>
  	<!--td width=30><%#= holiday.new_remainig_days %></td> < holiday.remainig_days=holiday.remainig_days-holiday.duration%> -->
  </tr>
@@ -76,12 +76,12 @@
 
 <p class='big' style='margin:40 0 20 0'>Anmerkungen:</p>
 
-<% annotation_splitted.each do |annotation_line| %>
-  <div class='text-field'><%= annotation_line %></div>
-<% end %>
-<% (4 - annotation_splitted.size).times do |i| %>
+<%# annotation_splitted.each do |annotation_line| %>
+  <div class='text-field'><%= holiday.annotation %></div>
+<%# end %>
+<%# (4 - annotation_splitted.size).times do |i| %>
   <div class='text-field'>&nbsp;</div>
-<% end %>
+<%# end %>
 
 <p style='margin-bottom:40px'>&nbsp;</p>
 

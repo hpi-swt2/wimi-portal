@@ -27,7 +27,7 @@
       <dd><%=l @holiday.end %><%=l @holiday.end, format: ' (%A)' %></dd>
       <dt><strong><%= model_class.human_attribute_name(:duration) %>:</strong></dt>
       <dd><%= @holiday.length %>&nbsp<%= t('.days') %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:reason_for_special_leave) %>:</strong></dt>
+      <dt><strong><%= model_class.human_attribute_name(:reason) %>:</strong></dt>
       <dd><%= @holiday.reason %></dd>
       <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>
       <dd><%= @holiday.annotation %></dd>
@@ -43,11 +43,10 @@
   </div>
 </div>
 
-  <%= link_to 'Download', generate_pdf_path(:doc_type => 'Urlaubsantrag', :doc_id => @holiday) %>
+  <%= link_to 'Download', generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: @holiday), class: 'btn btn-default' %>
   <% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined') %>
     <%= form_for @holiday do |f| %>
       <%= f.hidden_field :status, value: :applied %>
-      <%= f.hidden_field :length, value: 0 %>
       <%= f.submit t('.file'), class: 'btn btn-primary' %>
   <% end %>
 <% end %>
