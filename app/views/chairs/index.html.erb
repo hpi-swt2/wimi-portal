@@ -14,7 +14,7 @@
   <tbody>
   <% @chairs.each do |chair| %>
       <tr>
-        <td><%= chair.name %></td>
+        <td><%= link_to chair.name, chair_path(chair) %></td>
         <td><%= chair.created_at %></td>
 
         <td>
