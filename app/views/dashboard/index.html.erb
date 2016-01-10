@@ -7,7 +7,7 @@
 <div class="col-md-8">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><%=t('.notifications')%></h4> <!--TODO Translate-->
+      <h4><%=t('.notifications')%></h4>
     </div>
     <div class="panel-body">
       <% @notifications.each do |event| %>
@@ -17,10 +17,11 @@
   </div>
 </div>
 
+<!--Projects-->
 <div class="col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><%=t('.projects')%></h4> <!--TODO Translate-->
+      <h4><%=t('.projects')%></h4>
     </div>
     <div class="panel-body">
       <% current_user.projects.each do |project|%>
@@ -32,10 +33,11 @@
   </div>
 </div>
 
+<!--Actions-->
 <div class="col-md-4 col-md-offset-8">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><%=t('.actions')%></h4> <!--TODO Translate-->
+      <h4><%=t('.actions')%></h4>
     </div>
     <div class="panel-body">
       <% if current_user.is_wimi? %>

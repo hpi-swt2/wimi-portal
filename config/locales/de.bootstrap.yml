@@ -107,6 +107,16 @@ de:
       accept: "Annehmen"
       decline: "Ablehnen"
       full_html: "%{trigger_name} hat Sie in das Projekt %{project_name} eingeladen."
+  event_travel_request_accepteds:
+    event_travel_request_accepted:
+      view: "Ansehen"
+      request: "Dienstreiseantrag"
+      full_html: "Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>angenommen</b>. %{link_to_view}"
+  event_travel_request_declineds:
+    event_travel_request_declined:
+      view: "Ansehen"
+      request: "Dienstreiseantrag"
+      full_html: "Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>abgelehnt</b>. %{link_to_view}"
   travel_expense_reports:
     show:
       inland: "Inlandsreise"
