@@ -24,8 +24,8 @@ class Project < ActiveRecord::Base
 
   validates :title, presence: true
 
-  def invite_user(user)
-    inv = Invitation.create(user: user, project: self, sender: current_user)
+  def invite_user(user, sender)
+    inv = Invitation.create(user: user, project: self, sender: sender)
     ActiveSupport::Notifications.instrument("event", {trigger: inv.id, target: user.id, seclevel: :hiwi, type: "EventProjectInvitation"})
     user.invitations << inv
   end

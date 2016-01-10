@@ -4,23 +4,6 @@
   <h1> <%= t('.dashboard_title')%></h1>
 </div>
 
-<div class="col-md-12">
-  <% unless @invitations.nil? %>
-      <% @invitations.each do |invitation| %>
-          <div class="col-md-8 flash-message">
-            <div class="alert alert-warning col-md-12">
-              <%= t("user.invited_to_project",
-                    default: "You have been invited to the project \"#{Project.find(invitation.project_id).title}\"") %>
-              <br>
-              <br>
-              <%= link_to t("links.accept", default: "Accept"), accept_invitation_project_path(invitation.project_id), class: "btn btn-primary" %>
-              <%= link_to t("links.decline", default: "Decline"), decline_invitation_project_path(invitation.project_id), class: "btn btn-default" %>
-            </div>
-          </div>
-      <% end %>
-  <% end %>
-</div>
-
 <div class="col-md-8">
   <div class="panel panel-default">
     <div class="panel-heading">

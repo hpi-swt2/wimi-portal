@@ -60,7 +60,7 @@ class ProjectsController < ApplicationController
           flash[:error] = I18n.t('project.user.already_is_member')
           redirect_to @project
         else
-          @project.invite_user user
+          @project.invite_user user, current_user
           flash[:success] = I18n.t('project.user.was_successfully_invited')
           redirect_to @project
         end
