@@ -113,6 +113,16 @@ en:
       accept: "Accept"
       decline: "Decline"
       full_html: "%{trigger_name} invites you to join the project %{project_name}."
+  event_travel_request_accepteds:
+    event_travel_request_accepted:
+      view: "View"
+      request: "travel request"
+      full_html: "The %{link_to_request} you filed on the %{date} was <b>accepted</b> by %{person_in_power}. %{link_to_view}"
+  event_travel_request_declineds:
+    event_travel_request_declined:
+      view: "View"
+      request: "travel request"
+      full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
   travel_expense_reports:
     show:
       inland: "Inland Travel"

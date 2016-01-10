@@ -4,6 +4,7 @@
   <h1> <%= t('.dashboard_title')%></h1>
 </div>
 
+<!--Invitations (can be removed?)-->
 <div class="col-md-12">
   <% unless @invitations.nil? %>
       <% @invitations.each do |invitation| %>
@@ -21,6 +22,7 @@
   <% end %>
 </div>
 
+<!--Notifications-->
 <div class="col-md-8">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -34,6 +36,7 @@
   </div>
 </div>
 
+<!--Projects-->
 <div class="col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -49,6 +52,7 @@
   </div>
 </div>
 
+<!--Actions-->
 <div class="col-md-4 col-md-offset-8">
   <div class="panel panel-default">
     <div class="panel-heading">
