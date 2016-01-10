@@ -96,14 +96,14 @@ class ProjectsController < ApplicationController
     @project.add_user current_user
     @project.destroy_invitation current_user
     flash[:success] = I18n.t('project.user.invitation_accepted')
-    redirect_to @project
+    #redirect_to @project
+    redirect_to root_path
   end
 
   def decline_invitation
     @project.destroy_invitation current_user
     flash[:success] = I18n.t('project.user.invitation_declined')
     redirect_to root_path
-
   end
 
   def typeahead
