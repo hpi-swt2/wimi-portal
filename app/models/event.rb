@@ -19,7 +19,9 @@ class Event < ActiveRecord::Base
   enum seclevel: [ :superadmin, :admin, :representative, :wimi, :hiwi, :user]
 
   def seclevel_of_user(user)
-    if user.is_admin?
+    if user.superadmin
+      return Event.seclevels[:superadmin]
+    elsif user.is_admin?
       return Event.seclevels[:admin]
     elsif user.is_representative?
       return Event.seclevels[:representative]
