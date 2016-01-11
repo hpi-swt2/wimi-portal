@@ -188,4 +188,8 @@ de:
     apply:
       success: "Wimi-Anfrage erfolgreich erstellt"
       error: "Wimi-Anfrage konnte nicht erstellt werden"
+    requests:
+      holiday_request: "Urlaubsantrag"
+      expense_request: "Reisekostenabrechnung"
+      trip_request: "Dienstreiseantrag"
 

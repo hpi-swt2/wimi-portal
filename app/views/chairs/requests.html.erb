@@ -24,8 +24,8 @@
             <%= label_tag(:holiday_filter, t('.holiday_request')) %>
           </td>
           <td>
-            <%= check_box_tag(:applied_filter, t('.applied'), ("applied".in? @statuses)) %>
-            <%= label_tag(:applied_filter, t('.applied')) %>
+            <%= check_box_tag(:applied_filter, t('.applied_plural'), ("applied".in? @statuses)) %>
+            <%= label_tag(:applied_filter, t('.applied_plural')) %>
           </td>
         </tr>
         <tr>
@@ -71,8 +71,8 @@
           <tr>
             <td><%= request[:name] %></td>
             <td><%= request[:type] %></td>
-            <td><%= request[:handed_in] %></td>
-            <td><%= request[:status] %></td>
+            <td><%=l request[:handed_in] %></td>
+            <td><%= t('.' + request[:status]) %></td>
             <td><%= link_to t('helpers.links.show_details'), request[:action] %></td>
 
       <% end %>

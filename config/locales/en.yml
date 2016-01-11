@@ -188,3 +188,7 @@ en:
     apply:
       success: "Wimi application was successfully created."
       error: "Saving wimi application failed"
+    requests:
+      holiday_request: "Holiday request"
+      expense_request: "Travel expense request"
+      trip_request: "Trip request"

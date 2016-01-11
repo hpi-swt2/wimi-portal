@@ -180,9 +180,9 @@ class ChairsController < ApplicationController
     @allrequests = Array.new
 
     @chair.users.each do |user|
-      add_requests('Holiday Request', user.holidays) if @types.include? 'holidays'
-      add_requests('Expense Request', user.expenses) if @types.include? 'expenses'
-      add_requests('Trip Request', user.trips) if @types.include? 'trips'
+      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays) if @types.include? 'holidays'
+      add_requests(I18n.t('chair.requests.expense_request'), user.expenses) if @types.include? 'expenses'
+      add_requests(I18n.t('chair.requests.trip_request'), user.trips) if @types.include? 'trips'
     end
 
     @allrequests = @allrequests.sort_by { |v| v[:handed_in] }.reverse
