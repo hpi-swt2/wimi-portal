@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe "time_sheets/edit", type: :view do
   before(:each) do
     @time_sheet = assign(:time_sheet, TimeSheet.create!(
-      :month => 1,
-      :year => 1,
-      :salary => 1,
-      :salary_is_per_month => false,
-      :workload => 1,
-      :workload_is_per_month => false,
-      :user_id => 1,
-      :project_id => 1
+      month: 1,
+      year: 1,
+      salary: 1,
+      salary_is_per_month: false,
+      workload: 1,
+      workload_is_per_month: false,
+      user_id: 1,
+      project_id: 1
     ))
   end
 
