@@ -66,13 +66,6 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "notifications", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "projects", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at",                  null: false
