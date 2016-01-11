@@ -11,7 +11,6 @@ class Ability
       check_functions.each_with_index do |check_func, index|
         if user.send check_func
           self.send initialize_functions[index], user
-          return
         end
       end
     end
@@ -36,10 +35,7 @@ class Ability
     end
     can :invite_user, Project do |project|
       project.users.include? user
-
     end
-    #can :set aktive/inaktive
-    #can :manage, Documents of hiwis in own projects
   end
 
   def initialize_representative(user)
@@ -64,7 +60,6 @@ class Ability
   end
 
   def initialize_superadmin(user)
-    initialize_admin user
     can :manage,      Chair
     cannot  :show,    Chair
     #assign representative/admin role to user
