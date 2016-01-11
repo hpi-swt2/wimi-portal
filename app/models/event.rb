@@ -11,7 +11,7 @@
 class Event < ActiveRecord::Base
   belongs_to :chair
   belongs_to :invitation
-  belongs_to :trigger, class_name: 'User'
+  belongs_to :user, foreign_key: 'trigger_id'
 
   validates :type, presence: true
   validates :seclevel, presence: true
