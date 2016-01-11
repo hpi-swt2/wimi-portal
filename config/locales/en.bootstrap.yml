@@ -122,6 +122,7 @@ en:
       apply_wimi: "Apply as Wimi"
       manage: "Manage Chair"
       show_timesheets: "Show timesheets"
+      show_requests: "Show requests"
     requests:
       apply_filter: "Apply Filters"
       requests: "Requests"
@@ -134,13 +135,14 @@ en:
       accepted: "Accepted"
       declined: "Declined"
       pending: "Pending"
-      show_requests: "Show requests"
-      remove_from_chair: "Remove from chair"
     applications:
       long_plural: "Applications"
       no_applications: "No applications"
       accept: "Accept"
       decline: "Decline"
+      remove_from_chair: "Remove from chair"
+      withdraw_rights: "(Withdraw rights)"
+      grant_rights: "Grant admin rights"
   roles:
     wimi_long: "Research Assistant"
     wimi_long_plural: "Research Assistants"
