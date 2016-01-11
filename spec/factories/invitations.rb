@@ -7,6 +7,7 @@
 #  project_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  sender_id  :integer
 #
 
 FactoryGirl.define do

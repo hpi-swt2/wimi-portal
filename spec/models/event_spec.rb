@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id         :integer          not null, primary key
+#  trigger_id :integer
+#  target_id  :integer
+#  chair_id   :integer
+#  seclevel   :integer
+#  type       :string
+#
+
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
