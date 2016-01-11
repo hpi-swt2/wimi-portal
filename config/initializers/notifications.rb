@@ -14,8 +14,8 @@
 
 ActiveSupport::Notifications.subscribe "event" do |name,start,finish,id,payload|
   Event.create! do |event|
-    event.trigger_id = payload[:trigger]
-    event.target_id = payload[:target]
+    event.trigger_id = payload[:trigger_id]
+    event.target_id = payload[:target_id]
     event.chair = payload[:chair]
     event.seclevel = payload[:seclevel]
     event.type = payload[:type]
