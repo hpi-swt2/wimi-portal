@@ -108,11 +108,13 @@ class User < ActiveRecord::Base
   end
 
   def work_year_months_for_project(project)
-    year_months_dict = {}
+    year = -1
+    month = -1
     year_months = []
     self.work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
-      unless year_months_dict[date.year] == date.month
-        year_months_dict[date.year] = date.month
+      unless year == date.year and month == date.month
+        year = date.year
+        month = date.month
         year_months << [date.year, date.month]
       end
     end
