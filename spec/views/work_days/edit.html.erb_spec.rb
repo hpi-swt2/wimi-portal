@@ -6,14 +6,14 @@ RSpec.describe 'work_days/edit.html.erb', type: :view do
     sign_in @user
     @project = FactoryGirl.create(:project)
     @work_day = assign(:work_day, WorkDay.create!(
-      :date => '11-11-2015',
-      :start_time => Date.today.beginning_of_day,
-      :break => 30,
-      :end_time => Date.today.end_of_day,
-      :attendance => 'K',
-      :notes => 'MyString',
-      :user_id => @user.id,
-      :project_id => @project.id
+      date: '11-11-2015',
+      start_time: Date.today.beginning_of_day,
+      break: 30,
+      end_time: Date.today.end_of_day,
+      attendance: 'K',
+      notes: 'MyString',
+      user_id: @user.id,
+      project_id: @project.id
     ))
   end
 

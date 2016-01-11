@@ -23,7 +23,7 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     @chair = FactoryGirl.create(:chair)
     @admin = FactoryGirl.create(:user)
     @chairwimi = FactoryGirl.create(:chair_wimi, user: @admin, chair: @chair, admin: true)
-    login_as(@admin, :scope => :user)
+    login_as(@admin, scope: :user)
     visit chairs_path
 
     expect(page).to have_content('Manage Chair')
