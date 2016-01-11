@@ -107,6 +107,18 @@ class User < ActiveRecord::Base
     return year_months
   end
 
+  def work_year_months_for_project(project)
+    year_months_dict = {}
+    year_months = []
+    self.work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
+      unless year_months_dict[date.year] == date.month
+        year_months_dict[date.year] = date.month
+        year_months << [date.year, date.month]
+      end
+    end
+    return year_months
+  end
+
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = self.remaining_leave
     self.remaining_leave = 28
