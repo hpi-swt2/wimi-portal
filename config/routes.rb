@@ -10,10 +10,25 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       post 'invite_user'
+      get 'accept_invitation'
+      get 'decline_invitation'
     end
   end
+
+  resources :projects do
+    member do
+      get 'toggle_status'
+      delete 'sign_user_out/:user_id', action: 'sign_user_out', as: 'sign_user_out'
+    end
+  end
+
+
+  get 'projects/typeahead/:query' => 'projects#typeahead'
+
+
   resources :holidays
   resources :expenses
+
   resources :work_days
   resources :time_sheets, :only => [:edit, :update, :delete]
   resources :travel_expense_reports
@@ -30,9 +45,7 @@ Rails.application.routes.draw do
   post 'chairs/destroy', to: 'chairs#destroy'
   post 'chairs/set_admin', to: 'chairs#set_admin'
   post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
-  get 'chairs/:id/requests' => 'chairs#requests'
-
-  get 'projects/typeahead/:query' => 'projects#typeahead'
+  get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
 
   devise_for :users
 

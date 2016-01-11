@@ -2,12 +2,17 @@ require 'rails_helper'
 
   feature "Project information" do
     background do
-      @current_user = FactoryGirl.create(:user)
+      user = FactoryGirl.create(:user)
+      chair = FactoryGirl.create(:chair)
+      representative = FactoryGirl.create(:chair_representative, user_id:user.id, chair_id: chair.id).user
+      @current_user = FactoryGirl.create(:user, language: 'de')
       login_as @current_user
+      @project = FactoryGirl.create(:project, chair: representative.chair)
+
     end
 
     scenario "Go on project site" do
-      visit @project
+      visit project_path(@project)
       expect(page).to have_content('Fachgebiet')
       expect(page).to have_content('Beauftragter des Fachgebiets')
       expect(page).to have_content('Sichtbarkeit')

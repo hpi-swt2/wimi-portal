@@ -32,7 +32,11 @@ class Ability
     initialize_user user
     can :crud, Project
     can :manage, Project do |project|
-      user.projects.exists?(project.id)
+      project.users.include?(user)
+    end
+    can :invite_user, Project do |project|
+      project.users.include? user
+
     end
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects

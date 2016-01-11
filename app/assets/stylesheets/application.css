@@ -74,3 +74,12 @@ body {
     margin-left: -15px;
 
 }
+
+.dl-horizontal dt {
+    width:280px;
+    white-space: normal;
+    margin-bottom: 5px;
+}
+.dl-horizontal dd {
+    margin-left:300px;
+}

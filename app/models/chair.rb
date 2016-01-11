@@ -25,7 +25,7 @@ class Chair < ActiveRecord::Base
   end
 
   def hiwis
-    projects.collect { |p| p.hiwis }
+    projects.collect { |p| p.hiwis }.flatten.uniq
   end
 
   def admins
