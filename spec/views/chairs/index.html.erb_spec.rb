@@ -69,7 +69,7 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     visit chairs_path
 
     click_on 'New'
-    expect(page).to have_current_path(new_chair_path+'?locale='+I18n.locale.to_s)
+    expect(page).to have_current_path(new_chair_path)
   end
 
   it 'tests functionality of Edit Button' do
@@ -78,7 +78,7 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     visit chairs_path
 
     click_on 'Edit Chair'
-    expect(page).to have_current_path(edit_chair_path(@chair)+'?locale='+I18n.locale.to_s)
+    expect(page).to have_current_path(edit_chair_path(@chair))
   end
 
   it 'tests functionality of Destroy Button' do
@@ -88,7 +88,7 @@ RSpec.describe "chairs/index.html.erb", type: :view do
 
     expect(page).to have_content('TestChair')
     click_on 'Destroy Chair'
-    expect(page).to have_current_path(chairs_path+'?locale='+I18n.locale.to_s)
+    expect(page).to have_current_path(chairs_path)
     expect(page).to_not have_content('TestChair')
   end
 
@@ -100,7 +100,7 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     visit chairs_path
 
     click_on 'Manage Chair'
-    expect(page).to have_current_path(chair_path(@chair)+'?locale='+I18n.locale.to_s)
+    expect(page).to have_current_path(chair_path(@chair))
   end
 
   it 'tests functionality of Apply Button' do
@@ -111,7 +111,7 @@ RSpec.describe "chairs/index.html.erb", type: :view do
 
     expect(page).to_not have_content('pending')
     click_on 'Apply as Wimi'
-    expect(page).to have_current_path(chairs_path+'?locale='+I18n.locale.to_s)
+    expect(page).to have_current_path(chairs_path)
     expect(page).to have_content('pending')
   end
 end
