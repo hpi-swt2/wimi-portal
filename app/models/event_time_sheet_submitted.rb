@@ -1,7 +1,7 @@
 class EventTimeSheetSubmitted < Event
   before_save :set_defaults
-  belongs_to :project, foreign_key: 'target_id'
-  belongs_to :time_sheet, foreign_key: 'trigger_id'
+  belongs_to :target, class_name: 'Project'
+  belongs_to :trigger, class_name: 'TimeSheet'
 
   def set_defaults
       self.seclevel = :wimi
