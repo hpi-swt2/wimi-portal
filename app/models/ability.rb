@@ -35,8 +35,8 @@ class Ability
     end
     can :invite_user, Project do |project|
       project.users.include? user
-
     end
+
   end
 
   def initialize_representative(user)
