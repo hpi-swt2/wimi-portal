@@ -7,11 +7,13 @@
 #  project_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  sender_id  :integer
 #
 
 FactoryGirl.define do
   factory :invitation do
     project_id 0
     user_id 0
+    sender_id 0
   end
 end

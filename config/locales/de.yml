@@ -43,6 +43,12 @@ de:
       user:
         one: "Benutzer"
         other: "Benutzer"
+      work_day:
+        one: "Arbeitstag"
+        other: "Arbeitstage"
+      time_sheet:
+        one: "Stundenzettel"
+        other: "Stundenzettel"
     attributes:
       chair:
         id: "Id"
@@ -137,6 +143,14 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
+      work_day:
+        date: "Datum"
+        start_time: "Startzeit"
+        break: "Pause"
+        end_time: "Endzeit"
+        duration: "Dauer"
+        notes: "Anmerkung"
+
   links:
     search: 'Suchen'
     submit: 'Abschicken'

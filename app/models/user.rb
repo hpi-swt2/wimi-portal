@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
       'School of Design Thinking',
       'Knowledge Discovery and Data Mining']
 
+
   LANGUAGES = [
     [
       'English',
@@ -51,9 +52,11 @@ class User < ActiveRecord::Base
     ],
   ]
 
+
   INVALID_EMAIL = 'invalid_email'
 
   devise  :openid_authenticatable, :trackable
+
 
   has_many :work_days
   has_many :time_sheets
@@ -87,6 +90,7 @@ class User < ActiveRecord::Base
     self.first_name = first
     self.last_name = last
   end
+
 
   def projects_for_month(year, month)
     projects = TimeSheet.where(

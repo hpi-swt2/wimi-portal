@@ -17,6 +17,7 @@ class Chair < ActiveRecord::Base
   has_many :users, through: :chair_wimis
   has_many :projects
   has_many :requests
+  has_many :events
 
   validates :name, presence: true
 

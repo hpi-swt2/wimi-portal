@@ -2,14 +2,15 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  description :string           default("")
-#  public      :boolean          default(FALSE)
-#  active      :boolean          default(TRUE)
-#  chair_id    :integer
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  description    :string           default("")
+#  public         :boolean          default(TRUE)
+#  status         :boolean          default(TRUE)
+#  chair_id       :integer
+#  project_leader :string           default("")
 #
 
 class Project < ActiveRecord::Base
@@ -24,8 +25,10 @@ class Project < ActiveRecord::Base
 
   validates :title, presence: true
 
-  def invite_user(user)
-    user.invitations << Invitation.create(user: user, project: self)
+  def invite_user(user, sender)
+    inv = Invitation.create(user: user, project: self, sender: sender)
+    ActiveSupport::Notifications.instrument("event", {trigger: inv.id, target: user.id, seclevel: :hiwi, type: "EventProjectInvitation"})
+    user.invitations << inv
   end
 
   def add_user(user)
@@ -33,7 +36,9 @@ class Project < ActiveRecord::Base
   end
 
   def destroy_invitation(user)
-    Invitation.find_by(user: user, project: self).destroy!
+    inv = Invitation.find_by(user: user, project: self)
+    Event.find_by(trigger: inv.id, target_id: user.id).destroy!
+    inv.destroy!
   end
 
   def hiwis

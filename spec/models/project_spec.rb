@@ -2,14 +2,15 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  description :string           default("")
-#  public      :boolean          default(FALSE)
-#  active      :boolean          default(TRUE)
-#  chair_id    :integer
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  description    :string           default("")
+#  public         :boolean          default(TRUE)
+#  status         :boolean          default(TRUE)
+#  chair_id       :integer
+#  project_leader :string           default("")
 #
 
 require 'rails_helper'

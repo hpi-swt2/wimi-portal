@@ -88,6 +88,9 @@ en:
       days: "Day(s)"
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+      work_times: "Work times"
+      handed_in_timesheets: "Handed in time sheets:"
+      by: "by"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -99,6 +102,42 @@ en:
     index:
       dashboard_title: "Dashboard"
       projects: "My Projects"
+      notifications: "Notifications"
+      actions: "Actions"
+    hiwi_actions:
+      action: "Enter working hours for %{project_name}"
+    wimi_actions:
+      create_project: "Create Project"
+      request_holiday: "Request Holiday"
+      request_business_trip: "Request Business Trip"
+      file_travel_expenses: "File Travel Expenses"
+  event_time_sheet_declineds:
+    event_time_sheet_declined:
+      view: "View"
+      full_html: "%{signer} <b>declined</b> your time sheet for %{project} - %{month}."
+  event_time_sheet_accepteds:
+    event_time_sheet_accepted:
+      view: "View"
+      full_html: "%{signer} <b>accepted</b> your time sheet for %{project} - %{month}."
+  event_project_invitations:
+    event_project_invitation:
+      accept: "Accept"
+      decline: "Decline"
+      full_html: "%{trigger_name} invites you to join the project %{project_name}."
+  event_travel_request_accepteds:
+    event_travel_request_accepted:
+      view: "View"
+      request: "travel request"
+      full_html: "The %{link_to_request} you filed on the %{date} was <b>accepted</b> by %{person_in_power}. %{link_to_view}"
+  event_travel_request_declineds:
+    event_travel_request_declined:
+      view: "View"
+      request: "travel request"
+      full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
+  event_time_sheet_submitteds:
+    event_time_sheet_submitted:
+      view: "View"
+      full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
   travel_expense_reports:
     show:
       inland: "Inland Travel"
@@ -126,15 +165,42 @@ en:
       status: "Status"
       user_id: "User"
       created_at: "Created at"
+  work_days:
+    index:
+      working_hours_for: "Working hours for: "
+      new: "new"
+      for: "for"
+      in: "in"
+      by: "by"
+      sign: "sign"
+      handed_in_at: "handed in at: "
+      reject: "reject"
+      reject_reason: "Rejetion reason:"
+      rejected_by: "rejected by: "
+      accepted_by: "accepted by: "
+      at: "at"
+      export_as_PDF: "export as PDF"
+      handed_in_at: "handed in at:"
+      status: "status"
+  time_sheets:
+    show:
+      salary: "Salary:"
+      salary_per_month: "Euro / Month"
+      salary_per_hour: "Euro / Hour"
+      workload: "Workload:"
+      workload_per_month: "Hours / Month"
+      workload_per_week: "Hours / Week"
   date:
     formats:
       default: "%d.%m.%Y"
+      without_day: "%B %Y"
+      without_day_year: "%B"
     order:
       - :day
       - :month
       - :year
     month_names:
-      - 
+      -
       - January
       - February
       - March
