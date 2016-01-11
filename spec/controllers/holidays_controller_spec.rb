@@ -115,14 +115,14 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { status: 'Active' }
+        { status: 'applied' }
       }
 
       it 'updates the requested holiday' do
         holiday = Holiday.create! valid_attributes
         put :update, {id: holiday.to_param, holiday: new_attributes}, valid_session
         holiday.reload
-        expect(holiday.status).to eq('Active')
+        expect(holiday.status).to eq('applied')
       end
 
       it 'assigns the requested holiday as @holiday' do

@@ -1,59 +1,45 @@
-<%= form_for @trip, :html => { :class => "form-horizontal trip" } do |f| %>
+<%= form_for(@trip) do |f| %>
+  <% if @trip.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@trip.errors.count, "error") %> prohibited this trip from being saved:</h2>
 
-    <% if @trip.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@trip.errors.count, "error") %> prohibited this trip from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @trip.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
+      <ul>
+      <% @trip.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
     </div>
   <% end %>
 
-  <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :title, :class => 'form-control' %>
-    </div>
-    <%= error_span(@trip[:title]) %>
+  <div class="field">
+    <%= f.label :destination %><br>
+    <%= f.text_field :destination %>
   </div>
-  <div class="control-group">
-    <%= f.label :start, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.datetime_field :start, :class => 'form-control' %>
-    </div>
-    <%= error_span(@trip[:start]) %>
+  <div class="field">
+    <%= f.label :reason %><br>
+    <%= f.text_area :reason %>
   </div>
-  <div class="control-group">
-    <%= f.label :end, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.datetime_field :end, :class => 'form-control' %>
-    </div>
-    <%= error_span(@trip[:end]) %>
+  <%= f.fields_for :trip_datespans do |d| %>
+	<li>
+  		<%= d.label :start_date %>
+		<%= d.date_select :start_date,order: [:day,:month,:year] %>
+  		<%= d.label :end_date %>
+		<%= d.date_select :end_date, order: [:day,:month,:year]%>
+  		<%= d.label :days_abroad %>
+		<%= d.number_field :days_abroad %>
+	</li>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :annotation %><br>
+    <%= f.text_area :annotation %>
   </div>
-  <div class="control-group">
-    <%= f.label :status, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :status, :class => 'form-control' %>
-    </div>
-    <%= error_span(@trip[:status]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :user_id, :class => 'form-control' %>
-    </div>
-    <%= error_span(@trip[:user_id]) %>
+  <div class="field">
+    <%= f.label :signature %><br>
+    <%= f.check_box :signature %>
   </div>
 
-
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            trips_path, :class => 'btn btn-default' %>
-
+  <div class="actions">
+    <%= f.submit nil,class: "btn btn-primary"%>
+  </div>
 <% end %>
