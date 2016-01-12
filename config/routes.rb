@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  resources :chair_applications
+  resources :chairs
+
+  resources :project_applications, only: [:index, :destroy] do
+    member do
+      get 'accept'
+      get 'decline'
+      get 'reapply'
+    end
+    collection do
+      post 'apply/project_:id', to: 'project_applications#create', as: 'apply'
+    end
+  end
+
   get 'documents/generate_pdf' => 'documents#generate_pdf', as: 'generate_pdf'
 
   root 'dashboard#index'
@@ -34,6 +48,7 @@ Rails.application.routes.draw do
       get 'download'
     end
   end
+
   resources :chairs
 
   post 'chairs/apply', to: 'chairs#apply'

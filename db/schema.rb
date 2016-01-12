@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215145322) do
+ActiveRecord::Schema.define(version: 20160108133718) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "trigger_id"
+    t.integer "target_id"
+    t.integer "chair_id"
+    t.integer "seclevel"
+    t.string  "type"
+  end
+
+  add_index "events", ["chair_id"], name: "index_events_on_chair_id"
+  add_index "events", ["target_id"], name: "index_events_on_target_id"
+  add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -62,6 +74,14 @@ ActiveRecord::Schema.define(version: 20151215145322) do
   create_table "invitations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_applications", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -193,7 +213,6 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
-    t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0

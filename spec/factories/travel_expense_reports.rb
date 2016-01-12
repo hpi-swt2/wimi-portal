@@ -64,6 +64,7 @@ FactoryGirl.define do
   end
 
   factory :travel_expense_report_changed, parent: :travel_expense_report do
+    location_from "Berlin"
     general_advance 1337
     car false
     hotel false

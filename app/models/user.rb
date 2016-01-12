@@ -17,7 +17,6 @@
 #  language                  :string           default("en"), not null
 #  residence                 :string
 #  street                    :string
-#  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
@@ -52,6 +51,7 @@ class User < ActiveRecord::Base
   has_many :time_sheets
   has_many :holidays
   has_many :expenses
+  has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
   has_and_belongs_to_many :publications
@@ -65,6 +65,19 @@ class User < ActiveRecord::Base
   validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
+
+  LANGUAGES = [
+    [
+      'English',
+      'en'
+    ],
+    [
+      'Deutsch',
+      'de'
+    ],
+  ]
+
+  INVALID_EMAIL = 'invalid_email'
 
   # TODO: implement signature upload, this is a placeholder
   def signature

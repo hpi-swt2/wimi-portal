@@ -43,6 +43,24 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      signature: true,
      user: User.first}
   }
+  
+  let(:advance_blank_attributes) {
+    {:inland => true,
+     :country => "Germany",
+     :location_from => "Potsdam",
+     :location_via => "London",
+     :location_to => "NYC",
+     :reason => "Hana Things",
+     :date_start => 8.days.ago,
+     :date_end=>  DateTime.now,
+     :car => true,
+     :public_transport=>  true,
+     :vehicle_advance=>  false,
+     :hotel => true,
+     :general_advance => "",
+     :signature => true,
+     :user => User.first}
+  }
 
   let(:invalid_attributes) {
     {inland: true,
@@ -116,6 +134,8 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
         post :create, {travel_expense_report: valid_attributes}, valid_session
         expect(response).to redirect_to(TravelExpenseReport.last)
       end
+
+      
     end
 
     context 'with invalid params' do
@@ -127,6 +147,10 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
       it "re-renders the 'new' template" do
         post :create, {travel_expense_report: invalid_attributes}, valid_session
         expect(response).to render_template('new')
+      end
+      it 'rejects blank values for advance' do
+        post :create, {:travel_expense_report => advance_blank_attributes}, valid_session
+        expect(response).to render_template("new")
       end
     end
   end
