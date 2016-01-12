@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'projects/index', type: :view do
+RSpec.describe 'projects/index.html.erb', type: :view do
   before(:each) do
     assign(:projects, [
       FactoryGirl.create(:project),
@@ -14,4 +14,27 @@ RSpec.describe 'projects/index', type: :view do
     render
   end
 
+  it 'shows all details about a project' do
+    chair = FactoryGirl.create(:chair)
+    project = FactoryGirl.create(:project, chair_id: chair.id)
+
+    project.update(status:true)
+    project.update(public:true)
+
+    visit projects_path
+
+    expect(page).to have_content(project.title)
+    expect(page).to have_content(l(project.created_at))
+    expect(page).to have_content(chair.name)
+
+    expect(page).to have_content(I18n.t('.public', default:'public'))
+    expect(page).to have_content(I18n.t('.active', default:'active'))
+
+    project.update(status:false)
+    project.update(public:false)
+    visit projects_path
+
+    expect(page).to have_content(I18n.t('.inactive', default:'inactive'))
+    expect(page).to have_content(I18n.t('.private', default:'private'))
+  end
 end
