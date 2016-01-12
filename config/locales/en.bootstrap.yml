@@ -108,13 +108,10 @@ en:
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
-<<<<<<< HEAD
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
-=======
       days: "Day(s)"
->>>>>>> team3review
     edit:
       user_data: "User Data"
     edit_leave:
@@ -190,12 +187,8 @@ en:
       workload_per_week: "Hours / Week"
   date:
     formats:
-<<<<<<< HEAD
-      default: "%d.%m.%Y"
       without_day: "%B %Y"
-=======
       default: "%d-%m-%Y"
->>>>>>> team3review
     order:
       - :day
       - :month

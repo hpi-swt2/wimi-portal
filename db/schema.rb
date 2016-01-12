@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160109205725) do
-=======
-ActiveRecord::Schema.define(version: 20160106163408) do
->>>>>>> team3review
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false

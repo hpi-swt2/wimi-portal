@@ -145,7 +145,6 @@ en:
         personnel_number: "Staff Number"
         division_id: "Division"
         language: "Language"
-<<<<<<< HEAD
       work_day:
         date: "Date"
         start_time: "Start time"
@@ -153,7 +152,6 @@ en:
         end_time: "End time"
         duration: "Duration"
         notes: "Notes"
-=======
     errors:
       models:
         travel_expense_report:
@@ -174,7 +172,6 @@ en:
               blank: "cannot be blank."
             length:
               not_a_number: "has to be a whole number."
->>>>>>> team3review
   links:
     search: 'Search'
     submit: 'Submit'

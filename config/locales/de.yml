@@ -149,7 +149,6 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
-<<<<<<< HEAD
       work_day:
         date: "Datum"
         start_time: "Startzeit"
@@ -157,8 +156,6 @@ de:
         end_time: "Endzeit"
         duration: "Dauer"
         notes: "Anmerkung"
-
-=======
     errors:
       models:
         travel_expense_report:
@@ -185,7 +182,6 @@ de:
       default: "%d.%m.%Y"
       short: "%b %d"
       long: "%B %d, %Y"
->>>>>>> team3review
   links:
     search: 'Suchen'
     submit: 'Abschicken'

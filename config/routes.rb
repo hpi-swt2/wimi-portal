@@ -45,12 +45,7 @@ Rails.application.routes.draw do
   resources :holidays
   resources :expenses
   resources :work_days
-<<<<<<< HEAD
-  resources :time_sheets, :only => [:edit, :update, :delete]
-
-=======
   resources :time_sheets, only: [:edit, :update, :delete]
->>>>>>> team3review
   resources :travel_expense_reports
   resources :trips do
     member do
