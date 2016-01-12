@@ -14,7 +14,7 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  handed_in             :boolean          default(FALSE)
-#  rejection_message     :text
+#  rejection_message     :text             default("")
 #  signed                :boolean          default(FALSE)
 #  last_modified         :date
 #  status                :integer          default(0)
@@ -26,13 +26,21 @@ class TimeSheet < ActiveRecord::Base
     belongs_to :project
     enum status: [ :pending, :accepted, :rejected]
 
-    validates :workload_is_per_month, :inclusion => { :in => [true, false] }
-    validates :salary_is_per_month, :inclusion => { :in => [true, false] }
+    validates :workload_is_per_month, inclusion: { in: [true, false] }
+    validates :salary_is_per_month, inclusion: { in: [true, false] }
 
-    def show_add_signature_prompt
-      flash[:error] = 'Please add signature'
+    def hand_in(user)
+      params = {status: 'pending', handed_in: true, last_modified: Date.today}
     end
-    
+
+    def sign(user)
+      params = {status: 'accepted', last_modified: Date.today, signer: user.id}
+    end
+
+    def reject(user)
+      params = {status: 'rejected', handed_in: false, last_modified: Date.today, signer: user.id}
+    end
+
     def self.time_sheet_for(year, month, project, user)
       if project.nil?
         return nil

@@ -57,7 +57,6 @@ class User < ActiveRecord::Base
 
   devise  :openid_authenticatable, :trackable
 
-
   has_many :work_days
   has_many :time_sheets
   has_many :holidays

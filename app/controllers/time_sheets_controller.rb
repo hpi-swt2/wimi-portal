@@ -12,6 +12,10 @@ class TimeSheetsController < ApplicationController
   end
 
   def update
+    unless params[:time_sheet][:do].blank?
+      params[:time_sheet].merge!(@time_sheet.send(params[:time_sheet][:do], current_user))
+    end
+
     if @time_sheet.update(time_sheet_params)
       flash[:success] = 'Time Sheet was successfully updated.'
       redirect_to work_days_path(month: @time_sheet.month, year: @time_sheet.year, project: @time_sheet.project)

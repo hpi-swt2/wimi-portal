@@ -60,47 +60,39 @@
       <% if @time_sheet.status.include? 'pending' %>
       <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %>
         <%= form_for @time_sheet do |f| %>
-           <%= f.hidden_field :status, value: 'accepted' %>
-           <%= f.hidden_field :last_modified, value: Date.today %>
-           <%= f.hidden_field :signer, value: current_user.id %>
-           <%= f.submit t('.sign'), class: 'btn btn-primary' %>
-        <% end %> 
+          <%= f.hidden_field :do, value: 'sign' %>
+          <%= f.submit t('.sign'), class: 'btn btn-primary' %>
+        <% end %>
         <%= form_for @time_sheet do |f| %>
-           <%= f.hidden_field :status, value: 'rejected' %>
-           <%= f.hidden_field :last_modified, value: Date.today %>
-           <%= f.hidden_field :signer, value: current_user.id %>
-           <%= f.hidden_field :handed_in, value: false %>
-           <%= f.submit t('.reject'), class: 'btn btn-primary' %>   
-           <%= t('.reject_reason') %> 
-           <%= f.text_field :rejection_message, class: "form-control" %>
+          <%= f.hidden_field :do, value: 'reject' %>
+          <%= f.submit t('.reject'), class: 'btn btn-primary' %>
+          <%= f.label t('.reject_reason') %>
+          <%= f.text_field :rejection_message, class: 'form-control' %>
         <% end %>   
       <% end %>
     <% else %>
       <% if @time_sheet.handed_in? %>
         <% if @time_sheet.status.include? 'pending' %>
           <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %> <%=t('.status') +': ' + @time_sheet.status %><br> 
-          <%= link_to "Export as PDF", "#", class: 'btn btn-primary' %><br>
+          <%= link_to t('.export_as_PDF'), "#", class: 'btn btn-primary' %><br>
         <% end %>
         <% if @time_sheet.status.include? 'accepted'%>
           <%= t('.accepted_by') + User.find(@time_sheet.signer).name + ' ' + t('.at') + ' ' + @time_sheet.last_modified.to_s %><br>
           <%= link_to t('.export_as_PDF'), "#", class: 'btn btn-primary' %><br>
         <% end %>
       <% else %>
-        <% if @time_sheet.status.include? 'rejected' %>
+        <% if @time_sheet.status == 'rejected' %>
           <%= t('.rejected_by') + User.find(@time_sheet.signer).name + ' ' + t('.at') + ' ' + @time_sheet.last_modified.to_s %>
           <br>
           <%= t('.reject_reason') + @time_sheet.rejection_message %>
           <%= form_for @time_sheet do |f| %>
-            <%= f.hidden_field :status, value: 'pending' %>
-            <%= f.hidden_field :handed_in, value: true %>
-            <%= f.hidden_field :last_modified, value: Date.today %>
+            <%= f.hidden_field :do, value: 'hand_in' %>
             <%= f.submit t('.sign'),  class: 'btn btn-primary' %>
           <% end %>
         <% else %>
           <%= form_for @time_sheet do |f| %>
-             <%= f.hidden_field :handed_in, value: true %>
-             <%= f.hidden_field :last_modified, value: Date.today %>
-             <%= f.submit t('.sign'), class: 'btn btn-primary' %>
+            <%= f.hidden_field :do, value: 'hand_in' %>
+            <%= f.submit t('.sign'), class: 'btn btn-primary' %>
         <% end %>   
         <% end %>   
       <% end %>

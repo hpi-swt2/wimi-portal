@@ -168,7 +168,7 @@ de:
       by: "von"
       sign: "Unterschreiben"
       handed_in_at: "eingereicht am: "
-      reject: "ablehnen"
+      reject: "Ablehnen"
       reject_reason: "Ablehnungsgrund:"
       rejected_by: "abgelehnt von: "
       accepted_by: "angenommen von: "
