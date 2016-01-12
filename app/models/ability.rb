@@ -16,7 +16,7 @@ class Ability
     end
   end
 
-  def initialize_user(user)
+  def initialize_user(_user)
     can :index, Chair
     can :apply, Chair
     can :read, Project do |project|
@@ -75,7 +75,7 @@ class Ability
     #can remove wimis from project
   end
 
-  def initialize_superadmin(user)
+  def initialize_superadmin(_user)
     can :manage,      Chair
     cannot :show,    Chair
     #assign representative/admin role to user

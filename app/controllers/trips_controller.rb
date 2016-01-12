@@ -25,7 +25,7 @@ class TripsController < ApplicationController
       redirect_to @trip, notice: 'Trip was successfully created.'
     else
       fill_blank_items
-      render :new 
+      render :new
     end
   end
 
@@ -33,8 +33,8 @@ class TripsController < ApplicationController
     if @trip.update(trip_params)
       redirect_to @trip, notice: 'Trip was successfully updated.'
     else
-       fill_blank_items
-       render :edit
+      fill_blank_items
+      render :edit
     end
   end
 
@@ -55,7 +55,8 @@ class TripsController < ApplicationController
   def trip_params
     params.require(:trip).permit(Trip.column_names.map(&:to_sym), trip_datespans_attributes: [:id, :start_date, :end_date, :days_abroad])
   end
+
   def fill_blank_items
-      (2 - @trip.trip_datespans.size).times {@trip.trip_datespans.build}
+    (2 - @trip.trip_datespans.size).times {@trip.trip_datespans.build}
   end
 end
