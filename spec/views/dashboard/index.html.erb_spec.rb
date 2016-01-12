@@ -24,7 +24,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
 
     expect(page).to have_content(chair1.name)
     expect(page).to have_content(chair2.name)
-    expect(page).to have_content('Apply as Wimi')
+    expect(page).to have_content(I18n.t('activerecord.attributes.chair.apply'))
   end
 
   it 'performs an application after click on Apply' do
@@ -33,11 +33,11 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     visit dashboard_path
 
     expect(page).to have_content(chair1.name)
-    expect(page).to have_content('Apply as Wimi')
-    expect(page).to_not have_content('pending')
-    click_on 'Apply as Wimi'
-    expect(page).to have_content('pending')
-    expect(page).to_not have_content('Apply')
+    expect(page).to have_content(I18n.t('activerecord.attributes.chair.apply'))
+    expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.application.status.pending'))
+    click_on I18n.t('activerecord.attributes.chair.apply')
+    expect(page).to have_content(I18n.t('activerecord.attributes.chair.application.status.pending'))
+    expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.apply'))
   end
 
   it 'shows invitations for projects' do
@@ -53,6 +53,6 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
 
     expect(page).to_not have_content(chair1.name)
     expect(page).to_not have_content(chair2.name)
-    expect(page).to_not have_content('Apply as Wimi')
+    expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.apply'))
   end
 end
