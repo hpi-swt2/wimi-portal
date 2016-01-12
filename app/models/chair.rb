@@ -33,7 +33,7 @@ class Chair < ActiveRecord::Base
   end
 
   def representative
-    chair_wimis.select(&:is_representative?).first
+    chair_wimis.find(&:is_representative?)
   end
 
   def add_users(admin_id, representative_id)
