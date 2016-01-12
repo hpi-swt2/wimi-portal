@@ -93,8 +93,9 @@
       </tbody>
     </table>
 <% end %>
+
 <% if current_user.is_superadmin? %>
-    <h3> <%= I18n.t('chairs', default: 'Chairs') %> </h3>
+    <h3> <%= I18n.t('activerecord.models.chair.other') %> </h3>
     <table class="table table-striped">
       <thead>
       <tr>
@@ -113,5 +114,5 @@
       <% end %>
       </tbody>
     </table>
-    <%= link_to I18n.t('chairs.add', default: 'Add Chair'), new_chair_path, :class => 'btn btn-primary' %>
+    <%= link_to I18n.t('chair.add_chair'), new_chair_path, :class => 'btn btn-primary' %>
 <% end %>

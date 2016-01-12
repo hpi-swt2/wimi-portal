@@ -165,6 +165,7 @@ en:
       invitation_declined: 'You declined the invitation.'
   chair:
     not_authorized: "You're not authorized to do that for this chair."
+    add_chair: "Add Chair"
   time:
     formats:
       default: "%d-%m-%Y"

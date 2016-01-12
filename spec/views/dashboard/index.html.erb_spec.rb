@@ -65,10 +65,10 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     chair2 = FactoryGirl.create(:chair, name: 'Chair2')
 
     visit dashboard_path
-    expect(page).to have_content('Chairs')
+    expect(page).to have_content(I18n.t('activerecord.models.chair.other'))
     expect(page).to have_content(chair1.name)
     expect(page).to have_content(chair2.name)
-    expect(page).to have_link('Add Chair')
+    expect(page).to have_link(I18n.t('chair.add_chair'))
   end
 
   it 'does not display the chair overview for users without superadmin privileges' do
@@ -78,6 +78,6 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
 
     expect(page).to_not have_content(chair1.name)
     expect(page).to_not have_content(chair2.name)
-    expect(page).to_not have_link('Add Chair')
+    expect(page).to_not have_link(I18n.t('chair.add_chair'))
   end
 end
