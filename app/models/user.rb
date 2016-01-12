@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   def projects_for_month(year, month)
     projects = TimeSheet.where(
       user: self, month: month, year: year).map(&:project)
-    (projects.compact + self.projects).uniq
+    return (projects.compact + self.projects).uniq
   end
 
   def years_and_months_of_existence
@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
         year_months.push([year, month])
       end
     end
-    year_months
+    return year_months
   end
 
   def prepare_leave_for_new_year
@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
     if opt_chair
       return false if opt_chair != chair
     end
-    chair_wimi.admin
+    return chair_wimi.admin
   end
 
   def is_hiwi?
