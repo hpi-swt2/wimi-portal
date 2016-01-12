@@ -84,3 +84,8 @@ body {
 .dl-horizontal dd {
     margin-left:300px;
 }
+
+.time-select {
+    display: inline-block;
+    width: 48%;
+}
