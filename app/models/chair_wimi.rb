@@ -32,10 +32,10 @@ class ChairWimi < ActiveRecord::Base
   end
 
   def is_admin?
-    return self.admin
+    admin
   end
 
   def is_representative?
-    return self.representative
+    representative
   end
 end
