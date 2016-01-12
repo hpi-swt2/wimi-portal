@@ -184,7 +184,7 @@ RSpec.describe ProjectsController, type: :controller do
       user = FactoryGirl.create(:user)
       project.users << user
       expect {
-        put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
+        put :invite_user, { id: project.to_param, invite_user: { email: user.email } }, valid_session
       }.to change(Invitation.all, :count).by(0)
     end
 

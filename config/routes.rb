@@ -14,13 +14,23 @@ Rails.application.routes.draw do
       get 'decline_invitation'
     end
   end
+
+  resources :projects do
+    member do
+      get 'toggle_status'
+      delete 'sign_user_out/:user_id', action: 'sign_user_out', as: 'sign_user_out'
+    end
+  end
+
+
   get 'projects/typeahead/:query' => 'projects#typeahead'
+
 
   resources :holidays
   resources :expenses
 
   resources :work_days
-  resources :time_sheets, :only => [:edit, :update, :delete]
+  resources :time_sheets, only: [:edit, :update, :delete]
   resources :travel_expense_reports
   resources :trips do
     member do

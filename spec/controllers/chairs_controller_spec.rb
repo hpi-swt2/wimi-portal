@@ -107,6 +107,34 @@ RSpec.describe ChairsController, type: :controller do
     end
   end
 
+  describe 'GET #edit' do
+    before(:each) do
+      @chair = FactoryGirl.create(:chair)
+    end
+
+    it 'edits the chair for superadmins' do
+      login_with(FactoryGirl.create(:user, superadmin: true))
+      get :edit, { id: @chair.to_param }
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'edits the chair for the chair admin' do
+      user = FactoryGirl.create(:user)
+      chair_wimi = FactoryGirl.create(:chair_wimi, admin: true, user: user, chair: @chair)
+      login_with(user)
+      get :edit, { id: @chair.to_param }
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'does not edit the chair for another admin' do
+      user = FactoryGirl.create(:user)
+      chair2 = FactoryGirl.create(:chair)
+      chair_wimi = FactoryGirl.create(:chair_wimi, admin: true, user: user, chair: chair2)
+      login_with(user)
+      get :edit, { id: @chair.to_param }
+      expect(response).to_not have_http_status(:success)
+    end
+  end
 
   describe 'POST #apply' do
     before :each do
@@ -263,10 +291,8 @@ RSpec.describe ChairsController, type: :controller do
 
   describe 'POST #destroy' do
     before(:each) do
-      @superadmin = FactoryGirl.create(:user)
-      @superadmin.superadmin = true
+      @superadmin = FactoryGirl.create(:user, superadmin: true)
       @chair = FactoryGirl.create(:chair)
-      @user = FactoryGirl.create(:user)
     end
 
     it 'destroys an existing chair' do

@@ -41,7 +41,7 @@ describe WorkDaysController, type: :controller do
   describe "GET #show" do
     it "assigns the requested work_day as @work_day" do
       work_day = WorkDay.create! valid_attributes
-      get :show, {:id => work_day.to_param}, valid_session
+      get :show, {id: work_day.to_param}, valid_session
       expect(assigns(:work_day)).to eq(work_day)
     end
   end
@@ -56,7 +56,7 @@ describe WorkDaysController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested work_day as @work_day" do
       work_day = WorkDay.create! valid_attributes
-      get :edit, {:id => work_day.to_param}, valid_session
+      get :edit, {id: work_day.to_param}, valid_session
       expect(assigns(:work_day)).to eq(work_day)
     end
   end
@@ -65,30 +65,30 @@ describe WorkDaysController, type: :controller do
     context "with valid params" do
       it "creates a new WorkDay" do
         expect {
-          post :create, {:work_day => valid_attributes}, valid_session
+          post :create, {work_day: valid_attributes}, valid_session
         }.to change(WorkDay, :count).by(1)
       end
 
       it "assigns a newly created work_day as @work_day" do
-        post :create, {:work_day => valid_attributes}, valid_session
+        post :create, {work_day: valid_attributes}, valid_session
         expect(assigns(:work_day)).to be_a(WorkDay)
         expect(assigns(:work_day)).to be_persisted
       end
 
       it "redirects to the work_day list for the work_days month" do
-        post :create, {:work_day => valid_attributes}, valid_session
+        post :create, {work_day: valid_attributes}, valid_session
         expect(response).to redirect_to(work_days_path(month: 11, year: 2015))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved work_day as @work_day" do
-        post :create, {:work_day => invalid_attributes}, valid_session
+        post :create, {work_day: invalid_attributes}, valid_session
         expect(assigns(:work_day)).to be_a_new(WorkDay)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:work_day => invalid_attributes}, valid_session
+        post :create, {work_day: invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -102,7 +102,7 @@ describe WorkDaysController, type: :controller do
 
       it "updates the requested work_day" do
         work_day = WorkDay.create! valid_attributes
-        put :update, {:id => work_day.to_param, :work_day => new_attributes}, valid_session
+        put :update, {id: work_day.to_param, work_day: new_attributes}, valid_session
         work_day.reload
         expect(work_day.start_time.hour).to equal(14)
         expect(work_day.break).to equal(20)
@@ -110,13 +110,13 @@ describe WorkDaysController, type: :controller do
 
       it "assigns the requested work_day as @work_day" do
         work_day = WorkDay.create! valid_attributes
-        put :update, {:id => work_day.to_param, :work_day => valid_attributes}, valid_session
+        put :update, {id: work_day.to_param, work_day: valid_attributes}, valid_session
         expect(assigns(:work_day)).to eq(work_day)
       end
 
       it "redirects to work_day list for November 2015" do
         work_day = WorkDay.create! valid_attributes
-        put :update, {:id => work_day.to_param, :work_day => valid_attributes}, valid_session
+        put :update, {id: work_day.to_param, work_day: valid_attributes}, valid_session
         expect(response).to redirect_to(work_days_path(month: 11, year:2015))
       end
     end
@@ -124,13 +124,13 @@ describe WorkDaysController, type: :controller do
     context "with invalid params" do
       it "assigns the work_day as @work_day" do
         work_day = WorkDay.create! valid_attributes
-        put :update, {:id => work_day.to_param, :work_day => invalid_attributes}, valid_session
+        put :update, {id: work_day.to_param, work_day: invalid_attributes}, valid_session
         expect(assigns(:work_day)).to eq(work_day)
       end
 
       it "re-renders the 'edit' template" do
         work_day = WorkDay.create! valid_attributes
-        put :update, {:id => work_day.to_param, :work_day => invalid_attributes}, valid_session
+        put :update, {id: work_day.to_param, work_day: invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -140,13 +140,13 @@ describe WorkDaysController, type: :controller do
     it "destroys the requested work_day" do
       work_day = WorkDay.create! valid_attributes
       expect {
-        delete :destroy, {:id => work_day.to_param}, valid_session
+        delete :destroy, {id: work_day.to_param}, valid_session
       }.to change(WorkDay, :count).by(-1)
     end
 
     it "redirects to the work_days list for November 2015" do
       work_day = WorkDay.create! valid_attributes
-      delete :destroy, {:id => work_day.to_param}, valid_session
+      delete :destroy, {id: work_day.to_param}, valid_session
       expect(response).to redirect_to(work_days_path(month: work_day.date.month, year: work_day.date.year))
     end
   end

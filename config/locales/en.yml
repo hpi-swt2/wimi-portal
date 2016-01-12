@@ -156,8 +156,8 @@ en:
       was_successfully_invited: 'The user has been invited successfully.'
       invitation_accepted: 'You are now a member of this project.'
       invitation_declined: 'You declined the invitation.'
-    chair:
-      not_authorized: "You're not authorized to do that for this chair."
+  chair:
+    not_authorized: "You're not authorized to do that for this chair."
   time:
     formats:
       default: "%d-%m-%Y"

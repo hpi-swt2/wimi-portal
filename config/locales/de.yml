@@ -156,8 +156,8 @@ de:
       already_is_member: 'Dieser Benutzer ist bereits Mitglied des Projekts.'
       was_successfully_invited: 'Der Benutzer wurde erfolgreich eingeladen.'
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
-    chair:
-      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+  chair:
+    not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
       default: "%d/%m/%Y"
