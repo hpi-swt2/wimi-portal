@@ -31,14 +31,17 @@ class TimeSheet < ActiveRecord::Base
 
     def hand_in(user)
       params = {status: 'pending', handed_in: true, last_modified: Date.today}
+      ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.project_id, seclevel: :wimi, type: "EventTimeSheetSubmitted"})
     end
 
     def sign(user)
       params = {status: 'accepted', last_modified: Date.today, signer: user.id}
+      ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.user_id, seclevel: :hiwi, type: "EventTimeSheetAccepted"})
     end
 
     def reject(user)
       params = {status: 'rejected', handed_in: false, last_modified: Date.today, signer: user.id}
+      ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.user_id, seclevel: :hiwi, type: "EventTimeSheetDeclined"})
     end
 
     def self.time_sheet_for(year, month, project, user)
