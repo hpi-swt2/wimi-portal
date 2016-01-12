@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108133718) do
+ActiveRecord::Schema.define(version: 20160112170232) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -80,12 +80,13 @@ ActiveRecord::Schema.define(version: 20160108133718) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "description", default: ""
-    t.boolean  "public",      default: false
-    t.boolean  "active",      default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "description",    default: ""
+    t.boolean  "public",         default: true
+    t.boolean  "status",         default: true
     t.integer  "chair_id"
+    t.string   "project_leader", default: ""
   end
 
   add_index "projects", ["chair_id"], name: "index_projects_on_chair_id"
@@ -188,6 +189,16 @@ ActiveRecord::Schema.define(version: 20160108133718) do
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
+
+  create_table "user_events", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_events", ["event_id"], name: "index_user_events_on_event_id"
+  add_index "user_events", ["user_id"], name: "index_user_events_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "",    null: false
