@@ -22,7 +22,7 @@
     </div>
     <div class="form-group">
       <%= f.label :start_time, class: "control-label"  %><br>
-      <%= f.time_select :start_time, {}, class: "form-control" %>
+      <%= f.time_select :start_time, {}, class: "form-control time-select" %>
     </div>
     <div class="form-group">
       <%= f.label :break, class: "control-label"  %> (minutes)<br>
@@ -30,7 +30,7 @@
     </div>
     <div class="form-group">
       <%= f.label :end_time, class: "control-label"  %><br>
-      <%= f.time_select :end_time, {}, class: "form-control" %>
+      <%= f.time_select :end_time, {}, class: "form-control time-select" %>
     </div>
     <div class="form-group">
       <%= f.label :attendance, class: "control-label"  %><br>
@@ -42,7 +42,7 @@
     </div>
     <div class="form-group">
         <%= f.label :project, class: "control-label" %><br>
-        <%= collection_select :work_day, :project_id, current_user.projects, :id, :title, {:selected => @work_day.project_id}, class: "form-control"%>
+        <%= collection_select :work_day, :project_id, current_user.projects, :id, :title, {selected: @work_day.project_id}, class: "form-control"%>
     </div>
     <%= f.submit nil, class:"btn btn-primary"%>
   </div>

@@ -24,26 +24,13 @@
 #
 
 class User < ActiveRecord::Base
-
-  LANGUAGES = [
-    [
-      'English',
-      'en'
-    ],
-    [
-      'Deutsch',
-      'de'
-    ],
-  ]
-
-  INVALID_EMAIL = 'invalid_email'
-
   devise  :openid_authenticatable, :trackable
 
   has_many :work_days
   has_many :time_sheets
   has_many :holidays
   has_many :expenses
+  has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
   has_and_belongs_to_many :publications
@@ -57,6 +44,19 @@ class User < ActiveRecord::Base
   validates :personnel_number, numericality: { only_integer: true }, inclusion: 0..999999999
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
+
+  LANGUAGES = [
+    [
+      'English',
+      'en'
+    ],
+    [
+      'Deutsch',
+      'de'
+    ],
+  ]
+
+  INVALID_EMAIL = 'invalid_email'
 
   # TODO: implement signature upload, this is a placeholder
   def signature
@@ -92,17 +92,21 @@ class User < ActiveRecord::Base
     return year_months
   end
 
-  def is_user?
-    not is_wimi? and not is_superadmin? and not is_hiwi?
-  end
-
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = self.remaining_leave
     self.remaining_leave = 28
   end
 
+  def is_user?
+    not is_wimi? and not is_superadmin? and not is_hiwi?
+  end
+
   def is_wimi?
     not chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
+  end
+
+  def is_hiwi?
+    projects and projects.size > 0 and not is_wimi?
   end
 
   def is_representative?(opt_chair = false)
@@ -119,10 +123,6 @@ class User < ActiveRecord::Base
       return false if opt_chair != chair
     end
     return chair_wimi.admin
-  end
-
-  def is_hiwi?
-    projects and projects.size > 0 and not is_wimi?
   end
 
   def is_superadmin?

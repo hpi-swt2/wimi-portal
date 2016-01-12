@@ -37,6 +37,9 @@ de:
       publication:
         one: "Veröffentlichung"
         other: "Veröffentlichungen"
+      travel_expense_report:
+        one: "Reisekostenabrechnung"
+        other: "Reisekostenabrechnungen"
       trip:
         one: "Geschäftsreise"
         other: "Geschäftsreisen"
@@ -137,6 +140,18 @@ de:
         personnel_number: "Personalnummer"
         language: "Sprache"
         not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
+    errors:
+      models:
+        travel_expense_report:
+          attributes:
+            location_from:
+              blank: "darf nicht leer sein."
+            location_to:
+              blank: "darf nicht leer sein."
+            general_advance:
+              blank: "darf nicht leer sein."
+              not_a_number: "muss eine ganze Zahl sein."
+              greater_than_or_equal_to: "darf nicht negativ sein."
   links:
     search: 'Suchen'
     submit: 'Abschicken'
@@ -151,10 +166,12 @@ de:
       already_is_member: 'Dieser Benutzer ist bereits Mitglied des Projekts.'
       was_successfully_invited: 'Der Benutzer wurde erfolgreich eingeladen.'
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
-    chair:
-      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+  chair:
+    not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
       default: "%d/%m/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  "true": "Ja"
+  "false": "Nein"

@@ -25,11 +25,12 @@
 class TravelExpenseReport < ActiveRecord::Base
   belongs_to :user
   has_many :travel_expense_report_items
-  accepts_nested_attributes_for :travel_expense_report_items, reject_if: lambda {|attributes| attributes['date(1i)'].blank? or attributes['date(3i)'].blank? or attributes['date(2i)'].blank?}
-
-  validates :general_advance, numericality: true
+  accepts_nested_attributes_for :travel_expense_report_items, reject_if: lambda {|attributes| attributes['date'].blank? }
+  
+  validates :location_from, presence: true
+  validates :location_to, presence: true
+  validates :general_advance, numericality: {greater_than_or_equal_to: 0}
   validate 'start_before_end_date'
-  validate 'general_advance_positive'
 
 
   def first_name
@@ -42,12 +43,6 @@ class TravelExpenseReport < ActiveRecord::Base
 
   def get_signature
     self.user.signature
-  end
-
-  def general_advance_positive
-    if general_advance < 0
-      errors.add(:general_advance, "can't be negative")
-    end
   end
 
   def start_before_end_date
