@@ -90,10 +90,12 @@
             <%= f.submit t('.sign'),  class: 'btn btn-primary' %>
           <% end %>
         <% else %>
-          <%= form_for @time_sheet do |f| %>
-            <%= f.hidden_field :do, value: 'hand_in' %>
-            <%= f.submit t('.sign'), class: 'btn btn-primary' %>
-        <% end %>   
+          <% if @time_sheet.user_id = current_user.id %>
+            <%= form_for @time_sheet do |f| %>
+              <%= f.hidden_field :do, value: 'hand_in' %>
+              <%= f.submit t('.sign'), class: 'btn btn-primary' %>
+            <%end%>
+          <% end %>   
         <% end %>   
       <% end %>
     <% end %>
