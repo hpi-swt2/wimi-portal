@@ -134,8 +134,8 @@ en:
         residence: "Residence"
         street: "Street"
         personnel_number: "Staff Number"
-        division_id: "Division"
         language: "Language"
+        not_member_of_chair: "You are not a member of a chair."
     errors:
       models:
         travel_expense_report:

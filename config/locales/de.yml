@@ -138,8 +138,8 @@ de:
         residence: "Wohnort"
         street: "Straße"
         personnel_number: "Personalnummer"
-        division_id: "Fachgebiet"
         language: "Sprache"
+        not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
     errors:
       models:
         travel_expense_report:
