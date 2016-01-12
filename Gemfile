@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -51,6 +52,8 @@ gem 'warden'
 gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails'
 gem 'devise-bootstrap-views'
+#use Bootstrap Tooltips
+gem 'bootstrap-tooltip-rails'
 
 # Use Jquery as the JS lib
 gem 'jquery-rails'
