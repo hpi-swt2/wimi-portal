@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ChairsController, type: :controller do
-
   describe 'GET #index' do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
@@ -70,14 +69,14 @@ RSpec.describe ChairsController, type: :controller do
     end
   end
 
-   describe 'GET #edit' do
+  describe 'GET #edit' do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
     end
 
     it 'edits the chair for superadmins' do
       login_with(FactoryGirl.create(:user, superadmin: true))
-      get :edit, { id: @chair.to_param }
+      get :edit, {id: @chair.to_param}
       expect(response).to have_http_status(:success)
     end
 
@@ -85,7 +84,7 @@ RSpec.describe ChairsController, type: :controller do
       user = FactoryGirl.create(:user)
       chair_wimi = FactoryGirl.create(:chair_wimi, admin: true, user: user, chair: @chair)
       login_with(user)
-      get :edit, { id: @chair.to_param }
+      get :edit, {id: @chair.to_param}
       expect(response).to have_http_status(:success)
     end
 
@@ -94,36 +93,36 @@ RSpec.describe ChairsController, type: :controller do
       chair2 = FactoryGirl.create(:chair)
       chair_wimi = FactoryGirl.create(:chair_wimi, admin: true, user: user, chair: chair2)
       login_with(user)
-      get :edit, { id: @chair.to_param }
+      get :edit, {id: @chair.to_param}
       expect(response).to_not have_http_status(:success)
     end
   end
 
-    describe 'POST #apply' do
-      before :each do
-        @chair = FactoryGirl.create(:chair)
-        @user = FactoryGirl.create(:user)
-      end
-
-      it 'applies for a chair' do
-        login_with @user
-        expect {
-          post :apply, { chair: @chair }
-        }.to change(ChairWimi, :count).by(1)
-        expect(ChairWimi.find_by(user: @user, chair: @chair).application).to eq 'pending'
-      end
-
-      it 'creates only one new chair application' do
-        login_with @user
-        expect {
-          post :apply, { chair: @chair }
-        }.to change(ChairWimi, :count).by(1)
-
-        expect {
-          post :apply, { chair: @chair }
-        }.to change(ChairWimi, :count).by(0)
-      end
+  describe 'POST #apply' do
+    before :each do
+      @chair = FactoryGirl.create(:chair)
+      @user = FactoryGirl.create(:user)
     end
+
+    it 'applies for a chair' do
+      login_with @user
+      expect {
+        post :apply, {chair: @chair}
+      }.to change(ChairWimi, :count).by(1)
+      expect(ChairWimi.find_by(user: @user, chair: @chair).application).to eq 'pending'
+    end
+
+    it 'creates only one new chair application' do
+      login_with @user
+      expect {
+        post :apply, {chair: @chair}
+      }.to change(ChairWimi, :count).by(1)
+
+      expect {
+        post :apply, {chair: @chair}
+      }.to change(ChairWimi, :count).by(0)
+    end
+  end
 
   describe 'POST #accept_request' do
     it 'accepts a hiwi' do
@@ -135,13 +134,13 @@ RSpec.describe ChairsController, type: :controller do
 
       login_with admin
       old_wimi_amount = chair.wimis.count
-      post :accept_request, { id: chair, request: pending_wimi }
+      post :accept_request, {id: chair, request: pending_wimi}
       pending_wimi.reload
       expect(pending_wimi.application).to eq 'accepted'
       chair.reload
       expect(chair.wimis.count).to eq(old_wimi_amount + 1)
-      end
     end
+  end
 
   describe 'GET #new' do
     before(:each) do
@@ -174,14 +173,14 @@ RSpec.describe ChairsController, type: :controller do
       user1 = FactoryGirl.create(:user)
       login_with @superadmin
       expect {
-        post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: user1}
+        post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: user1}
       }.to change(Chair, :count).by(1)
     end
 
     it 'creates a new Chair with one user as admin and representative' do
       login_with @superadmin
       expect {
-        post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
+        post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
       }.to change(Chair, :count).by(1)
     end
 
@@ -189,7 +188,7 @@ RSpec.describe ChairsController, type: :controller do
       user1 = FactoryGirl.create(:user)
       login_with @superadmin
       chair_count = Chair.all.count
-      post :create, { chair: {name: 'Test'}}
+      post :create, {chair: {name: 'Test'}}
       expect(Chair.all.count).to eq(chair_count)
     end
   end
@@ -204,7 +203,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'modifies an existing chair with same admin and representative' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
+      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
@@ -221,7 +220,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'modifies an existing chair with different admin and representative' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
+      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
@@ -238,7 +237,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'does not modify a chair with wrong parameters' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, { chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
+      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.select{ |admin| (admin.user.id == @user.id) }.size).to eq(1)
@@ -261,7 +260,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'destroys an existing chair' do
       login_with @superadmin
       expect {
-        delete :destroy, { id: @chair.id }
+        delete :destroy, {id: @chair.id}
       }.to change(Chair, :count).by(-1)
     end
   end

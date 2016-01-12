@@ -7,7 +7,6 @@ class ChairsController < ApplicationController
     redirect_to chairs_path
   end
 
-
   def index
     @chairs = Chair.all
   end
@@ -132,6 +131,7 @@ class ChairsController < ApplicationController
   end
 
   private
+
   def set_chair
     @chair = Chair.find(params[:id])
   end

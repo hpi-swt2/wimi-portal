@@ -15,7 +15,7 @@ class TravelExpenseReportsController < ApplicationController
   end
 
   def edit
-    (8-@travel_expense_report.travel_expense_report_items.size).times {@travel_expense_report.travel_expense_report_items.build}
+    (8 - @travel_expense_report.travel_expense_report_items.size).times {@travel_expense_report.travel_expense_report_items.build}
   end
 
   def create
@@ -43,11 +43,12 @@ class TravelExpenseReportsController < ApplicationController
   end
 
   private
-    def set_travel_expense_report
-      @travel_expense_report = TravelExpenseReport.find(params[:id])
-    end
 
-    def travel_expense_report_params
-      params.require(:travel_expense_report).permit(TravelExpenseReport.column_names.map(&:to_sym), travel_expense_report_items_attributes:[:id,:date,:breakfast,:lunch,:dinner,:annotation])
-    end
+  def set_travel_expense_report
+    @travel_expense_report = TravelExpenseReport.find(params[:id])
+  end
+
+  def travel_expense_report_params
+    params.require(:travel_expense_report).permit(TravelExpenseReport.column_names.map(&:to_sym), travel_expense_report_items_attributes: [:id, :date, :breakfast, :lunch, :dinner, :annotation])
+  end
 end

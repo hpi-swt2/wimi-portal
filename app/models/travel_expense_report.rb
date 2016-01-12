@@ -31,17 +31,16 @@ class TravelExpenseReport < ActiveRecord::Base
   validate 'start_before_end_date'
   validate 'general_advance_positive'
 
-
   def first_name
-    self.user.first_name
+    user.first_name
   end
 
   def last_name
-    self.user.last_name
+    user.last_name
   end
 
   def get_signature
-    self.user.signature
+    user.signature
   end
 
   def general_advance_positive
