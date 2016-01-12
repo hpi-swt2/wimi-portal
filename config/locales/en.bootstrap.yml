@@ -139,7 +139,7 @@ en:
       sign: "sign"
       handed_in_at: "handed in at: "
       reject: "reject"
-      reject_reason: "Rejetion reason:"
+      reject_reason: "Rejection reason:"
       rejected_by: "rejected by: "
       accepted_by: "accepted by: "
       at: "at"

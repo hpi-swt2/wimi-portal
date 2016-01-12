@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
   before_action :user_exists, :set_user
 
-
   def show
   end
 

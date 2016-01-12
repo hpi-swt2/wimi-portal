@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20160109205725) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.boolean  "handed_in",             default: false
-    t.text     "rejection_message"
+    t.text     "rejection_message",     default: ""
     t.boolean  "signed",                default: false
     t.date     "last_modified"
     t.integer  "status",                default: 0

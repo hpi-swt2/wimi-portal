@@ -1,9 +1,10 @@
 require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe TimeSheetsController, type: :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    sign_in @user
+    login_with @user
     @project = FactoryGirl.create(:project)
   end
 
