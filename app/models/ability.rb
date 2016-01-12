@@ -19,10 +19,17 @@ class Ability
   def initialize_user(user)
     can :index, Chair
     can :apply, Chair
+    can :read, Project do |project|
+      project.public
+    end
+    can :create, ProjectApplication
     # can :accept_invitation, Project
   end
 
   def initialize_hiwi(user)
+    cannot :create, ProjectApplication do |project_application|
+      user.projects.exists?(project_application.project_id)
+    end
     # can :accept_invitation, Project
     # can :manage, Stundenzettel
   end
@@ -36,6 +43,12 @@ class Ability
     can :invite_user, Project do |project|
       project.users.include? user
     end
+    can :manage, ProjectApplication do |project_application|
+      user.projects.exists?(project_application.project_id)
+    end
+    cannot :create, ProjectApplication
+    #can :set aktive/inaktive
+    #can :manage, Documents of hiwis in own projects
   end
 
   def initialize_representative(user)
