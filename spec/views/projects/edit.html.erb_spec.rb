@@ -25,13 +25,13 @@ RSpec.describe 'projects/edit', type: :view do
   it 'can be deleted by a wimi' do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
-    projectTitle = project.title
+    project_title = project.title
     @wimi.projects << project
     visit project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed.')
-    expect(page).to have_no_content(projectTitle)
+    expect(page).to have_no_content(project_title)
   end
 
   it 'can be set inactive by a wimi' do
