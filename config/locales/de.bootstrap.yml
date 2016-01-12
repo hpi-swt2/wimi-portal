@@ -90,6 +90,8 @@ de:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
     show:
+      business_trips: "Geschätsreisen"
+      request_trip: "Geschätsreise beantragen"
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"

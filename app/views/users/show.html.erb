@@ -95,4 +95,45 @@
       </div>
     </div>
   <% end %>
+
+  <%= form_for(@user) do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%= t('.business_trips') %></h4>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <%=link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %><br><br>
+        </div>
+        <div class="form-group">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t('activerecord.attributes.trip.destination') %></th>
+                <th><%= t('activerecord.attributes.trip_datespan.start_date') %></th>
+                <th><%= t('activerecord.attributes.trip_datespan.end_date') %></th>
+                <th><%= t('activerecord.attributes.trip.status') %></th>
+                <th><%= t('helpers.actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @datespans.each do |span| %>
+                <tr>
+                  <td><%= Trip.find(span.trip_id).destination %></td>
+                  <td><%= span.start_date %></td>
+                  <td><%= span.end_date %></td>
+                  <td><%= Trip.find(span.trip_id).status %></td>
+                  <td>
+                    <%= link_to t("helpers.links.show_details"),
+                                trip_path(Trip.find(span.trip_id)), class: 'btn btn-default btn-xs' %><br>
+                    <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: Trip.find(span.trip_id)), class: 'btn btn-default btn-xs' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% end %>
