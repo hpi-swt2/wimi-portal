@@ -66,19 +66,6 @@ class User < ActiveRecord::Base
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
 
-  LANGUAGES = [
-    [
-      'English',
-      'en'
-    ],
-    [
-      'Deutsch',
-      'de'
-    ],
-  ]
-
-  INVALID_EMAIL = 'invalid_email'
-
   # TODO: implement signature upload, this is a placeholder
   def signature
     'placeholder'
