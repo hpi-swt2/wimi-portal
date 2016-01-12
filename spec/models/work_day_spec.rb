@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: work_days
+#
+#  id         :integer          not null, primary key
+#  date       :date
+#  start_time :time
+#  break      :integer
+#  end_time   :time
+#  attendance :string
+#  notes      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#  project_id :integer
+#
+
 require 'rails_helper'
 require 'spec_helper'
 
@@ -31,7 +48,7 @@ describe WorkDay, type: :model do
 
     it 'returns the duration of a work_day' do
       workday = FactoryGirl.create(:work_day) #use the standard values
-      workday.duration.should == 30
+      expect(workday.duration).to eq(30)
     end
 
 end
