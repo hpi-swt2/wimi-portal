@@ -49,6 +49,12 @@ en:
         name: "Name"
         created_at: "Created at"
         status: "Status"
+        apply: "Apply as WiMi"
+        application:
+          status:
+            pending: "pending"
+            accepted: "accepted"
+            declined: "declined"
       project:
         title: "Title"
         created_at: "Created at"

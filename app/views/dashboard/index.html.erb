@@ -83,9 +83,9 @@
             <td><%= chair.name %></td>
             <td>
               <% if current_user.chair_wimi == nil %>
-                  <%= link_to I18n.t('chair.apply', default: 'Apply as Wimi'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+                  <%= link_to I18n.t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
               <% else %>
-                  <span class="label label-warning"><%= I18n.t('status.pending', default: 'pending') %></span>
+                  <span class="label label-warning"><%= I18n.t('activerecord.attributes.chair.application.status.pendingstatus.pending') %></span>
               <% end %>
             </td>
           </tr>
