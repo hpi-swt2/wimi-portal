@@ -17,7 +17,6 @@
 #  language                  :string           default("en"), not null
 #  residence                 :string
 #  street                    :string
-#  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
@@ -45,20 +44,6 @@ class User < ActiveRecord::Base
   validates :personnel_number, numericality: { only_integer: true }, inclusion: 0..999999999
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
-
-  DIVISIONS = [ '',
-      'Enterprise Platform and Integration Concepts',
-      'Internet-Technologien und Systeme',
-      'Human Computer Interaction',
-      'Computergrafische Systeme',
-      'Algorithm Engineering',
-      'Systemanalyse und Modellierung',
-      'Software-Architekturen',
-      'Informationssysteme',
-      'Betriebssysteme und Middleware',
-      'Business Process Technology',
-      'School of Design Thinking',
-      'Knowledge Discovery and Data Mining']
 
   LANGUAGES = [
     [
