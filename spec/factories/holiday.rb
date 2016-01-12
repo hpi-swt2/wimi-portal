@@ -4,5 +4,6 @@ FactoryGirl.define do
     start Date.today
     self.end (Date.today+1)
     length 1
+    last_modified Date.today
   end
 end

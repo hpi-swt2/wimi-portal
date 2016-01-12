@@ -19,10 +19,11 @@ class HolidaysController < ApplicationController
   end
 
   def create
-    if holiday_params['length'] == "" || holiday_params['length'].nil?
-      params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date+1)
+    if holiday_params['length'].blank?
+      #disregard errors here, they should be handled in model validation later
+      params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date+1) rescue nil
     end
-    @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
+    @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id, last_modified: Date.today))
     if @holiday.save
       subtract_leave(@holiday.length)
       flash[:success] = 'Holiday was successfully created.'
@@ -38,11 +39,11 @@ class HolidaysController < ApplicationController
 
     if @holiday.update(holiday_params)
       flash[:success] = 'Holiday was successfully updated.'
-      @holiday.update_attribute(:length, lengths[:new_length])
+      @holiday.update(length: lengths[:new_length])
       subtract_leave(lengths[:length_difference])
       redirect_to @holiday
     else
-      @holiday.update_attribute(:length, lengths[:old_length])
+      @holiday.update(length: lengths[:old_length])
       render :edit
     end
   end

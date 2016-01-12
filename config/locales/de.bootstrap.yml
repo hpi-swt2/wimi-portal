@@ -110,6 +110,11 @@ de:
       days: "Tag(e)"
       file: "Antrag einreichen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
+      status:
+        saved: "Erstellt am "
+        accepted: "Akzeptiert am "
+        applied: "Eingereicht am "
+        declined: "Abgelehnt am "
   dashboard:
     index:
       dashboard_title: "Dashboard"

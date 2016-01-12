@@ -13,16 +13,17 @@
 #  annotation          :string
 #  replacement_user_id :integer
 #  length              :integer
+#  signature           :boolean
+#  last_modified       :date
 #
 
 class Holiday < ActiveRecord::Base
   belongs_to :user
 
-  validates_presence_of :user, :start, :end, :length
-  validates_date :start
-  validates_date :end
+  validates_presence_of :user, :start, :end
   validates_date :start, on_or_after: :today
   validates_date :end, on_or_after: :start
+  validates :length, numericality: { greater_than_or_equal_to: 0}
   validate :too_far_in_the_future?
   validate :sufficient_leave_left?
   enum status: [ :saved, :applied, :accepted, :declined ]
@@ -32,9 +33,10 @@ class Holiday < ActiveRecord::Base
   end
 
   def calculate_length_difference(length_param)
-    old_length = length_param.blank? ? 0 : length
+    old_length = length.blank? ? 0 : length
     new_length = length_param
     unless new_length.blank?
+      new_length = length_param
       length_difference = new_length.to_i - old_length
     else
       new_length = duration
@@ -47,13 +49,14 @@ class Holiday < ActiveRecord::Base
   private
 
   def too_far_in_the_future?
-    unless self.end.year < Date.today.year + 2
+    unless self.end.blank? || self.end.year < Date.today.year + 2
       errors.add(:Holiday, 'is too far in the future')
     end
   end
 
   def sufficient_leave_left?
     #need to assert that user is existent for tests
+    return unless errors.blank?
     if self.user
       unless self.user.remaining_leave >= (length.nil? ? duration : length)
         errors.add(:not_enough_leave_left!, "" )

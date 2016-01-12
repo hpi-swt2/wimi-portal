@@ -119,6 +119,11 @@ en:
       days: "Day(s)"
       file: "File Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
+      status:
+        saved: "Saved at the "
+        accepted: "Accepted at the "
+        applied: "Applied at the "
+        declined: "Declined at the "
   dashboard:
     index:
       dashboard_title: "Dashboard"

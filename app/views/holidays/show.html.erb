@@ -38,7 +38,7 @@
         <% end %>
       </dd>
       <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
-      <dd><%= @holiday.status %></dd>
+      <dd><%= t(".status.#{@holiday.status}") + l(@holiday.last_modified)%></dd>
     </dl>
   </div>
 </div>
@@ -47,6 +47,7 @@
   <% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined') %>
     <%= form_for @holiday do |f| %>
       <%= f.hidden_field :status, value: :applied %>
+      <%= f.hidden_field :last_modified, value: Date.today %>
       <%= f.submit t('.file'), class: 'btn btn-primary' %>
   <% end %>
 <% end %>

@@ -15,8 +15,8 @@
     </div>
   <% end %>
 
-  <%# en-GB uses the proper ISO date format we want to use %>
   <% I18n.locale.to_s == 'en' ? format = 'dd-mm-yyyy' : format = 'dd.mm.yyyy' %>
+
   <%= f.label :remaining_leave, t('users.show.remaining_leave', leave: current_user.remaining_leave.to_s) %>
   <% if current_user.remaining_leave_last_year > 0 %>
     <%= f.label :remaining_leave_last_year, t('users.show.remaining_leave_last_year', leave_last_year: current_user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
@@ -24,14 +24,14 @@
   <div class="control-group">
     <%= f.label :start, class: 'control-label' %>
     <div class="controls">
-      <%= f.date_field :start, required: true, class: 'form-control dp', 'data-date-format': format, 'data-date-language': I18n.locale  %>
+      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.start ? l(@holiday.start) : nil  %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
     <%= f.label :end, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :end, required: true, class: 'form-control dp', 'data-date-format': format, 'data-date-language': I18n.locale %>
+      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.end ? l(@holiday.end) : nil %>
     </div>
     <%= error_span(@holiday[:end]) %>
   </div>

@@ -13,6 +13,8 @@
 #  annotation          :string
 #  replacement_user_id :integer
 #  length              :integer
+#  signature           :boolean
+#  last_modified       :date
 #
 
 require 'rails_helper'

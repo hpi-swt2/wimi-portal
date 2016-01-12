@@ -151,6 +151,14 @@ en:
               blank: "cannot be blank."
               not_a_number: "has to be a whole number."
               greater_than_or_equal_to: "must not be negative"
+        holiday:
+          attributes:
+            start:
+              blank: "cannot be blank."
+            end:
+              blank: "cannot be blank."
+            length:
+              not_a_number: "has to be a whole number."
   links:
     search: 'Search'
     submit: 'Submit'
@@ -177,3 +185,4 @@ en:
       long: "%B %d, %Y"
   "true": "yes"
   "false": "no"
+  not_enough_leave: 'Not enough leave left'

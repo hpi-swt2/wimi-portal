@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160106163408) do
     t.integer  "replacement_user_id"
     t.integer  "length"
     t.boolean  "signature"
+    t.date     "last_modified"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
