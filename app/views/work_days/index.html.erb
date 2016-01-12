@@ -41,11 +41,24 @@
           <td><%= work_day.duration %>min</td>
           <td><%= work_day.attendance %></td>
           <td><%= work_day.notes %></td>
+<<<<<<< HEAD
+=======
+          <td>
+              <%= link_to t('.edit', default: t("helpers.links.edit")),
+                  edit_work_day_path(work_day), class: 'btn btn-default btn-xs' %>
+              <%= link_to t('.destroy', default: t("helpers.links.destroy")),
+                          work_day_path(work_day),
+                          method: :delete,
+                          data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
+                          class: 'btn btn-xs btn-danger' %>
+          </td>
+>>>>>>> team3review
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
+<<<<<<< HEAD
 <% unless @time_sheet.nil? %>
   <div class="form-group">
     <% if @time_sheet.user_id == current_user.id && !@time_sheet.handed_in? %>
@@ -103,3 +116,8 @@
 <% else %>  
  <%= link_to t('.new'), new_work_day_path, class: 'btn btn-primary' %>
 <% end %>
+=======
+
+<%= link_to "New", new_work_day_path, class: 'btn btn-primary' %>
+<%= link_to "Export as PDF", "#", class: 'btn btn-primary' %>
+>>>>>>> team3review

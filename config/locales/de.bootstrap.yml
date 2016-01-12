@@ -19,6 +19,7 @@ de:
       confirm: "Sicher?"
       destroy: "Löschen"
       new: "Neu"
+      apply: "Bewerben"
       edit: "Bearbeiten"
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
@@ -35,6 +36,21 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
+  project_applications:
+    states:
+      pending: "Ausstehend"
+      declined: "Abgelehnt"
+      accepted: "Akzeptiert"
+    created: "Bewerbung wurde erfolgreich erstellt"
+    not_created: "Bewerbung konnte nicht erstellt werden"
+    destroy: "Bewerbung wurde zurückgezogen"
+    index:
+      cancel: "Bewerbung zurückziehen"
+    reapply: "Erneut bewerben"
+    refused_reapply: "Bewerbung abgelehnt - Erneut bewerben"
+    pending_cancel: "Bewerbung ausstehend - Zurückziehen"
+    accept_application: "Bewerbung akzeptieren"
+    decline_application: "Bewerbung ablehnen"
   projects:
     form:
       wimi: "Wissenschaftliche Mitarbeiter"
@@ -74,6 +90,8 @@ de:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
     show:
+      business_trips: "Geschätsreisen"
+      request_trip: "Geschätsreise beantragen"
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"
@@ -92,6 +110,16 @@ de:
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
       save: "Resturlaub Speichern"
       title: "Resturlaub bearbeiten"
+  holidays:
+    show:
+      days: "Tag(e)"
+      file: "Antrag einreichen"
+      filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
+      status:
+        saved: "Erstellt am "
+        accepted: "Akzeptiert am "
+        applied: "Eingereicht am "
+        declined: "Abgelehnt am "
   dashboard:
     index:
       dashboard_title: "Dashboard"

@@ -44,6 +44,6 @@ RSpec.describe Chair, type: :model do
     chair_wimi2 = FactoryGirl.create(:chair_wimi, application: 'accepted', user: user2, chair: chair)
     chair_wimi3 = FactoryGirl.create(:chair_wimi, application: 'accepted', user: user3, chair: chair)
 
-    expect(chair.wimis).to eq [user1, user2, user3]
+    expect(chair.wimis) == [user1, user2, user3]
   end
 end

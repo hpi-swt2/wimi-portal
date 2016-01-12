@@ -37,6 +37,9 @@ de:
       publication:
         one: "Veröffentlichung"
         other: "Veröffentlichungen"
+      travel_expense_report:
+        one: "Reisekostenabrechnung"
+        other: "Reisekostenabrechnungen"
       trip:
         one: "Geschäftsreise"
         other: "Geschäftsreisen"
@@ -68,6 +71,9 @@ de:
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
         duration: "Dauer"
+        reason: "Grund für Sonderurlaub"
+        annotations: "Anmerkungen"
+        replacement: "Vertretung"
       publication:
         id: "Id"
         title: "Titel"
@@ -143,6 +149,7 @@ de:
         personnel_number: "Personalnummer"
         division_id: "Fachgebiet"
         language: "Sprache"
+<<<<<<< HEAD
       work_day:
         date: "Datum"
         start_time: "Startzeit"
@@ -151,6 +158,34 @@ de:
         duration: "Dauer"
         notes: "Anmerkung"
 
+=======
+    errors:
+      models:
+        travel_expense_report:
+          attributes:
+            location_from:
+              blank: "darf nicht leer sein."
+            location_to:
+              blank: "darf nicht leer sein."
+            general_advance:
+              blank: "darf nicht leer sein."
+              not_a_number: "muss eine ganze Zahl sein."
+              greater_than_or_equal_to: "darf nicht negativ sein."
+        holiday:
+          attributes:
+            start:
+              blank: "darf nicht leer sein."
+            end:
+              blank: "darf nicht leer sein."
+            length:
+              not_a_number: "muss eine ganze Zahl sein."
+  date:
+    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+    formats:
+      default: "%d.%m.%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
+>>>>>>> team3review
   links:
     search: 'Suchen'
     submit: 'Abschicken'
@@ -165,10 +200,12 @@ de:
       already_is_member: 'Dieser Benutzer ist bereits Mitglied des Projekts.'
       was_successfully_invited: 'Der Benutzer wurde erfolgreich eingeladen.'
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
-    chair:
-      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+  chair:
+    not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
-      default: "%d/%m/%Y"
+      default: "%d.%m.%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  "true": "Ja"
+  "false": "Nein"

@@ -26,7 +26,7 @@ RSpec.describe TimeSheetsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested time_sheet as @time_sheet" do
       time_sheet = TimeSheet.create! valid_attributes
-      get :edit, {:id => time_sheet.to_param}, valid_session
+      get :edit, {id: time_sheet.to_param}, valid_session
       expect(assigns(:time_sheet)).to eq(time_sheet)
     end
   end

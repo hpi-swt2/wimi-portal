@@ -13,12 +13,15 @@
 #  project_id            :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+<<<<<<< HEAD
 #  handed_in             :boolean          default(FALSE)
 #  rejection_message     :text             default("")
 #  signed                :boolean          default(FALSE)
 #  last_modified         :date
 #  status                :integer          default(0)
 #  signer                :integer
+=======
+>>>>>>> team3review
 #
 
 require 'rails_helper'

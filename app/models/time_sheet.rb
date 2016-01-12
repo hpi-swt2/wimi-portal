@@ -13,12 +13,15 @@
 #  project_id            :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+<<<<<<< HEAD
 #  handed_in             :boolean          default(FALSE)
 #  rejection_message     :text             default("")
 #  signed                :boolean          default(FALSE)
 #  last_modified         :date
 #  status                :integer          default(0)
 #  signer                :integer
+=======
+>>>>>>> team3review
 #
 
 class TimeSheet < ActiveRecord::Base
@@ -33,9 +36,14 @@ class TimeSheet < ActiveRecord::Base
       params = {status: 'pending', handed_in: true, last_modified: Date.today}
     end
 
+<<<<<<< HEAD
     def sign(user)
       params = {status: 'accepted', last_modified: Date.today, signer: user.id}
     end
+=======
+    validates :workload_is_per_month, inclusion: { in: [true, false] }
+    validates :salary_is_per_month, inclusion: { in: [true, false] }
+>>>>>>> team3review
 
     def reject(user)
       params = {status: 'rejected', handed_in: false, last_modified: Date.today, signer: user.id}

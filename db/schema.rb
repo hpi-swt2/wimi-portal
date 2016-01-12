@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160109205725) do
+=======
+ActiveRecord::Schema.define(version: 20160106163408) do
+>>>>>>> team3review
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -50,11 +54,17 @@ ActiveRecord::Schema.define(version: 20160109205725) do
 
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",     default: 0
+    t.integer  "status",              default: 0, null: false
+    t.string   "reason"
+    t.string   "annotation"
+    t.integer  "replacement_user_id"
+    t.integer  "length"
+    t.boolean  "signature"
+    t.date     "last_modified"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -62,6 +72,14 @@ ActiveRecord::Schema.define(version: 20160109205725) do
   create_table "invitations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_applications", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

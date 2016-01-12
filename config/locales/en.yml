@@ -67,6 +67,9 @@ en:
         user_id: "User"
         created_at: "Created at"
         duration: "Duration"
+        reason: "Reason for Special Leave"
+        annotations: "Annotations"
+        replacement: "Replacement"
       publication:
         id: "Id"
         title: "Title"
@@ -142,6 +145,7 @@ en:
         personnel_number: "Staff Number"
         division_id: "Division"
         language: "Language"
+<<<<<<< HEAD
       work_day:
         date: "Date"
         start_time: "Start time"
@@ -149,6 +153,28 @@ en:
         end_time: "End time"
         duration: "Duration"
         notes: "Notes"
+=======
+    errors:
+      models:
+        travel_expense_report:
+          attributes:
+            location_from:
+              blank: "cannot be blank."
+            location_to:
+              blank: "cannot be blank."
+            general_advance:
+              blank: "cannot be blank."
+              not_a_number: "has to be a whole number."
+              greater_than_or_equal_to: "must not be negative"
+        holiday:
+          attributes:
+            start:
+              blank: "cannot be blank."
+            end:
+              blank: "cannot be blank."
+            length:
+              not_a_number: "has to be a whole number."
+>>>>>>> team3review
   links:
     search: 'Search'
     submit: 'Submit'
@@ -166,8 +192,13 @@ en:
       invitation_declined: 'You declined the invitation.'
     chair:
       not_authorized: "You're not authorized to do that for this chair."
+  date:
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
   time:
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  "true": "yes"
+  "false": "no"
+  not_enough_leave: 'Not enough leave left'
