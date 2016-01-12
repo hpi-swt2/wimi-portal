@@ -14,7 +14,7 @@
 
 class Project < ActiveRecord::Base
   scope :title, -> title { where('LOWER(title) LIKE ?', "%#{title.downcase}%") }
-  scope :chair, -> name { joins(:chair).where("LOWER(name) LIKE ?", "%#{name.downcase}%") }
+  scope :chair, -> name { joins(:chair).where('LOWER(name) LIKE ?', "%#{name.downcase}%") }
 
   has_and_belongs_to_many :users
   has_many :publications
@@ -42,11 +42,10 @@ class Project < ActiveRecord::Base
   end
 
   def wimis
-    users.select { |u| u.is_wimi? }
+    users.select(&:is_wimi?)
   end
 
   def remove_user(user)
     users.delete(user)
   end
-
 end

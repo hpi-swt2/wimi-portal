@@ -3,20 +3,20 @@ class Ability
 
   def initialize(user)
     unless user.nil?
-      check_functions = [ :is_superadmin?, :is_admin?, :is_representative?,
-        :is_wimi?, :is_hiwi?, :is_user? ]
-      initialize_functions = [ :initialize_superadmin, :initialize_admin, :initialize_representative,
-        :initialize_wimi, :initialize_hiwi, :initialize_user ]
+      check_functions = [:is_superadmin?, :is_admin?, :is_representative?,
+                         :is_wimi?, :is_hiwi?, :is_user?]
+      initialize_functions = [:initialize_superadmin, :initialize_admin, :initialize_representative,
+                              :initialize_wimi, :initialize_hiwi, :initialize_user]
 
       check_functions.each_with_index do |check_func, index|
         if user.send check_func
-          self.send initialize_functions[index], user
+          send initialize_functions[index], user
         end
       end
     end
   end
 
-  def initialize_user(user)
+  def initialize_user(_user)
     can :index, Chair
     can :apply, Chair
     can :read, Project do |project|
@@ -75,9 +75,9 @@ class Ability
     #can remove wimis from project
   end
 
-  def initialize_superadmin(user)
+  def initialize_superadmin(_user)
     can :manage,      Chair
-    cannot  :show,    Chair
+    cannot :show,    Chair
     #assign representative/admin role to user
   end
 end

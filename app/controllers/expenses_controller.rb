@@ -41,11 +41,12 @@ class ExpensesController < ApplicationController
   end
 
   private
-    def set_expense
-      @expense = Expense.find(params[:id])
-    end
 
-    def expense_params
-      params[:expense].permit(Expense.column_names.map(&:to_sym))
-    end
+  def set_expense
+    @expense = Expense.find(params[:id])
+  end
+
+  def expense_params
+    params[:expense].permit(Expense.column_names.map(&:to_sym))
+  end
 end

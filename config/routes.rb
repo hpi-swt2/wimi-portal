@@ -35,9 +35,7 @@ Rails.application.routes.draw do
     end
   end
 
-
   get 'projects/typeahead/:query' => 'projects#typeahead'
-
 
   resources :holidays
   resources :expenses
@@ -64,5 +62,4 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
-
 end
