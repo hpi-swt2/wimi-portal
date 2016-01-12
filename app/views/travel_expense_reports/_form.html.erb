@@ -75,7 +75,7 @@
       </tr>
       <%= f.fields_for :travel_expense_report_items do |t| %>
       <tr>
-        <td><%= t.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %></td>
+        <td><%= t.text_field :date, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %></td>
         <td><%= t.check_box :breakfast %></td>
         <td><%= t.check_box :lunch %></td>
         <td><%= t.check_box :dinner %></td>
