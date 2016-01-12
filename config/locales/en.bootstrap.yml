@@ -99,6 +99,8 @@ en:
     update:
       user_updated: "User updated successfully"
     show:
+      business_trips: "Business Trips"
+      request_trip: "Request Business Trip"
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
       user_data: "User Data"
