@@ -35,6 +35,7 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
+      hide: "Ausblenden"
   chairs:
     navigation:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
@@ -115,3 +116,7 @@ de:
       - Oktober
       - November
       - Dezember
+  events:
+    event_admin_right:
+      added: "%{trigger} hat %{target} Admin-Rechte verliehen."
+      removed: "%{trigger} hat %{target} Admin-Rechte entzogen."

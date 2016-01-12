@@ -132,7 +132,7 @@ class ChairsController < ApplicationController
     chair_wimi.admin = true
 
     if chair_wimi.save
-      ActiveSupport::Notifications.instrument("event", {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: "EventAdminAdded", seclevel: :admin})
+      ActiveSupport::Notifications.instrument("event", {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: "EventAdminRight", seclevel: :admin, status: "added"})
       flash[:success] = I18n.t('chair.set_admin.success', default: 'Admin was successfully set.')
       redirect_to chair_path(@chair)
     else
@@ -144,7 +144,7 @@ class ChairsController < ApplicationController
   def withdraw_admin
     chair_wimi = ChairWimi.find(params[:request])
     if chair_wimi.withdraw_admin(current_user)
-      ActiveSupport::Notifications.instrument("event", {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: "EventAdminRemoved", seclevel: :admin})
+      ActiveSupport::Notifications.instrument("event", {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: "EventAdminRight", seclevel: :admin, status: "removed"})
       flash[:success] = I18n.t('chair.withdraw.success', default: 'Admin rights was successfully removed.')
       redirect_to chair_path(@chair)
     else

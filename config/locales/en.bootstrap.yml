@@ -39,6 +39,7 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
+      hide: "Hide"
   chairs:
     navigation:
       not_authorized: "You are not allowed to do this action for this chair."
@@ -119,3 +120,7 @@ en:
       - October
       - November
       - December
+  events:
+    event_admin_right:
+      added: "%{trigger} hat %{target} Admin-Rechte verliehen."
+      removed: "%{trigger} hat %{target} Admin-Rechte entzogen."

@@ -19,5 +19,6 @@ ActiveSupport::Notifications.subscribe "event" do |name,start,finish,id,payload|
     event.chair = payload[:chair]
     event.seclevel = payload[:seclevel]
     event.type = payload[:type]
+    event.status = payload[:status]
   end
 end
