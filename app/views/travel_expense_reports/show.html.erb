@@ -42,22 +42,22 @@
 
 <p>
   <strong><%= t('.car') %>:</strong>
-  <%= @travel_expense_report.car %>
+  <%= t(@travel_expense_report.car.to_s) %>
 </p>
 
 <p>
   <strong><%= t('.public_transport') %>:</strong>
-  <%= @travel_expense_report.public_transport %>
+  <%= t(@travel_expense_report.public_transport.to_s) %>
 </p>
 
 <p>
   <strong><%= t('.vehicle_advance') %>:</strong>
-  <%= @travel_expense_report.vehicle_advance %>
+  <%= t(@travel_expense_report.vehicle_advance.to_s) %>
 </p>
 
 <p>
   <strong><%= t('.hotel') %>:</strong>
-  <%= @travel_expense_report.hotel %>
+  <%= t(@travel_expense_report.hotel.to_s) %>
 </p>
 
 <p>
@@ -67,12 +67,12 @@
 
 <p>
   <strong><%= t('.signature') %>:</strong>
-  <%= @travel_expense_report.signature %>
+  <%= t(@travel_expense_report.signature.to_s) %>
 </p>
 <ul>
   <%= render @travel_expense_report.travel_expense_report_items %>
 </ul>
 
-<%= link_to 'Edit', edit_travel_expense_report_path(@travel_expense_report) %> |
-<%= link_to 'Back', travel_expense_reports_path %> |
-<%= link_to 'Download', generate_pdf_path(doc_type: 'Reisekostenabrechnung', doc_id: @travel_expense_report) %>
+<%= link_to t('helpers.links.edit'), edit_travel_expense_report_path(@travel_expense_report) , class: "btn btn-default btn-xs"%> |
+<%= link_to t('helpers.links.back'), travel_expense_reports_path , class: "btn btn-default btn-xs"%> |
+<%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Reisekostenabrechnung', doc_id: @travel_expense_report) , class: "btn btn-success btn-xs"%>

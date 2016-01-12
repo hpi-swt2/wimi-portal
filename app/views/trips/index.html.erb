@@ -24,9 +24,9 @@
         <td><%= trip.reason %></td>
         <td><%= trip.annotation %></td>
         <td><%= trip.status %></td>
-        <td><%= link_to t('helpers.links.show_details'), trip %></td>
-        <td><%= link_to t('helpers.links.edit'), edit_trip_path(trip) %></td>
-        <td><%= link_to t('helpers.links.destroy'), trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('helpers.links.show_details'), trip, class: "btn btn-default btn-xs" %></td>
+        <td><%= link_to t('helpers.links.edit'), edit_trip_path(trip) , class: "btn btn-default btn-xs"%></td>
+        <td><%= link_to t('helpers.links.destroy'), trip, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-xs"%></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Trip', new_trip_path,class: "btn btn-primary"%>
+<%= link_to t('helpers.links.new'), new_trip_path,class: "btn btn-primary"%>
