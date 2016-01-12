@@ -10,8 +10,8 @@ RSpec.describe "travel_expense_reports/index", type: :view do
 
   it "renders a list of travel_expense_reports" do
     render
-    expect(rendered).to match /2000/
     expect(rendered).to match /Hana Things/
-    expect(rendered).to match /1337/
+    expect(rendered).to match /Berlin/
+    expect(rendered).to match /Potsdam/
   end
 end
