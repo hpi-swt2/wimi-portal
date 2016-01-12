@@ -64,7 +64,7 @@ class Ability
 
   def initialize_superadmin(user)
     can :manage,      Chair
-    cannot  :show,    Chair
+    cannot :show,    Chair
     #assign representative/admin role to user
   end
 end

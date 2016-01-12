@@ -21,5 +21,5 @@ class Expense < ActiveRecord::Base
   enum status: [:saved, :applied, :accepted, :declined]
 
   validates :amount, format: {with: /\A\d+(?:\.\d{0,2})?\z/}, numericality: {greater_than: 0}
-  validates_length_of :purpose, minimum: 1,  allow_blank: false
+  validates_length_of :purpose, minimum: 1, allow_blank: false
 end
