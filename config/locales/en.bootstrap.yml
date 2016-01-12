@@ -114,11 +114,11 @@ en:
   event_time_sheet_declineds:
     event_time_sheet_declined:
       view: "View"
-      full_html: "%{signer} <b>declined</b> your time sheet for %{project} - %{month}."
+      full_html: "%{signer} from %{project} <b>declined</b> your time sheet for %{month}."
   event_time_sheet_accepteds:
     event_time_sheet_accepted:
       view: "View"
-      full_html: "%{signer} <b>accepted</b> your time sheet for %{project} - %{month}."
+      full_html: "%{signer} from %{project} <b>accepted</b> your time sheet for %{month}."
   event_project_invitations:
     event_project_invitation:
       accept: "Accept"

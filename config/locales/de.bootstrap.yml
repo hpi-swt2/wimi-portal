@@ -108,11 +108,11 @@ de:
   event_time_sheet_declineds:
     event_time_sheet_declined:
       view: "Ansehen"
-      full_html: "%{signer} hat Ihren Stundenzettel für das Projekt %{project} - %{month} <b>abgelehnt</b>."
+      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>abgelehnt</b>."
   event_time_sheet_accepteds:
     event_time_sheet_accepted:
       view: "Ansehen"
-      full_html: "%{signer} hat Ihren Stundenzettel für das Projekt %{project} - %{month} <b>bestätigt</b>."
+      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>bestätigt</b>."
   event_project_invitations:
     event_project_invitation:
       accept: "Annehmen"
