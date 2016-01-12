@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
   post 'chairs/:id/requests' => 'chairs#requests_filtered', as: 'requests_filtered'
   get 'projects/typeahead/:query' => 'projects#typeahead'
-
+  post 'events/hide', to: 'events#hide', as: 'hide_event'
 
 
   devise_for :users
