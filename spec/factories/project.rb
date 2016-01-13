@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :project do
+  factory :project, class: 'Project' do
     title 'Factory Project'
     chair {FactoryGirl.create(:chair)}
   end

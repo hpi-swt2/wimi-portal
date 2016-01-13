@@ -24,10 +24,9 @@ describe 'project filtering and searching' do
     expect(page).to have_content(@project20.title)
   end
 
-
   it 'should filter by chair' do
-    select @chair1.name, :from => "chair"
-    click_on "Search"
+    select @chair1.name, from: 'chair'
+    click_on 'Search'
 
     expect(page).to have_content(@project10.title)
     expect(page).to have_content(@project11.title)
@@ -35,8 +34,8 @@ describe 'project filtering and searching' do
   end
 
   it 'should search for project title' do
-    fill_in 'title', :with => '0'
-    click_on "Search"
+    fill_in 'title', with: '0'
+    click_on 'Search'
 
     expect(page).to have_content(@project10.title)
     expect(page).to_not have_content(@project11.title)
@@ -44,13 +43,12 @@ describe 'project filtering and searching' do
   end
 
   it 'should filter by project title and chair name' do
-    select @chair1.name, :from => "chair"
-    fill_in 'title', :with => '0'
-    click_on "Search"
+    select @chair1.name, from: 'chair'
+    fill_in 'title', with: '0'
+    click_on 'Search'
 
     expect(page).to have_content(@project10.title)
     expect(page).to_not have_content(@project11.title)
     expect(page).to_not have_content(@project20.title)
   end
 end
-

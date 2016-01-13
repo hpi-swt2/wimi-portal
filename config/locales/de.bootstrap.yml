@@ -19,6 +19,7 @@ de:
       confirm: "Sicher?"
       destroy: "Löschen"
       new: "Neu"
+      apply: "Bewerben"
       edit: "Bearbeiten"
       leave: "Verlassen"
       edit_leave: "Resturlaub bearbeiten"
@@ -36,6 +37,21 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
+  project_applications:
+    states:
+      pending: "Ausstehend"
+      declined: "Abgelehnt"
+      accepted: "Akzeptiert"
+    created: "Bewerbung wurde erfolgreich erstellt"
+    not_created: "Bewerbung konnte nicht erstellt werden"
+    destroy: "Bewerbung wurde zurückgezogen"
+    index:
+      cancel: "Bewerbung zurückziehen"
+    reapply: "Erneut bewerben"
+    refused_reapply: "Bewerbung abgelehnt - Erneut bewerben"
+    pending_cancel: "Bewerbung ausstehend - Zurückziehen"
+    accept_application: "Bewerbung akzeptieren"
+    decline_application: "Bewerbung ablehnen"
   projects:
     form:
       wimi: "Wissenschaftliche Mitarbeiter"

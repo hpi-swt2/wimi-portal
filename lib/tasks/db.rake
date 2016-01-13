@@ -1,5 +1,5 @@
 namespace :db do
-  task :add_demo_data => :environment do
+  task add_demo_data: :environment do
     joe = User.create(first_name: 'John', last_name: 'Doe', email: 'john.doe@student.hpi.de')
     epic = Chair.create(name: 'EPIC')
     joe_hiwi = ChairWimi.create(user: joe, chair: epic, admin: true)

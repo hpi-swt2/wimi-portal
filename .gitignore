@@ -43,4 +43,5 @@ bower.json
 /nbproject/private/
 /config/database.yml
 
-.idea
+# Ignore RubyMine IDE project files
+.idea/
