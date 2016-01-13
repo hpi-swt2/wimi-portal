@@ -49,8 +49,4 @@ class Project < ActiveRecord::Base
     users.select { |u| u.is_wimi? }
   end
 
-  def remove_user(user)
-    users.delete(user)
-  end
-
 end
