@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'superadmin' => 'superadmin#index', as: 'superadmin'
+  get 'superadmin/login' => 'superadmin#login', as: 'superadmin_loginn'
+
   resources :chair_applications
   resources :chairs
 
