@@ -175,6 +175,7 @@ de:
     event_user_chair:
       added: "%{trigger} hat %{target} in den Lehrstuhl aufgenommen."
       removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."
+      declined: "%{trigger} hat die Bewerbung von %{target} für den Lehrstuhl abgelehnt"
     event_chair_application: "%{trigger} hat einen Mitgliedsantrag für ihren Lehrstuhl erstellt."
   chairs:
     navigation:

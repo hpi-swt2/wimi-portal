@@ -80,9 +80,10 @@ class ChairsController < ApplicationController
 
   def remove_from_chair
     chair_wimi = ChairWimi.find(params[:request])
+    status = ('removed' if chair_wimi.application == 'accepted') || ('declined' if chair_wimi.application == 'pending')
 
     if chair_wimi.remove(current_user)
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: 'removed'})
+      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: status})
       flash[:success] = I18n.t('chair.remove_from_chair.success')
       redirect_to chair_path(@chair)
     else
