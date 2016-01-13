@@ -16,7 +16,7 @@ class TripDatespan < ActiveRecord::Base
 
   validates :start_date, presence: true
   validates :end_date, presence: true
-  validates :days_abroad, presence: true, numericality: true
+  validates :days_abroad, presence: true, numericality: {greater_than_or_equal_to: 0}
   validate :start_before_end_date, :days_abroad_leq_to_total_days
 
   def total_days
