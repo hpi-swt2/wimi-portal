@@ -6,10 +6,10 @@
   <h1>
     <%= t('.working_hours_for')%> <%=l Date.new(@year,@month,1), format: :without_day %>
     <%unless @project.nil?%>
-      <%= ' ' + @project.title%>
+      <%= @project.title %>
     <%end%>
     <% unless @time_sheet.nil? %>
-      <%= ' ' + t('.by') + ' ' + User.find(@time_sheet.user_id).name%>
+      <%= t('.by') + ' ' + User.find(@time_sheet.user_id).name%>
     <% end %>
   </h1>
 </div>
@@ -42,7 +42,7 @@
           <td><%= work_day.attendance %></td>
           <td><%= work_day.notes %></td>
           <td>
-            <% if work_day.user_id = current_user.id %>
+            <% if work_day.user_id == current_user.id && (@time_sheet.nil? ? true : @time_sheet.handed_in == false)%>
               <%= link_to t('.edit', default: t("helpers.links.edit")),
                   edit_work_day_path(work_day), class: 'btn btn-default btn-xs' %>
               <%= link_to t('.destroy', default: t("helpers.links.destroy")),
@@ -72,7 +72,7 @@
       <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %>
         <%= form_for @time_sheet do |f| %>
           <%= f.hidden_field :do, value: 'sign' %>
-          <%= f.submit t('.sign'), class: 'btn btn-primary' %>
+          <%= f.submit t('.accept'), class: 'btn btn-primary' %>
         <% end %>
         <%= form_for @time_sheet do |f| %>
           <%= f.hidden_field :do, value: 'reject' %>
@@ -98,13 +98,13 @@
           <%= t('.reject_reason') + @time_sheet.rejection_message %>
           <%= form_for @time_sheet do |f| %>
             <%= f.hidden_field :do, value: 'hand_in' %>
-            <%= f.submit t('.sign'),  class: 'btn btn-primary' %>
+            <%= f.submit t('.hand_in'),  class: 'btn btn-primary' %>
           <% end %>
         <% else %>
           <% if @time_sheet.user_id = current_user.id %>
             <%= form_for @time_sheet do |f| %>
               <%= f.hidden_field :do, value: 'hand_in' %>
-              <%= f.submit t('.sign'), class: 'btn btn-primary' %>
+              <%= f.submit t('.hand_in'), class: 'btn btn-primary' %>
             <%end%>
           <% end %>   
         <% end %>   
