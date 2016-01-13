@@ -2,14 +2,15 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  description :string           default("")
-#  public      :boolean          default(FALSE)
-#  active      :boolean          default(TRUE)
-#  chair_id    :integer
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  description    :string           default("")
+#  public         :boolean          default(TRUE)
+#  status         :boolean          default(TRUE)
+#  chair_id       :integer
+#  project_leader :string           default("")
 #
 
 class Project < ActiveRecord::Base
@@ -33,6 +34,10 @@ class Project < ActiveRecord::Base
     users << user
   end
 
+  def remove_user(user)
+    users.delete(user)
+  end
+
   def destroy_invitation(user)
     Invitation.find_by(user: user, project: self).destroy!
   end
@@ -45,7 +50,4 @@ class Project < ActiveRecord::Base
     users.select(&:is_wimi?)
   end
 
-  def remove_user(user)
-    users.delete(user)
-  end
 end
