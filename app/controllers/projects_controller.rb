@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-
   before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user, :accept_invitation, :decline_invitation]
 
   has_scope :title
