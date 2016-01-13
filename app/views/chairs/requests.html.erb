@@ -71,8 +71,8 @@
           <tr>
             <td><%= request[:name] %></td>
             <td><%= request[:type] %></td>
-            <td><%=l request[:handed_in] %></td>
-            <td><%= t('.' + request[:status]) %></td>
+            <td><%= l request[:handed_in] %></td>
+            <td><%= t(request[:status], scope: 'chairs.requests') %></td>
             <td><%= link_to t('helpers.links.show_details'), request[:action] %></td>
 
       <% end %>
