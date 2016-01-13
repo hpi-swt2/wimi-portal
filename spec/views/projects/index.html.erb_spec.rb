@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'projects/index.html.erb', type: :view do
+RSpec.describe 'projects/index', type: :view do
   before(:each) do
     assign(:projects, [
       FactoryGirl.create(:project),
