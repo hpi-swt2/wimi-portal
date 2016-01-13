@@ -37,6 +37,9 @@ de:
       publication:
         one: "Veröffentlichung"
         other: "Veröffentlichungen"
+      travel_expense_report:
+        one: "Reisekostenabrechnung"
+        other: "Reisekostenabrechnungen"
       trip:
         one: "Geschäftsreise"
         other: "Geschäftsreisen"
@@ -135,8 +138,25 @@ de:
         residence: "Wohnort"
         street: "Straße"
         personnel_number: "Personalnummer"
-        division_id: "Fachgebiet"
         language: "Sprache"
+      request:
+        name: "Name"
+        type: "Art"
+        handed_in: "Eingereicht am"
+        status: "Status"
+        not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
+    errors:
+      models:
+        travel_expense_report:
+          attributes:
+            location_from:
+              blank: "darf nicht leer sein."
+            location_to:
+              blank: "darf nicht leer sein."
+            general_advance:
+              blank: "darf nicht leer sein."
+              not_a_number: "muss eine ganze Zahl sein."
+              greater_than_or_equal_to: "darf nicht negativ sein."
   links:
     search: 'Suchen'
     submit: 'Abschicken'
@@ -151,10 +171,42 @@ de:
       already_is_member: 'Dieser Benutzer ist bereits Mitglied des Projekts.'
       was_successfully_invited: 'Der Benutzer wurde erfolgreich eingeladen.'
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
-    chair:
-      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+  chair:
+    not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
       default: "%d/%m/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  chair:
+    destroy:
+      error: "Lehrstuhl konnte nicht gelöscht werden"
+      success: "Lehrstuhl wurde erfolgreich gelöscht"
+    create:
+      success: "Lehrstuhl wurde erfolgreich erstellt"
+      error: "Das Formular wurde nicht vollständig ausgefüllt!"
+    update:
+      success: "Lehrstuhl erfolgreich aktualisiert"
+      error: "Das Formular wurde nicht vollständig ausgefüllt!"
+    accept_request:
+      success: "Anfrage erfolgreich angenommen"
+      error: "Fehler beim Annehmen der Anfrage"
+    remove_from_chair:
+      success: "Benutzer erfolgreich entfernt"
+      error: "Nutzer konnte nicht entfernt werden"
+    set_admin:
+      success: "User wurde erfolgreich zum Admin ernannt"
+      error: "User konnte nicht zum Admin ernannt werden"
+    withdraw:
+      success: "Adminrechte wurden erfolgreich entzogen"
+      error: "Adminrechte konnten nicht entzogen werden"
+    apply:
+      success: "Wimi-Anfrage erfolgreich erstellt"
+      error: "Wimi-Anfrage konnte nicht erstellt werden"
+    requests:
+      holiday_request: "Urlaubsantrag"
+      expense_request: "Reisekostenabrechnung"
+      trip_request: "Dienstreiseantrag"
+
+  "true": "Ja"
+  "false": "Nein"

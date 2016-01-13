@@ -3,9 +3,9 @@ class ChairsController < ApplicationController
   load_and_authorize_resource
   before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
 
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = I18n.t('chairs.navigation.not_authorized')
-    if (current_user.is_admin? || current_user.is_representative?)
+    if current_user.is_admin? || current_user.is_representative?
       redirect_to chair_path(current_user.chair)
     else
       redirect_to dashboard_path
@@ -19,10 +19,10 @@ class ChairsController < ApplicationController
   # Superadmin tasks:
   def destroy
     if @chair.destroy
-      flash[:success] = I18n.t('chair.destroy.success', default: 'Chair was successfully destroyed.')
+      flash[:success] = I18n.t('chair.destroy.success')
       redirect_to chairs_path
     else
-      flash[:error] = I18n.t('chair.destroy.error', default: 'Chair could not be destroyed.')
+      flash[:error] = I18n.t('chair.destroy.error')
       redirect_to chairs_path
     end
   end
@@ -35,10 +35,10 @@ class ChairsController < ApplicationController
     @chair = Chair.new(chair_params)
 
     if @chair.add_users(params[:admin_user], params[:representative_user])
-      flash[:success] = I18n.t('chair.create.success', default: 'Chair successfully created.')
+      flash[:success] = I18n.t('chair.create.success')
       redirect_to chairs_path
     else
-      flash[:error] = I18n.t('chair.create.error', default: 'The form is not filled completely!')
+      flash[:error] = I18n.t('chair.create.error')
       render :new
     end
   end
@@ -50,10 +50,10 @@ class ChairsController < ApplicationController
   def update
     if @chair.edit_users(params[:admin_user], params[:representative_user])
       @chair.update(chair_params)
-      flash[:success] = I18n.t('chair.update.success', default: 'Chair successfully updated.')
+      flash[:success] = I18n.t('chair.update.success')
       redirect_to chairs_path
     else
-      flash[:error] = I18n.t('chair.update.error', default: 'The form is not filled completely!')
+      flash[:error] = I18n.t('chair.update.error')
       render :new
     end
   end
@@ -70,10 +70,10 @@ class ChairsController < ApplicationController
 
     if chair_wimi.save
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: 'added'})
-      flash[:success] = I18n.t('chair.accept_request.success', default: 'Application was successfully accepted.')
+      flash[:success] = I18n.t('chair.accept_request.success')
       redirect_to chair_path(@chair)
     else
-      flash[:error] = I18n.t('chair.accept_request.error', default: 'Accepting application failed')
+      flash[:error] = I18n.t('chair.accept_request.error')
       redirect_to chair_path(@chair)
     end
   end
@@ -83,17 +83,14 @@ class ChairsController < ApplicationController
 
     if chair_wimi.remove(current_user)
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: 'removed'})
-      flash[:success] = I18n.t('chair.remove_from_chair.success', default: 'User was successfully removed.')
+      flash[:success] = I18n.t('chair.remove_from_chair.success')
       redirect_to chair_path(@chair)
     else
-      flash[:error] = I18n.t('chair.remove_from_chair.error', default: 'Destroying Chair_wimi failed')
+      flash[:error] = I18n.t('chair.remove_from_chair.error')
       redirect_to chair_path(@chair)
     end
   end
 
-  def requests
-    @allrequests = @chair.get_all_requests
-  end
 
   # New stuff here
 
@@ -135,10 +132,10 @@ class ChairsController < ApplicationController
 
     if chair_wimi.save
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventAdminRight', seclevel: :admin, status: 'added'})
-      flash[:success] = I18n.t('chair.set_admin.success', default: 'Admin was successfully set.')
+      flash[:success] = I18n.t('chair.set_admin.success')
       redirect_to chair_path(@chair)
     else
-      flash[:error] = I18n.t('chair.set_admin.error', default: 'Admin setting failed.')
+      flash[:error] = I18n.t('chair.set_admin.error')
       redirect_to chair_path(@chair)
     end
   end
@@ -147,10 +144,10 @@ class ChairsController < ApplicationController
     chair_wimi = ChairWimi.find(params[:request])
     if chair_wimi.withdraw_admin(current_user)
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventAdminRight', seclevel: :admin, status: 'removed'})
-      flash[:success] = I18n.t('chair.withdraw.success', default: 'Admin rights was successfully removed.')
+      flash[:success] = I18n.t('chair.withdraw.success')
       redirect_to chair_path(@chair)
     else
-      flash[:error] = I18n.t('chair.withdraw.error', default: 'Admin right removing failed.')
+      flash[:error] = I18n.t('chair.withdraw.error')
       redirect_to chair_path(@chair)
     end
   end
@@ -166,16 +163,16 @@ class ChairsController < ApplicationController
     end
 
     if success
-
-      flash[:success] = I18n.t('chair.apply.success', default: 'Chair wimi application was successfully created.')
+      flash[:success] = I18n.t('chair.apply.success')
       redirect_to chairs_path
     else
-      flash[:error] = I18n.t('chair.apply.error', default: 'Saving chair wimi application failed')
+      flash[:error] = I18n.t('chair.apply.error')
       redirect_to chairs_path
     end
   end
 
   private
+
   def set_chair
     @chair = Chair.find(params[:id])
   end
@@ -184,14 +181,13 @@ class ChairsController < ApplicationController
     params.require(:chair).permit(:name)
   end
 
-
   def create_allrequests
     @allrequests = Array.new
 
     @chair.users.each do |user|
-      add_requests('Holiday Request', user.holidays) if @types.include? 'holidays'
-      add_requests('Expense Request', user.expenses) if @types.include? 'expenses'
-      add_requests('Trip Request', user.trips) if @types.include? 'trips'
+      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays) if @types.include? 'holidays'
+      add_requests(I18n.t('chair.requests.expense_request'), user.expenses) if @types.include? 'expenses'
+      add_requests(I18n.t('chair.requests.trip_request'), user.trips) if @types.include? 'trips'
     end
 
     @allrequests = @allrequests.sort_by { |v| v[:handed_in] }.reverse

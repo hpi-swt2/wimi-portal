@@ -16,26 +16,26 @@ class ChairWimi < ActiveRecord::Base
   validates :user, :chair, presence: true
 
   def remove(current_user)
-    if current_user == self.user || self.representative
+    if current_user == user || representative
       return false
     end
-    self.destroy
+    destroy
   end
 
   def withdraw_admin(current_user)
-    if current_user == self.user || chair.chair_wimis.count == 1
+    if current_user == user || chair.chair_wimis.count == 1
       return false
     else
       self.admin = false
-      self.save
+      save
     end
   end
 
   def is_admin?
-    return self.admin
+    admin
   end
 
   def is_representative?
-    return self.representative
+    representative
   end
 end

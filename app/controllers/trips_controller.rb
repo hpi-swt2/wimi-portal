@@ -14,7 +14,7 @@ class TripsController < ApplicationController
   end
 
   def edit
-    (2-@trip.trip_datespans.size).times {@trip.trip_datespans.build}
+    fill_blank_items
   end
 
   def create
@@ -24,15 +24,17 @@ class TripsController < ApplicationController
     if @trip.save
       redirect_to @trip, notice: 'Trip was successfully created.'
     else
+      fill_blank_items
       render :new
     end
   end
 
   def update
     if @trip.update(trip_params)
-       redirect_to @trip, notice: 'Trip was successfully updated.'
+      redirect_to @trip, notice: 'Trip was successfully updated.'
     else
-       render :edit
+      fill_blank_items
+      render :edit
     end
   end
 
@@ -45,11 +47,16 @@ class TripsController < ApplicationController
   end
 
   private
-    def set_trip
-      @trip = Trip.find(params[:id])
-    end
 
-    def trip_params
-      params.require(:trip).permit(Trip.column_names.map(&:to_sym), trip_datespans_attributes: [:id,:start_date, :end_date,:days_abroad])
-    end
+  def set_trip
+    @trip = Trip.find(params[:id])
+  end
+
+  def trip_params
+    params.require(:trip).permit(Trip.column_names.map(&:to_sym), trip_datespans_attributes: [:id, :start_date, :end_date, :days_abroad])
+  end
+
+  def fill_blank_items
+    (2 - @trip.trip_datespans.size).times {@trip.trip_datespans.build}
+  end
 end

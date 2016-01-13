@@ -1,9 +1,26 @@
+# == Schema Information
+#
+# Table name: work_days
+#
+#  id         :integer          not null, primary key
+#  date       :date
+#  start_time :time
+#  break      :integer
+#  end_time   :time
+#  attendance :string
+#  notes      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#  project_id :integer
+#
+
 class WorkDay < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
 
   validates :user_id, presence: true, numericality: true
-  validates :project_id, presence:true, numericality: true
+  validates :project_id, presence: true, numericality: true
   validates :date, presence: true
   validates :start_time, presence: true
   validates :break, presence: true, numericality: true
@@ -11,11 +28,11 @@ class WorkDay < ActiveRecord::Base
   validate :project_id_exists
 
   def duration
-    return (end_time - start_time).to_i / 60 - self.break
+    (end_time - start_time).to_i / 60 - self.break
   end
 
   def project_id_exists
-    return false if Project.find_by_id(self.project_id).nil?
+    return false if Project.find_by_id(project_id).nil?
   end
 
   def self.all_for(year, month, project, user)
