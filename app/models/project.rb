@@ -47,6 +47,7 @@ class Project < ActiveRecord::Base
 
   def remove_user(user)
     users.delete(user)
+    project_applications.delete(ProjectApplication.find_by_user_id user.id)
   end
 
 end
