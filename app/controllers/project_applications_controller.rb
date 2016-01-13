@@ -43,11 +43,12 @@ class ProjectApplicationsController < ApplicationController
   end
 
   private
-    def set_project_application
-      @project_application = ProjectApplication.find(params[:id])
-    end
 
-    def project_application_params
-      params.permit(:project_id, :user_id)
-    end
+  def set_project_application
+    @project_application = ProjectApplication.find(params[:id])
+  end
+
+  def project_application_params
+    params.permit(:project_id, :user_id)
+  end
 end

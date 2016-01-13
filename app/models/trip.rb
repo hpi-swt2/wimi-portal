@@ -20,9 +20,9 @@ class Trip < ActiveRecord::Base
   validates :destination, presence: true
   validates :user, presence: true
   has_many :expenses
-  enum status: [ :saved, :applied, :accepted, :declined ]
+  enum status: [:saved, :applied, :accepted, :declined]
 
   def name
-    self.user.name
+    user.name
   end
 end

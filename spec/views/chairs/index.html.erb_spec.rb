@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "chairs/index.html.erb", type: :view do
+RSpec.describe 'chairs/index.html.erb', type: :view do
   before :each do
     @superadmin = FactoryGirl.create(:user)
     @superadmin.superadmin = true
