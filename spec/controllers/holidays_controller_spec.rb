@@ -29,11 +29,11 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {start: Date.today, end: Date.today+1, user_id: @user.id}
+    {start: Date.today, end: Date.today + 1, user_id: @user.id}
   }
 
   let(:invalid_attributes) {
-    {start: Date.today-1, end: Date.today, user_id: @user.id}
+    {start: Date.today - 1, end: Date.today, user_id: @user.id}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -58,7 +58,7 @@ RSpec.describe HolidaysController, type: :controller do
 
     it 'redirects to the holidays page if holiday belongs to another user' do
       user2 = FactoryGirl.create(:user)
-      holiday = Holiday.create(start: Date.today, end: Date.today+1, user_id: user2.id)
+      holiday = Holiday.create(start: Date.today, end: Date.today + 1, user_id: user2.id)
       get :show, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_path)
     end
@@ -115,7 +115,7 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { status: 'applied' }
+        {status: 'applied'}
       }
 
       it 'updates the requested holiday' do

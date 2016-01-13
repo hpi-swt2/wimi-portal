@@ -4,9 +4,11 @@ RSpec.describe 'projects/index', type: :view do
   before(:each) do
     sign_in FactoryGirl.create(:user)
     assign(:projects, [
-      Project.create!(title: 'My Project'),
-      Project.create!(title: 'My Project')
+      FactoryGirl.create(:project),
+      FactoryGirl.create(:project)
     ])
+    @user = FactoryGirl.create(:user)
+    login_as @user
   end
 
   it 'renders a list of projects' do

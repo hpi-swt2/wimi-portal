@@ -21,6 +21,8 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
+      @project.update(chair: current_user.chair)
+      current_user.projects << @project
       flash[:success] = 'Project was successfully created.'
       redirect_to @project
     else
@@ -65,6 +67,28 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def toggle_status
+    @project = Project.find(params[:id])
+    if @project.status
+      @project.update(status: false)
+    else
+      @project.update(status: true)
+    end
+    @project.reload
+    redirect_to project_path(@project)
+  end
+
+  def sign_user_out
+    user = User.find(params[:user_id])
+    @project = Project.find(params[:id])
+    @project.remove_user(user)
+    if user == current_user
+      redirect_to @project
+    else
+      redirect_to edit_project_path(@project)
+    end
+  end
+
   def accept_invitation
     @project.add_user current_user
     @project.destroy_invitation current_user
@@ -84,11 +108,12 @@ class ProjectsController < ApplicationController
   end
 
   private
-    def set_project
-      @project = Project.find(params[:id])
-    end
 
-    def project_params
-      params[:project].permit(Project.column_names.map(&:to_sym), { user_ids:[] })
-    end
+  def set_project
+    @project = Project.find(params[:id])
+  end
+
+  def project_params
+    params[:project].permit(Project.column_names.map(&:to_sym), {user_ids: []})
+  end
 end

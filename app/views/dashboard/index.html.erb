@@ -5,19 +5,19 @@
 </div>
 
 <div class="col-md-12">
- <% unless @invitations.nil? %>
-    <% @invitations.each do |invitation| %>
-      <div class="col-md-8 flash-message">
-        <div class="alert alert-warning col-md-12">
-          <%= t("user.invited_to_project",
-            default: "You have been invited to the project \"#{Project.find(invitation.project_id).title}\"") %>
-          <br>
-          <br>
-          <%= link_to t("links.accept", default: "Accept"), accept_invitation_project_path(invitation.project_id), :class => "btn btn-primary" %>
-          <%= link_to t("links.decline", default: "Decline"), decline_invitation_project_path(invitation.project_id), :class => "btn btn-default" %>
-        </div>
-      </div>
-    <% end %>
+  <% unless @invitations.nil? %>
+      <% @invitations.each do |invitation| %>
+          <div class="col-md-8 flash-message">
+            <div class="alert alert-warning col-md-12">
+              <%= t("user.invited_to_project",
+                    default: "You have been invited to the project \"#{Project.find(invitation.project_id).title}\"") %>
+              <br>
+              <br>
+              <%= link_to t("links.accept", default: "Accept"), accept_invitation_project_path(invitation.project_id), class: "btn btn-primary" %>
+              <%= link_to t("links.decline", default: "Decline"), decline_invitation_project_path(invitation.project_id), class: "btn btn-default" %>
+            </div>
+          </div>
+      <% end %>
   <% end %>
 </div>
 
@@ -25,10 +25,12 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th><%= model_class.human_attribute_name(:id) %></th>
-    <th><%= model_class.human_attribute_name(:title) %></th>
-    <th><%= model_class.human_attribute_name(:created_at) %></th>
-    <th><%= t '.actions', default: t("helpers.actions") %></th>
+    <th><%= "ID" %></th>
+    <th><%= t('projects.index.title', default: model_class.human_attribute_name(:title)) %></th>
+    <th><%= t('projects.index.accessibility', default:'Accessibility') %></th>
+    <th><%= t('projects.show.project_visibility', default:'Visibility')%> </th>
+    <th><%= t('projects.index.created_at' , default: model_class.human_attribute_name(:created_at)) %></th>
+    <th><%=t '.actions', default: t("helpers.actions") %></th>
   </tr>
   </thead>
   <tbody>
@@ -36,7 +38,9 @@
       <tr>
         <td><%= link_to project.id, project_path(project) %></td>
         <td><%= link_to project.title, project %></td>
-        <td><%= l project.created_at %></td>
+        <td><%= project.status ? t('projects.index.active') : t('projects.index.inactive') %></td>
+        <td><%= project.public ? t('projects.show.public') : t('projects.index.private') %></td>
+        <td><%=l project.created_at %></td>
         <td>
           <%= link_to t('.edit', default: t("helpers.links.edit")),
                       edit_project_path(project), class: 'btn btn-default btn-xs' %>
@@ -50,8 +54,9 @@
   <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
+<% if can? :create, Project %>
+    <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
+<% end %>
 
 <% if current_user.is_representative? %>
     <br/>

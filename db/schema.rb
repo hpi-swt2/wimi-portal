@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215145322) do
+ActiveRecord::Schema.define(version: 20151215185150) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -66,14 +66,23 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "project_applications", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "description", default: ""
-    t.boolean  "public",      default: false
-    t.boolean  "active",      default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "description",    default: ""
+    t.boolean  "public",         default: true
+    t.boolean  "status",         default: true
     t.integer  "chair_id"
+    t.string   "project_leader", default: ""
   end
 
   add_index "projects", ["chair_id"], name: "index_projects_on_chair_id"
@@ -192,7 +201,6 @@ ActiveRecord::Schema.define(version: 20151215145322) do
     t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
-    t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0

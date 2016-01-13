@@ -2,16 +2,16 @@ require 'rails_helper'
 
 describe 'the project button on the project index page' do
   it 'is available for wimis' do
-    @current_user = FactoryGirl.create(:wimi)
+    @current_user = FactoryGirl.create(:wimi, user_id: FactoryGirl.create(:user).id, chair_id: FactoryGirl.create(:chair).id, representative: true).user
     login_as @current_user
     visit projects_path
-    click_on I18n.t('projects.new')
+    click_on I18n.t('projects.index.new')
     expect(current_path).to eq(new_project_path)
   end
 
   it 'is not available for hiwis' do
     login_as FactoryGirl.create(:hiwi)
     visit projects_path
-    expect(page).to_not have_text I18n.t('projects.new')
+    expect(page).to_not have_text I18n.t('projects.index.new')
   end
 end
