@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       post 'invite_user'
-      get 'remove_user'
       get 'accept_invitation'
       get 'decline_invitation'
     end
