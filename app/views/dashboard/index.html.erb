@@ -82,6 +82,11 @@
   </tbody>
 </table>
 
+<% if can? :create, Project %>
+    <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
+<% end %>
+
+
 <div>
   <h3>Benachrichtungen</h3>
   <% unless @notifications.nil? %>
@@ -92,10 +97,6 @@
   </p>
   <% end %>
 </div>
-
-<% if can? :create, Project %>
-    <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
-<% end %>
 
 
 <% if current_user.is_representative? %>
