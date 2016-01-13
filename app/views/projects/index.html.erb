@@ -2,6 +2,11 @@
 <div class="page-header">
   <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
 </div>
+<% if can? :create, Project %>
+    <%= link_to t('.new', :default => t("helpers.links.new")),
+                new_project_path,
+                class: 'pull-right text-success' %>
+<% end %>
 <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
     <div class="col-md-12">
       <div class="col-md-2">
@@ -23,7 +28,6 @@
 <div class="col-md-12">
   </br>
 </div>
-
 <table class="table table-striped">
   <thead>
   <tr>
@@ -84,8 +88,3 @@
   <% end %>
   </tbody>
 </table>
-<% if can? :create, Project %>
-    <%= link_to t('.new', default: t("helpers.links.new")),
-                new_project_path,
-                class: 'btn btn-primary' %>
-<% end %>

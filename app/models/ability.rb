@@ -36,7 +36,7 @@ class Ability
 
   def initialize_wimi(user)
     initialize_user user
-    can :crud, Project
+    can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
     end

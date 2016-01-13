@@ -12,7 +12,7 @@ RSpec.describe 'projects/new', type: :view do
     wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
     login_as wimi
     visit projects_path
-    click_on I18n.t('helpers.links.new')
+    click_on I18n.t('projects.index.new')
     fill_in 'project_title', with: 'My New Project'
     click_on I18n.t('projects.form.create_project')
     expect(page).to have_content(wimi.chair.name)
