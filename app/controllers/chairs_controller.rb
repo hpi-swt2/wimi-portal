@@ -161,10 +161,12 @@ class ChairsController < ApplicationController
 
     success = false
     unless ChairWimi.find_by(user: current_user)
+      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, chair: wimi.chair, type: 'EventChairApplication', seclevel: :admin})
       success = wimi.save
     end
 
     if success
+
       flash[:success] = I18n.t('chair.apply.success', default: 'Chair wimi application was successfully created.')
       redirect_to chairs_path
     else

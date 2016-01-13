@@ -127,3 +127,4 @@ en:
     event_user_chair:
       added: "%{trigger} has admitted %{target} in chair."
       removed: "%{trigger} has removed %{target} from chair."
+    event_chair_application: "%{trigger} has applied for your chair."

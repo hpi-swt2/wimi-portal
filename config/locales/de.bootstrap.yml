@@ -123,3 +123,4 @@ de:
     event_user_chair:
       added: "%{trigger} hat %{target} in den Lehrstuhl aufgenommen."
       removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."
+    event_chair_application: "%{trigger} hat einen Mitgliedsantrag für ihren Lehrstuhl erstellt."
