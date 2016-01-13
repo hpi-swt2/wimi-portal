@@ -9,7 +9,11 @@ describe 'project inviations' do
 
   it 'does not show the invitation button if the wimi does not belong to the project' do
     chair1 = FactoryGirl.create(:chair)
+    chair2 = FactoryGirl.create(:chair)
+    user1 = FactoryGirl.create(:user)
+    representative1 = FactoryGirl.create(:chair_representative, user_id: user1.id, chair_id: chair2.id).user
     wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: chair1, application: 'accepted')
+    @project.update(chair: representative1.chair)
     expect(@user.is_wimi?).to be true
     visit "/projects/#{@project.id}"
     expect(page).to_not have_link(I18n.t('project.invite_someone_to_project'))
@@ -17,9 +21,12 @@ describe 'project inviations' do
 
   it 'does show the invitation button if the wimi belongs to the project' do
     chair1 = FactoryGirl.create(:chair)
-    wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: chair1, application: 'accepted')
+    user1 = FactoryGirl.create(:user)
+    representative1 = FactoryGirl.create(:chair_representative, user_id: user1.id, chair_id: chair1.id).user
+    wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: representative1.chair, application: 'accepted')
+    @project.update(chair: wimi1.chair)
     expect(@user.is_wimi?).to be true
-    @project.users << @user
+    @user.projects << @project
     visit "/projects/#{@project.id}"
     expect(page).to have_link(I18n.t('project.invite_someone_to_project'))
   end
@@ -32,6 +39,10 @@ describe 'project inviations' do
 
   it 'adds the user to the project if he accepts' do
     expect(@project.users.size).to eq 0
+    chair1 = FactoryGirl.create(:chair)
+    user1 = FactoryGirl.create(:user)
+    representative1 = FactoryGirl.create(:chair_representative, user_id: user1.id, chair_id: chair1.id).user
+    @project.update(chair: representative1.chair)
     FactoryGirl.create(:invitation, user: @user, project: @project)
     visit '/dashboard'
     click_on 'Accept'
@@ -65,6 +76,9 @@ describe 'project inviations' do
 
   it 'assigns the user as a hiwi if he has no role yet' do
     chair = FactoryGirl.create(:chair, name: 'Test Chair')
+    user1 = FactoryGirl.create(:user)
+    representative1 = FactoryGirl.create(:chair_representative, user_id: user1.id, chair_id: chair.id).user
+    @project.update(chair: representative1.chair)
     chair.projects << @project
     expect(chair.hiwis.size).to eq 0
 

@@ -27,11 +27,11 @@ RSpec.describe PublicationsController, type: :controller do
   # Publication. As you add validations to Publication, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { title: 'Publication 1', venue: 'Venue', type_: 'Typ' }
+    {title: 'Publication 1', venue: 'Venue', type_: 'Typ'}
   }
 
   let(:invalid_attributes) {
-    { title: '', venue: 'Venue', type_: 'Typ' }
+    {title: '', venue: 'Venue', type_: 'Typ'}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -106,7 +106,7 @@ RSpec.describe PublicationsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { title: 'Publication 2', venue: 'Venue', type_: 'Typ' }
+        {title: 'Publication 2', venue: 'Venue', type_: 'Typ'}
       }
 
       it 'updates the requested publication' do

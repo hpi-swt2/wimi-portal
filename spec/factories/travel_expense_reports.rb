@@ -25,11 +25,11 @@
 FactoryGirl.define do
   factory :travel_expense_report do
     inland true
-    country "Germany"
-    location_from "Potsdam"
-    location_via "London"
-    location_to "NYC"
-    reason "Hana Things"
+    country 'Germany'
+    location_from 'Potsdam'
+    location_via 'London'
+    location_to 'NYC'
+    reason 'Hana Things'
     date_start 8.days.ago
     date_end DateTime.now
     car true
@@ -46,11 +46,11 @@ FactoryGirl.define do
 
   factory :travel_expense_report_invalid, class: TravelExpenseReport do
     inland true
-    country "Germany"
-    location_from "Potsdam"
-    location_via "London"
-    location_to "NYC"
-    reason "Hana Things"
+    country 'Germany'
+    location_from 'Potsdam'
+    location_via 'London'
+    location_to 'NYC'
+    reason 'Hana Things'
     date_start DateTime.now
     date_end 8.days.ago
     car true
@@ -64,6 +64,7 @@ FactoryGirl.define do
   end
 
   factory :travel_expense_report_changed, parent: :travel_expense_report do
+    location_from 'Berlin'
     general_advance 1337
     car false
     hotel false
@@ -72,7 +73,7 @@ FactoryGirl.define do
   end
 
   factory :travel_expense_report_blank_name, parent: :travel_expense_report do
-    first_name ""
+    first_name ''
   end
 
   factory :travel_expense_report_wrong_dates, parent: :travel_expense_report do
@@ -83,5 +84,4 @@ FactoryGirl.define do
   factory :travel_expense_report_negative_advance, parent: :travel_expense_report do
     general_advance -10
   end
-
 end

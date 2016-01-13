@@ -9,7 +9,6 @@ RSpec.describe 'chairs/requests.html.erb', type: :view do
                                           handed_in: holiday.created_at, status: holiday.status, action: holiday_path(holiday)}])
     @statuses = ['applied']
     @types = ['holidays']
-
   end
 
   it 'shows all requests for a chair' do
