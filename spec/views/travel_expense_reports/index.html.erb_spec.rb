@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "travel_expense_reports/index", type: :view do
+RSpec.describe 'travel_expense_reports/index', type: :view do
   before(:each) do
     assign(:travel_expense_reports, [
       FactoryGirl.create(:travel_expense_report),
@@ -8,7 +8,7 @@ RSpec.describe "travel_expense_reports/index", type: :view do
     ])
   end
 
-  it "renders a list of travel_expense_reports" do
+  it 'renders a list of travel_expense_reports' do
     render
     expect(rendered).to match /Hana Things/
     expect(rendered).to match /Berlin/
