@@ -55,4 +55,28 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(page).to_not have_content(chair2.name)
     expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.apply'))
   end
+
+  it 'displays all chairs if user is superadmin' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as(superadmin, scope: :user)
+
+    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
+    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
+
+    visit dashboard_path
+    expect(page).to have_content(I18n.t('activerecord.models.chair.other'))
+    expect(page).to have_content(chair1.name)
+    expect(page).to have_content(chair2.name)
+    expect(page).to have_link(I18n.t('chair.add_chair'))
+  end
+
+  it 'does not display the chair overview for users without superadmin privileges' do
+    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
+    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
+    visit dashboard_path
+
+    expect(page).to_not have_content(chair1.name)
+    expect(page).to_not have_content(chair2.name)
+    expect(page).to_not have_link(I18n.t('chair.add_chair'))
+  end
 end
