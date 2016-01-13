@@ -13,5 +13,4 @@ RSpec.describe 'projects/index', type: :view do
   it 'renders a list of projects' do
     render
   end
-
 end

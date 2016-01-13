@@ -28,11 +28,14 @@ en:
       edit_leave: "Edit Leave"
       show_details: "Show Details"
       show_pdf: "Show PDF"
+      apply: "Apply"
+      accept: "Accept"
+      decline: "Decline"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
-      delete: "Destroy %{model}"
+      delete: "Delete %{model}"
     language:
       lang: "Language"
       english: "English"
@@ -41,6 +44,21 @@ en:
       create: "Create %{model}"
       update: "Update %{model}"
     list_select: "Please select"
+  project_applications:
+    states:
+      pending: "Pending"
+      declined: "Declined"
+      accepted: "Accepted"
+    created: "Application was successfully created"
+    not_created: "Application was not created"
+    destroy: "Application was deleted"
+    index:
+      cancel: "Cancel Application"
+    reapply: "Reapply"
+    refused_reapply: "Application Refused - Reapply"
+    pending_cancel: "Application Pending - Cancel"
+    accept_application: "Accept Application"
+    decline_application: "Decline Application"
   projects:
     form:
       wimi: "Research Assistants"

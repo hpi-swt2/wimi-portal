@@ -18,5 +18,4 @@ FactoryGirl.define do
     days_abroad 5
     trip nil
   end
-
 end

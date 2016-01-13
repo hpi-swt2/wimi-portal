@@ -134,13 +134,25 @@ en:
         residence: "Residence"
         street: "Street"
         personnel_number: "Staff Number"
-        division_id: "Division"
         language: "Language"
       request:
         name: "Name"
         type: "Type"
         handed_in: "Handed in"
         status: "Status"
+        not_member_of_chair: "You are not a member of a chair."
+    errors:
+      models:
+        travel_expense_report:
+          attributes:
+            location_from:
+              blank: "cannot be blank."
+            location_to:
+              blank: "cannot be blank."
+            general_advance:
+              blank: "cannot be blank."
+              not_a_number: "has to be a whole number."
+              greater_than_or_equal_to: "must not be negative"
   links:
     search: 'Search'
     submit: 'Submit'
@@ -192,3 +204,5 @@ en:
       holiday_request: "Holiday request"
       expense_request: "Travel expense request"
       trip_request: "Trip request"
+  "true": "yes"
+  "false": "no"

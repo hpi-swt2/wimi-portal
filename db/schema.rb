@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217152040) do
+ActiveRecord::Schema.define(version: 20151215185150) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -31,17 +31,6 @@ ActiveRecord::Schema.define(version: 20151217152040) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
-  create_table "event_admin_rights_changeds", force: :cascade do |t|
-    t.integer  "admin_id"
-    t.integer  "user_id"
-    t.boolean  "user_is_admin"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "event_admin_rights_changeds", ["admin_id"], name: "index_event_admin_rights_changeds_on_admin_id"
-  add_index "event_admin_rights_changeds", ["user_id"], name: "index_event_admin_rights_changeds_on_user_id"
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -73,6 +62,14 @@ ActiveRecord::Schema.define(version: 20151217152040) do
   create_table "invitations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_applications", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -204,7 +201,6 @@ ActiveRecord::Schema.define(version: 20151217152040) do
     t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
-    t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
