@@ -120,3 +120,6 @@ de:
     event_admin_right:
       added: "%{trigger} hat %{target} Admin-Rechte verliehen."
       removed: "%{trigger} hat %{target} Admin-Rechte entzogen."
+    event_user_chair:
+      added: "%{trigger} hat %{target} in den Lehrstuhl aufgenommen."
+      removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."

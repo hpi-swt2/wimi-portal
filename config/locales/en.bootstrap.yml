@@ -122,5 +122,8 @@ en:
       - December
   events:
     event_admin_right:
-      added: "%{trigger} hat %{target} Admin-Rechte verliehen."
-      removed: "%{trigger} hat %{target} Admin-Rechte entzogen."
+      added: "%{trigger} has granted %{target} admin rights."
+      removed: "%{trigger} has withdrawn %{target} admin rights."
+    event_user_chair:
+      added: "%{trigger} has admitted %{target} in chair."
+      removed: "%{trigger} has removed %{target} from chair."

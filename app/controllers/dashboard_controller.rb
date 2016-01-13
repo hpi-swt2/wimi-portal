@@ -18,6 +18,7 @@ class DashboardController < ApplicationController
     @notifications += Event.where(seclevel: Event.seclevels[:wimi])
 
     @notifications.delete_if { |event| event.is_hidden_by(current_user) }
+    @notifications = @notifications.sort_by { |n| n[:created_at] }.reverse
     @invitations = Invitation.where(user: current_user)
   end
 end
