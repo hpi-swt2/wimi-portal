@@ -21,6 +21,7 @@ class HolidaysController < ApplicationController
   def create
     @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
     if @holiday.save
+      request_applied if @holiday.status == 'applied'
       subtract_leave
       flash[:success] = 'Holiday was successfully created.'
       redirect_to current_user
@@ -30,11 +31,19 @@ class HolidaysController < ApplicationController
   end
 
   def update
+    status = @holiday.status
     if @holiday.update(holiday_params)
+      request_applied if @holiday.status == 'applied' && status == 'saved'
       flash[:success] = 'Holiday was successfully updated.'
       redirect_to @holiday
     else
       render :edit
+    end
+  end
+
+  def request_applied
+    if current_user.chair
+      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @holiday.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'holiday'})
     end
   end
 

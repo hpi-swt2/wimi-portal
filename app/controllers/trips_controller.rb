@@ -22,6 +22,7 @@ class TripsController < ApplicationController
     @trip.user = current_user
 
     if @trip.save
+      request_applied if @trip.status == 'applied'
       redirect_to @trip, notice: 'Trip was successfully created.'
     else
       fill_blank_items
@@ -31,10 +32,17 @@ class TripsController < ApplicationController
 
   def update
     if @trip.update(trip_params)
+      request_applied if @trip.status == 'applied' && status == 'saved'
       redirect_to @trip, notice: 'Trip was successfully updated.'
     else
       fill_blank_items
       render :edit
+    end
+  end
+
+  def request_applied
+    if current_user.chair
+      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @trip.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'trip'})
     end
   end
 

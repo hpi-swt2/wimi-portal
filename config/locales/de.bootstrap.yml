@@ -14,6 +14,7 @@ de:
       logout: "Abmelden"
     actions: "Aktionen"
     links:
+      show: "Anzeigen"
       back: "Zurück"
       cancel: "Abbrechen"
       confirm: "Sicher?"
@@ -177,6 +178,10 @@ de:
       removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."
       declined: "%{trigger} hat die Bewerbung von %{target} für den Lehrstuhl abgelehnt"
     event_chair_application: "%{trigger} hat einen Mitgliedsantrag für ihren Lehrstuhl erstellt."
+    event_request:
+      holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
+      trip: "%{trigger} hat einen Reiseantrag gestellt."
+      travel_expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
   chairs:
     navigation:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
