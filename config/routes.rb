@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  resources :chair_applications
+  resources :chairs
+
+  resources :project_applications, only: [:index, :destroy] do
+    member do
+      get 'accept'
+      get 'decline'
+      get 'reapply'
+    end
+    collection do
+      post 'apply/project_:id', to: 'project_applications#create', as: 'apply'
+    end
+  end
 
   get 'documents/generate_pdf' => 'documents#generate_pdf', as: 'generate_pdf'
 
@@ -22,9 +35,7 @@ Rails.application.routes.draw do
     end
   end
 
-
   get 'projects/typeahead/:query' => 'projects#typeahead'
-
 
   resources :holidays
   resources :expenses
@@ -37,6 +48,7 @@ Rails.application.routes.draw do
       get 'download'
     end
   end
+
   resources :chairs
 
   post 'chairs/apply', to: 'chairs#apply'
@@ -50,5 +62,4 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
-
 end

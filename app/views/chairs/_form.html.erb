@@ -31,7 +31,7 @@
         <select name="admin_user" id="admin_user">
           <option value="null"><%= I18n.t('list.please_select', default: 'Please select') %></option>
           <%= User.all.each do |user| %>
-              <% if @chair.admins.select{ |admin| admin.user.id == user.id }.size == 1 %>
+              <% if @chair.admins.count { |admin| admin.user.id == user.id } == 1 %>
                   <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
               <% else %>
                   <option value="<%= user.id %>"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>

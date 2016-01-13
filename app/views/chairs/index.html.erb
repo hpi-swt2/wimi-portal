@@ -30,7 +30,6 @@
             <% end %>
           <% end %>
         </td>
-
         <td>
           <% if can?(:edit, chair) && can?(:destroy, chair)%>
             <%= link_to I18n.t('chair.edit', default: 'Edit Chair'), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
@@ -43,7 +42,6 @@
             <% end %>
           <% end %>
         </td>
-
       </tr>
   <% end %>
   </tbody>

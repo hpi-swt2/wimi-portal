@@ -21,19 +21,19 @@ class Chair < ActiveRecord::Base
   validates :name, presence: true
 
   def wimis
-    users.select { |u| u.is_wimi? }
+    users.select(&:is_wimi?)
   end
 
   def hiwis
-    projects.collect { |p| p.hiwis }.flatten.uniq
+    projects.collect(&:hiwis).flatten.uniq
   end
 
   def admins
-    chair_wimis.select { |cw| cw.is_admin? }
+    chair_wimis.select(&:is_admin?)
   end
 
   def representative
-    chair_wimis.select { |cw| cw.is_representative? }.first
+    chair_wimis.find(&:is_representative?)
   end
 
   def add_users(admin_id, representative_id)
@@ -41,13 +41,13 @@ class Chair < ActiveRecord::Base
     admin = User.find_by(id: admin_id)
     representative = User.find_by(id: representative_id)
 
-    if (admin && representative)
+    if admin && representative
       if admin != representative
         unless admin.is_wimi? || representative.is_wimi?
           c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
           c2 = ChairWimi.new(representative: true, chair: self, user: representative, application: 'accepted')
 
-          if self.save && c1.save && c2.save
+          if save && c1.save && c2.save
             success = true
           end
         end
@@ -55,7 +55,7 @@ class Chair < ActiveRecord::Base
         unless admin.is_wimi?
           c = ChairWimi.new(admin: true, representative: true, chair: self, user: admin, application: 'accepted')
 
-          if self.save && c.save
+          if save && c.save
             success = true
           end
         end
@@ -69,7 +69,7 @@ class Chair < ActiveRecord::Base
     admin = User.find_by(id: admin_id)
     representative = User.find_by(id: representative_id)
 
-    if (admin && representative)
+    if admin && representative
       chairwimi1 = ChairWimi.find_by(chair: self, admin: true)
       chairwimi2 = ChairWimi.find_by(chair: self, representative: true)
       if chairwimi1 != nil
@@ -84,7 +84,7 @@ class Chair < ActiveRecord::Base
           c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
           c2 = ChairWimi.new(representative: true, chair: self, user: representative, application: 'accepted')
 
-          if self.save && c1.save && c2.save
+          if save && c1.save && c2.save
             success = true
           end
         end
@@ -92,7 +92,7 @@ class Chair < ActiveRecord::Base
         unless admin.is_wimi?
           c = ChairWimi.new(admin: true, representative: true, chair: self, user: admin, application: 'accepted')
 
-          if self.save && c.save
+          if save && c.save
             success = true
           end
         end
@@ -102,7 +102,7 @@ class Chair < ActiveRecord::Base
   end
 
   def get_all_requests
-    allrequests = Array.new
+    allrequests = []
     users.each do |user|
       user.holidays.each do |holidays|
         unless holidays.status == 'saved'
