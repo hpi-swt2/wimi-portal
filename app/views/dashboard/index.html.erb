@@ -99,9 +99,9 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th><%= model_class.human_attribute_name(:id) %></th>
-        <th><%= model_class.human_attribute_name(:name) %></th>
-        <th><%= model_class.human_attribute_name(:created_at) %></th>
+        <th><%= t('activerecord.attributes.chair.id', default: model_class.human_attribute_name(:id)) %></th>
+        <th><%= t('activerecord.attributes.chair.name', default: model_class.human_attribute_name(:name)) %></th>
+        <th><%= t('activerecord.attributes.chair.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
       </tr>
       </thead>
       <tbody>
@@ -114,5 +114,5 @@
       <% end %>
       </tbody>
     </table>
-    <%= link_to I18n.t('chair.add_chair'), new_chair_path, :class => 'btn btn-primary' %>
+    <%= link_to I18n.t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
 <% end %>

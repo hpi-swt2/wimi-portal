@@ -57,9 +57,8 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   end
 
   it 'displays all chairs if user is superadmin' do
-    superadmin = FactoryGirl.create(:user)
-    superadmin.superadmin = true
-    login_as(superadmin, :scope => :user)
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as(superadmin, scope: :user)
 
     chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     chair2 = FactoryGirl.create(:chair, name: 'Chair2')
