@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download, :apply]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download, :apply, :hand_in]
 
   def index
     @trips = Trip.all
@@ -27,7 +27,6 @@ class TripsController < ApplicationController
     
 
     if @trip.save
-      request_applied if @trip.status == 'applied'
       redirect_to @trip, notice: 'Trip was successfully created.'
     else
       fill_blank_items
@@ -38,7 +37,6 @@ class TripsController < ApplicationController
   def update
     @trip.update(status: t('status.saved'))
     if @trip.update(trip_params)
-      request_applied if @trip.status == 'applied' && status == 'saved'
       redirect_to @trip, notice: 'Trip was successfully updated.'
     else
       fill_blank_items
@@ -46,10 +44,13 @@ class TripsController < ApplicationController
     end
   end
 
-  def request_applied
-    if current_user.chair
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @trip.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'trip'})
+  def hand_in
+    if @trip.status == 'saved'
+      if @trip.update(status: 'applied')
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @trip.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'trip'})
+      end
     end
+    redirect_to trips_path
   end
 
   def destroy

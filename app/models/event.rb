@@ -13,20 +13,15 @@ class Event < ActiveRecord::Base
   belongs_to :trigger, class_name: 'User'
 
   validates :type, presence: true
-  validates :chair, presence: true
   validates :seclevel, presence: true
 
-  enum seclevel: [ :superadmin, :admin, :representative, :wimi, :hiwi, :user]
+  enum seclevel: [:superadmin, :admin, :representative, :wimi, :hiwi, :user]
 
   def is_hidden_by(user)
     UserEvent.exists?(user: user, event: self)
   end
 
   def hide_for(user)
-    UserEvent.create(user: user, event: self) if !is_hidden_by(user)
-  end
-
-  def unhide_for(user)
-    UserEvent.find(user: user, event: self).destroy if is_hidden_by(user)
+    UserEvent.create(user: user, event: self) unless is_hidden_by(user)
   end
 end

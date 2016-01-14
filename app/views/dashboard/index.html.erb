@@ -1,34 +1,7 @@
 <%- model_class = Project -%>
 <div class="page-header">
 
-  <h1> <%= t('.dashboard_title')%></h1>
-</div>
-
-<div class="notification-block">
-  <% if current_user.is_representative? %>
-  <table class="notification-table">
-    <thead>
-    <tr>
-      <th><%= t("chair.notifications", default: "Notifications") %></th>
-    </tr>
-    </thead>
-    <tbody>
-      <% @applied_requests.each do |request| %>
-        <tr>
-          <td>
-            <%= link_to(request[:request].user.name, request[:request].user) %>
-            <!-- request[:type] might be 'holiday' / 'expense' / 'trip'-->
-            <%= t("chair.submitted_"+request[:type]+"_request", default: "has submitted an "+request[:type]+" request.") %>
-          </td>
-          <td>
-            <%= link_to(t("chair.show", default: "Show"), request[:request]) %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <% end %>
-  <!-- admin notification -->
+  <h1> <%= t('.dashboard_title') %></h1>
 </div>
 
 <div class="col-md-12">
@@ -54,10 +27,10 @@
   <tr>
     <th><%= "ID" %></th>
     <th><%= t('projects.index.title', default: model_class.human_attribute_name(:title)) %></th>
-    <th><%= t('projects.index.accessibility', default:'Accessibility') %></th>
-    <th><%= t('projects.show.project_visibility', default:'Visibility')%> </th>
-    <th><%= t('projects.index.created_at' , default: model_class.human_attribute_name(:created_at)) %></th>
-    <th><%=t '.actions', default: t("helpers.actions") %></th>
+    <th><%= t('projects.index.accessibility', default: 'Accessibility') %></th>
+    <th><%= t('projects.show.project_visibility', default: 'Visibility') %> </th>
+    <th><%= t('projects.index.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
+    <th><%= t '.actions', default: t("helpers.actions") %></th>
   </tr>
   </thead>
   <tbody>
@@ -67,7 +40,7 @@
         <td><%= link_to project.title, project %></td>
         <td><%= project.status ? t('projects.index.active') : t('projects.index.inactive') %></td>
         <td><%= project.public ? t('projects.show.public') : t('projects.index.private') %></td>
-        <td><%=l project.created_at %></td>
+        <td><%= l project.created_at %></td>
         <td>
           <%= link_to t('.edit', default: t("helpers.links.edit")),
                       edit_project_path(project), class: 'btn btn-default btn-xs' %>
@@ -86,36 +59,39 @@
     <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
 <% end %>
 
-
-<div>
-  <h3>Benachrichtungen</h3>
-  <% unless @notifications.nil? %>
-  <p>
-    <% @notifications.each do |event| %>
-      <%= render event %>
-    <% end %>
-  </p>
-  <% end %>
-</div>
-
+<% unless @notifications.empty? %>
+    <div class="notification-block">
+      <h3><%= t('.notifications') %></h3>
+      <p>
+        <% @notifications.each do |event| %>
+            <%= render event %>
+        <% end %>
+      </p>
+    </div>
+<% end %>
 
 <% if current_user.is_representative? %>
     <br/>
-    <div>
+    <div class="notification-block">
       <h3> <%= t('.representative_actions') %> </h3>
       <table>
-      <tbody>
-        <tr><td>
-          <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holiday_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
-        </td></tr>
-        <tr><td>
-          <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expense_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %>
-        </td></tr>
-        <tr><td>
-          <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trip_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post  %>
-        </td></tr>
-      </tbody>
+        <tbody>
+        <tr>
+          <td>
+            <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holiday_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expense_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trip_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
+          </td>
+        </tr>
+        </tbody>
       </table>
-
     </div>
 <% end %>

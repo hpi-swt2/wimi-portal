@@ -19,6 +19,7 @@ en:
       logout: "Logout"
     actions: "Actions"
     links:
+      hand_in: "Hand in"
       show: "Show"
       back: "Back"
       cancel: "Cancel"
@@ -127,6 +128,7 @@ en:
       title: "Edit Leave"
   dashboard:
     index:
+      notifications: "Notifications"
       dashboard_title: "Dashboard"
       projects: "My Projects"
       representative_actions: "Representative - Actions"
