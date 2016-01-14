@@ -87,6 +87,7 @@ de:
       student_assistants: "Studentische Hilfskräfte"
       leave_project: "Verlasse Projekt"
     index:
+      new: "+ Projekt hinzufügen"
       title: "Titel"
       accessibility: "Verfügbarkeit"
       created_at: "erstellt am"
