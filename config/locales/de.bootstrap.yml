@@ -101,6 +101,8 @@ de:
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
     edit:
       user_data: "Profilbezogene Daten"
+      password: "Passwort ändern"
+      update_password: "Passwort aktualisieren"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"

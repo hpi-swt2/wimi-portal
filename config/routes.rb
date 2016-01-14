@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+
   get 'superadmin' => 'superadmin#index', as: 'superadmin'
   get 'superadmin/login' => 'superadmin#login', as: 'superadmin_loginn'
 
@@ -61,8 +64,6 @@ Rails.application.routes.draw do
   post 'chairs/set_admin', to: 'chairs#set_admin'
   post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
   get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
-
-  devise_for :users
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
 end
