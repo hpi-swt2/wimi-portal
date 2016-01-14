@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   def index
-    @notifications = []
+    @notifications = Array.new
 
     if current_user.is_superadmin?
       @notifications += Event.where(seclevel: Event.seclevels[:superadmin])
@@ -10,15 +10,24 @@ class DashboardController < ApplicationController
       @notifications += Event.where(seclevel: Event.seclevels[:admin])
     end
 
-    #add all other Events
-    # TODO: implement security tests
+    if current_user.is_representative?
+      @notifications += Event.where(seclevel: Event.seclevels[:representative])
+    end
 
-    @notifications += Event.where(seclevel: Event.seclevels[:representative])
+    if current_user.is_wimi?
+      @notifications += Event.where(seclevel: Event.seclevels[:wimi])
+    end
+
+    if current_user.is_hiwi?
+      @notifications += Event.where(seclevel: Event.seclevels[:hiwi])
+    end
+
     @notifications += Event.where(seclevel: Event.seclevels[:user])
-    @notifications += Event.where(seclevel: Event.seclevels[:wimi])
 
     @notifications.delete_if { |event| event.is_hidden_by(current_user) }
     @notifications = @notifications.sort_by { |n| n[:created_at] }.reverse
+
+
     @invitations = Invitation.where(user: current_user)
     @applied_requests = collectAppliedRequests
   end

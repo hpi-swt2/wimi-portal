@@ -1,6 +1,6 @@
 class EventAdminRight < Event
   before_validation :set_defaults
-  belongs_to :target, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :target, class_name: 'User'
 
   def set_defaults
     self.seclevel = :admin
