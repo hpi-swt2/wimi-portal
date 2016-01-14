@@ -76,7 +76,13 @@
         <%= devise_error_messages! %>
     <div class="form-group">
       <div class="field">
-        <%= f.label :password, class: 'control-label' %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.label :current_password, class: 'control-label' %>
+        <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :password, class: 'control-label' %><br />
         <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
       </div>
     </div>
@@ -84,13 +90,6 @@
       <div class="field">
         <%= f.label :password_confirmation, class: 'control-label' %><br />
         <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="field">
-        <%= f.label :current_password, class: 'control-label' %>
-        <i>(we need your current password to confirm your changes)</i><br />
-        <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
       </div>
     </div>
   <div class="actions">
