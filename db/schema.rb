@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109205725) do
+ActiveRecord::Schema.define(version: 20160114164519) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20160109205725) do
     t.date     "last_modified"
     t.integer  "status",                default: 0
     t.integer  "signer"
+    t.boolean  "wimi_signed",           default: false
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|

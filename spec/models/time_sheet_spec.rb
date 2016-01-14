@@ -19,6 +19,7 @@
 #  last_modified         :date
 #  status                :integer          default(0)
 #  signer                :integer
+#  wimi_signed           :boolean          default(FALSE)
 #
 
 require 'rails_helper'

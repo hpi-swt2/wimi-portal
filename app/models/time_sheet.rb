@@ -19,7 +19,8 @@
 #  last_modified         :date
 #  status                :integer          default(0)
 #  signer                :integer
-
+#  wimi_signed           :boolean          default(FALSE)
+#
 
 class TimeSheet < ActiveRecord::Base
     belongs_to :user
@@ -28,18 +29,6 @@ class TimeSheet < ActiveRecord::Base
 
     validates :workload_is_per_month, inclusion: { in: [true, false] }
     validates :salary_is_per_month, inclusion: { in: [true, false] }
-
-    def hand_in(user)
-      params = {status: 'pending', handed_in: true, last_modified: Date.today}
-    end
-
-    def sign(user)
-      params = {status: 'accepted', last_modified: Date.today, signer: user.id}
-    end
-
-    def reject(user)
-      params = {status: 'rejected', handed_in: false, last_modified: Date.today, signer: user.id}
-    end
     
     def self.time_sheet_for(year, month, project, user)
       if project.nil?

@@ -40,7 +40,17 @@ Rails.application.routes.draw do
   resources :holidays
   resources :expenses
   resources :work_days
-  resources :time_sheets, only: [:edit, :update, :delete]
+  resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
+    member do
+      get 'reject'
+      get 'hand_in'
+      get 'accept'
+    end
+    get 'time_sheets/reject', to: 'time_sheets#reject'
+    get 'time_sheets/hand_in', to:'time_sheets#hand_in'
+    get 'time_sheets/accept', to:'time_sheets#accept'
+  end
+
   resources :travel_expense_reports
   resources :trips do
     member do
@@ -62,4 +72,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
 
+
+
 end
+
