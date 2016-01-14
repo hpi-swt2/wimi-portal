@@ -167,4 +167,14 @@ RSpec.describe HolidaysController, type: :controller do
       expect(response).to redirect_to(holidays_url)
     end
   end
+
+  describe 'POST #hand_in' do
+    it 'hands in a trip request' do
+      user = FactoryGirl.create(:user)
+      holiday = FactoryGirl.create(:holiday, user: user)
+      
+      login_with(user)
+      post :hand_in, { id: holiday.id }
+    end
+  end
 end

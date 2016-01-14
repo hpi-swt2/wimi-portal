@@ -71,7 +71,7 @@ Rails.application.routes.draw do
   # status 'saved' -> status 'applied'
   post 'holidays/:id/hand_in', to: 'holidays#hand_in', as: 'hand_in_holiday'
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'
-  post 'expenses/:id/hand_in', to: 'expenses#hand_in', as: 'hand_in_expense'
+  post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
 
   devise_for :users
 

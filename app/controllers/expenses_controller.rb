@@ -1,5 +1,5 @@
 class ExpensesController < ApplicationController
-  before_action :set_expense, only: [:show, :edit, :update, :destroy, :hand_in]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy ]
 
   def index
     @expenses = Expense.all
@@ -33,16 +33,6 @@ class ExpensesController < ApplicationController
       render :edit
     end
   end
-
-  def hand_in
-    if @expense.status == 'saved'
-      if @expense.update(status: 'applied')
-        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @expense.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'expense'})
-      end
-    end
-    redirect_to expenses_path
-  end
-
 
   def destroy
     @expense.destroy

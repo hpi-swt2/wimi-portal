@@ -22,7 +22,7 @@ class Holiday < ActiveRecord::Base
   validate :too_far_in_the_future?
   validate :sufficient_leave_left?
 
-  enum status: [ I18n.t('status.saved'), I18n.t('status.applied'),I18n.t('status.accepted'),I18n.t('status.declined')]
+  enum status: [ :saved, :applied, :accepted, :declined ]
 
   def duration
     start.business_days_until(self.end + 1)

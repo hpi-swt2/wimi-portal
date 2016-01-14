@@ -186,7 +186,7 @@ de:
     event_request:
       holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
       trip: "%{trigger} hat einen Reiseantrag gestellt."
-      travel_expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
+      travel_expense_report: "%{trigger} hat eine Reisekostenabrechnung gestellt."
   chairs:
     navigation:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."

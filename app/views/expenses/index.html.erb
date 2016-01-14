@@ -31,8 +31,6 @@
         <td><%= expense.status %></td>
         <td>
           <% if expense.status == 'saved' %>
-            <%= link_to t('.edit', default: t("helpers.links.hand_in")),
-                        hand_in_expense_path(expense), method: :post, class: 'btn btn-success btn-xs' %>
             <%= link_to t('.edit', default: t("helpers.links.edit")),
                         edit_expense_path(expense), class: 'btn btn-default btn-xs' %>
             <%= link_to t('.destroy', default: t("helpers.links.destroy")),

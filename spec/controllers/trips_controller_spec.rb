@@ -177,4 +177,15 @@ RSpec.describe TripsController, type: :controller do
       expect(response).to redirect_to(trips_url)
     end
   end
+
+  describe 'POST #hand_in' do
+    it 'hands in a trip request' do
+      user = FactoryGirl.create(:user)
+      trip = Trip.create! valid_attributes
+      trip.user = user
+      
+      login_with(user)
+      post :hand_in, { id: trip.id }
+    end
+  end
 end
