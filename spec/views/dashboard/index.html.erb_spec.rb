@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'dashboard/index.html.erb', type: :view do
   before :each do
     @user = FactoryGirl.create(:user)
+    @notifications = Array.new
     sign_in @user
   end
 
