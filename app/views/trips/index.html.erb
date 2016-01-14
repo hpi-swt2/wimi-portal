@@ -24,9 +24,16 @@
         <td><%= trip.reason %></td>
         <td><%= trip.annotation %></td>
         <td><%= trip.status %></td>
+
         <td><%= link_to t('helpers.links.show_details'), trip, class: "btn btn-default btn-xs" %></td>
-        <td><%= link_to t('helpers.links.edit'), edit_trip_path(trip) , class: "btn btn-default btn-xs"%></td>
-        <td><%= link_to t('helpers.links.destroy'), trip, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-xs"%></td>
+        <% if trip.status != t('status.applied') %>
+          <td><%= link_to t('helpers.links.edit'), edit_trip_path(trip) , class: "btn btn-default btn-xs"%></td>
+          <td><%= link_to t('helpers.links.destroy'), trip, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-xs"%></td>
+        <% else %>
+          <td> &nbsp; </td>
+          <td> &nbsp; </td>
+        <% end %>
+
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +41,4 @@
 
 <br>
 
-<%= link_to t('helpers.links.new'), new_trip_path,class: "btn btn-primary"%>
+<%= link_to t('.new', default: t("helpers.links.new")), new_trip_path, class: "btn btn-primary"%>

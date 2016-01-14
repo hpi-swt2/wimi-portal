@@ -32,6 +32,8 @@ en:
       apply: "Apply"
       accept: "Accept"
       decline: "Decline"
+      download: "Download"
+      apply_trip: "Apply Trip"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

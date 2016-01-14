@@ -64,6 +64,9 @@ Rails.application.routes.draw do
   post 'events/request', to: 'events#req', as: 'show_event_request'
 
 
+  put 'trips/:id/apply', to: 'trips#apply', as: 'trips_apply'
+
+  get 'projects/typeahead/:query' => 'projects#typeahead'
 
   devise_for :users
 

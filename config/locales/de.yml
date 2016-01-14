@@ -210,3 +210,9 @@ de:
 
   "true": "Ja"
   "false": "Nein"
+  status:
+    saved: "gespeichert"
+    applied: "beantragt"
+    accepted: "genehmigt"
+    declined: "abgelehnt"
+  

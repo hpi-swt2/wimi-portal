@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download, :apply]
 
   def index
     @trips = Trip.all
@@ -14,12 +14,17 @@ class TripsController < ApplicationController
   end
 
   def edit
-    fill_blank_items
+    if @trip.status == t('status.applied')
+      redirect_to @trip, notice: 'Trip is already applied.'
+    else
+      fill_blank_items
+    end
   end
 
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
+    
 
     if @trip.save
       request_applied if @trip.status == 'applied'
@@ -31,6 +36,7 @@ class TripsController < ApplicationController
   end
 
   def update
+    @trip.update(status: t('status.saved'))
     if @trip.update(trip_params)
       request_applied if @trip.status == 'applied' && status == 'saved'
       redirect_to @trip, notice: 'Trip was successfully updated.'
@@ -47,11 +53,25 @@ class TripsController < ApplicationController
   end
 
   def destroy
-    @trip.destroy
-    redirect_to trips_url, notice: 'Trip was successfully destroyed.'
+    if @trip.status == t('status.applied')
+      redirect_to @trip, notice: 'Trip is already applied.'
+    else
+      @trip.destroy
+      redirect_to trips_url, notice: 'Trip was successfully destroyed.'
+    end
   end
 
   def download
+  end
+
+  def apply
+    @trip.status = t('status.applied')
+    if @trip.save
+       redirect_to @trip, notice: 'Trip was successfully applied.'
+    else
+       render :edit
+    end
+
   end
 
   private
