@@ -290,13 +290,23 @@ RSpec.describe ChairsController, type: :controller do
       expect(response).to have_http_status(302)
     end
 
-    it 'show all requests of chair' do
+    it 'shows all requests of chair' do
       FactoryGirl.create(:holiday, user_id: @representative.id, status: 1)
       FactoryGirl.create(:trip, user_id: @representative.id, status: 1)
       FactoryGirl.create(:expense, user_id: @representative.id, status: 1)
       FactoryGirl.create(:holiday, user_id: @user.id, status: 1)
       sign_in @representative
       get :requests, {id: @chair}
+      expect(response).to render_template('requests')
+    end
+
+    it 'shows some filtered requests of chair' do
+      FactoryGirl.create(:holiday, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:trip, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:expense, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:holiday, user_id: @user.id, status: 1)
+      sign_in @representative
+      get :requests_filtered, {id: @chair, holiday: true, applied: true}
       expect(response).to render_template('requests')
     end
   end

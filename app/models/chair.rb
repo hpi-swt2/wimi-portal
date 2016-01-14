@@ -123,4 +123,24 @@ class Chair < ActiveRecord::Base
     end
     return allrequests.sort_by { |v| v[:handed_in] }.reverse
   end
+
+  def create_allrequests(types, statuses)
+    @allrequests = Array.new
+
+    users.each do |user|
+      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays, statuses) if types.include? 'holidays'
+      add_requests(I18n.t('chair.requests.expense_request'), user.expenses, statuses) if types.include? 'expenses'
+      add_requests(I18n.t('chair.requests.trip_request'), user.trips, statuses) if types.include? 'trips'
+    end
+
+    return @allrequests.sort_by { |v| v[:handed_in] }.reverse
+  end
+
+  def add_requests(type, array, statuses)
+    array.each do |r|
+      if statuses.include? r.status
+        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r}
+      end
+    end
+  end
 end

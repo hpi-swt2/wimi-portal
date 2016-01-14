@@ -63,6 +63,31 @@ class ChairsController < ApplicationController
     @requests = @chair.chair_wimis.where(application: 'pending')
   end
 
+
+  # Show requests (Representative tasks):
+  def requests
+    types = ['holidays', 'expenses', 'trips']
+    statuses = ['applied', 'accepted', 'declined']
+
+    @allrequests = @chair.create_allrequests(types, statuses)
+  end
+
+  def requests_filtered
+    types = Array.new
+    types << 'holidays' if params.has_key?('holiday_filter')
+    types << 'expenses' if params.has_key?('expense_filter')
+    types << 'trips' if params.has_key?('trip_filter')
+
+    statuses = Array.new
+    statuses << 'applied' if params.has_key?('applied_filter')
+    statuses << 'accepted' if params.has_key?('accepted_filter')
+    statuses << 'declined' if params.has_key?('declined_filter')
+
+    @allrequests = @chair.create_allrequests(types, statuses)
+    render 'requests'
+  end
+
+
   # Admin tasks:
   def accept_request
     chair_wimi = ChairWimi.find(params[:request])
@@ -91,41 +116,6 @@ class ChairsController < ApplicationController
       redirect_to chair_path(@chair)
     end
   end
-
-
-  # New stuff here
-
-
-  def requests
-    @types = ['holidays', 'expenses', 'trips']
-    @statuses = ['applied', 'accepted', 'declined']
-
-    create_allrequests
-  end
-
-  def requests_filtered
-    @types = Array.new
-    @types << 'holidays' if params.has_key?('holiday_filter')
-    @types << 'expenses' if params.has_key?('expense_filter')
-    @types << 'trips' if params.has_key?('trip_filter')
-
-    @statuses = Array.new
-    @statuses << 'applied' if params.has_key?('applied_filter')
-    @statuses << 'accepted' if params.has_key?('accepted_filter')
-    @statuses << 'declined' if params.has_key?('declined_filter')
-
-    create_allrequests
-    render 'requests'
-  end
-
-  def add_requests(type, array)
-    array.each do |r|
-      if @statuses.include? r.status
-        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r}
-      end
-    end
-  end
-
 
   def set_admin
     chair_wimi = ChairWimi.find(params[:request])
@@ -180,17 +170,5 @@ class ChairsController < ApplicationController
 
   def chair_params
     params.require(:chair).permit(:name)
-  end
-
-  def create_allrequests
-    @allrequests = Array.new
-
-    @chair.users.each do |user|
-      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays) if @types.include? 'holidays'
-      add_requests(I18n.t('chair.requests.expense_request'), user.expenses) if @types.include? 'expenses'
-      add_requests(I18n.t('chair.requests.trip_request'), user.trips) if @types.include? 'trips'
-    end
-
-    @allrequests = @allrequests.sort_by { |v| v[:handed_in] }.reverse
   end
 end
