@@ -95,6 +95,7 @@ en:
       active: "aktiv"
       leave_project: "Leave Project"
     index:
+      new: "+ Add project"
       title: "Title"
       project_status: "Project Status"
       accessibility: "Accessibility"
