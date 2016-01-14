@@ -1,5 +1,5 @@
 class HolidaysController < ApplicationController
-  before_action :set_holiday, only: [:show, :edit, :update, :destroy]
+  before_action :set_holiday, only: [:show, :edit, :update, :destroy, :hand_in]
 
   def index
     @holidays = Holiday.all
@@ -22,7 +22,7 @@ class HolidaysController < ApplicationController
   def create
     @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
     if @holiday.save
-      request_applied if @holiday.status == 'applied'
+      #request_applied if @holiday.status == 'applied'
       subtract_leave
       flash[:success] = 'Holiday was successfully created.'
       redirect_to current_user
@@ -34,7 +34,7 @@ class HolidaysController < ApplicationController
   def update
     status = @holiday.status
     if @holiday.update(holiday_params)
-      request_applied if @holiday.status == 'applied' && status == 'saved'
+      #request_applied if @holiday.status == 'applied' && status == 'saved'
       flash[:success] = 'Holiday was successfully updated.'
       redirect_to @holiday
     else
@@ -42,10 +42,13 @@ class HolidaysController < ApplicationController
     end
   end
 
-  def request_applied
-    if current_user.chair
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @holiday.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'holiday'})
+  def hand_in
+    if @holiday.status == 'saved'
+      if @holiday.update(status: 'applied')
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @holiday.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'holiday'})
+      end
     end
+    redirect_to holidays_path
   end
 
   def destroy

@@ -19,6 +19,7 @@ en:
       logout: "Logout"
     actions: "Actions"
     links:
+      hand_in: "Hand in"
       show: "Show"
       back: "Back"
       cancel: "Cancel"
