@@ -1,5 +1,5 @@
 class EventChairApplication < Event
-    before_save :set_defaults
+    before_validation :set_defaults
 
     def set_defaults
       self.seclevel = :admin
