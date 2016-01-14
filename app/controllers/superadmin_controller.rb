@@ -2,9 +2,6 @@ class SuperadminController < ApplicationController
   def index
   end
 
-  def login
-  end
-
   def resource_name
     :user
   end
