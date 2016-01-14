@@ -14,7 +14,7 @@ class TripsController < ApplicationController
   end
 
   def edit
-    if @trip.status == t('status.applied')
+    if @trip.status == 'applied'
       redirect_to @trip, notice: 'Trip is already applied.'
     else
       fill_blank_items

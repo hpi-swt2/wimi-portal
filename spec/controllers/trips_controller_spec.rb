@@ -176,6 +176,16 @@ RSpec.describe TripsController, type: :controller do
       delete :destroy, {id: trip.to_param}, valid_session
       expect(response).to redirect_to(trips_url)
     end
+
+    it 'redirects to the trip, if it is already applied' do
+      trip = Trip.create! valid_attributes
+      trip.status = 'applied'
+      trip.save
+      get :edit, {id: trip.id}
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(trip_path(trip))
+    end
+
   end
 
   describe 'POST #hand_in' do
