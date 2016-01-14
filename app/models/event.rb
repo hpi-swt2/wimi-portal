@@ -10,7 +10,7 @@
 # type        :string       
 class Event < ActiveRecord::Base
   belongs_to :chair
-  belongs_to :trigger, class_name: 'User'
+  belongs_to :trigger, class_name: 'User', foreign_key: 'user_id'
 
   validates :type, presence: true
   validates :chair, presence: true
