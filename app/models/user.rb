@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   LANGUAGES = [
     %w[English en],
-    %w[Deutsch de],
+    %w[Deutsch de]
   ]
 
   INVALID_EMAIL = 'invalid_email'
@@ -166,4 +166,14 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def get_desc_sorted_datespans
+    all_trips = Trip.where(user_id: id)
+    datespans = []
+    all_trips.each do |trip|
+      datespans.push(trip.trip_datespans.first)
+    end
+    datespans.sort! { |a,b| b.start_date <=> a.start_date }
+  end
+
 end

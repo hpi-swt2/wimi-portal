@@ -16,7 +16,7 @@
 </div>
 
 <div class='input-block' style='border-bottom:solid 1.0pt'>
-  <span>Name: <%= holiday.name %></span>
+  <span>Name: <%= User.find(holiday.user_id).name %></span>
 </div>
 <div class='input-block' style='border-bottom:solid 1.0pt'>
   <span>Grund f&uuml;r Sonderurlaub: <%= holiday.reason %></span>
@@ -42,14 +42,18 @@
  </tr>
 
 <tr style='height:17pt'>
- 	<td width=30><%= holiday.previous_year %></td>
- 	<td width=30><%= holiday.actual_year %></td>
- 	<td width=30><%= holiday.obtained_days %></td>
- 	<td width=30><%= holiday.remainig_days %></td>
- 	<td width=110><b><%= holiday.start_date %></b></td>
- 	<td width=110><b><%= holiday.end_date %></b></td>
- 	<td width=30><b><%= holiday.duration %></b></td>
- 	<td width=30><%= holiday.new_remainig_days %></td> <!-- holiday.remainig_days=holiday.remainig_days-holiday.duration%> -->
+  <% leave_last_year = User.find(holiday.user_id).remaining_leave_last_year %>
+  <% leave_this_year = User.find(holiday.user_id).remaining_leave - User.find(holiday.user_id).remaining_leave_last_year %>
+  <% @obtained_days = Holiday.where(:user_id == holiday.user_id).inject(0) {|sum, hol| sum + hol[:length]} %>
+ 	<td width=30><%= leave_last_year %></td>
+ 	<td width=30><%= leave_this_year + @obtained_days %></td>
+ 	<td width=30><%= @obtained_days %></td>
+ 	<td width=30><%= leave_last_year + leave_this_year - @obtained_days %></td>
+ 	<td width=110><b><%= holiday.start.strftime("%d.%m.%Y") %></b></td>
+ 	<td width=110><b><%= holiday.end.strftime("%d.%m.%Y") %></b></td>
+ 	<td width=30><b><%= holiday.length %></b></td>
+  <td width=30><%= User.find(holiday.user_id).remaining_leave %></td>
+ 	<!--td width=30><%#= holiday.new_remainig_days %></td> < holiday.remainig_days=holiday.remainig_days-holiday.duration%> -->
  </tr>
  <tr style='height:17pt'>
  	<td> </td>
@@ -75,16 +79,16 @@
 
 <p class='big' style='margin:40 0 20 0'>Anmerkungen:</p>
 
-<% annotation_splitted.each do |annotation_line| %>
-  <div class='text-field'><%= annotation_line %></div>
-<% end %>
-<% (4 - annotation_splitted.size).times do |i| %>
+<%# annotation_splitted.each do |annotation_line| %>
+  <div class='text-field'><%= holiday.annotation %></div>
+<%# end %>
+<%# (4 - annotation_splitted.size).times do |i| %>
   <div class='text-field'>&nbsp;</div>
-<% end %>
+<%# end %>
 
 <p style='margin-bottom:40px'>&nbsp;</p>
 
-<div class='signature'><%= Date.today.strftime("%d.%m.%Y") %>, <%= trip.signature %></div>
+<div class='signature'><%= Date.today.strftime("%d.%m.%Y") %>, <%#= holiday.signature %></div>
 <p>
   <span>Datum/Unterschrift</span>
   <span>Antragssteller</span>

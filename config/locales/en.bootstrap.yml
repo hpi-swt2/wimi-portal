@@ -100,14 +100,16 @@ en:
     update:
       user_updated: "User updated successfully"
     show:
+      business_trips: "Business Trips"
+      request_trip: "Request Business Trip"
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
       user_data: "User Data"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
-      days: "Day(s)"
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+      days: "Day(s)"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -115,6 +117,18 @@ en:
       remaining_leave_fly: "Remaining Leave from last year"
       save: "Save Leave"
       title: "Edit Leave"
+  holidays:
+    show:
+      days: "Day(s)"
+      file: "File Request"
+      reject: "Reject Request"
+      accept: "Accept Request"
+      filed_request_cant_be_edited: "A filed request can't be edited"
+      status:
+        saved: "Saved at "
+        accepted: "Accepted at "
+        applied: "Applied at "
+        declined: "Declined at "
   dashboard:
     index:
       dashboard_title: "Dashboard"
@@ -148,7 +162,7 @@ en:
       created_at: "Created at"
   date:
     formats:
-      default: "%d.%m.%Y"
+      default: "%d-%m-%Y"
     order:
       - :day
       - :month
