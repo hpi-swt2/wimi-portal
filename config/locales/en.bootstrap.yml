@@ -126,6 +126,7 @@ en:
       title: "Edit Leave"
   dashboard:
     index:
+      notifications: "Notifications"
       dashboard_title: "Dashboard"
       projects: "My Projects"
       representative_actions: "Representative - Actions"

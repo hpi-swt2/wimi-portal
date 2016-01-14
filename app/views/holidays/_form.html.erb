@@ -16,13 +16,6 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :status, class: 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :status, class: 'form-control' %>
-    </div>
-    <%= error_span(@holiday[:status]) %>
-  </div>
-  <div class="control-group">
     <%= f.label :start, class: 'control-label' %>
     <div class="controls">
       <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>

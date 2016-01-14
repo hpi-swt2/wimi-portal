@@ -61,7 +61,7 @@
 
 <% unless @notifications.empty? %>
     <div class="notification-block">
-      <h3>Benachrichtungen</h3>
+      <h3><%= t('.notifications') %></h3>
       <p>
         <% @notifications.each do |event| %>
             <%= render event %>
@@ -70,37 +70,9 @@
     </div>
 <% end %>
 
-<div class="notification-block">
-  <% if current_user.is_representative? %>
-      <table class="notification-table">
-        <thead>
-        <tr>
-          <th><%= t("chair.notifications", default: "Notifications") %></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @applied_requests.each do |request| %>
-            <tr>
-              <td>
-                <%= link_to(request[:request].user.name, request[:request].user) %>
-                <!-- request[:type] might be 'holiday' / 'expense' / 'trip'-->
-                <%= t("chair.submitted_"+request[:type]+"_request", default: "has submitted an "+request[:type]+" request.") %>
-              </td>
-              <td>
-                <%= link_to(t("chair.show", default: "Show"), request[:request]) %>
-              </td>
-            </tr>
-        <% end %>
-        </tbody>
-      </table>
-  <% end %>
-  <!-- admin notification -->
-</div>
-
-
 <% if current_user.is_representative? %>
     <br/>
-    <div>
+    <div class="notification-block">
       <h3> <%= t('.representative_actions') %> </h3>
       <table>
         <tbody>
@@ -121,6 +93,5 @@
         </tr>
         </tbody>
       </table>
-
     </div>
 <% end %>

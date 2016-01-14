@@ -117,6 +117,7 @@ de:
       title: "Resturlaub bearbeiten"
   dashboard:
     index:
+      notifications: "Benachrichtigungen"
       dashboard_title: "Dashboard"
       projects: "Meine Projekte"
       representative_actions: "LS-Beauftragter - Aktionen"
