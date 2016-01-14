@@ -47,7 +47,9 @@ class Holiday < ActiveRecord::Base
   end
 
   def user
-    User.find(user_id)
+    unless user_id.nil?
+      User.find(user_id)
+    end
   end
 
   private

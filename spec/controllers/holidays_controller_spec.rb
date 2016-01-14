@@ -56,11 +56,11 @@ RSpec.describe HolidaysController, type: :controller do
       expect(assigns(:holiday)).to eq(holiday)
     end
 
-    it 'redirects to the holidays page if holiday belongs to another user' do
+    it 'redirects to the root path if holiday belongs to another user' do
       user2 = FactoryGirl.create(:user)
       holiday = Holiday.create(start: Date.today, end: Date.today+1, user_id: user2.id, length: 1)
       get :show, {id: holiday.to_param}, valid_session
-      expect(response).to redirect_to(holidays_path)
+      expect(response).to redirect_to(root_path)
     end
   end
 
