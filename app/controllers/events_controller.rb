@@ -1,12 +1,12 @@
 class EventsController < ActionController::Base
-  before_action :set_event
+  before_action :set_event, only: [:hide ]
 
   def hide
     @event.hide_for(current_user)
     redirect_to dashboard_path
   end
 
-  def req
+  def show_request
     status = params[:status]
     request_id = params[:request_id]
 
@@ -15,8 +15,8 @@ class EventsController < ActionController::Base
                holiday_path(id: request_id)
              when 'trip' then
                trip_path(id: request_id)
-             when 'travel_expense' then
-               travel_expense_path(id: request_id)
+             when 'travel_expense_report' then
+               travel_expense_report_path(id: request_id)
              else
                dashboard_path
            end

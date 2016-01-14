@@ -39,6 +39,9 @@ class Ability
     can :read, Holiday do |holiday|
       holiday.user == user
     end
+    can :read, TravelExpenseReport do |r|
+      r.user == user
+    end
     can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
@@ -58,6 +61,9 @@ class Ability
     initialize_wimi user
     can :read,      Holiday do |holiday|
       user.is_representative?(holiday.user.chair)
+    end
+    can :read,      TravelExpenseReport do |r|
+      user.is_representative?(r.user.chair)
     end
     can :read,      Chair do |chair|
       user.is_representative?(chair)

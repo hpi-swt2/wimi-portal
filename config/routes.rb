@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   get 'projects/typeahead/:query' => 'projects#typeahead'
   
   post 'events/hide', to: 'events#hide', as: 'hide_event'
-  post 'events/request', to: 'events#req', as: 'show_event_request'
+  post 'events/request', to: 'events#show_request', as: 'show_event_request'
 
   put 'trips/:id/apply', to: 'trips#apply', as: 'trips_apply'
   

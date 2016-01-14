@@ -6,6 +6,9 @@ class TravelExpenseReportsController < ApplicationController
   end
 
   def show
+    unless can? :read, @travel_expense_report
+      redirect_to dashboard_path
+    end
   end
 
   def new
