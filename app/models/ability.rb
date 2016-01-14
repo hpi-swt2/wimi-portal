@@ -36,7 +36,10 @@ class Ability
 
   def initialize_wimi(user)
     initialize_user user
-    can :crud, Project
+    can :read, Holiday do |holiday|
+      holiday.user == user
+    end
+    can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
     end
@@ -53,6 +56,9 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
+    can :read,      Holiday do |holiday|
+      user.is_representative?(holiday.user.chair)
+    end
     can :read,      Chair do |chair|
       user.is_representative?(chair)
     end
