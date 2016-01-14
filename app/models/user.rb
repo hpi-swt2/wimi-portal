@@ -62,6 +62,7 @@ class User < ActiveRecord::Base
   validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
+  validates_confirmation_of :password, if: :is_superadmin?
 
   # TODO: implement signature upload, this is a placeholder
   def signature
