@@ -57,12 +57,7 @@ class Ability
     can :requests,  Chair do |chair|
       user.is_representative?(chair)
     end
-    can :show_holidays, User do |chair_user|
-      chair_user.chair == user.chair
-    end
-    can :edit_holiday, Holiday do |holiday|
-      holiday.status != "saved"
-    end
+    #can show, Holidays of chair members
   end
 
   def initialize_admin(user)

@@ -37,17 +37,7 @@ Rails.application.routes.draw do
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
-  resources :holidays do
-    member do
-      get 'file'
-      get 'reject'
-      get 'accept'
-    end
-    get 'holidays/file', to: 'holidays#file'
-    get 'holidays/reject', to: 'holidays#reject'
-    get 'holidays/accept', to: 'holidays#accept'
-  end
-
+  resources :holidays
   resources :expenses
 
   resources :work_days
