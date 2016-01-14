@@ -6,6 +6,8 @@ class CreateEvents < ActiveRecord::Migration
       t.references :chair, index: true, foreign_key: true
       t.integer :seclevel
       t.string :type
+
+      t.timestamps null: false
     end
   end
 end

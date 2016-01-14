@@ -33,12 +33,14 @@ ActiveRecord::Schema.define(version: 20160112184716) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "trigger_id"
-    t.integer "target_id"
-    t.integer "chair_id"
-    t.integer "seclevel"
-    t.string  "type"
-    t.string  "status"
+    t.integer  "trigger_id"
+    t.integer  "target_id"
+    t.integer  "chair_id"
+    t.integer  "seclevel"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "status"
   end
 
   add_index "events", ["chair_id"], name: "index_events_on_chair_id"
