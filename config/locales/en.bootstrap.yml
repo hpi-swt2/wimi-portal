@@ -199,6 +199,11 @@ en:
       document_was: "Document was"
       not: "not"
       signed: "signed"
+      status: "status: "
+      acceptence_requested_at: "acceptence requested at: "
+      pending: "pending"
+      accepted: "accepted"
+      rejected: "rejected"
   date:
     formats:
       without_day: "%B %Y"

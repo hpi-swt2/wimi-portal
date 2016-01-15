@@ -190,6 +190,11 @@ de:
       document_was: "Das Dokument wurde"
       not: "nicht"
       signed: "unterschrieben"
+      status: "Status: "
+      acceptence_requested_at: "Genehmigung erfragt am: "
+      pending: "ausstehend"
+      accepted: "bestätigt"
+      rejected: "abgelehnt"
   date:
     formats:
       default: "%d.%m.%Y"

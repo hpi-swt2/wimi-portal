@@ -3,8 +3,8 @@
   <br>
   <br>
   <% if current_user.is_wimi? && @time_sheet.handed_in? %>
-      Acceptence requested at: <%=l @time_sheet.last_modified %><br>
-      Status: <%= @time_sheet.status %><br>
+      <%= t('.acceptence_requested_at') %> <%=l @time_sheet.last_modified %><br>
+      <%= t('.status') %> <%= t(".#{@time_sheet.status}") %><br>
     <% if @time_sheet.status.include? 'pending' %>
       <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %>
       <br>
