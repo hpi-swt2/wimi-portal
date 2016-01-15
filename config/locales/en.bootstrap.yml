@@ -48,11 +48,6 @@ en:
       create: "Create %{model}"
       update: "Update %{model}"
       hide: "Hide"
-  chairs:
-    navigation:
-      not_authorized: "You are not allowed to do this action for this chair."
-    requests:
-      apply_filter: "Apply Filters"
     list_select: "Please select"
   project_applications:
     states:

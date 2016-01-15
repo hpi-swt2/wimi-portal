@@ -41,11 +41,6 @@ de:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
       hide: "Ausblenden"
-  chairs:
-    navigation:
-      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
-    requests:
-      apply_filter: "Filter anwenden"
     list_select: "Bitte auswählen"
   project_applications:
     states:

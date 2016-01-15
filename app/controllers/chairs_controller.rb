@@ -66,24 +66,24 @@ class ChairsController < ApplicationController
 
   # Show requests (Representative tasks):
   def requests
-    types = ['holidays', 'expenses', 'trips']
-    statuses = ['applied', 'accepted', 'declined']
+    @types = ['holidays', 'expenses', 'trips']
+    @statuses = ['applied', 'accepted', 'declined']
 
-    @allrequests = @chair.create_allrequests(types, statuses)
+    @allrequests = @chair.create_allrequests(@types, @statuses)
   end
 
   def requests_filtered
-    types = Array.new
-    types << 'holidays' if params.has_key?('holiday_filter')
-    types << 'expenses' if params.has_key?('expense_filter')
-    types << 'trips' if params.has_key?('trip_filter')
+    @types = Array.new
+    @types << 'holidays' if params.has_key?('holiday_filter')
+    @types << 'expenses' if params.has_key?('expense_filter')
+    @types << 'trips' if params.has_key?('trip_filter')
 
-    statuses = Array.new
-    statuses << 'applied' if params.has_key?('applied_filter')
-    statuses << 'accepted' if params.has_key?('accepted_filter')
-    statuses << 'declined' if params.has_key?('declined_filter')
+    @statuses = Array.new
+    @statuses << 'applied' if params.has_key?('applied_filter')
+    @statuses << 'accepted' if params.has_key?('accepted_filter')
+    @statuses << 'declined' if params.has_key?('declined_filter')
 
-    @allrequests = @chair.create_allrequests(types, statuses)
+    @allrequests = @chair.create_allrequests(@types, @statuses)
     render 'requests'
   end
 
