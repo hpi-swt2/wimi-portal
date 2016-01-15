@@ -29,11 +29,11 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {start: Date.today, end: Date.today+1, user_id: @user.id, length: 1}
+    {start: Date.today, end: Date.today + 1, user_id: @user.id}
   }
 
   let(:invalid_attributes) {
-    {start: Date.today-1, end: Date.today, user_id: @user.id, length: 1}
+    {start: Date.today - 1, end: Date.today, user_id: @user.id}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -58,7 +58,7 @@ RSpec.describe HolidaysController, type: :controller do
 
     it 'redirects to the holidays page if holiday belongs to another user' do
       user2 = FactoryGirl.create(:user)
-      holiday = Holiday.create(start: Date.today, end: Date.today+1, user_id: user2.id, length: 1)
+      holiday = Holiday.create(start: Date.today, end: Date.today + 1, user_id: user2.id)
       get :show, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_path)
     end
@@ -93,9 +93,9 @@ RSpec.describe HolidaysController, type: :controller do
         expect(assigns(:holiday)).to be_persisted
       end
 
-      it 'redirects to the holiday detail page' do
+      it 'redirects to the user profile' do
         post :create, {holiday: valid_attributes}, valid_session
-        expect(response).to redirect_to(assigns(:holiday))
+        expect(response).to redirect_to(@user)
       end
     end
 
@@ -135,14 +135,6 @@ RSpec.describe HolidaysController, type: :controller do
         holiday = Holiday.create! valid_attributes
         put :update, {id: holiday.to_param, holiday: valid_attributes}, valid_session
         expect(response).to redirect_to(holiday)
-      end
-
-      it 'calculates the length if no length is entered' do
-        holiday = Holiday.create! valid_attributes
-        holiday.update_attribute(:length, 2)
-        put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today+1, user_id: @user.id, length: ''}}
-        holiday.reload
-        expect(holiday.length).to eq(holiday.duration)
       end
     end
 
