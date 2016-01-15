@@ -97,9 +97,6 @@ class Ability
     can :withdraw_admin,    Chair do |chair|
       user.is_admin?(chair)
     end
-    can :edit, Chair do |chair|
-      chair.admins.include?(user.chair_wimi)
-    end
     #can :manage, own chair
     #can accept application from wimi to project
     #can remove wimis from project

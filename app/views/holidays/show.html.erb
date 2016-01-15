@@ -10,8 +10,6 @@
   <dd><%= @holiday.start %></dd>
   <dt><strong><%= model_class.human_attribute_name(:end) %>:</strong></dt>
   <dd><%= @holiday.end %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @holiday.user_id %></dd>
 </dl>
 
 <%= link_to t('.back', default: t("helpers.links.back")),
