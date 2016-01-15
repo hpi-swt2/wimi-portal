@@ -34,10 +34,6 @@ class Project < ActiveRecord::Base
     users << user
   end
 
-  def remove_user(user)
-    users.delete(user)
-  end
-
   def destroy_invitation(user)
     Invitation.find_by(user: user, project: self).destroy!
   end
@@ -50,4 +46,10 @@ class Project < ActiveRecord::Base
     users.select(&:is_wimi?)
   end
 
+  def remove_user(user)
+    users.delete(user)
+    if project_applications.include?(ProjectApplication.find_by_user_id user.id)
+      project_applications.delete(ProjectApplication.find_by_user_id user.id)
+    end
+  end
 end

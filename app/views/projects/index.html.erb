@@ -31,8 +31,8 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th><%= "ID" %></th>
     <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
+    <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
     <th><%= t('projects.show.project_visibility', default: t("projects.show.project_visibility")) %></th>
     <th><%= t('.accessibility', default:'Accessibility') %></th>
     <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
@@ -44,8 +44,8 @@
   <tbody>
   <% @projects.each do |project| %>
     <tr>
-      <td><%= link_to project.id, project %></td>
       <td><%= link_to project.title, project %></td>
+      <td><%= link_to project.chair.name, project.chair %></td>
       <td><%= project.status ? t('.active', default:'active') : t('.inactive', default:'inactive') %></td>
       <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
 
@@ -71,6 +71,10 @@
             <%= link_to t('.apply', default: t('helpers.links.apply')),
               apply_project_applications_path(id: project.id), method: :post, class: 'btn btn-primary btn-xs' %>
           <% end %>
+        <% end %>
+        <% if can? :leave_project, project %>
+            <%= link_to t('.leave_project', default:'Leave Project'),
+                        sign_user_out_project_path(user_id: current_user.id, id: project), method: :delete, class: 'btn btn-default btn-xs' %>
         <% end %>
         <% if can? :edit, project%>
           <%= link_to t('.edit', default: t("helpers.links.edit")),
