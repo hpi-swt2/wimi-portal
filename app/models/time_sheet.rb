@@ -20,6 +20,7 @@
 #  status                :integer          default(0)
 #  signer                :integer
 #  wimi_signed           :boolean          default(FALSE)
+#  hand_in_date          :date
 #
 
 class TimeSheet < ActiveRecord::Base
@@ -29,6 +30,15 @@ class TimeSheet < ActiveRecord::Base
 
     validates :workload_is_per_month, inclusion: { in: [true, false] }
     validates :salary_is_per_month, inclusion: { in: [true, false] }
+
+    def sum_hours
+      hour_counter = 0
+      monthyearrange = Date.new(self.year, self.month, 1)..Date.new(self.year, self.month, Time.days_in_month(self.month, self.year))
+      WorkDay.where(date: monthyearrange, project: self.project_id, user_id: self.user_id).each do |day| 
+        hour_counter = hour_counter + day.duration 
+      end
+      return hour_counter
+    end
     
     def self.time_sheet_for(year, month, project, user)
       if project.nil?

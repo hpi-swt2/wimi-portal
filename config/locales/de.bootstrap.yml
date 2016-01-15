@@ -104,6 +104,14 @@ de:
       work_times: "Arbeitszeit"
       handed_in_timesheets: "Eingereichte Stundenzettel:"
       by: "von"
+      time_sheets_overview: "Übersicht über die Stundenzettel"
+      hiwi: "HiWi"
+      month: "Monat"
+      number_of_hours: "Anzahl Std."
+      handed_in_at: "eingereicht am"
+      status: "Status"
+      action: "Aktion"
+      inspect: "Ansehen"
     edit:
       user_data: "Profilbezogene Daten"
     edit_leave:
@@ -185,6 +193,8 @@ de:
       document_was: "Das Dokument wurde"
       not: "nicht"
       signed: "unterschrieben"
+      status: "Status: "
+      acceptence_requested_at: "Genehmigung erfragt am: "
   date:
     formats:
       default: "%d.%m.%Y"

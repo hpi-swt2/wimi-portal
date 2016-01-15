@@ -113,6 +113,14 @@ en:
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
       days: "Day(s)"
+      time_sheets_overview: "time sheet overview"
+      hiwi: "research assistants"
+      month: "month"
+      number_of_hours: "number of hours"
+      handed_in_at: "handed in at"
+      status: "status"
+      action: "action"
+      inspect: "inspect"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -194,6 +202,8 @@ en:
       document_was: "Document was"
       not: "not"
       signed: "signed"
+      status: "status: "
+      acceptence_requested_at: "acceptence requested at: "
   date:
     formats:
       without_day: "%B %Y"

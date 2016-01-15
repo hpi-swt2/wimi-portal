@@ -12,7 +12,7 @@ class TimeSheetsController < ApplicationController
   end
 
   def hand_in
-    TimeSheet.find(params[:id]).update(status: 'pending', handed_in: true, last_modified: Date.today)
+    TimeSheet.find(params[:id]).update(status: 'pending', handed_in: true, hand_in_date: Date.today)
     redirect_to user_path(current_user)
   end
 

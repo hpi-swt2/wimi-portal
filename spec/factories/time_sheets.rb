@@ -20,6 +20,7 @@
 #  status                :integer          default(0)
 #  signer                :integer
 #  wimi_signed           :boolean          default(FALSE)
+#  hand_in_date          :date
 #
 
 FactoryGirl.define do

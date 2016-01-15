@@ -3,10 +3,10 @@
   <br>
   <br>
   <% if current_user.is_wimi? && @time_sheet.handed_in? %>
-      Acceptence requested at: <%=l @time_sheet.last_modified %><br>
-      Status: <%= @time_sheet.status %><br>
+      <%= t('.acceptence_requested_at') %> <%=l @time_sheet.hand_in_date %><br>
+      <%= t('.status') %> <%= @time_sheet.status %><br>
     <% if @time_sheet.status.include? 'pending' %>
-      <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %>
+      <%= t('.handed_in_at') %> <%=l @time_sheet.hand_in_date %>
       <br>
       <%= t('.document_was') %> 
       <% unless @time_sheet.signed %>
@@ -30,7 +30,7 @@
     <%= form_for @time_sheet do |f| %>
       <% if @time_sheet.handed_in? %>
         <% if @time_sheet.status.include? 'pending' %>
-          <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %> <%=t('.status') +': ' + @time_sheet.status %>
+          <%= t('.handed_in_at') %> <%=l @time_sheet.hand_in_date %> <%=t('.status') +': ' + @time_sheet.status %>
           <br>
           <% unless @time_sheet.wimi_signed %>
             <div class="control-group">

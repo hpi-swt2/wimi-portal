@@ -71,6 +71,43 @@
         <% end %>
       </div>
     </div>
+    <%= form_for(@user) do |f| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><%= t('.time_sheets_overview') %></h4>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><%= t('.hiwi') %></th>
+                  <th><%= t('.month') %></th>
+                  <th><%= t('.number_of_hours') %></th>
+                  <th><%= t('.handed_in_at') %></th>
+                  <th><%= t('.status') %></th>
+                  <th><%= t('.action') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% TimeSheet.where(:handed_in == true).each do |sheet| %>
+                  <tr>
+                    <td><%= User.find(sheet.user_id).name %></td>
+                    <td><%= l(Date.new(sheet.year, sheet.month, 1), format: :without_day) %></td>
+                    <td><%= sheet.sum_hours %></td>
+                    <td><%= sheet.hand_in_date %></td>
+                    <td><%= sheet.status %></td>
+                    <td>
+                      <%= link_to t('.inspect'), work_days_path(month: sheet.month, year: sheet.year, project: sheet.project_id, user_id: sheet.user_id) %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>  
   <% end %>
 
   <%= form_for(@user) do |f| %>
