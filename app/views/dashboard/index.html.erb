@@ -57,13 +57,13 @@
         <div class="col-md-12 dashboard-block">
           <h3> <%= t('.representative_actions') %> </h3>
           <p>
-            <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holiday_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
+            <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holidays: true, applied: true, accepted: true, declined: true), method: :post %>
           </p>
           <p>
-            <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expense_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
+            <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expenses: true, applied: true, accepted: true, declined: true), method: :post %>
           </p>
           <p>
-            <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trip_filter: true, applied_filter: true, accepted_filter: true, declined_filter: true), method: :post %>
+            <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
           </p>
         </div>
     <% end %>
