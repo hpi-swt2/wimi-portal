@@ -72,15 +72,11 @@ class ChairsController < ApplicationController
   end
 
   def requests_filtered
-    @types = Array.new
-    @types << 'holidays' if params.has_key?('holiday_filter')
-    @types << 'expenses' if params.has_key?('expense_filter')
-    @types << 'trips' if params.has_key?('trip_filter')
+    @types = ['holidays', 'expenses', 'trips']
+    @statuses = ['applied', 'accepted', 'declined']
 
-    @statuses = Array.new
-    @statuses << 'applied' if params.has_key?('applied_filter')
-    @statuses << 'accepted' if params.has_key?('accepted_filter')
-    @statuses << 'declined' if params.has_key?('declined_filter')
+    @types.delete_if { |type| !params.has_key?(type) }
+    @statuses.delete_if { |status| !params.has_key?(status) }
 
     @allrequests = @chair.create_allrequests(@types, @statuses)
     render 'requests'

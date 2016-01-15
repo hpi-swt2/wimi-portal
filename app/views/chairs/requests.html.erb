@@ -20,32 +20,32 @@
         <tbody>
         <tr>
           <td>
-            <%= check_box_tag(:holiday_filter, t('.holiday_request'), ("holidays".in? @types)) %>
-            <%= label_tag(:holiday_filter, t('.holiday_request')) %>
+            <%= check_box_tag(:holidays, t('.holiday_request'), ("holidays".in? @types)) %>
+            <%= label_tag(:holidays, t('.holiday_request')) %>
           </td>
           <td>
-            <%= check_box_tag(:applied_filter, t('.applied_plural'), ("applied".in? @statuses)) %>
-            <%= label_tag(:applied_filter, t('.applied_plural')) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= check_box_tag(:trip_filter, t('.trip_request'), ("trips".in? @types)) %>
-            <%= label_tag(:trip_filter, t('.trip_request')) %>
-          </td>
-          <td>
-            <%= check_box_tag(:accepted_filter, t('.accepted'), ("accepted".in? @statuses)) %>
-            <%= label_tag(:accepted_filter, t('.accepted')) %>
+            <%= check_box_tag(:applied, t('.applied_plural'), ("applied".in? @statuses)) %>
+            <%= label_tag(:applied, t('.applied_plural')) %>
           </td>
         </tr>
         <tr>
           <td>
-            <%= check_box_tag(:expense_filter, t('.expense_request'), ("expenses".in? @types)) %>
-            <%= label_tag(:expense_filter, t('.expense_request')) %>
+            <%= check_box_tag(:trips, t('.trip_request'), ("trips".in? @types)) %>
+            <%= label_tag(:trips, t('.trip_request')) %>
           </td>
           <td>
-            <%= check_box_tag(:declined_filter, t('.declined'), ("declined".in? @statuses)) %>
-            <%= label_tag(:declined_filter, t('.declined')) %>
+            <%= check_box_tag(:accepted, t('.accepted'), ("accepted".in? @statuses)) %>
+            <%= label_tag(:accepted, t('.accepted')) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= check_box_tag(:expenses, t('.expense_request'), ("expenses".in? @types)) %>
+            <%= label_tag(:expenses, t('.expense_request')) %>
+          </td>
+          <td>
+            <%= check_box_tag(:declined, t('.declined'), ("declined".in? @statuses)) %>
+            <%= label_tag(:declined, t('.declined')) %>
           </td>
         </tr>
         </tbody>
