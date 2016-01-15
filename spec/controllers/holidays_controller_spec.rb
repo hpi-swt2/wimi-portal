@@ -58,7 +58,7 @@ RSpec.describe HolidaysController, type: :controller do
 
     it 'redirects to the holidays page if holiday belongs to another user' do
       user2 = FactoryGirl.create(:user)
-      holiday = Holiday.create(start: Date.today, end: Date.today+1, user_id: user2.id, length: 1)
+      holiday = Holiday.create(start: Date.today, end: Date.today+1, user: user2, length: 1)
       get :show, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_path)
     end
