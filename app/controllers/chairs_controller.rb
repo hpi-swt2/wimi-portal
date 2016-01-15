@@ -20,11 +20,10 @@ class ChairsController < ApplicationController
   def destroy
     if @chair.destroy
       flash[:success] = I18n.t('chair.destroy.success')
-      redirect_to chairs_path
     else
       flash[:error] = I18n.t('chair.destroy.error')
-      redirect_to chairs_path
     end
+    redirect_to chairs_path
   end
 
   def new
@@ -73,15 +72,11 @@ class ChairsController < ApplicationController
   end
 
   def requests_filtered
-    @types = Array.new
-    @types << 'holidays' if params.has_key?('holiday_filter')
-    @types << 'expenses' if params.has_key?('expense_filter')
-    @types << 'trips' if params.has_key?('trip_filter')
+    @types = ['holidays', 'expenses', 'trips']
+    @statuses = ['applied', 'accepted', 'declined']
 
-    @statuses = Array.new
-    @statuses << 'applied' if params.has_key?('applied_filter')
-    @statuses << 'accepted' if params.has_key?('accepted_filter')
-    @statuses << 'declined' if params.has_key?('declined_filter')
+    @types.delete_if { |type| !params.has_key?(type) }
+    @statuses.delete_if { |status| !params.has_key?(status) }
 
     @allrequests = @chair.create_allrequests(@types, @statuses)
     render 'requests'
@@ -96,11 +91,10 @@ class ChairsController < ApplicationController
     if chair_wimi.save
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: 'added'})
       flash[:success] = I18n.t('chair.accept_request.success')
-      redirect_to chair_path(@chair)
     else
       flash[:error] = I18n.t('chair.accept_request.error')
-      redirect_to chair_path(@chair)
     end
+    redirect_to chair_path(@chair)
   end
 
   def remove_from_chair
@@ -110,11 +104,10 @@ class ChairsController < ApplicationController
     if chair_wimi.remove(current_user)
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: status})
       flash[:success] = I18n.t('chair.remove_from_chair.success')
-      redirect_to chair_path(@chair)
     else
       flash[:error] = I18n.t('chair.remove_from_chair.error')
-      redirect_to chair_path(@chair)
     end
+    redirect_to chair_path(@chair)
   end
 
   def set_admin
@@ -124,11 +117,10 @@ class ChairsController < ApplicationController
     if chair_wimi.save
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventAdminRight', seclevel: :admin, status: 'added'})
       flash[:success] = I18n.t('chair.set_admin.success')
-      redirect_to chair_path(@chair)
     else
       flash[:error] = I18n.t('chair.set_admin.error')
-      redirect_to chair_path(@chair)
     end
+    redirect_to chair_path(@chair)
   end
 
   def withdraw_admin
@@ -136,11 +128,10 @@ class ChairsController < ApplicationController
     if chair_wimi.withdraw_admin(current_user)
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventAdminRight', seclevel: :admin, status: 'removed'})
       flash[:success] = I18n.t('chair.withdraw.success')
-      redirect_to chair_path(@chair)
     else
       flash[:error] = I18n.t('chair.withdraw.error')
-      redirect_to chair_path(@chair)
     end
+    redirect_to chair_path(@chair)
   end
 
   # User task:
@@ -155,11 +146,10 @@ class ChairsController < ApplicationController
 
     if success
       flash[:success] = I18n.t('chair.apply.success')
-      redirect_to chairs_path
     else
       flash[:error] = I18n.t('chair.apply.error')
-      redirect_to chairs_path
     end
+    redirect_to chairs_path
   end
 
   private
