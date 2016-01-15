@@ -24,7 +24,7 @@
 
 </p>
   <strong><%=t('.status') %>:</strong>
-  <%= @trip.status =%>
+  <%= t('.status.' + @trip.status) =%>
   <% if @trip.status == t('status.declined') %>
     by:
   <% end %>

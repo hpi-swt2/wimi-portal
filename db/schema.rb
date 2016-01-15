@@ -168,11 +168,10 @@ ActiveRecord::Schema.define(version: 20160112184716) do
     t.boolean  "public_transport"
     t.boolean  "vehicle_advance"
     t.boolean  "hotel"
-    t.integer  "status",           default: 0
     t.integer  "general_advance"
     t.integer  "user_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.boolean  "signature"
   end
 

@@ -35,7 +35,7 @@ class TripsController < ApplicationController
   end
 
   def update
-    @trip.update(status: t('status.saved'))
+    @trip.update(status: 'saved')
     if @trip.update(trip_params)
       redirect_to @trip, notice: 'Trip was successfully updated.'
     else
@@ -54,7 +54,7 @@ class TripsController < ApplicationController
   end
 
   def destroy
-    if @trip.status == t('status.applied')
+    if @trip.status == 'applied'
       redirect_to @trip, notice: 'Trip is already applied.'
     else
       @trip.destroy
@@ -66,7 +66,7 @@ class TripsController < ApplicationController
   end
 
   def apply
-    @trip.status = t('status.applied')
+    @trip.status = 'applied'
     if @trip.save
        redirect_to @trip, notice: 'Trip was successfully applied.'
     else
