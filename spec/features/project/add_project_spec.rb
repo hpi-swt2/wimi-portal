@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'the project button on the project index page' do
   it 'is available for wimis' do
-    @current_user = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair_id: FactoryGirl.create(:chair).id, representative: true).user
+    @current_user = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair: FactoryGirl.create(:chair), representative: true).user
     login_as @current_user
     visit projects_path
     click_on I18n.t('projects.index.new')

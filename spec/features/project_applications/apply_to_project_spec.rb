@@ -4,7 +4,7 @@ require 'rails_helper'
 describe 'Applying to a project' do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair_id: FactoryGirl.create(:chair).id, representative: true).user
+    @wimi = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair: FactoryGirl.create(:chair), representative: true).user
     @project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << @project
 
@@ -12,7 +12,7 @@ describe 'Applying to a project' do
     visit project_path(@project)
     click_on(I18n.t('helpers.links.apply'))
 
-    @project_application =  @user.project_applications.find_by(project_id: @project.id)
+    @project_application =  @user.project_applications.find_by(project: @project)
   end
 
   it 'should create a project application' do
@@ -59,6 +59,6 @@ describe 'Applying to a project' do
     visit project_path(@project)
     click_on(I18n.t('project_applications.pending_cancel'))
 
-    expect(@user.project_applications.find_by(project_id: @project.id)).to eq(nil)
+    expect(@user.project_applications.find_by(project: @project)).to eq(nil)
   end
 end

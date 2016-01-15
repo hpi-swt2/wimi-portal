@@ -29,11 +29,11 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {start: Date.today, end: Date.today+1, user_id: @user.id, length: 1}
+    {start: Date.today, end: Date.today+1, user: @user, length: 1}
   }
 
   let(:invalid_attributes) {
-    {start: Date.today-1, end: Date.today, user_id: @user.id, length: 1}
+    {start: Date.today-1, end: Date.today, user: @user, length: 1}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -140,7 +140,7 @@ RSpec.describe HolidaysController, type: :controller do
       it 'calculates the length if no length is entered' do
         holiday = Holiday.create! valid_attributes
         holiday.update_attribute(:length, 2)
-        put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today+1, user_id: @user.id, length: ''}}
+        put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today+1, user: @user, length: ''}}
         holiday.reload
         expect(holiday.length).to eq(holiday.duration)
       end

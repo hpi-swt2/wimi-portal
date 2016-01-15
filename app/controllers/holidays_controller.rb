@@ -6,7 +6,7 @@ class HolidaysController < ApplicationController
   end
 
   def show
-    unless Holiday.find(params[:id]).user_id == current_user.id
+    unless Holiday.find(params[:id]).user == current_user
       redirect_to holidays_path
     end
   end

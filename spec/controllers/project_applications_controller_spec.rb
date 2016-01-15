@@ -21,7 +21,7 @@ require 'rails_helper'
 RSpec.describe ProjectApplicationsController, type: :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair_id: FactoryGirl.create(:chair).id, representative: true).user
+    @wimi = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair: FactoryGirl.create(:chair), representative: true).user
     @project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << @project
     login_with @user
@@ -32,7 +32,7 @@ RSpec.describe ProjectApplicationsController, type: :controller do
   # ProjectApplication. As you add validations to ProjectApplication, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {user_id: @user.id, project_id: @wimi.projects.first.id}
+    {user: @user, project_id: @wimi.projects.first.id}
   }
 
   let(:invalid_attributes) {
