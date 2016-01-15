@@ -20,6 +20,7 @@ class HolidaysController < ApplicationController
   end
 
   def create
+    parse_date
     if holiday_params['length'].blank?
       #disregard errors here, they should be handled in model validation later
       params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date+1) rescue nil
@@ -35,6 +36,7 @@ class HolidaysController < ApplicationController
   end
 
   def update
+    parse_date
     lengths = @holiday.calculate_length_difference(holiday_params['length'])
     params['holiday']['length'] = lengths[:length_difference]
     if @holiday.update(holiday_params)
@@ -100,5 +102,10 @@ class HolidaysController < ApplicationController
 
   def subtract_leave(length)
     calculate_leave(:-, length)
+  end
+
+  def parse_date
+    params['holiday']['start'] = Date.strptime(params['holiday']['start'], t('date.formats.default'))
+    params['holiday']['end'] = Date.strptime(params['holiday']['end'], t('date.formats.default'))
   end
 end

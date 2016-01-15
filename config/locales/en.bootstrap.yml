@@ -162,10 +162,10 @@ en:
       created_at: "Created at"
   date:
     formats:
-      default: "%d-%m-%Y"
+      default: "%m/%d/%Y"
     order:
-      - :day
       - :month
+      - :day
       - :year
     month_names:
       - 

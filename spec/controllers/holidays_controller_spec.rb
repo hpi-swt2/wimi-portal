@@ -36,6 +36,14 @@ RSpec.describe HolidaysController, type: :controller do
     {start: Date.today-1, end: Date.today, user_id: @user.id, length: 1}
   }
 
+  let(:checked_valid_attributes) {
+    {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user_id: @user.id, length: 1}
+  }
+
+  let(:checked_invalid_attributes) {
+    {start: I18n.l(Date.today-1), end: I18n.l(Date.today), user_id: @user.id, length: 1}
+  }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # HolidaysController. Be sure to keep this updated too.
@@ -58,7 +66,7 @@ RSpec.describe HolidaysController, type: :controller do
 
     it 'redirects to the root path if holiday belongs to another user' do
       user2 = FactoryGirl.create(:user)
-      holiday = Holiday.create(start: Date.today, end: Date.today+1, user_id: user2.id, length: 1)
+      holiday = FactoryGirl.create(:holiday, user_id: user2.id)
       get :show, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(root_path)
     end
@@ -83,30 +91,30 @@ RSpec.describe HolidaysController, type: :controller do
     context 'with valid params' do
       it 'creates a new Holiday' do
         expect {
-          post :create, {holiday: valid_attributes}, valid_session
+          post :create, {holiday: checked_valid_attributes}, valid_session
         }.to change(Holiday, :count).by(1)
       end
 
       it 'assigns a newly created holiday as @holiday' do
-        post :create, {holiday: valid_attributes}, valid_session
+        post :create, {holiday: checked_valid_attributes}, valid_session
         expect(assigns(:holiday)).to be_a(Holiday)
         expect(assigns(:holiday)).to be_persisted
       end
 
       it 'redirects to the holiday detail page' do
-        post :create, {holiday: valid_attributes}, valid_session
+        post :create, {holiday: checked_valid_attributes}, valid_session
         expect(response).to redirect_to(assigns(:holiday))
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved holiday as @holiday' do
-        post :create, {holiday: invalid_attributes}, valid_session
+        post :create, {holiday: checked_invalid_attributes}, valid_session
         expect(assigns(:holiday)).to be_a_new(Holiday)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {holiday: invalid_attributes}, valid_session
+        post :create, {holiday: checked_invalid_attributes}, valid_session
         expect(response).to render_template('new')
       end
     end
@@ -115,7 +123,7 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        {status: 'applied'}
+        {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user_id: @user.id, length: 1, status: 'applied'}
       }
 
       it 'updates the requested holiday' do
@@ -127,20 +135,20 @@ RSpec.describe HolidaysController, type: :controller do
 
       it 'assigns the requested holiday as @holiday' do
         holiday = Holiday.create! valid_attributes
-        put :update, {id: holiday.to_param, holiday: valid_attributes}, valid_session
+        put :update, {id: holiday.to_param, holiday: checked_valid_attributes}, valid_session
         expect(assigns(:holiday)).to eq(holiday)
       end
 
       it 'redirects to the holiday' do
         holiday = Holiday.create! valid_attributes
-        put :update, {id: holiday.to_param, holiday: valid_attributes}, valid_session
+        put :update, {id: holiday.to_param, holiday: checked_valid_attributes}, valid_session
         expect(response).to redirect_to(holiday)
       end
 
       it 'calculates the length if no length is entered' do
       holiday = Holiday.create! valid_attributes
       holiday.update_attribute(:length, 2)
-      put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today+1, user_id: @user.id, length: ''}}
+      put :update, {id: holiday.to_param, holiday: {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user_id: @user.id, length: ''}}
       holiday.reload
       expect(holiday.length).to eq(holiday.duration)
       end
@@ -149,13 +157,13 @@ RSpec.describe HolidaysController, type: :controller do
     context 'with invalid params' do
       it 'assigns the holiday as @holiday' do
         holiday = Holiday.create! valid_attributes
-        put :update, {id: holiday.to_param, holiday: invalid_attributes}, valid_session
+        put :update, {id: holiday.to_param, holiday: checked_invalid_attributes}, valid_session
         expect(assigns(:holiday)).to eq(holiday)
       end
 
       it "re-renders the 'edit' template" do
         holiday = Holiday.create! valid_attributes
-        put :update, {id: holiday.to_param, holiday: invalid_attributes}, valid_session
+        put :update, {id: holiday.to_param, holiday: checked_invalid_attributes}, valid_session
         expect(response).to render_template('edit')
       end
     end

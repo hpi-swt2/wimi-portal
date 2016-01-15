@@ -180,9 +180,13 @@ en:
       not_authorized: "You're not authorized to do that for this chair."
   date:
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    formats:
+      default: "%m/%d/%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
   time:
     formats:
-      default: "%%m/%d/%Y"
+      default: "%m/%d/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
   "true": "yes"

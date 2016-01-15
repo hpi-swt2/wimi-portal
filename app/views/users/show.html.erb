@@ -102,9 +102,11 @@
             </tbody>
           </table>
         </div>
-        <div class="form-group">
-          <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %><br><br>
-        </div>
+        <% if @user == current_user %>
+          <div class="form-group">
+            <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %><br><br>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
