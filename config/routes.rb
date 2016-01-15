@@ -50,9 +50,9 @@ Rails.application.routes.draw do
       get 'reject'
       get 'accept'
     end
-    get 'holidays/file', to: 'holidays#file'
-    get 'holidays/reject', to: 'holidays#reject'
-    get 'holidays/accept', to: 'holidays#accept'
+    get 'trips/file', to: 'trips#file'
+    get 'trips/reject', to: 'trips#reject'
+    get 'trips/accept', to: 'trips#accept'
   end
 
   resources :chairs
