@@ -65,16 +65,6 @@ class TripsController < ApplicationController
   def download
   end
 
-  def apply
-    @trip.status = 'applied'
-    if @trip.save
-       redirect_to @trip, notice: 'Trip was successfully applied.'
-    else
-       render :edit
-    end
-
-  end
-
   private
 
   def set_trip
