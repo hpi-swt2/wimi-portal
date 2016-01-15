@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post 'invite_user'
       get 'accept_invitation'
       get 'decline_invitation'
+      post 'invite_initial_user'
     end
   end
 

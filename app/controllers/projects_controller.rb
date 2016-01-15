@@ -89,6 +89,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def invite_initial_user
+    user = User.find_by_email params[:invite_initial_user][:email]
+    
+  end
+
   def accept_invitation
     @project.add_user current_user
     @project.destroy_invitation current_user
