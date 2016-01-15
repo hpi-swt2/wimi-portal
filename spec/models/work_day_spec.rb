@@ -47,6 +47,6 @@ describe WorkDay, type: :model do
 
   it 'returns the duration of a work_day' do
     workday = FactoryGirl.create(:work_day) #use the standard values
-    expect(workday.duration).to eq(30)
+    expect(workday.duration).to eq(0.5)
   end
 end

@@ -34,6 +34,7 @@ FactoryGirl.define do
     user_id 1
     project_id 1
     last_modified Date.today
+    hand_in_date Date.today
     rejection_message ''
   end
 end
