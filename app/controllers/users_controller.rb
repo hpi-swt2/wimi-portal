@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
-  before_action :user_exists, :set_user
+  before_filter :authenticate_user!, except: :superadmin_index
+  before_action :user_exists, :set_user, except: :superadmin_index
 
   def show
   end
@@ -15,6 +15,9 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def superadmin_index
   end
 
   def resource_name

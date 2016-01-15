@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  get 'superadmin' => 'superadmin#index', as: 'superadmin'
+  get 'superadmin' => 'users#superadmin_index', as: 'superadmin'
 
   resources :chair_applications
   resources :chairs
