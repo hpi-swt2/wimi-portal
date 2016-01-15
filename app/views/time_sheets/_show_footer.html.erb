@@ -3,8 +3,8 @@
   <br>
   <br>
   <% if current_user.is_wimi? && @time_sheet.handed_in? %>
-      <%= t('.acceptence_requested_at') %> <%=l @time_sheet.last_modified %><br>
-      <%= t('.status') %> <%= t(".#{@time_sheet.status}") %><br>
+    <%= t('.acceptence_requested_at') %> <%=l @time_sheet.last_modified %><br>
+    <%= t('.status') %> <%= t(".#{@time_sheet.status}") %><br>
     <% if @time_sheet.status.include? 'pending' %>
       <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %>
       <br>
@@ -13,18 +13,21 @@
         <%= t('.not') %>
       <% end %>
       <%= t('.signed') %>
+      <p>
       <%= form_for @time_sheet do |f| %>
         <% unless @time_sheet.wimi_signed %>
           <div class="control-group">
             <%= f.check_box :wimi_signed %>
             <%= f.label t('.add_signature') %>
           </div>
+          <br>
         <% end %>
         <%= link_to t('.accept'), accept_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
         <%= link_to t('.reject'), reject_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
+        <br>
         <%= f.label t('.reject_reason') %>
-        <%= f.text_field :rejection_message, class: 'form-control' %>
-      <% end %>   
+        <%= f.text_field :rejection_message, size: 50 %>
+      <% end %>
     <% end %>
   <% else %>
     <%= form_for @time_sheet do |f| %>
