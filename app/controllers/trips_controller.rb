@@ -10,7 +10,7 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    2.times {@trip.trip_datespans.build}
+    2.times { @trip.trip_datespans.build }
   end
 
   def edit
@@ -25,7 +25,7 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    
+
 
     if @trip.save
       redirect_to @trip
@@ -69,14 +69,14 @@ class TripsController < ApplicationController
 
   def download
   end
-
+  
   def apply
     @trip.status = 'applied'
     if @trip.save
-       redirect_to @trip
-       flash[:success] = I18n.t('trip.apply')
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.apply')
     else
-       render :edit
+      render :edit
     end
 
   end
@@ -92,6 +92,6 @@ class TripsController < ApplicationController
   end
 
   def fill_blank_items
-    (2 - @trip.trip_datespans.size).times {@trip.trip_datespans.build}
+    (2 - @trip.trip_datespans.size).times { @trip.trip_datespans.build }
   end
 end
