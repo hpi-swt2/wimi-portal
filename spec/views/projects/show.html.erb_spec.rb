@@ -4,7 +4,7 @@ RSpec.describe 'projects/show', type: :view do
   before(:each) do
     @user = FactoryGirl.create(:user)
     @chair = FactoryGirl.create(:chair)
-    @wimi = FactoryGirl.create(:chair_representative, user_id:FactoryGirl.create(:user).id, chair_id: @chair.id).user
+    @wimi = FactoryGirl.create(:chair_representative, user: FactoryGirl.create(:user), chair: @chair).user
 
     sign_in @user
     @project = FactoryGirl.create(:project, chair_id: @wimi.chair.id)

@@ -36,7 +36,7 @@
         <% current_user.work_year_months_for_project(@project).each do |month| %>
           <p>
             <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
-                        work_days_path(month: month.last, year: month.first, project: @project.id)%>
+                        work_days_path(month: month.last, year: month.first, project: @project)%>
           </p>
         <% end %>
       </div>
@@ -129,7 +129,7 @@
 
 <% if can? :edit, @project %>
     <%= link_to t('projects.form.show_all_working_hours', default:'Show all working hours'),
-                work_days_path(month: 1, year: 2016, project: @project.id), class: 'btn btn-default pull-right', style: 'margin-right: 15px' %>
+                work_days_path(month: 1, year: 2016, project: @project), class: 'btn btn-default pull-right', style: 'margin-right: 15px' %>
 <% end %>
 
 <% if can? :accept, ProjectApplication and @project.users.exists?(id: current_user.id) %>
