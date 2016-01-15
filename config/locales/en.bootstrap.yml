@@ -168,6 +168,11 @@ en:
       for: "for"
       by: "by"
   time_sheets:
+    form:
+      monthly: "monthly"
+      weekly: "weekly"
+      hourly: "hourly"
+      time_sheet: "Time sheet"
     show:
       salary: "Salary:"
       salary_per_month: "Euro / Month"
