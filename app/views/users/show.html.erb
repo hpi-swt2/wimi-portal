@@ -42,7 +42,7 @@
     <div class="panel-body">
       <% @user.years_and_months_of_existence.each do |month| %>
   	    <p>
-          <%= link_to l(Date.new(month.first,month.last, 1), format: :without_day), work_days_path(month: month.last, year: month.first) %>
+          <%= link_to l(Date.new(month.first,month.last, 1), format: :without_day) + ':', work_days_path(month: month.last, year: month.first) %>
           <% current_user.projects_for_month(month.first, month.last).each do |project|%>
             <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user.id)%>
           <% end %>
@@ -59,7 +59,7 @@
       <div class="panel-body">
         <% @user.years_and_months_of_existence.each do |month| %>
           <p>
-            <%= l(Date.new(month.first,month.last, 1), format: :without_day)%>
+            <%= l(Date.new(month.first,month.last, 1), format: :without_day) + ':'%>
             <% current_user.projects_for_month(month.first, month.last).each do |project|%>
               <% TimeSheet.all.each do |timesheet| %>
                 <% if timesheet.month == month.last && timesheet.year == month.first && timesheet.project_id == project.id && timesheet.handed_in == true && (timesheet.status.include? 'pending') %>

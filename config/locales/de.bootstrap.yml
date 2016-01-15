@@ -167,6 +167,11 @@ de:
       for: "für"
       by: "von"
   time_sheets:
+    form:
+      monthly: "monatlich"
+      weekly: "wöchentlich"
+      hourly: "stündlich"
+      time_sheet: "Stundenzettel"
     show:
       salary: "Bezahlung:"
       salary_per_month: "Euro / Monat"
@@ -195,6 +200,9 @@ de:
       signed: "unterschrieben"
       status: "Status: "
       acceptence_requested_at: "Genehmigung erfragt am: "
+      pending: "ausstehend"
+      accepted: "bestätigt"
+      rejected: "abgelehnt"
   date:
     formats:
       default: "%d.%m.%Y"

@@ -152,6 +152,9 @@ en:
         end_time: "End time"
         duration: "Duration"
         notes: "Notes"
+      time_sheet:
+        salary: "Salary"
+        workload: "Workload"
     errors:
       models:
         travel_expense_report:

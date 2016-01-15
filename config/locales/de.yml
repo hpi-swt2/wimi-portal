@@ -156,6 +156,9 @@ de:
         end_time: "Endzeit"
         duration: "Dauer"
         notes: "Anmerkung"
+      time_sheet:
+        salary: "Bezahlung"
+        workload: "Arbeitszeit"
     errors:
       models:
         travel_expense_report:
