@@ -34,5 +34,10 @@ RSpec.describe TripDatespan, type: :model do
       @datespan.days_abroad = 100
       expect(@datespan.valid?).to be false
     end
+
+    it 'rejects negative values for days abroad' do
+      @datespan.days_abroad = -20
+      expect(@datespan.valid?).to be false
+    end
   end
 end

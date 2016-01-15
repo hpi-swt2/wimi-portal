@@ -36,7 +36,7 @@ class Ability
 
   def initialize_wimi(user)
     initialize_user user
-    can :crud, Project
+    can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
     end
@@ -57,7 +57,12 @@ class Ability
     can :requests,  Chair do |chair|
       user.is_representative?(chair)
     end
-    #can show, Holidays of chair members
+    can :show_trips, User do |chair_user|
+      chair_user.chair == user.chair
+    end
+    can :edit_trip, Trip do |trip|
+      trip.status != "saved"
+    end
   end
 
   def initialize_admin(user)

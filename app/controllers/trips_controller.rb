@@ -6,6 +6,10 @@ class TripsController < ApplicationController
   end
 
   def show
+    unless (@trip.user_id == current_user.id) || ((can? :show_trips, @trip.user) && (can? :edit_trip, @trip))
+      redirect_to root_path
+      flash[:error] = I18n.t('trip.not_authorized')
+    end
   end
 
   def new
@@ -44,6 +48,27 @@ class TripsController < ApplicationController
   end
 
   def download
+  end
+
+  def file
+    trip = Trip.find(params[:id])
+    trip.update_attribute(:status, 'applied')
+    trip.update_attribute(:last_modified, Date.today)
+    redirect_to Trip.find(params[:id])
+  end
+
+  def reject
+    trip = Trip.find(params[:id])
+    trip.update_attribute(:status, 'declined')
+    trip.update_attribute(:last_modified, Date.today)
+    redirect_to Trip.find(params[:id])
+  end
+
+  def accept
+    trip = Trip.find(params[:id])
+    trip.update_attribute(:status, 'accepted')
+    trip.update_attribute(:last_modified, Date.today)
+    redirect_to Trip.find(params[:id])
   end
 
   private

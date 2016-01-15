@@ -2,12 +2,12 @@
 #
 # Table name: project_applications
 #
-# id          :integer
-# project_id  :integer
-# user_id     :integer
-# status      :integer    default: 1
-#
-#
+#  id         :integer          not null, primary key
+#  project_id :integer
+#  user_id    :integer
+#  status     :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class ProjectApplication < ActiveRecord::Base

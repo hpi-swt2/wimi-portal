@@ -26,3 +26,12 @@
 <%= link_to t('helpers.links.edit'), edit_trip_path(@trip), class: "btn btn-default btn-xs" %> |
 <%= link_to t('helpers.links.back') , trips_path , class: "btn btn-default btn-xs"%> |
 <%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip) , class: "btn btn-success btn-xs"%>
+
+
+<% if ((@trip.status.include? 'saved') || (@trip.status.include? 'declined')) && @trip.user_id == current_user.id %>
+  <%= link_to t('.file'), file_trip_path, class: 'btn btn-primary' %>
+<% end %>
+<% if (can? :edit_trip, @trip) && @trip.status == 'applied' %>
+  <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %>
+  <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-primary' %>
+<% end %>

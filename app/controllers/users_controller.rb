@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :user_exists, :set_user
 
   def show
-    @datespans =current_user.get_desc_sorted_datespans
+    @datespans = @user.get_desc_sorted_datespans
   end
 
   def edit
