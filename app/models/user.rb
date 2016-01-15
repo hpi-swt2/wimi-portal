@@ -130,7 +130,7 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    projects and projects.size > 0 and !is_wimi?
+    not projects.blank? and  not is_wimi?
   end
 
   def is_superadmin?

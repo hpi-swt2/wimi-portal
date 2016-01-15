@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ChairsController, type: :controller do
   describe 'GET #index' do
+
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @admin = FactoryGirl.create(:user)
@@ -11,6 +12,7 @@ RSpec.describe ChairsController, type: :controller do
       @user = FactoryGirl.create(:user)
       @superadmin = FactoryGirl.create(:user, superadmin: true)
     end
+
 
     it 'shows index of all chairs' do
       login_with(@user)
@@ -226,9 +228,9 @@ RSpec.describe ChairsController, type: :controller do
       put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: @superadmin, representative_user: @user
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
-      expect(Chair.last.admins.count{ |admin| (admin.user.id == @user.id) }).to eq(0)
+      expect(Chair.last.admins.count { |admin| (admin.user.id == @user.id) }).to eq(0)
       expect(Chair.last.representative.user.id).to_not eq(@superadmin.id)
-      expect(Chair.last.admins.count{ |admin| (admin.user.id == @superadmin.id) }).to eq(1)
+      expect(Chair.last.admins.count { |admin| (admin.user.id == @superadmin.id) }).to eq(1)
       expect(Chair.last.representative.user.id).to eq(@user.id)
     end
 
@@ -308,6 +310,23 @@ RSpec.describe ChairsController, type: :controller do
       sign_in @representative
       get :requests_filtered, {id: @chair, holiday: true, applied: true}
       expect(response).to render_template('requests')
+    end
+
+    describe 'tests error' do
+      before(:each) do
+        @superadmin = FactoryGirl.create(:user, superadmin: true)
+      end
+
+      let(:invalid_attributes) {
+        {id: @chair, name: ''}
+      }
+      let(:valid_session) { {} }
+
+      it 'if chair could not be created' do
+        sign_in @superadmin
+        post :create, {chair: invalid_attributes}, valid_session
+        expect(response).to render_template('new')
+      end
     end
   end
 end

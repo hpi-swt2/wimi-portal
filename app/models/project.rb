@@ -38,11 +38,12 @@ class Project < ActiveRecord::Base
   end
 
   def hiwis
-    users.select { |u| !u.is_wimi? }
+    users.select(&:is_hiwi?)
   end
 
   def wimis
     users.select(&:is_wimi?)
+
   end
 
   def remove_user(user)
