@@ -15,36 +15,24 @@
     </div>
   <% end %>
 
-  <% I18n.locale.to_s == 'en' ? format = 'dd-mm-yyyy' : format = 'dd.mm.yyyy' %>
-
-  <%= f.label :remaining_leave, t('users.show.remaining_leave', leave: current_user.remaining_leave.to_s) %>
-  <% if current_user.remaining_leave_last_year > 0 %>
-    <%= f.label :remaining_leave_last_year, t('users.show.remaining_leave_last_year', leave_last_year: current_user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
-  <% end %>
+  <div class="control-group">
+    <%= f.label :status, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :status, class: 'form-control' %>
+    </div>
+    <%= error_span(@holiday[:status]) %>
+  </div>
   <div class="control-group">
     <%= f.label :start, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.start ? l(@holiday.start) : nil  %>
+      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
     <%= f.label :end, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.end ? l(@holiday.end) : nil %>
-    </div>
-    <%= error_span(@holiday[:end]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :duration, class: 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :length, class: 'form-control', min: 0, placeholder: 'Leave Blank for automatic calculation' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :reason, class: 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :reason, class: 'form-control' %>
+      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
     </div>
     <%= error_span(@holiday[:reason]) %>
   </div>
@@ -66,4 +54,5 @@
   <%= f.submit nil, class: 'btn btn-primary' %>
   <%= link_to t('.cancel', default: t("helpers.links.cancel")),
             current_user, class: 'btn btn-default' %>
+
 <% end %>

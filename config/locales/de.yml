@@ -65,9 +65,6 @@ de:
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
         duration: "Dauer"
-        reason: "Grund für Sonderurlaub"
-        annotations: "Anmerkungen"
-        replacement: "Vertretung"
       publication:
         id: "Id"
         title: "Titel"
@@ -155,20 +152,6 @@ de:
               blank: "darf nicht leer sein."
               not_a_number: "muss eine ganze Zahl sein."
               greater_than_or_equal_to: "darf nicht negativ sein."
-        holiday:
-          attributes:
-            start:
-              blank: "darf nicht leer sein."
-            end:
-              blank: "darf nicht leer sein."
-            length:
-              not_a_number: "muss eine ganze Zahl sein."
-  date:
-    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
-    formats:
-      default: "%d.%m.%Y"
-      short: "%b %d"
-      long: "%B %d, %Y"
   links:
     search: 'Suchen'
     submit: 'Abschicken'
@@ -187,7 +170,7 @@ de:
     not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
   time:
     formats:
-      default: "%d.%m.%Y"
+      default: "%d/%m/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
   "true": "Ja"
