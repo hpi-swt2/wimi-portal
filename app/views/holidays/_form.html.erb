@@ -15,7 +15,7 @@
     </div>
   <% end %>
 
-  <% I18n.locale.to_s == 'en' ? format = 'dd-mm-yyyy' : format = 'dd.mm.yyyy' %>
+  <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
 
   <%= f.label :remaining_leave, t('users.show.remaining_leave', leave: current_user.remaining_leave.to_s) %>
   <% if current_user.remaining_leave_last_year > 0 %>

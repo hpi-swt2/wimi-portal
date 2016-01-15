@@ -58,24 +58,24 @@ class HolidaysController < ApplicationController
   end
 
   def file
-    holiday = Holiday.find(params[:id])
-    holiday.update_attribute(:status, 'applied')
-    holiday.update_attribute(:last_modified, Date.today)
-    redirect_to Holiday.find(params[:id])
+    set_holiday
+    @holiday.update_attribute(:status, 'applied')
+    @holiday.update_attribute(:last_modified, Date.today)
+    redirect_to @holiday
   end
 
   def reject
-    holiday = Holiday.find(params[:id])
+    set_holiday
     holiday.update_attribute(:status, 'declined')
     holiday.update_attribute(:last_modified, Date.today)
-    redirect_to Holiday.find(params[:id])
+    redirect_to @holiday
   end
 
   def accept
-    holiday = Holiday.find(params[:id])
-    holiday.update_attribute(:status, 'accepted')
-    holiday.update_attribute(:last_modified, Date.today)
-    redirect_to Holiday.find(params[:id])
+    set_holiday
+    @holiday.update_attribute(:status, 'accepted')
+    @holiday.update_attribute(:last_modified, Date.today)
+    redirect_to @holiday
   end
 
   private

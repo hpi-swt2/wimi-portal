@@ -182,7 +182,7 @@ en:
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
   time:
     formats:
-      default: "%d-%m-%Y"
+      default: "%%m/%d/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
   "true": "yes"
