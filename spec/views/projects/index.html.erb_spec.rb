@@ -27,14 +27,14 @@ RSpec.describe 'projects/index', type: :view do
     expect(page).to have_content(l(project.created_at))
     expect(page).to have_content(chair.name)
 
-    expect(page).to have_content(I18n.t('.public', default:'public'))
-    expect(page).to have_content(I18n.t('.active', default:'active'))
+    expect(page).to have_content(I18n.t('projects.index.public'))
+    expect(page).to have_content(I18n.t('projects.index.active'))
 
     project.update(status:false)
     project.update(public:false)
     visit projects_path
 
-    expect(page).to have_content(I18n.t('.inactive', default:'inactive'))
-    expect(page).to have_content(I18n.t('.private', default:'private'))
+    expect(page).to have_content(I18n.t('projects.index.inactive'))
+    expect(page).to have_content(I18n.t('projects.index.private'))
   end
 end
