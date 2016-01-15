@@ -27,11 +27,11 @@ RSpec.describe ExpensesController, type: :controller do
   # Expense. As you add validations to Expense, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { amount: 1, purpose: 'Purpose' }
+    {amount: 1, purpose: 'Purpose'}
   }
 
   let(:invalid_attributes) {
-    { amount: 0, purpose: 'Purpose' }
+    {amount: 0, purpose: 'Purpose'}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -106,7 +106,7 @@ RSpec.describe ExpensesController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { amount: 2 }
+        {amount: 2}
       }
 
       it 'updates the requested expense' do

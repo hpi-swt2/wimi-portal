@@ -41,11 +41,12 @@ class PublicationsController < ApplicationController
   end
 
   private
-    def set_publication
-      @publication = Publication.find(params[:id])
-    end
 
-    def publication_params
-      params[:publication].permit(Publication.column_names.map(&:to_sym), { user_ids:[] })
-    end
+  def set_publication
+    @publication = Publication.find(params[:id])
+  end
+
+  def publication_params
+    params[:publication].permit(Publication.column_names.map(&:to_sym), {user_ids: []})
+  end
 end

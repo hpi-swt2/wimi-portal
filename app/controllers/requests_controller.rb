@@ -2,14 +2,12 @@ class RequestsController < ApplicationController
   before_action :set_chair, only: [:requests]
   before_action :authorize_representative, only: [:requests]
 
-
   def set_chair
     @chair = Chair.find(params[:id])
   end
 
-
   def requests
-    @allrequests = Array.new
+    @allrequests = []
 
     @chair.users.each do |user|
       user.holidays.each do |holidays|
@@ -31,10 +29,10 @@ class RequestsController < ApplicationController
     @allrequests = @allrequests.sort_by { |v| v[:handed_in] }.reverse
   end
 
-
   private
+
   def authorize_representative
-    not_authorized unless current_user.is_representative?(@chair) 
+    not_authorized unless current_user.is_representative?(@chair)
   end
 
   def not_authorized

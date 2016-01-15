@@ -115,7 +115,7 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { status: 'applied' }
+        {status: 'applied'}
       }
 
       it 'updates the requested holiday' do
@@ -138,11 +138,11 @@ RSpec.describe HolidaysController, type: :controller do
       end
 
       it 'calculates the length if no length is entered' do
-      holiday = Holiday.create! valid_attributes
-      holiday.update_attribute(:length, 2)
-      put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today+1, user_id: @user.id, length: ''}}
-      holiday.reload
-      expect(holiday.length).to eq(holiday.duration)
+        holiday = Holiday.create! valid_attributes
+        holiday.update_attribute(:length, 2)
+        put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today+1, user_id: @user.id, length: ''}}
+        holiday.reload
+        expect(holiday.length).to eq(holiday.duration)
       end
     end
 

@@ -17,12 +17,13 @@ class ProjectApplication < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :project
 
-  enum status: [ :pending, :accepted, :declined]
+  enum status: [:pending, :accepted, :declined]
 
   before_create :default_values
 
   private
-    def default_values
-      self.status ||= :pending
-    end
+
+  def default_values
+    self.status ||= :pending
+  end
 end

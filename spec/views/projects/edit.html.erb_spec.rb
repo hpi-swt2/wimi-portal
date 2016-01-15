@@ -4,7 +4,7 @@ RSpec.describe 'projects/edit', type: :view do
   before(:each) do
     @chair = FactoryGirl.create(:chair)
     @user = FactoryGirl.create(:user)
-    @representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    @representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
     @wimi_user = FactoryGirl.create(:user)
     @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
   end
@@ -25,13 +25,13 @@ RSpec.describe 'projects/edit', type: :view do
   it 'can be deleted by a wimi' do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
-    projectTitle = project.title
+    project_title = project.title
     @wimi.projects << project
     visit project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed.')
-    expect(page).to have_no_content(projectTitle)
+    expect(page).to have_no_content(project_title)
   end
 
   it 'can be set inactive by a wimi' do
@@ -61,7 +61,7 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: true)
     @wimi.projects << project
     visit edit_project_path(project)
-    find(:css, "#project_public_false").set(true)
+    find(:css, '#project_public_false').set(true)
     click_on I18n.t('projects.form.update_project')
     project.reload
     expect(project.public).to be false
@@ -101,7 +101,6 @@ RSpec.describe 'projects/edit', type: :view do
     expect(project.users).not_to include(user)
   end
 
-
   it 'not possible for wimi to edit or delete a project he just signed out' do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
@@ -115,6 +114,4 @@ RSpec.describe 'projects/edit', type: :view do
     expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
   end
-
-
 end
