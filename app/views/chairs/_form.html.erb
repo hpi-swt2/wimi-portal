@@ -65,3 +65,34 @@
                 chairs_path, class: 'btn btn-default' %>
 
 <% end %>
+
+
+<form id="live-search-form" method="get" action="<%= search_path %>">
+  <input id="big-search-box" name="q" type="text"/>
+
+</form>
+
+<div id="live-search-results"></div>
+
+
+<script>
+  
+$("#big-search-box").bind("keyup", function() {
+
+
+
+  $("#big-search-box").addClass("loading"); // show the spinner
+  var form = $("#live-search-form"); // grab the form wrapping the search bar.
+
+  var url = "/tasks/live_search"; // live_search action.   
+  var formData = form.serialize(); // grab the data in the form
+  $.get(url, formData, function(html) { // perform an AJAX get
+
+    $("#big-search-box").removeClass("loading"); // hide the spinner
+
+    $("#live-search-results").html(html); // replace the "results" div with the results
+
+  });
+
+}); 
+</script>

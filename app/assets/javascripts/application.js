@@ -18,4 +18,4 @@
 //= require bootstrap-typeahead-rails
 //= require_tree .
 
- $('.datepicker').datepicker();
+$('.datepicker').datepicker();

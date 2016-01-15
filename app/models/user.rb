@@ -166,4 +166,12 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def self.search(search)
+    if search
+      where('concat(first_name,last_name) LIKE ?', "%#{search}%")
+    else
+      all
+    end
+  end
 end

@@ -57,6 +57,14 @@ class ChairsController < ApplicationController
     end
   end
 
+  def live_search
+    @tasks = User.search(params[:q])
+
+    #@tasks = Task.find_latest params[:q]
+
+    render :layout => false
+  end
+
   # Admin / Representative tasks:
   def show
     @requests = @chair.chair_wimis.where(application: 'pending')
