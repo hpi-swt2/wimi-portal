@@ -12,19 +12,19 @@ RSpec.describe "work_days/index.html.erb", type: :view do
   it 'expects a hand in button for not handed in timesheets' do
     FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: false)
 	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_content("hand in")
+	  expect(page).to have_content(t('time_sheets.show_footer.hand_in'))
   end
 
   it 'expects a accept button for handed in timesheets' do
     FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
 	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_content("accept")
+	  expect(page).to have_content(t('time_sheets.show_footer.accept'))
   end
 
   it 'expects a reject button for handed in timesheets' do
     FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
 	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_content("reject")
+	  expect(page).to have_content(t('time_sheets.show_footer.reject'))
   end
 
   it 'rejects a TimeSheet if reject button is pressed' do

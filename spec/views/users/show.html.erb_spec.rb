@@ -12,7 +12,7 @@ RSpec.describe 'users/show', type: :view do
     ChairWimi.create(user: @user, chair: @chair, representative: true)
     login_as(@user, scope: :user)
     visit user_path(@user)
-    expect(page).to have_content('Handed in time sheets:')
+    expect(page).to have_content(t('users.show.handed_in_timesheets'))
   end
 
   it 'shows the correct chair in profile' do
