@@ -32,7 +32,7 @@
   <thead>
   <tr>
     <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
-    <th><%= t('.chair', default: model_class.human_attribute_name(:chair)) %></th>
+    <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
     <th><%= t('projects.show.project_visibility', default: t("projects.show.project_visibility")) %></th>
     <th><%= t('.accessibility', default:'Accessibility') %></th>
     <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
