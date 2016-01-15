@@ -24,13 +24,13 @@
 
 </p>
   <strong><%=t('.status') %>:</strong>
-  <%= t('.status.' + @trip.status) =%>
+  <%= t(@trip.status, scope: 'status') =%>
   <% if @trip.status == t('status.declined') %>
     by:
   <% end %>
 </p>
 
-<% if @trip.status != t('status.applied') %>
+<% if @trip.status != 'applied' %>
   <%= link_to t('.edit', default: t("helpers.links.edit")), edit_trip_path(@trip), class: 'btn btn-default btn-xs' %>
   <%= link_to t('.apply_trip', default: t("helpers.links.apply_trip")), 
                       trips_apply_path(id: @trip), 
