@@ -13,7 +13,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-
   end
 
   def edit
@@ -68,7 +67,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-
   def toggle_status
     @project = Project.find(params[:id])
     if @project.status
@@ -79,7 +77,6 @@ class ProjectsController < ApplicationController
     @project.reload
     redirect_to project_path(@project)
   end
-
 
   def sign_user_out
     user = User.find(params[:user_id])
@@ -103,7 +100,6 @@ class ProjectsController < ApplicationController
     @project.destroy_invitation current_user
     flash[:success] = I18n.t('project.user.invitation_declined')
     redirect_to root_path
-
   end
 
   def typeahead
@@ -112,11 +108,12 @@ class ProjectsController < ApplicationController
   end
 
   private
-    def set_project
-      @project = Project.find(params[:id])
-    end
 
-    def project_params
-      params[:project].permit(Project.column_names.map(&:to_sym), { user_ids:[] })
-    end
+  def set_project
+    @project = Project.find(params[:id])
+  end
+
+  def project_params
+    params[:project].permit(Project.column_names.map(&:to_sym), {user_ids: []})
+  end
 end

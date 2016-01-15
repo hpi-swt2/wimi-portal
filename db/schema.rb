@@ -214,7 +214,6 @@ ActiveRecord::Schema.define(version: 20160114164519) do
     t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
-    t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0

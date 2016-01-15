@@ -58,25 +58,26 @@ class HolidaysController < ApplicationController
   end
 
   private
-    def set_holiday
-      @holiday = Holiday.find(params[:id])
-    end
 
-    def holiday_params
-      params[:holiday].permit(Holiday.column_names.map(&:to_sym))
-    end
+  def set_holiday
+    @holiday = Holiday.find(params[:id])
+  end
 
-    def calculate_leave(operator, length)
-      length_last_year = (current_user.remaining_leave_last_year - length > 0) ? (current_user.remaining_leave_last_year - length) : current_user.remaining_leave_last_year
-      current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year.send(operator, length_last_year))
-      current_user.update_attribute(:remaining_leave, current_user.remaining_leave.send(operator, length))
-    end
+  def holiday_params
+    params[:holiday].permit(Holiday.column_names.map(&:to_sym))
+  end
 
-    def add_leave(length)
-      calculate_leave(:+, length)
-    end
+  def calculate_leave(operator, length)
+    length_last_year = (current_user.remaining_leave_last_year - length > 0) ? (current_user.remaining_leave_last_year - length) : current_user.remaining_leave_last_year
+    current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year.send(operator, length_last_year))
+    current_user.update_attribute(:remaining_leave, current_user.remaining_leave.send(operator, length))
+  end
 
-    def subtract_leave(length)
-      calculate_leave(:-, length)
-    end
+  def add_leave(length)
+    calculate_leave(:+, length)
+  end
+
+  def subtract_leave(length)
+    calculate_leave(:-, length)
+  end
 end

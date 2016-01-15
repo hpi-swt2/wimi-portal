@@ -1,12 +1,25 @@
-require 'rails_helper'	
+require 'rails_helper'
 
-RSpec.describe "users/show.html.erb", type: :view do
+RSpec.describe 'users/show', type: :view do
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
+  end
+
   it 'expects Handed in time sheets section for wimis' do
-	@superadmin = FactoryGirl.create(:user, superadmin: true)
-	@chair = FactoryGirl.create(:chair)
-    ChairWimi.create(user: @superadmin, chair: @chair, representative: true)
-    login_as(@superadmin, scope: :user)
-	visit user_path(@superadmin)
+    @user.update(superadmin: true)
+    @chair = FactoryGirl.create(:chair)
+    ChairWimi.create(user: @user, chair: @chair, representative: true)
+    login_as(@user, scope: :user)
+    visit user_path(@user)
     expect(page).to have_content('Handed in time sheets:')
+  end
+
+  it 'shows the correct chair in profile' do
+    chair = FactoryGirl.create(:chair)
+    ChairWimi.create(user_id: @user.id, chair_id: chair.id, application: 'accepted')
+    login_as(@user, scope: :user)
+    visit user_path(@user)
+    expect(page).to have_content(chair.name)
   end
 end

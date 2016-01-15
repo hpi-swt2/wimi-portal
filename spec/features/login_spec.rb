@@ -21,7 +21,7 @@ describe 'login via OpenID' do
       expect(page).to have_content 'Please set a valid email address first'
     end
 
-    fill_in "user_email", with: 'valid email'
+    fill_in 'user_email', with: 'valid email'
     click_on 'Update User'
 
     @routes.each do |route|

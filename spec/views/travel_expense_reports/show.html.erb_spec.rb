@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "travel_expense_reports/show", type: :view do
+RSpec.describe 'travel_expense_reports/show', type: :view do
   before(:each) do
     @travel_expense_report = assign(:travel_expense_report, FactoryGirl.create(:travel_expense_report))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/Germany/)
     expect(rendered).to match(/NYC/)
