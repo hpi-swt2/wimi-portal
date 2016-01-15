@@ -215,4 +215,9 @@ de:
     applied: "beantragt"
     accepted: "genehmigt"
     declined: "abgelehnt"
-  
+  trip:
+    update: "Dienstreiseantrag wurde erfolgreich aktualisiert"
+    save: "Dienstreiseantrag wurde erfolgreich erstellt"
+    applied: "Dienstreiseantrag bereits eingereicht"
+    destroyed: "Dienstreiseantrag wurde erfolgreich gelöscht"
+    apply: "Dienstreiseantrag wurde erfolgreich eingereicht"

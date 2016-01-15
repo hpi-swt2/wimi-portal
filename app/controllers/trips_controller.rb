@@ -15,7 +15,8 @@ class TripsController < ApplicationController
 
   def edit
     if @trip.status == 'applied'
-      redirect_to @trip, notice: 'Trip is already applied.'
+      redirect_to @trip
+      flash[:error] = I18n.t('trip.applied')
     else
       fill_blank_items
     end
@@ -27,7 +28,8 @@ class TripsController < ApplicationController
     
 
     if @trip.save
-      redirect_to @trip, notice: 'Trip was successfully created.'
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.save')
     else
       fill_blank_items
       render :new
@@ -37,7 +39,8 @@ class TripsController < ApplicationController
   def update
     @trip.update(status: 'saved')
     if @trip.update(trip_params)
-      redirect_to @trip, notice: 'Trip was successfully updated.'
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.update')
     else
       fill_blank_items
       render :edit
@@ -55,10 +58,12 @@ class TripsController < ApplicationController
 
   def destroy
     if @trip.status == 'applied'
-      redirect_to @trip, notice: 'Trip is already applied.'
+      redirect_to @trip
+      flash[:error] = I18n.t('trip.applied')
     else
       @trip.destroy
-      redirect_to trips_url, notice: 'Trip was successfully destroyed.'
+      redirect_to trips_url
+      flash[:sucess] = I18n.t('trip.destroyed')
     end
   end
 
@@ -68,7 +73,8 @@ class TripsController < ApplicationController
   def apply
     @trip.status = 'applied'
     if @trip.save
-       redirect_to @trip, notice: 'Trip was successfully applied.'
+       redirect_to @trip
+       flash[:success] = I18n.t('trip.apply')
     else
        render :edit
     end

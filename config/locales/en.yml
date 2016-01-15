@@ -211,5 +211,11 @@ en:
     applied: "applied"
     accepted: "accepted"
     declined: "declined"
+  trip:
+    update: "Trip was successfully updated"
+    save: "Trip was successfully created"
+    applied: "Trip is already applied"
+    destroyed: "Trip was successfully destroyed"
+    apply: "Trip was successfully applied"
 
   
