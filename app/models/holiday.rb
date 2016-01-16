@@ -57,9 +57,9 @@ class Holiday < ActiveRecord::Base
   def sufficient_leave_left?
     #need to assert that user is existent for tests
     return unless errors.blank?
-    if self.user
-      unless self.user.remaining_leave >= (length.nil? ? duration : length)
-        errors.add(:not_enough_leave_left!, "" )
+    if user
+      unless user.remaining_leave >= (length.nil? ? duration : length)
+        errors.add(:not_enough_leave_left!, '')
       end
     end
   end
