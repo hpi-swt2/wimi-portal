@@ -9,6 +9,7 @@ describe 'password updating for the superadmin' do
     visit edit_user_path(@superadmin)
     expect(page).to have_content 'Change Password'
   end
+
   it 'should update with valid current password' do
     fill_in 'user_current_password', with: @superadmin.password
     fill_in 'user_password', with: 'newpassword'
@@ -52,5 +53,15 @@ describe 'password updating for the superadmin' do
     fill_in 'user_password', with: 'thenewpassword'
     click_on 'Log in'
     expect(page).to have_content 'Logout'
+  end
+end
+
+describe 'password updating for other users' do
+  it 'should not show the password fields for other users' do
+    user = FactoryGirl.create(:user)
+    login_as user
+    login_as user
+    visit edit_user_path(user)
+    expect(page).to_not have_content 'Change Password'
   end
 end
