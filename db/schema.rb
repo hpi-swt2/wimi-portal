@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106163408) do
+ActiveRecord::Schema.define(version: 20160109205725) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -129,8 +129,14 @@ ActiveRecord::Schema.define(version: 20160106163408) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "handed_in",             default: false
+    t.text     "rejection_message",     default: ""
+    t.boolean  "signed",                default: false
+    t.date     "last_modified"
+    t.integer  "status",                default: 0
+    t.integer  "signer"
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|

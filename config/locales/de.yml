@@ -52,6 +52,12 @@ de:
         name: "Name"
         created_at: "Erstellungsdatum"
         status: "Status"
+        apply: "Als WiMi bewerben"
+        application:
+          status:
+            pending: "gestellt"
+            accepted: "angenommen"
+            declined: "abgelehnt"
       project:
         id: "Id"
         title: "Titel"
@@ -185,6 +191,7 @@ de:
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
   chair:
     not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+    add_chair: "Lehrstuhl hinzufügen"
   time:
     formats:
       default: "%d.%m.%Y"
