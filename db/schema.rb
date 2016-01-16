@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160109205725) do
-=======
-ActiveRecord::Schema.define(version: 20151215185150) do
->>>>>>> origin/dev
+ActiveRecord::Schema.define(version: 20160116122005) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -54,11 +50,17 @@ ActiveRecord::Schema.define(version: 20151215185150) do
 
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",     default: 0
+    t.integer  "status",              default: 0, null: false
+    t.integer  "replacement_user_id"
+    t.integer  "length"
+    t.boolean  "signature"
+    t.date     "last_modified"
+    t.string   "reason"
+    t.string   "annotation"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -127,14 +129,8 @@ ActiveRecord::Schema.define(version: 20151215185150) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.boolean  "handed_in",             default: false
-    t.text     "rejection_message",     default: ""
-    t.boolean  "signed",                default: false
-    t.date     "last_modified"
-    t.integer  "status",                default: 0
-    t.integer  "signer"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|
