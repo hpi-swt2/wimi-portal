@@ -94,8 +94,6 @@ de:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
     show:
-      business_trips: "Geschätsreisen"
-      request_trip: "Geschätsreise beantragen"
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"
@@ -111,16 +109,6 @@ de:
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
       save: "Resturlaub Speichern"
       title: "Resturlaub bearbeiten"
-  holidays:
-    show:
-      days: "Tag(e)"
-      file: "Antrag einreichen"
-      filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
-      status:
-        saved: "Erstellt am "
-        accepted: "Akzeptiert am "
-        applied: "Eingereicht am "
-        declined: "Abgelehnt am "
   dashboard:
     index:
       dashboard_title: "Dashboard"

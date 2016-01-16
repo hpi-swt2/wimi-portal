@@ -12,9 +12,8 @@
  *
  *= require_tree .
  *= require_self
- *= require bootstrap/bootstrap-tooltip
  *= require devise_bootstrap_views
- *= require bootstrap-datepicker
+ *= require bootstrap-datepicker3
  */
 
 
