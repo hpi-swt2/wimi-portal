@@ -7,8 +7,6 @@
 # user_id     :integer
 # status      :integer    default: 1
 #
-#
-#
 
 class ProjectApplication < ActiveRecord::Base
   belongs_to :user

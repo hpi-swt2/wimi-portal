@@ -33,6 +33,62 @@
           </p>
         </div>
     <% end %>
+
+    <% if !(current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
+      <div class="col-md-12 dashboard-block">
+        <h3> <%= I18n.t('activerecord.models.chair.other') %> </h3>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= model_class.human_attribute_name(:name) %></th>
+            <th><%= t '.actions', :default => t("helpers.actions") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% Chair.all.each do |chair| %>
+              <tr>
+                <td><%= chair.name %></td>
+                <td>
+                  <% if current_user.chair_wimi == nil %>
+                      <%= link_to I18n.t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+                  <% else %>
+                      <% if current_user.chair_wimi.chair == chair %>
+                        <span class="label label-warning"><%= I18n.t('activerecord.attributes.chair.application.status.pending') %></span>
+                      <% end %>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+    <% if current_user.is_superadmin? %>
+      <div class="col-md-12 dashboard-block">
+        <h3> <%= I18n.t('activerecord.models.chair.other') %> </h3>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t('activerecord.attributes.chair.id', default: model_class.human_attribute_name(:id)) %></th>
+            <th><%= t('activerecord.attributes.chair.name', default: model_class.human_attribute_name(:name)) %></th>
+            <th><%= t('activerecord.attributes.chair.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% Chair.all.each do |chair| %>
+              <tr>
+                <td><%= chair.id %></td>
+                <td><%= chair.name %></td>
+                <td><%=l chair.created_at %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <%= link_to I18n.t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+
   </div>
 
   <!-- Right column -->

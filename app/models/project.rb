@@ -2,14 +2,15 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  description :string           default("")
-#  public      :boolean          default(FALSE)
-#  active      :boolean          default(TRUE)
-#  chair_id    :integer
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  description    :string           default("")
+#  public         :boolean          default(TRUE)
+#  status         :boolean          default(TRUE)
+#  chair_id       :integer
+#  project_leader :string           default("")
 #
 
 class Project < ActiveRecord::Base
@@ -48,5 +49,8 @@ class Project < ActiveRecord::Base
 
   def remove_user(user)
     users.delete(user)
+    if project_applications.include?(ProjectApplication.find_by_user_id user.id)
+      project_applications.delete(ProjectApplication.find_by_user_id user.id)
+    end
   end
 end
