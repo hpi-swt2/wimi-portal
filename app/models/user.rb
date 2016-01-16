@@ -77,8 +77,8 @@ class User < ActiveRecord::Base
 
   def name=(fullname)
     first, last = fullname.split(' ')
-    first_name = first
-    last_name = last
+    self.first_name = first
+    self.last_name = last
   end
 
   def projects_for_month(year, month)
@@ -115,8 +115,8 @@ class User < ActiveRecord::Base
   end
 
   def prepare_leave_for_new_year
-    remaining_leave_last_year = remaining_leave
-    remaining_leave = 28
+    self.remaining_leave_last_year = remaining_leave
+    self.remaining_leave = 28
   end
 
   def is_user?
