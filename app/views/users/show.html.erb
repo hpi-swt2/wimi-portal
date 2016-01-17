@@ -18,23 +18,33 @@
       </div>
     </div>
     <div class="panel panel-body">
-      <p><strong><%= model_class.human_attribute_name(:first_name)%>: </strong><%= current_user.first_name %></p>
-      <p><strong><%= model_class.human_attribute_name(:last_name)%>: </strong><%= current_user.last_name %></p>
-      <p><strong><%= model_class.human_attribute_name(:residence)%>: </strong><%= current_user.residence %></p>
-      <p><strong><%= model_class.human_attribute_name(:street)%>: </strong><%= current_user.street %></p>
-      <p><strong><%= model_class.human_attribute_name(:chair)%>: </strong><%= current_user.chair.name %></p>
+      <% [:first_name, :last_name, :residence, :street, :email].each do |field| %>
+        <% unless @user[field].blank? %>
+          <p><strong><%= model_class.human_attribute_name(field)%>: </strong><%= @user[field] %></p>
+        <% end %>
+      <% end %>
+      <!--Chair-->
+      <% unless @user.chair.nil? %>
+        <p><strong><%= model_class.human_attribute_name(:chair)%>: </strong><%= current_user.chair.name %></p>
+      <% end %>
+      <!--Personnel Number-->
       <p><strong><%= model_class.human_attribute_name(:personnel_number)%>: </strong><%= current_user.personnel_number %></p>
+      <!--Status-->
       <% if @user.is_hiwi? %>
         <p><strong><%= t('.status')%>: </strong><%= t('.hiwi') %></p>
       <% end %>
       <% if @user.is_wimi? %>
         <p><strong><%= t('.status')%>: </strong><%= t('.wimi') %></p>
       <% end %>
-      <p><strong><%= t('.projects')%>: </strong>
+      <!--Projects-->
+      <p>
+        <strong><%= t('.projects')%>: </strong>
         <% @user.projects[0..-2].each do |project| %>
           <%= link_to(project.title, project) %>,
         <% end %>
-        <%= link_to(@user.projects.last.title, @user.projects.last) if @user.projects.last  %></p>
+        <%= link_to(@user.projects.last.title, @user.projects.last) if @user.projects.last  %>
+      </p>
+      <!--Language-->
       <p><strong><%= model_class.human_attribute_name(:language)%>: </strong><%= current_user.language %></p>
     </div>
   </div>
