@@ -83,6 +83,8 @@ de:
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
       status: "Status"
       projects: "Projekte"
+      wimi: "WiMi"
+      hiwi: "HiWi"
     edit:
       user_data: "Profilbezogene Daten"
     edit_leave:

@@ -25,10 +25,10 @@
       <p><strong><%= model_class.human_attribute_name(:division_id)%>: </strong><%= User::DIVISIONS[current_user.division_id] %></p>
       <p><strong><%= model_class.human_attribute_name(:personnel_number)%>: </strong><%= current_user.personnel_number %></p>
       <% if @user.is_hiwi? %>
-        <p><strong><%= t('.status')%>: </strong>HiWi</p>
+        <p><strong><%= t('.status')%>: </strong><%= t('.hiwi') %></p>
       <% end %>
       <% if @user.is_wimi? %>
-        <p><strong><%= t('.status')%>: </strong>WiMi</p>
+        <p><strong><%= t('.status')%>: </strong><%= t('.wimi') %></p>
       <% end %>
       <p><strong><%= t('.projects')%>: </strong>
         <% @user.projects[0..-2].each do |project| %>

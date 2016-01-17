@@ -56,8 +56,8 @@ en:
       inactive: "(inactive)"
       set_inactive: "set inactive"
       set_active: "set active"
-      chair: "Chair"
-      chair_representative: "Chair Representative"
+      chair: "Research Group"
+      chair_representative: "Research Group Representative"
       project_visibility: "Visibility"
       project_leader: "Project Leader"
       public: "public"
@@ -89,6 +89,8 @@ en:
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
       status: "Status"
       projects: "Projects"
+      wimi: "Research Associate"
+      hiwi: "Research Assistant"
     edit:
       user_data: "User Data"
     edit_leave:
