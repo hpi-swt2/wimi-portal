@@ -1,8 +1,8 @@
 require 'rails_helper'
-require 'request_macros'
+#require 'request_macros'
 
 include Warden::Test::Helpers
-include RequestMacros
+#include RequestMacros
 
 describe 'profile', type: feature do
   #self.use_transactional_fixtures = false #only necessary when using selenium with js:true
