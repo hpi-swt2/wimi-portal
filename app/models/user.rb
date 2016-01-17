@@ -25,21 +25,6 @@
 #
 
 class User < ActiveRecord::Base
-
-  DIVISIONS = [ '',
-      'Enterprise Platform and Integration Concepts',
-      'Internet-Technologien und Systeme',
-      'Human Computer Interaction',
-      'Computergrafische Systeme',
-      'Algorithm Engineering',
-      'Systemanalyse und Modellierung',
-      'Software-Architekturen',
-      'Informationssysteme',
-      'Betriebssysteme und Middleware',
-      'Business Process Technology',
-      'School of Design Thinking',
-      'Knowledge Discovery and Data Mining']
-
   LANGUAGES = [
     [
       'English',

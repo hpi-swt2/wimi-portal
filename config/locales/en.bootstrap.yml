@@ -89,8 +89,8 @@ en:
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
       status: "Status"
       projects: "Projects"
-      wimi: "Research Associate"
-      hiwi: "Research Assistant"
+      wimi: "Research Assistant"
+      hiwi: "Student Assistant"
     edit:
       user_data: "User Data"
     edit_leave:

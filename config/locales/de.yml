@@ -135,7 +135,7 @@ de:
         residence: "Wohnort"
         street: "Straße"
         personnel_number: "Personalnummer"
-        division_id: "Lehrstuhl"
+        chair: "Lehrstuhl"
         language: "Sprache"
   links:
     search: 'Suchen'

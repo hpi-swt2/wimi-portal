@@ -134,7 +134,7 @@ en:
         residence: "Residence"
         street: "Street"
         personnel_number: "Staff Number"
-        division_id: "Research Group"
+        chair: "Research Group"
         language: "Language"
   links:
     search: 'Search'

@@ -58,7 +58,7 @@ describe 'research assistant profile', type: feature do
     representative = FactoryGirl.create(:user)
     FactoryGirl.create(:chair_representative, user_id: representative.id, chair_id: chair.id)
 
-    @current_user = FactoryGirl.create(:chair_wimi, user_id: user.id, chair_id: chair.id).user
+    @current_user = FactoryGirl.create(:chair_wimi, user_id: user.id, chair_id: chair.id, application: 'accepted').user
     login_as(@current_user, scope: :user)
 
     visit('/projects/new')
