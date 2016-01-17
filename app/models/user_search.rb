@@ -4,6 +4,7 @@ class UserSearch < Searchlight::Search
   end
 
   def search_typeahead
-    query.where('email LIKE ?', "%#{typeahead}%")
+    print query
+    query.where('email LIKE ?', "%#{typeahead.split(',').last}%")
   end
 end

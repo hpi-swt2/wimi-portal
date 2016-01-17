@@ -93,6 +93,11 @@
       </div>
     </div>
 
+
+  <div>
+    <%= f.text_field :users,  { :value => '', class: "typeahead form-control", size: 100, name: "user[email][]", placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
+  </div>
+
   <div class="col-md-2">
     <%= f.submit nil, class: 'btn btn-primary' %>
   </div>

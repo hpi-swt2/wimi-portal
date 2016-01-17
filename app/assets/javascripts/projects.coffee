@@ -53,3 +53,7 @@ ready = ->
 
 $(document).ready ready
 $(document).on 'page:load', ready
+
+create_new = ->
+  $('#createNewTextbox').append '<input type="email" id="email" name="user[email][]" placeholder="Invitation email" required/>'
+  return
