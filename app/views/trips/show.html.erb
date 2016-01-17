@@ -22,6 +22,8 @@
   <%= @trip.signature %>
 </p>
 
-<%= link_to t('helpers.links.edit'), edit_trip_path(@trip), class: "btn btn-default btn-xs" %> |
-<%= link_to t('helpers.links.back') , trips_path , class: "btn btn-default btn-xs"%> |
-<%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip) , class: "btn btn-success btn-xs"%>
+<%= link_to t('.edit', default: t("helpers.links.edit")),
+              edit_trip_path(@trip), class: 'btn btn-default' %>
+<%= link_to t('.back', default: t("helpers.links.back")),
+              trips_path, class: 'btn btn-default'  %>
+<%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-default' %>
