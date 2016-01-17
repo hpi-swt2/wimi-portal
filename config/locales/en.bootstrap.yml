@@ -88,6 +88,7 @@ en:
       days: "Day(s)"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
       status: "Status"
+      projects: "Projects"
     edit:
       user_data: "User Data"
     edit_leave:

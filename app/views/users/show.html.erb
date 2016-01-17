@@ -18,19 +18,24 @@
       </div>
     </div>
     <div class="panel panel-body">
-      <p><strong><%= model_class.human_attribute_name(:first_name)+": " %></strong><%= current_user.first_name %></p>
-      <p><strong><%= model_class.human_attribute_name(:last_name)+": " %></strong><%= current_user.last_name %></p>
-      <p><strong><%= model_class.human_attribute_name(:residence)+": " %></strong><%= current_user.residence %></p>
-      <p><strong><%= model_class.human_attribute_name(:street)+": " %></strong><%= current_user.street %></p>
-      <p><strong><%= model_class.human_attribute_name(:division_id)+": " %></strong><%= User::DIVISIONS[current_user.division_id] %></p>
-      <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= current_user.personnel_number %></p>
+      <p><strong><%= model_class.human_attribute_name(:first_name)%>: </strong><%= current_user.first_name %></p>
+      <p><strong><%= model_class.human_attribute_name(:last_name)%>: </strong><%= current_user.last_name %></p>
+      <p><strong><%= model_class.human_attribute_name(:residence)%>: </strong><%= current_user.residence %></p>
+      <p><strong><%= model_class.human_attribute_name(:street)%>: </strong><%= current_user.street %></p>
+      <p><strong><%= model_class.human_attribute_name(:division_id)%>: </strong><%= User::DIVISIONS[current_user.division_id] %></p>
+      <p><strong><%= model_class.human_attribute_name(:personnel_number)%>: </strong><%= current_user.personnel_number %></p>
       <% if @user.is_hiwi? %>
-        <p><strong><%= t('.status') + ': ' %></strong>HiWi</p>
+        <p><strong><%= t('.status')%>: </strong>HiWi</p>
       <% end %>
       <% if @user.is_wimi? %>
-        <p><strong><%= t('.status') + ': ' %></strong>WiMi</p>
+        <p><strong><%= t('.status')%>: </strong>WiMi</p>
       <% end %>
-      <p><strong><%= model_class.human_attribute_name(:language)+": " %></strong><%= current_user.language %></p>
+      <p><strong><%= t('.projects')%>: </strong>
+        <% @user.projects[0..-2].each do |project| %>
+          <%= link_to(project.title, project) %>,
+        <% end %>
+        <%= link_to(@user.projects.last.title, @user.projects.last) if @user.projects.last  %></p>
+      <p><strong><%= model_class.human_attribute_name(:language)%>: </strong><%= current_user.language %></p>
     </div>
   </div>
 
