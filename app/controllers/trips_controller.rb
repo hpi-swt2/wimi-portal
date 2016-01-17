@@ -10,12 +10,13 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    2.times {@trip.trip_datespans.build}
+    2.times { @trip.trip_datespans.build }
   end
 
   def edit
     if @trip.status == 'applied'
-      redirect_to @trip, notice: 'Trip is already applied.'
+      redirect_to @trip
+      flash[:error] = I18n.t('trip.applied')
     else
       fill_blank_items
     end
@@ -24,10 +25,11 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    
+
 
     if @trip.save
-      redirect_to @trip, notice: 'Trip was successfully created.'
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.save')
     else
       fill_blank_items
       render :new
@@ -37,7 +39,8 @@ class TripsController < ApplicationController
   def update
     @trip.update(status: 'saved')
     if @trip.update(trip_params)
-      redirect_to @trip, notice: 'Trip was successfully updated.'
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.update')
     else
       fill_blank_items
       render :edit
@@ -55,22 +58,25 @@ class TripsController < ApplicationController
 
   def destroy
     if @trip.status == 'applied'
-      redirect_to @trip, notice: 'Trip is already applied.'
+      redirect_to @trip
+      flash[:error] = I18n.t('trip.applied')
     else
       @trip.destroy
-      redirect_to trips_url, notice: 'Trip was successfully destroyed.'
+      redirect_to trips_url
+      flash[:sucess] = I18n.t('trip.destroyed')
     end
   end
 
   def download
   end
-
+  
   def apply
     @trip.status = 'applied'
     if @trip.save
-       redirect_to @trip, notice: 'Trip was successfully applied.'
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.apply')
     else
-       render :edit
+      render :edit
     end
 
   end
@@ -86,6 +92,6 @@ class TripsController < ApplicationController
   end
 
   def fill_blank_items
-    (2 - @trip.trip_datespans.size).times {@trip.trip_datespans.build}
+    (2 - @trip.trip_datespans.size).times { @trip.trip_datespans.build }
   end
 end

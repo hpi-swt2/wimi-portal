@@ -86,7 +86,7 @@ RSpec.describe ChairsController, type: :controller do
       chair_wimi = FactoryGirl.create(:chair_wimi, admin: true, user: user, chair: @chair)
       login_with(user)
       get :edit, {id: @chair.to_param}
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(302)
     end
 
     it 'does not edit the chair for another admin' do
