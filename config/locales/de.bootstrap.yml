@@ -81,6 +81,7 @@ de:
       remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
       days: "Tag(e)"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      status: "Status"
     edit:
       user_data: "Profilbezogene Daten"
     edit_leave:
