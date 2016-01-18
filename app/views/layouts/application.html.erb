@@ -13,7 +13,6 @@
 	  <% if current_user != nil && (current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
         <%= menu_item t("activerecord.models.chair.other"), chairs_path %>
         <%= menu_item t("activerecord.models.project.other"), projects_path %>
-        <%= menu_item t("activerecord.models.publication.other"), publications_path %>
         <%= menu_item t("activerecord.models.trip.other"), trips_path %>
         <%= menu_item t("activerecord.models.holiday.other"), holidays_path %>
         <%= menu_item t("activerecord.models.expense.other"), travel_expense_reports_path %>

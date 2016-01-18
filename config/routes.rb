@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
   get 'users/edit_leave', to: 'users#edit_leave'
 
-  resources :publications
   resources :projects do
     member do
       post 'invite_user'

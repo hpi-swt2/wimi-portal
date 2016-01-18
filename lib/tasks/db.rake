@@ -38,10 +38,6 @@ namespace :db do
     #   start: Date.today-7,
     #   end: Date.today-6,
     #   user_id: 1)
-    # Publication.create(title: "Semantic Web Research Results",
-    #   venue: "CGM",
-    #   type_: "Paper",
-    #   project_id: 1)
     # Trip.create(title: "ME310 Kickoff USA",
     #   start: Date.today-3,
     #   end: Date.today,

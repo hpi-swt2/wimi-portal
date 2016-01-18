@@ -20,7 +20,9 @@ require 'rails_helper'
 
 RSpec.describe TravelExpenseReportsController, type: :controller do
   before(:each) do
-    login_with create (:user)
+    wimi = FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair))
+    @user = wimi.user
+    login_with (@user)
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -41,7 +43,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      hotel: true,
      general_advance:  2000,
      signature: true,
-     user: User.first}
+     user: @user}
   }
 
   let(:advance_blank_attributes) {
@@ -59,7 +61,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      hotel: true,
      general_advance: '',
      signature: true,
-     user: User.first}
+     user: @user}
   }
 
   let(:invalid_attributes) {
@@ -77,7 +79,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      hotel: true,
      general_advance: -100,
      signature: true,
-     user: User.first}
+     user: @user}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -89,7 +91,7 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
     it 'assigns all travel_expense_reports as @travel_expense_reports' do
       travel_expense_report = TravelExpenseReport.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:travel_expense_reports)).to eq([travel_expense_report])
+      expect(assigns(:travel_expense_reports)).to eq(@user.travel_expense_reports)
     end
   end
 

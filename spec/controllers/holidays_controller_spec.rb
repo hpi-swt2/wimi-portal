@@ -21,7 +21,8 @@ require 'spec_helper'
 
 RSpec.describe HolidaysController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    wimi = FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair))
+    @user = wimi.user
     sign_in @user
   end
 

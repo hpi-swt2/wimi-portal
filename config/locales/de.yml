@@ -34,9 +34,6 @@ de:
       project:
         one: "Projekt"
         other: "Projekte"
-      publication:
-        one: "Veröffentlichung"
-        other: "Veröffentlichungen"
       travel_expense_report:
         one: "Reisekostenabrechnung"
         other: "Reisekostenabrechnungen"
@@ -74,14 +71,6 @@ de:
         reason: "Grund für Sonderurlaub"
         annotations: "Anmerkungen"
         replacement: "Vertretung"
-      publication:
-        id: "Id"
-        title: "Titel"
-        venue: "Erscheinungsort"
-        type_: "Typ"
-        project_id: "Projekt"
-        created_at: "Erstellungsdatum"
-        users: "Benutzer"
       expense:
         id: "Id"
         amount: "Betrag"
