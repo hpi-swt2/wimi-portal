@@ -4,7 +4,7 @@
 de:
   home:
     index:
-      welcome: "Willkommen"
+      welcome: "wilkommen"
   helpers:
     application_tabs:
       home: "Startseite"
@@ -23,7 +23,6 @@ de:
       new: "Neu"
       apply: "Bewerben"
       edit: "Bearbeiten"
-      leave: "Verlassen"
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
       show_pdf: "Als PDF anzeigen"
@@ -72,8 +71,6 @@ de:
       create_project: "Erstelle Projekt"
       update_project: "Aktualisiere Project"
     show:
-      working_hours: "Stundenzettel"
-      add_working_hours: "Stundenzettel hinzufügen"
       inactive: "(inaktiv)"
       set_inactive: "inaktiv schalten "
       set_active: "aktiv schalten"
@@ -134,6 +131,8 @@ de:
         accepted: "Akzeptiert am "
         applied: "Eingereicht am "
         declined: "Abgelehnt am "
+    form:
+      auto_calculation: "Für automatische Berechnung leer lassen."
   dashboard:
     index:
       notifications: "Benachrichtigungen"

@@ -46,12 +46,6 @@ en:
         name: "Name"
         created_at: "Created at"
         status: "Status"
-        apply: "Apply as WiMi"
-        application:
-          status:
-            pending: "pending"
-            accepted: "accepted"
-            declined: "declined"
       project:
         title: "Title"
         created_at: "Created at"
@@ -226,6 +220,7 @@ en:
       trip_request: "Trip request"
   "true": "yes"
   "false": "no"
+  not_enough_leave: 'Not enough leave left'
   status:
     saved: "saved"
     applied: "applied"

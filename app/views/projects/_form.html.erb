@@ -93,8 +93,9 @@
       </div>
     </div>
 
-  <div class="col-md-2">
+
     <%= f.submit nil, class: 'btn btn-primary' %>
-  </div>
+    <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+                projects_path, class: 'btn btn-default' %>
 
 <% end %>

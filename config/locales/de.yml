@@ -49,12 +49,6 @@ de:
         name: "Name"
         created_at: "Erstellungsdatum"
         status: "Status"
-        apply: "Als WiMi bewerben"
-        application:
-          status:
-            pending: "gestellt"
-            accepted: "angenommen"
-            declined: "abgelehnt"
       project:
         id: "Id"
         title: "Titel"

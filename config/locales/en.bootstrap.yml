@@ -27,7 +27,6 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
-      leave: "Leave"
       edit_leave: "Edit Leave"
       show_details: "Show Details"
       show_pdf: "Show PDF"
@@ -79,8 +78,6 @@ en:
       create_project: "Create Project"
       update_project: "Update Project"
     show:
-      working_hours: "Working hours"
-      add_working_hours: "Add working hours"
       inactive: "(inactive)"
       set_inactive: "set inactive"
       set_active: "set active"
@@ -143,6 +140,8 @@ en:
         accepted: "Accepted at "
         applied: "Applied at "
         declined: "Rejected at "
+    form:
+      auto_calculation: "Leave blank for automatic calculation."
   dashboard:
     index:
       notifications: "Notifications"
