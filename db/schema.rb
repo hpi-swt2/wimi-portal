@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160109214346) do
-=======
 ActiveRecord::Schema.define(version: 20160116122005) do
->>>>>>> dev
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -37,29 +33,6 @@ ActiveRecord::Schema.define(version: 20160116122005) do
   end
 
   create_table "events", force: :cascade do |t|
-<<<<<<< HEAD
-    t.integer "trigger_id"
-    t.integer "target_id"
-    t.integer "chair_id"
-    t.integer "seclevel"
-    t.string  "type"
-  end
-
-  add_index "events", ["chair_id"], name: "index_events_on_chair_id"
-  add_index "events", ["target_id"], name: "index_events_on_target_id"
-  add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
-
-  create_table "expenses", force: :cascade do |t|
-    t.decimal  "amount"
-    t.text     "purpose"
-    t.text     "comment"
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.integer  "trip_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "status",     default: 0
-=======
     t.integer  "trigger_id"
     t.integer  "target_id"
     t.integer  "chair_id"
@@ -68,7 +41,6 @@ ActiveRecord::Schema.define(version: 20160116122005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "status"
->>>>>>> dev
   end
 
   add_index "events", ["chair_id"], name: "index_events_on_chair_id"
@@ -100,9 +72,8 @@ ActiveRecord::Schema.define(version: 20160116122005) do
     t.integer  "sender_id"
   end
 
-<<<<<<< HEAD
   add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
-=======
+
   create_table "project_applications", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "user_id"
@@ -110,7 +81,6 @@ ActiveRecord::Schema.define(version: 20160116122005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
->>>>>>> dev
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
@@ -132,25 +102,6 @@ ActiveRecord::Schema.define(version: 20160116122005) do
 
   add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id"
   add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id"
-
-  create_table "publications", force: :cascade do |t|
-    t.string   "title"
-    t.string   "venue"
-    t.string   "type_"
-    t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "publications", ["project_id"], name: "index_publications_on_project_id"
-
-  create_table "publications_users", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "publication_id"
-  end
-
-  add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
-  add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
   create_table "time_sheets", force: :cascade do |t|
     t.integer  "month"
