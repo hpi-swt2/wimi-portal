@@ -53,6 +53,9 @@ class Ability
       user.projects.exists?(project_application.project_id)
     end
     cannot :create, ProjectApplication
+    can :see_holidays, User do |this_user|
+      user == this_user
+    end
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end

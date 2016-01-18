@@ -6,7 +6,7 @@ class HolidaysController < ApplicationController
   end
 
   def show
-    unless (@holiday.user_id == current_user.id) || ((can? :see_holidays, @holiday.user) && (can? :judge_holiday, @holiday))
+    unless (can? :see_holidays, @holiday.user) || (can? :judge_holiday, @holiday)
       redirect_to root_path
       flash[:error] = I18n.t('holiday.not_authorized')
     end
