@@ -26,17 +26,6 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :project_leader, t('projects.form.project_leader', default:'Project Leader'), class: 'control-label' %>
-      <div class="controls col-md-12 projectTitleControl">
-        <div class="col-md-6" style="margin-left: -5px">
-          <%= f.text_field :project_leader , class: 'form-control' %>
-        </div>
-      </div>
-      <%= error_span(@project[:project_leader]) %>
-    </div>
-
-
-    <div class="control-group">
       <%= f.label :public, t('projects.form.accessibility', default: 'Accessibility'),  class: 'control-label' %>
       <div class="radio">
         <div class="col-md-2">
