@@ -13,9 +13,6 @@ class HolidaysController < ApplicationController
   end
 
   def show
-    unless can? :read, @holiday
-      redirect_to holidays_path
-    end
   end
 
   def new

@@ -95,9 +95,10 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     render
     expect(page).to_not have_content(notification)
 
-    FactoryGirl.create(:wimi, chair: chair1, user: @user, admin: true)
+    admin = FactoryGirl.create(:user)
+    FactoryGirl.create(:wimi, chair: chair1, user: admin, admin: true)
 
-    login_as @user
+    login_as admin
     visit dashboard_path
     render
 
@@ -154,7 +155,5 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(page).to have_content(notification)
     expect(page).to have_link('Show')
     expect(page).to have_link('Hide')
-
-    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
   end
 end
