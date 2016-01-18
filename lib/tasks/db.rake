@@ -1,24 +1,22 @@
 namespace :db do
   task add_demo_data: :environment do
-    joe = User.create(first_name: 'John', last_name: 'Doe', email: 'john.doe@student.hpi.de')
-    epic = Chair.create(name: 'EPIC')
-    joe_hiwi = ChairWimi.create(user: joe, chair: epic, admin: true)
-    swt2 = Project.create(title: "Softwaretechnik II")
-    swt2.users << joe
-    epic.projects << swt2
-
     # define users
     epic_admin = User.create(first_name: 'Admin', last_name: 'Epic', email: 'admin@epic.de')
     epic_representative = User.create(first_name: 'Representative', last_name: 'Epic', email: 'representative@epic.de')
     meinel_both = User.create(first_name: 'Admin-Representative', last_name: 'Meinel', email: 'admin.representative@meinel.de')
     wimi_epic = User.create(first_name: 'Wimi', last_name: 'Epic', email: 'wimi@epic.de')
     pending_wimi_appl = User.create(first_name: 'Wimi-Pending', last_name: 'Epic', email: 'wimi.pending@epic.de')
-    User.create(first_name: 'Alice', last_name: 'A', email: 'alice@user.de')
+    alice = User.create(first_name: 'Alice', last_name: 'A', email: 'alice@user.de')
     User.create(first_name: 'Bob', last_name: 'B', email: 'bob@user.de')
 
     # create chairs
     chair1 = Chair.create(name: 'Epic', description: 'Enterprise Platform and Integration Concepts')
     chair2 = Chair.create(name: 'Meinel', description: 'Internet-Technologien und -Systeme')
+
+    swt2 = Project.create(title: "Softwaretechnik II")
+    swt2.users << epic_admin
+    swt2.users << alice
+    chair1.projects << swt2
 
     # set user roles
     ChairWimi.create(chair_id: chair1.id, user_id: epic_admin.id, admin: true, application: "accepted")
