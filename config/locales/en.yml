@@ -172,9 +172,9 @@ en:
   holiday:
     not_authorized: "You're not authorized to see this holiday request."
     not_enough_leave: 'Not enough leave left!'
-    destroyed: 'Holiday was destroyed successfully.'
-    updated: 'Holiday was updated successfully.'
-    created: 'Holiday was created successfully.'
+    destroyed: 'Holiday was successfully destroyed.'
+    updated: 'Holiday was successfully updated.'
+    created: 'Holiday was successfully created.'
     something_wrong: 'Something went wrong.'
   project:
     filter_chair: 'Filter for chair'

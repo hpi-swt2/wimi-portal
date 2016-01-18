@@ -21,7 +21,7 @@ class Holiday < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :user, :start, :end, :length
-  validates_date :start, on_or_after: :today
+  validates_date :start
   validates_date :end, on_or_after: :start
   validate :too_far_in_the_future?
   enum status: [:saved, :applied, :accepted, :declined]

@@ -53,7 +53,7 @@
     <%= f.label :replacement, class: 'control-label' %>
     <%# Capybara doesn't seem to find invisible selection boxes, so this div has to be displayed in a test environment %>
     <%= content_tag :div, class: "controls", id: 'selection', style: "#{Rails.env}" == 'test' ? "display:block" : "display: none" do %>
-      <%= f.collection_select :replacement_user_id, User.all.select { |user| user.chair == current_user.chair && user.is_wimi? }, :id, :name, include_blank: true, id: 'replacement_selection' %>
+      <%= f.collection_select :replacement_user_id, User.all.select {|user| user.chair == current_user.chair && user.is_wimi? && user != current_user}, :id, :name, include_blank: true, id: 'replacement_selection' %>
     <% end %>
     <%= error_span(@holiday[:replacement_user_id]) %>
   </div>

@@ -33,7 +33,7 @@ RSpec.describe HolidaysController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    {start: Date.today - 2, end: Date.today, user_id: @user.id, length: 1}
+    {start: Date.today, end: Date.today - 1, user_id: @user.id, length: 1}
   }
 
   let(:checked_valid_attributes) {
@@ -41,7 +41,7 @@ RSpec.describe HolidaysController, type: :controller do
   }
 
   let(:checked_invalid_attributes) {
-    {start: I18n.l(Date.today - 2), end: I18n.l(Date.today), user_id: @user.id, length: 1}
+    {start: I18n.l(Date.today), end: I18n.l(Date.today - 1), user_id: @user.id, length: 1}
   }
 
   # This should return the minimal set of values that should be in the session

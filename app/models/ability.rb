@@ -63,7 +63,7 @@ class Ability
     can :requests,  Chair do |chair|
       user.is_representative?(chair)
     end
-    can :show_holidays, User do |chair_user|
+    can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
     can :judge_holiday, Holiday do |holiday|
