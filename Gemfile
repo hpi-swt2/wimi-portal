@@ -79,6 +79,8 @@ gem 'wkhtmltopdf-binary'
 # Create filters easily with scopes
 gem 'has_scope'
 
+gem 'rubocop', '~> 0.29.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -94,7 +96,6 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'rubocop', '~> 0.29.1'
   gem 'better_errors', '~> 2.1.1'
   gem 'binding_of_caller', '~> 0.7.2'
 
