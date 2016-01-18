@@ -46,10 +46,10 @@
 </div>
 
 <%= link_to 'Download', generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: @holiday), class: 'btn btn-default' %>
-<% if ((@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')) && @holiday.user = current_user %>
+<% if @holiday.user == current_user && ((@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')) %>
   <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
 <% end %>
-<% if(can? :judge_holiday, @holiday) && @holiday.status == 'applied' %>
+<% if(can? :read, @holiday) && @holiday.status == 'applied' %>
   <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
   <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary' %>
 <% end %>

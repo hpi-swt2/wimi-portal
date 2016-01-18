@@ -21,7 +21,8 @@ require 'spec_helper'
 
 RSpec.describe HolidaysController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    wimi = FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair))
+    @user = wimi.user
     sign_in @user
   end
 
@@ -260,6 +261,7 @@ RSpec.describe HolidaysController, type: :controller do
 
     context 'with invalid params' do
       it 'redirects to the root path if an unauthorized person wants to reject it' do
+        sign_in FactoryGirl.create(:user)
         holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
         get :reject, {id: holiday.to_param}, valid_session
         expect(response).to redirect_to(root_path)
@@ -290,6 +292,7 @@ RSpec.describe HolidaysController, type: :controller do
 
     context 'with invalid params' do
       it 'redirects to the root path if an unauthorized person wants to reject it' do
+        sign_in FactoryGirl.create(:user)
         holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
         get :accept, {id: holiday.to_param}, valid_session
         expect(response).to redirect_to(root_path)

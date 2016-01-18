@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'dashboard/index.html.erb', type: :view do
   before :each do
     @user = FactoryGirl.create(:user)
+    @notifications = Array.new
     sign_in @user
   end
 
@@ -36,6 +37,8 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(page).to have_content(I18n.t('activerecord.attributes.chair.apply'))
     expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.application.status.pending'))
     click_on I18n.t('activerecord.attributes.chair.apply')
+    visit dashboard_path
+
     expect(page).to have_content(I18n.t('activerecord.attributes.chair.application.status.pending'))
     expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.apply'))
   end

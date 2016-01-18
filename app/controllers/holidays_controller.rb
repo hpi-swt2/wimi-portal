@@ -1,35 +1,38 @@
 class HolidaysController < ApplicationController
+  load_and_authorize_resource
+  skip_authorize_resource only: :index
+
   before_action :set_holiday, only: [:show, :edit, :update, :destroy, :file, :reject, :accept]
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('chairs.navigation.not_authorized')
+    redirect_to root_path
+  end
 
   def index
-    if (can? :see_holidays, current_user)
+    if can? :see_holidays, current_user
       @holidays = Holiday.all
     else
       redirect_to root_path
-      flash[:error] = I18n.t('holiday.not_authorized')
     end
   end
 
   def show
-    unless (can? :see_holidays, @holiday.user) || (can? :judge_holiday, @holiday)
+    unless can? :read, @holiday 
       redirect_to root_path
-      flash[:error] = I18n.t('holiday.not_authorized')
     end
   end
 
   def new
-    if (can? :see_holidays, current_user)
+    if can? :see_holidays, current_user
       @holiday = Holiday.new
     else
       redirect_to root_path
-      flash[:error] = I18n.t('holiday.not_authorized')
     end
   end
 
   def edit
-    unless (can? :see_holidays, @holiday.user) || (can? :judge_holiday, @holiday)
+    unless can? :read, @holiday
       redirect_to root_path
-      flash[:error] = I18n.t('holiday.not_authorized')
     end
   end
 
@@ -77,6 +80,7 @@ class HolidaysController < ApplicationController
       if subtract_leave(@holiday.length)
         @holiday.update_attribute(:status, 'applied')
         @holiday.update_attribute(:last_modified, Date.today)
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @holiday.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'holiday'})
         redirect_to @holiday.user
       else
         redirect_to @holiday
@@ -89,7 +93,7 @@ class HolidaysController < ApplicationController
   end
 
   def reject
-    if (can? :judge_holiday, @holiday) && @holiday.status == 'applied'
+    if (can? :read, @holiday) && @holiday.status == 'applied'
       if add_leave(@holiday.length)
         @holiday.update_attribute(:status, 'declined')
         @holiday.update_attribute(:last_modified, Date.today)
@@ -105,7 +109,7 @@ class HolidaysController < ApplicationController
   end
 
   def accept
-    if(can? :judge_holiday, @holiday) && @holiday.status == 'applied'
+    if(can? :read, @holiday) && @holiday.status == 'applied'
       @holiday.update_attribute(:status, 'accepted')
       @holiday.update_attribute(:last_modified, Date.today)
       redirect_to @holiday.user

@@ -9,12 +9,13 @@
 #  start               :date
 #  end                 :date
 #  status              :integer          default(0), not null
-#  reason              :string
-#  annotation          :string
 #  replacement_user_id :integer
 #  length              :integer
 #  signature           :boolean
 #  last_modified       :date
+#  reason              :string
+#  annotation          :string
+#  length_last_year    :integer          default(0)
 #
 
 require 'rails_helper'

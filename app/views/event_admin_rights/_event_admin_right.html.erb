@@ -1,0 +1,4 @@
+<%=l event_admin_right.created_at %> - 
+<%= t(event_admin_right.status, scope: 'events.event_admin_right', trigger: event_admin_right.trigger.name, target: event_admin_right.target.name) %>
+<%= link_to t('helpers.submit.hide'), hide_event_path(id: event_admin_right, request: current_user), method: :post, class: 'label label-warning' %>
+<br/>

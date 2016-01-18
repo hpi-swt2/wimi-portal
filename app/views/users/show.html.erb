@@ -93,7 +93,7 @@
             </thead>
             <tbody>
               <% @user.holidays.each do |holiday| %>
-                <% if @user == current_user || (can? :judge_holiday, holiday) %>
+                <% if can? :read, holiday %>
                   <tr>
                     <td><%= holiday.length %> <%= t('.days') %></td>
                     <td><%=l holiday.start %></td>
