@@ -88,3 +88,7 @@ body {
     display: inline-block;
     width: 48%;
 }
+
+.link {
+    color: mediumblue;
+}
