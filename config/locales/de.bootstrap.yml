@@ -85,13 +85,13 @@ de:
       projects: "Projekte"
       wimi: "WiMi"
       hiwi: "HiWi"
-    edit:
-      user_data: "Profilbezogene Daten"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
       save: "Resturlaub Speichern"
       title: "Resturlaub bearbeiten"
+    form:
+      user_data: "Profilbezogene Daten"
   dashboard:
     index:
       dashboard_title: "Dashboard"

@@ -82,22 +82,22 @@ en:
     show:
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
-      user_data: "User Data"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       days: "Day(s)"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
       status: "Status"
+      user_data: "User Data"
       projects: "Projects"
       wimi: "Research Assistant"
       hiwi: "Student Assistant"
-    edit:
-      user_data: "User Data"
     edit_leave:
       remaining_leave: "Remaining Leave"
       remaining_leave_fly: "Remaining Leave from last year"
       save: "Save Leave"
       title: "Edit Leave"
+    form:
+      user_data: "User Data"
   dashboard:
     index:
       dashboard_title: "Dashboard"
