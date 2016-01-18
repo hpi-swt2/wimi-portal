@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160109214346) do
+=======
+ActiveRecord::Schema.define(version: 20160116122005) do
+>>>>>>> dev
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -33,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160109214346) do
   end
 
   create_table "events", force: :cascade do |t|
+<<<<<<< HEAD
     t.integer "trigger_id"
     t.integer "target_id"
     t.integer "chair_id"
@@ -54,19 +59,35 @@ ActiveRecord::Schema.define(version: 20160109214346) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "status",     default: 0
+=======
+    t.integer  "trigger_id"
+    t.integer  "target_id"
+    t.integer  "chair_id"
+    t.integer  "seclevel"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "status"
+>>>>>>> dev
   end
 
-  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
-  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
-  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
+  add_index "events", ["chair_id"], name: "index_events_on_chair_id"
+  add_index "events", ["target_id"], name: "index_events_on_target_id"
+  add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",     default: 0
+    t.integer  "status",              default: 0, null: false
+    t.integer  "replacement_user_id"
+    t.integer  "length"
+    t.boolean  "signature"
+    t.date     "last_modified"
+    t.string   "reason"
+    t.string   "annotation"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -79,7 +100,17 @@ ActiveRecord::Schema.define(version: 20160109214346) do
     t.integer  "sender_id"
   end
 
+<<<<<<< HEAD
   add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
+=======
+  create_table "project_applications", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+>>>>>>> dev
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
@@ -166,10 +197,11 @@ ActiveRecord::Schema.define(version: 20160109214346) do
     t.boolean  "public_transport"
     t.boolean  "vehicle_advance"
     t.boolean  "hotel"
+    t.integer  "status",           default: 0
     t.integer  "general_advance"
     t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.boolean  "signature"
   end
 
@@ -201,6 +233,16 @@ ActiveRecord::Schema.define(version: 20160109214346) do
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
+  create_table "user_events", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_events", ["event_id"], name: "index_user_events_on_event_id"
+  add_index "user_events", ["user_id"], name: "index_user_events_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "",    null: false
     t.integer  "sign_in_count",             default: 0,     null: false
@@ -216,7 +258,6 @@ ActiveRecord::Schema.define(version: 20160109214346) do
     t.string   "language",                  default: "en",  null: false
     t.string   "residence"
     t.string   "street"
-    t.integer  "division_id",               default: 0
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0

@@ -21,7 +21,8 @@ require 'spec_helper'
 
 RSpec.describe HolidaysController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    wimi = FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair))
+    @user = wimi.user
     sign_in @user
   end
 
@@ -29,11 +30,11 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {start: Date.today, end: Date.today+1, user_id: @user.id}
+    {start: Date.today, end: Date.today + 1, user_id: @user.id, length: 1}
   }
 
   let(:invalid_attributes) {
-    {start: Date.today-1, end: Date.today, user_id: @user.id}
+    {start: Date.today - 1, end: Date.today, user_id: @user.id, length: 1}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -43,7 +44,7 @@ RSpec.describe HolidaysController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all holidays as @holidays' do
-      holiday = Holiday.create! valid_attributes
+      Holiday.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:holidays)).to eq(Holiday.all)
     end
@@ -58,7 +59,7 @@ RSpec.describe HolidaysController, type: :controller do
 
     it 'redirects to the holidays page if holiday belongs to another user' do
       user2 = FactoryGirl.create(:user)
-      holiday = Holiday.create(start: Date.today, end: Date.today+1, user_id: user2.id)
+      holiday = Holiday.create(start: Date.today, end: Date.today + 1, user_id: user2.id, length: 1)
       get :show, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_path)
     end
@@ -93,9 +94,9 @@ RSpec.describe HolidaysController, type: :controller do
         expect(assigns(:holiday)).to be_persisted
       end
 
-      it 'redirects to the user profile' do
+      it 'redirects to the holiday detail page' do
         post :create, {holiday: valid_attributes}, valid_session
-        expect(response).to redirect_to(@user)
+        expect(response).to redirect_to(assigns(:holiday))
       end
     end
 
@@ -115,7 +116,7 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { status: 'applied' }
+        {status: 'applied'}
       }
 
       it 'updates the requested holiday' do
@@ -135,6 +136,14 @@ RSpec.describe HolidaysController, type: :controller do
         holiday = Holiday.create! valid_attributes
         put :update, {id: holiday.to_param, holiday: valid_attributes}, valid_session
         expect(response).to redirect_to(holiday)
+      end
+
+      it 'calculates the length if no length is entered' do
+        holiday = Holiday.create! valid_attributes
+        holiday.update_attribute(:length, 2)
+        put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today + 1, user_id: @user.id, length: ''}}
+        holiday.reload
+        expect(holiday.length).to eq(holiday.duration)
       end
     end
 
@@ -165,6 +174,16 @@ RSpec.describe HolidaysController, type: :controller do
       holiday = Holiday.create! valid_attributes
       delete :destroy, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_url)
+    end
+  end
+
+  describe 'POST #hand_in' do
+    it 'hands in a trip request' do
+      user = FactoryGirl.create(:user)
+      holiday = FactoryGirl.create(:holiday, user: user)
+      
+      login_with(user)
+      post :hand_in, { id: holiday.id }
     end
   end
 end

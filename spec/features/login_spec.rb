@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'login via OpenID' do
   before :each do
-    @routes = ['/publications', '/projects', '/holidays', '/trips', '/expenses']
+    @routes = ['/projects', '/holidays', '/trips', '/travel_expense_reports']
   end
 
   it 'should not show any page as long as you are not logged in' do
@@ -21,7 +21,7 @@ describe 'login via OpenID' do
       expect(page).to have_content 'Please set a valid email address first'
     end
 
-    fill_in "user_email", with: 'valid email'
+    fill_in 'user_email', with: 'valid email'
     click_on 'Update User'
 
     @routes.each do |route|

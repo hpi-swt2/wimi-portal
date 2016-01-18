@@ -2,14 +2,48 @@ require 'rails_helper'
 
 RSpec.describe 'projects/show', type: :view do
   before(:each) do
-    @chair = FactoryGirl.create(:chair)
     @user = FactoryGirl.create(:user)
+    @chair = FactoryGirl.create(:chair)
+    @wimi = FactoryGirl.create(:chair_representative, user: FactoryGirl.create(:user), chair: @chair).user
 
+    sign_in @user
+    @project = FactoryGirl.create(:project, chair_id: @wimi.chair.id)
+    allow(view).to receive(:current_user).and_return(@user)
   end
 
+  it 'renders attributes in <p>' do
+    render
+    expect(rendered).to match(/Factory Project/)
+  end
+
+  context 'as hiwi' do
+
+    it 'shows leave project button if part of project' do
+      @project.users << @user
+      render
+      expect(rendered).to have_content(t('projects.show.leave_project'))
+    end
+
+    it 'shows no leave project button if not part of project' do
+      render
+      expect(rendered).to_not have_content(t('projects.show.leave_project'))
+    end
+
+    it 'shows add working hours button' do
+      @project.users << @user
+      render
+      expect(rendered).to have_content(t('projects.show.add_working_hours'))
+    end
+
+    it 'shows working hours' do
+      @project.users << @user
+      render
+      expect(rendered).to have_content(t('projects.show.working_hours'))
+    end
+  end
 
   it 'has information about the project on page as a chair representative' do
-    representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
     login_as representative
     project = FactoryGirl.create(:project, chair: representative.chair, status: true)
     representative.projects << project
@@ -21,11 +55,10 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(I18n.t('projects.show.public'))
     expect(page).to have_content(I18n.t('projects.show.project_leader'))
     expect(page).to have_content(representative.name)
-
   end
 
   it 'has information about the project on page as a wimi' do
-    representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
     @wimi_user = FactoryGirl.create(:user)
     wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
 
@@ -60,7 +93,7 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'shows a button for a wimi to inspect a user specific working hour report for this project' do
-    @representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    @representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
     @wimi_user = FactoryGirl.create(:user)
     @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
     user = FactoryGirl.create(:user)
@@ -73,7 +106,7 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'shows a button for a wimi to inspect all working hour report for this project' do
-    @representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    @representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
     @wimi_user = FactoryGirl.create(:user)
     @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
     user = FactoryGirl.create(:user)

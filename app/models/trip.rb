@@ -20,12 +20,17 @@ class Trip < ActiveRecord::Base
   accepts_nested_attributes_for :trip_datespans, reject_if: lambda {|attributes| attributes['days_abroad'].blank?}
   validates :destination, presence: true
   validates :user, presence: true
-  has_many :expenses
   belongs_to :person_in_power, class_name: 'User'
-  enum status: [ :saved, :applied, :accepted, :declined ]
+  has_many :travel_expense_reports
+
+  enum status: [ 'saved', 'applied','accepted','declined']
+
+  before_validation(on: :create) do
+    self.status = 'saved'
+  end
 
   def name
-    self.user.name
+    user.name
   end
 
   def accept(accepter)

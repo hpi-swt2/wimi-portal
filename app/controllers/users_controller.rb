@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :user_exists, :set_user
 
   def show
+    @datespans = current_user.get_desc_sorted_datespans
   end
 
   def edit
@@ -30,6 +31,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :residence, :street, :division_id, :personnel_number, :remaining_leave, :remaining_leave_last_year, :language)
+    params.require(:user).permit(:first_name, :last_name, :email, :residence, :street, :personnel_number, :remaining_leave, :remaining_leave_last_year, :language)
   end
 end

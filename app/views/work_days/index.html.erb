@@ -41,63 +41,20 @@
           <td><%= work_day.duration %>min</td>
           <td><%= work_day.attendance %></td>
           <td><%= work_day.notes %></td>
+          <td>
+              <%= link_to t('.edit', default: t("helpers.links.edit")),
+                  edit_work_day_path(work_day), class: 'btn btn-default btn-xs' %>
+              <%= link_to t('.destroy', default: t("helpers.links.destroy")),
+                          work_day_path(work_day),
+                          method: :delete,
+                          data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
+                          class: 'btn btn-xs btn-danger' %>
+          </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<% unless @time_sheet.nil? %>
-  <div class="form-group">
-    <% if @time_sheet.user_id == current_user.id && !@time_sheet.handed_in? %>
-      <%= link_to t('.new'), new_work_day_path, class: 'btn btn-primary' %>
-    <% end %>
-    <br>
-    <br>
-    <br>
-    <% if current_user.is_wimi? && @time_sheet.handed_in? %>
-        Acceptence requested at: <%= @time_sheet.last_modified %><br>
-        Status: <%= @time_sheet.status %><br>
-      <% if @time_sheet.status.include? 'pending' %>
-      <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %>
-        <%= form_for @time_sheet do |f| %>
-          <%= f.hidden_field :do, value: 'sign' %>
-          <%= f.submit t('.sign'), class: 'btn btn-primary' %>
-        <% end %>
-        <%= form_for @time_sheet do |f| %>
-          <%= f.hidden_field :do, value: 'reject' %>
-          <%= f.submit t('.reject'), class: 'btn btn-primary' %>
-          <%= f.label t('.reject_reason') %>
-          <%= f.text_field :rejection_message, class: 'form-control' %>
-        <% end %>   
-      <% end %>
-    <% else %>
-      <% if @time_sheet.handed_in? %>
-        <% if @time_sheet.status.include? 'pending' %>
-          <%= t('.handed_in_at') %> <%=l @time_sheet.last_modified %> <%=t('.status') +': ' + @time_sheet.status %><br> 
-          <%= link_to t('.export_as_PDF'), "#", class: 'btn btn-primary' %><br>
-        <% end %>
-        <% if @time_sheet.status.include? 'accepted'%>
-          <%= t('.accepted_by') + User.find(@time_sheet.signer).name + ' ' + t('.at') + ' ' + @time_sheet.last_modified.to_s %><br>
-          <%= link_to t('.export_as_PDF'), "#", class: 'btn btn-primary' %><br>
-        <% end %>
-      <% else %>
-        <% if @time_sheet.status == 'rejected' %>
-          <%= t('.rejected_by') + User.find(@time_sheet.signer).name + ' ' + t('.at') + ' ' + @time_sheet.last_modified.to_s %>
-          <br>
-          <%= t('.reject_reason') + @time_sheet.rejection_message %>
-          <%= form_for @time_sheet do |f| %>
-            <%= f.hidden_field :do, value: 'hand_in' %>
-            <%= f.submit t('.sign'),  class: 'btn btn-primary' %>
-          <% end %>
-        <% else %>
-          <%= form_for @time_sheet do |f| %>
-            <%= f.hidden_field :do, value: 'hand_in' %>
-            <%= f.submit t('.sign'), class: 'btn btn-primary' %>
-        <% end %>   
-        <% end %>   
-      <% end %>
-    <% end %>
-  </div>
-<% else %>  
- <%= link_to t('.new'), new_work_day_path, class: 'btn btn-primary' %>
-<% end %>
+
+<%= link_to "New", new_work_day_path, class: 'btn btn-primary' %>
+<%= link_to "Export as PDF", "#", class: 'btn btn-primary' %>

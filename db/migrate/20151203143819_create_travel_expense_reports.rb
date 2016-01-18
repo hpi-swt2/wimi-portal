@@ -15,9 +15,10 @@ class CreateTravelExpenseReports < ActiveRecord::Migration
       t.boolean :public_transport
       t.boolean :vehicle_advance
       t.boolean :hotel
+      t.integer :status, default: 0
       t.integer :general_advance
       t.references :user, index: true, foreign_key: true
-
+      
       t.timestamps null: false
     end
   end

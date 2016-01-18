@@ -22,43 +22,27 @@
 #
 
 class TimeSheet < ActiveRecord::Base
-    belongs_to :user
-    belongs_to :project
-    enum status: [ :pending, :accepted, :rejected]
+  belongs_to :user
+  belongs_to :project
 
-    validates :workload_is_per_month, inclusion: { in: [true, false] }
-    validates :salary_is_per_month, inclusion: { in: [true, false] }
+  validates :workload_is_per_month, inclusion: {in: [true, false]}
+  validates :salary_is_per_month, inclusion: {in: [true, false]}
 
-    def hand_in(user)
-      params = {status: 'pending', handed_in: true, last_modified: Date.today}
-      #ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.project_id, seclevel: :wimi, type: "EventTimeSheetSubmitted"})
-    end
-
-    def sign(user)
-      params = {status: 'accepted', last_modified: Date.today, signer: user.id}
-      #ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.user_id, seclevel: :hiwi, type: "EventTimeSheetAccepted"})
-    end
-
-    def reject(user)
-      params = {status: 'rejected', handed_in: false, last_modified: Date.today, signer: user.id}
-      #ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.user_id, seclevel: :hiwi, type: "EventTimeSheetDeclined"})
-    end
-
-    def self.time_sheet_for(year, month, project, user)
-      if project.nil?
-        return nil
+  def self.time_sheet_for(year, month, project, user)
+    if project.nil?
+      return nil
+    else
+      sheets = TimeSheet.where(year: year, month: month, project: project, user: user)
+      if sheets.empty?
+        return create_new_time_sheet(year, month, project, user)
       else
-        sheets = TimeSheet.where(year: year, month: month, project: project, user: user)
-        if sheets.empty?
-          return create_new_time_sheet(year, month, project, user)
-        else
-          return sheets.first
-        end
+        return sheets.first
       end
     end
+  end
 
-    def self.create_new_time_sheet(year, month, project, user)
-      sheet = TimeSheet.create!({year: year, month: month, project_id: project.id, user_id: user, workload_is_per_month: true, salary_is_per_month: true})
-      return sheet
-    end
+  def self.create_new_time_sheet(year, month, project, user)
+    sheet = TimeSheet.create!({year: year, month: month, project_id: project.id, user_id: user.id, workload_is_per_month: true, salary_is_per_month: true})
+    return sheet
+  end
 end
