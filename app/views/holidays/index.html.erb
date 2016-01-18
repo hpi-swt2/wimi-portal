@@ -1,5 +1,5 @@
 <%- model_class = Holiday -%>
-<% if (can? :see_holidays, @user) %>
+<% if (can? :see_holidays, current_user) %>
   <div class="page-header">
     <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
   </div>

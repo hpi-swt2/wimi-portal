@@ -2,7 +2,12 @@ class HolidaysController < ApplicationController
   before_action :set_holiday, only: [:show, :edit, :update, :destroy, :file, :reject, :accept]
 
   def index
-    @holidays = Holiday.all
+    if (can? :see_holidays, current_user)
+      @holidays = Holiday.all
+    else
+      redirect_to root_path
+      flash[:error] = I18n.t('holiday.not_authorized')
+    end
   end
 
   def show
@@ -13,10 +18,19 @@ class HolidaysController < ApplicationController
   end
 
   def new
-    @holiday = Holiday.new
+    if (can? :see_holidays, current_user)
+      @holiday = Holiday.new
+    else
+      redirect_to root_path
+      flash[:error] = I18n.t('holiday.not_authorized')
+    end
   end
 
   def edit
+    unless (can? :see_holidays, @holiday.user) || (can? :judge_holiday, @holiday)
+      redirect_to root_path
+      flash[:error] = I18n.t('holiday.not_authorized')
+    end
   end
 
   def create
