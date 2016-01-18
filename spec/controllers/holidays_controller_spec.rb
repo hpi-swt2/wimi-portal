@@ -50,7 +50,9 @@ RSpec.describe HolidaysController, type: :controller do
   let(:valid_session) { {} }
 
   describe 'GET #index' do
-    it 'assigns all holidays as @holidays' do
+    it 'assigns all holidays as @holidays (wimi only)' do
+      chair = FactoryGirl.create(:chair)
+      ChairWimi.first.update_attributes(user_id: @user.id)
       Holiday.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:holidays)).to eq(Holiday.all)
@@ -74,6 +76,8 @@ RSpec.describe HolidaysController, type: :controller do
 
   describe 'GET #new' do
     it 'assigns a new holiday as @holiday' do
+      chair = FactoryGirl.create(:chair)
+      ChairWimi.first.update_attributes(user_id: @user.id)
       get :new, {}, valid_session
       expect(assigns(:holiday)).to be_a_new(Holiday)
     end

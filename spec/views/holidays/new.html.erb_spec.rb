@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe 'holidays/new', type: :view do
   before(:each) do
     assign(:holiday, Holiday.new)
+    user = FactoryGirl.create(:user)
     @chair = FactoryGirl.create(:chair)
-    user = FactoryGirl.create(:user, chair: @chair)
+    ChairWimi.first.update_attributes(user_id: user.id)
     login_as user
   end
 
