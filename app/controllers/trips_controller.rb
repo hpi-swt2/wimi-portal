@@ -1,8 +1,8 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy, :download, :apply, :hand_in]
 
   def index
-    @trips = Trip.all
+    @trips = Trip.where(user: current_user)
   end
 
   def show
@@ -10,19 +10,26 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    2.times {@trip.trip_datespans.build}
+    2.times { @trip.trip_datespans.build }
   end
 
   def edit
-    fill_blank_items
+    if @trip.status == 'applied'
+      redirect_to @trip
+      flash[:error] = I18n.t('trip.applied')
+    else
+      fill_blank_items
+    end
   end
 
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
 
+
     if @trip.save
-      redirect_to @trip, notice: 'Trip was successfully created.'
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.save')
     else
       fill_blank_items
       render :new
@@ -30,20 +37,48 @@ class TripsController < ApplicationController
   end
 
   def update
+    @trip.update(status: 'saved')
     if @trip.update(trip_params)
-      redirect_to @trip, notice: 'Trip was successfully updated.'
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.update')
     else
       fill_blank_items
       render :edit
     end
   end
 
+  def hand_in
+    if @trip.status == 'saved'
+      if @trip.update(status: 'applied')
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @trip.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'trip'})
+      end
+    end
+    redirect_to trips_path
+  end
+
   def destroy
-    @trip.destroy
-    redirect_to trips_url, notice: 'Trip was successfully destroyed.'
+    if @trip.status == 'applied'
+      redirect_to @trip
+      flash[:error] = I18n.t('trip.applied')
+    else
+      @trip.destroy
+      redirect_to trips_url
+      flash[:sucess] = I18n.t('trip.destroyed')
+    end
   end
 
   def download
+  end
+  
+  def apply
+    @trip.status = 'applied'
+    if @trip.save
+      redirect_to @trip
+      flash[:success] = I18n.t('trip.apply')
+    else
+      render :edit
+    end
+
   end
 
   private
@@ -57,6 +92,6 @@ class TripsController < ApplicationController
   end
 
   def fill_blank_items
-    (2 - @trip.trip_datespans.size).times {@trip.trip_datespans.build}
+    (2 - @trip.trip_datespans.size).times { @trip.trip_datespans.build }
   end
 end

@@ -19,7 +19,6 @@ class Project < ActiveRecord::Base
 
   has_and_belongs_to_many :users
   has_many :publications
-  has_many :expenses
   has_many :project_applications, dependent: :destroy
   has_many :invitations
   belongs_to :chair
@@ -39,11 +38,12 @@ class Project < ActiveRecord::Base
   end
 
   def hiwis
-    users.select { |u| !u.is_wimi? }
+    users.select(&:is_hiwi?)
   end
 
   def wimis
     users.select(&:is_wimi?)
+
   end
 
   def remove_user(user)

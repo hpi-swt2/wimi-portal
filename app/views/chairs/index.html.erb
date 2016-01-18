@@ -8,7 +8,7 @@
     <th><%= model_class.human_attribute_name(:name) %></th>
     <th><%= model_class.human_attribute_name(:created_at) %></th>
     <th><%= model_class.human_attribute_name(:status) %></th>
-    <th><%= t '.actions', default: t("helpers.actions") %></th>
+    <th><%= t("helpers.actions") %></th>
   </tr>
   </thead>
   <tbody>
@@ -19,25 +19,25 @@
 
         <td>
           <% if current_user.chair_wimi.nil? && !current_user.superadmin %>
-            <%= link_to I18n.t('chair.apply', default: 'Apply as Wimi'), chairs_apply_path(chair: chair), method: :post, class: 'btn btn-default btn-xs' %>
+            <%= link_to I18n.t('chairs.navigation.apply_wimi'), chairs_apply_path(chair: chair), method: :post, class: 'btn btn-default btn-xs' %>
           <% else %>
             <% if current_user.chair == chair %>
               <% if current_user.is_wimi? %>
-                <span class="label label-success"><%= I18n.t('roles.wimi.long', default: 'Research Assistant') %></span>
+                <span class="label label-success"><%= I18n.t('roles.wimi_long') %></span>
               <% else %>
-                <span class="label label-warning"><%= I18n.t('status.pending', default: 'pending') %></span>
+                <span class="label label-warning"><%= I18n.t('chairs.requests.pending') %></span>
               <% end %>
             <% end %>
           <% end %>
         </td>
         <td>
           <% if can?(:edit, chair) && can?(:destroy, chair)%>
-            <%= link_to I18n.t('chair.edit', default: 'Edit Chair'), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
-            <%= link_to I18n.t('chair.destroy', default: 'Destroy Chair'), chair_path(id: chair), method: :delete, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
+            <%= link_to I18n.t('helpers.titles.edit', model: model_class.model_name.human.titleize), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
+            <%= link_to I18n.t('helpers.titles.delete', model: model_class.model_name.human.titleize), chair_path(id: chair), method: :delete, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
           <% else %>
             <% unless current_user.chair_wimi.nil? %>
               <% if current_user.is_admin?(chair) || current_user.is_representative?(chair) %>
-                <%= link_to I18n.t('chair.manage', default: 'Manage Chair'), chair_path(chair), class: 'btn btn-warning btn-xs' %>
+                <%= link_to I18n.t('chairs.navigation.manage'), chair_path(chair), class: 'btn btn-warning btn-xs' %>
               <% end %>
             <% end %>
           <% end %>
@@ -47,7 +47,7 @@
   </tbody>
 </table>
 <% if can? :create, Chair %>
-    <%= link_to t('.new', default: t("helpers.links.new")),
+    <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize),
                 new_chair_path,
                 class: 'btn btn-primary' %>
 <% end %>

@@ -21,7 +21,7 @@
 	<% end %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
-        <% unless current_user.chair == nil || current_user.chair_wimi.application != 'accepted'%>
+        <% if current_user.is_admin? || current_user.is_representative? %>
           <%= menu_item "Chair", chair_path(current_user.chair) %>
         <% end %>
         <% unless current_user.email.blank? %>

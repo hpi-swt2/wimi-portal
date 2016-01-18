@@ -148,6 +148,11 @@ de:
         street: "Straße"
         personnel_number: "Personalnummer"
         language: "Sprache"
+      request:
+        name: "Name"
+        type: "Art"
+        handed_in: "Eingereicht am"
+        status: "Status"
         not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
     errors:
       models:
@@ -189,13 +194,53 @@ de:
       already_is_member: 'Dieser Benutzer ist bereits Mitglied des Projekts.'
       was_successfully_invited: 'Der Benutzer wurde erfolgreich eingeladen.'
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
-  chair:
-    not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
-    add_chair: "Lehrstuhl hinzufügen"
   time:
     formats:
       default: "%d.%m.%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  chair:
+    not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+    add_chair: "Lehrstuhl hinzufügen"
+    destroy:
+      error: "Lehrstuhl konnte nicht gelöscht werden"
+      success: "Lehrstuhl wurde erfolgreich gelöscht"
+    create:
+      success: "Lehrstuhl wurde erfolgreich erstellt"
+      error: "Das Formular wurde nicht vollständig ausgefüllt!"
+    update:
+      success: "Lehrstuhl erfolgreich aktualisiert"
+      error: "Das Formular wurde nicht vollständig ausgefüllt!"
+    accept_request:
+      success: "Anfrage erfolgreich angenommen"
+      error: "Fehler beim Annehmen der Anfrage"
+    remove_from_chair:
+      success: "Benutzer erfolgreich entfernt"
+      error: "Nutzer konnte nicht entfernt werden"
+    set_admin:
+      success: "User wurde erfolgreich zum Admin ernannt"
+      error: "User konnte nicht zum Admin ernannt werden"
+    withdraw:
+      success: "Adminrechte wurden erfolgreich entzogen"
+      error: "Adminrechte konnten nicht entzogen werden"
+    apply:
+      success: "Wimi-Anfrage erfolgreich erstellt"
+      error: "Wimi-Anfrage konnte nicht erstellt werden"
+    requests:
+      holiday_request: "Urlaubsantrag"
+      expense_request: "Reisekostenabrechnung"
+      trip_request: "Dienstreiseantrag"
+
   "true": "Ja"
   "false": "Nein"
+  status:
+    saved: "gespeichert"
+    applied: "beantragt"
+    accepted: "genehmigt"
+    declined: "abgelehnt"
+  trip:
+    update: "Dienstreiseantrag wurde erfolgreich aktualisiert"
+    save: "Dienstreiseantrag wurde erfolgreich erstellt"
+    applied: "Dienstreiseantrag bereits eingereicht"
+    destroyed: "Dienstreiseantrag wurde erfolgreich gelöscht"
+    apply: "Dienstreiseantrag wurde erfolgreich eingereicht"

@@ -1,11 +1,14 @@
 class TravelExpenseReportsController < ApplicationController
-  before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy, :hand_in ]
 
   def index
     @travel_expense_reports = TravelExpenseReport.all
   end
 
   def show
+    unless can? :read, @travel_expense_report
+      redirect_to dashboard_path
+    end
   end
 
   def new
@@ -37,6 +40,15 @@ class TravelExpenseReportsController < ApplicationController
       fill_blank_items
       render :edit
     end
+  end
+
+  def hand_in
+    if @travel_expense_report.status == 'saved'
+      if @travel_expense_report.update(status: 'applied')
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @travel_expense_report.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'travel_expense_report'})
+      end
+    end
+    redirect_to travel_expense_reports_path
   end
 
   def destroy

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'login via OpenID' do
   before :each do
-    @routes = ['/publications', '/projects', '/holidays', '/trips', '/expenses']
+    @routes = ['/publications', '/projects', '/holidays', '/trips', '/travel_expense_reports']
   end
 
   it 'should not show any page as long as you are not logged in' do

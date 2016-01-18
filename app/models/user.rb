@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   has_many :work_days
   has_many :time_sheets
   has_many :holidays
-  has_many :expenses
+  has_many :travel_expense_reports
   has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    projects and projects.size > 0 and !is_wimi?
+    not projects.blank? and  not is_wimi?
   end
 
   def is_superadmin?
