@@ -57,6 +57,15 @@ RSpec.describe HolidaysController, type: :controller do
       expect(assigns(:holiday)).to eq(holiday)
     end
 
+    it 'does not show holidays for normal user' do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      holiday = Holiday.create! valid_attributes
+      get :show, {id: holiday.to_param}, valid_session
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(holidays_path)
+    end
+
     it 'redirects to the holidays page if holiday belongs to another user' do
       user2 = FactoryGirl.create(:user)
       holiday = Holiday.create(start: Date.today, end: Date.today + 1, user_id: user2.id, length: 1)
@@ -159,6 +168,14 @@ RSpec.describe HolidaysController, type: :controller do
         put :update, {id: holiday.to_param, holiday: invalid_attributes}, valid_session
         expect(response).to render_template('edit')
       end
+
+      it 'redirects to the holiday, if it is already applied' do
+        holiday = Holiday.create! valid_attributes
+        holiday.update_attributes(status: 'applied')
+        get :edit, {id: holiday.id}
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(holiday_path(holiday))
+      end
     end
   end
 
@@ -175,15 +192,34 @@ RSpec.describe HolidaysController, type: :controller do
       delete :destroy, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_url)
     end
+
+    it 'can not destroy applied holiday' do
+      holiday = Holiday.create! valid_attributes
+      holiday.user = @user
+      login_with(@user)
+      post :hand_in, {id: holiday.id}
+      expect {
+        delete :destroy, {id: holiday.to_param}, valid_session
+      }.to change(Holiday, :count).by(0)
+    end
   end
 
   describe 'POST #hand_in' do
-    it 'hands in a trip request' do
+    it 'hands in a holiday request' do
+      holiday = Holiday.create! valid_attributes
+      holiday.user = @user
+      login_with(@user)
+      post :hand_in, {id: holiday.id}
+      expect(Holiday.find(holiday.id).status).to eq('applied')
+    end
+
+    it 'normal user can not hand in a holiday request' do
       user = FactoryGirl.create(:user)
-      holiday = FactoryGirl.create(:holiday, user: user)
-      
+      holiday = Holiday.create! valid_attributes
+      holiday.user = user
       login_with(user)
-      post :hand_in, { id: holiday.id }
+      post :hand_in, {id: holiday.id}
+      expect(Holiday.find(holiday.id).status).to eq('saved')
     end
   end
 end
