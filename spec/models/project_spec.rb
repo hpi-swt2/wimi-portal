@@ -16,7 +16,7 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  it "can return all wimis in an unique array" do
+  it 'can return all wimis in an unique array' do
     chair = FactoryGirl.create(:chair)
     project = FactoryGirl.create(:project)
     user1 = FactoryGirl.create(:user)

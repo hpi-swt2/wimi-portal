@@ -23,6 +23,9 @@ class Ability
       project.public
     end
     can :create, ProjectApplication
+    can :read, Holiday do |holiday|
+      holiday.user == _user
+    end
     # can :accept_invitation, Project
   end
 
@@ -39,9 +42,6 @@ class Ability
 
   def initialize_wimi(user)
     initialize_user user
-    can :read, Holiday do |holiday|
-      holiday.user == user
-    end
     can :read, TravelExpenseReport do |r|
       r.user == user
     end
