@@ -179,8 +179,7 @@ RSpec.describe TripsController, type: :controller do
 
     it 'redirects to the trip, if it is already applied' do
       trip = Trip.create! valid_attributes
-      trip.status = 'applied'
-      trip.save
+      trip.update_attributes(status:'applied')
       get :edit, {id: trip.id}
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(trip_path(trip))

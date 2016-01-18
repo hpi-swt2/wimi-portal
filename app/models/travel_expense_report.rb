@@ -34,7 +34,6 @@ class TravelExpenseReport < ActiveRecord::Base
 
   enum status: [ :saved, :applied, :accepted, :declined ]
 
-
   def first_name
     user.first_name
   end

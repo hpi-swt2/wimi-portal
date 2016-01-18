@@ -6,8 +6,8 @@ RSpec.describe EventAdminRight, type: :model do
       chair = FactoryGirl.create(:chair)
       trigger = FactoryGirl.create(:user)
       target = FactoryGirl.create(:user)
-      @event = EventAdminRight.create(trigger_id: trigger.id, target_id: target.id, chair_id: chair.id)
-      expect(@event.seclevel).to eq('admin')
+      event = EventAdminRight.create(trigger_id: trigger.id, target_id: target.id, chair_id: chair.id)
+      expect(event.seclevel).to eq('admin')
     end
   end
 end

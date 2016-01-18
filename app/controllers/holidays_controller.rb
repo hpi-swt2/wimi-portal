@@ -6,7 +6,6 @@ class HolidaysController < ApplicationController
   end
 
   def show
-    #unless Holiday.find(params[:id]).user_id == current_user.id
     unless can? :read, @holiday 
       redirect_to holidays_path
     end
@@ -22,7 +21,6 @@ class HolidaysController < ApplicationController
   def create
     @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
     if @holiday.save
-      #request_applied if @holiday.status == 'applied'
       subtract_leave
       flash[:success] = 'Holiday was successfully created.'
       redirect_to current_user
@@ -34,7 +32,6 @@ class HolidaysController < ApplicationController
   def update
     status = @holiday.status
     if @holiday.update(holiday_params)
-      #request_applied if @holiday.status == 'applied' && status == 'saved'
       flash[:success] = 'Holiday was successfully updated.'
       redirect_to @holiday
     else
