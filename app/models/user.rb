@@ -54,7 +54,6 @@ class User < ActiveRecord::Base
   has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
-  has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
