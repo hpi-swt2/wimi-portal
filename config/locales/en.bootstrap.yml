@@ -232,7 +232,7 @@ en:
       accept: "Accept"
       decline: "Decline"
       remove_from_chair: "Remove from chair"
-      withdraw_rights: "(Withdraw rights)"
+      withdraw_rights: "Withdraw rights"
       grant_rights: "Grant admin rights"
   roles:
     wimi_long: "Research Assistant"

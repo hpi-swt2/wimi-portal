@@ -223,7 +223,7 @@ de:
       accept: "Annehmen"
       decline: "Ablehnen"
       remove_from_chair: "Vom Lehrstuhl entfernen"
-      withdraw_rights: "(Rechte entziehen)"
+      withdraw_rights: "Rechte entziehen"
       grant_rights: "Als Admin ernennen"
   roles:  
     wimi_long: "Wissenschaftlicher Mitarbeiter"
