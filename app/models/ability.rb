@@ -30,6 +30,9 @@ class Ability
     cannot :create, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
+    can :leave_project, Project do |project|
+      project.users.include? user
+    end
     # can :accept_invitation, Project
     # can :manage, Stundenzettel
   end
@@ -41,6 +44,9 @@ class Ability
       project.users.include?(user)
     end
     can :invite_user, Project do |project|
+      project.users.include? user
+    end
+    can :leave_project, Project do |project|
       project.users.include? user
     end
     can :manage, ProjectApplication do |project_application|
@@ -60,8 +66,9 @@ class Ability
     can :show_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
-    can :edit_holiday, Holiday do |holiday|
-      holiday.status != "saved"
+    can :judge_holiday, Holiday do |holiday|
+      holiday.user.chair == user.chair
+      holiday.status != ("saved" && "declined")
     end
   end
 

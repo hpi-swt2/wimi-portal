@@ -29,19 +29,19 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {start: Date.today, end: Date.today+1, user_id: @user.id, length: 1}
+    {start: Date.today, end: Date.today + 1, user_id: @user.id, length: 1}
   }
 
   let(:invalid_attributes) {
-    {start: Date.today-1, end: Date.today, user_id: @user.id, length: 1}
+    {start: Date.today - 2, end: Date.today, user_id: @user.id, length: 1}
   }
 
   let(:checked_valid_attributes) {
-    {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user_id: @user.id, length: 1}
+    {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user_id: @user.id, length: 1}
   }
 
   let(:checked_invalid_attributes) {
-    {start: I18n.l(Date.today-1), end: I18n.l(Date.today), user_id: @user.id, length: 1}
+    {start: I18n.l(Date.today - 2), end: I18n.l(Date.today), user_id: @user.id, length: 1}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -51,7 +51,7 @@ RSpec.describe HolidaysController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all holidays as @holidays' do
-      holiday = Holiday.create! valid_attributes
+      Holiday.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:holidays)).to eq(Holiday.all)
     end
@@ -146,11 +146,11 @@ RSpec.describe HolidaysController, type: :controller do
       end
 
       it 'calculates the length if no length is entered' do
-      holiday = Holiday.create! valid_attributes
-      holiday.update_attribute(:length, 2)
-      put :update, {id: holiday.to_param, holiday: {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user_id: @user.id, length: ''}}
-      holiday.reload
-      expect(holiday.length).to eq(holiday.duration)
+        holiday = Holiday.create! valid_attributes
+        holiday.update_attribute(:length, 2)
+        put :update, {id: holiday.to_param, holiday: {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user_id: @user.id, length: ''}}
+        holiday.reload
+        expect(holiday.length).to eq(holiday.duration)
       end
     end
 
@@ -181,6 +181,113 @@ RSpec.describe HolidaysController, type: :controller do
       holiday = Holiday.create! valid_attributes
       delete :destroy, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_url)
+    end
+  end
+
+  describe 'GET #file' do
+    context 'with valid params' do
+      it 'subtracts the length from the users remaining leave' do
+        old_remaining_leave = @user.remaining_leave
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id)
+        get :file, {id: holiday.to_param}, valid_session
+        @user.reload
+        expect @user.remaining_leave == old_remaining_leave - holiday.length
+      end
+
+      it 'redirects to the users page' do
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id)
+        get :file, {id: holiday.to_param}, valid_session
+        expect(response).to redirect_to(@user)
+      end
+
+      it 'updates the status' do
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id)
+        get :file, {id: holiday.to_param}, valid_session
+        holiday.reload
+        expect(holiday.status).to eq('applied')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'leaves remaining leave unchanged' do
+        @user.update(remaining_leave: 20)
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, length: 30)
+        get :file, {id: holiday.to_param}, valid_session
+        @user.reload
+        expect @user.remaining_leave == 20
+      end
+
+      it 'redirects to the holiday page' do
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, length: 30)
+        get :file, {id: holiday.to_param}, valid_session
+        expect(response).to redirect_to(holiday)
+      end
+    end
+  end
+
+  describe 'GET #reject' do
+    context 'with valid params' do
+      it 'adds the length to the users remaining leave' do
+        old_remaining_leave = @user.remaining_leave
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        get :reject, {id: holiday.to_param}, valid_session
+        @user.reload
+        expect @user.remaining_leave == old_remaining_leave + holiday.length
+      end
+
+      it 'redirects to the users page' do
+        FactoryGirl.create(:chair)
+        ChairWimi.first.update_attributes(user_id: @user.id, representative: true)
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        get :reject, {id: holiday.to_param}, valid_session
+        expect(response).to redirect_to(@user)
+      end
+
+      it 'updates the status' do
+        FactoryGirl.create(:chair)
+        ChairWimi.first.update_attributes(user_id: @user.id, representative: true)
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        get :reject, {id: holiday.to_param}, valid_session
+        holiday.reload
+        expect(holiday.status).to eq('declined')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'redirects to the root path if an unauthorized person wants to reject it' do
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        get :reject, {id: holiday.to_param}, valid_session
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
+  describe 'GET #accept' do
+    context 'with valid params' do
+      it 'redirects to the users page' do
+        FactoryGirl.create(:chair)
+        ChairWimi.first.update_attributes(user_id: @user.id, representative: true)
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        get :accept, {id: holiday.to_param}, valid_session
+        expect(response).to redirect_to(@user)
+      end
+
+      it 'updates the status' do
+        FactoryGirl.create(:chair)
+        ChairWimi.first.update_attributes(user_id: @user.id, representative: true)
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        get :accept, {id: holiday.to_param}, valid_session
+        holiday.reload
+        expect(holiday.status).to eq('accepted')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'redirects to the root path if an unauthorized person wants to reject it' do
+        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        get :accept, {id: holiday.to_param}, valid_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 end

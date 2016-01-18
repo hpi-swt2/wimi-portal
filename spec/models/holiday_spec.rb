@@ -21,7 +21,7 @@ require 'rails_helper'
 
 RSpec.describe Holiday, type: :model do
   before(:each) do
-  	 @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   it 'has a valid factory' do
@@ -46,22 +46,6 @@ RSpec.describe Holiday, type: :model do
 
   it 'is invalid when to far in the future' do
     expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 2, 1, 1), end: Date.new(Date.today.year + 2, 1, 2))).to_not be_valid
-  end
-
-  it 'is invalid when not enough leave is left' do
-    @user.update_attribute(:remaining_leave, 0)
-    #if Jan 2nd isn't a business day this test would fail otherwise
-    startdate = Date.new(Date.today.year, 12, 31)
-    if startdate.wday == 6 || startdate.wday == 0
-      startdate -= 1.days until startdate.wday == 5
-    end
-
-    enddate = Date.new(Date.today.year + 1, 1, 2)
-    if enddate.wday == 6 || enddate.wday == 0
-      enddate += 1.days until enddate.wday == 1
-    end
-
-    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year, 12, 31), end: enddate)).to_not be_valid
   end
 
   it 'returns the duration' do

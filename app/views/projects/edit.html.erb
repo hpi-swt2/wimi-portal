@@ -10,3 +10,6 @@
   <% end %>
 </div>
 <%= render partial: 'form' %>
+
+<%= link_to t('.cancel', default: t("helpers.links.cancel")),
+            project_path(@project), class: 'btn btn-default' %>

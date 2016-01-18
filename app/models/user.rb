@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   LANGUAGES = [
     %w[English en],
-    %w[Deutsch de]
+    %w[Deutsch de],
   ]
 
   INVALID_EMAIL = 'invalid_email'
@@ -63,8 +63,8 @@ class User < ActiveRecord::Base
   validates :last_name, length: {minimum: 1}
   validates :email, length: {minimum: 1}
   validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999
-  validates_numericality_of :remaining_leave, greater_than_or_equal: 0
-  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
+  validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
+  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
 
   # TODO: implement signature upload, this is a placeholder
   def signature
@@ -95,6 +95,20 @@ class User < ActiveRecord::Base
       end_month = (Date.today.year == year) ? Date.today.month : 12
       (start_month..end_month).each do |month|
         year_months.push([year, month])
+      end
+    end
+    return year_months
+  end
+
+  def work_year_months_for_project(project)
+    year = -1
+    month = -1
+    year_months = []
+    self.work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
+      unless year == date.year and month == date.month
+        year = date.year
+        month = date.month
+        year_months << [date.year, date.month]
       end
     end
     return year_months

@@ -8,15 +8,17 @@
     <div class="row">
       <div class="col-sm-6">
       </div>
-      <div class="col-sm-6 text text-right">
-        <% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')  %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_holiday_path(@holiday), class: 'btn btn-primary' %>
-        <% else %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        '#', class: 'btn btn-primary', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
-        <% end %>
-      </div>
+      <% if @holiday.user == current_user %>
+        <div class="col-sm-6 text text-right">
+          <% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')  %>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_holiday_path(@holiday), class: 'btn btn-primary' %>
+          <% else %>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          '#', class: 'btn btn-primary', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="panel panel-body">
@@ -43,11 +45,11 @@
   </div>
 </div>
 
-<%= link_to 'Download', generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: @holiday), class: 'btn btn-default' %>
-<% if ((@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')) && @holiday.user_id == current_user.id %>
-  <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
+  <%= link_to 'Download', generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: @holiday), class: 'btn btn-default' %>
+  <% if ((@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')) && @holiday.user = current_user %>
+    <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
 <% end %>
-<% if (can? :edit_holiday, @holiday) && @holiday.status == 'applied' %>
+<% if(can? :judge_holiday, @holiday) && @holiday.status == 'applied' %>
   <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
   <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary' %>
 <% end %>

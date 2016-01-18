@@ -20,11 +20,10 @@
 class Holiday < ActiveRecord::Base
   belongs_to :user
 
-  validates_presence_of :user, :start, :end
+  validates_presence_of :user, :start, :end, :length
   validates_date :start, on_or_after: :today
   validates_date :end, on_or_after: :start
   validate :too_far_in_the_future?
-  validate :sufficient_leave_left?
   enum status: [:saved, :applied, :accepted, :declined]
 
   def duration
@@ -55,17 +54,7 @@ class Holiday < ActiveRecord::Base
 
   def too_far_in_the_future?
     unless self.end.blank? || self.end.year < Date.today.year + 2
-      errors.add(:Holiday, 'is too far in the future')
-    end
-  end
-
-  def sufficient_leave_left?
-    #need to assert that user is existent for tests
-    return unless errors.blank?
-    if self.user
-      unless self.user.remaining_leave >= (length.nil? ? duration : length)
-        errors.add(:not_enough_leave_left!, "" )
-      end
+      errors.add(:holiday, I18n.t('activerecord.errors.models.holiday.too_far_in_the_future'))
     end
   end
 end

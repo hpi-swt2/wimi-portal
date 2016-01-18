@@ -27,6 +27,23 @@
     <% end %>
     </dl>
 
+<% if current_user.is_hiwi? %>
+  <dl class="dl-horizontal">
+    <dt><strong><%= t('.working_hours', default:'Working hours') %>:</strong></dt>
+    <dd><%= link_to t('projects.form.add_working_hours', default:'Add working hours'),
+                    new_work_day_path, class: 'pull-right', style: 'margin-right: 15px' %>
+      <div>
+        <% current_user.work_year_months_for_project(@project).each do |month| %>
+          <p>
+            <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
+                        work_days_path(month: month.last, year: month.first, project: @project)%>
+          </p>
+        <% end %>
+      </div>
+    </dd>
+  </dl>
+<% end %>
+
 <dl class="dl-horizontal">
   <dt><strong><%= t('.research_assistants', default:'Research Assistants') %>:</strong> </dt>
   <dd>
@@ -41,6 +58,7 @@
     <% end %>
   </dd>
 </dl>
+
 <dl class="dl-horizontal">
   <dt><strong><%= t('.student_assistants', default:'Student Assistants') %>:</strong> </dt>
   <dd>
@@ -106,8 +124,13 @@
 <% end %>
 
 <% if can?(:invite_user, @project) %>
-      <%= link_to t('project.invite_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }, class: "btn btn-default pull-right" %>
-  <% end %>
+    <%= link_to t('project.invite_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }, class: "btn btn-default pull-right" %>
+<% end %>
+
+<% if can? :edit, @project %>
+    <%= link_to t('projects.form.show_all_working_hours', default:'Show all working hours'),
+                work_days_path(month: 1, year: 2016, project: @project), class: 'btn btn-default pull-right', style: 'margin-right: 15px' %>
+<% end %>
 
 <% if can? :accept, ProjectApplication and @project.users.exists?(id: current_user.id) %>
   <table class='table table-striped'>

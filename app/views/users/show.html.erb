@@ -1,4 +1,3 @@
-
 <%- model_class = User -%>
 
 <div class="page-header">
@@ -43,13 +42,13 @@
     </div>
     <div class="panel-body">
       <% @user.years_and_months_of_existence.each do |month| %>
-  	    <p>
+        <p>
           <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s + ":  ", work_days_path(month: month.last, year: month.first)%>
           <% @user.projects_for_month(month.first, month.last).each do |project|%>
             <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id)%>
           <% end %>
         </p>
-    	<% end %>
+      <% end %>
     </div>
   </div>
 <% end %>
@@ -85,7 +84,7 @@
             </thead>
             <tbody>
               <% @user.holidays.each do |holiday| %>
-                <% if @user == current_user || (can? :edit_holiday, holiday) %>
+                <% if @user == current_user || (can? :judge_holiday, holiday) %>
                   <tr>
                     <td><%= holiday.length %> <%= t('.days') %></td>
                     <td><%=l holiday.start %></td>
