@@ -107,40 +107,41 @@
     <% else %>
       <%= link_to t('.apply', default: t('helpers.links.apply')),
         apply_project_applications_path(id: @project.id), method: :post, class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
-  <% end %>
   <%= link_to t('.back', default: t('helpers.links.back')),
     projects_path, class: 'btn btn-default' %>
 </div>
-
-<% if can? :accept, ProjectApplication and @project.users.exists?(id: current_user.id) %>
-  <table class='table table-striped'>
-    <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%=t '.actions', default: t('helpers.actions') %></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @project.project_applications.each do |project_application| %>
-      <% if project_application.pending? %>
-        <tr>
-          <td><%= project_application.user.name %></td>
-          <td><%= project_application.user.email %></td>
-          <td>
-            <div>
-              <%= link_to t('project_applications.accept_application', default: 'Accept application'),
-                accept_project_application_path(project_application),
-                class: 'btn btn-success' %>
-              <%= link_to t('project_applications.decline_application', default: 'Decline Application'),
-                decline_project_application_path(project_application),
-                class: 'btn btn-danger' %>
-            </div>
-          </td>
-        </tr>
+<% if @project.project_applications.exists? %>
+  <% if can? :accept, ProjectApplication and @project.users.exists?(id: current_user.id) %>
+    <table class='table table-striped'>
+      <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:email) %></th>
+        <th><%=t '.actions', default: t('helpers.actions') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @project.project_applications.each do |project_application| %>
+        <% if project_application.pending? %>
+          <tr>
+            <td><%= project_application.user.name %></td>
+            <td><%= project_application.user.email %></td>
+            <td>
+              <div>
+                <%= link_to t('project_applications.accept_application', default: 'Accept application'),
+                  accept_project_application_path(project_application),
+                  class: 'btn btn-success' %>
+                <%= link_to t('project_applications.decline_application', default: 'Decline Application'),
+                  decline_project_application_path(project_application),
+                  class: 'btn btn-danger' %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>
