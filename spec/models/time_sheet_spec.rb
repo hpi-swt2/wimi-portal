@@ -14,11 +14,12 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  handed_in             :boolean          default(FALSE)
-#  rejection_message     :text
+#  rejection_message     :text             default("")
 #  signed                :boolean          default(FALSE)
 #  last_modified         :date
 #  status                :integer          default(0)
 #  signer                :integer
+#  wimi_signed           :boolean          default(FALSE)
 #
 
 require 'rails_helper'
