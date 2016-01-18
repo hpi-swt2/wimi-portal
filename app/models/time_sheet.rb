@@ -19,14 +19,16 @@
 #  last_modified         :date
 #  status                :integer          default(0)
 #  signer                :integer
+#  wimi_signed           :boolean          default(FALSE)
 #
 
 class TimeSheet < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
+  enum status: [ :pending, :accepted, :rejected]
 
-  validates :workload_is_per_month, inclusion: {in: [true, false]}
-  validates :salary_is_per_month, inclusion: {in: [true, false]}
+  validates :workload_is_per_month, inclusion: { in: [true, false] }
+  validates :salary_is_per_month, inclusion: { in: [true, false] }
 
   def self.time_sheet_for(year, month, project, user)
     if project.nil?
@@ -42,7 +44,7 @@ class TimeSheet < ActiveRecord::Base
   end
 
   def self.create_new_time_sheet(year, month, project, user)
-    sheet = TimeSheet.create!({year: year, month: month, project_id: project.id, user_id: user.id, workload_is_per_month: true, salary_is_per_month: true})
+    sheet = TimeSheet.create!({year: year, month: month, project_id: project.id, user_id: user, workload_is_per_month: true, salary_is_per_month: true})
     return sheet
   end
 end

@@ -37,9 +37,18 @@ Rails.application.routes.draw do
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   resources :holidays
-
   resources :work_days
-  resources :time_sheets, only: [:edit, :update, :delete]
+  resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
+    member do
+      get 'reject'
+      get 'hand_in'
+      get 'accept'
+    end
+    get 'time_sheets/reject', to: 'time_sheets#reject'
+    get 'time_sheets/hand_in', to:'time_sheets#hand_in'
+    get 'time_sheets/accept', to:'time_sheets#accept'
+  end
+
   resources :travel_expense_reports
   resources :trips do
     member do
@@ -69,9 +78,8 @@ Rails.application.routes.draw do
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'
   post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
 
-
-
   devise_for :users
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
+
 end

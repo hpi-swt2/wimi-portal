@@ -207,9 +207,26 @@ de:
       working_hours_for: "Arbeitsstunden für: "
       new: "neu"
       for: "für"
+      by: "von"
+  time_sheets:
+    form:
+      monthly: "monatlich"
+      weekly: "wöchentlich"
+      hourly: "stündlich"
+      time_sheet: "Stundenzettel"
+    show:
+      salary: "Bezahlung:"
+      salary_per_month: "Euro / Monat"
+      salary_per_hour: "Euro / Stunde"
+      workload: "Arbeitszeit"
+      workload_per_month: "Stunden / Monat"
+      workload_per_week: "Stunden / Woche"
+    show_footer:
+      new: "neu"
       in: "im"
       by: "von"
-      sign: "Unterschreiben"
+      hand_in: "Einreichen"
+      accept: "Annehmen"
       handed_in_at: "eingereicht am: "
       reject: "Ablehnen"
       reject_reason: "Ablehnungsgrund:"
@@ -219,14 +236,15 @@ de:
       export_as_PDF: "als PDF exportieren"
       handed_in_at: "eingereicht am:"
       status: "Status"
-  time_sheets:
-    show:
-      salary: "Bezahlung:"
-      salary_per_month: "Euro / Monat"
-      salary_per_hour: "Euro / Stunde"
-      workload: "Arbeitszeit"
-      workload_per_month: "Stunden / Monat"
-      workload_per_week: "Stunden / Woche"
+      add_signature: "Unterschrift hinzufügen"
+      document_was: "Das Dokument wurde"
+      not: "nicht"
+      signed: "unterschrieben"
+      status: "Status: "
+      acceptence_requested_at: "Genehmigung erfragt am: "
+      pending: "ausstehend"
+      accepted: "bestätigt"
+      rejected: "abgelehnt"
   date:
     formats:
       default: "%d.%m.%Y"

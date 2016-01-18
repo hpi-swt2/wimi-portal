@@ -139,6 +139,7 @@ en:
         street: "Street"
         personnel_number: "Staff Number"
         language: "Language"
+        not_member_of_chair: "You are not a member of a chair."
       work_day:
         date: "Date"
         start_time: "Start time"
@@ -152,6 +153,9 @@ en:
         handed_in: "Handed in"
         status: "Status"
         not_member_of_chair: "You are not a member of a chair."
+      time_sheet:
+        salary: "Salary"
+        workload: "Workload"
     errors:
       models:
         travel_expense_report:

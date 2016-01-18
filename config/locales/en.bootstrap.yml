@@ -216,9 +216,26 @@ en:
       working_hours_for: "Working hours for: "
       new: "new"
       for: "for"
+      by: "by"
+  time_sheets:
+    form:
+      monthly: "monthly"
+      weekly: "weekly"
+      hourly: "hourly"
+      time_sheet: "Time sheet"
+    show:
+      salary: "Salary:"
+      salary_per_month: "Euro / Month"
+      salary_per_hour: "Euro / Hour"
+      workload: "Workload:"
+      workload_per_month: "Hours / Month"
+      workload_per_week: "Hours / Week"
+    show_footer:
+      new: "new"
       in: "in"
       by: "by"
-      sign: "sign"
+      hand_in: "hand in"
+      accept: "accept"
       handed_in_at: "handed in at: "
       reject: "reject"
       reject_reason: "Rejection reason:"
@@ -228,14 +245,15 @@ en:
       export_as_PDF: "export as PDF"
       handed_in_at: "handed in at:"
       status: "status"
-  time_sheets:
-    show:
-      salary: "Salary:"
-      salary_per_month: "Euro / Month"
-      salary_per_hour: "Euro / Hour"
-      workload: "Workload:"
-      workload_per_month: "Hours / Month"
-      workload_per_week: "Hours / Week"
+      add_signature: "Add signature"
+      document_was: "Document was"
+      not: "not"
+      signed: "signed"
+      status: "status: "
+      acceptence_requested_at: "acceptence requested at: "
+      pending: "pending"
+      accepted: "accepted"
+      rejected: "rejected"
   date:
     formats:
       default: "%d.%m.%Y"

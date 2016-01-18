@@ -9,44 +9,44 @@ RSpec.describe "work_days/index.html.erb", type: :view do
     @project = FactoryGirl.create(:project)
   end
 
-  it 'expects a sign-button for not handed in timesheets' do
+  it 'expects a hand in button for not handed in timesheets' do
     FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: false)
 	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_selector("input[type=submit][value='sign']")
+	  expect(page).to have_content(t('time_sheets.show_footer.hand_in'))
   end
 
-  it 'expects a sign-button for handed in timesheets' do
+  it 'expects a accept button for handed in timesheets' do
     FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
 	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_selector("input[type=submit][value='sign']")
+	  expect(page).to have_content(t('time_sheets.show_footer.accept'))
   end
 
-  it 'expects a reject-button for handed in timesheets' do
+  it 'expects a reject button for handed in timesheets' do
     FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
 	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_selector("input[type=submit][value='reject']")
+	  expect(page).to have_content(t('time_sheets.show_footer.reject'))
   end
 
   it 'rejects a TimeSheet if reject button is pressed' do
     timesheet = FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-    page.find("input[type=submit][value='reject']").click
+    click_on('reject')
     timesheet.reload
     expect(timesheet.status).eql? 'rejected'
   end
 
-  it 'accepts a TimeSheet if sign button is pressed' do
+  it 'accepts a TimeSheet if accept button is pressed' do
     timesheet = FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-    page.find("input[type=submit][value='sign']").click
+    click_on('accept')
     timesheet.reload
     expect(timesheet.status).eql? 'accepted'
   end
 
-  it 'hands in a TimeSheet if sign button is pressed' do
+  it 'hands in a TimeSheet if hand in button is pressed' do
     timesheet = FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: false)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-    page.find("input[type=submit][value='sign']").click
+    click_on('hand in')
     timesheet.reload
     expect(timesheet.handed_in).to be true
   end
@@ -54,7 +54,7 @@ RSpec.describe "work_days/index.html.erb", type: :view do
   it 're hands in a TimeSheet if sign button is pressed' do
     timesheet = FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: false, status: 'rejected', signer: @superadmin.id)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-    page.find("input[type=submit][value='sign']").click
+    click_on('hand in')
     timesheet.reload
     expect(timesheet.status).eql? ('rejected')
   end

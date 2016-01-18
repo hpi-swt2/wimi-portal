@@ -38,12 +38,10 @@ class User < ActiveRecord::Base
                'School of Design Thinking',
                'Knowledge Discovery and Data Mining']
 
-
   LANGUAGES = [
     %w[English en],
     %w[Deutsch de],
   ]
-
 
   INVALID_EMAIL = 'invalid_email'
 
@@ -81,7 +79,6 @@ class User < ActiveRecord::Base
     self.first_name = first
     self.last_name = last
   end
-
 
   def projects_for_month(year, month)
     projects = TimeSheet.where(
@@ -191,5 +188,4 @@ class User < ActiveRecord::Base
     end
     datespans.sort! { |a,b| b.start_date <=> a.start_date }
   end
-
 end
