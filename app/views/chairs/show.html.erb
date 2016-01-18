@@ -39,7 +39,7 @@
         <td>
 
           <% if wimi.is_admin?(@chair) %><%= I18n.t('roles.admin_long') %>
-              <% if current_user.is_admin?(@chair) %>
+              <% if current_user.is_admin?(@chair) && current_user != wimi %>
                   <%= link_to I18n.t('chairs.applications.withdraw_rights'), chairs_withdraw_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %>
               <% end %>
           <% elsif wimi.is_representative?(@chair) %>
@@ -51,7 +51,7 @@
 
         </td>
         <td>
-          <% if wimi.id != current_user.id && current_user.is_admin?(@chair) %>
+          <% if wimi.id != current_user.id && current_user.is_admin?(@chair) && !wimi.is_representative?(@chair) %>
               <%= link_to I18n.t('chairs.applications.remove_from_chair'), chairs_remove_user_path(id: @chair, request: wimi.chair_wimi), method: :post, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-default btn-xs' %>
           <% end %>
         </td>
