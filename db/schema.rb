@@ -47,22 +47,6 @@ ActiveRecord::Schema.define(version: 20160116122005) do
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
-  create_table "expenses", force: :cascade do |t|
-    t.decimal  "amount"
-    t.text     "purpose"
-    t.text     "comment"
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.integer  "trip_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "status",     default: 0
-  end
-
-  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
-  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
-  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
-
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",                      null: false

@@ -48,7 +48,7 @@ class TravelExpenseReportsController < ApplicationController
         ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @travel_expense_report.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'travel_expense_report'})
       end
     end
-    redirect_to expenses_path
+    redirect_to travel_expense_reports_path
   end
 
   def destroy

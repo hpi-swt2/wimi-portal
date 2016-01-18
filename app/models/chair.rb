@@ -107,7 +107,7 @@ class Chair < ActiveRecord::Base
 
     users.each do |user|
       add_requests(I18n.t('chair.requests.holiday_request'), user.holidays, statuses) if types.include? 'holidays'
-      add_requests(I18n.t('chair.requests.expense_request'), user.expenses, statuses) if types.include? 'expenses'
+      add_requests(I18n.t('chair.requests.expense_request'), user.travel_expense_reports, statuses) if types.include? 'expenses'
       add_requests(I18n.t('chair.requests.trip_request'), user.trips, statuses) if types.include? 'trips'
     end
 

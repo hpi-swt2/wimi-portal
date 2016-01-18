@@ -38,7 +38,6 @@ Rails.application.routes.draw do
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   resources :holidays
-  resources :expenses
 
   resources :work_days
   resources :time_sheets, only: [:edit, :update, :delete]

@@ -20,7 +20,8 @@ require 'rails_helper'
 
 RSpec.describe TripsController, type: :controller do
   before(:each) do
-    login_with create ( :user)
+    @user = FactoryGirl.create(:user)
+    login_with @user
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -31,7 +32,7 @@ RSpec.describe TripsController, type: :controller do
      reason: 'Hana Things',
      annotation: 'HANA pls',
      signature: true,
-     user: FactoryGirl.create(:user)}
+     user: @user}
   }
 
   let(:invalid_attributes) {
@@ -52,7 +53,7 @@ RSpec.describe TripsController, type: :controller do
     it 'assigns all trips as @trips' do
       trip = Trip.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:trips)).to eq(Trip.all)
+      expect(assigns(:trips)).to eq(Trip.where(user: @user))
     end
   end
 
