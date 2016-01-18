@@ -85,6 +85,10 @@ de:
       projects: "Projekte"
       wimi: "WiMi"
       hiwi: "HiWi"
+    public_user_data:
+      public_data: "Öffentliche Daten"
+    private_user_data:
+      private_data: "Persönliche Daten"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"

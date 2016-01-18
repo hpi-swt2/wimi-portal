@@ -91,6 +91,10 @@ en:
       projects: "Projects"
       wimi: "Research Assistant"
       hiwi: "Student Assistant"
+    public_user_data:
+      public_data: "Public Data"
+    private_user_data:
+      private_data: "Private Data"
     edit_leave:
       remaining_leave: "Remaining Leave"
       remaining_leave_fly: "Remaining Leave from last year"
