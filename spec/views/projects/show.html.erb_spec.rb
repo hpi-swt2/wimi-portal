@@ -117,4 +117,17 @@ RSpec.describe 'projects/show', type: :view do
     visit project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.form.show_all_working_hours'))
   end
+
+  it 'has only one button so show all working hours of a project' do
+    representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
+    @wimi_user = FactoryGirl.create(:user)
+    wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+
+    login_as wimi
+    project = FactoryGirl.create(:project, chair: wimi.chair, status: true)
+    wimi.projects << project
+    visit project_path(project.id)
+    expect(page).to have_content(I18n.t('projects.form.show_all_working_hours'), count: 1)
+
+  end
 end
