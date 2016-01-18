@@ -34,9 +34,6 @@ en:
       project:
         one: "Project"
         other: "Projects"
-      publication:
-        one: "Publication"
-        other: "Publications"
       trip:
         one: "Business Trip"
         other: "Business Trips"
@@ -70,14 +67,6 @@ en:
         reason: "Reason for Special Leave"
         annotations: "Annotations"
         replacement: "Replacement"
-      publication:
-        id: "Id"
-        title: "Title"
-        venue: "Venue"
-        type_: "Type"
-        project_id: "Project"
-        created_at: "Created at"
-        users: "Users"
       expense:
         id: "Id"
         amount: "Amount"

@@ -21,6 +21,7 @@ require 'rails_helper'
 RSpec.describe TripsController, type: :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
+    FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair), user: @user)
     login_with @user
   end
 

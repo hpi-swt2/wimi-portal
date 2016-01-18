@@ -1,5 +1,13 @@
 class TripsController < ApplicationController
+  load_and_authorize_resource
+  skip_authorize_resource :only => :index
+
   before_action :set_trip, only: [:show, :edit, :update, :destroy, :download, :apply, :hand_in]
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('chairs.navigation.not_authorized')
+    redirect_to trips_path
+  end
+
 
   def index
     @trips = Trip.where(user: current_user)
@@ -25,7 +33,6 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-
 
     if @trip.save
       redirect_to @trip
