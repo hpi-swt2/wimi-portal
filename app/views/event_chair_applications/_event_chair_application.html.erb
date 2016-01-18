@@ -1,0 +1,10 @@
+<%=l event_chair_application.created_at %> - 
+<%= t('events.event_chair_application', trigger: event_chair_application.trigger.name) %>
+<% if event_chair_application.trigger.chair_wimi.nil? || event_chair_application.trigger.chair_wimi.application == 'accepted' %>
+    <%= link_to t('helpers.submit.hide'), hide_event_path(id: event_chair_application, request: current_user), method: :post, class: 'label label-warning' %>
+<% else %>
+    <%= link_to t('chairs.applications.accept'), chairs_accept_path(id: event_chair_application.chair.id, request: event_chair_application.trigger.chair_wimi), method: :post, class: 'label label-success' %>
+    <%= link_to t('chairs.applications.decline'), chairs_remove_user_path(id: event_chair_application.chair.id, request: event_chair_application.trigger.chair_wimi), method: :post, data: { confirm: 'Are you sure?' }, class: 'label label-danger' %>
+<% end %>
+<br/>
+

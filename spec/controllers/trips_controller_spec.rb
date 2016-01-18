@@ -20,7 +20,9 @@ require 'rails_helper'
 
 RSpec.describe TripsController, type: :controller do
   before(:each) do
-    login_with create ( :user)
+    @user = FactoryGirl.create(:user)
+    FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair), user: @user)
+    login_with @user
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -31,7 +33,7 @@ RSpec.describe TripsController, type: :controller do
      reason: 'Hana Things',
      annotation: 'HANA pls',
      signature: true,
-     user: FactoryGirl.create(:user)}
+     user: @user}
   }
 
   let(:invalid_attributes) {
@@ -52,7 +54,7 @@ RSpec.describe TripsController, type: :controller do
     it 'assigns all trips as @trips' do
       trip = Trip.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:trips)).to eq(Trip.all)
+      expect(assigns(:trips)).to eq(Trip.where(user: @user))
     end
   end
 
@@ -97,6 +99,10 @@ RSpec.describe TripsController, type: :controller do
         post :create, {trip: valid_attributes}, valid_session
         expect(response).to redirect_to(Trip.last)
       end
+      it "has the status saved" do
+        trip = Trip.create! valid_attributes
+        expect(trip.status).to eq('saved')
+      end
     end
 
     context 'with invalid params' do
@@ -128,6 +134,7 @@ RSpec.describe TripsController, type: :controller do
         put :update, {id: trip.to_param, trip: new_attributes}, valid_session
         trip.reload
         expect(trip.destination).to eq('NYC')
+        expect(trip.status).to eq('saved')
       end
 
       it 'assigns the requested trip as @trip' do
@@ -170,6 +177,26 @@ RSpec.describe TripsController, type: :controller do
       trip = Trip.create! valid_attributes
       delete :destroy, {id: trip.to_param}, valid_session
       expect(response).to redirect_to(trips_url)
+    end
+
+    it 'redirects to the trip, if it is already applied' do
+      trip = Trip.create! valid_attributes
+      trip.update_attributes(status:'applied')
+      get :edit, {id: trip.id}
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(trip_path(trip))
+    end
+
+  end
+
+  describe 'POST #hand_in' do
+    it 'hands in a trip request' do
+      user = FactoryGirl.create(:user)
+      trip = Trip.create! valid_attributes
+      trip.user = user
+      
+      login_with(user)
+      post :hand_in, { id: trip.id }
     end
   end
 end

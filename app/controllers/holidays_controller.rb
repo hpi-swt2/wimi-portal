@@ -1,12 +1,19 @@
 class HolidaysController < ApplicationController
-  before_action :set_holiday, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  skip_authorize_resource :only => :index
+
+  before_action :set_holiday, only: [:show, :edit, :update, :destroy, :hand_in]
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('chairs.navigation.not_authorized')
+    redirect_to holidays_path
+  end
 
   def index
     @holidays = Holiday.all
   end
 
   def show
-    unless Holiday.find(params[:id]).user_id == current_user.id
+    unless can? :read, @holiday 
       redirect_to holidays_path
     end
   end
@@ -46,6 +53,15 @@ class HolidaysController < ApplicationController
       @holiday.update(length: lengths[:old_length])
       render :edit
     end
+  end
+
+  def hand_in
+    if @holiday.status == 'saved'
+      if @holiday.update(status: 'applied')
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @holiday.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'holiday'})
+      end
+    end
+    redirect_to holidays_path
   end
 
   def destroy
