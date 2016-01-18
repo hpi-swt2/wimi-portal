@@ -104,6 +104,11 @@ de:
       days: "Tag(e)"
       title: "Benutzerprofil"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      status:
+        saved: "Gespeichert"
+        accepted: "Akzeptiert"
+        applied: "Eingereicht"
+        declined: "Abgelehnt"
     edit:
       user_data: "Profilbezogene Daten"
     edit_leave:
@@ -119,7 +124,7 @@ de:
       accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
       status:
-        saved: "Erstellt am "
+        saved: "Gespeichert am "
         accepted: "Akzeptiert am "
         applied: "Eingereicht am "
         declined: "Abgelehnt am "

@@ -113,6 +113,11 @@ en:
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
       days: "Day(s)"
+      status:
+        saved: "Saved"
+        accepted: "Accepted"
+        applied: "Applied"
+        declined: "Rejected"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -128,10 +133,10 @@ en:
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
       status:
-        saved: "Saved at the "
-        accepted: "Accepted at the "
-        applied: "Applied at the "
-        declined: "Declined at the "
+        saved: "Saved at "
+        accepted: "Accepted at "
+        applied: "Applied at "
+        declined: "Rejected at "
   dashboard:
     index:
       dashboard_title: "Dashboard"

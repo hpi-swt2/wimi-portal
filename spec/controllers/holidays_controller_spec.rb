@@ -236,11 +236,12 @@ RSpec.describe HolidaysController, type: :controller do
       end
 
       it 'redirects to the users page' do
-        FactoryGirl.create(:chair)
+        chair = FactoryGirl.create(:chair)
         ChairWimi.first.update_attributes(user_id: @user.id, representative: true)
-        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        user2 = FactoryGirl.create(:user, chair: chair)
+        holiday = FactoryGirl.create(:holiday, user_id: user2.id, status: 'applied')
         get :reject, {id: holiday.to_param}, valid_session
-        expect(response).to redirect_to(@user)
+        expect(response).to redirect_to(user2)
       end
 
       it 'updates the status' do
@@ -265,11 +266,12 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'GET #accept' do
     context 'with valid params' do
       it 'redirects to the users page' do
-        FactoryGirl.create(:chair)
+        chair = FactoryGirl.create(:chair)
         ChairWimi.first.update_attributes(user_id: @user.id, representative: true)
-        holiday = FactoryGirl.create(:holiday, user_id: @user.id, status: 'applied')
+        user2 = FactoryGirl.create(:user, chair: chair)
+        holiday = FactoryGirl.create(:holiday, user_id: user2.id, status: 'applied')
         get :accept, {id: holiday.to_param}, valid_session
-        expect(response).to redirect_to(@user)
+        expect(response).to redirect_to(user2)
       end
 
       it 'updates the status' do

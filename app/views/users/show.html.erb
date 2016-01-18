@@ -89,7 +89,7 @@
                     <td><%= holiday.length %> <%= t('.days') %></td>
                     <td><%=l holiday.start %></td>
                     <td><%=l holiday.end %></td>
-                    <td><%= holiday.status %></td>
+                    <td><%= t(".status.#{holiday.status}") %></td>
                     <td>
                       <%= link_to t("helpers.links.show_details"),
                                   holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
