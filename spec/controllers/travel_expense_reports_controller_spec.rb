@@ -36,12 +36,12 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      location_to: 'NYC',
      reason: 'Hana Things',
      date_start: 8.days.ago,
-     date_end:  DateTime.now,
+     date_end: DateTime.now,
      car: true,
-     public_transport:  true,
-     vehicle_advance:  false,
+     public_transport: true,
+     vehicle_advance: false,
      hotel: true,
-     general_advance:  2000,
+     general_advance: 2000,
      signature: true,
      user: @user}
   }
@@ -72,10 +72,10 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
      location_to: 'NYC',
      reason: 'Hana Things',
      date_start: DateTime.now,
-     date_end:  8.days.ago,
+     date_end: 8.days.ago,
      car: true,
-     public_transport:  true,
-     vehicle_advance:  false,
+     public_transport: true,
+     vehicle_advance: false,
      hotel: true,
      general_advance: -100,
      signature: true,
@@ -101,6 +101,15 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
       get :show, {id: travel_expense_report.to_param}, valid_session
       expect(assigns(:travel_expense_report)).to eq(travel_expense_report)
     end
+
+    it 'does not show travel_expense_reports for normal user' do
+      user = FactoryGirl.create(:user)
+      login_with user
+      ter = TravelExpenseReport.create! valid_attributes
+      get :show, {id: ter.to_param}, valid_session
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(travel_expense_reports_path)
+    end
   end
 
   describe 'GET #new' do
@@ -115,6 +124,14 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
       travel_expense_report = TravelExpenseReport.create! valid_attributes
       get :edit, {id: travel_expense_report.to_param}, valid_session
       expect(assigns(:travel_expense_report)).to eq(travel_expense_report)
+    end
+
+    it 'redirects to the travel_expense_report, if it is already applied' do
+      travel_expense_report = TravelExpenseReport.create! valid_attributes
+      travel_expense_report.update_attributes(status: 'applied')
+      get :edit, {id: travel_expense_report.id}
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(travel_expense_report_path(travel_expense_report))
     end
   end
 
@@ -210,15 +227,34 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
       delete :destroy, {id: travel_expense_report.to_param}, valid_session
       expect(response).to redirect_to(travel_expense_reports_url)
     end
+
+    it 'can not destroy applied travel_expense_reports' do
+      travel_expense_report = TravelExpenseReport.create! valid_attributes
+      travel_expense_report.user = @user
+      login_with(@user)
+      post :hand_in, {id: travel_expense_report.id}
+      expect {
+        delete :destroy, {id: travel_expense_report.to_param}, valid_session
+      }.to change(TravelExpenseReport, :count).by(0)
+    end
   end
 
   describe 'POST #hand_in' do
-    it 'hands in a trip request' do
-      user = FactoryGirl.create(:user)
-      ter = FactoryGirl.create(:travel_expense_report, user: user)
+    it 'hands in a travel_expense_report request' do
+      travel_expense_report = TravelExpenseReport.create! valid_attributes
+      travel_expense_report.user = @user
+      login_with(@user)
+      post :hand_in, {id: travel_expense_report.id}
+      expect(TravelExpenseReport.find(travel_expense_report.id).status).to eq('applied')
+    end
 
+    it 'normal user can not hand in a travel_expense_report request' do
+      user = FactoryGirl.create(:user)
+      travel_expense_report = TravelExpenseReport.create! valid_attributes
+      travel_expense_report.user = user
       login_with(user)
-      post :hand_in, {id: ter.id}
+      post :hand_in, {id: travel_expense_report.id}
+      expect(TravelExpenseReport.find(travel_expense_report.id).status).to eq('saved')
     end
   end
 end

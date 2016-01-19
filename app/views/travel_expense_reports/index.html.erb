@@ -47,4 +47,6 @@
 
 <br>
 
+<% if can? :create, TravelExpenseReport %>
 <%= link_to t('helpers.links.new'), new_travel_expense_report_path, class: "btn btn-primary" %>
+<% end %>

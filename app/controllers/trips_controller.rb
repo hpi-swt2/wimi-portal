@@ -4,7 +4,7 @@ class TripsController < ApplicationController
 
   before_action :set_trip, only: [:show, :edit, :update, :destroy, :download, :apply, :hand_in]
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('chairs.navigation.not_authorized')
+    flash[:error] = I18n.t('not_authorized')
     redirect_to trips_path
   end
 
@@ -74,16 +74,6 @@ class TripsController < ApplicationController
   end
 
   def download
-  end
-
-  def apply
-    @trip.status = 'applied'
-    if @trip.save
-      redirect_to @trip
-      flash[:success] = I18n.t('trip.apply')
-    else
-      render :edit
-    end
   end
 
   private

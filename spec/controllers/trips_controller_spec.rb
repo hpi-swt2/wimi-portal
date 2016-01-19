@@ -38,11 +38,11 @@ RSpec.describe TripsController, type: :controller do
 
   let(:invalid_attributes) {
     {
-     destination: '',
-     reason: 'Hana Things',
-     annotation: 'HANA pls',
-     signature: true,
-     user: FactoryGirl.create(:user)}
+        destination: '',
+        reason: 'Hana Things',
+        annotation: 'HANA pls',
+        signature: true,
+        user: FactoryGirl.create(:user)}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,6 +103,15 @@ RSpec.describe TripsController, type: :controller do
         trip = Trip.create! valid_attributes
         expect(trip.status).to eq('saved')
       end
+
+      it 'redirects to trips_path for normal user' do
+        user = FactoryGirl.create(:user)
+        login_with(user)
+        expect{
+        post :create, {trip: valid_attributes}, valid_session
+        }.to change(Trip, :count).by(0)
+        expect(response).to redirect_to(trips_path)
+      end
     end
 
     context 'with invalid params' do
@@ -122,11 +131,11 @@ RSpec.describe TripsController, type: :controller do
     context 'with valid params' do
       let(:new_attributes) {
         {
-     destination: 'NYC',
-     reason: 'Hana',
-     annotation: 'HANA',
-     signature: false,
-     user: User.first}
+            destination: 'NYC',
+            reason: 'Hana',
+            annotation: 'HANA',
+            signature: false,
+            user: User.first}
       }
 
       it 'updates the requested trip' do
@@ -173,6 +182,16 @@ RSpec.describe TripsController, type: :controller do
       }.to change(Trip, :count).by(-1)
     end
 
+    it 'can not destroy an applied trip' do
+      trip = Trip.create! valid_attributes
+      trip.user = @user
+      login_with(@user)
+      post :hand_in, {id: trip.id}
+      expect {
+        delete :destroy, {id: trip.to_param}, valid_session
+      }.to change(Trip, :count).by(0)
+    end
+
     it 'redirects to the trips list' do
       trip = Trip.create! valid_attributes
       delete :destroy, {id: trip.to_param}, valid_session
@@ -190,12 +209,20 @@ RSpec.describe TripsController, type: :controller do
 
   describe 'POST #hand_in' do
     it 'hands in a trip request' do
+      trip = Trip.create! valid_attributes
+      trip.user = @user
+      login_with(@user)
+      post :hand_in, {id: trip.id}
+      expect(Trip.find(trip.id).status).to eq('applied')
+    end
+
+    it 'normal user can not hand in a trip request' do
       user = FactoryGirl.create(:user)
       trip = Trip.create! valid_attributes
       trip.user = user
-
       login_with(user)
       post :hand_in, {id: trip.id}
+      expect(Trip.find(trip.id).status).to eq('saved')
     end
   end
 end

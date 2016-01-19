@@ -233,3 +233,9 @@ de:
     applied: "Dienstreiseantrag bereits eingereicht"
     destroyed: "Dienstreiseantrag wurde erfolgreich gelöscht"
     apply: "Dienstreiseantrag wurde erfolgreich eingereicht"
+  not_authorized: "Du bist nicht befugt, diese Aktion durchzuführen."
+  holiday:
+    applied: "Urlaubsantrag bereits eingereicht"
+  travel_expense_report:
+    applied: "Reisekostenabrechnung bereits eingereicht"
+

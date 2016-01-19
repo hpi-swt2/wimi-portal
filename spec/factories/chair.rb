@@ -3,7 +3,7 @@ FactoryGirl.define do
     name 'TestChair'
 
     after(:create) do |chair|
-      FactoryGirl.create(:chair_representative, chair_id: chair.id, user_id: FactoryGirl.create(:user).id)
+      FactoryGirl.create(:chair_representative, chair: chair, user: FactoryGirl.create(:user))
     end
   end
 end

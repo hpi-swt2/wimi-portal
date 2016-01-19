@@ -40,9 +40,9 @@ class WorkDay < ActiveRecord::Base
     month_start = date.beginning_of_month
     month_end = date.end_of_month
     if project.nil?
-      return WorkDay.where(date: month_start..month_end, user_id: user)
+      return WorkDay.where(date: month_start..month_end, user: user)
     else
-      return WorkDay.where(date: month_start..month_end, user_id: user, project_id: project)
+      return WorkDay.where(date: month_start..month_end, user: user, project_id: project)
     end
   end
 end

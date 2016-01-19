@@ -4,7 +4,7 @@ class HolidaysController < ApplicationController
 
   before_action :set_holiday, only: [:show, :edit, :update, :destroy, :hand_in]
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('chairs.navigation.not_authorized')
+    flash[:error] = I18n.t('not_authorized')
     redirect_to holidays_path
   end
 
@@ -13,9 +13,6 @@ class HolidaysController < ApplicationController
   end
 
   def show
-    unless can? :read, @holiday
-      redirect_to holidays_path
-    end
   end
 
   def new
@@ -23,6 +20,10 @@ class HolidaysController < ApplicationController
   end
 
   def edit
+    if @holiday.status == 'applied'
+      redirect_to @holiday
+      flash[:error] = I18n.t('holiday.applied')
+    end
   end
 
   def create
@@ -30,7 +31,7 @@ class HolidaysController < ApplicationController
       #disregard errors here, they should be handled in model validation later
       params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date + 1) rescue nil
     end
-    @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id, last_modified: Date.today))
+    @holiday = Holiday.new(holiday_params.merge(user: current_user, last_modified: Date.today))
     if @holiday.save
       subtract_leave(@holiday.length)
       flash[:success] = 'Holiday was successfully created.'
@@ -65,12 +66,17 @@ class HolidaysController < ApplicationController
   end
 
   def destroy
-    if @holiday.end > Date.today
-      add_leave(@holiday.length)
+    if @holiday.status == 'applied'
+      redirect_to @holiday
+      flash[:error] = I18n.t('holiday.applied')
+    else
+      if @holiday.end > Date.today
+        add_leave(@holiday.length)
+      end
+      @holiday.destroy
+      flash[:success] = 'Holiday was successfully destroyed.'
+      redirect_to holidays_path
     end
-    @holiday.destroy
-    flash[:success] = 'Holiday was successfully destroyed.'
-    redirect_to holidays_path
   end
 
   private
