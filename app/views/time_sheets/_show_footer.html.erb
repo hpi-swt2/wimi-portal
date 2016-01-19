@@ -1,0 +1,77 @@
+<div class="form-group">
+  <br>
+  <br>
+  <br>
+  <% if current_user.is_wimi? && @time_sheet.handed_in? %>
+    <%= t('.acceptence_requested_at') %> <b><%=l @time_sheet.hand_in_date %></b><br>
+    <%= t('.status') %> <b><%= t(".#{@time_sheet.status}") %></b><br>
+    <% if @time_sheet.status.include? 'pending' %>
+      <%= t('.document_was') %> 
+      <% unless @time_sheet.signed %>
+        <b><%= t('.not') %></b>
+      <% end %>
+      <%= t('.signed') %>
+      <p>
+      <%= form_for @time_sheet do |f| %>
+        <% unless @time_sheet.wimi_signed %>
+          <div class="control-group">
+            <%= f.check_box :wimi_signed %>
+            <%= f.label t('.add_signature') %>
+          </div>
+          <br>
+        <% end %>
+        <%= link_to t('.accept'), accept_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
+        <%= link_to t('.reject'), reject_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
+        <br>
+        <br>
+        <%= f.label t('.reject_reason') %>
+        <br>
+        <%= f.text_field :rejection_message, size: 50 %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= form_for @time_sheet do |f| %>
+      <% if @time_sheet.handed_in? %>
+        <% if @time_sheet.status.include? 'pending' %>
+          <%= t('.handed_in_at') %> <%=l @time_sheet.hand_in_date %> <%=t('.status') +': ' + @time_sheet.status %>
+          <br>
+          <% unless @time_sheet.wimi_signed %>
+            <div class="control-group">
+              <%= f.check_box :wimi_signed %>
+              <%= f.label t('.add_signature') %>
+            </div>
+          <% end %> 
+          <%= link_to t('.export_as_PDF'), "#", class: 'btn btn-primary' %><br>
+        <% end %>
+        <% if @time_sheet.status.include? 'accepted'%>
+          <%= t('.accepted_by') + User.find(@time_sheet.signer).name + ' ' + t('.at') + ' ' + l(@time_sheet.last_modified) %><br>
+          <%= link_to t('.export_as_PDF'), "#", class: 'btn btn-primary' %><br>
+        <% end %>
+      <% else %>
+        <% if @time_sheet.status == 'rejected' %>
+          <%= t('.rejected_by') + User.find(@time_sheet.signer).name + ' ' + t('.at') + ' ' + l(@time_sheet.last_modified) %>
+          <br>
+          <%= t('.reject_reason') + @time_sheet.rejection_message %>
+          <% unless @time_sheet.signed %>
+            <div class="control-group">
+              <%= f.check_box :signed %>
+              <%= f.label t('.add_signature') %>
+            </div>
+          <% end %>
+          <br>
+          <%= link_to t('.hand_in'), hand_in_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
+        <% else %>
+          <% if @time_sheet.user_id = current_user.id %>
+            <% unless @time_sheet.signed %>
+              <div class="control-group">
+              <%= f.check_box :signed %>
+              <%= f.label t('.add_signature') %>
+              </div>
+            <% end %>
+            <%= link_to t('.hand_in'), hand_in_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
+          <% end %>   
+        <% end %>   
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

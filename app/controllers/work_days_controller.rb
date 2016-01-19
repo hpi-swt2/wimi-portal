@@ -2,15 +2,16 @@ class WorkDaysController < ApplicationController
   before_action :set_work_day, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params.has_key?(:month) && params.has_key?(:year)
+    if params.has_key?(:month) && params.has_key?(:year) && params.has_key?(:user_id)
       @month = params[:month].to_i
       @year = params[:year].to_i
+      @user = params[:user_id]
       @project = params.has_key?(:project) ? Project.find(params[:project].to_i) : nil
-      @time_sheet = TimeSheet.time_sheet_for(@year, @month, @project, current_user)
-      @work_days = WorkDay.all_for(@year, @month, @project, current_user)
+      @time_sheet = TimeSheet.time_sheet_for(@year, @month, @project, @user)
+      @work_days = WorkDay.all_for(@year, @month, @project, @user)
     else
       date = Date.today
-      redirect_to work_days_path(month: date.month, year: date.year)
+      redirect_to work_days_path(month: date.month, year: date.year, user_id: current_user.id)
     end
   end
 

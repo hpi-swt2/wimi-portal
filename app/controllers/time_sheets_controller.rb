@@ -11,6 +11,21 @@ class TimeSheetsController < ApplicationController
   def edit
   end
 
+  def hand_in
+    TimeSheet.find(params[:id]).update(status: 'pending', handed_in: true, hand_in_date: Date.today)
+    redirect_to user_path(current_user)
+  end
+
+  def accept
+    TimeSheet.find(params[:id]).update(status: 'accepted', last_modified: Date.today, signer: current_user.id)
+    redirect_to user_path(current_user)
+  end
+
+  def reject
+    TimeSheet.find(params[:id]).update(status: 'rejected', handed_in: false, last_modified: Date.today, signer: current_user.id)
+    redirect_to user_path(current_user)
+  end
+
   def update
     if @time_sheet.update(time_sheet_params)
       flash[:success] = 'Time Sheet was successfully updated.'
@@ -25,8 +40,8 @@ class TimeSheetsController < ApplicationController
   def set_time_sheet
     @time_sheet = TimeSheet.find(params[:id])
   end
-
+  
   def time_sheet_params
-    params.require(:time_sheet).permit(:month, :year, :salary, :salary_is_per_month, :workload, :workload_is_per_month, :user_id, :project_id)
+    params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym))
   end
 end

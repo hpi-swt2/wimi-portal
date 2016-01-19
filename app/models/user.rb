@@ -99,20 +99,6 @@ class User < ActiveRecord::Base
     return year_months
   end
 
-  def work_year_months_for_project(project)
-    year = -1
-    month = -1
-    year_months = []
-    self.work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
-      unless year == date.year and month == date.month
-        year = date.year
-        month = date.month
-        year_months << [date.year, date.month]
-      end
-    end
-    return year_months
-  end
-
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = remaining_leave
     self.remaining_leave = 28
@@ -188,5 +174,4 @@ class User < ActiveRecord::Base
     end
     datespans.sort! { |a,b| b.start_date <=> a.start_date }
   end
-
 end

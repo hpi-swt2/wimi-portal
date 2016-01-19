@@ -27,7 +27,6 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
-      leave: "Leave"
       edit_leave: "Edit Leave"
       show_details: "Show Details"
       show_pdf: "Show PDF"
@@ -79,8 +78,6 @@ en:
       create_project: "Create Project"
       update_project: "Update Project"
     show:
-      working_hours: "Working hours"
-      add_working_hours: "Add working hours"
       inactive: "(inactive)"
       set_inactive: "set inactive"
       set_active: "set active"
@@ -118,7 +115,18 @@ en:
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+      work_times: "Work times"
+      handed_in_timesheets: "Handed in time sheets:"
+      by: "by"
       days: "Day(s)"
+      time_sheets_overview: "time sheet overview"
+      hiwi: "research assistants"
+      month: "month"
+      number_of_hours: "number of hours"
+      handed_in_at: "handed in at"
+      status: "status"
+      action: "action"
+      inspect: "inspect"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -172,8 +180,52 @@ en:
       status: "Status"
       user_id: "User"
       created_at: "Created at"
+  work_days:
+    index:
+      working_hours_for: "Working hours for: "
+      new: "new"
+      for: "for"
+      by: "by"
+  time_sheets:
+    form:
+      monthly: "monthly"
+      weekly: "weekly"
+      hourly: "hourly"
+      time_sheet: "Time sheet"
+    show:
+      salary: "Salary:"
+      salary_per_month: "Euro / Month"
+      salary_per_hour: "Euro / Hour"
+      workload: "Workload:"
+      workload_per_month: "Hours / Month"
+      workload_per_week: "Hours / Week"
+    show_footer:
+      new: "new"
+      in: "in"
+      by: "by"
+      hand_in: "hand in"
+      accept: "accept"
+      handed_in_at: "handed in at: "
+      reject: "reject"
+      reject_reason: "Rejection reason:"
+      rejected_by: "rejected by: "
+      accepted_by: "accepted by: "
+      at: "at"
+      export_as_PDF: "export as PDF"
+      handed_in_at: "handed in at:"
+      status: "status"
+      add_signature: "Add signature"
+      document_was: "Document was"
+      not: "not"
+      signed: "signed"
+      status: "status: "
+      acceptence_requested_at: "acceptence requested at: "
+      pending: "pending"
+      accepted: "accepted"
+      rejected: "rejected"
   date:
     formats:
+      without_day: "%B %Y"
       default: "%d-%m-%Y"
     order:
       - :day

@@ -23,18 +23,16 @@
 #  hand_in_date          :date
 #
 
-FactoryGirl.define do
-  factory :time_sheet do
-    month Date.today.month
-    year Date.today.year
-    salary 100
-    salary_is_per_month true
-    workload 100
-    workload_is_per_month true
-    user_id 1
-    project_id 1
-    last_modified Date.today
-    hand_in_date Date.today
-    rejection_message ''
+require 'rails_helper'
+
+RSpec.describe TimeSheet, type: :model do
+  before(:each) do
+  	@sheet = FactoryGirl.create(:time_sheet)
+  end
+
+  it 'sums up the right ammount of working hours' do
+  	first_day = FactoryGirl.create(:work_day)
+  	second_day = FactoryGirl.create(:work_day, start_time: Time.now.middle_of_day, end_time: Time.now.middle_of_day + 3.hour)
+  	expect(@sheet.sum_hours).to eq(first_day.duration + second_day.duration)
   end
 end
