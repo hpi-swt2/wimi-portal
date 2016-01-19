@@ -58,6 +58,9 @@ class Ability
     can :manage, Holiday.select { |h| h.user == user }
     can :manage, Trip.select { |t| t.user == user }
     can :manage, TravelExpenseReport.select { |t| t.user == user }
+    can :see_holidays, User do |u|
+      u == user
+    end
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end

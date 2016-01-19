@@ -4,35 +4,25 @@ class HolidaysController < ApplicationController
 
   before_action :set_holiday, only: [:show, :edit, :update, :destroy, :file, :reject, :accept]
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('chairs.navigation.not_authorized')
+    flash[:error] = I18n.t('not_authorized')
     redirect_to root_path
   end
 
   def index
-    if can? :see_holidays, current_user
-      @holidays = Holiday.all
-    else
-      redirect_to root_path
-    end
+    @holidays = Holiday.all
   end
 
   def show
-    unless can? :read, @holiday 
-      redirect_to root_path
-    end
   end
 
   def new
-    if can? :see_holidays, current_user
-      @holiday = Holiday.new
-    else
-      redirect_to root_path
-    end
+    @holiday = Holiday.new
   end
 
   def edit
-    unless can? :read, @holiday
-      redirect_to root_path
+    if @holiday.status == 'applied'
+      redirect_to @holiday
+      flash[:error] = I18n.t('holiday.applied')
     end
   end
 
@@ -67,12 +57,17 @@ class HolidaysController < ApplicationController
   end
 
   def destroy
-    if @holiday.end > Date.today
-      add_leave(@holiday.length)
+    if @holiday.status == 'applied'
+      redirect_to @holiday
+      flash[:error] = I18n.t('holiday.applied')
+    else
+      if @holiday.end > Date.today
+        add_leave(@holiday.length)
+      end
+      @holiday.destroy
+      flash[:success] = t('holiday.destroyed')
+      redirect_to holidays_path
     end
-    @holiday.destroy
-    flash[:success] = t('holiday.destroyed')
-    redirect_to holidays_path
   end
 
   def file
@@ -94,14 +89,10 @@ class HolidaysController < ApplicationController
 
   def reject
     if (can? :read, @holiday) && @holiday.status == 'applied'
-      if add_leave(@holiday.length)
-        @holiday.update_attribute(:status, 'declined')
-        @holiday.update_attribute(:last_modified, Date.today)
-        redirect_to @holiday.user
-      else
-        redirect_to @holiday
-        flash[:error] = t('holiday.something_wrong')
-      end
+      add_leave(@holiday.length)
+      @holiday.update_attribute(:status, 'declined')
+      @holiday.update_attribute(:last_modified, Date.today)
+      redirect_to @holiday.user
     else
       redirect_to root_path
       flash[:error] = t('holiday.not_authorized')
@@ -137,9 +128,7 @@ class HolidaysController < ApplicationController
 
   def add_leave(length)
     updated_remaining_leave_last_year = @holiday.user.remaining_leave_last_year + @holiday.length_last_year
-    user = @holiday.user
-    user.update_attributes(remaining_leave_last_year: updated_remaining_leave_last_year, remaining_leave: @holiday.user.remaining_leave + length)
-    user.valid?
+    @holiday.user.update_attributes(remaining_leave_last_year: updated_remaining_leave_last_year, remaining_leave: @holiday.user.remaining_leave + length)
   end
 
   def subtract_leave(length)

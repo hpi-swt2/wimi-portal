@@ -46,6 +46,12 @@ en:
         name: "Name"
         created_at: "Created at"
         status: "Status"
+        apply: "Apply as WiMi"
+        application:
+          status:
+            pending: "pending"
+            accepted: "accepted"
+            declined: "declined"
       project:
         title: "Title"
         created_at: "Created at"
@@ -127,6 +133,7 @@ en:
         street: "Street"
         personnel_number: "Staff Number"
         language: "Language"
+        not_member_of_chair: "You are not a member of a chair."
       request:
         name: "Name"
         type: "Type"
@@ -164,6 +171,7 @@ en:
     updated: 'Holiday was successfully updated.'
     created: 'Holiday was successfully created.'
     something_wrong: 'Something went wrong.'
+    applied: "Holiday is already applied"
   project:
     filter_chair: 'Filter for chair'
     invite_someone_to_project: 'Invite someone to the project'
@@ -232,4 +240,7 @@ en:
     applied: "Trip is already applied"
     destroyed: "Trip was successfully destroyed"
     apply: "Trip was successfully applied"
+  not_authorized: "You're not authorized to do that action."
   not_enough_leave: "Not enough leave left"
+  travel_expense_report:
+    applied: "Travel expense request is already applied"
