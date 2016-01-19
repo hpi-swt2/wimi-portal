@@ -19,8 +19,11 @@
 #  last_modified         :date
 #  status                :integer          default(0)
 #  signer                :integer
+<<<<<<< HEAD
 #  wimi_signed           :boolean          default(FALSE)
 #  hand_in_date          :date
+=======
+>>>>>>> team3review
 #
 
 FactoryGirl.define do

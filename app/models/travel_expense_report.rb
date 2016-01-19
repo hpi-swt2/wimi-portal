@@ -32,6 +32,8 @@ class TravelExpenseReport < ActiveRecord::Base
   validates :general_advance, numericality: {greater_than_or_equal_to: 0}
   validate 'start_before_end_date'
 
+  enum status: [ :saved, :applied, :accepted, :declined ]
+
   def first_name
     user.first_name
   end

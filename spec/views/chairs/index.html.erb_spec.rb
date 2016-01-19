@@ -13,7 +13,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
 
     expect(page).to have_content('New')
     expect(page).to have_content('Edit Chair')
-    expect(page).to have_content('Destroy Chair')
+    expect(page).to have_content('Delete Chair')
 
     expect(page).to_not have_content('Manage Chair')
     expect(page).to_not have_content('Apply as Wimi')
@@ -30,7 +30,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
 
     expect(page).to_not have_content('New')
     expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Destroy Chair')
+    expect(page).to_not have_content('Delete Chair')
     expect(page).to_not have_content('Apply as Wimi')
   end
 
@@ -45,7 +45,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
 
     expect(page).to_not have_content('New')
     expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Destroy Chair')
+    expect(page).to_not have_content('Delete Chair')
     expect(page).to_not have_content('Apply as Wimi')
   end
 
@@ -59,7 +59,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
 
     expect(page).to_not have_content('New')
     expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Destroy Chair')
+    expect(page).to_not have_content('Delete Chair')
     expect(page).to_not have_content('Manage Chair')
   end
 
@@ -87,7 +87,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     visit chairs_path
 
     expect(page).to have_content('TestChair')
-    click_on 'Destroy Chair'
+    click_on 'Delete Chair'
     expect(page).to have_current_path(chairs_path)
     expect(page).to_not have_content('TestChair')
   end
@@ -109,9 +109,9 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     login_as(@user, scope: :user)
     visit chairs_path
 
-    expect(page).to_not have_content('pending')
+    expect(page).to_not have_content('Pending')
     click_on 'Apply as Wimi'
     expect(page).to have_current_path(chairs_path)
-    expect(page).to have_content('pending')
+    expect(page).to have_content('Pending')
   end
 end

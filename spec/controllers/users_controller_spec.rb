@@ -4,10 +4,7 @@ RSpec.describe UsersController, type: :controller do
   let(:valid_attributes) {
     {first_name: 'John', last_name: 'Doe', email: 'person@example.com', personnel_number: '1'}
   }
-  let(:valid_attributes2) {
-    {first_name: 'John', last_name: 'Doe', email: 'person2@example.com', personnel_number: '2'}
-  }
-
+  
   let(:invalid_attributes) {
     {email: 'person2example.com', personnel_number: 'a'}
   }

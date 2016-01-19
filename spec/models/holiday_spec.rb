@@ -21,7 +21,7 @@ require 'rails_helper'
 
 RSpec.describe Holiday, type: :model do
   before(:each) do
-  	@user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   it 'has a valid factory' do
