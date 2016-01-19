@@ -36,19 +36,6 @@
     <%= error_span(@holiday[:end]) %>
   </div>
   <div class="control-group">
-    <%= f.label :duration, class: 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :length, class: 'form-control', min: 0, placeholder: 'Leave Blank for automatic calculation' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :reason, class: 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :reason, class: 'form-control' %>
-    </div>
-    <%= error_span(@holiday[:reason]) %>
-  </div>
-  <div class="control-group">
     <%= f.check_box :replacement_user_id, onchange: "selection.style.display = this.checked ? 'block' : 'none'" %>
     <%= f.label :replacement, class: 'control-label' %>
     <%# Capybara doesn't seem to find invisible selection boxes, so this div has to be displayed in a test environment %>
