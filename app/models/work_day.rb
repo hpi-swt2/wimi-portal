@@ -28,7 +28,7 @@ class WorkDay < ActiveRecord::Base
   validate :project_id_exists
 
   def duration
-    (end_time - start_time).to_i / 60 - self.break
+    ((end_time - start_time).to_i / 60 - self.break) / 60.0
   end
 
   def project_id_exists

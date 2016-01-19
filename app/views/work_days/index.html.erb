@@ -4,16 +4,26 @@
 
 <div class="page-header">
   <h1>
-    Working Hours for <%= Date::MONTHNAMES[@month] + ' ' + @year.to_s %>
+    <%= t('.working_hours_for')%> <%=l Date.new(@year,@month,1), format: :without_day %>
     <%unless @project.nil?%>
-      <%= ' for ' + @project.title%>
+      <%= @project.title %>
     <%end%>
+    <% unless @time_sheet.nil? %>
+      <%= t('.by') + ' ' + User.find(@time_sheet.user_id).name %>
+      <% if @time_sheet.user_id == current_user.id && !@time_sheet.handed_in? %>
+      <div align = "right">
+        <%= link_to t('.new'), new_work_day_path, class: 'btn btn-primary' %>
+      </div>
+      <% end %>
+    <% else %>
+        <%= link_to t('.new'), new_work_day_path, class: 'btn btn-primary' %>
+    <% end %>
   </h1>
 </div>
 
-<%unless @time_sheet.nil?%>
+<% unless @time_sheet.nil? %>
   <%= render "time_sheets/show"%>
-<%end%>
+<% end %>
 
 <table  class="table table-striped">
   <thead>
@@ -25,7 +35,6 @@
         <th><%= model_class.human_attribute_name(:duration) %></th>
         <th>*</th>
         <th><%= model_class.human_attribute_name(:notes) %></th>
-        <th>Action</th>
     </tr>
   </thead>
 
@@ -36,10 +45,11 @@
           <td><%= work_day.start_time.strftime('%H:%M') %></td>
           <td><%= work_day.break %>min</td>
           <td><%= work_day.end_time.strftime('%H:%M') %></td>
-          <td><%= work_day.duration %>min</td>
+          <td><%= work_day.duration %>h</td>
           <td><%= work_day.attendance %></td>
           <td><%= work_day.notes %></td>
           <td>
+            <% if work_day.user_id == current_user.id && (@time_sheet.nil? ? true : @time_sheet.handed_in == false)%>
               <%= link_to t('.edit', default: t("helpers.links.edit")),
                   edit_work_day_path(work_day), class: 'btn btn-default btn-xs' %>
               <%= link_to t('.destroy', default: t("helpers.links.destroy")),
@@ -47,12 +57,13 @@
                           method: :delete,
                           data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
                           class: 'btn btn-xs btn-danger' %>
+            <% end %>
           </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-
-<%= link_to "New", new_work_day_path, class: 'btn btn-primary' %>
-<%= link_to "Export as PDF", "#", class: 'btn btn-primary' %>
+<% unless @time_sheet.nil? %>
+  <%= render "time_sheets/show_footer" %>
+<% end %>

@@ -19,30 +19,42 @@
 #  last_modified         :date
 #  status                :integer          default(0)
 #  signer                :integer
+#  wimi_signed           :boolean          default(FALSE)
+#  hand_in_date          :date
 #
 
 class TimeSheet < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :project
+    belongs_to :user
+    belongs_to :project
+    enum status: [ :pending, :accepted, :rejected]
 
-  validates :workload_is_per_month, inclusion: {in: [true, false]}
-  validates :salary_is_per_month, inclusion: {in: [true, false]}
+    validates :workload_is_per_month, inclusion: { in: [true, false] }
+    validates :salary_is_per_month, inclusion: { in: [true, false] }
 
-  def self.time_sheet_for(year, month, project, user)
-    if project.nil?
-      return nil
-    else
-      sheets = TimeSheet.where(year: year, month: month, project: project, user: user)
-      if sheets.empty?
-        return create_new_time_sheet(year, month, project, user)
+    def sum_hours
+      hour_counter = 0
+      monthyearrange = Date.new(self.year, self.month, 1)..Date.new(self.year, self.month, Time.days_in_month(self.month, self.year))
+      WorkDay.where(date: monthyearrange, project: self.project_id, user_id: self.user_id).each do |day| 
+        hour_counter = hour_counter + day.duration 
+      end
+      return hour_counter
+    end
+    
+    def self.time_sheet_for(year, month, project, user)
+      if project.nil?
+        return nil
       else
-        return sheets.first
+        sheets = TimeSheet.where(year: year, month: month, project: project, user: user)
+        if sheets.empty?
+          return create_new_time_sheet(year, month, project, user)
+        else
+          return sheets.first
+        end
       end
     end
-  end
 
   def self.create_new_time_sheet(year, month, project, user)
-    sheet = TimeSheet.create!({year: year, month: month, project_id: project.id, user_id: user.id, workload_is_per_month: true, salary_is_per_month: true})
+    sheet = TimeSheet.create!({year: year, month: month, project_id: project.id, user_id: user, workload_is_per_month: true, salary_is_per_month: true})
     return sheet
   end
 end

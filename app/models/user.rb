@@ -174,5 +174,4 @@ class User < ActiveRecord::Base
     end
     datespans.sort! { |a,b| b.start_date <=> a.start_date }
   end
-
 end
