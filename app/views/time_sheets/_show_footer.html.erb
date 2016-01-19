@@ -3,14 +3,12 @@
   <br>
   <br>
   <% if current_user.is_wimi? && @time_sheet.handed_in? %>
-    <%= t('.acceptence_requested_at') %> <%=l @time_sheet.last_modified %><br>
-    <%= t('.status') %> <%= t(".#{@time_sheet.status}") %><br>
+    <%= t('.acceptence_requested_at') %> <b><%=l @time_sheet.hand_in_date %></b><br>
+    <%= t('.status') %> <b><%= t(".#{@time_sheet.status}") %></b><br>
     <% if @time_sheet.status.include? 'pending' %>
-      <%= t('.handed_in_at') %> <%=l @time_sheet.hand_in_date %>
-      <br>
       <%= t('.document_was') %> 
       <% unless @time_sheet.signed %>
-        <%= t('.not') %>
+        <b><%= t('.not') %></b>
       <% end %>
       <%= t('.signed') %>
       <p>
@@ -25,7 +23,9 @@
         <%= link_to t('.accept'), accept_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
         <%= link_to t('.reject'), reject_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
         <br>
+        <br>
         <%= f.label t('.reject_reason') %>
+        <br>
         <%= f.text_field :rejection_message, size: 50 %>
       <% end %>
     <% end %>
