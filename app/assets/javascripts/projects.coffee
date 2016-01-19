@@ -8,7 +8,7 @@ signOutMyselfWarning = (locale, button) ->
     confirmation =  'Sie sind nicht mehr befugt, weitere Maßnahmen für das Projekt durchzuführen, nachdem Sie sich aus dem Projekt ausgetragen haben!'
   else
     confirmation = 'You will not be able to perform any more actions on the project after you are unenrolled!'
-  button.attr('onclick', "return confirm('" + confirmation + "');")
+  button.attr('data-confirm', confirmation)
   return
 
 setInactiveWarning = (locale, button) ->
@@ -16,7 +16,7 @@ setInactiveWarning = (locale, button) ->
     confirmation = 'Das Projekt wird nun inaktiv geschalten!'
   else
     confirmation = 'You are going to set the project status to inactive'
-  button.attr('onclick', "return confirm('" + confirmation + "');")
+  button.attr('data-confirm', confirmation)
   return confirm
 
 sendLanguageWithButtonToCallback = (clickedButton, callbackWarning) ->
