@@ -78,6 +78,8 @@ en:
       create_project: "Create Project"
       update_project: "Update Project"
     show:
+      working_hours: "Working hours"  
+      add_working_hours: "Add working hours"
       inactive: "(inactive)"
       set_inactive: "set inactive"
       set_active: "set active"
