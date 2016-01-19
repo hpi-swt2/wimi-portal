@@ -30,7 +30,7 @@
   <% end %>
 </p>
 
-<% if @trip.status != 'applied' %>
+<% unless @trip.status == 'applied' %>
   <%= link_to t('.edit', default: t("helpers.links.edit")), edit_trip_path(@trip), class: 'btn btn-default btn-xs' %>
   <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
                       hand_in_trip_path(@trip), method: :post, class: 'btn btn-primary btn-xs' %>

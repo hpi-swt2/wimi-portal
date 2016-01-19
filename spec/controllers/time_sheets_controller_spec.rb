@@ -10,14 +10,14 @@ RSpec.describe TimeSheetsController, type: :controller do
 
   let(:valid_attributes) {
     {month: 1, year: 2015, salary: 100, salary_is_per_month: true,
-      workload: 100, workload_is_per_month: true, user_id: @user.id,
-      project_id: @project.id}
+      workload: 100, workload_is_per_month: true, user: @user,
+      project: @project}
   }
 
   let(:invalid_attributes) {
     {month: 1, year: 2015, salary: -100, salary_is_per_month: false,
-      workload: 100, workload_is_per_month: nil, user_id: @user.id,
-      project_id: @project.id}
+      workload: 100, workload_is_per_month: nil, user: @user,
+      project: @project}
   }
 
   let(:valid_session) { {} }
@@ -34,8 +34,8 @@ RSpec.describe TimeSheetsController, type: :controller do
     context 'with valid params' do
       let(:new_attributes) {
         {month: 1, year: 2015, salary: 100, salary_is_per_month: false,
-          workload: 200, workload_is_per_month: true, user_id: @user.id,
-          project_id: @project.id}
+          workload: 200, workload_is_per_month: true, user: @user,
+          project: @project}
       }
 
       it 'updates the requested time_sheet' do

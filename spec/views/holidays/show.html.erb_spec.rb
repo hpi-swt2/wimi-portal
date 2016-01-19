@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'holidays/show', type: :view do
   before(:each) do
-  	user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user)
     FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair), user: user)
-    @holiday = assign(:holiday, FactoryGirl.create(:holiday, user_id: user.id))
+    @holiday = assign(:holiday, FactoryGirl.create(:holiday, user: user))
     login_as user
   end
 

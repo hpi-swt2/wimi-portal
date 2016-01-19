@@ -27,7 +27,7 @@ class WorkDaysController < ApplicationController
 
   def create
     @work_day = WorkDay.new(work_day_params)
-    @work_day.user_id = current_user.id
+    @work_day.user = current_user
 
     if @work_day.save
       flash[:success] = 'Work Day was successfully created.'

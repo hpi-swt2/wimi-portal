@@ -53,7 +53,6 @@
   <!-- Left column -->
   <div class="col-md-8" style="margin: 15px 0px">
     <!-- Project invitations -->
-
     <% if !(current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
       <div class="col-md-12 dashboard-block">
         <h3> <%= I18n.t('activerecord.models.chair.other') %> </h3>

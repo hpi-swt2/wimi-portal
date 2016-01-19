@@ -43,7 +43,7 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'has information about the project on page as a chair representative' do
-    representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
+    representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     login_as representative
     project = FactoryGirl.create(:project, chair: representative.chair, status: true)
     representative.projects << project
@@ -58,9 +58,9 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'has information about the project on page as a wimi' do
-    representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
+    representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     @wimi_user = FactoryGirl.create(:user)
-    wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+    wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
 
     login_as wimi
     project = FactoryGirl.create(:project, chair: wimi.chair, status: true)
@@ -76,7 +76,7 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'has information about the project on page as a hiwi' do
-    chair_representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
+    chair_representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     hiwi = FactoryGirl.create(:user)
 
     login_as hiwi
@@ -93,9 +93,9 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'shows a button for a wimi to inspect a user specific working hour report for this project' do
-    @representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
+    @representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     @wimi_user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+    @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
     user = FactoryGirl.create(:user)
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
@@ -106,9 +106,9 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'shows a button for a wimi to inspect all working hour report for this project' do
-    @representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
+    @representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     @wimi_user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+    @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
     user = FactoryGirl.create(:user)
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
