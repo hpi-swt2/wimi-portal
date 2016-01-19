@@ -10,7 +10,7 @@
       </div>
       <% if @holiday.user == current_user %>
         <div class="col-sm-6 text text-right">
-          <% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')  %>
+          <% if (@holiday.status == 'saved') || (@holiday.status == 'declined')  %>
             <%= link_to t('.edit', default: t("helpers.links.edit")),
                           edit_holiday_path(@holiday), class: 'btn btn-primary' %>
           <% else %>
@@ -46,7 +46,7 @@
 </div>
 
 <%= link_to 'Download', generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: @holiday), class: 'btn btn-default' %>
-<% if @holiday.user == current_user && ((@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')) %>
+<% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
   <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
 <% end %>
 <% if(can? :read, @holiday) && @holiday.status == 'applied' %>

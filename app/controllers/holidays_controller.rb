@@ -71,7 +71,7 @@ class HolidaysController < ApplicationController
   end
 
   def file
-    if ((@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')) && @holiday.user = current_user
+    if (@holiday.status == 'saved' || @holiday.status == 'declined')  && @holiday.user = current_user
       if subtract_leave(@holiday.length)
         @holiday.update_attribute(:status, 'applied')
         @holiday.update_attribute(:last_modified, Date.today)

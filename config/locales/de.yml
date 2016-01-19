@@ -175,7 +175,7 @@ de:
     search: 'Suchen'
     submit: 'Abschicken'
   holiday:
-    not_authorized: 'Du bist nicht befugt, diesen Urlaubsantrag einzusehen.'
+    not_authorized: 'Sie sind nicht befugt, diesen Urlaubsantrag einzusehen.'
     not_enough_leave: 'Nicht genug Resturlaub übrig!'
     destroyed: 'Urlaub wurde erfolreich gelöscht.'
     updated: 'Urlaub wurde erfolgreich bearbeitet.'
