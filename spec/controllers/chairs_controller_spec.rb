@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe ChairsController, type: :controller do
   describe 'GET #index' do
-
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @admin = FactoryGirl.create(:user)
@@ -12,7 +11,6 @@ RSpec.describe ChairsController, type: :controller do
       @user = FactoryGirl.create(:user)
       @superadmin = FactoryGirl.create(:user, superadmin: true)
     end
-
 
     it 'shows index of all chairs' do
       login_with(@user)

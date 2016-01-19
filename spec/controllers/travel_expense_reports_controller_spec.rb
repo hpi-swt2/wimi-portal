@@ -216,9 +216,9 @@ RSpec.describe TravelExpenseReportsController, type: :controller do
     it 'hands in a trip request' do
       user = FactoryGirl.create(:user)
       ter = FactoryGirl.create(:travel_expense_report, user: user)
-      
+
       login_with(user)
-      post :hand_in, { id: ter.id }
+      post :hand_in, {id: ter.id}
     end
   end
 end

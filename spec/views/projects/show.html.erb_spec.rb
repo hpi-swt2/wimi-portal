@@ -17,7 +17,6 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   context 'as hiwi' do
-
     it 'shows leave project button if part of project' do
       @project.users << @user
       render

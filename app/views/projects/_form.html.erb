@@ -1,13 +1,13 @@
-<div class="col-md-12">
-  <%= form_for @project, html: { class: "form-horizontal project" } do |f| %>
+<div class='col-md-12'>
+  <%= form_for @project, html: { class: 'form-horizontal project' } do |f| %>
     <% if @project.errors.any? %>
-      <div id="error_explanation" class="panel panel-danger">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= pluralize(@project.errors.count, "error") %> <%= t('.prohibited_this_project_from_being_saved:', default:'prohibited this project from being saved:') %>
+      <div id='error_explanation' class='panel panel-danger'>
+        <div class='panel-heading'>
+          <h3 class='panel-title'>
+            <%= pluralize(@project.errors.count, 'error') %> <%= t('.prohibited_this_project_from_being_saved:', default:'prohibited this project from being saved:') %>
           </h3>
         </div>
-        <div class="panel-body">
+        <div class='panel-body'>
           <ul>
             <% @project.errors.full_messages.each do |msg| %>
               <li><%= msg %></li>
@@ -17,46 +17,46 @@
       </div>
     <% end %>
 
-    <div class="control-group">
+    <div class='control-group'>
       <%= f.label :title, t('projects.form.title', default: 'Title'), class: 'control-label' %>
-      <div class="controls col-md-12 projectTitleControl">
-        <div class="col-md-6" style="margin-left: -5px">
+      <div class='controls col-md-12 projectTitleControl'>
+        <div class='col-md-6' style='margin-left: -5px'>
           <%= f.text_field :title, class: 'form-control' %>
         </div>
       </div>
       <%= error_span(@project[:title]) %>
     </div>
-    <div class="control-group">
+    <div class='control-group'>
       <%= f.label :project_leader, t('projects.form.project_leader', default:'Project Leader'), class: 'control-label' %>
-      <div class="controls col-md-12 projectTitleControl">
-        <div class="col-md-6" style="margin-left: -5px">
+      <div class='controls col-md-12 projectTitleControl'>
+        <div class='col-md-6' style='margin-left: -5px'>
           <%= f.text_field :project_leader , class: 'form-control' %>
         </div>
       </div>
       <%= error_span(@project[:project_leader]) %>
     </div>
 
-    <div class="control-group">
+    <div class='control-group'>
       <%= f.label :public, t('projects.form.accessibility', default: 'Accessibility'),  class: 'control-label' %>
-      <div class="radio">
-        <div class="col-md-2">
-          <div style="margin-left: 20px"> <%= f.radio_button :public, true, value: true%>
-            <%= label :public, t('projects.show.public', default:t("projects.show.public"))%>
+      <div class='radio'>
+        <div class='col-md-2'>
+          <div style='margin-left: 20px'> <%= f.radio_button :public, true, value: true%>
+            <%= label :public, t('projects.show.public', default:t('projects.show.public'))%>
           </div>
         </div>
-        <div class="col-md-2">
-          <div style="margin-left: 20px"> <%= f.radio_button :public, false, value: false%>
-            <%= label :public, t('projects.show.private', default:t("projects.show.private"))%>
+        <div class='col-md-2'>
+          <div style='margin-left: 20px'> <%= f.radio_button :public, false, value: false%>
+            <%= label :public, t('projects.show.private', default:t('projects.show.private'))%>
           </div>
         </div>
       </div>
       <%= error_span(@project[:public]) %>
     </div>
-    <table class="table table-striped">
+    <table class='table table-striped'>
       <thead>
       <tr>
         <th><%= t('projects.form.wimi', default: 'Research Assistants:') %></th>
-        <th><%= t '.actions', :default => t("helpers.actions") %></th>
+        <th><%= t '.actions', default: t('helpers.actions') %></th>
       </tr>
       </thead>
       <tbody>
@@ -81,11 +81,11 @@
       </tbody>
     </table>
 
-    <table class="table table-striped">
+    <table class='table table-striped'>
       <thead>
       <tr>
         <th><%= t('projects.form.hiwi', default:'Student Assistants:') %></th>
-        <th><%= t '.actions', :default => t("helpers.actions") %></th>
+        <th><%= t '.actions', default: t('helpers.actions') %></th>
       </tr>
       </thead>
       <tbody>
@@ -110,7 +110,7 @@
       </tbody>
     </table>
     <%= f.submit nil, class: 'btn btn-primary' %>
-    <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+    <%= link_to t('.cancel', default: t('helpers.links.cancel')),
             projects_path, class: 'btn btn-default' %>
   <% end %>
 </div>

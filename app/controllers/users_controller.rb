@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def language
-    render json: { msg: current_user.language }
+    render json: {msg: current_user.language}
   end
 
   private

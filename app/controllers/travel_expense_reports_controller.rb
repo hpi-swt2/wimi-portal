@@ -1,8 +1,8 @@
 class TravelExpenseReportsController < ApplicationController
   load_and_authorize_resource
-  skip_authorize_resource :only => :index
+  skip_authorize_resource only: :index
 
-  before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy, :hand_in ]
+  before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy, :hand_in]
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = I18n.t('chairs.navigation.not_authorized')
     redirect_to travel_expense_reports_path

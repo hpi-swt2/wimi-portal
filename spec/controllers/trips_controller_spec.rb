@@ -99,7 +99,7 @@ RSpec.describe TripsController, type: :controller do
         post :create, {trip: valid_attributes}, valid_session
         expect(response).to redirect_to(Trip.last)
       end
-      it "has the status saved" do
+      it 'has the status saved' do
         trip = Trip.create! valid_attributes
         expect(trip.status).to eq('saved')
       end
@@ -181,12 +181,11 @@ RSpec.describe TripsController, type: :controller do
 
     it 'redirects to the trip, if it is already applied' do
       trip = Trip.create! valid_attributes
-      trip.update_attributes(status:'applied')
+      trip.update_attributes(status: 'applied')
       get :edit, {id: trip.id}
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(trip_path(trip))
     end
-
   end
 
   describe 'POST #hand_in' do
@@ -194,9 +193,9 @@ RSpec.describe TripsController, type: :controller do
       user = FactoryGirl.create(:user)
       trip = Trip.create! valid_attributes
       trip.user = user
-      
+
       login_with(user)
-      post :hand_in, { id: trip.id }
+      post :hand_in, {id: trip.id}
     end
   end
 end

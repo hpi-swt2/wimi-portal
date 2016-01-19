@@ -181,9 +181,9 @@ RSpec.describe HolidaysController, type: :controller do
     it 'hands in a trip request' do
       user = FactoryGirl.create(:user)
       holiday = FactoryGirl.create(:holiday, user: user)
-      
+
       login_with(user)
-      post :hand_in, { id: holiday.id }
+      post :hand_in, {id: holiday.id}
     end
   end
 end

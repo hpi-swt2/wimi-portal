@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   def projects_for_month(year, month)
     projects = TimeSheet.where(
       user: self, month: month, year: year).map(&:project)
-    return (projects.compact + self.projects).uniq
+    (projects.compact + self.projects).uniq
   end
 
   def years_and_months_of_existence
@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
     year = -1
     month = -1
     year_months = []
-    self.work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
+    work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
       unless year == date.year and month == date.month
         year = date.year
         month = date.month
@@ -188,5 +188,4 @@ class User < ActiveRecord::Base
     end
     datespans.sort! { |a,b| b.start_date <=> a.start_date }
   end
-
 end

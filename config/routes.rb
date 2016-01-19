@@ -59,12 +59,12 @@ Rails.application.routes.draw do
   get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
   post 'chairs/:id/requests' => 'chairs#requests_filtered', as: 'requests_filtered'
   get 'projects/typeahead/:query' => 'projects#typeahead'
-  
+
   post 'events/hide', to: 'events#hide', as: 'hide_event'
   post 'events/request', to: 'events#show_request', as: 'show_event_request'
-  
+
   get 'projects/typeahead/:query' => 'projects#typeahead'
-  
+
   # status 'saved' -> status 'applied'
   post 'holidays/:id/hand_in', to: 'holidays#hand_in', as: 'hand_in_holiday'
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'

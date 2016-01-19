@@ -1,6 +1,6 @@
 class HolidaysController < ApplicationController
   load_and_authorize_resource
-  skip_authorize_resource :only => :index
+  skip_authorize_resource only: :index
 
   before_action :set_holiday, only: [:show, :edit, :update, :destroy, :hand_in]
   rescue_from CanCan::AccessDenied do |_exception|
@@ -13,7 +13,7 @@ class HolidaysController < ApplicationController
   end
 
   def show
-    unless can? :read, @holiday 
+    unless can? :read, @holiday
       redirect_to holidays_path
     end
   end
@@ -28,7 +28,7 @@ class HolidaysController < ApplicationController
   def create
     if holiday_params['length'].blank?
       #disregard errors here, they should be handled in model validation later
-      params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date+1) rescue nil
+      params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date + 1) rescue nil
     end
     @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id, last_modified: Date.today))
     if @holiday.save
