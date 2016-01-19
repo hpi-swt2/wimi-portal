@@ -4,7 +4,7 @@
 de:
   home:
     index:
-      welcome: "Wilkommen"
+      welcome: "Willkommen"
   helpers:
     application_tabs:
       home: "Startseite"
