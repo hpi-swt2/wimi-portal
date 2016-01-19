@@ -45,8 +45,16 @@ describe WorkDay, type: :model do
     expect(FactoryGirl.build(:work_day, end_time: nil)).to_not be_valid
   end
 
+  it 'is invalid with end bevor start' do
+    expect(FactoryGirl.build(:work_day, end_time: Time.now.beginning_of_day, start_time: Time.now.end_of_day)).to_not be_valid
+  end
+
+  it 'is invalid with a negative duration' do
+    expect(FactoryGirl.build(:work_day, break: 180))
+  end
+
   it 'returns the duration of a work_day' do
     workday = FactoryGirl.create(:work_day) 
-    expect(workday.duration).to eq(0.5)
+    expect(workday.duration).to eq(1.5)
   end
 end

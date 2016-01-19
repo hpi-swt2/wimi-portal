@@ -21,7 +21,7 @@ class Holiday < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :user, :start, :end
-  validates_date :start, on_or_after: :today
+  validates_date :start, on_or_after: Date.today
   validates_date :end, on_or_after: :start
   validate :length
   validate :too_far_in_the_future?

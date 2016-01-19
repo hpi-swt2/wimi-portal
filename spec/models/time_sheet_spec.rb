@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: time_sheets
+#
+#  id                    :integer          not null, primary key
+#  month                 :integer
+#  year                  :integer
+#  salary                :integer
+#  salary_is_per_month   :boolean
+#  workload              :integer
+#  workload_is_per_month :boolean
+#  user_id               :integer
+#  project_id            :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  handed_in             :boolean          default(FALSE)
+#  rejection_message     :text             default("")
+#  signed                :boolean          default(FALSE)
+#  last_modified         :date
+#  status                :integer          default(0)
+#  signer                :integer
+#  wimi_signed           :boolean          default(FALSE)
+#  hand_in_date          :date
+#
+
 require 'rails_helper'
 
 RSpec.describe TimeSheet, type: :model do
@@ -6,10 +31,8 @@ RSpec.describe TimeSheet, type: :model do
   end
 
   it 'sums up the right ammount of working hours' do
-  	@first_day = FactoryGirl.create(:work_day)
-  	@first_day.update(start_time: Time.now, end_time: Time.now + 2.hour, date: Date.tomorrow)
-  	@second_day = FactoryGirl.create(:work_day)
-  	@second_day.update(start_time: Time.now, end_time: Time.now + 3.hour, date: Date.today) 
-  	expect(@sheet.sum_hours).to eq(4) #each work_day includes a 30min break
+  	first_day = FactoryGirl.create(:work_day)
+  	second_day = FactoryGirl.create(:work_day, start_time: Time.now.middle_of_day, end_time: Time.now.middle_of_day + 3.hour)
+  	expect(@sheet.sum_hours).to eq(first_day.duration + second_day.duration)
   end
 end

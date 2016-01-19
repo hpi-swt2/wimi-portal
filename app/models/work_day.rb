@@ -26,9 +26,13 @@ class WorkDay < ActiveRecord::Base
   validates :break, presence: true, numericality: true
   validates :end_time, presence: true
   validate :project_id_exists
-
+  validates_time :end_time, after: :start_time 
+  validates :duration, numericality: {greater_than: 0}
+  
   def duration
-    ((end_time - start_time).to_i / 60 - self.break) / 60.0
+    unless end_time.blank? || start_time.blank? || self.break.blank?
+      ((end_time - start_time).to_i / 60 - self.break) / 60.0
+    end
   end
 
   def project_id_exists
@@ -40,9 +44,9 @@ class WorkDay < ActiveRecord::Base
     month_start = date.beginning_of_month
     month_end = date.end_of_month
     if project.nil?
-      return WorkDay.where(date: month_start..month_end, user_id: user)
+      return WorkDay.where(date: month_start..month_end, user: user)
     else
-      return WorkDay.where(date: month_start..month_end, user_id: user, project_id: project)
+      return WorkDay.where(date: month_start..month_end, user: user, project_id: project)
     end
   end
 end

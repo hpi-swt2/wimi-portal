@@ -4,7 +4,7 @@ feature 'Project information' do
   background do
     user = FactoryGirl.create(:user)
     chair = FactoryGirl.create(:chair)
-    representative = FactoryGirl.create(:chair_representative, user_id: user.id, chair_id: chair.id).user
+    representative = FactoryGirl.create(:chair_representative, user: user, chair: chair).user
     @current_user = FactoryGirl.create(:user, language: 'de')
     login_as @current_user
     @project = FactoryGirl.create(:project, chair: representative.chair)

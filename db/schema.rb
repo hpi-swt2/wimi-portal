@@ -54,20 +54,12 @@ ActiveRecord::Schema.define(version: 20160116122005) do
     t.date     "start"
     t.date     "end"
     t.integer  "status",              default: 0, null: false
-<<<<<<< HEAD
-=======
-    t.string   "reason"
-    t.string   "annotation"
->>>>>>> dev
     t.integer  "replacement_user_id"
     t.integer  "length"
     t.boolean  "signature"
     t.date     "last_modified"
-<<<<<<< HEAD
     t.string   "reason"
     t.string   "annotation"
-=======
->>>>>>> dev
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"

@@ -55,6 +55,12 @@ de:
         name: "Name"
         created_at: "Erstellungsdatum"
         status: "Status"
+        apply: "Als WiMi bewerben"
+        application:
+          status:
+            pending: "gestellt"
+            accepted: "angenommen"
+            declined: "abgelehnt"
       project:
         id: "Id"
         title: "Titel"
@@ -137,6 +143,7 @@ de:
         street: "Straße"
         personnel_number: "Personalnummer"
         language: "Sprache"
+        not_member_of_chair: "Kein Mitglied eines Lehrstuhls"
       request:
         name: "Name"
         type: "Art"
@@ -243,3 +250,9 @@ de:
     applied: "Dienstreiseantrag bereits eingereicht"
     destroyed: "Dienstreiseantrag wurde erfolgreich gelöscht"
     apply: "Dienstreiseantrag wurde erfolgreich eingereicht"
+  not_authorized: "Du bist nicht befugt, diese Aktion durchzuführen."
+  holiday:
+    applied: "Urlaubsantrag bereits eingereicht"
+  travel_expense_report:
+    applied: "Reisekostenabrechnung bereits eingereicht"
+

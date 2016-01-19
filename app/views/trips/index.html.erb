@@ -41,5 +41,6 @@
 </table>
 
 <br>
-
+<%if can? :create, Trip %>
 <%= link_to t('.new', default: t("helpers.links.new")), new_trip_path, class: "btn btn-primary"%>
+<% end %>

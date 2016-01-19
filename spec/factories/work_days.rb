@@ -17,10 +17,10 @@
 
 FactoryGirl.define do
   factory :work_day, class: 'WorkDay' do |f|
-    f.date '2015-11-18'
-    f.start_time '2015-11-18 15:11:53'
+    f.date Date.today
+    f.start_time Time.now.middle_of_day
     f.break 30
-    f.end_time '2015-11-18 16:11:53'
+    f.end_time Time.now.middle_of_day + 2.hours
     f.attendance ''
     f.notes 'some note'
     f.user_id 1
