@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
-  devise :openid_authenticatable, :database_authenticatable, :registerable
+  devise :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
 
   has_many :work_days
   has_many :time_sheets

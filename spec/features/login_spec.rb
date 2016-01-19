@@ -31,21 +31,21 @@ describe 'login via OpenID' do
   end
 end
 
-describe 'login via email/password' do
+describe 'login via username/password' do
   before :each do
     visit '/'
     expect(page).to have_content 'Please login first'
   end
 
   it 'should login the superadmin with his credentials' do
-    superadmin = FactoryGirl.create(:user, superadmin: true, email: 'wimi-admin', password: 'wimi-admin-password')
-    visit '/superadmin'
+    superadmin = FactoryGirl.create(:user, superadmin: true, username: 'wimi-admin', password: 'wimi-admin-password')
+    visit superadmin_path
 
-    fill_in 'user_email', with: superadmin.email
+    fill_in 'user_username', with: superadmin.username
     fill_in 'user_password', with: superadmin.password
     click_on 'Log in'
 
-    expect(page).to_not have_content 'Please login first'
+    expect(page).to_not have_content 'Please sign in'
     routes = ['/publications', '/projects', '/holidays', '/trips', '/expenses']
     routes.each do |route|
       visit route
@@ -54,10 +54,10 @@ describe 'login via email/password' do
   end
 
   it 'should not login the superadmin with wrong credentials' do
-    superadmin = FactoryGirl.create(:user, superadmin: true, email: 'wimi-admin', password: 'wimi-admin-password')
+    superadmin = FactoryGirl.create(:user, superadmin: true, username: 'wimi-admin', password: 'wimi-admin-password')
     visit '/superadmin'
 
-    fill_in 'user_email', with: superadmin.email
+    fill_in 'user_username', with: superadmin.username
     fill_in 'user_password', with: 'wrong_password'
     click_on 'Log in'
 
@@ -69,10 +69,10 @@ describe 'login via email/password' do
   end
 
   it 'should not login a user' do
-    user = FactoryGirl.create(:user, email: 'no-admin')
+    user = FactoryGirl.create(:user, username: 'no-admin')
     visit '/superadmin'
 
-    fill_in 'user_email', with: user.email
+    fill_in 'user_username', with: user.username
     fill_in 'user_password', with: user.password
     click_on 'Log in'
 
