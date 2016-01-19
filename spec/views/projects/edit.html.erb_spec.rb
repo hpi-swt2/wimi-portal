@@ -83,7 +83,7 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
     @wimi.projects << project
     visit edit_project_path(project)
-    find('a[id="SignOutMyself"]').click
+    find('input[id="SignOutMyself"]').click
     project.reload
     expect(current_path).to eq(project_path(project))
     expect(project.users).not_to include(@wimi)
@@ -108,7 +108,7 @@ RSpec.describe 'projects/edit', type: :view do
     @wimi.projects << project
     user.projects << project
     visit edit_project_path(project)
-    find('a[id="SignOut"]').click
+    find('input[id="SignOut"]').click
     project.reload
     expect(current_path).to eq(edit_project_path(project))
     expect(project.users).not_to include(user)
@@ -119,7 +119,7 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
     @wimi.projects << project
     visit edit_project_path(project)
-    find('a[id="SignOutMyself"]').click
+    find('input[id="SignOutMyself"]').click
     project.reload
     expect(current_path).to eq(project_path(project))
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
