@@ -37,11 +37,7 @@ Rails.application.routes.draw do
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   resources :holidays
-<<<<<<< HEAD
-  resources :expenses
-=======
 
->>>>>>> team3review
   resources :work_days
   resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
     member do
