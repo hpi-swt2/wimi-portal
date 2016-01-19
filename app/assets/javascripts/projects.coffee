@@ -43,9 +43,12 @@ typeahead = ->
   return
 
 ready = ->
-  sendLanguageWithButtonToCallback $('#setInactiveButton'), setInactiveWarning
-  sendLanguageWithButtonToCallback $('#SignOutMyself'), signOutMyselfWarning
-  typeahead()
+  if $('#setInactiveButton').length
+    sendLanguageWithButtonToCallback $('#setInactiveButton'), setInactiveWarning
+  if $('#SignOutMyself').length
+    sendLanguageWithButtonToCallback $('#SignOutMyself'), signOutMyselfWarning
+  if $('.typeahead').length
+    typeahead()
   return
 
 $(document).ready ready

@@ -15,7 +15,8 @@ initDatepicker = (lang) ->
   $('a[rel=\'tooltip\']').tooltip()
 
 ready = ->
-  sendLanguageToCallback initDatepicker
+  if $('.dp').length
+    sendLanguageToCallback initDatepicker
   return
 
 $(document).ready ready
