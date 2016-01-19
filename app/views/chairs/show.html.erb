@@ -34,10 +34,6 @@
       <tr>
         <td><%= wimi.name %></td>
         <td>
-          <% if current_user.is_representative?(@chair) %><%= I18n.t('chairs.navigation.show_requests') %>
-          <% end %></td>
-        <td>
-
           <% if wimi.is_admin?(@chair) %><%= I18n.t('roles.admin_long') %>
               <% if current_user.is_admin?(@chair) && current_user != wimi %>
                   <%= link_to I18n.t('chairs.applications.withdraw_rights'), chairs_withdraw_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %>

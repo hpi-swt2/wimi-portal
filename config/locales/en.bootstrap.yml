@@ -212,7 +212,6 @@ en:
       apply_wimi: "Apply as Wimi"
       manage: "Manage Chair"
       show_timesheets: "Show timesheets"
-      show_requests: "Show requests"
     requests:
       apply_filter: "Apply Filters"
       requests: "Requests"

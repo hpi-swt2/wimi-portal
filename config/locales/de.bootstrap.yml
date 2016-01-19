@@ -203,7 +203,6 @@ de:
       apply_wimi: "Als Wimi bewerben"
       manage: "Lehrstuhl verwalten"
       show_timesheets: "Stundenzettel anzeigen"
-      show_requests: "Anfragen anzeigen"
     requests:
       apply_filter: "Filter anwenden"
       requests: "Anfragen"
