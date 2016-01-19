@@ -2,16 +2,17 @@ require 'rails_helper'
 
 RSpec.describe ChairsController, type: :controller do
   describe 'GET #index' do
+
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @admin = FactoryGirl.create(:user)
       FactoryGirl.create(:chair_wimi, user: @admin, chair: @chair, admin: true, application: 'accepted')
       @wimi = FactoryGirl.create(:user)
-      FactoryGirl.create(:chair_wimi, user: @wimi, chair: @chair, admin: true, application: 'accepted')
+      FactoryGirl.create(:chair_wimi, user: @wimi, chair: @chair, application: 'accepted')
       @user = FactoryGirl.create(:user)
-      @superadmin = FactoryGirl.create(:user)
-      @superadmin.superadmin = true
+      @superadmin = FactoryGirl.create(:user, superadmin: true)
     end
+
 
     it 'shows index of all chairs' do
       login_with(@user)
@@ -29,17 +30,17 @@ RSpec.describe ChairsController, type: :controller do
       login_with(@user)
       get :show, {id: @chair}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(chairs_path)
+      expect(response).to redirect_to(dashboard_path)
 
       login_with(@wimi)
       get :show, {id: @chair}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(chairs_path)
+      expect(response).to redirect_to(dashboard_path)
 
       login_with(@superadmin)
       get :show, {id: @chair}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(chairs_path)
+      expect(response).to redirect_to(dashboard_path)
     end
 
     it 'removes wimi from chair' do
@@ -85,7 +86,7 @@ RSpec.describe ChairsController, type: :controller do
       chair_wimi = FactoryGirl.create(:chair_wimi, admin: true, user: user, chair: @chair)
       login_with(user)
       get :edit, {id: @chair.to_param}
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(302)
     end
 
     it 'does not edit the chair for another admin' do
@@ -291,14 +292,41 @@ RSpec.describe ChairsController, type: :controller do
       expect(response).to have_http_status(302)
     end
 
-    it 'show all requests of chair' do
+    it 'shows all requests of chair' do
       FactoryGirl.create(:holiday, user: @representative, status: 1)
       FactoryGirl.create(:trip, user: @representative, status: 1)
-      FactoryGirl.create(:expense, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:travel_expense_report, user: @representative, status: 1)
       FactoryGirl.create(:holiday, user: @user, status: 1)
       sign_in @representative
       get :requests, {id: @chair}
       expect(response).to render_template('requests')
+    end
+
+    it 'shows some filtered requests of chair' do
+      FactoryGirl.create(:holiday, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:trip, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:travel_expense_report, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:holiday, user_id: @user.id, status: 1)
+      sign_in @representative
+      get :requests_filtered, {id: @chair, holiday: true, applied: true}
+      expect(response).to render_template('requests')
+    end
+
+    describe 'tests error' do
+      before(:each) do
+        @superadmin = FactoryGirl.create(:user, superadmin: true)
+      end
+
+      let(:invalid_attributes) {
+        {id: @chair, name: ''}
+      }
+      let(:valid_session) { {} }
+
+      it 'if chair could not be created' do
+        sign_in @superadmin
+        post :create, {chair: invalid_attributes}, valid_session
+        expect(response).to render_template('new')
+      end
     end
   end
 end

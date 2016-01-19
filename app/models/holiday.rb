@@ -26,7 +26,8 @@ class Holiday < ActiveRecord::Base
   validate :length
   validate :too_far_in_the_future?
   validate :sufficient_leave_left?
-  enum status: [:saved, :applied, :accepted, :declined]
+
+  enum status: [ :saved, :applied, :accepted, :declined ]
 
   def duration
     start.business_days_until(self.end + 1)
@@ -57,9 +58,9 @@ class Holiday < ActiveRecord::Base
   def sufficient_leave_left?
     #need to assert that user is existent for tests
     return unless errors.blank?
-    if self.user
-      unless self.user.remaining_leave >= (length.nil? ? duration : length)
-        errors.add(:not_enough_leave_left!, "" )
+    if user
+      unless user.remaining_leave >= (length.nil? ? duration : length)
+        errors.add(:not_enough_leave_left!, '')
       end
     end
   end

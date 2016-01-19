@@ -21,7 +21,8 @@ require 'spec_helper'
 
 RSpec.describe HolidaysController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    wimi = FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair))
+    @user = wimi.user
     sign_in @user
   end
 
@@ -43,7 +44,7 @@ RSpec.describe HolidaysController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all holidays as @holidays' do
-      holiday = Holiday.create! valid_attributes
+      Holiday.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:holidays)).to eq(Holiday.all)
     end
@@ -54,6 +55,15 @@ RSpec.describe HolidaysController, type: :controller do
       holiday = Holiday.create! valid_attributes
       get :show, {id: holiday.to_param}, valid_session
       expect(assigns(:holiday)).to eq(holiday)
+    end
+
+    it 'does not show holidays for normal user' do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      holiday = Holiday.create! valid_attributes
+      get :show, { id: holiday.to_param }, valid_session
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(holidays_path)
     end
 
     it 'redirects to the holidays page if holiday belongs to another user' do
@@ -140,7 +150,7 @@ RSpec.describe HolidaysController, type: :controller do
       it 'calculates the length if no length is entered' do
         holiday = Holiday.create! valid_attributes
         holiday.update_attribute(:length, 2)
-        put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today+1, user: @user, length: ''}}
+        put :update, {id: holiday.to_param, holiday: {start: Date.today, end: Date.today + 1, user: @user, length: ''}}
         holiday.reload
         expect(holiday.length).to eq(holiday.duration)
       end
@@ -158,6 +168,14 @@ RSpec.describe HolidaysController, type: :controller do
         put :update, {id: holiday.to_param, holiday: invalid_attributes}, valid_session
         expect(response).to render_template('edit')
       end
+
+      it 'redirects to the holiday, if it is already applied' do
+        holiday = Holiday.create! valid_attributes
+        holiday.update_attributes(status: 'applied')
+        get :edit, {id: holiday.id}
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(holiday_path(holiday))
+      end
     end
   end
 
@@ -173,6 +191,35 @@ RSpec.describe HolidaysController, type: :controller do
       holiday = Holiday.create! valid_attributes
       delete :destroy, {id: holiday.to_param}, valid_session
       expect(response).to redirect_to(holidays_url)
+    end
+
+    it 'can not destroy applied holiday' do
+      holiday = Holiday.create! valid_attributes
+      holiday.user = @user
+      login_with(@user)
+      post :hand_in, {id: holiday.id}
+      expect {
+        delete :destroy, {id: holiday.to_param}, valid_session
+      }.to change(Holiday, :count).by(0)
+    end
+  end
+
+  describe 'POST #hand_in' do
+    it 'hands in a holiday request' do
+      holiday = Holiday.create! valid_attributes
+      holiday.user = @user
+      login_with(@user)
+      post :hand_in, {id: holiday.id}
+      expect(Holiday.find(holiday.id).status).to eq('applied')
+    end
+
+    it 'normal user can not hand in a holiday request' do
+      user = FactoryGirl.create(:user)
+      holiday = Holiday.create! valid_attributes
+      holiday.user = user
+      login_with(user)
+      post :hand_in, {id: holiday.id}
+      expect(Holiday.find(holiday.id).status).to eq('saved')
     end
   end
 end

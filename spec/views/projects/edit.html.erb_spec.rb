@@ -86,9 +86,22 @@ RSpec.describe 'projects/edit', type: :view do
     find('a[id="SignOutMyself"]').click
     project.reload
     expect(current_path).to eq(project_path(project))
+    expect(project.users).not_to include(@wimi)
   end
 
-  it 'is possible for a wimi to sign a wimi out of the project' do
+  it 'is possible for a hiwi to sign himself out of the project' do
+    user = FactoryGirl.create(:user)
+    login_as user
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    user.projects << project
+    visit project_path(project)
+    click_on(I18n.t('projects.show.leave_project'))
+    project.reload
+    expect(current_path).to eq(project_path(project))
+    expect(project.users).not_to include(user)
+  end
+
+  it 'is possible for a wimi to sign a hiwi out of the project' do
     user = FactoryGirl.create(:user)
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)

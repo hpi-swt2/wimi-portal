@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.turbolinks
-//= require bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-typeahead-rails

@@ -5,6 +5,7 @@ RSpec.describe 'holidays/new', type: :view do
     assign(:holiday, Holiday.new)
     @chair = FactoryGirl.create(:chair)
     user = FactoryGirl.create(:user, chair: @chair)
+    FactoryGirl.create(:wimi, user: user, chair: @chair)
     login_as user
   end
 
