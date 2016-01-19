@@ -14,8 +14,8 @@ RSpec.describe 'holidays/new', type: :view do
     user2 = FactoryGirl.create(:user, chair: @chair, first_name: 'name1')
     user3 = FactoryGirl.create(:user, chair: @chair, first_name: 'name2')
     user4 = FactoryGirl.create(:user, chair: chair2, first_name: 'name3')
-    user2.chair_wimi.update(admin: true, chair_id: @chair.id)
-    user4.chair_wimi.update(admin: true, chair_id: chair2.id)
+    user2.chair_wimi.update(admin: true, chair: @chair)
+    user4.chair_wimi.update(admin: true, chair: chair2)
 
     visit new_holiday_path
 

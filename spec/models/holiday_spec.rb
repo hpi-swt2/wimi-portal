@@ -26,7 +26,7 @@ RSpec.describe Holiday, type: :model do
   end
 
   it 'has a valid factory' do
-    expect(FactoryGirl.create(:holiday, user_id: @user.id)).to be_valid
+    expect(FactoryGirl.create(:holiday, user: @user)).to be_valid
   end
 
   it 'is invalid without a user' do
@@ -34,15 +34,15 @@ RSpec.describe Holiday, type: :model do
   end
 
   it 'is invalid when a wrong date is entered' do
-    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.today, end: 'This is not a date')).to_not be_valid
+    expect(FactoryGirl.build(:holiday, user: @user, start: Date.today, end: 'This is not a date')).to_not be_valid
   end
 
   it 'is invalid when end is before start' do
-    expect(FactoryGirl.build(:holiday, user_id: @user.id, end: Date.yesterday)).to_not be_valid
+    expect(FactoryGirl.build(:holiday, user: @user, end: Date.yesterday)).to_not be_valid
   end
 
   it 'is invalid when to far in the future' do
-    expect(FactoryGirl.build(:holiday, user_id: @user.id, start: Date.new(Date.today.year + 2, 1, 1), end: Date.new(Date.today.year + 2, 1, 2))).to_not be_valid
+    expect(FactoryGirl.build(:holiday, user: @user, start: Date.new(Date.today.year + 2, 1, 1), end: Date.new(Date.today.year + 2, 1, 2))).to_not be_valid
   end
 
   it 'returns the duration' do
@@ -57,7 +57,7 @@ RSpec.describe Holiday, type: :model do
       enddate += 1.days until enddate.wday == 1
     end
 
-    holiday = FactoryGirl.create(:holiday, user_id: @user.id, start: startdate, end: enddate)
+    holiday = FactoryGirl.create(:holiday, user: @user, start: startdate, end: enddate)
     expect(holiday.duration).to eq(2)
   end
 end
