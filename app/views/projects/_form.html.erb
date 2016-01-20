@@ -92,19 +92,22 @@
         <% end %>
       </div>
     </div>
-    <% unless @project.persisted? %>
-      <div>
-        <%= f.nested_fields_for :invitations do |invitation| %>
-          <%= invitation.text_field :email, { value: '', class: "typeahead form-control", size: 50, placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
-        <% end %>
 
-        <%= f.add_nested_fields_link :invitations, 'Add One More User', id: 'AddOneMoreUser' %>
-      </div>
-    <% end %>
+    <div>
+      <% unless @project.persisted? %>
+        <div>
+          <%= f.nested_fields_for :invitations do |invitation| %>
+            <%= invitation.text_field :email, { value: '', class: "typeahead form-control email-invite", size: 50, placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
+          <% end %>
+
+          <%= f.add_nested_fields_link :invitations, 'Invite User', id: 'AddOneMoreUser', class:'btn btn-default', style:'margin-bottom: 20px' %>
+        </div>
+      <% end %>
+    </div>
 
 
 
-  <div class="col-md-2">
+  <div class="col-md-2", style="margin-left: -15px">
     <%= f.submit class: 'btn btn-primary' %>
   </div>
 
