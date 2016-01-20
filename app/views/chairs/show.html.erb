@@ -33,7 +33,11 @@
   <% @chair.wimis.each do |wimi| %>
     <tr>
       <td><%= link_to wimi.name, wimi %></td>
-      <td><% if current_user.is_representative?(@chair) %><%= I18n.t('chair.wimi.show_requests', default: 'Show Requests') %><% end %></td>
+      <td>
+        <% if current_user.is_representative?(@chair) %>
+          <%= I18n.t('chair.wimi.show_requests', default: 'Show Requests') %>
+        <% end %>
+      </td>
       <td>
         <% if wimi.is_admin?(@chair) %>
           <%= I18n.t('roles.admin_long') %>
