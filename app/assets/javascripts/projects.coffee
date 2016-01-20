@@ -53,6 +53,7 @@ inviteInitUser = ->
     id = '#project_invitations_attributes_' + count + '_email'
     setTimeout (->
       $(id).val( value )
+      $(id).prop('disabled', true)
       return
     ), 5
 
