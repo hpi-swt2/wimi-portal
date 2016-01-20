@@ -45,8 +45,16 @@ typeahead = ->
   return
 
 inviteInitUser = ->
+  count = 0
   $('body').on 'click', '#AddOneMoreUser', ->
-    alert 'got it'
+    count += 1
+    value = $('#project_invitations_attributes_0_email').val()
+    $('#project_invitations_attributes_0_email').val('')
+    id = '#project_invitations_attributes_' + count + '_email'
+    setTimeout (->
+      $(id).val( value )
+      return
+    ), 5
 
 
 ready = ->
