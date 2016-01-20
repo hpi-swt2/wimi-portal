@@ -13,24 +13,24 @@ namespace :db do
     chair1 = Chair.create!(name: 'Epic', description: 'Enterprise Platform and Integration Concepts')
     chair2 = Chair.create!(name: 'Meinel', description: 'Internet-Technologien und -Systeme')
 
-    swt2 = Project.create!(title: "Softwaretechnik II")
+    swt2 = Project.create!(title: 'Softwaretechnik II')
     swt2.users << epic_admin
     swt2.users << alice
     chair1.projects << swt2
 
     # set user roles
-    ChairWimi.create!(chair_id: chair1.id, user_id: epic_admin.id, admin: true, application: "accepted")
-    ChairWimi.create!(chair_id: chair1.id, user_id: epic_representative.id, representative: true, application: "accepted")
-    ChairWimi.create!(chair_id: chair2.id, user_id: meinel_both.id, admin: true, representative: true, application: "accepted")
+    ChairWimi.create!(chair_id: chair1.id, user_id: epic_admin.id, admin: true, application: 'accepted')
+    ChairWimi.create!(chair_id: chair1.id, user_id: epic_representative.id, representative: true, application: 'accepted')
+    ChairWimi.create!(chair_id: chair2.id, user_id: meinel_both.id, admin: true, representative: true, application: 'accepted')
     ChairWimi.create!(chair_id: chair1.id, user_id: wimi_epic.id, application: 'applied')
     ChairWimi.create!(chair_id: chair1.id, user_id: pending_wimi_appl.id, application: 'pending')
 
     # create some holidays, trips, expenses
-    Holiday.create!(start: Date.today(), end: Date.today + 4, length: 5, user_id: epic_admin.id, status: 'applied', last_modified: Date.today)
+    Holiday.create!(start: Date.today, end: Date.today + 4, length: 5, user_id: epic_admin.id, status: 'applied', last_modified: Date.today)
 
-    User.create!(email: "test@test.de",
-      first_name: "Max",
-      last_name: "Mustermann")
+    User.create!(email: 'test@test.de',
+      first_name: 'Max',
+      last_name: 'Mustermann')
     Holiday.create!(start: Date.today-1,
       end: Date.today,
       user_id: epic_admin.id)
