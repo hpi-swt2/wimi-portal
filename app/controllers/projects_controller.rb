@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @project.invitations.build
   end
 
   def edit
@@ -20,7 +21,10 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    if @project.save
+    if params[:invite_initial_users]
+      byebug
+      @project.invitations.build(user: User.find_by_email(params[:project][:invite_initial_users]), project: @project)
+    elsif @project.save
       @project.update(chair: current_user.chair)
       current_user.projects << @project
       flash[:success] = 'Project was successfully created.'
@@ -29,7 +33,7 @@ class ProjectsController < ApplicationController
       render :new
     end
   end
-
+  
   def update
     if @project.update(project_params)
       flash[:success] = 'Project was successfully updated.'

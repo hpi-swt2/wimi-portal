@@ -93,13 +93,15 @@
       </div>
     </div>
 
-
   <div>
-    <%= f.text_field :users,  { :value => '', class: "typeahead form-control", size: 100, name: "user[email][]", placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
+    <%= f.text_field :invite_initial_users,  { :value => '', class: "typeahead form-control", size: 50, placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
+    <%= f.submit 'Invite User', name: 'invite_initial_users' %>
   </div>
 
+
+
   <div class="col-md-2">
-    <%= f.submit nil, class: 'btn btn-primary' %>
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
 
 <% end %>

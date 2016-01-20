@@ -24,6 +24,7 @@ class Project < ActiveRecord::Base
   has_many :invitations
   belongs_to :chair
 
+
   validates :title, presence: true
 
   def invite_user(user)
