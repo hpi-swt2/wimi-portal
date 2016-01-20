@@ -52,7 +52,7 @@ inviteInitUser = ->
     $('#project_invitations_attributes_0_email').val('')
     id = '#project_invitations_attributes_' + count + '_email'
     setTimeout (->
-      $(id).val( value ).prop('disabled', true).addClass("typeahead form-control email-invite")
+      $(id).val( value ).addClass("typeahead form-control email-invite")
       return
     ), 5
 
