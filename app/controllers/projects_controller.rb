@@ -27,8 +27,9 @@ class ProjectsController < ApplicationController
       flash[:success] = 'Project was successfully created.'
       params[:project][:invitations_attributes].values.each do |field_id|
         user = User.find_by_email(field_id[:email])
-        # checks from invite_user
-        @project.invite_user user
+        if not (user.nil? or Invitation.where(project: @project, user: user).size > 0 or @project.users.include? user)
+          @project.invite_user user
+        end
       end
       redirect_to @project
     else
