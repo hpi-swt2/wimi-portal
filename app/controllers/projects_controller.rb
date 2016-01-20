@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
       render :new
     end
   end
-  
+
   def update
     if @project.update(project_params)
       flash[:success] = 'Project was successfully updated.'
