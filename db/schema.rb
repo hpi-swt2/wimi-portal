@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115163943) do
+ActiveRecord::Schema.define(version: 20160117205720) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -31,6 +31,21 @@ ActiveRecord::Schema.define(version: 20160115163943) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  create_table "events", force: :cascade do |t|
+    t.integer  "trigger_id"
+    t.integer  "target_id"
+    t.integer  "chair_id"
+    t.integer  "seclevel"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "status"
+  end
+
+  add_index "events", ["chair_id"], name: "index_events_on_chair_id"
+  add_index "events", ["target_id"], name: "index_events_on_target_id"
+  add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
@@ -55,12 +70,12 @@ ActiveRecord::Schema.define(version: 20160115163943) do
     t.date     "start"
     t.date     "end"
     t.integer  "status",              default: 0, null: false
-    t.string   "reason"
-    t.string   "annotation"
     t.integer  "replacement_user_id"
     t.integer  "length"
     t.boolean  "signature"
     t.date     "last_modified"
+    t.string   "reason"
+    t.string   "annotation"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -159,10 +174,11 @@ ActiveRecord::Schema.define(version: 20160115163943) do
     t.boolean  "public_transport"
     t.boolean  "vehicle_advance"
     t.boolean  "hotel"
+    t.integer  "status",           default: 0
     t.integer  "general_advance"
     t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.boolean  "signature"
   end
 
@@ -192,6 +208,16 @@ ActiveRecord::Schema.define(version: 20160115163943) do
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
+
+  create_table "user_events", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_events", ["event_id"], name: "index_user_events_on_event_id"
+  add_index "user_events", ["user_id"], name: "index_user_events_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "",    null: false

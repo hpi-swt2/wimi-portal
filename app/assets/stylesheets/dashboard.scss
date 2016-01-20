@@ -1,0 +1,15 @@
+.dashboard-block, .notification-block {
+  margin: 15px 0px;
+  border: solid 1px black;
+  padding: 15px;
+  padding-top: 5px;
+}
+
+.dashboard-block h3:first-child, .notification-block h3:first-child {
+  margin-top: 10px;
+}
+
+.notification-block {
+  min-height: 350px;
+  overflow: auto;
+}

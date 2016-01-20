@@ -31,49 +31,49 @@
   <td style='text-align:left; padding-left: 5px;'><b>Rest</b></td>
  </tr>
  <tr style='height:17pt'>
- 	<td>Vorjahr</td>
- 	<td>Lfd. Jahr</td>
- 	<td>erhalten</td>
- 	<td>bleiben</td>
- 	<td><b>von</b></td>
- 	<td><b>bis</b></td>
- 	<td><b>Tage</b></td>
- 	<td>Tage</td>
+  <td>Vorjahr</td>
+  <td>Lfd. Jahr</td>
+  <td>erhalten</td>
+  <td>bleiben</td>
+  <td><b>von</b></td>
+  <td><b>bis</b></td>
+  <td><b>Tage</b></td>
+  <td>Tage</td>
  </tr>
 
 <tr style='height:17pt'>
   <% leave_last_year = User.find(holiday.user_id).remaining_leave_last_year %>
   <% leave_this_year = User.find(holiday.user_id).remaining_leave - User.find(holiday.user_id).remaining_leave_last_year %>
   <% @obtained_days = Holiday.where(:user_id == holiday.user_id).inject(0) {|sum, hol| sum + hol[:length]} %>
- 	<td width=30><%= leave_last_year %></td>
- 	<td width=30><%= leave_this_year + @obtained_days %></td>
- 	<td width=30><%= @obtained_days %></td>
- 	<td width=30><%= leave_last_year + leave_this_year - @obtained_days %></td>
- 	<td width=110><b><%= holiday.start.strftime("%d.%m.%Y") %></b></td>
- 	<td width=110><b><%= holiday.end.strftime("%d.%m.%Y") %></b></td>
- 	<td width=30><b><%= holiday.length %></b></td>
+  <td width=30><%= leave_last_year %></td>
+  <td width=30><%= leave_this_year + @obtained_days %></td>
+  <td width=30><%= @obtained_days %></td>
+  <td width=30><%= leave_last_year + leave_this_year - @obtained_days %></td>
+  <td width=110><b><%= holiday.start.strftime("%d.%m.%Y") %></b></td>
+  <td width=110><b><%= holiday.end.strftime("%d.%m.%Y") %></b></td>
+  <td width=30><b><%= holiday.length %></b></td>
   <td width=30><%= User.find(holiday.user_id).remaining_leave %></td>
- 	<!--td width=30><%#= holiday.new_remainig_days %></td> < holiday.remainig_days=holiday.remainig_days-holiday.duration%> -->
+  <!--td width=30><%#= holiday.new_remainig_days %></td> < holiday.remainig_days=holiday.remainig_days-holiday.duration%> -->
  </tr>
  <tr style='height:17pt'>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
  </tr>
   <tr style='height:17pt'>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
- 	<td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
  </tr>
 </table>
 

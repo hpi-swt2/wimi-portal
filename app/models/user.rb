@@ -50,11 +50,10 @@ class User < ActiveRecord::Base
   has_many :work_days
   has_many :time_sheets
   has_many :holidays
-  has_many :expenses
+  has_many :travel_expense_reports
   has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
-  has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
@@ -100,6 +99,20 @@ class User < ActiveRecord::Base
     return year_months
   end
 
+  def work_year_months_for_project(project)
+    year = -1
+    month = -1
+    year_months = []
+    self.work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
+      unless year == date.year and month == date.month
+        year = date.year
+        month = date.month
+        year_months << [date.year, date.month]
+      end
+    end
+    return year_months
+  end
+
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = remaining_leave
     self.remaining_leave = 28
@@ -130,7 +143,7 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    projects and projects.size > 0 and !is_wimi?
+    not projects.blank? and  not is_wimi?
   end
 
   def is_superadmin?

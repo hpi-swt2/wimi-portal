@@ -109,11 +109,20 @@
   <% end %>
 <% end %>
 
-<% if @user == current_user || (can? :show_trips, @user)%>
+<% if can? :see_trips, @user %>
   <%= form_for(@user) do |f| %>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4><%= t('.business_trips') %></h4>
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><%= t('.business_trips') %></h4>
+          </div>
+          <div class="col-sm-6 text text-right">
+            <% if @user == current_user %>
+              <%=link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
       </div>
       <div class="panel-body">
         <div class="form-group">
@@ -144,11 +153,6 @@
             </tbody>
           </table>
         </div>
-        <% if @user == current_user %>
-          <div class="form-group">
-            <%=link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %><br><br>
-          </div>
-        <% end %>
       </div>
     </div>
   <% end %>

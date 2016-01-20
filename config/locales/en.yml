@@ -34,9 +34,6 @@ en:
       project:
         one: "Project"
         other: "Projects"
-      publication:
-        one: "Publication"
-        other: "Publications"
       trip:
         one: "Business Trip"
         other: "Business Trips"
@@ -49,6 +46,12 @@ en:
         name: "Name"
         created_at: "Created at"
         status: "Status"
+        apply: "Apply as WiMi"
+        application:
+          status:
+            pending: "pending"
+            accepted: "accepted"
+            declined: "declined"
       project:
         title: "Title"
         created_at: "Created at"
@@ -64,14 +67,6 @@ en:
         reason: "Reason for Special Leave"
         annotations: "Annotations"
         replacement: "Replacement"
-      publication:
-        id: "Id"
-        title: "Title"
-        venue: "Venue"
-        type_: "Type"
-        project_id: "Project"
-        created_at: "Created at"
-        users: "Users"
       expense:
         id: "Id"
         amount: "Amount"
@@ -138,6 +133,11 @@ en:
         street: "Street"
         personnel_number: "Staff Number"
         language: "Language"
+      request:
+        name: "Name"
+        type: "Type"
+        handed_in: "Handed in"
+        status: "Status"
         not_member_of_chair: "You are not a member of a chair."
     errors:
       models:
@@ -174,8 +174,6 @@ en:
       was_successfully_invited: 'The user has been invited successfully.'
       invitation_accepted: 'You are now a member of this project.'
       invitation_declined: 'You declined the invitation.'
-    chair:
-      not_authorized: "You're not authorized to do that for this chair."
   date:
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
   time:
@@ -183,6 +181,53 @@ en:
       default: "%d-%m-%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+  chair:
+    not_authorized: "You're not authorized to do that for this chair."
+    add_chair: "Add Chair"
+    destroy:
+      error: "Chair could not be destroyed"
+      success: "Chair was successfully destroyed"
+    create:
+      success: "Chair successfully created"
+      error: "The form is not filled completely!"
+    update:
+      success: "Chair successfully updated"
+      error: "The form is not filled completely!"
+    accept_request:
+      success: "Application was successfully accepted"
+      error: "Accepting application failed"
+    remove_from_chair:
+      success: "User was successfully removed"
+      error: "Failed to remove the user"
+    set_admin:
+      success: "Admin was successfully set"
+      error: "Admin setting failed"
+    withdraw:
+      success: "Admin rights were successfully removed"
+      error: "Failed to remove admin rights"
+    apply:
+      success: "Wimi application was successfully created."
+      error: "Saving wimi application failed"
+    requests:
+      holiday_request: "Holiday request"
+      expense_request: "Travel expense request"
+      trip_request: "Trip request"
   "true": "yes"
   "false": "no"
-  not_enough_leave: 'Not enough leave left'
+  status:
+    saved: "saved"
+    applied: "applied"
+    accepted: "accepted"
+    declined: "declined"
+  trip:
+    update: "Trip was successfully updated"
+    save: "Trip was successfully created"
+    applied: "Trip is already applied"
+    destroyed: "Trip was successfully destroyed"
+    apply: "Trip was successfully applied"
+  not_authorized: "You're not authorized to do that action."
+  not_enough_leave: "Not enough leave left"
+  holiday:
+    applied: "Holiday is already applied"
+  travel_expense_report:
+    applied: "Travel expense request is already applied"

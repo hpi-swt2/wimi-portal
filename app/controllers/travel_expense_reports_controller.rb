@@ -1,8 +1,15 @@
 class TravelExpenseReportsController < ApplicationController
-  before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  skip_authorize_resource only: :index
+
+  before_action :set_travel_expense_report, only: [:show, :edit, :update, :destroy, :hand_in]
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('not_authorized')
+    redirect_to travel_expense_reports_path
+  end
 
   def index
-    @travel_expense_reports = TravelExpenseReport.all
+    @travel_expense_reports = TravelExpenseReport.where(user: current_user)
   end
 
   def show
@@ -11,11 +18,16 @@ class TravelExpenseReportsController < ApplicationController
   def new
     @travel_expense_report = TravelExpenseReport.new
     @travel_expense_report.user = current_user
-    8.times {@travel_expense_report.travel_expense_report_items.build}
+    8.times { @travel_expense_report.travel_expense_report_items.build }
   end
 
   def edit
-    fill_blank_items
+    if @travel_expense_report.status == 'applied'
+      redirect_to @travel_expense_report
+      flash[:error] = I18n.t('travel_expense_report.applied')
+    else
+      fill_blank_items
+    end
   end
 
   def create
@@ -39,9 +51,23 @@ class TravelExpenseReportsController < ApplicationController
     end
   end
 
+  def hand_in
+    if @travel_expense_report.status == 'saved'
+      if @travel_expense_report.update(status: 'applied')
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @travel_expense_report.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'travel_expense_report'})
+      end
+    end
+    redirect_to travel_expense_reports_path
+  end
+
   def destroy
-    @travel_expense_report.destroy
-    redirect_to travel_expense_reports_url, notice: 'Travel expense report was successfully destroyed.'
+    if @travel_expense_report.status == 'applied'
+      redirect_to @travel_expense_report
+      flash[:error] = I18n.t('travel_expense_report.applied')
+    else
+      @travel_expense_report.destroy
+      redirect_to travel_expense_reports_url, notice: 'Travel expense report was successfully destroyed.'
+    end
   end
 
   private
@@ -55,6 +81,6 @@ class TravelExpenseReportsController < ApplicationController
   end
 
   def fill_blank_items
-    (8 - @travel_expense_report.travel_expense_report_items.size).times {@travel_expense_report.travel_expense_report_items.build}
+    (8 - @travel_expense_report.travel_expense_report_items.size).times { @travel_expense_report.travel_expense_report_items.build }
   end
 end

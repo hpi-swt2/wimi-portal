@@ -1,14 +1,18 @@
 class HolidaysController < ApplicationController
-  before_action :set_holiday, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  skip_authorize_resource only: :index
+
+  before_action :set_holiday, only: [:show, :edit, :update, :destroy, :hand_in]
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('not_authorized')
+    redirect_to holidays_path
+  end
 
   def index
     @holidays = Holiday.all
   end
 
   def show
-    unless Holiday.find(params[:id]).user_id == current_user.id
-      redirect_to holidays_path
-    end
   end
 
   def new
@@ -16,6 +20,10 @@ class HolidaysController < ApplicationController
   end
 
   def edit
+    if @holiday.status == 'applied'
+      redirect_to @holiday
+      flash[:error] = I18n.t('holiday.applied')
+    end
   end
 
   def create
@@ -48,13 +56,27 @@ class HolidaysController < ApplicationController
     end
   end
 
-  def destroy
-    if @holiday.end > Date.today
-      add_leave(@holiday.length)
+  def hand_in
+    if @holiday.status == 'saved'
+      if @holiday.update(status: 'applied')
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @holiday.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'holiday'})
+      end
     end
-    @holiday.destroy
-    flash[:success] = 'Holiday was successfully destroyed.'
     redirect_to holidays_path
+  end
+
+  def destroy
+    if @holiday.status == 'applied'
+      redirect_to @holiday
+      flash[:error] = I18n.t('holiday.applied')
+    else
+      if @holiday.end > Date.today
+        add_leave(@holiday.length)
+      end
+      @holiday.destroy
+      flash[:success] = 'Holiday was successfully destroyed.'
+      redirect_to holidays_path
+    end
   end
 
   private

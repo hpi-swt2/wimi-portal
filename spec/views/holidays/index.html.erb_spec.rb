@@ -13,6 +13,6 @@ RSpec.describe 'holidays/index', type: :view do
 
   it 'renders a list of holidays' do
     render
-    assert_select "tr>td", text: "saved".to_s, count: 1
+    assert_select 'tr>td', text: 'saved'.to_s, count: 1
   end
 end

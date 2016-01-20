@@ -22,13 +22,35 @@
   <%= @trip.signature %>
 </p>
 
-<%= link_to t('helpers.links.edit'), edit_trip_path(@trip), class: "btn btn-default btn-xs" %> |
-<%= link_to t('helpers.links.back') , trips_path , class: "btn btn-default btn-xs"%> |
-<%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip) , class: "btn btn-success btn-xs"%>
-<% if ((@trip.status.include? 'saved') || (@trip.status.include? 'declined')) && @trip.user_id == current_user.id %>
-  <%= link_to t('.file'), file_trip_path(@trip), class: 'btn btn-primary' %>
-<% end %>
-<% if (can? :edit_trip, @trip) && @trip.status == 'applied' %>
-  <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %>
+</p>
+  <strong><%=t('.status') %>:</strong>
+  <%= t(@trip.status, scope: 'status') %>
+  <% if @trip.status == t('status.declined') %>
+    by:
+  <% end %>
+</p>
+
+<% if (can? :accept, @trip) && @trip.status == 'applied' %>
+  <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %> 
   <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-primary' %>
 <% end %>
+
+<% unless @trip.status == 'applied' || @trip.status == 'accepted' %>
+    <%= link_to t('.edit', default: t("helpers.links.edit")), edit_trip_path(@trip), class: 'btn btn-default btn-primarys' %>
+    <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
+                      hand_in_trip_path(@trip), method: :post, class: 'btn btn-primary btn-primary' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      trip_path(@trip),
+                      method: :delete,
+                      data: { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      class: 'btn btn-danger btn-primary' %>
+<%end%>
+
+<br>
+<br>
+
+<p>
+  <%= link_to t('.back', default: t("helpers.links.back")),
+             trips_path, class: 'btn btn-default btn-xs'  %> 
+  <%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-success btn-xs' %>
+</p>
