@@ -72,6 +72,8 @@ de:
       create_project: "Erstelle Projekt"
       update_project: "Aktualisiere Project"
     show:
+      working_hours: "Stundenzettel"
+      add_working_hours: "Stundenzettel hinzufügen"
       inactive: "(inaktiv)"
       set_inactive: "inaktiv schalten "
       set_active: "aktiv schalten"
