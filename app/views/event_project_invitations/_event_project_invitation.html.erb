@@ -1,6 +1,6 @@
 <p>
   <%=
-    invitation = Invitation.find(event_project_invitation.trigger.id)
+    invitation = Invitation.find(event_project_invitation.trigger_id)
     t(
       '.full_html',
       trigger_name: link_to(
