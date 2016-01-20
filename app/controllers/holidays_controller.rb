@@ -31,7 +31,7 @@ class HolidaysController < ApplicationController
       #disregard errors here, they should be handled in model validation later
       params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date+1) rescue nil
     end
-    @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id, last_modified: Date.today))
+    @holiday = Holiday.new(holiday_params.merge(user: current_user, last_modified: Date.today))
     if @holiday.save
       subtract_leave(@holiday.length)
       flash[:success] = 'Holiday was successfully created.'
