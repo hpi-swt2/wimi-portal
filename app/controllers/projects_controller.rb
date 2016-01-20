@@ -21,13 +21,15 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    if params[:invite_initial_users]
-      byebug
-      @project.invitations.build(user: User.find_by_email(params[:project][:invite_initial_users]), project: @project)
-    elsif @project.save
+    if @project.save
       @project.update(chair: current_user.chair)
       current_user.projects << @project
       flash[:success] = 'Project was successfully created.'
+      params[:project][:invitations_attributes].values.each do |field_id|
+        user = User.find_by_email(field_id[:email])
+        # checks from invite_user
+        @project.invite_user user
+      end
       redirect_to @project
     else
       render :new

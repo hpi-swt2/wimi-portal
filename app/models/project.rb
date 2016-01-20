@@ -24,6 +24,7 @@ class Project < ActiveRecord::Base
   has_many :invitations
   belongs_to :chair
 
+  accepts_nested_attributes_for :invitations, allow_destroy: true
 
   validates :title, presence: true
 

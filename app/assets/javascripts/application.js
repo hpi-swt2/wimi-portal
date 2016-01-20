@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require bootstrap-datepicker
 //= require bootstrap-typeahead-rails
+//= require nested_form_fields
 //= require_tree .
 
  $('.datepicker').datepicker();

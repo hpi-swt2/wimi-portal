@@ -93,10 +93,13 @@
       </div>
     </div>
 
-  <div>
-    <%= f.text_field :invite_initial_users,  { :value => '', class: "typeahead form-control", size: 50, placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
-    <%= f.submit 'Invite User', name: 'invite_initial_users' %>
-  </div>
+    <div>
+      <%= f.nested_fields_for :invitations do |invitation| %>
+        <%= invitation.text_field :email, { class: "typeahead form-control", size: 50, placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
+      <% end %>
+
+      <%= f.add_nested_fields_link :invitations %>
+    </div>
 
 
 
