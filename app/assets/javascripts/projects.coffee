@@ -15,7 +15,7 @@ setInactiveWarning = (locale, button) ->
   if locale == 'de'
     confirmation = 'Das Projekt wird nun inaktiv geschalten!'
   else
-    confirmation = 'You are going to set the project status to inactive'
+    confirmation = 'The project will be set as inactive!'
   button.attr('data-confirm', confirmation)
   return confirm
 
