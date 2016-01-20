@@ -21,7 +21,8 @@ require 'rails_helper'
 RSpec.describe TripsController, type: :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair), user: @user)
+    @chair = FactoryGirl.create(:chair)
+    FactoryGirl.create(:wimi, chair: @chair, user: @user)
     login_with @user
   end
 
@@ -226,4 +227,74 @@ RSpec.describe TripsController, type: :controller do
       expect(Trip.find(trip.id).status).to eq('saved')
     end
   end
+
+  describe 'GET #accept' do
+    context 'with valid params' do
+      it 'redirects to the users page' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :accept, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(@user)
+      end
+
+      it 'updates the status' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :accept, {id: trip.to_param}, valid_session
+        expect(Trip.find(trip.id).status).to eq('accepted')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'redirects to the trips path if not chair representative' do
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :accept, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(trips_path)
+      end
+    end
+
+  end
+
+  describe 'GET #reject' do
+    context 'with valid params' do
+      it 'redirects to the users page' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :reject, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(@user)
+      end
+
+      it 'updates the status' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :reject, {id: trip.to_param}, valid_session
+        expect(Trip.find(trip.id).status).to eq('declined')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'redirects to the trips path if not chair representative' do
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :reject, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(trips_path)
+      end
+    end
+  end
+
+
+
+
+
 end
