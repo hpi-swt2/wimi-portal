@@ -19,7 +19,7 @@
     <% end %>
   </p>
 </div>
-<% if current_user.id == @time_sheet.user_id && !@time_sheet.handed_in? %>
+<% if current_user == @time_sheet.user && !@time_sheet.handed_in? %>
   <div class="col-sm-6 text text-right">
     <%= link_to t('.edit', default: t("helpers.links.edit")),
         edit_time_sheet_path(@time_sheet), class: 'btn btn-default btn-xs' %>

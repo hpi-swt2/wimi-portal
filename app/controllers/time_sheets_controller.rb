@@ -40,7 +40,7 @@ class TimeSheetsController < ApplicationController
   def set_time_sheet
     @time_sheet = TimeSheet.find(params[:id])
   end
-  
+
   def time_sheet_params
     params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym))
   end

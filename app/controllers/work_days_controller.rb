@@ -5,7 +5,7 @@ class WorkDaysController < ApplicationController
     if params.has_key?(:month) && params.has_key?(:year) && params.has_key?(:user_id)
       @month = params[:month].to_i
       @year = params[:year].to_i
-      @user = params[:user_id]
+      @user = User.find(params[:user_id])
       @project = params.has_key?(:project) ? Project.find(params[:project].to_i) : nil
       @time_sheet = TimeSheet.time_sheet_for(@year, @month, @project, @user)
       @work_days = WorkDay.all_for(@year, @month, @project, @user)

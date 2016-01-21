@@ -35,4 +35,18 @@ RSpec.describe TimeSheet, type: :model do
   	second_day = FactoryGirl.create(:work_day, start_time: Time.now.middle_of_day, end_time: Time.now.middle_of_day + 3.hour)
   	expect(@sheet.sum_hours).to eq(first_day.duration + second_day.duration)
   end
+
+  it 'returns nil for a TimeSheet without a Project' do
+    expect(TimeSheet.time_sheet_for(@sheet.year, @sheet.month, nil ,@sheet.user_id)).to eql(nil)
+  end
+
+  it 'returns a sheet for a TimeSheet' do
+    expect(TimeSheet.time_sheet_for(@sheet.year, @sheet.month, @sheet.project_id, @sheet.user_id)).to eql(@sheet)
+  end
+
+  it 'creates a new sheet if no TimeSheet is found' do
+  	@project = FactoryGirl.create(:project)
+  	@user = FactoryGirl.create(:user)
+    expect(TimeSheet.time_sheet_for((Date.today. + 2.year).year, Date.today.month, @project, @user)).to eql((TimeSheet.where(year: (Date.today + 2.year).year, month: Date.today.month, project: @project, user: @user)).first)
+  end
 end
