@@ -18,8 +18,6 @@ class Project < ActiveRecord::Base
   scope :chair, -> name { joins(:chair).where('LOWER(name) LIKE ?', "%#{name.downcase}%") }
 
   has_and_belongs_to_many :users
-  has_many :publications
-  has_many :expenses
   has_many :project_applications, dependent: :destroy
   has_many :invitations
   belongs_to :chair
@@ -44,7 +42,6 @@ class Project < ActiveRecord::Base
 
   def wimis
     users.select(&:is_wimi?)
-
   end
 
   def remove_user(user)

@@ -5,8 +5,8 @@ RSpec.describe EventRequest, type: :model do
     it 'sets defaults for seclevel and type' do
       chair = FactoryGirl.create(:chair)
       trigger = FactoryGirl.create(:user)
-      @event = EventRequest.create(trigger_id: trigger.id, chair_id: chair.id)
-      expect(@event.seclevel).to eq('representative')
+      event = EventRequest.create(trigger_id: trigger.id, chair_id: chair.id)
+      expect(event.seclevel).to eq('representative')
     end
   end
 end

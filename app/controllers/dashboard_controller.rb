@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   def index
-    @notifications = Array.new
+    @notifications = []
 
     @notifications += Event.where(seclevel: Event.seclevels[:superadmin]) if current_user.is_superadmin?
     @notifications += Event.where(seclevel: Event.seclevels[:admin]) if current_user.is_admin?
@@ -10,6 +10,7 @@ class DashboardController < ApplicationController
 
     @notifications += Event.where(seclevel: Event.seclevels[:user])
 
+    @notifications.delete_if { |event| event.chair_id != current_user.chair.id }
     @notifications.delete_if { |event| event.is_hidden_by(current_user) }
     @notifications = @notifications.sort_by { |n| n[:created_at] }.reverse
 

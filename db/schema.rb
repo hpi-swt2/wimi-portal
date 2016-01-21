@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112184716) do
+ActiveRecord::Schema.define(version: 20160116122005) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -47,29 +47,19 @@ ActiveRecord::Schema.define(version: 20160112184716) do
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
-  create_table "expenses", force: :cascade do |t|
-    t.decimal  "amount"
-    t.text     "purpose"
-    t.text     "comment"
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.integer  "trip_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "status",     default: 0
-  end
-
-  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
-  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
-  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
-
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",     default: 0
+    t.integer  "status",              default: 0, null: false
+    t.integer  "replacement_user_id"
+    t.integer  "length"
+    t.boolean  "signature"
+    t.date     "last_modified"
+    t.string   "reason"
+    t.string   "annotation"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -109,25 +99,6 @@ ActiveRecord::Schema.define(version: 20160112184716) do
 
   add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id"
   add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id"
-
-  create_table "publications", force: :cascade do |t|
-    t.string   "title"
-    t.string   "venue"
-    t.string   "type_"
-    t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "publications", ["project_id"], name: "index_publications_on_project_id"
-
-  create_table "publications_users", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "publication_id"
-  end
-
-  add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
-  add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
   create_table "time_sheets", force: :cascade do |t|
     t.integer  "month"

@@ -50,11 +50,10 @@ class User < ActiveRecord::Base
   has_many :work_days
   has_many :time_sheets
   has_many :holidays
-  has_many :expenses
+  has_many :travel_expense_reports
   has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
-  has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
@@ -84,7 +83,7 @@ class User < ActiveRecord::Base
   def projects_for_month(year, month)
     projects = TimeSheet.where(
       user: self, month: month, year: year).map(&:project)
-    return (projects.compact + self.projects).uniq
+    (projects.compact + self.projects).uniq
   end
 
   def years_and_months_of_existence
@@ -104,7 +103,7 @@ class User < ActiveRecord::Base
     year = -1
     month = -1
     year_months = []
-    self.work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
+    work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
       unless year == date.year and month == date.month
         year = date.year
         month = date.month
@@ -187,5 +186,13 @@ class User < ActiveRecord::Base
     else
       all
     end
+
+  def get_desc_sorted_datespans
+    all_trips = Trip.where(user_id: id)
+    datespans = []
+    all_trips.each do |trip|
+      datespans.push(trip.trip_datespans.first)
+    end
+    datespans.sort! { |a,b| b.start_date <=> a.start_date }
   end
 end

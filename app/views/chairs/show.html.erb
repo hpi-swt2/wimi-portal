@@ -19,7 +19,7 @@
             <td>
               <% if current_user.is_admin? %>
                   <%= link_to I18n.t('chairs.applications.accept'), chairs_accept_path(id: @chair, request: request), method: :post, class: 'btn btn-default btn-xs' %>
-                  <%= link_to I18n.t('chairs.applications.decline'), chairs_remove_user_path(id: @chair, request: request), method: :post, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-default btn-xs' %>
+                  <%= link_to I18n.t('chairs.applications.decline'), chairs_remove_user_path(id: @chair, request: request), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-default btn-xs' %>
               <% end %>
             </td>
           </tr>
@@ -34,25 +34,21 @@
       <tr>
         <td><%= wimi.name %></td>
         <td>
-          <% if current_user.is_representative?(@chair) %><%= I18n.t('chairs.navigation.show_requests') %>
-          <% end %></td>
-        <td>
-
           <% if wimi.is_admin?(@chair) %><%= I18n.t('roles.admin_long') %>
-              <% if current_user.is_admin?(@chair) %>
-                  <%= link_to I18n.t('chairs.applications.withdraw_rights'), chairs_withdraw_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %>
+              <% if current_user.is_admin?(@chair) && current_user != wimi %>
+                  <%= link_to I18n.t('chairs.applications.withdraw_rights'), chairs_withdraw_admin_path(id: @chair, request: wimi.chair_wimi), method: :post, class: 'btn btn-danger btn-xs' %>
               <% end %>
           <% elsif wimi.is_representative?(@chair) %>
               <%= I18n.t('roles.chair_representative') %>
           <% else %>
-              <% if current_user.is_admin?(@chair) %><%= link_to I18n.t('chairs.applications.grant_rights'), chairs_set_admin_path(id: @chair, request: wimi.chair_wimi), method: :post %>
+              <% if current_user.is_admin?(@chair) %><%= link_to I18n.t('chairs.applications.grant_rights'), chairs_set_admin_path(id: @chair, request: wimi.chair_wimi), method: :post, class: 'btn btn-success btn-xs' %>
               <% end %>
           <% end %>
 
         </td>
         <td>
-          <% if wimi.id != current_user.id && current_user.is_admin?(@chair) %>
-              <%= link_to I18n.t('chairs.applications.remove_from_chair'), chairs_remove_user_path(id: @chair, request: wimi.chair_wimi), method: :post, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-default btn-xs' %>
+          <% if wimi.id != current_user.id && current_user.is_admin?(@chair) && !wimi.is_representative?(@chair) %>
+              <%= link_to I18n.t('chairs.applications.remove_from_chair'), chairs_remove_user_path(id: @chair, request: wimi.chair_wimi), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
           <% end %>
         </td>
       </tr>

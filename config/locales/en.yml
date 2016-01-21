@@ -34,9 +34,6 @@ en:
       project:
         one: "Project"
         other: "Projects"
-      publication:
-        one: "Publication"
-        other: "Publications"
       trip:
         one: "Business Trip"
         other: "Business Trips"
@@ -67,14 +64,9 @@ en:
         user_id: "User"
         created_at: "Created at"
         duration: "Duration"
-      publication:
-        id: "Id"
-        title: "Title"
-        venue: "Venue"
-        type_: "Type"
-        project_id: "Project"
-        created_at: "Created at"
-        users: "Users"
+        reason: "Reason for Special Leave"
+        annotations: "Annotations"
+        replacement: "Replacement"
       expense:
         id: "Id"
         amount: "Amount"
@@ -159,6 +151,14 @@ en:
               blank: "cannot be blank."
               not_a_number: "has to be a whole number."
               greater_than_or_equal_to: "must not be negative"
+        holiday:
+          attributes:
+            start:
+              blank: "cannot be blank."
+            end:
+              blank: "cannot be blank."
+            length:
+              not_a_number: "has to be a whole number."
   links:
     search: 'Search'
     submit: 'Submit'
@@ -174,6 +174,8 @@ en:
       was_successfully_invited: 'The user has been invited successfully.'
       invitation_accepted: 'You are now a member of this project.'
       invitation_declined: 'You declined the invitation.'
+  date:
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
   time:
     formats:
       default: "%d-%m-%Y"
@@ -223,5 +225,9 @@ en:
     applied: "Trip is already applied"
     destroyed: "Trip was successfully destroyed"
     apply: "Trip was successfully applied"
-
-  
+  not_authorized: "You're not authorized to do that action."
+  not_enough_leave: "Not enough leave left"
+  holiday:
+    applied: "Holiday is already applied"
+  travel_expense_report:
+    applied: "Travel expense request is already applied"

@@ -5,8 +5,8 @@ RSpec.describe EventChairApplication, type: :model do
     it 'sets defaults for seclevel and type' do
       chair = FactoryGirl.create(:chair)
       trigger = FactoryGirl.create(:user)
-      @event = EventChairApplication.create(trigger_id: trigger.id, chair_id: chair.id)
-      expect(@event.seclevel).to eq('admin')
+      event = EventChairApplication.create(trigger_id: trigger.id, chair_id: chair.id)
+      expect(event.seclevel).to eq('admin')
     end
   end
 end

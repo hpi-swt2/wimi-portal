@@ -23,6 +23,7 @@ class Ability
       project.public
     end
     can :create, ProjectApplication
+
     # can :accept_invitation, Project
   end
 
@@ -39,12 +40,7 @@ class Ability
 
   def initialize_wimi(user)
     initialize_user user
-    can :read, Holiday do |holiday|
-      holiday.user == user
-    end
-    can :read, TravelExpenseReport do |r|
-      r.user == user
-    end
+
     can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
@@ -59,18 +55,28 @@ class Ability
       user.projects.exists?(project_application.project_id)
     end
     cannot :create, ProjectApplication
+
+    can :new, Holiday
+    can :create, Holiday
+    can :new, Trip
+    can :create, Trip
+    can :new, TravelExpenseReport
+    can :create, TravelExpenseReport
+    can :manage, Holiday.select { |h| h.user == user }
+    can :manage, Trip.select { |t| t.user == user }
+    can :manage, TravelExpenseReport.select { |t| t.user == user }
+
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end
 
   def initialize_representative(user)
     initialize_wimi user
-    can :read,      Holiday do |holiday|
-      user.is_representative?(holiday.user.chair)
-    end
-    can :read,      TravelExpenseReport do |r|
-      user.is_representative?(r.user.chair)
-    end
+
+    can :read, Holiday.select { |h| user.is_representative?(h.user.chair) }
+    can :read, Trip.select { |t| user.is_representative?(t.user.chair) }
+    can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
+
     can :read,      Chair do |chair|
       user.is_representative?(chair)
     end

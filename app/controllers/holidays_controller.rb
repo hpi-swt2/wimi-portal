@@ -1,15 +1,18 @@
 class HolidaysController < ApplicationController
+  load_and_authorize_resource
+  skip_authorize_resource only: :index
+
   before_action :set_holiday, only: [:show, :edit, :update, :destroy, :hand_in]
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('not_authorized')
+    redirect_to holidays_path
+  end
 
   def index
     @holidays = Holiday.all
   end
 
   def show
-    #unless Holiday.find(params[:id]).user_id == current_user.id
-    unless can? :read, @holiday 
-      redirect_to holidays_path
-    end
   end
 
   def new
@@ -17,27 +20,38 @@ class HolidaysController < ApplicationController
   end
 
   def edit
+    if @holiday.status == 'applied'
+      redirect_to @holiday
+      flash[:error] = I18n.t('holiday.applied')
+    end
   end
 
   def create
-    @holiday = Holiday.new(holiday_params.merge(user_id: current_user.id))
+    if holiday_params['length'].blank?
+      #disregard errors here, they should be handled in model validation later
+      params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date + 1) rescue nil
+    end
+    @holiday = Holiday.new(holiday_params.merge(user: current_user, last_modified: Date.today))
     if @holiday.save
-      #request_applied if @holiday.status == 'applied'
-      subtract_leave
+      subtract_leave(@holiday.length)
       flash[:success] = 'Holiday was successfully created.'
-      redirect_to current_user
+      redirect_to @holiday
     else
       render :new
     end
   end
 
   def update
-    status = @holiday.status
+    lengths = @holiday.calculate_length_difference(holiday_params['length'])
+    params['holiday']['length'] = lengths[:length_difference]
+
     if @holiday.update(holiday_params)
-      #request_applied if @holiday.status == 'applied' && status == 'saved'
       flash[:success] = 'Holiday was successfully updated.'
+      @holiday.update(length: lengths[:new_length])
+      subtract_leave(lengths[:length_difference])
       redirect_to @holiday
     else
+      @holiday.update(length: lengths[:old_length])
       render :edit
     end
   end
@@ -52,12 +66,17 @@ class HolidaysController < ApplicationController
   end
 
   def destroy
-    if @holiday.end > Date.today
-      add_leave
+    if @holiday.status == 'applied'
+      redirect_to @holiday
+      flash[:error] = I18n.t('holiday.applied')
+    else
+      if @holiday.end > Date.today
+        add_leave(@holiday.length)
+      end
+      @holiday.destroy
+      flash[:success] = 'Holiday was successfully destroyed.'
+      redirect_to holidays_path
     end
-    @holiday.destroy
-    flash[:success] = 'Holiday was successfully destroyed.'
-    redirect_to holidays_path
   end
 
   private
@@ -70,16 +89,17 @@ class HolidaysController < ApplicationController
     params[:holiday].permit(Holiday.column_names.map(&:to_sym))
   end
 
-  def calculate_leave(operator)
-    current_user.update_attribute(:remaining_leave, current_user.remaining_leave.send(operator, @holiday.duration))
-    current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year.send(operator, @holiday.duration_last_year))
+  def calculate_leave(operator, length)
+    length_last_year = (current_user.remaining_leave_last_year - length > 0) ? (current_user.remaining_leave_last_year - length) : current_user.remaining_leave_last_year
+    current_user.update_attribute(:remaining_leave_last_year, current_user.remaining_leave_last_year.send(operator, length_last_year))
+    current_user.update_attribute(:remaining_leave, current_user.remaining_leave.send(operator, length))
   end
 
-  def add_leave
-    calculate_leave(:+)
+  def add_leave(length)
+    calculate_leave(:+, length)
   end
 
-  def subtract_leave
-    calculate_leave(:-)
+  def subtract_leave(length)
+    calculate_leave(:-, length)
   end
 end
