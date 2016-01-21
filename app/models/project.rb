@@ -2,31 +2,52 @@
 #
 # Table name: projects
 #
-#  id         :integer          not null, primary key
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  description    :string           default("")
+#  public         :boolean          default(TRUE)
+#  status         :boolean          default(TRUE)
+#  chair_id       :integer
+#  project_leader :string           default("")
 #
 
 class Project < ActiveRecord::Base
-  has_and_belongs_to_many :users
-  has_many :publications
-  has_many :expenses
-  belongs_to :chair
+  scope :title, -> title { where('LOWER(title) LIKE ?', "%#{title.downcase}%") }
+  scope :chair, -> name { joins(:chair).where('LOWER(name) LIKE ?', "%#{name.downcase}%") }
 
-  def add_user(user)
-    users << user
-    user.notifications << Notification.create(message: I18n.t('project.was_added_to_project', title: title,  default: "Du wurdest zum Projekt '#{title}' hinzugefügt."))
-  end
+  has_and_belongs_to_many :users
+  has_many :project_applications, dependent: :destroy
+  has_many :invitations
+  belongs_to :chair
 
   validates :title, presence: true
 
+  def invite_user(user)
+    user.invitations << Invitation.create(user: user, project: self)
+  end
+
+  def add_user(user)
+    users << user
+  end
+
+  def destroy_invitation(user)
+    Invitation.find_by(user: user, project: self).destroy!
+  end
+
   def hiwis
-    users.select { |u| !u.is_wimi? }
+    users.select(&:is_hiwi?)
   end
 
   def wimis
-    users.select { |u| u.is_wimi? }
+    users.select(&:is_wimi?)
   end
 
+  def remove_user(user)
+    users.delete(user)
+    if project_applications.include?(ProjectApplication.find_by_user_id user.id)
+      project_applications.delete(ProjectApplication.find_by_user_id user.id)
+    end
+  end
 end

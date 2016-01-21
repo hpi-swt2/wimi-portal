@@ -1,25 +1,53 @@
 <%- model_class = Holiday -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%=t '.title', default: model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
-  <dd><%= @holiday.status %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:start) %>:</strong></dt>
-  <dd><%= @holiday.start %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:end) %>:</strong></dt>
-  <dd><%= @holiday.end %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @holiday.user_id %></dd>
-</dl>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-sm-6">
+      </div>
+      <div class="col-sm-6 text text-right">
+        <% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined')  %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_holiday_path(@holiday), class: 'btn btn-primary' %>
+        <% else %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        '#', class: 'btn btn-primary', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-body">
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:start) %>:</strong></dt>
+      <dd><%=l @holiday.start %><%=l @holiday.start, format: ' (%A)' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:end) %>:</strong></dt>
+      <dd><%=l @holiday.end %><%=l @holiday.end, format: ' (%A)' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:duration) %>:</strong></dt>
+      <dd><%= @holiday.length %> <%= t('.days') %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:reason) %>:</strong></dt>
+      <dd><%= @holiday.reason %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>
+      <dd><%= @holiday.annotation %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:replacement) %>:</strong></dt>
+      <dd>
+        <% unless @holiday.replacement_user_id.nil? %>
+          <%= User.find(@holiday.replacement_user_id).name %>
+        <% end %>
+      </dd>
+      <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+      <dd><%= t(".status.#{@holiday.status}") + l(@holiday.last_modified)%></dd>
+    </dl>
+  </div>
+</div>
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              root_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_holiday_path(@holiday), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              holiday_path(@holiday),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+  <%= link_to 'Download', generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: @holiday), class: 'btn btn-default' %>
+  <% if (@holiday.status.include? 'saved') || (@holiday.status.include? 'declined') %>
+    <%= form_for @holiday do |f| %>
+      <%= f.hidden_field :status, value: :applied %>
+      <%= f.hidden_field :last_modified, value: Date.today %>
+      <%= f.submit t('.file'), class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

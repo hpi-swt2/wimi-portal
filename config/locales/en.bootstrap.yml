@@ -19,19 +19,28 @@ en:
       logout: "Logout"
     actions: "Actions"
     links:
+      hand_in: "Hand in"
+      show: "Show"
       back: "Back"
       cancel: "Cancel"
       confirm: "Are you sure?"
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+      leave: "Leave"
       edit_leave: "Edit Leave"
       show_details: "Show Details"
       show_pdf: "Show PDF"
+      apply: "Apply"
+      accept: "Accept"
+      decline: "Decline"
+      download: "Download"
+      apply_trip: "Apply Trip"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
+      delete: "Delete %{model}"
     language:
       lang: "Language"
       english: "English"
@@ -39,18 +48,77 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
+      hide: "Hide"
+    list_select: "Please select"
+  project_applications:
+    states:
+      pending: "Pending"
+      declined: "Declined"
+      accepted: "Accepted"
+    created: "Application was successfully created"
+    not_created: "Application was not created"
+    destroy: "Application was deleted"
+    index:
+      cancel: "Cancel Application"
+    reapply: "Reapply"
+    refused_reapply: "Application Refused - Reapply"
+    pending_cancel: "Application Pending - Cancel"
+    accept_application: "Accept Application"
+    decline_application: "Decline Application"
+  projects:
+    form:
+      wimi: "Research Assistants"
+      hiwi: "Student Assistants"
+      sign_out_of_project: "Sign out of project"
+      accessibility: "Accessibility"
+      project_leader: "Project Leader"
+      title: "Title"
+      prohibited_this_project_from_being_saved: "prohibited this project from being saved"
+      show_working_hours: "Show working hours"
+      show_all_working_hours: "Show all working hours"
+      create_project: "Create Project"
+      update_project: "Update Project"
+    show:
+      working_hours: "Working hours"
+      add_working_hours: "Add working hours"
+      inactive: "(inactive)"
+      set_inactive: "set inactive"
+      set_active: "set active"
+      chair: "Chair"
+      chair_representative: "Chair Representative"
+      project_visibility: "Visibility"
+      project_leader: "Project Leader"
+      public: "public"
+      private: "private"
+      not_defined: "not defined"
+      research_assistants: "Research Assistants"
+      student_assistants: "Student Assistants"
+      active: "aktiv"
+      leave_project: "Leave Project"
+    index:
+      new: "+ Add project"
+      title: "Title"
+      project_status: "Project Status"
+      accessibility: "Accessibility"
+      created_at: "created_at"
+      active: "active"
+      inactive: "inactive"
+      private: "private"
+      public: "public"
   users:
     update:
       user_updated: "User updated successfully"
     show:
+      business_trips: "Business Trips"
+      request_trip: "Request Business Trip"
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
       user_data: "User Data"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
-      days: "Day(s)"
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+      days: "Day(s)"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -58,7 +126,117 @@ en:
       remaining_leave_fly: "Remaining Leave from last year"
       save: "Save Leave"
       title: "Edit Leave"
+  holidays:
+    show:
+      days: "Day(s)"
+      file: "File Request"
+      filed_request_cant_be_edited: "A filed request can't be edited"
+      status:
+        saved: "Saved at the "
+        accepted: "Accepted at the "
+        applied: "Applied at the "
+        declined: "Declined at the "
   dashboard:
     index:
+      notifications: "Notifications"
       dashboard_title: "Dashboard"
       projects: "My Projects"
+      representative_actions: "Representative - Actions"
+      show_holiday_requests: "Show holiday requests"
+      show_expense_requests: "Show expense requests"
+      show_trip_requests: "Show trip requests"
+  travel_expense_reports:
+    show:
+      inland: "Inland Travel"
+      country: "Country"
+      location_from: "Starting in"
+      location_via: "Via"
+      location_to: "To"
+      reason: "Reason"
+      date_start: "Start at"
+      vehicle: "Vehicle"
+      date_end: "End at:"
+      car: "Travel by car"
+      public_transport: "Travel by Bus/Train/Plane"
+      vehicle_advance: "Travel paid by HPI"
+      hotel: "Hotel"
+      general_advance: "Advance"
+      signature: "Add signature"
+  trips:
+    show:
+      id: "Id"
+      destination: "Destination"
+      reason: "Reason"
+      annotation: "Annotations"
+      signature: "Add signature"
+      status: "Status"
+      user_id: "User"
+      created_at: "Created at"
+  date:
+    formats:
+      default: "%d-%m-%Y"
+    order:
+      - :day
+      - :month
+      - :year
+    month_names:
+      - 
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+  events:
+    event_admin_right:
+      added: "%{trigger} has granted %{target} admin rights."
+      removed: "%{trigger} has withdrawn %{target} admin rights."
+    event_user_chair:
+      added: "%{trigger} has admitted %{target} in chair."
+      removed: "%{trigger} has removed %{target} from chair."
+      declined: "%{trigger} has declined the application of %{target}."
+    event_chair_application: "%{trigger} has applied for your chair."
+    event_request:
+      holiday: "%{trigger} created a holiday request."
+      trip: "%{trigger} created a trip request."
+      travel_expense_report: "%{trigger} created a travel expense request."
+  chairs:
+    navigation:
+      not_authorized: "You are not allowed to do this action for this chair."
+      apply_wimi: "Apply as Wimi"
+      manage: "Manage Chair"
+      show_timesheets: "Show timesheets"
+      show_requests: "Show requests"
+    requests:
+      apply_filter: "Apply Filters"
+      requests: "Requests"
+      type_filter: "Filters by type"
+      status_filter: "Filters by status"
+      holiday_request: "Holiday request"
+      trip_request: "Trip request"
+      expense_request: "Expense request"
+      applied_plural: "Open requests"
+      applied: "Open request"
+      accepted: "Accepted"
+      declined: "Declined"
+      pending: "Pending"
+    applications:
+      long_plural: "Applications"
+      no_applications: "No applications"
+      accept: "Accept"
+      decline: "Decline"
+      remove_from_chair: "Remove from chair"
+      withdraw_rights: "Withdraw rights"
+      grant_rights: "Grant admin rights"
+  roles:
+    wimi_long: "Research Assistant"
+    wimi_long_plural: "Research Assistants"
+    chair_representative: "Chair Representative"
+    admin_long: "Administrator"
+    hiwi_long_plural: "Student Assistants"

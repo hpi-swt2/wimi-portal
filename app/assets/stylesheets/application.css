@@ -13,8 +13,16 @@
  *= require_tree .
  *= require_self
  *= require devise_bootstrap_views
- *= require bootstrap-datepicker3
+ *= require bootstrap-datepicker
  */
+
+
+h1 span { font-size:20px; }
+
+.checkbox label {
+    margin-bottom: 10px;
+}
+
 .openID{
     height: 35px;
     width: 80px;
@@ -45,4 +53,38 @@ body {
 
 .flash-message {
     margin-top: 15px;
+}
+
+.userProjectCheckbox {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.projectCheckbox {
+    margin-left: -30px;
+}
+
+.projectTitleControl {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.UserTable {
+    margin-top: 20px;
+    margin-left: -15px;
+
+}
+
+.dl-horizontal dt {
+    width:280px;
+    white-space: normal;
+    margin-bottom: 5px;
+}
+.dl-horizontal dd {
+    margin-left:300px;
+}
+
+.time-select {
+    display: inline-block;
+    width: 48%;
 }

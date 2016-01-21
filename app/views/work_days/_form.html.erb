@@ -1,0 +1,50 @@
+<%= form_for(@work_day) do |f| %>
+  <% if @work_day.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@work_day.errors.count, "error") %> prohibited this work_day from being saved:</h2>
+
+      <ul>
+      <% @work_day.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Work Day</h4>
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <%= f.label :date, class: "control-label" %><br>
+      <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+    </div>
+    <div class="form-group">
+      <%= f.label :start_time, class: "control-label"  %><br>
+      <%= f.time_select :start_time, {}, class: "form-control time-select" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :break, class: "control-label"  %> (minutes)<br>
+      <%= f.number_field :break, value: 0, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :end_time, class: "control-label"  %><br>
+      <%= f.time_select :end_time, {}, class: "form-control time-select" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :attendance, class: "control-label"  %><br>
+      <%= f.select :attendance, [['Normal', ''], ['Ill', 'K'], ['Holiday', 'F'], ['Leave Day', 'U']], {}, {class: "form-control"} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :notes, class: "control-label"  %><br>
+      <%= f.text_field :notes, class: "form-control" %>
+    </div>
+    <div class="form-group">
+        <%= f.label :project, class: "control-label" %><br>
+        <%= collection_select :work_day, :project_id, current_user.projects, :id, :title, {selected: @work_day.project_id}, class: "form-control"%>
+    </div>
+    <%= f.submit nil, class:"btn btn-primary"%>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,94 @@
+<%= form_for @travel_expense_report,html: { class: "form-horizontal travel_expense_report" } do |f| %>
+  <% if @travel_expense_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@travel_expense_report.errors.count, "error") %> prohibited this travel_expense_report from being saved:</h2>
+
+      <ul>
+      <% @travel_expense_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group" >
+    <%= f.label :inland %><br>
+    <%= f.check_box :inland , {onclick: "toggleField(div_inland,field_inland,checkbox_inland)", id: "checkbox_inland"}%>
+  </div>
+  <div class="control-group" id="div_inland">
+    <%= f.label :country %><br>
+    <%= f.text_field :country, { id: "field_inland" }%>
+  </div>
+  <div class="control-group">
+    <%= f.label :location_from %><br>
+    <%= f.text_field :location_from %>
+  </div>
+  <div class="control-group">
+    <%= f.label :location_via %><br>
+    <%= f.text_field :location_via %>
+  </div>
+  <div class="control-group">
+    <%= f.label :location_to %><br>
+    <%= f.text_field :location_to %>
+  </div>
+  <div class="control-group">
+    <%= f.label :reason %><br>
+    <%= f.text_area :reason %>
+  </div>
+  <div class="control-group">
+    <%= f.label :date_start %><br>
+    <%= f.text_field :date_start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+  </div>
+  <div class="control-group">
+    <%= f.label :date_end %><br>
+    <%= f.text_field :date_end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+  </div>
+  <div class="control-group">
+    <%= f.label :car %><br>
+    <%= f.check_box :car %>
+  </div>
+  <div class="control-group">
+    <%= f.label :public_transport %><br>
+    <%= f.check_box :public_transport %>
+  </div>
+  <div class="control-group">
+    <%= f.label :vehicle_advance %><br>
+    <%= f.check_box :vehicle_advance %>
+  </div>
+  <div class="control-group">
+    <%= f.label :hotel %><br>
+    <%= f.check_box :hotel %>
+  </div>
+  <div class="control-group">
+    <%= f.label :general_advance %><br>
+    <%= f.number_field :general_advance, :value => "0" %>
+  </div>
+
+  <div id="date_items">
+    <table class="table table-striped">
+      <tr>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.date') %></th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.breakfast') %></th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.lunch') %></th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.dinner') %></th>
+        <th><%= t('activerecord.attributes.travel_expense_report_item.annotation') %></th>
+      </tr>
+      <%= f.fields_for :travel_expense_report_items do |t| %>
+      <tr>
+        <td><%= t.text_field :date, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %></td>
+        <td><%= t.check_box :breakfast %></td>
+        <td><%= t.check_box :lunch %></td>
+        <td><%= t.check_box :dinner %></td>
+        <td><%= t.text_field :annotation %></td>
+       </tr>
+      <% end %>
+    </table>
+  </div>
+  <div>
+    <%= f.label :signature %>
+    <%= f.check_box :signature %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

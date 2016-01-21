@@ -1,44 +1,46 @@
+<p id="notice"><%= notice %></p>
+
 <%- model_class = Trip -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human(:count => 2).titleize %></h1>
+  <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
 </div>
+
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:start) %></th>
-      <th><%= model_class.human_attribute_name(:end) %></th>
+      <th><%= model_class.human_attribute_name(:destination) %></th>
+      <th><%= model_class.human_attribute_name(:reason) %></th>
+      <th><%= model_class.human_attribute_name(:annotation) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%=t '.actions', default: t("helpers.actions") %></th>
+
+      <th colspan="3"></th>
     </tr>
   </thead>
+
   <tbody>
     <% @trips.each do |trip| %>
       <tr>
-        <td><%= link_to trip.id, trip_path(trip) %></td>
-        <td><%= trip.title %></td>
-        <td><%= trip.start %></td>
-        <td><%= trip.end %></td>
+        <td><%= trip.destination %></td>
+        <td><%= trip.reason %></td>
+        <td><%= trip.annotation %></td>
         <td><%= trip.status %></td>
-        <td><%= trip.user_id %></td>
-        <td><%=l trip.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_trip_path(trip), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      trip_path(trip),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
+        <%= link_to t('helpers.links.show_details'), trip, class: "btn btn-default btn-xs" %>
+        <% if trip.status == 'saved' %>
+          <%= link_to t('.edit', default: t("helpers.links.hand_in")),
+                      hand_in_trip_path(trip), method: :post, class: 'btn btn-success btn-xs' %>
+          <%= link_to t('helpers.links.edit'), edit_trip_path(trip) , class: "btn btn-default btn-xs"%>
+          <%= link_to t('helpers.links.destroy'), trip, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger btn-xs"%>
+        <% end %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_trip_path,
-            :class => 'btn btn-primary' %>
+<br>
+<%if can? :create, Trip %>
+<%= link_to t('.new', default: t("helpers.links.new")), new_trip_path, class: "btn btn-primary"%>
+<% end %>

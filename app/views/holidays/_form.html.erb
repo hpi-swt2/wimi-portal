@@ -1,4 +1,4 @@
-<%= form_for @holiday, :html => { :class => "form-horizontal holiday" } do |f| %>
+<%= form_for @holiday, html: { class: "form-horizontal holiday" } do |f| %>
 
   <% if @holiday.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -15,30 +15,55 @@
     </div>
   <% end %>
 
+  <% I18n.locale.to_s == 'en' ? format = 'dd-mm-yyyy' : format = 'dd.mm.yyyy' %>
+
+  <%= f.label :remaining_leave, t('users.show.remaining_leave', leave: current_user.remaining_leave.to_s) %>
+  <% if current_user.remaining_leave_last_year > 0 %>
+    <%= f.label :remaining_leave_last_year, t('users.show.remaining_leave_last_year', leave_last_year: current_user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
+  <% end %>
   <div class="control-group">
-    <%= f.label :status, :class => 'control-label' %>
+    <%= f.label :start, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :status, :class => 'form-control' %>
-    </div>
-    <%= error_span(@holiday[:status]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :start, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+      <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.start ? l(@holiday.start) : nil  %>
     </div>
     <%= error_span(@holiday[:start]) %>
   </div>
   <div class="control-group">
-    <%= f.label :end, :class => 'control-label' %>
+    <%= f.label :end, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+      <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.end ? l(@holiday.end) : nil %>
     </div>
     <%= error_span(@holiday[:end]) %>
-  </div><br>
+  </div>
+  <div class="control-group">
+    <%= f.label :duration, class: 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :length, class: 'form-control', min: 0, placeholder: 'Leave Blank for automatic calculation' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :reason, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :reason, class: 'form-control' %>
+    </div>
+    <%= error_span(@holiday[:reason]) %>
+  </div>
+  <div class="control-group">
+    <%= f.check_box :replacement_user_id, onchange: "selection.style.display = this.checked ? 'block' : 'none'" %>
+    <%= f.label :replacement, class: 'control-label' %>
+    <%# Capybara doesn't seem to find invisible selection boxes, so this div has to be displayed in a test environment %>
+    <%= content_tag :div, class: "controls", id: 'selection', style: "#{Rails.env}" == 'test' ? "display:block" : "display: none" do %>
+      <%= f.collection_select :replacement_user_id, User.all.select { |user| user.chair == current_user.chair && user.is_wimi? }, :id, :name, include_blank: true, id: 'replacement_selection' %>
+    <% end %>
+    <%= error_span(@holiday[:replacement_user_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.check_box :signature %>
+    <%= f.label :signature %>
+  </div>
+  <br>
 
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            current_user, :class => 'btn btn-default' %>
-
+  <%= f.submit nil, class: 'btn btn-primary' %>
+  <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+            current_user, class: 'btn btn-default' %>
 <% end %>

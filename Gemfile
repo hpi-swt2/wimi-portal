@@ -16,14 +16,15 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # for Windows users
-gem 'nokogiri', '1.6.7.rc3', :platforms => [:mswin, :mingw, :x64_mingw]
-gem 'tzinfo-data', :platforms => [:mingw, :mswin, :x64_mingw]
+gem 'nokogiri', '1.6.7.rc3', platforms: [:mswin, :mingw, :x64_mingw]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'newrelic_rpm'
 gem 'airbrake'
@@ -51,6 +52,8 @@ gem 'warden'
 gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails'
 gem 'devise-bootstrap-views'
+#use Bootstrap Tooltips
+gem 'bootstrap-tooltip-rails'
 
 # Use Jquery as the JS lib
 gem 'jquery-rails'
@@ -69,6 +72,15 @@ gem 'holidays'
 gem 'bootstrap-datepicker-rails'
 gem 'whenever'
 
+# For generating pdfs from documents
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
+# Create filters easily with scopes
+gem 'has_scope'
+
+gem 'rubocop', '~> 0.29.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -84,7 +96,6 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'rubocop', '~> 0.29.1'
   gem 'better_errors', '~> 2.1.1'
   gem 'binding_of_caller', '~> 0.7.2'
 
@@ -99,7 +110,7 @@ end
 group :test do
   gem "codeclimate-test-reporter", require: nil
   # Coverage information
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
   # Stubbing external calls by blocking traffic with WebMock.disable_net_connect! or allow:
   #gem 'webmock'
 end

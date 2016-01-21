@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
       end
     else
       has_invalid_email = (current_user.email == User::INVALID_EMAIL)
-      allowed_paths = [destroy_user_session_path, edit_user_path(current_user), user_path(current_user)].map { |x| x.split('?locale=')[0]}
-      visits_allowed_path = allowed_paths.include?(request.env['PATH_INFO'].split('?locale=')[0])
+      allowed_paths = [destroy_user_session_path, edit_user_path(current_user), user_path(current_user)]
+      visits_allowed_path = allowed_paths.include?(request.env['PATH_INFO'])
       if has_invalid_email && !visits_allowed_path
         flash[:error] = 'Please set a valid email address first'
         redirect_to edit_user_path(current_user)
@@ -24,20 +24,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #before_action :authenticate_user!
-
   private
-    def set_locale
-      if current_user
-        if I18n.locale !=  current_user.language
-          I18n.locale =  current_user.language
-        end
-      else
-        I18n.locale = I18n.default_locale
-      end 
-    end
 
-    def default_url_options(options = {})
-      {locale: I18n.locale}
+  def set_locale
+    if current_user
+      if I18n.locale != current_user.language
+        I18n.locale = current_user.language
+      end
+    else
+      I18n.locale = I18n.default_locale
     end
+  end
 end
