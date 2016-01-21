@@ -72,10 +72,21 @@
 
 </form>
 
-<div id="live-search-results"></div>
+<div id="live-search-results1"></div>
+
+
+  <div class="dropdown">
+    <ul id="live-search-results" class="dropdown-menu">
+    </ul>
+  </div>
 
 
 <script>
+
+$("#big-search-box").focusout(function() {
+    $("#live-search-results").hide();
+  });
+
   
 $("#big-search-box").bind("keyup", function() {
 
@@ -86,11 +97,13 @@ $("#big-search-box").bind("keyup", function() {
 
   var url = "/tasks/live_search"; // live_search action.   
   var formData = form.serialize(); // grab the data in the form
+  //formData.length);
   $.get(url, formData, function(html) { // perform an AJAX get
 
     $("#big-search-box").removeClass("loading"); // hide the spinner
 
     $("#live-search-results").html(html); // replace the "results" div with the results
+    $("#live-search-results").show();
 
   });
 

@@ -181,11 +181,13 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search)
-    if search
-      where('concat(first_name,last_name) LIKE ?', "%#{search}%")
+    print search
+    if search.length > 0
+      where('first_name LIKE ? or last_name LIKE ?', "%#{search}%", "%#{search}%")
     else
-      all
+      nil
     end
+  end
 
   def get_desc_sorted_datespans
     all_trips = Trip.where(user_id: id)

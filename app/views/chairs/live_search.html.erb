@@ -1,6 +1,13 @@
 <% if false %><%= render :partial => "tasks/list", :object => @tasks %><% end %>
 
-<% @tasks.each do |user| %>
-	<%= user.first_name %> <%= user.last_name %><br>
-
+<% if @tasks.empty? %>
+	  <li><a href="#">
+	    no results<br>
+	  </a></li>
+<% else %>
+	<% @tasks.each do |user| %>
+	  <li><a href="#">
+	    <%= user.name %><br>
+	  </a></li>
+	<% end %>
 <% end %>
