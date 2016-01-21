@@ -99,7 +99,7 @@ RSpec.describe TripsController, type: :controller do
         post :create, {trip: valid_attributes}, valid_session
         expect(response).to redirect_to(Trip.last)
       end
-      it "has the status saved" do
+      it 'has the status saved' do
         trip = Trip.create! valid_attributes
         expect(trip.status).to eq('saved')
       end
@@ -205,7 +205,6 @@ RSpec.describe TripsController, type: :controller do
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(trip_path(trip))
     end
-
   end
 
   describe 'POST #hand_in' do

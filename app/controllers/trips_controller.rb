@@ -8,7 +8,6 @@ class TripsController < ApplicationController
     redirect_to trips_path
   end
 
-
   def index
     @trips = Trip.where(user: current_user)
   end
