@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe EventsController, type: :controller do
   describe 'GET and POST' do
-    
     it 'should create an entry in UserEvent table' do
       user = FactoryGirl.create(:user)
       another_user = FactoryGirl.create(:user)

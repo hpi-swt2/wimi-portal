@@ -3,9 +3,32 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+signOutMyselfWarning = (locale, button) ->
+  if locale == 'de'
+    confirmation =  'Sie sind nicht mehr befugt, weitere Maßnahmen für das Projekt durchzuführen, nachdem Sie sich aus dem Projekt ausgetragen haben!'
+  else
+    confirmation = 'You will not be able to perform any more actions on the project after you are unenrolled!'
+  button.attr('data-confirm', confirmation)
+  return
 
+setInactiveWarning = (locale, button) ->
+  if locale == 'de'
+    confirmation = 'Das Projekt wird nun inaktiv geschalten!'
+  else
+    confirmation = 'The project will be set as inactive!'
+  button.attr('data-confirm', confirmation)
+  return confirm
 
-ready = ->
+sendLanguageWithButtonToCallback = (clickedButton, callbackWarning) ->
+  $.ajax '/users/language',
+    success: (res, status, xhr) ->
+      callbackWarning res["msg"], clickedButton
+      return
+    error: (xhr, status, err) ->
+      callbackWarning 'en', clickedButton
+      return
+
+typeahead = ->
   engine = new Bloodhound(
     datumTokenizer: (d) ->
       console.log d
@@ -19,36 +42,13 @@ ready = ->
     source: engine.ttAdapter()
   return
 
-$(document).ready ready
-$(document).on 'page:load', ready
-
-
 ready = ->
-  $('#SignOutMyself').click ->
-    if !@checked
-      url = document.URL
-      locale = url.split('?')[1].split('=')[1]
-      if locale == 'de'
-        alert 'Sie sind nicht mehr befugt, weitere Maßnahmen für das Projekt durchzuführen, nachdem Sie sich aus dem Projekt ausgetragen haben!'
-      else
-        alert 'You won\'t be able to perform any more actions on the project after you\'re unenrolled!'
-      return
-    return
-  return
-
-
-$(document).ready ready
-$(document).on 'page:load', ready
-
-ready = ->
-  $('#setInactiveButton').click ->
-    url = document.URL
-    locale = url.split('?')[1].split('=')[1]
-    if locale == 'de'
-      alert 'Das Projekt wird nun inaktiv geschalten!'
-    else
-      alert 'You\'re going to set the project status to inactive'
-    return
+  if $('#setInactiveButton').length
+    sendLanguageWithButtonToCallback $('#setInactiveButton'), setInactiveWarning
+  if $('#SignOutMyself').length
+    sendLanguageWithButtonToCallback $('#SignOutMyself'), signOutMyselfWarning
+  if $('.typeahead').length
+    typeahead()
   return
 
 $(document).ready ready

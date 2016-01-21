@@ -1,5 +1,5 @@
 class EventsController < ActionController::Base
-  before_action :set_event, only: [:hide ]
+  before_action :set_event, only: [:hide]
 
   def hide
     @event.hide_for(current_user)
