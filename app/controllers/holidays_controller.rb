@@ -30,7 +30,7 @@ class HolidaysController < ApplicationController
     parse_date
     if holiday_params['length'].blank?
       #disregard errors here, they should be handled in model validation later
-      params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date+1) rescue nil
+      params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date + 1) rescue nil
     end
     @holiday = Holiday.new(holiday_params.merge(user: current_user, last_modified: Date.today))
     if @holiday.save

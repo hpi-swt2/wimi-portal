@@ -52,8 +52,8 @@
       <td><%=l project.created_at %></td>
       <td>
         <% if can? :create, ProjectApplication %>
-          <% if project.project_applications.exists?(user_id: current_user.id) %>
-            <% project_application = project.project_applications.find_by(user_id: current_user.id) %>
+          <% if project.project_applications.exists?(user: current_user) %>
+            <% project_application = project.project_applications.find_by(user: current_user) %>
             <% case project_application.status %>
               <% when 'pending' %>
                 <%= link_to t('project_applications.index.cancel', default: t('helpers.links.cancel')),

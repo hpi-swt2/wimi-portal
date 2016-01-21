@@ -14,10 +14,10 @@
 #
 
 class EventChairApplication < Event
-    before_validation :set_defaults
+  before_validation :set_defaults
 
-    def set_defaults
-      self.seclevel = :admin
-      self.type = 'EventChairApplication'
-    end
+  def set_defaults
+    self.seclevel = :admin
+    self.type = 'EventChairApplication'
+  end
   end

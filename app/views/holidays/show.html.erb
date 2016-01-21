@@ -49,7 +49,7 @@
 <% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
   <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
 <% end %>
-<% if(can? :read, @holiday) && @holiday.status == 'applied' %>
+<% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
   <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
   <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary' %>
 <% end %>

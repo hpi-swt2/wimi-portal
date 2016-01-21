@@ -31,8 +31,8 @@ class Ability
     cannot :create, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
-    can :leave_project, Project do |project|    
-      project.users.include? user   
+    can :leave_project, Project do |project|
+      project.users.include? user
     end
     # can :accept_invitation, Project
     # can :manage, Stundenzettel
@@ -41,6 +41,8 @@ class Ability
   def initialize_wimi(user)
     initialize_user user
 
+    alias_action :create, :read, :update, :destroy, to: :crud
+
     can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
@@ -48,8 +50,8 @@ class Ability
     can :invite_user, Project do |project|
       project.users.include? user
     end
-    can :leave_project, Project do |project|    
-      project.users.include? user   
+    can :leave_project, Project do |project|
+      project.users.include? user
     end
     can :manage, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
@@ -61,7 +63,8 @@ class Ability
     can :create, Trip
     can :new, TravelExpenseReport
     can :create, TravelExpenseReport
-    can :manage, Holiday.select { |h| h.user == user }
+    can :crud, Holiday.select { |h| h.user == user }
+    can :file, Holiday.select { |h| h.user == user }
     can :manage, Trip.select { |t| t.user == user }
     can :manage, TravelExpenseReport.select { |t| t.user == user }
     can :see_holidays, User do |u|
@@ -73,7 +76,7 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-    
+
     can :read, Holiday do |h|
       user.is_representative?(h.user.chair)
       h.status != ("saved" || "declined")
@@ -81,6 +84,9 @@ class Ability
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
+    can :reject, Holiday.select {|h| h.user != user}
+    can :accept, Holiday.select {|h| h.user != user}
+
     can :read, Trip.select { |t| user.is_representative?(t.user.chair) }
     can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
 
@@ -96,8 +102,6 @@ class Ability
     can :requests_filtered,  Chair do |chair|
       user.is_representative?(chair)
     end
-    can :reject, Holiday
-    can :accept, Holiday
   end
 
   def initialize_admin(user)

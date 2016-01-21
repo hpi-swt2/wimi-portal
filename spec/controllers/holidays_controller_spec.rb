@@ -295,9 +295,10 @@ RSpec.describe HolidaysController, type: :controller do
       end
 
       it 'updates the status' do
-        FactoryGirl.create(:chair)
+        chair = FactoryGirl.create(:chair)
         ChairWimi.first.update_attributes(user: @user, representative: true)
-        holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
+        wimi = FactoryGirl.create(:wimi, chair: chair)
+        holiday = FactoryGirl.create(:holiday, user: wimi.user, status: 'applied')
         get :reject, {id: holiday.to_param}, valid_session
         holiday.reload
         expect(holiday.status).to eq('declined')
@@ -310,6 +311,15 @@ RSpec.describe HolidaysController, type: :controller do
         holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
         get :reject, {id: holiday.to_param}, valid_session
         expect(response).to redirect_to(root_path)
+      end
+
+      it 'does not change the status if representative wants to reject his own request' do
+        FactoryGirl.create(:chair)
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
+        get :reject, {id: holiday.to_param}, valid_session
+        holiday.reload
+        expect(holiday.status).to eq('applied')
       end
     end
   end
@@ -326,9 +336,10 @@ RSpec.describe HolidaysController, type: :controller do
       end
 
       it 'updates the status' do
-        FactoryGirl.create(:chair)
+        chair = FactoryGirl.create(:chair)
         ChairWimi.first.update_attributes(user: @user, representative: true)
-        holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
+        wimi = FactoryGirl.create(:wimi, chair: chair)
+        holiday = FactoryGirl.create(:holiday, user: wimi.user, status: 'applied')
         get :accept, {id: holiday.to_param}, valid_session
         holiday.reload
         expect(holiday.status).to eq('accepted')
@@ -341,6 +352,15 @@ RSpec.describe HolidaysController, type: :controller do
         holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
         get :accept, {id: holiday.to_param}, valid_session
         expect(response).to redirect_to(root_path)
+      end
+
+      it 'does not change the status if representative wants to accept his own request' do
+        FactoryGirl.create(:chair)
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
+        get :accept, {id: holiday.to_param}, valid_session
+        holiday.reload
+        expect(holiday.status).to eq('applied')
       end
     end
   end
