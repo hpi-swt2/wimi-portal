@@ -19,8 +19,8 @@ RSpec.describe 'holidays/new', type: :view do
 
     visit new_holiday_path
 
-    expect(page).to have_select 'holiday_replacement_user_id', with_options: [user2.name]
-    expect(page).not_to have_select 'holiday_replacement_user_id', with_options: [user3.name]
-    expect(page).not_to have_select 'holiday_replacement_user_id', with_options: [user4.name]
+    expect(page).to have_select 'replacement_selection', with_options: [user2.name]
+    expect(page).not_to have_select 'replacement_selection', with_options: [user3.name]
+    expect(page).not_to have_select 'replacement_selection', with_options: [user4.name]
   end
 end

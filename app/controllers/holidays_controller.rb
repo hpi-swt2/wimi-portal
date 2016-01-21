@@ -44,7 +44,9 @@ class HolidaysController < ApplicationController
   def update
     parse_date
     lengths = @holiday.calculate_length_difference(holiday_params['length'])
-    params['holiday']['length'] = lengths[:length_difference]
+    unless holiday_params['length'].to_i < 0
+      params['holiday']['length'] = lengths[:length_difference]
+    end
 
     if @holiday.update(holiday_params)
       flash[:success] = t('holiday.updated')

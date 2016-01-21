@@ -29,8 +29,8 @@ en:
         one: "Expense"
         other: "Expenses"
       holiday:
-        one: "Holiday"
-        other: "Holidays"
+        one: "Holiday Request"
+        other: "Holiday Requests"
       project:
         one: "Project"
         other: "Projects"

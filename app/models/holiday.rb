@@ -25,6 +25,7 @@ class Holiday < ActiveRecord::Base
   validates_date :start
   validates_date :end, on_or_after: :start
   validate :too_far_in_the_future?
+  validates :length, numericality: {greater_than_or_equal_to: 0}
   enum status: [:saved, :applied, :accepted, :declined]
 
   def duration

@@ -79,7 +79,7 @@ class Ability
 
     can :read, Holiday do |h|
       user.is_representative?(h.user.chair)
-      h.status != ("saved" || "declined")
+      h.status != ('saved' || 'declined')
     end
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair

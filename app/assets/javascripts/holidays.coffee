@@ -14,6 +14,9 @@ initDatepicker = (lang) ->
     language: lang
   $('a[rel=\'tooltip\']').tooltip()
 
+@toggle = (div,field,checkbox) ->
+  div.style.display = if checkbox.checked then "block" else "none"
+
 ready = ->
   if $('.dp').length
     sendLanguageToCallback initDatepicker
