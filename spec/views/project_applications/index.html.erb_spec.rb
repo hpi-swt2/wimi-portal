@@ -8,7 +8,7 @@ RSpec.describe 'project_applications/index', type: :view do
 
     sign_in @user
     assign(:project_applications, [
-      FactoryGirl.create(:project_application, user_id: @user.id, project_id: @project.id)
+      FactoryGirl.create(:project_application, user: @user, project: @project)
     ])
   end
 

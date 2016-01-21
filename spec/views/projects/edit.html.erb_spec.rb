@@ -4,9 +4,9 @@ RSpec.describe 'projects/edit', type: :view do
   before(:each) do
     @chair = FactoryGirl.create(:chair)
     @user = FactoryGirl.create(:user)
-    @representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id).user
+    @representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     @wimi_user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+    @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
   end
 
   it 'can be edited by a wimi' do
