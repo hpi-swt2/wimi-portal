@@ -68,10 +68,10 @@
 search 1
 
 <form id="live-search-form" method="get" action="<%= search_path %>">
-  <input id="search-box" name="q" type="text" class="form-control"/>
+  <input id="search-box-admin" name="q" type="text" class="form-control"/>
 </form>
 <div class="dropdown">
-   <ul id="search-results" class="dropdown-menu">
+   <ul id="search-results-admin" class="dropdown-menu">
    </ul>
 </div>
 
@@ -93,12 +93,17 @@ Search 2
 
 <script>
 
-
+var adminArray = [];
 var myDivElement = $( "#myDiv" );
 
 function divFunction(id, name){
-  myDivElement.append("<p>"+name+"</p>");
-  $("#live-search-results").hide();
+  //alert($.inArray(id,adminArray));
+  if($.inArray(id,adminArray) == -1) {
+    myDivElement.append("<p>"+name+"</p>");
+    adminArray.push(id);
+  }
+  $('#search-box-admin').val("");
+  $("#search-results-admin").hide();
 }
 
 //$("#big-search-box").focusout(function() {
@@ -106,16 +111,16 @@ function divFunction(id, name){
 //});
 
   
-$("#search-box").bind("keyup", function() {
+$("#search-box-admin").bind("keyup", function() {
   var form = $("#live-search-form");
   var url = "/tasks/live_search";
 
   var formData = form.serialize();
-  if (formData.length == 2) $("#search-results").hide();
+  if (formData.length == 2) $("#search-results-admin").hide();
   else {
     $.get(url, formData, function(html) {
-      $("#search-results").html(html);
-      $("#search-results").show();
+      $("#search-results-admin").html(html);
+      $("#search-results-admin").show();
     });
   }
 
