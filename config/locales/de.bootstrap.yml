@@ -23,6 +23,7 @@ de:
       new: "Neu"
       apply: "Bewerben"
       edit: "Bearbeiten"
+      leave: "Verlassen"
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
       show_pdf: "Als PDF anzeigen"
@@ -117,9 +118,14 @@ de:
       month: "Monat"
       number_of_hours: "Anzahl Std."
       handed_in_at: "eingereicht am"
-      status: "Status"
+      status_timesheet: "Status"
       action: "Aktion"
       inspect: "Ansehen"
+      status:
+        saved: "Gespeichert"
+        accepted: "Akzeptiert"
+        applied: "Eingereicht"
+        declined: "Abgelehnt"
     edit:
       user_data: "Profilbezogene Daten"
     edit_leave:
@@ -131,12 +137,16 @@ de:
     show:
       days: "Tag(e)"
       file: "Antrag einreichen"
+      reject: "Antrag ablehnen"
+      accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
       status:
-        saved: "Erstellt am "
+        saved: "Gespeichert am "
         accepted: "Akzeptiert am "
         applied: "Eingereicht am "
         declined: "Abgelehnt am "
+    form:
+      auto_calculation: "Für automatische Berechnung leer lassen."
   dashboard:
     index:
       notifications: "Benachrichtigungen"
@@ -206,7 +216,6 @@ de:
       at: "am"
       export_as_PDF: "als PDF exportieren"
       handed_in_at: "eingereicht am:"
-      status: "Status"
       add_signature: "Unterschrift hinzufügen"
       document_was: "Das Dokument wurde"
       not: "nicht"

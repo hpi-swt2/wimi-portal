@@ -27,6 +27,7 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+      leave: "Leave"
       edit_leave: "Edit Leave"
       show_details: "Show Details"
       show_pdf: "Show PDF"
@@ -126,9 +127,14 @@ en:
       month: "month"
       number_of_hours: "number of hours"
       handed_in_at: "handed in at"
-      status: "status"
+      status_timesheet: "status"
       action: "action"
       inspect: "inspect"
+      status:
+        saved: "Saved"
+        accepted: "Accepted"
+        applied: "Applied"
+        declined: "Rejected"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -140,12 +146,16 @@ en:
     show:
       days: "Day(s)"
       file: "File Request"
+      reject: "Reject Request"
+      accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
       status:
-        saved: "Saved at the "
-        accepted: "Accepted at the "
-        applied: "Applied at the "
-        declined: "Declined at the "
+        saved: "Saved at "
+        accepted: "Accepted at "
+        applied: "Applied at "
+        declined: "Rejected at "
+    form:
+      auto_calculation: "Leave blank for automatic calculation."
   dashboard:
     index:
       notifications: "Notifications"
@@ -215,7 +225,6 @@ en:
       at: "at"
       export_as_PDF: "export as PDF"
       handed_in_at: "handed in at:"
-      status: "status"
       add_signature: "Add signature"
       document_was: "Document was"
       not: "not"
@@ -228,10 +237,10 @@ en:
   date:
     formats:
       without_day: "%B %Y"
-      default: "%d-%m-%Y"
+      default: "%m/%d/%Y"
     order:
-      - :day
       - :month
+      - :day
       - :year
     month_names:
       - 
