@@ -8,7 +8,7 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to profile' do
-      expect(page).to have_link('Profile', href: url_for(current_user))
+      expect(page).to have_link('Profile', href: user_path(@user))
     end
 
     it 'should link to logout' do
@@ -34,8 +34,8 @@ RSpec.describe 'navigation bar', type: :view do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @wimi_user = FactoryGirl.create(:user)
-      @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
-      login_as @wimi
+      @user = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
+      login_as @user
       visit root_path
     end
 
@@ -51,11 +51,11 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for a hiwi' do
     it_behaves_like 'a registered User'
     before(:each) do
-      @hiwi = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:user)
       @chair = FactoryGirl.create(:chair)
       @project = FactoryGirl.create(:project, chair: @chair, status: true)
-      @hiwi.projects << @project
-      login_as @hiwi
+      @user.projects << @project
+      login_as @user
       visit root_path
     end
 
@@ -73,8 +73,8 @@ RSpec.describe 'navigation bar', type: :view do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @user = FactoryGirl.create(:user)
-      @representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
-      login_as @representative
+      FactoryGirl.create(:chair_representative, user: @user, chair: @chair)
+      login_as @user
       visit root_path
     end
 
@@ -96,8 +96,8 @@ RSpec.describe 'navigation bar', type: :view do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @user = FactoryGirl.create(:user)
-      @admin = FactoryGirl.create(:chair_wimi, user: @user, chair: @chair, admin: true).user
-      login_as @admin
+      FactoryGirl.create(:chair_wimi, user: @user, chair: @chair, admin: true)
+      login_as @user
       visit root_path
     end
 

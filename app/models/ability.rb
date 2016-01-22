@@ -17,6 +17,7 @@ class Ability
   end
 
   def initialize_user(_user)
+    can :see, Project
     can :index, Chair
     can :apply, Chair
     can :read, Project do |project|
@@ -28,6 +29,7 @@ class Ability
   end
 
   def initialize_hiwi(user)
+    can :see, Project
     cannot :create, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
@@ -72,7 +74,7 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-    
+
     can :read, Holiday.select { |h| user.is_representative?(h.user.chair) }
     can :read, Trip.select { |t| user.is_representative?(t.user.chair) }
     can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
@@ -89,11 +91,13 @@ class Ability
     can :requests_filtered,  Chair do |chair|
       user.is_representative?(chair)
     end
+    can :see,  Chair
     #can show, Holidays of chair members
   end
 
   def initialize_admin(user)
     initialize_wimi user
+
     can :read,              Chair do |chair|
       user.is_admin?(chair)
     end
@@ -109,14 +113,16 @@ class Ability
     can :withdraw_admin,    Chair do |chair|
       user.is_admin?(chair)
     end
+    can :see,  Chair
     #can :manage, own chair
     #can accept application from wimi to project
     #can remove wimis from project
   end
 
   def initialize_superadmin(_user)
-    can :manage,      Chair
-    cannot :show,    Chair
+    can     :manage,   Chair
+    cannot  :see,      Chair
+    cannot  :show,     Chair
     #assign representative/admin role to user
   end
 end
