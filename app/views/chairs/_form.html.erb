@@ -66,11 +66,14 @@
 
 <% end %>
 
+<div id="myDiv">Some Content</div>
 
 <form id="live-search-form" method="get" action="<%= search_path %>">
-  <input id="big-search-box" name="q" type="text"/>
+  <input id="big-search-box" name="q" type="text" class="form-control"/>
 
 </form>
+
+
 
 <div id="live-search-results1"></div>
 
@@ -80,32 +83,43 @@
     </ul>
   </div>
 
+<% @test.each do |t| %>
+  <%= t %>
+<% end %>
 
 <script>
 
-$("#big-search-box").focusout(function() {
-    $("#live-search-results").hide();
-  });
+var myDivElement = $( "#myDiv" );
+
+function divFunction(id, name){
+  //alert(myDivElement.html());
+  myDivElement.append("<p>"+name+"</p>");
+  $("#live-search-results").hide();
+}
+
+//$("#big-search-box").focusout(function() {
+//  $("#live-search-results").hide();
+//});
 
   
 $("#big-search-box").bind("keyup", function() {
-
-
-
-  $("#big-search-box").addClass("loading"); // show the spinner
+  //$("#big-search-box").addClass("loading"); // show the spinner
   var form = $("#live-search-form"); // grab the form wrapping the search bar.
 
   var url = "/tasks/live_search"; // live_search action.   
   var formData = form.serialize(); // grab the data in the form
   //formData.length);
-  $.get(url, formData, function(html) { // perform an AJAX get
+  if (formData.length == 2) {
+    $("#live-search-results").hide();
+  }
+  else {
+    $.get(url, formData, function(html) { // perform an AJAX get
+      //$("#big-search-box").removeClass("loading"); // hide the spinner
 
-    $("#big-search-box").removeClass("loading"); // hide the spinner
-
-    $("#live-search-results").html(html); // replace the "results" div with the results
-    $("#live-search-results").show();
-
-  });
+      $("#live-search-results").html(html); // replace the "results" div with the results
+      $("#live-search-results").show();
+    });
+  }
 
 }); 
 </script>

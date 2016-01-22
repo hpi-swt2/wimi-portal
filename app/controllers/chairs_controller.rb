@@ -43,6 +43,9 @@ class ChairsController < ApplicationController
 
   def edit
     @chair = Chair.find(params[:id])
+    @test = Array.new
+
+    @test << "hi"
   end
 
   def update
@@ -58,6 +61,7 @@ class ChairsController < ApplicationController
 
   def live_search
     @tasks = User.search(params[:q])
+
 
     #@tasks = Task.find_latest params[:q]
 

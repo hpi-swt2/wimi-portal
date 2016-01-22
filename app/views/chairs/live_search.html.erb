@@ -6,8 +6,8 @@
 	  </a></li>
 <% else %>
 	<% @tasks.each do |user| %>
-	  <li><a href="#">
-	    <%= user.name %><br>
+	  <li><a><div id="myDiv" onClick="divFunction(<%= user.id %>, '<%= user.name %>')">
+	    <%= user.name %><br></div>
 	  </a></li>
 	<% end %>
 <% end %>
