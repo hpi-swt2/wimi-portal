@@ -33,7 +33,7 @@ class Holiday < ActiveRecord::Base
   end
 
   def calculate_length_difference(length_param)
-    old_length = length.blank? ? 0 : length
+    old_length = length_param.blank? ? 0 : length
     new_length = length_param
     unless new_length.blank?
       new_length = length_param
