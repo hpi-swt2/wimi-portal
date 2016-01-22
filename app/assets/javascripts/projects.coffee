@@ -47,14 +47,40 @@ typeahead = ->
 inviteInitUser = ->
   count = 0
   $('body').on 'click', '#AddOneMoreUser', ->
+    email = $('#invitations_email').val()
+    $('#invitations_email').val('')
+
+    div = document.createElement("div")
+    div.id = 'user' + count
+
+    deleteButton = document.createElement("input")
+    deleteButton.type = 'button'
+    deleteButton.class = 'btn btn-danger'
+    deleteButton.value = 'Remove Invitation'
+    deleteButton.id = 'delete' + count
+    deleteButton.name = 'deleteInvitationButton' + count
+
+    newInvitation = document.createElement("input")
+    newInvitation.value = email
+    newInvitation.name = 'invitations[' + count + ']'
+
+    div.appendChild(newInvitation)
+    div.appendChild(deleteButton)
+
+    list = document.getElementById("invitedUser")
+    list.appendChild(div)
+    console.log count, 'count'
     count += 1
-    value = $('#project_invitations_attributes_0_email').val()
-    $('#project_invitations_attributes_0_email').val('')
-    id = '#project_invitations_attributes_' + count + '_email'
-    setTimeout (->
-      $(id).val( value ).addClass("typeahead form-control email-invite")
-      return
-    ), 5
+
+    $(deleteButton).on 'click',  ->
+      deleteButtonCount = $("input[type=button][clicked=true]").prevObject[0].activeElement.id
+      deleteButtonCount = deleteButtonCount.split('delete')[1]
+
+      list = document.getElementById("invitedUser")
+      elem = document.getElementById("user" + deleteButtonCount)
+      list.removeChild(elem)
+
+
 
 
 ready = ->

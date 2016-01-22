@@ -25,9 +25,9 @@ class ProjectsController < ApplicationController
       @project.update(chair: current_user.chair)
       current_user.projects << @project
       flash[:success] = 'Project was successfully created.'
-      params[:project][:invitations_attributes].values.each do |field_id|
-        user = User.find_by_email(field_id[:email])
-        if not (user.nil? or Invitation.where(project: @project, user: user).size > 0 or @project.users.include? user)
+      params[:invitations].values.each do |email|
+        user = User.find_by_email(email)
+        unless user.nil? or Invitation.where(project: @project, user: user).size > 0 or @project.users.include? user
           @project.invite_user user
         end
       end
