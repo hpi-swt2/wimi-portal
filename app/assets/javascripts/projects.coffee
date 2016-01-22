@@ -55,7 +55,7 @@ inviteInitUser = ->
 
     deleteButton = document.createElement("input")
     deleteButton.type = 'button'
-    deleteButton.class = 'btn btn-danger'
+#    deleteButton.addClass("btn btn-danger")
     deleteButton.value = 'Remove Invitation'
     deleteButton.id = 'delete' + count
     deleteButton.name = 'deleteInvitationButton' + count
@@ -69,16 +69,19 @@ inviteInitUser = ->
 
     list = document.getElementById("invitedUser")
     list.appendChild(div)
-    console.log count, 'count'
     count += 1
 
-    $(deleteButton).on 'click',  ->
-      deleteButtonCount = $("input[type=button][clicked=true]").prevObject[0].activeElement.id
-      deleteButtonCount = deleteButtonCount.split('delete')[1]
+    $(deleteButton).on 'click',  -> deleteInvitation()
 
-      list = document.getElementById("invitedUser")
-      elem = document.getElementById("user" + deleteButtonCount)
-      list.removeChild(elem)
+
+deleteInvitation = ->
+  deleteButtonCount = $("input[type=button][clicked=true]").prevObject[0].activeElement.id
+  deleteButtonCount = deleteButtonCount.split('delete')[1]
+
+  list = document.getElementById("invitedUser")
+  elem = document.getElementById("user" + deleteButtonCount)
+  list.removeChild(elem)
+
 
 
 
