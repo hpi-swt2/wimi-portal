@@ -145,7 +145,7 @@ en:
       show_holiday_requests: "Show holiday requests"
       show_expense_requests: "Show expense requests"
       show_trip_requests: "Show trip requests"
-  travel_expense_reports:
+  expenses:
     show:
       inland: "Inland Travel"
       country: "Country"
@@ -205,7 +205,7 @@ en:
     event_request:
       holiday: "%{trigger} created a holiday request."
       trip: "%{trigger} created a trip request."
-      travel_expense_report: "%{trigger} created a travel expense request."
+      expense: "%{trigger} created a travel expense request."
   chairs:
     navigation:
       not_authorized: "You are not allowed to do this action for this chair."

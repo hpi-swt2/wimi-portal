@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   resources :work_days
   resources :time_sheets, only: [:edit, :update, :delete]
-  resources :travel_expense_reports
+  resources :expenses
   resources :trips do
     member do
       get 'download'
@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   # status 'saved' -> status 'applied'
   post 'holidays/:id/hand_in', to: 'holidays#hand_in', as: 'hand_in_holiday'
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'
-  post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
+  post 'expenses/:id/hand_in', to: 'expenses#hand_in', as: 'hand_in_expense'
 
   devise_for :users
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160116122005) do
+ActiveRecord::Schema.define(version: 20160122145102) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -46,6 +46,42 @@ ActiveRecord::Schema.define(version: 20160116122005) do
   add_index "events", ["chair_id"], name: "index_events_on_chair_id"
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
+
+  create_table "expense_items", force: :cascade do |t|
+    t.date     "date"
+    t.boolean  "breakfast"
+    t.boolean  "lunch"
+    t.boolean  "dinner"
+    t.integer  "expense_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "annotation"
+  end
+
+  add_index "expense_items", ["expense_id"], name: "index_expense_items_on_expense_id"
+
+  create_table "expenses", force: :cascade do |t|
+    t.boolean  "inland"
+    t.string   "country"
+    t.string   "location_from"
+    t.string   "location_via"
+    t.string   "location_to"
+    t.text     "reason"
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.boolean  "car"
+    t.boolean  "public_transport"
+    t.boolean  "vehicle_advance"
+    t.boolean  "hotel"
+    t.integer  "status",           default: 0
+    t.integer  "general_advance"
+    t.integer  "user_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "signature"
+  end
+
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
@@ -112,42 +148,6 @@ ActiveRecord::Schema.define(version: 20160116122005) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
-
-  create_table "travel_expense_report_items", force: :cascade do |t|
-    t.date     "date"
-    t.boolean  "breakfast"
-    t.boolean  "lunch"
-    t.boolean  "dinner"
-    t.integer  "travel_expense_report_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.text     "annotation"
-  end
-
-  add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"
-
-  create_table "travel_expense_reports", force: :cascade do |t|
-    t.boolean  "inland"
-    t.string   "country"
-    t.string   "location_from"
-    t.string   "location_via"
-    t.string   "location_to"
-    t.text     "reason"
-    t.datetime "date_start"
-    t.datetime "date_end"
-    t.boolean  "car"
-    t.boolean  "public_transport"
-    t.boolean  "vehicle_advance"
-    t.boolean  "hotel"
-    t.integer  "status",           default: 0
-    t.integer  "general_advance"
-    t.integer  "user_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "signature"
-  end
-
-  add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
 
   create_table "trip_datespans", force: :cascade do |t|
     t.date     "start_date"

@@ -89,7 +89,7 @@ en:
         start_date: "Start at"
         end_date: "End at"
         days_abroad: "Days abroad"
-      travel_expense_report:
+      expense:
         inland: "Inland Travel"
         country: "Country"
         location_from: "Starting in"
@@ -105,7 +105,7 @@ en:
         hotel: "Hotel"
         general_advance: "Advance"
         signature: "Add signature?"
-      travel_expense_report_item:
+      expense_item:
         date: "Date"
         breakfast: "Breakfast"
         lunch: "Lunch"
@@ -141,7 +141,7 @@ en:
         not_member_of_chair: "You are not a member of a chair."
     errors:
       models:
-        travel_expense_report:
+        expense:
           attributes:
             location_from:
               blank: "cannot be blank."
@@ -229,5 +229,5 @@ en:
   not_enough_leave: "Not enough leave left"
   holiday:
     applied: "Holiday is already applied"
-  travel_expense_report:
+  expense:
     applied: "Travel expense request is already applied"
