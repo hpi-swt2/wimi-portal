@@ -80,35 +80,32 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-
     can :read, Holiday.select { |h| user.is_representative?(h.user.chair) }
     can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
-
-    can :read,      Chair do |chair|
+    can :read, Chair do |chair|
       user.is_representative?(chair)
     end
-    can :requests,  Chair do |chair|
+    can :requests, Chair do |chair|
       user.is_representative?(chair)
     end
     can :read, Trip do |t|
       user.is_representative?(t.user.chair)
-      t.status != ("saved" || "declined")
+      t.status != ('saved' || 'declined')
     end
     can :see_trips, User do |chair_user|
       chair_user.chair == user.chair
     end
     can :edit_trip, Trip do |trip|
-      trip.status != "saved"
+      trip.status != 'saved'
     end
-    can :add_requests,  Chair do |chair|
+    can :add_requests, Chair do |chair|
       user.is_representative?(chair)
     end
-    can :requests_filtered,  Chair do |chair|
+    can :requests_filtered, Chair do |chair|
       user.is_representative?(chair)
     end
     can :reject, Trip
     can :accept, Trip
-
   end
 
   def initialize_admin(user)

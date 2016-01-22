@@ -7,10 +7,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-md-6">
         <h4><%= t('.user_data')%></h4>
       </div>
-      <div class="col-sm-6 text text-right">
+      <div class="col-md-6 text text-right">
         <% if @user == current_user %>
           <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-primary' %>
         <% end %>
@@ -114,10 +114,10 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-md-6">
             <h4><%= t('.business_trips') %></h4>
           </div>
-          <div class="col-sm-6 text text-right">
+          <div class="col-md-6 text text-right">
             <% if @user == current_user %>
               <%=link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %>
             <% end %>
@@ -140,8 +140,8 @@
               <% @datespans.each do |span| %>
                 <tr>
                   <td><%= Trip.find(span.trip_id).destination %></td>
-                  <td><%= span.start_date %></td>
-                  <td><%= span.end_date %></td>
+                  <td><%=l span.start_date %></td>
+                  <td><%=l span.end_date %></td>
                   <td><%= Trip.find(span.trip_id).status %></td>
                   <td>
                     <%= link_to t("helpers.links.show_details"),

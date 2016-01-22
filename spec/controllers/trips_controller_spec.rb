@@ -21,8 +21,8 @@ require 'rails_helper'
 RSpec.describe TripsController, type: :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @chair = FactoryGirl.create(:chair)
-    FactoryGirl.create(:wimi, chair: @chair, user: @user)
+    chair = FactoryGirl.create(:chair)
+    FactoryGirl.create(:wimi, chair: chair, user: @user)
     login_with @user
   end
 
@@ -238,6 +238,14 @@ RSpec.describe TripsController, type: :controller do
         expect(response).to redirect_to(@user)
       end
 
+      it 'redirects to root path if status is not applied' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'saved')
+        login_with(@user)
+        get :accept, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(root_path)
+      end
+
       it 'updates the status' do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
@@ -271,6 +279,14 @@ RSpec.describe TripsController, type: :controller do
         expect(response).to redirect_to(@user)
       end
 
+      it 'redirects to root path if status is not applied' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'saved')
+        login_with(@user)
+        get :reject, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(root_path)
+      end
+
       it 'updates the status' do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
@@ -291,9 +307,4 @@ RSpec.describe TripsController, type: :controller do
       end
     end
   end
-
-
-
-
-
 end

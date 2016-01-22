@@ -8,23 +8,23 @@
 <strong><%= I18n.t('chairs.applications.long_plural') %>:</strong>
 <br>
 <% if @requests.empty? %>
-    <p>
-      <%= I18n.t('chairs.applications.no_applications') %>
-    </p>
+  <p>
+    <%= I18n.t('chairs.applications.no_applications') %>
+  </p>
 <% else %>
-    <table class="table table-striped">
-      <% @requests.each do |request| %>
-          <tr>
-            <td><%= request.user.name %></td>
-            <td>
-              <% if current_user.is_admin? %>
-                  <%= link_to I18n.t('chairs.applications.accept'), chairs_accept_path(id: @chair, request: request), method: :post, class: 'btn btn-default btn-xs' %>
-                  <%= link_to I18n.t('chairs.applications.decline'), chairs_remove_user_path(id: @chair, request: request), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-default btn-xs' %>
-              <% end %>
-            </td>
-          </tr>
-      <% end %>
-    </table>
+  <table class="table table-striped">
+    <% @requests.each do |request| %>
+      <tr>
+        <td><%= request.user.name %></td>
+        <td>
+          <% if current_user.is_admin? %>
+            <%= link_to I18n.t('chairs.applications.accept'), chairs_accept_path(id: @chair, request: request), method: :post, class: 'btn btn-default btn-xs' %>
+            <%= link_to I18n.t('chairs.applications.decline'), chairs_remove_user_path(id: @chair, request: request), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-default btn-xs' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 <% end %>
 
 <strong><%= I18n.t('roles.wimi_long_plural') %>:</strong>
@@ -34,28 +34,27 @@
     <tr>
       <td><%= link_to wimi.name, user_path(wimi) %></td>
       <td>
-        <% if current_user.is_representative?(@chair) %><%= I18n.t('chairs.navigation.show_requests') %>
+        <% if current_user.is_representative?(@chair) %>
+          <%= I18n.t('chairs.navigation.show_requests') %>
         <% end %></td>
       <td>
-
         <% if wimi.is_admin?(@chair) %><%= I18n.t('roles.admin_long') %>
           <% if current_user.is_admin?(@chair) && current_user != wimi %>
             <%= link_to I18n.t('chairs.applications.withdraw_rights'), chairs_withdraw_admin_path(id: @chair, request: wimi.chair_wimi), method: :post, class: 'btn btn-danger btn-xs' %>
-            <% end %>
+          <% end %>
           <% elsif wimi.is_representative?(@chair) %>
             <%= I18n.t('roles.chair_representative') %>
           <% else %>
-            <% if current_user.is_admin?(@chair) %><%= link_to I18n.t('chairs.applications.grant_rights'), chairs_set_admin_path(id: @chair, request: wimi.chair_wimi), method: :post, class: 'btn btn-success btn-xs' %>
-            <% end %>
+          <% if current_user.is_admin?(@chair) %><%= link_to I18n.t('chairs.applications.grant_rights'), chairs_set_admin_path(id: @chair, request: wimi.chair_wimi), method: :post, class: 'btn btn-success btn-xs' %>
           <% end %>
-
-        </td>
-        <td>
-          <% if wimi.id != current_user.id && current_user.is_admin?(@chair) && !wimi.is_representative?(@chair) %>
-            <%= link_to I18n.t('chairs.applications.remove_from_chair'), chairs_remove_user_path(id: @chair, request: wimi.chair_wimi), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
-          <% end %>
-        </td>
-      </tr>
+        <% end %>
+      </td>
+      <td>
+        <% if wimi.id != current_user.id && current_user.is_admin?(@chair) && !wimi.is_representative?(@chair) %>
+          <%= link_to I18n.t('chairs.applications.remove_from_chair'), chairs_remove_user_path(id: @chair, request: wimi.chair_wimi), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
+        <% end %>
+      </td>
+    </tr>
   <% end %>
 </table>
 
@@ -63,13 +62,13 @@
 <br>
 <table class="table table-striped">
   <% @chair.hiwis.each do |hiwi| %>
-      <tr>
-        <td><%= hiwi.name %></td>
-        <td>
-          <% if current_user.chair_wimi.representative %>
-              <%= I18n.t('chairs.navigation.show_timesheets') %>
-          <% end %>
-        </td>
-      </tr>
+    <tr>
+      <td><%= hiwi.name %></td>
+      <td>
+        <% if current_user.chair_wimi.representative %>
+          <%= I18n.t('chairs.navigation.show_timesheets') %>
+        <% end %>
+      </td>
+    </tr>
   <% end %>
 </table>
