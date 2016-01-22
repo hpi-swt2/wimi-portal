@@ -65,23 +65,27 @@
                 chairs_path, class: 'btn btn-default' %>
 
 <% end %>
+search 1
 
+<form id="live-search-form" method="get" action="<%= search_path %>">
+  <input id="search-box" name="q" type="text" class="form-control"/>
+</form>
+<div class="dropdown">
+   <ul id="search-results" class="dropdown-menu">
+   </ul>
+</div>
+
+
+Search 2
 <div id="myDiv">Some Content</div>
 
 <form id="live-search-form" method="get" action="<%= search_path %>">
-  <input id="big-search-box" name="q" type="text" class="form-control"/>
-
+  <input id="search-box" name="q" type="text" class="form-control"/>
 </form>
-
-
-
-<div id="live-search-results1"></div>
-
-
-  <div class="dropdown">
-    <ul id="live-search-results" class="dropdown-menu">
-    </ul>
-  </div>
+<div class="dropdown">
+   <ul id="search-results" class="dropdown-menu">
+   </ul>
+</div>
 
 <% @test.each do |t| %>
   <%= t %>
@@ -89,10 +93,10 @@
 
 <script>
 
+
 var myDivElement = $( "#myDiv" );
 
 function divFunction(id, name){
-  //alert(myDivElement.html());
   myDivElement.append("<p>"+name+"</p>");
   $("#live-search-results").hide();
 }
@@ -102,22 +106,16 @@ function divFunction(id, name){
 //});
 
   
-$("#big-search-box").bind("keyup", function() {
-  //$("#big-search-box").addClass("loading"); // show the spinner
-  var form = $("#live-search-form"); // grab the form wrapping the search bar.
+$("#search-box").bind("keyup", function() {
+  var form = $("#live-search-form");
+  var url = "/tasks/live_search";
 
-  var url = "/tasks/live_search"; // live_search action.   
-  var formData = form.serialize(); // grab the data in the form
-  //formData.length);
-  if (formData.length == 2) {
-    $("#live-search-results").hide();
-  }
+  var formData = form.serialize();
+  if (formData.length == 2) $("#search-results").hide();
   else {
-    $.get(url, formData, function(html) { // perform an AJAX get
-      //$("#big-search-box").removeClass("loading"); // hide the spinner
-
-      $("#live-search-results").html(html); // replace the "results" div with the results
-      $("#live-search-results").show();
+    $.get(url, formData, function(html) {
+      $("#search-results").html(html);
+      $("#search-results").show();
     });
   }
 
