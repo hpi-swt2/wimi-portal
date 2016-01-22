@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: travel_expense_reports
+# Table name: expenses
 #
 #  id               :integer          not null, primary key
 #  inland           :boolean
@@ -23,7 +23,7 @@
 #
 
 FactoryGirl.define do
-  factory :travel_expense_report do
+  factory :expense do
     inland true
     country 'Germany'
     location_from 'Potsdam'
@@ -40,11 +40,11 @@ FactoryGirl.define do
     signature true
     user
     after(:create) do |report|
-      report.travel_expense_report_items << FactoryGirl.build(:travel_expense_report_item, travel_expense_report: report)
+      report.expense_items << FactoryGirl.build(:expense_item, expense: report)
     end
   end
 
-  factory :travel_expense_report_invalid, class: TravelExpenseReport do
+  factory :expense_invalid, class: Expense do
     inland true
     country 'Germany'
     location_from 'Potsdam'
@@ -63,7 +63,7 @@ FactoryGirl.define do
     to_create {|i| i.save(validate: false)}
   end
 
-  factory :travel_expense_report_changed, parent: :travel_expense_report do
+  factory :expense_changed, parent: :expense do
     location_from 'Berlin'
     general_advance 1337
     car false
@@ -72,16 +72,16 @@ FactoryGirl.define do
     date_start 5.days.ago
   end
 
-  factory :travel_expense_report_blank_name, parent: :travel_expense_report do
+  factory :expense_blank_name, parent: :expense do
     first_name ''
   end
 
-  factory :travel_expense_report_wrong_dates, parent: :travel_expense_report do
+  factory :expense_wrong_dates, parent: :expense do
     date_start DateTime.now
     date_end 8.days.ago
   end
 
-  factory :travel_expense_report_negative_advance, parent: :travel_expense_report do
+  factory :expense_negative_advance, parent: :expense do
     general_advance -10
   end
 end

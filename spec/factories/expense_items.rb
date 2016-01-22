@@ -1,18 +1,24 @@
 # == Schema Information
 #
-# Table name: travel_expense_report_items
+# Table name: expense_items
 #
 #  id                       :integer          not null, primary key
 #  date                     :date
 #  breakfast                :boolean
 #  lunch                    :boolean
 #  dinner                   :boolean
-#  travel_expense_report_id :integer
+#  expense_id :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  annotation               :text
 #
 
-class TravelExpenseReportItem < ActiveRecord::Base
-  belongs_to :travel_expense_report
+FactoryGirl.define do
+  factory :expense_item do
+    date '2015-12-03'
+    breakfast false
+    lunch true
+    dinner false
+    expense 1
+  end
 end

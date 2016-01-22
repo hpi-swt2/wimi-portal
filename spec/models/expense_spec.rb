@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: travel_expense_reports
+# Table name: expenses
 #
 #  id               :integer          not null, primary key
 #  inland           :boolean
@@ -24,14 +24,14 @@
 
 require 'rails_helper'
 
-RSpec.describe TravelExpenseReport, type: :model do
+RSpec.describe Expense, type: :model do
   before :each do
-    @report = FactoryGirl.create(:travel_expense_report, user: FactoryGirl.create(:user))
+    @report = FactoryGirl.create(:expense, user: FactoryGirl.create(:user))
   end
 
   context 'with valid input' do
     it 'creates a valid report' do
-      expect(TravelExpenseReport.first).to eq(@report)
+      expect(Expense.first).to eq(@report)
     end
     it 'has access to name of the user' do
       expect(@report.first_name).to eq(User.first.first_name)
@@ -44,10 +44,10 @@ RSpec.describe TravelExpenseReport, type: :model do
 
   context 'with invalid input' do
     it 'rejects wrong dates' do
-      expect(FactoryGirl.build(:travel_expense_report_wrong_dates).valid?).to be false
+      expect(FactoryGirl.build(:expense_wrong_dates).valid?).to be false
     end
     it 'rejects negative advances' do
-      expect(FactoryGirl.build(:travel_expense_report_negative_advance).valid?).to be false
+      expect(FactoryGirl.build(:expense_negative_advance).valid?).to be false
     end
   end
 end

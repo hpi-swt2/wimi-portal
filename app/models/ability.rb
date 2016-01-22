@@ -60,11 +60,11 @@ class Ability
     can :create, Holiday
     can :new, Trip
     can :create, Trip
-    can :new, TravelExpenseReport
-    can :create, TravelExpenseReport
+    can :new, Expense
+    can :create, Expense
     can :manage, Holiday.select { |h| h.user == user }
     can :manage, Trip.select { |t| t.user == user }
-    can :manage, TravelExpenseReport.select { |t| t.user == user }
+    can :manage, Expense.select { |t| t.user == user }
 
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
@@ -75,7 +75,7 @@ class Ability
 
     can :read, Holiday.select { |h| user.is_representative?(h.user.chair) }
     can :read, Trip.select { |t| user.is_representative?(t.user.chair) }
-    can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
+    can :read, Expense.select { |t| user.is_representative?(t.user.chair) }
 
     can :read,      Chair do |chair|
       user.is_representative?(chair)
