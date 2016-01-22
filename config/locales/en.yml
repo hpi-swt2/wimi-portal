@@ -29,8 +29,8 @@ en:
         one: "Expense"
         other: "Expenses"
       holiday:
-        one: "Holiday"
-        other: "Holidays"
+        one: "Holiday Request"
+        other: "Holiday Requests"
       project:
         one: "Project"
         other: "Projects"
@@ -133,6 +133,7 @@ en:
         street: "Street"
         personnel_number: "Staff Number"
         language: "Language"
+        not_member_of_chair: "You are not a member of a chair."
       request:
         name: "Name"
         type: "Type"
@@ -152,6 +153,7 @@ en:
               not_a_number: "has to be a whole number."
               greater_than_or_equal_to: "must not be negative"
         holiday:
+          too_far_in_the_future: ' is too far in the future.'
           attributes:
             start:
               blank: "cannot be blank."
@@ -162,6 +164,14 @@ en:
   links:
     search: 'Search'
     submit: 'Submit'
+  holiday:
+    not_authorized: "You're not authorized to see this holiday request."
+    not_enough_leave: 'Not enough leave left!'
+    destroyed: 'Holiday was successfully destroyed.'
+    updated: 'Holiday was successfully updated.'
+    created: 'Holiday was successfully created.'
+    something_wrong: 'Something went wrong.'
+    applied: "Holiday is already applied"
   project:
     filter_chair: 'Filter for chair'
     invite_someone_to_project: 'Invite someone to the project'
@@ -176,9 +186,13 @@ en:
       invitation_declined: 'You declined the invitation.'
   date:
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    formats:
+      default: "%m/%d/%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
   time:
     formats:
-      default: "%d-%m-%Y"
+      default: "%m/%d/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
   chair:
@@ -214,6 +228,7 @@ en:
       trip_request: "Trip request"
   "true": "yes"
   "false": "no"
+  not_enough_leave: 'Not enough leave left'
   status:
     saved: "saved"
     applied: "applied"
@@ -227,7 +242,5 @@ en:
     apply: "Trip was successfully applied"
   not_authorized: "You're not authorized to do that action."
   not_enough_leave: "Not enough leave left"
-  holiday:
-    applied: "Holiday is already applied"
   travel_expense_report:
     applied: "Travel expense request is already applied"

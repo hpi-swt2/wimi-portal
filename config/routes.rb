@@ -37,8 +37,17 @@ Rails.application.routes.draw do
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
-  resources :holidays
-
+  resources :holidays do
+    member do
+      get 'file'
+      get 'accept'
+      get 'reject'
+    end
+    get 'holidays/file', to: 'holidays#file'
+    get 'holidays/accept', to: 'holidays#accept'
+    get 'holidays/reject', to: 'holidays#reject'
+  end
+  resources :expenses
   resources :work_days
   resources :time_sheets, only: [:edit, :update, :delete]
   resources :travel_expense_reports
@@ -66,7 +75,9 @@ Rails.application.routes.draw do
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   # status 'saved' -> status 'applied'
-  post 'holidays/:id/hand_in', to: 'holidays#hand_in', as: 'hand_in_holiday'
+  #post 'holidays/:id/file', to: 'holidays#file', as: 'file_holiday'
+  #post 'holidays/:id/reject', to: 'holidays#reject', as: 'reject_holiday'
+  #post 'holidays/:id/accept', to: 'holidays#accept', as: 'accept_holiday'
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'
   post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
 

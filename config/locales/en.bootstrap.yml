@@ -119,6 +119,11 @@ en:
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
       days: "Day(s)"
+      status:
+        saved: "Saved"
+        accepted: "Accepted"
+        applied: "Applied"
+        declined: "Rejected"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -130,12 +135,16 @@ en:
     show:
       days: "Day(s)"
       file: "File Request"
+      reject: "Reject Request"
+      accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
       status:
-        saved: "Saved at the "
-        accepted: "Accepted at the "
-        applied: "Applied at the "
-        declined: "Declined at the "
+        saved: "Saved at "
+        accepted: "Accepted at "
+        applied: "Applied at "
+        declined: "Rejected at "
+    form:
+      auto_calculation: "Leave blank for automatic calculation."
   dashboard:
     index:
       notifications: "Notifications"
@@ -174,10 +183,10 @@ en:
       created_at: "Created at"
   date:
     formats:
-      default: "%d-%m-%Y"
+      default: "%m/%d/%Y"
     order:
-      - :day
       - :month
+      - :day
       - :year
     month_names:
       - 
