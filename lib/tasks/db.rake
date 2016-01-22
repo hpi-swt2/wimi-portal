@@ -31,12 +31,12 @@ namespace :db do
     User.create!(email: 'test@test.de',
       first_name: 'Max',
       last_name: 'Mustermann')
-    Holiday.create!(start: Date.today-1,
+    Holiday.create!(start: Date.today - 1,
       end: Date.today,
       user_id: epic_admin.id)
     Holiday.create!(status: :declined,
-      start: Date.today-7,
-      end: Date.today-6,
+      start: Date.today - 7,
+      end: Date.today - 6,
       user_id: epic_representative)
     WorkDay.create!(
       date: '2015-11-18',
@@ -86,7 +86,7 @@ namespace :db do
       inland: true,
       country: 'Germany',
       location_from: 'Potsdam',
-      location_to: 'München',
+      location_to: 'Munich',
       reason: 'Hana Things',
       date_start: 8.days.ago,
       date_end: DateTime.now,
