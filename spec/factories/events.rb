@@ -4,5 +4,5 @@ FactoryGirl.define do
     seclevel :admin
     type 'EventUserChair'
     chair {FactoryGirl.create(:chair)}
-    end
+  end
 end

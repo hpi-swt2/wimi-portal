@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_action :user_exists, :set_user
+  before_action :user_exists, :set_user, except: :language
 
   def show
     @datespans = @user.get_desc_sorted_datespans
@@ -16,6 +16,10 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def language
+    render json: {msg: current_user.language}
   end
 
   private

@@ -80,7 +80,7 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-    
+
     can :read, Holiday.select { |h| user.is_representative?(h.user.chair) }
     can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
 

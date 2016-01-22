@@ -47,7 +47,6 @@ RSpec.describe Project, type: :model do
     expect(@project.wimis.size).to eq(2)
   end
 
-
   it 'lists all hiwis of a project' do
     expect(@project.hiwis.size).to eq(2)
   end
