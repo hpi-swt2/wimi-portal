@@ -27,7 +27,7 @@
         <% if (chair = current_user.chair) != nil %>
             <%= chair.name %>
         <% else %>
-            <%= I18n.t('activerecord.attributes.request.not_member_of_chair') %>
+            <%= t('activerecord.attributes.request.not_member_of_chair') %>
         <% end %>
       </p>
       <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= current_user.personnel_number %></p>
@@ -37,7 +37,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><%= t 'users.show.work_times' %></h4>
+      <h4><%= t '.work_times' %></h4>
     </div>
     <div class="panel-body">
       <% @user.years_and_months_of_existence.each do |month| %>
