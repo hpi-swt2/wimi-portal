@@ -26,7 +26,7 @@ class WorkDaysController < ApplicationController
 
   def create
     @work_day = WorkDay.new(work_day_params)
-    @work_day.user_id = current_user.id
+    @work_day.user = current_user
 
     if @work_day.save
       flash[:success] = 'Work Day was successfully created.'
@@ -53,16 +53,17 @@ class WorkDaysController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_work_day
-      @work_day = WorkDay.find(params[:id])
-    end
 
-    def work_day_params
-      params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id, :project_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_work_day
+    @work_day = WorkDay.find(params[:id])
+  end
 
-    def work_days_month_path
-        work_days_path(month: @work_day.date.month, year: @work_day.date.year)
-    end
+  def work_day_params
+    params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id, :project_id)
+  end
+
+  def work_days_month_path
+    work_days_path(month: @work_day.date.month, year: @work_day.date.year)
+  end
 end

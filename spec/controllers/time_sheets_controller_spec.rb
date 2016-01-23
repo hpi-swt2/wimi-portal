@@ -8,24 +8,23 @@ RSpec.describe TimeSheetsController, type: :controller do
   end
 
   let(:valid_attributes) {
-    { month: 1, year: 2015, salary: 100, salary_is_per_month: true,
-      workload: 100, workload_is_per_month: true, user_id: @user.id,
-      project_id: @project.id }
+    {month: 1, year: 2015, salary: 100, salary_is_per_month: true,
+      workload: 100, workload_is_per_month: true, user: @user,
+      project: @project}
   }
 
   let(:invalid_attributes) {
-    { month:1, year: 2015, salary: -100, salary_is_per_month: false,
-      workload: 100, workload_is_per_month: nil, user_id: @user.id,
-      project_id: @project.id }
+    {month: 1, year: 2015, salary: -100, salary_is_per_month: false,
+      workload: 100, workload_is_per_month: nil, user: @user,
+      project: @project}
   }
-
 
   let(:valid_session) { {} }
 
-  describe "GET #edit" do
-    it "assigns the requested time_sheet as @time_sheet" do
+  describe 'GET #edit' do
+    it 'assigns the requested time_sheet as @time_sheet' do
       time_sheet = TimeSheet.create! valid_attributes
-      get :edit, {:id => time_sheet.to_param}, valid_session
+      get :edit, {id: time_sheet.to_param}, valid_session
       expect(assigns(:time_sheet)).to eq(time_sheet)
     end
   end
@@ -33,9 +32,9 @@ RSpec.describe TimeSheetsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { month: 1, year: 2015, salary: 100, salary_is_per_month: false,
-          workload: 200, workload_is_per_month: true, user_id: @user.id,
-          project_id: @project.id }
+        {month: 1, year: 2015, salary: 100, salary_is_per_month: false,
+          workload: 200, workload_is_per_month: true, user: @user,
+          project: @project}
       }
 
       it 'updates the requested time_sheet' do

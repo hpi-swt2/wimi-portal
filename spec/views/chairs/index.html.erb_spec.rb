@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "chairs/index.html.erb", type: :view do
+RSpec.describe 'chairs/index.html.erb', type: :view do
   before :each do
     @superadmin = FactoryGirl.create(:user)
     @superadmin.superadmin = true
@@ -12,10 +12,10 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     visit chairs_path
 
     expect(page).to have_content('New')
-    expect(page).to have_content('Edit Chair')
-    expect(page).to have_content('Destroy Chair')
+    expect(page).to have_content('Edit Research Group')
+    expect(page).to have_content('Delete Research Group')
 
-    expect(page).to_not have_content('Manage Chair')
+    expect(page).to_not have_content('Manage Research Group')
     expect(page).to_not have_content('Apply as Wimi')
   end
 
@@ -23,14 +23,14 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     @chair = FactoryGirl.create(:chair)
     @admin = FactoryGirl.create(:user)
     @chairwimi = FactoryGirl.create(:chair_wimi, user: @admin, chair: @chair, admin: true)
-    login_as(@admin, :scope => :user)
+    login_as(@admin, scope: :user)
     visit chairs_path
 
-    expect(page).to have_content('Manage Chair')
+    expect(page).to have_content('Manage Research Group')
 
     expect(page).to_not have_content('New')
-    expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Destroy Chair')
+    expect(page).to_not have_content('Edit Research Group')
+    expect(page).to_not have_content('Delete Research Group')
     expect(page).to_not have_content('Apply as Wimi')
   end
 
@@ -41,11 +41,11 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     login_as(@representative, scope: :user)
     visit chairs_path
 
-    expect(page).to have_content('Manage Chair')
+    expect(page).to have_content('Manage Research Group')
 
     expect(page).to_not have_content('New')
-    expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Destroy Chair')
+    expect(page).to_not have_content('Edit Research Group')
+    expect(page).to_not have_content('Delete Research Group')
     expect(page).to_not have_content('Apply as Wimi')
   end
 
@@ -58,9 +58,9 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     expect(page).to have_content('Apply as Wimi')
 
     expect(page).to_not have_content('New')
-    expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Destroy Chair')
-    expect(page).to_not have_content('Manage Chair')
+    expect(page).to_not have_content('Edit Research Group')
+    expect(page).to_not have_content('Delete Research Group')
+    expect(page).to_not have_content('Manage Research Group')
   end
 
   it 'tests functionality of New Button' do
@@ -69,7 +69,7 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     visit chairs_path
 
     click_on 'New'
-    expect(page).to have_current_path(new_chair_path+'?locale='+I18n.locale.to_s)
+    expect(page).to have_current_path(new_chair_path)
   end
 
   it 'tests functionality of Edit Button' do
@@ -77,8 +77,8 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     login_as(@superadmin, scope: :user)
     visit chairs_path
 
-    click_on 'Edit Chair'
-    expect(page).to have_current_path(edit_chair_path(@chair)+'?locale='+I18n.locale.to_s)
+    click_on 'Edit Research Group'
+    expect(page).to have_current_path(edit_chair_path(@chair))
   end
 
   it 'tests functionality of Destroy Button' do
@@ -87,8 +87,8 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     visit chairs_path
 
     expect(page).to have_content('TestChair')
-    click_on 'Destroy Chair'
-    expect(page).to have_current_path(chairs_path+'?locale='+I18n.locale.to_s)
+    click_on 'Delete Research Group'
+    expect(page).to have_current_path(chairs_path)
     expect(page).to_not have_content('TestChair')
   end
 
@@ -99,8 +99,8 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     login_as(@representative, scope: :user)
     visit chairs_path
 
-    click_on 'Manage Chair'
-    expect(page).to have_current_path(chair_path(@chair)+'?locale='+I18n.locale.to_s)
+    click_on 'Manage Research Group'
+    expect(page).to have_current_path(chair_path(@chair))
   end
 
   it 'tests functionality of Apply Button' do
@@ -109,9 +109,9 @@ RSpec.describe "chairs/index.html.erb", type: :view do
     login_as(@user, scope: :user)
     visit chairs_path
 
-    expect(page).to_not have_content('pending')
+    expect(page).to_not have_content('Pending')
     click_on 'Apply as Wimi'
-    expect(page).to have_current_path(chairs_path+'?locale='+I18n.locale.to_s)
-    expect(page).to have_content('pending')
+    expect(page).to have_current_path(chairs_path)
+    expect(page).to have_content('Pending')
   end
 end

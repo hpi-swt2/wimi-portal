@@ -17,7 +17,6 @@
 #  language                  :string           default("en"), not null
 #  residence                 :string
 #  street                    :string
-#  division_id               :integer          default(0)
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
@@ -25,38 +24,33 @@
 #
 
 class User < ActiveRecord::Base
+
   LANGUAGES = [
-    [
-      'English',
-      'en'
-    ],
-    [
-      'Deutsch',
-      'de'
-    ],
+    %w[English en],
+    %w[Deutsch de],
   ]
 
   INVALID_EMAIL = 'invalid_email'
 
-  devise  :openid_authenticatable, :trackable
+  devise :openid_authenticatable, :trackable
 
   has_many :work_days
   has_many :time_sheets
   has_many :holidays
-  has_many :expenses
+  has_many :travel_expense_reports
+  has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
-  has_and_belongs_to_many :publications
   has_and_belongs_to_many :projects
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
 
-  validates :first_name, length: { minimum: 1 }
-  validates :last_name, length: { minimum: 1 }
-  validates :email, length: { minimum: 1 }
-  validates :personnel_number, numericality: { only_integer: true }, inclusion: 0..999999999
-  validates_numericality_of :remaining_leave, greater_than_or_equal: 0
-  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
+  validates :first_name, length: {minimum: 1}
+  validates :last_name, length: {minimum: 1}
+  validates :email, length: {minimum: 1}
+  validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999
+  validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
+  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
 
   # TODO: implement signature upload, this is a placeholder
   def signature
@@ -75,13 +69,13 @@ class User < ActiveRecord::Base
 
   def projects_for_month(year, month)
     projects = TimeSheet.where(
-      user: self, month: month, year: year).map {|sheet| sheet.project}
-    return (projects.compact + self.projects).uniq
+      user: self, month: month, year: year).map(&:project)
+    (projects.compact + self.projects).uniq
   end
 
   def years_and_months_of_existence
     year_months = []
-    creation_date = self.created_at
+    creation_date = created_at
     (creation_date.year..Date.today.year).each do |year|
       start_month = (creation_date.year == year) ? creation_date.month : 1
       end_month = (Date.today.year == year) ? Date.today.month : 12
@@ -92,17 +86,31 @@ class User < ActiveRecord::Base
     return year_months
   end
 
+  def work_year_months_for_project(project)
+    year = -1
+    month = -1
+    year_months = []
+    work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
+      unless year == date.year and month == date.month
+        year = date.year
+        month = date.month
+        year_months << [date.year, date.month]
+      end
+    end
+    return year_months
+  end
+
   def prepare_leave_for_new_year
-    self.remaining_leave_last_year = self.remaining_leave
+    self.remaining_leave_last_year = remaining_leave
     self.remaining_leave = 28
   end
 
   def is_user?
-    not is_wimi? and not is_superadmin? and not is_hiwi?
+    !is_wimi? and !is_superadmin? and !is_hiwi?
   end
 
   def is_wimi?
-    not chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
+    !chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
   end
 
   def is_representative?(opt_chair = false)
@@ -122,21 +130,21 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    projects and projects.size > 0 and not is_wimi?
+    not projects.blank? and  not is_wimi?
   end
 
   def is_superadmin?
-    self.superadmin
+    superadmin
   end
 
   def self.openid_required_fields
-    ["http://axschema.org/contact/email"]
+    ['http://axschema.org/contact/email']
   end
 
   def self.build_from_identity_url(identity_url)
     username = identity_url.split('/')[-1]
     first_name = username.split('.')[0].titleize
-    last_name = username.split('.')[1].titleize.delete("0-9")
+    last_name = username.split('.')[1].titleize.delete('0-9')
     User.new(first_name: first_name, last_name: last_name, identity_url: identity_url)
   end
 
@@ -147,7 +155,7 @@ class User < ActiveRecord::Base
       end
 
       # if no email is saved yet and we receive no address, set INVALID_EMAIL as address, otherwise save the received value
-      if key.to_s == "http://axschema.org/contact/email"
+      if key.to_s == 'http://axschema.org/contact/email'
         if email.blank?
           if value.blank?
             update_attribute(:email, INVALID_EMAIL)
@@ -157,5 +165,14 @@ class User < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def get_desc_sorted_datespans
+    all_trips = Trip.where(user_id: id)
+    datespans = []
+    all_trips.each do |trip|
+      datespans.push(trip.trip_datespans.first)
+    end
+    datespans.sort! { |a,b| b.start_date <=> a.start_date }
   end
 end
