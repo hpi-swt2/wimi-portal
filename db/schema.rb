@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(version: 20160123173135) do
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false
     t.string   "city"
-    t.integer  "zip_code"
+    t.string   "zip_code"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
