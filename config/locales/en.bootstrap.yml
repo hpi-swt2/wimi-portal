@@ -36,6 +36,7 @@ en:
       decline: "Decline"
       download: "Download"
       apply_trip: "Apply Trip"
+      save: "Save"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -107,7 +108,7 @@ en:
       public: "public"
   users:
     update:
-      user_updated: "User updated successfully"
+      user_updated: "Profile was successfully updated"
     show:
       business_trips: "Business Trips"
       request_trip: "Request Business Trip"

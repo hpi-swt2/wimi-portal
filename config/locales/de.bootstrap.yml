@@ -29,6 +29,7 @@ de:
       show_pdf: "Als PDF anzeigen"
       download: "Herunterladen"
       apply_trip: "Antrag stellen"
+      save: "Speichern"
     titles:
       edit: "%{model} bearbeiten"
       save: "%{model} speichern"
@@ -98,7 +99,7 @@ de:
       public: "öffentlich"
   users:
     update:
-      user_updated: "Benutzer erfolgreich aktualisiert"
+      user_updated: "Profil erfolgreich aktualisiert"
     show:
       business_trips: "Geschätsreisen"
       request_trip: "Geschätsreise beantragen"
