@@ -118,6 +118,8 @@ en:
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+      password: "Change Password"
+      update_password: "Update Password"
       days: "Day(s)"
       status:
         saved: "Saved"

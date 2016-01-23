@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
-  before_action :user_exists, :set_user, except: :language
+  before_filter :authenticate_user!, except: :superadmin_index
+  before_action :user_exists, :set_user, except: [:superadmin_index, :language]
 
   def show
     @datespans = current_user.get_desc_sorted_datespans
@@ -17,6 +17,22 @@ class UsersController < ApplicationController
       render :edit
     end
   end
+
+  def superadmin_index
+  end
+
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+  helper_method :resource, :resource_name, :devise_mapping
 
   def language
     render json: {msg: current_user.language}
@@ -35,6 +51,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :residence, :street, :personnel_number, :remaining_leave, :remaining_leave_last_year, :language)
+    params[:user].permit(User.column_names.map(&:to_sym))
   end
 end
