@@ -6,7 +6,7 @@ describe 'password updating for the superadmin' do
     @old_encrypted_password = @superadmin.encrypted_password
 
     login_as @superadmin
-    visit edit_user_path(@superadmin)
+    visit user_path(@superadmin)
     expect(page).to have_content 'Change Password'
   end
 

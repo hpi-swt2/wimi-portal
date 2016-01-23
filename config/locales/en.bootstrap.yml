@@ -111,10 +111,10 @@ en:
       days: "Day(s)"
       title: "User Profile"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
-    edit:
-      user_data: "User Data"
       password: "Change Password"
       update_password: "Update Password"
+    edit:
+      user_data: "User Data"
     edit_leave:
       remaining_leave: "Remaining Leave"
       remaining_leave_fly: "Remaining Leave from last year"
