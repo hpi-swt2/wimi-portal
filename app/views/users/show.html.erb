@@ -1,72 +1,84 @@
-
 <%- model_class = User -%>
 
 <div class="page-header">
   <h1><%=t '.title' %></h1>
 </div>
 
-<% if @user == current_user %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-sm-6">
-          <h4><%= t('.user_data')%></h4>
-        </div>
-        <div class="col-sm-6 text text-right">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4><%= t('.user_data')%></h4>
+      </div>
+      <div class="col-sm-6 text text-right">
+        <% if @user == current_user %>
           <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-primary' %>
-        </div>
+        <% end %>
       </div>
     </div>
-    <div class="panel panel-body">
-      <p><strong><%= model_class.human_attribute_name(:first_name)+": " %></strong><%= current_user.first_name %></p>
-      <p><strong><%= model_class.human_attribute_name(:last_name)+": " %></strong><%= current_user.last_name %></p>
-      <p><strong><%= model_class.human_attribute_name(:residence)+": " %></strong><%= current_user.residence %></p>
-      <p><strong><%= model_class.human_attribute_name(:street)+": " %></strong><%= current_user.street %></p>
-      <p>
-        <strong><%= model_class.human_attribute_name(:chair)+": " %></strong>
-        <% if (chair = current_user.chair) != nil %>
-            <%= chair.name %>
-        <% else %>
-            <%= I18n.t('activerecord.attributes.user.not_member_of_chair') %>
-        <% end %>
-      </p>
-      <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= current_user.personnel_number %></p>
-      <p><strong><%= model_class.human_attribute_name(:language)+": " %></strong><%= current_user.language %></p>
-    </div>
   </div>
+  <div class="panel panel-body">
+    <p><strong><%= model_class.human_attribute_name(:first_name)+": " %></strong><%= @user.first_name %></p>
+    <p><strong><%= model_class.human_attribute_name(:last_name)+": " %></strong><%= @user.last_name %></p>
+    <p><strong><%= model_class.human_attribute_name(:residence)+": " %></strong><%= @user.residence %></p>
+    <p><strong><%= model_class.human_attribute_name(:street)+": " %></strong><%= @user.street %></p>
+    <p>
+      <strong><%= model_class.human_attribute_name(:chair)+": " %></strong>
+      <% if (chair = @user.chair) != nil %>
+          <%= chair.name %>
+      <% else %>
+          <%= I18n.t('activerecord.attributes.user.not_member_of_chair') %>
+      <% end %>
+    </p>
+    <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= @user.personnel_number %></p>
+    <p><strong><%= model_class.human_attribute_name(:language)+": " %></strong><%= @user.language %></p>
+  </div>
+</div>
 
+<% if @user == current_user %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4>Work Times</h4>
     </div>
     <div class="panel-body">
       <% @user.years_and_months_of_existence.each do |month| %>
-  	    <p>
+        <p>
           <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s + ":  ", work_days_path(month: month.last, year: month.first)%>
-          <% current_user.projects_for_month(month.first, month.last).each do |project|%>
+          <% @user.projects_for_month(month.first, month.last).each do |project|%>
             <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id)%>
           <% end %>
         </p>
-    	<% end %>
+      <% end %>
     </div>
   </div>
+<% end %>
 
+<% if can? :see_holidays, @user %>
   <%= form_for(@user) do |f| %>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4><%= t('.holiday_requests') %></h4>
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><%= t('.holiday_requests') %></h4>
+          </div>
+          <div class="col-sm-6 text text-right">
+            <% if @user == current_user %>
+              <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
       </div>
       <div class="panel-body">
         <div class="form-group">
-          <%= f.label :remaining_leave, t('.remaining_leave', leave: current_user.remaining_leave.to_s) %>
-          <% if current_user.remaining_leave_last_year > 0 %>
-            <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: current_user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
+          <%= f.label :remaining_leave, t('.remaining_leave', leave: @user.remaining_leave.to_s) %>
+          <% if @user.remaining_leave_last_year > 0 %>
+            <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: @user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
             <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
               <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000')%>
             <% end %>
           <% end %>
           <br><%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
-                        users_edit_leave_path(id: current_user.id), class: 'btn btn-default btn-xs' %><br>
+                        users_edit_leave_path(id: @user.id), class: 'btn btn-default btn-xs' %><br>
         </div>
         <div class="form-group">
           <table class="table table-striped">
@@ -80,24 +92,66 @@
               </tr>
             </thead>
             <tbody>
-              <% current_user.holidays.each do |holiday| %>
+              <% @user.holidays.each do |holiday| %>
+                <% if can? :read, holiday %>
+                  <tr>
+                    <td><%= holiday.length %> <%= t('.days') %></td>
+                    <td><%=l holiday.start %></td>
+                    <td><%=l holiday.end %></td>
+                    <td><%= t(".status.#{holiday.status}") %></td>
+                    <td>
+                      <%= link_to t("helpers.links.show_details"),
+                                  holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
+                      <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: holiday), class: 'btn btn-default btn-xs' %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @user == current_user %>
+  <%= form_for(@user) do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%= t('.business_trips') %></h4>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <%=link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %><br><br>
+        </div>
+        <div class="form-group">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t('activerecord.attributes.trip.destination') %></th>
+                <th><%= t('activerecord.attributes.trip_datespan.start_date') %></th>
+                <th><%= t('activerecord.attributes.trip_datespan.end_date') %></th>
+                <th><%= t('activerecord.attributes.trip.status') %></th>
+                <th><%= t('helpers.actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @datespans.each do |span| %>
                 <tr>
-                  <td><%= holiday.duration %>&nbsp<%= t('.days') %></td>
-                  <td><%= holiday.start %></td>
-                  <td><%= holiday.end %></td>
-                  <td><%= holiday.status %></td>
+                  <td><%= Trip.find(span.trip_id).destination %></td>
+                  <td><%= span.start_date %></td>
+                  <td><%= span.end_date %></td>
+                  <td><%= Trip.find(span.trip_id).status %></td>
                   <td>
                     <%= link_to t("helpers.links.show_details"),
-                                holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
-                    <%= link_to t("helpers.links.show_pdf"), user_path(current_user.id), class: 'btn btn-default btn-xs' %>
+                                trip_path(Trip.find(span.trip_id)), class: 'btn btn-default btn-xs' %><br>
+                    <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: Trip.find(span.trip_id)), class: 'btn btn-default btn-xs' %>
                   </td>
                 </tr>
               <% end %>
             </tbody>
           </table>
-        </div>
-        <div class="form-group">
-          <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %><br><br>
         </div>
       </div>
     </div>

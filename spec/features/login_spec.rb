@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'login via OpenID' do
   before :each do
-    @routes = ['/publications', '/projects', '/holidays', '/trips', '/expenses']
+    @routes = ['/projects', '/holidays', '/trips', '/travel_expense_reports']
   end
 
   it 'should not show any page as long as you are not logged in' do
@@ -46,7 +46,7 @@ describe 'login via username/password' do
     click_on 'Log in'
 
     expect(page).to_not have_content 'Please sign in'
-    routes = ['/publications', '/projects', '/holidays', '/trips', '/expenses']
+    routes = ['/projects', '/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to have_content 'Logout'
@@ -61,7 +61,7 @@ describe 'login via username/password' do
     fill_in 'user_password', with: 'wrong_password'
     click_on 'Log in'
 
-    routes = ['/publications', '/projects', '/holidays', '/trips', '/expenses']
+    routes = ['/projects', '/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to_not have_content 'Logout'
@@ -77,7 +77,7 @@ describe 'login via username/password' do
     click_on 'Log in'
 
     expect(page).to have_content 'Please sign in'
-    routes = ['/publications', '/projects', '/holidays', '/trips', '/expenses']
+    routes = ['/projects', '/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to_not have_content 'Logout'

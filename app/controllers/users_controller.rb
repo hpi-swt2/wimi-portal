@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, except: :superadmin_index
-  before_action :user_exists, :set_user, except: :superadmin_index
+  before_action :user_exists, :set_user, except: [:superadmin_index, :language]
 
   def show
+    @datespans = current_user.get_desc_sorted_datespans
   end
 
   def edit
@@ -32,6 +33,10 @@ class UsersController < ApplicationController
     @devise_mapping ||= Devise.mappings[:user]
   end
   helper_method :resource, :resource_name, :devise_mapping
+
+  def language
+    render json: {msg: current_user.language}
+  end
 
   private
 

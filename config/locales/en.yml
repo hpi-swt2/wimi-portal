@@ -29,14 +29,11 @@ en:
         one: "Expense"
         other: "Expenses"
       holiday:
-        one: "Holiday"
-        other: "Holidays"
+        one: "Holiday Request"
+        other: "Holiday Requests"
       project:
         one: "Project"
         other: "Projects"
-      publication:
-        one: "Publication"
-        other: "Publications"
       trip:
         one: "Business Trip"
         other: "Business Trips"
@@ -67,14 +64,9 @@ en:
         user_id: "User"
         created_at: "Created at"
         duration: "Duration"
-      publication:
-        id: "Id"
-        title: "Title"
-        venue: "Venue"
-        type_: "Type"
-        project_id: "Project"
-        created_at: "Created at"
-        users: "Users"
+        reason: "Reason for Special Leave"
+        annotations: "Annotations"
+        replacement: "Replacement"
       expense:
         id: "Id"
         amount: "Amount"
@@ -142,6 +134,12 @@ en:
         personnel_number: "Staff Number"
         language: "Language"
         not_member_of_chair: "You are not a member of a chair."
+      request:
+        name: "Name"
+        type: "Type"
+        handed_in: "Handed in"
+        status: "Status"
+        not_member_of_chair: "You are not a member of a chair."
     errors:
       models:
         travel_expense_report:
@@ -154,9 +152,26 @@ en:
               blank: "cannot be blank."
               not_a_number: "has to be a whole number."
               greater_than_or_equal_to: "must not be negative"
+        holiday:
+          too_far_in_the_future: ' is too far in the future.'
+          attributes:
+            start:
+              blank: "cannot be blank."
+            end:
+              blank: "cannot be blank."
+            length:
+              not_a_number: "has to be a whole number."
   links:
     search: 'Search'
     submit: 'Submit'
+  holiday:
+    not_authorized: "You're not authorized to see this holiday request."
+    not_enough_leave: 'Not enough leave left!'
+    destroyed: 'Holiday was successfully destroyed.'
+    updated: 'Holiday was successfully updated.'
+    created: 'Holiday was successfully created.'
+    something_wrong: 'Something went wrong.'
+    applied: "Holiday is already applied"
   project:
     filter_chair: 'Filter for chair'
     invite_someone_to_project: 'Invite someone to the project'
@@ -169,13 +184,63 @@ en:
       was_successfully_invited: 'The user has been invited successfully.'
       invitation_accepted: 'You are now a member of this project.'
       invitation_declined: 'You declined the invitation.'
+  date:
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    formats:
+      default: "%m/%d/%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  time:
+    formats:
+      default: "%m/%d/%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
   chair:
     not_authorized: "You're not authorized to do that for this chair."
     add_chair: "Add Chair"
-  time:
-    formats:
-      default: "%d-%m-%Y"
-      short: "%b %d"
-      long: "%B %d, %Y"
+    destroy:
+      error: "Chair could not be destroyed"
+      success: "Chair was successfully destroyed"
+    create:
+      success: "Chair successfully created"
+      error: "The form is not filled completely!"
+    update:
+      success: "Chair successfully updated"
+      error: "The form is not filled completely!"
+    accept_request:
+      success: "Application was successfully accepted"
+      error: "Accepting application failed"
+    remove_from_chair:
+      success: "User was successfully removed"
+      error: "Failed to remove the user"
+    set_admin:
+      success: "Admin was successfully set"
+      error: "Admin setting failed"
+    withdraw:
+      success: "Admin rights were successfully removed"
+      error: "Failed to remove admin rights"
+    apply:
+      success: "Wimi application was successfully created."
+      error: "Saving wimi application failed"
+    requests:
+      holiday_request: "Holiday request"
+      expense_request: "Travel expense request"
+      trip_request: "Trip request"
   "true": "yes"
   "false": "no"
+  not_enough_leave: 'Not enough leave left'
+  status:
+    saved: "saved"
+    applied: "applied"
+    accepted: "accepted"
+    declined: "declined"
+  trip:
+    update: "Trip was successfully updated"
+    save: "Trip was successfully created"
+    applied: "Trip is already applied"
+    destroyed: "Trip was successfully destroyed"
+    apply: "Trip was successfully applied"
+  not_authorized: "You're not authorized to do that action."
+  not_enough_leave: "Not enough leave left"
+  travel_expense_report:
+    applied: "Travel expense request is already applied"

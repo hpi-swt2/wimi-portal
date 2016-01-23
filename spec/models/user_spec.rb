@@ -53,4 +53,13 @@ RSpec.describe User, type: :model do
     project.users << user
     expect(User.find(user.id).is_hiwi?).to eq(true)
   end
+
+  it 'returns trips in the right order' do
+    user = FactoryGirl.create(:user)
+    trip_a = FactoryGirl.create(:trip, user: user)
+    datespan_a = FactoryGirl.create(:trip_datespan, trip: trip_a, start_date: Date.today + 5, end_date: Date.today + 6, days_abroad: 0)
+    trip_b = FactoryGirl.create(:trip, user: user)
+    datespan_b = FactoryGirl.create(:trip_datespan, trip: trip_b, start_date: Date.today + 10, end_date: Date.today + 16, days_abroad: 0)
+    expect(user.get_desc_sorted_datespans[0]).to eq(datespan_b)
+  end
 end

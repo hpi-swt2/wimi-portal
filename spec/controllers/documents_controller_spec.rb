@@ -35,7 +35,7 @@ RSpec.describe DocumentsController, type: :controller do
     end
 
     it 'should generate a PDF file for a holidays' do
-      holiday = FactoryGirl.create(:holiday, user_id: @user.id)
+      holiday = FactoryGirl.create(:holiday, user: @user)
       params = {doc_type: 'Urlaubsantrag', doc_id: holiday.id}
       get :generate_pdf, params
       expect(response.headers['Content-Type']).to eq('application/pdf')
