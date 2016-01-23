@@ -29,7 +29,7 @@
 
       <div class="controls">
         <select name="admin_user" id="admin_user">
-          <option value="null"><%= I18n.t('list.please_select', default: 'Please select') %></option>
+          <option value="null"><%= I18n.t('helpers.list_select') %></option>
           <%= User.all.each do |user| %>
               <% if @chair.admins.count { |admin| admin.user.id == user.id } == 1 %>
                   <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
@@ -47,7 +47,7 @@
 
       <div class="controls">
         <select name="representative_user">
-          <option value="null"><%= I18n.t('list.please_select', default: 'Please select') %></option>
+          <option value="null"><%= I18n.t('helpers.list_select') %></option>
           <%= User.all.each do |user| %>
               <% if @chair.representative != nil && @chair.representative.user.id == user.id %>
                   <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
@@ -61,7 +61,7 @@
     </div>
     <br/>
     <%= f.submit nil, class: 'btn btn-primary' %>
-    <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+    <%= link_to t("helpers.links.cancel"),
                 chairs_path, class: 'btn btn-default' %>
 
 <% end %>

@@ -16,7 +16,7 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  it "can return all wimis in an unique array" do
+  it 'can return all wimis in an unique array' do
     chair = FactoryGirl.create(:chair)
     project = FactoryGirl.create(:project)
     user1 = FactoryGirl.create(:user)
@@ -29,5 +29,25 @@ RSpec.describe Project, type: :model do
     project.users << user3
 
     expect(project.wimis).to eq [user1, user2]
+  end
+
+  it 'has a valid factory' do
+    expect(FactoryGirl.create(:project)).to be_valid
+  end
+
+  before(:each) do
+    @project = FactoryGirl.create(:project)
+    @project.users << FactoryGirl.create(:user)
+    @project.users << FactoryGirl.create(:user)
+    @project.users << FactoryGirl.create(:wimi, chair_id: @project.chair.id).user
+    @project.users << FactoryGirl.create(:wimi, chair_id: @project.chair.id).user
+  end
+
+  it 'lists all wimis of a project' do
+    expect(@project.wimis.size).to eq(2)
+  end
+
+  it 'lists all hiwis of a project' do
+    expect(@project.hiwis.size).to eq(2)
   end
 end

@@ -17,6 +17,7 @@ class Chair < ActiveRecord::Base
   has_many :users, through: :chair_wimis
   has_many :projects
   has_many :requests
+  has_many :events
 
   validates :name, presence: true
 
@@ -101,25 +102,23 @@ class Chair < ActiveRecord::Base
     return success
   end
 
-  def get_all_requests
-    allrequests = []
+  def create_allrequests(types, statuses)
+    @allrequests = []
+
     users.each do |user|
-      user.holidays.each do |holidays|
-        unless holidays.status == 'saved'
-          allrequests << {name: holidays.user.name, type: 'Holiday Request', handed_in: holidays.created_at, status: holidays.status, action: holiday_path(holidays)}
-        end
-      end
-      user.expenses.each do |expense|
-        unless expense.status == 'saved'
-          allrequests << {name: expense.user.name, type: 'Expense Request', handed_in: expense.created_at, status: expense.status, action: expense_path(expense)}
-        end
-      end
-      user.trips.each do |trips|
-        unless trips.status == 'saved'
-          allrequests << {name: trips.user.name, type: 'Trip Request', handed_in: trips.created_at, status: trips.status, action: trip_path(trips)}
-        end
+      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays, statuses) if types.include? 'holidays'
+      add_requests(I18n.t('chair.requests.expense_request'), user.travel_expense_reports, statuses) if types.include? 'expenses'
+      add_requests(I18n.t('chair.requests.trip_request'), user.trips, statuses) if types.include? 'trips'
+    end
+
+    return @allrequests.sort_by { |v| v[:handed_in] }.reverse
+  end
+
+  def add_requests(type, array, statuses)
+    array.each do |r|
+      if statuses.include? r.status
+        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r}
       end
     end
-    return allrequests.sort_by { |v| v[:handed_in] }.reverse
   end
 end
