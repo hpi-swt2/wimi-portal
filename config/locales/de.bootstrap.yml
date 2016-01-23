@@ -110,6 +110,8 @@ de:
       remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
       days: "Tag(e)"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      password: "Passwort ändern"
+      update_password: "Passwort aktualisieren"
       status:
         saved: "Gespeichert"
         accepted: "Akzeptiert"

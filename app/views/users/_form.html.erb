@@ -62,6 +62,8 @@
       </div>
     </div>
   </div>
-  <%= f.submit t('helpers.links.save'), class: 'btn btn-primary' %>
-  <%= link_to t('.cancel', default: t("helpers.links.cancel")), current_user, class: "btn btn-default" %>
+  <div class="actions">
+    <%= f.submit t('helpers.links.save'), class: 'btn btn-primary' %>
+    <%= link_to t('.cancel', default: t("helpers.links.cancel")), current_user, class: "btn btn-default" %>
+  </div>
 <% end %>
