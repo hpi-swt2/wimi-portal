@@ -8,11 +8,8 @@
   <% end %>
 <% end %>
 
-<% if @user.is_hiwi? %>
-  <p><strong><%= t('.user_status')%>: </strong><%= t('.hiwi') %></p>
-<% end %>
-<% if @user.is_wimi? %>
-  <p><strong><%= t('.user_status')%>: </strong><%= t('.wimi') %></p>
+<% if @user.is_hiwi? || @user.is_wimi? %>
+  <p><strong><%= t('.user_status')%>: </strong><%= @user.is_wimi? ? t('.wimi') : t('.hiwi') %></p>
 <% end %>
 
 <% unless @user.personnel_number == 0 %>
