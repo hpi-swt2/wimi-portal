@@ -16,7 +16,7 @@
   <p>
     <strong><%= t('.projects')%>: </strong>
     <% @user.projects[0..-2].each do |project| %>
-      <%= link_to(project.title, project) %>,
+      <%= link_to(project.title, project) + ', '%>
     <% end %>
     <%= link_to(@user.projects.last.title, @user.projects.last) if @user.projects.last  %>
   </p>
