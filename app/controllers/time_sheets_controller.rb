@@ -1,5 +1,5 @@
 class TimeSheetsController < ApplicationController
-  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy]
+  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject]
 
   def show
   end
@@ -36,7 +36,6 @@ class TimeSheetsController < ApplicationController
   end
 
   def accept_reject
-    set_time_sheet
     if params[:commit] == I18n.t('time_sheets.show_footer.reject')
       @time_sheet.update(time_sheet_params)
       reject
