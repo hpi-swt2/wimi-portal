@@ -22,6 +22,7 @@ class DashboardController < ApplicationController
     @notifications += @temp.select{|event| event.chair == current_user.chair && event.type == 'EventChairApplication'}
     @notifications += @temp.select{|event| event.chair == current_user.chair && (event.status == 'holiday' || event.status == 'travel_expense_report' || event.status == 'trip') && event.type == 'EventRequest'}
     @notifications += @temp.select{|event| event.chair == current_user.chair && event.type == 'EventUserChair'}
+    @notifications += @temp.select{|event| event.target_id == current_user.id && (event.type == 'EventTravelRequestAccepted' || event.type == 'EventTravelRequestDeclined')}
 
     #@notifications.delete_if { |event| event.chair_id != current_user.chair.id }
     #@notifications.delete_if { |event| event.is_hidden_by(current_user) }

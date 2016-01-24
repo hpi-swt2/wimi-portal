@@ -26,7 +26,7 @@ class Project < ActiveRecord::Base
 
   def invite_user(user, sender)
     inv = Invitation.create(user: user, project: self, sender: sender)
-    ActiveSupport::Notifications.instrument("event", {trigger: inv.id, target: user.id, seclevel: :hiwi, type: "EventProjectInvitation"})
+    ActiveSupport::Notifications.instrument('event', {trigger: inv.id, target: user.id, seclevel: :hiwi, type: "EventProjectInvitation"})
     user.invitations << inv
   end
 

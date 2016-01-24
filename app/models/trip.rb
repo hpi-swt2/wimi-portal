@@ -35,11 +35,11 @@ class Trip < ActiveRecord::Base
 
   def accept(accepter)
     self.update(person_in_power_id: accepter.id, status: :accepted)
-    ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestAccepted"})
+    ActiveSupport::Notifications.instrument('event', {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestAccepted"})
   end
 
   def decline(declined_by)
     self.update(person_in_power_id: declined_by.id, status: :declined)
-    ActiveSupport::Notifications.instrument("event", {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestDeclined"})
+    ActiveSupport::Notifications.instrument('event', {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestDeclined"})
   end
 end
