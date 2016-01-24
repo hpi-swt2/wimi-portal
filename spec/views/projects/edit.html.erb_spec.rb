@@ -27,7 +27,7 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     project_title = project.title
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed.')

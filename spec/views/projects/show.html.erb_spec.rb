@@ -52,7 +52,6 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.chair.name)
     expect(page).to have_content(project.chair.representative.user.name)
     expect(page).to have_content(I18n.t('projects.show.public'))
-    expect(page).to have_content(I18n.t('projects.show.project_leader'))
     expect(page).to have_content(representative.name)
   end
 
@@ -70,7 +69,6 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.chair.name)
     expect(page).to have_content(project.chair.representative.user.name)
     expect(page).to have_content(I18n.t('projects.show.public'))
-    expect(page).to have_content(I18n.t('projects.show.project_leader'))
     expect(page).to have_content(wimi.name)
   end
 
@@ -87,7 +85,6 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.chair.name)
     expect(page).to have_content(project.chair.representative.user.name)
     expect(page).to have_content(I18n.t('projects.show.public'))
-    expect(page).to have_content(I18n.t('projects.show.project_leader'))
     expect(page).to have_content(hiwi.name)
   end
 
