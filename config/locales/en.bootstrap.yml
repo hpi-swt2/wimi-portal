@@ -121,7 +121,14 @@ en:
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
+      password: "Change Password"
+      update_password: "Update Password"
       days: "Day(s)"
+      status:
+        saved: "Saved"
+        accepted: "Accepted"
+        applied: "Applied"
+        declined: "Rejected"
     edit:
       user_data: "User Data"
     edit_leave:
@@ -133,12 +140,16 @@ en:
     show:
       days: "Day(s)"
       file: "File Request"
+      reject: "Reject Request"
+      accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
       status:
-        saved: "Saved at the "
-        accepted: "Accepted at the "
-        applied: "Applied at the "
-        declined: "Declined at the "
+        saved: "Saved at "
+        accepted: "Accepted at "
+        applied: "Applied at "
+        declined: "Rejected at "
+    form:
+      auto_calculation: "Leave blank for automatic calculation."
   dashboard:
     index:
       notifications: "Notifications"
@@ -259,9 +270,10 @@ en:
       default: "%d.%m.%Y"
       without_day: "%B %Y"
       without_day_year: "%B"
+      default: "%m/%d/%Y"
     order:
-      - :day
       - :month
+      - :day
       - :year
     month_names:
       -

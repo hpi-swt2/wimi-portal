@@ -61,18 +61,17 @@ class ChairsController < ApplicationController
     @requests = @chair.chair_wimis.where(application: 'pending')
   end
 
-
   # Show requests (Representative tasks):
   def requests
-    @types = ['holidays', 'expenses', 'trips']
-    @statuses = ['applied', 'accepted', 'declined']
+    @types = %w[holidays expenses trips]
+    @statuses = %w[applied accepted declined]
 
     @allrequests = @chair.create_allrequests(@types, @statuses)
   end
 
   def requests_filtered
-    @types = ['holidays', 'expenses', 'trips']
-    @statuses = ['applied', 'accepted', 'declined']
+    @types = %w[holidays expenses trips]
+    @statuses = %w[applied accepted declined]
 
     @types.delete_if { |type| !params.has_key?(type) }
     @statuses.delete_if { |status| !params.has_key?(status) }
@@ -80,7 +79,6 @@ class ChairsController < ApplicationController
     @allrequests = @chair.create_allrequests(@types, @statuses)
     render 'requests'
   end
-
 
   # Admin tasks:
   def accept_request

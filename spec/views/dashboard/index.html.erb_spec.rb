@@ -17,7 +17,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   end
 
   it 'shows content for users without any chair or project' do
-    login_as(@user, :scope => :user)
+    login_as(@user, scope: :user)
     chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     chair2 = FactoryGirl.create(:chair, name: 'Chair2')
     visit dashboard_path
@@ -28,7 +28,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   end
 
   it 'performs an application after click on Apply' do
-    login_as(@user, :scope => :user)
+    login_as(@user, scope: :user)
     chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     visit dashboard_path
 
@@ -50,7 +50,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     chair2 = FactoryGirl.create(:chair, name: 'Chair2')
     chairwimi = ChairWimi.create(user_id: @user.id, chair_id: chair1.id, application: 'accepted')
-    login_as(@user, :scope => :user)
+    login_as(@user, scope: :user)
     visit dashboard_path
 
     expect(page).to_not have_content(chair1.name)
@@ -139,11 +139,11 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     FactoryGirl.create(:wimi, chair: chair, user: @user)
     holiday = FactoryGirl.create(:holiday, user: @user)
     login_as @user
-    visit holidays_path
-    expect(page).to have_link('Hand in')
+    visit holiday_path(holiday)
+    expect(page).to have_link t('holidays.show.file')
 
-    click_on('Hand in')
-    expect(page).to have_content('applied')
+    click_on t('holidays.show.file')
+    expect(page).to have_content t('users.show.status.applied')
 
     FactoryGirl.create(:wimi, chair: chair, user: @user, representative: true)
     notification = t('events.event_request.holiday', trigger: @user.name)

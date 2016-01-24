@@ -113,8 +113,15 @@ de:
       work_times: "Arbeitszeit"
       handed_in_timesheets: "Eingereichte Stundenzettel:"
       by: "von"
+      status:
+        saved: "Gespeichert"
+        accepted: "Akzeptiert"
+        applied: "Eingereicht"
+        declined: "Abgelehnt"
     edit:
       user_data: "Profilbezogene Daten"
+      password: "Passwort ändern"
+      update_password: "Passwort aktualisieren"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
@@ -124,12 +131,16 @@ de:
     show:
       days: "Tag(e)"
       file: "Antrag einreichen"
+      reject: "Antrag ablehnen"
+      accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
       status:
-        saved: "Erstellt am "
+        saved: "Gespeichert am "
         accepted: "Akzeptiert am "
         applied: "Eingereicht am "
         declined: "Abgelehnt am "
+    form:
+      auto_calculation: "Für automatische Berechnung leer lassen."
   dashboard:
     index:
       notifications: "Benachrichtigungen"

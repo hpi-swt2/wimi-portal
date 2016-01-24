@@ -12,7 +12,7 @@
 #
 # !!! make sure that the folder name is pluralized, otherwise rails wont find it (even if it sounds stupid, like event_admin_addeds )
 
-ActiveSupport::Notifications.subscribe "event" do |name,start,finish,id,payload|
+ActiveSupport::Notifications.subscribe 'event' do |_name, _start, _finish, _id, payload|
   Event.create! do |event|
     event.trigger_id = payload[:trigger]
     event.target_id = payload[:target]

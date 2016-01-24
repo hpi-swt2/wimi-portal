@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   def index
-    @notifications = Array.new
-    @temp = Array.new
+    @notifications = []
+    @temp = []
     seclevel = Event.seclevel_of_user(current_user)
 
     @temp += Event.where(seclevel: Event.seclevels[:superadmin]) if current_user.is_superadmin?

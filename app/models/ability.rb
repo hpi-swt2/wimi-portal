@@ -41,6 +41,8 @@ class Ability
   def initialize_wimi(user)
     initialize_user user
 
+    alias_action :create, :read, :update, :destroy, to: :crud
+
     can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
@@ -55,25 +57,36 @@ class Ability
       user.projects.exists?(project_application.project_id)
     end
     cannot :create, ProjectApplication
-
     can :new, Holiday
     can :create, Holiday
     can :new, Trip
     can :create, Trip
     can :new, TravelExpenseReport
     can :create, TravelExpenseReport
-    can :manage, Holiday.select { |h| h.user == user }
+    can :crud, Holiday.select { |h| h.user == user }
+    can :file, Holiday.select { |h| h.user == user }
     can :manage, Trip.select { |t| t.user == user }
     can :manage, TravelExpenseReport.select { |t| t.user == user }
-
+    can :see_holidays, User do |u|
+      u == user
+    end
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end
 
   def initialize_representative(user)
     initialize_wimi user
-    
-    can :read, Holiday.select { |h| user.is_representative?(h.user.chair) }
+
+    can :read, Holiday do |h|
+      user.is_representative?(h.user.chair)
+      h.status != ('saved' || 'declined')
+    end
+    can :see_holidays, User do |chair_user|
+      chair_user.chair == user.chair
+    end
+    can :reject, Holiday.select {|h| h.user != user}
+    can :accept, Holiday.select {|h| h.user != user}
+
     can :read, Trip.select { |t| user.is_representative?(t.user.chair) }
     can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
 
@@ -89,7 +102,6 @@ class Ability
     can :requests_filtered,  Chair do |chair|
       user.is_representative?(chair)
     end
-    #can show, Holidays of chair members
   end
 
   def initialize_admin(user)

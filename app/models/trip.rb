@@ -23,7 +23,7 @@ class Trip < ActiveRecord::Base
   belongs_to :person_in_power, class_name: 'User'
   has_many :travel_expense_reports
 
-  enum status: [ 'saved', 'applied','accepted','declined']
+  enum status: %w[saved applied accepted declined]
 
   before_validation(on: :create) do
     self.status = 'saved'
