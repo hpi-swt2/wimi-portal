@@ -31,9 +31,9 @@ feature 'profile' do
   it "allows to add an personal address" do
     visit user_path(@current_user)
     click_on('Edit')
-    fill_in('Street', :with => 'August-Bebel-Str. 89')
-    fill_in('Zip Code', :with => '14482')
-    fill_in('City', :with => 'Potsdam')
+    fill_in('Street', with: 'August-Bebel-Str. 89')
+    fill_in('Zip Code', with: '14482')
+    fill_in('City', with: 'Potsdam')
     click_on('Save')
     expect(page).to have_content 'Profile was successfully updated'
     expect(page).to have_content 'Street'
@@ -66,7 +66,7 @@ feature 'research assistant profile' do
     login_as(@current_user, scope: :user)
 
     visit('/projects/new')
-    fill_in('Title', :with => 'MyProject')
+    fill_in('Title', with: 'MyProject')
     click_on('Create Project')
   end
 
