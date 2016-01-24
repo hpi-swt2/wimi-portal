@@ -50,28 +50,40 @@ inviteInitUser = ->
     email = $('#invitation_mail').val()
     $('#invitation_mail').val('')
 
-    div = document.createElement("div")
-    div.id = 'user' + count
+    span = document.createElement("span")
+    span.id = 'user' + count
+
 
     deleteButton = document.createElement("input")
-    deleteButton.type = 'button'
-#    deleteButton.addClass("btn btn-danger")
-    deleteButton.value = 'Remove Invitation'
+    deleteButton.type = 'RemoveButton'
+    deleteButton.value = 'Remove'
     deleteButton.id = 'delete' + count
     deleteButton.name = 'deleteInvitationButton' + count
 
     newInvitation = document.createElement("input")
     newInvitation.value = email
     newInvitation.name = 'invitations[' + count + ']'
+    newInvitation.type = 'invitationEmail'
 
-    div.appendChild(newInvitation)
-    div.appendChild(deleteButton)
+
+
+    span.appendChild(newInvitation)
+    span.appendChild(deleteButton)
 
     list = document.getElementById("invited_users")
-    list.appendChild(div)
+    list.appendChild(span)
+
+    setTimeout ( ->
+      $('#invited_users > span').addClass('col-md-12')
+      $('input[type=invitationEmail').addClass('form-control email-invite col-md-2')
+      $('input[type=RemoveButton]').addClass('btn btn-default removeButton')
+    ), 5
+
     count += 1
 
     $(deleteButton).on 'click',  -> deleteInvitation()
+
+
     return
 
 

@@ -91,5 +91,32 @@ body {
 }
 
 .email-invite {
-    width: 510px;
+    width: 503px;
+    margin-right: 5px;
 }
+
+.inviteBoxes {
+    margin-top: 20px;
+    max-height: 200px;
+}
+
+.inviteBoxesHeading {
+    margin-top: 40px;
+}
+
+.submitGroup {
+    margin-top: 40px;
+}
+
+.removeButton {
+    width: 123.375px;
+}
+
+.inviteInput {
+    margin-left: 15px;
+}
+
+.addnewUserButton {
+    margin-left: 15px;
+}
+

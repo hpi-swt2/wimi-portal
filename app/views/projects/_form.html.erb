@@ -115,18 +115,18 @@
 
 
     <% unless @project.persisted? %>
-      <div>
-        <%= f.text_field :email, { id: 'invitation_mail', value: '', name:'invitationfield' ,class: 'typeahead form-control', size: 50, placeholder: 'max.mustermann@student.hpi.uni-potsdam.de' } %>
-        <input type="button" id='invite_user' class='btn btn-default btn-xs' value="Add new User">
+      <div class="inviteBoxesHeading" ><strong> Invite Initial Users </strong></div>
+      <div class="control-group inviteBoxes">
+        <%= f.text_field :email, { id: 'invitation_mail', value: '', name:'invitationfield' ,class: 'typeahead form-control inviteInput', size: 57, placeholder: 'max.mustermann@student.hpi.uni-potsdam.de' } %>
+        <input type="button" id='invite_user' class='btn btn-default addnewUserButton' value="Add new User">
         <div id="invited_users"/>
       </div>
     <% end %>
 
-    <%= f.submit nil, class: 'btn btn-primary' %>
-    <%= link_to t('.cancel', default: t('helpers.links.cancel')),
-            projects_path, class: 'btn btn-default' %>
+    <div class="control-group submitGroup">
+      <%= f.submit nil, class: 'btn btn-primary' %>
+      <%= link_to t('.cancel', default: t('helpers.links.cancel')),
+              projects_path, class: 'btn btn-default' %>
+    </div>
   <% end %>
-
 </div>
-
-
