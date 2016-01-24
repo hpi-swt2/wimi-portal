@@ -20,6 +20,7 @@
 #  status                :integer          default(0)
 #  signer                :integer
 #  wimi_signed           :boolean          default(FALSE)
+#  hand_in_date          :date
 #
 
 FactoryGirl.define do
@@ -33,6 +34,7 @@ FactoryGirl.define do
     user_id 1
     project_id 1
     last_modified Date.today
+    hand_in_date Date.today
     rejection_message ''
   end
 end

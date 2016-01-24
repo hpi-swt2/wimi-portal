@@ -124,6 +124,14 @@ en:
       password: "Change Password"
       update_password: "Update Password"
       days: "Day(s)"
+      time_sheets_overview: "time sheet overview"
+      hiwi: "research assistants"
+      month: "month"
+      number_of_hours: "number of hours"
+      handed_in_at: "handed in at"
+      status_timesheet: "status"
+      action: "action"
+      inspect: "inspect"
       status:
         saved: "Saved"
         accepted: "Accepted"
@@ -255,7 +263,6 @@ en:
       at: "at"
       export_as_PDF: "export as PDF"
       handed_in_at: "handed in at:"
-      status: "status"
       add_signature: "Add signature"
       document_was: "Document was"
       not: "not"
@@ -267,7 +274,6 @@ en:
       rejected: "rejected"
   date:
     formats:
-      default: "%d.%m.%Y"
       without_day: "%B %Y"
       without_day_year: "%B"
       default: "%m/%d/%Y"

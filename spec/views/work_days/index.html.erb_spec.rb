@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "work_days/index.html.erb", type: :view do
   before :each do
-  	@superadmin = FactoryGirl.create(:user, superadmin: true)
+    @superadmin = FactoryGirl.create(:user, superadmin: true)
     @chair = FactoryGirl.create(:chair)
     ChairWimi.create(user: @superadmin, chair: @chair, representative: true)
     login_as(@superadmin, scope: :user)
@@ -10,25 +10,25 @@ RSpec.describe "work_days/index.html.erb", type: :view do
   end
 
   it 'expects a hand in button for not handed in timesheets' do
-    FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: false)
-	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_content(t('time_sheets.show_footer.hand_in'))
+    FactoryGirl.create(:time_sheet, user: @superadmin, project: @project, handed_in: false)
+    visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
+    expect(page).to have_content(t('time_sheets.show_footer.hand_in'))
   end
 
   it 'expects a accept button for handed in timesheets' do
-    FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
-	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_content(t('time_sheets.show_footer.accept'))
+    FactoryGirl.create(:time_sheet, user: @superadmin, project: @project, handed_in: true)
+    visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
+    expect(page).to have_content(t('time_sheets.show_footer.accept'))
   end
 
   it 'expects a reject button for handed in timesheets' do
     FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
-	  visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
-	  expect(page).to have_content(t('time_sheets.show_footer.reject'))
+    visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
+    expect(page).to have_content(t('time_sheets.show_footer.reject'))
   end
 
   it 'rejects a TimeSheet if reject button is pressed' do
-    timesheet = FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
+    timesheet = FactoryGirl.create(:time_sheet, user: @superadmin, project: @project, handed_in: true)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
     click_on('reject')
     timesheet.reload
@@ -36,7 +36,7 @@ RSpec.describe "work_days/index.html.erb", type: :view do
   end
 
   it 'accepts a TimeSheet if accept button is pressed' do
-    timesheet = FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: true)
+    timesheet = FactoryGirl.create(:time_sheet, user: @superadmin, project: @project, handed_in: true)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
     click_on('accept')
     timesheet.reload
@@ -44,7 +44,7 @@ RSpec.describe "work_days/index.html.erb", type: :view do
   end
 
   it 'hands in a TimeSheet if hand in button is pressed' do
-    timesheet = FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: false)
+    timesheet = FactoryGirl.create(:time_sheet, user: @superadmin, project: @project, handed_in: false)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
     click_on('hand in')
     timesheet.reload
@@ -52,7 +52,7 @@ RSpec.describe "work_days/index.html.erb", type: :view do
   end
 
   it 're hands in a TimeSheet if sign button is pressed' do
-    timesheet = FactoryGirl.create(:time_sheet, user_id: @superadmin.id, project_id: @project.id, handed_in: false, status: 'rejected', signer: @superadmin.id)
+    timesheet = FactoryGirl.create(:time_sheet, user: @superadmin, project: @project, handed_in: false, status: 'rejected', signer: @superadmin.id)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @superadmin.id)
     click_on('hand in')
     timesheet.reload

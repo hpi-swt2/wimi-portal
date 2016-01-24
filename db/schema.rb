@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.integer  "status",                default: 0
     t.integer  "signer"
     t.boolean  "wimi_signed",           default: false
+    t.date     "hand_in_date"
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|

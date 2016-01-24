@@ -140,6 +140,12 @@ en:
         personnel_number: "Staff Number"
         language: "Language"
         not_member_of_chair: "You are not a member of a chair."
+      request:
+        name: "Name"
+        type: "Type"
+        handed_in: "Handed in"
+        status: "Status"
+        not_member_of_chair: "You are not a member of a chair."
       work_day:
         date: "Date"
         start_time: "Start time"
@@ -147,12 +153,6 @@ en:
         end_time: "End time"
         duration: "Duration"
         notes: "Notes"
-      request:
-        name: "Name"
-        type: "Type"
-        handed_in: "Handed in"
-        status: "Status"
-        not_member_of_chair: "You are not a member of a chair."
       time_sheet:
         salary: "Salary"
         workload: "Workload"
