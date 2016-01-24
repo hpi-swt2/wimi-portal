@@ -157,7 +157,8 @@ de:
       show_holiday_requests: "Urlaubsanträge anzeigen"
       show_expense_requests: "Reisekostenabrechnung anzeigen"
       show_trip_requests: "Dienstreiseanträge anzeigen"
-      notifications: "Benachrichtigungen"
+      activities: "Aktivitäten"
+      notifications: "Wichtige Benachrichtigungen"
       actions: "Aktionen"
     projects:
       projects: "Meine Projekte"

@@ -3,16 +3,16 @@
   <h1> <%= t('.dashboard_title') %></h1>
 </div>
 
-<% unless @activities.empty? %>
-<!-- Activities -->
+<% unless @notifications.empty? %>
+<!-- Notifications -->
   <div class="col-md-8">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4><%=t('.notifications')%></h4>
       </div>
       <div class="panel-body">
-        <% unless @activities.nil? %>
-          <% @activities.each do |event| %>
+        <% unless @notifications.nil? %>
+          <% @notifications.each do |event| %>
             <%= render partial: event %>
           <% end %>
         <% end %>
@@ -22,15 +22,15 @@
   <%= render partial: 'projects' %>
 <% end %>
 
-<!-- Notifications -->
+<!-- Activities -->
 <div class="col-md-8">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><%=t('.notifications')%></h4>
+      <h4><%=t('.activities')%></h4>
     </div>
     <div class="panel-body">
-      <% unless @notifications.nil? %>
-        <% @notifications.each do |event| %>
+      <% unless @activities.nil? %>
+        <% @activities.each do |event| %>
           <%= render partial: event %>
         <% end %>
       <% end %>
@@ -39,12 +39,12 @@
 </div>
 
 <!-- Projects -->
-<% unless !@activities.empty? %>
+<% unless !@notifications.empty? %>
   <%= render partial: 'projects' %>
 <% end %>
 
 <!--Actions-->
-<% if @activities.empty? %>
+<% if @notifications.empty? %>
 <div class="col-md-4 col-md-offset-8">
 <% else %>
 <div class="col-md-4">
