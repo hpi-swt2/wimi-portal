@@ -44,12 +44,10 @@ Rails.application.routes.draw do
   resources :holidays do
     member do
       get 'file'
-      get 'accept'
-      get 'reject'
+      get 'accept_reject'
     end
     get 'holidays/file', to: 'holidays#file'
-    get 'holidays/accept', to: 'holidays#accept'
-    get 'holidays/reject', to: 'holidays#reject'
+    get 'holidays/accept_reject', to: 'holidays#accept_reject'
   end
   resources :expenses
   resources :work_days

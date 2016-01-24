@@ -86,6 +86,7 @@ class Ability
     end
     can :reject, Holiday.select {|h| h.user != user}
     can :accept, Holiday.select {|h| h.user != user}
+    can :accept_reject, Holiday.select {|h| h.user != user}
 
     can :read, Trip.select { |t| user.is_representative?(t.user.chair) }
     can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }

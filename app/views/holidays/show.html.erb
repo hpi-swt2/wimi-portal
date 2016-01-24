@@ -31,7 +31,7 @@
       <dd><%= @holiday.length %> <%= t('.days') %></dd>
       <dt><strong><%= model_class.human_attribute_name(:reason) %>:</strong></dt>
       <dd><%= @holiday.reason %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>
+      <dt><strong><%= model_class.human_attribute_name(:annotation) %>:</strong></dt>
       <dd><%= @holiday.annotation %></dd>
       <dt><strong><%= model_class.human_attribute_name(:replacement) %>:</strong></dt>
       <dd>
@@ -50,6 +50,10 @@
   <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
 <% end %>
 <% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
-  <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
-  <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary' %>
+  <%= form_for @holiday, url: accept_reject_holiday_path, method: :get do |f| %>
+    <%= f.submit t('.reject'), class: 'btn btn-primary' %>
+    <%= f.text_field :annotation, size: 50, placeholder: 'reject_reason' %>
+    <br>
+    <%= f.submit t('.accept'), class: 'btn btn-primary' %>
+  <% end %>
 <% end %>
