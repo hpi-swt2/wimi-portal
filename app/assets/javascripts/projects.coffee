@@ -3,8 +3,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-
-
 signOutMyselfWarning = (locale, button) ->
   if locale == 'de'
     confirmation =  'Sie sind nicht mehr befugt, weitere Maßnahmen für das Projekt durchzuführen, nachdem Sie sich aus dem Projekt ausgetragen haben!'
@@ -17,7 +15,7 @@ setInactiveWarning = (locale, button) ->
   if locale == 'de'
     confirmation = 'Das Projekt wird nun inaktiv geschalten!'
   else
-    confirmation = 'You are going to set the project status to inactive'
+    confirmation = 'The project will be set as inactive!'
   button.attr('data-confirm', confirmation)
   return confirm
 
@@ -29,6 +27,7 @@ sendLanguageWithButtonToCallback = (clickedButton, callbackWarning) ->
     error: (xhr, status, err) ->
       callbackWarning 'en', clickedButton
       return
+
 
 typeahead = ->
   engine = new Bloodhound(
@@ -44,9 +43,11 @@ typeahead = ->
     source: engine.ttAdapter()
   return
 
+
 inviteInitUser = ->
   count = 0
   $('body').on 'click', '#AddOneMoreUser', ->
+    console.log 'clicked'
     email = $('#invitations_email').val()
     $('#invitations_email').val('')
 
@@ -72,6 +73,7 @@ inviteInitUser = ->
     count += 1
 
     $(deleteButton).on 'click',  -> deleteInvitation()
+    return
 
 
 deleteInvitation = ->
@@ -81,8 +83,6 @@ deleteInvitation = ->
   list = document.getElementById("invitedUser")
   elem = document.getElementById("user" + deleteButtonCount)
   list.removeChild(elem)
-
-
 
 
 

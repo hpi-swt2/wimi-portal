@@ -8,8 +8,8 @@ RSpec.describe 'projects/new', type: :view do
   end
 
   it 'can be created by a wimi and has afterwards the same chair as the wimi' do
-    chair_representative = FactoryGirl.create(:chair_representative, user_id: @user.id, chair_id: @chair.id)
-    wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+    chair_representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair)
+    wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
     login_as wimi
     visit projects_path
     click_on I18n.t('projects.index.new')

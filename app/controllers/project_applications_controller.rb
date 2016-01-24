@@ -24,7 +24,7 @@ class ProjectApplicationsController < ApplicationController
 
   def create
     @project_application = ProjectApplication.new
-    @project_application.user_id = current_user.id
+    @project_application.user = current_user
     @project_application.project_id = params[:id]
 
     if @project_application.save

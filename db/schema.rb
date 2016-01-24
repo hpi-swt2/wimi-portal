@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215185150) do
+ActiveRecord::Schema.define(version: 20160117205720) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -32,6 +32,21 @@ ActiveRecord::Schema.define(version: 20151215185150) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "events", force: :cascade do |t|
+    t.integer  "trigger_id"
+    t.integer  "target_id"
+    t.integer  "chair_id"
+    t.integer  "seclevel"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "status"
+  end
+
+  add_index "events", ["chair_id"], name: "index_events_on_chair_id"
+  add_index "events", ["target_id"], name: "index_events_on_target_id"
+  add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
+
   create_table "expenses", force: :cascade do |t|
     t.decimal  "amount"
     t.text     "purpose"
@@ -50,11 +65,18 @@ ActiveRecord::Schema.define(version: 20151215185150) do
 
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",     default: 0
+    t.integer  "status",              default: 0, null: false
+    t.integer  "replacement_user_id"
+    t.integer  "length"
+    t.boolean  "signature"
+    t.date     "last_modified"
+    t.string   "reason"
+    t.string   "annotation"
+    t.integer  "length_last_year",    default: 0
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -186,13 +208,18 @@ ActiveRecord::Schema.define(version: 20151215185150) do
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
+  create_table "user_events", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_events", ["event_id"], name: "index_user_events_on_event_id"
+  add_index "user_events", ["user_id"], name: "index_user_events_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "",    null: false
-    t.integer  "sign_in_count",             default: 0,     null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_at",                                null: false
@@ -205,6 +232,8 @@ ActiveRecord::Schema.define(version: 20151215185150) do
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false
+    t.string   "username"
+    t.string   "encrypted_password",        default: "",    null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
