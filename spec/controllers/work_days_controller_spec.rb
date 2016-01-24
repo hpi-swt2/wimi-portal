@@ -33,7 +33,7 @@ describe WorkDaysController, type: :controller do
 
     it 'shows work_days for month and project' do
       work_day = WorkDay.create! valid_attributes
-      get :index, {month:11, year:2015, user_id: @user.id, project: @project.id}, valid_session
+      get :index, {month: Date.today.month, year: Date.today.year, user_id: @user.id, project_id: @project.id}, valid_session
       expect(assigns(:work_days)).to eq([work_day])
     end
   end
