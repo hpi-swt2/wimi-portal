@@ -92,7 +92,7 @@
 
 <div style="margin-bottom: 20px">
   <% if can? :create, ProjectApplication %>
-    <% if project_application == @project.project_applications.find_by(user_id: current_user.id) %>
+    <% if project_application = @project.project_applications.find_by(user: current_user) %>
       <% case project_application.status %>
         <% when 'pending' %>
           <%= link_to t('project_applications.pending_cancel', default: 'Application Pending - Cancel'),

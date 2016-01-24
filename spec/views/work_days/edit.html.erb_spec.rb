@@ -12,8 +12,8 @@ RSpec.describe 'work_days/edit.html.erb', type: :view do
                                     end_time: Date.today.end_of_day,
                                     attendance: 'K',
                                     notes: 'MyString',
-                                    user_id: @user.id,
-                                    project_id: @project.id
+                                    user: @user,
+                                    project: @project
     ))
   end
 

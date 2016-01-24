@@ -110,8 +110,15 @@ de:
       days: "Tag(e)"
       title: "Benutzerprofil"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      status:
+        saved: "Gespeichert"
+        accepted: "Akzeptiert"
+        applied: "Eingereicht"
+        declined: "Abgelehnt"
     edit:
       user_data: "Profilbezogene Daten"
+      password: "Passwort ändern"
+      update_password: "Passwort aktualisieren"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
@@ -121,12 +128,16 @@ de:
     show:
       days: "Tag(e)"
       file: "Antrag einreichen"
+      reject: "Antrag ablehnen"
+      accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
       status:
-        saved: "Erstellt am "
+        saved: "Gespeichert am "
         accepted: "Akzeptiert am "
         applied: "Eingereicht am "
         declined: "Abgelehnt am "
+    form:
+      auto_calculation: "Für automatische Berechnung leer lassen."
   dashboard:
     index:
       notifications: "Benachrichtigungen"
@@ -223,7 +234,7 @@ de:
       accept: "Annehmen"
       decline: "Ablehnen"
       remove_from_chair: "Vom Lehrstuhl entfernen"
-      withdraw_rights: "(Rechte entziehen)"
+      withdraw_rights: "Rechte entziehen"
       grant_rights: "Als Admin ernennen"
   roles:  
     wimi_long: "Wissenschaftlicher Mitarbeiter"

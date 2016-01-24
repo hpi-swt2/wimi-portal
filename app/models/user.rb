@@ -4,11 +4,6 @@
 #
 #  id                        :integer          not null, primary key
 #  email                     :string           default(""), not null
-#  sign_in_count             :integer          default(0), not null
-#  current_sign_in_at        :datetime
-#  last_sign_in_at           :datetime
-#  current_sign_in_ip        :string
-#  last_sign_in_ip           :string
 #  first_name                :string
 #  last_name                 :string
 #  created_at                :datetime         not null
@@ -21,6 +16,8 @@
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
+#  username                  :string
+#  encrypted_password        :string           default(""), not null
 #
 
 class User < ActiveRecord::Base
@@ -45,7 +42,7 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
-  devise :openid_authenticatable, :trackable
+  devise :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
 
   has_many :work_days
   has_many :time_sheets
@@ -62,8 +59,9 @@ class User < ActiveRecord::Base
   validates :last_name, length: {minimum: 1}
   validates :email, length: {minimum: 1}
   validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999
-  validates_numericality_of :remaining_leave, greater_than_or_equal: 0
-  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
+  validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
+  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
+  validates_confirmation_of :password, if: :is_superadmin?
 
   # TODO: implement signature upload, this is a placeholder
   def signature
@@ -83,7 +81,7 @@ class User < ActiveRecord::Base
   def projects_for_month(year, month)
     projects = TimeSheet.where(
       user: self, month: month, year: year).map(&:project)
-    return (projects.compact + self.projects).uniq
+    (projects.compact + self.projects).uniq
   end
 
   def years_and_months_of_existence
@@ -103,7 +101,7 @@ class User < ActiveRecord::Base
     year = -1
     month = -1
     year_months = []
-    self.work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
+    work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
       unless year == date.year and month == date.month
         year = date.year
         month = date.month
@@ -188,5 +186,4 @@ class User < ActiveRecord::Base
     end
     datespans.sort! { |a,b| b.start_date <=> a.start_date }
   end
-
 end

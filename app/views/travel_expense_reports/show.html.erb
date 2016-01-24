@@ -73,6 +73,8 @@
   <%= render @travel_expense_report.travel_expense_report_items %>
 </ul>
 
+<% unless @travel_expense_report.status == 'applied' %>
 <%= link_to t('helpers.links.edit'), edit_travel_expense_report_path(@travel_expense_report) , class: "btn btn-default btn-xs"%> |
+<% end %>
 <%= link_to t('helpers.links.back'), travel_expense_reports_path , class: "btn btn-default btn-xs"%> |
 <%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Reisekostenabrechnung', doc_id: @travel_expense_report) , class: "btn btn-success btn-xs"%>
