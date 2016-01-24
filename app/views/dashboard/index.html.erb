@@ -3,7 +3,26 @@
   <h1> <%= t('.dashboard_title') %></h1>
 </div>
 
-<!--Notifications-->
+<% unless @activities.empty? %>
+<!-- Activities -->
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%=t('.notifications')%></h4>
+      </div>
+      <div class="panel-body">
+        <% unless @activities.nil? %>
+          <% @activities.each do |event| %>
+            <%= render partial: event %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'projects' %>
+<% end %>
+
+<!-- Notifications -->
 <div class="col-md-8">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -19,29 +38,17 @@
   </div>
 </div>
 
-<!--Projects-->
-<div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><%=t('.projects')%></h4>
-    </div>
-    <div class="panel-body">
-      <% current_user.projects.each do |project|%>
-        <p>
-          <%= link_to project.title, project %>
-        </p>
-      <%end%>
-      <% if can? :create, Project %>
-        <p style="margin-top:10px">
-          <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
-        </p>
-      <% end %>
-    </div>
-  </div>
-</div>
+<!-- Projects -->
+<% unless !@activities.empty? %>
+  <%= render partial: 'projects' %>
+<% end %>
 
 <!--Actions-->
+<% if @activities.empty? %>
 <div class="col-md-4 col-md-offset-8">
+<% else %>
+<div class="col-md-4">
+<% end %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4><%=t('.actions')%></h4>

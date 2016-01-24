@@ -153,13 +153,14 @@ de:
     index:
       notifications: "Benachrichtigungen"
       dashboard_title: "Dashboard"
-      projects: "Meine Projekte"
       representative_actions: "LS-Beauftragter - Aktionen"
       show_holiday_requests: "Urlaubsanträge anzeigen"
       show_expense_requests: "Reisekostenabrechnung anzeigen"
       show_trip_requests: "Dienstreiseanträge anzeigen"
       notifications: "Benachrichtigungen"
       actions: "Aktionen"
+    projects:
+      projects: "Meine Projekte"
     hiwi_actions:
       action: "Arbeitsstunden für das Projekt %{project_name} eintragen"
     wimi_actions:

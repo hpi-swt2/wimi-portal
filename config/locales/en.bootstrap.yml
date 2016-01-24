@@ -162,13 +162,14 @@ en:
     index:
       notifications: "Notifications"
       dashboard_title: "Dashboard"
-      projects: "My Projects"
       representative_actions: "Representative - Actions"
       show_holiday_requests: "Show holiday requests"
       show_expense_requests: "Show expense requests"
       show_trip_requests: "Show trip requests"
       notifications: "Notifications"
       actions: "Actions"
+    projects:
+      projects: "My Projects"
     hiwi_actions:
       action: "Enter working hours for %{project_name}"
     wimi_actions:
