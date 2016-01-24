@@ -35,6 +35,17 @@ class TimeSheetsController < ApplicationController
     end
   end
 
+  def accept_reject
+    set_time_sheet
+    if params[:commit] == I18n.t('time_sheets.show_footer.reject')
+      @time_sheet.update(time_sheet_params)
+      reject
+    else
+      @time_sheet.update(wimi_signed: time_sheet_params[:wimi_signed])
+      accept
+    end
+  end
+
   private
 
   def set_time_sheet

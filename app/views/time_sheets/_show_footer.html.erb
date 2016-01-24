@@ -12,7 +12,7 @@
       <% end %>
       <%= t('.signed') %>
       <p>
-      <%= form_for @time_sheet do |f| %>
+      <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
         <% unless @time_sheet.wimi_signed %>
           <div class="control-group">
             <%= f.check_box :wimi_signed %>
@@ -20,17 +20,17 @@
           </div>
           <br>
         <% end %>
-        <%= link_to t('.accept'), accept_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
-        <%= link_to t('.reject'), reject_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
+        <%= f.submit t('.accept'), class: 'btn btn-primary' %>
+        <%= f.submit t('.reject'), class: 'btn btn-primary' %>
         <br>
         <br>
         <%= f.label t('.reject_reason') %>
         <br>
-        <%= f.text_field :rejection_message, size: 50 %>
+        <%= f.text_field :rejection_message, id: 'message', size: 50 %>
       <% end %>
     <% end %>
   <% else %>
-    <%= form_for @time_sheet do |f| %>
+    <%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet), method: :get do |f| %>
       <% if @time_sheet.handed_in? %>
         <% if @time_sheet.status.include? 'pending' %>
           <%= t('.handed_in_at') %> <%=l @time_sheet.hand_in_date %> <%=t('.status') +': ' + @time_sheet.status %>
@@ -59,7 +59,7 @@
             </div>
           <% end %>
           <br>
-          <%= link_to t('.hand_in'), hand_in_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
+          <%= f.submit t('.hand_in'), class: 'btn btn-primary' %>
         <% else %>
           <% if @time_sheet.user_id = current_user.id %>
             <% unless @time_sheet.signed %>
@@ -68,7 +68,7 @@
               <%= f.label t('.add_signature') %>
               </div>
             <% end %>
-            <%= link_to t('.hand_in'), hand_in_time_sheet_path(@time_sheet), onclick: "f.submit()", class: 'btn btn-primary' %>
+            <%= f.submit t('.hand_in'), class: 'btn btn-primary' %>
           <% end %>   
         <% end %>   
       <% end %>
