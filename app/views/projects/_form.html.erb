@@ -17,17 +17,17 @@
       </div>
     <% end %>
 
-    <div class='control-group'>
+    <div class='form-group'>
       <%= f.label :title, t('projects.form.title', default: 'Title'), class: 'control-label' %>
       <div class='controls col-md-12 projectTitleControl'>
-        <div class='col-md-6' style='margin-left: -5px'>
+        <div class='col-md-6' style='margin-left: -20px'>
           <%= f.text_field :title, class: 'form-control' %>
         </div>
       </div>
       <%= error_span(@project[:title]) %>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
       <%= f.label :public, t('projects.form.accessibility', default: 'Accessibility'),  class: 'control-label' %>
       <div class='radio'>
         <div class='col-md-2'>
@@ -45,63 +45,66 @@
     </div>
 
     <% if @project.persisted? %>
-      <table class='table table-striped'>
-        <thead>
-        <tr>
-          <th><%= t('projects.form.wimi', default: 'Research Assistants:') %></th>
-          <th><%= t '.actions', default: t('helpers.actions') %></th>
-        </tr>
-        </thead>
-        <tbody>
-          <% @project.users.order('last_name').each do |user| %>
-            <% if user.is_wimi?%>
-              <tr>
-                <td>
-                  <%= user.name %>
-                </td>
-                <td>
-                  <% if can? :edit, @project%>
-                    <% if user == current_user %>
-                      <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOutMyself' %>
-                    <% else %>
-                      <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOut' %>
+      <div class="form-group">
+        <table class='table table-striped' width="1000px">
+          <thead>
+          <tr>
+            <th width="600px"><%= t('projects.form.wimi', default: 'Research Assistants:') %></th>
+            <th width="600px"><%= t '.actions', default: t('helpers.actions') %></th>
+          </tr>
+          </thead>
+          <tbody>
+            <% @project.users.order('last_name').each do |user| %>
+              <% if user.is_wimi?%>
+                <tr>
+                  <td>
+                    <%= user.name %>
+                  </td>
+                  <td>
+                    <% if can? :edit, @project%>
+                      <% if user == current_user %>
+                        <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOutMyself' %>
+                      <% else %>
+                        <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOut' %>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
-          <% end %>
-        </tbody>
-      </table>
-
-      <table class='table table-striped'>
-        <thead>
-        <tr>
-          <th><%= t('projects.form.hiwi', default:'Student Assistants:') %></th>
-          <th><%= t '.actions', default: t('helpers.actions') %></th>
-        </tr>
-        </thead>
-        <tbody>
-          <% @project.users.order('last_name').each do |user| %>
-            <% if user.is_hiwi?%>
-              <tr>
-                <td>
-                  <%= user.name %>
-                </td>
-                <td>
-                  <% if can? :edit, @project%>
-                    <% if user == current_user %>
-                      <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOutMyself' %>
-                    <% else %>
-                      <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOut' %>
+          </tbody>
+        </table>
+      </div>
+      <div class="form-group">
+        <table class='table table-striped' width="1000px">
+          <thead>
+          <tr>
+            <th width="600px"> <%= t('projects.form.hiwi', default:'Student Assistants:') %></th>
+            <th width="600px"><%= t '.actions', default: t('helpers.actions') %></th>
+          </tr>
+          </thead>
+          <tbody>
+            <% @project.users.order('last_name').each do |user| %>
+              <% if user.is_hiwi?%>
+                <tr>
+                  <td>
+                    <%= user.name %>
+                  </td>
+                  <td>
+                    <% if can? :edit, @project%>
+                      <% if user == current_user %>
+                        <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOutMyself' %>
+                      <% else %>
+                        <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOut' %>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     <% end %>
 
     <div class=" btn-group buttonGroup" role="group">
