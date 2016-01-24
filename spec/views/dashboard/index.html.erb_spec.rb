@@ -43,7 +43,26 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   end
 
   it 'shows invitations for projects' do
-    #   TODO
+    login_as(@user, scope: :user)
+    project = FactoryGirl.create(:project)
+    project.invite_user(@user, @user)
+    visit dashboard_path
+
+    content = I18n.t('event_project_invitations.event_project_invitation.full_html', trigger_name: @user.name, project_name: project.title)
+    expect(page).to have_content(content)
+  end
+
+  it 'shows when one of your timesheets gets declined / accepted' do
+    hiwi = FactoryGirl.create(:hiwi)
+    login_as(hiwi, scope: :user)
+    project = FactoryGirl.create(:project)
+    time_sheet = FactoryGirl.create(:time_sheet, user_id: hiwi.id, project_id: project.id)
+    time_sheet.update(signer: @user.id)
+    ActiveSupport::Notifications.instrument("event", {trigger: time_sheet.id, target: hiwi.id, seclevel: :hiwi, type: 'EventTimeSheetAccepted'})
+
+    visit dashboard_path
+    content = I18n.t('event_time_sheet_accepteds.event_time_sheet_accepted.full_html', signer: @user.name, project: project.title, month: l(Date.new(1, time_sheet.month, 1), format: :without_day_year))
+    expect(page.body).to have_content(content)
   end
 
   it 'hides the content for chairless and projectless users for all other users' do
