@@ -140,6 +140,7 @@ en:
       reject: "Reject Request"
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
+      reject_reason: "Rejection reason"
       status:
         saved: "Saved at "
         accepted: "Accepted at "
