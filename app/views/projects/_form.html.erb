@@ -42,47 +42,49 @@
       <%= error_span(@project[:public]) %>
     </div>
 
-    <div style="margin-top: 20px">
-      <%= f.label :users, t('projects.form.wimi', default: 'Research Assistants:'),  class: 'control-label', style: 'margin-bottom: 20px' %>
-      <div class="col-md-12">
-        <% @project.users.order('last_name').each do |user| %>
-            <% if user.is_wimi?%>
-                <div style="margin-bottom: 15px">
-                  <%= user.name %>
-                  <% if can? :edit, @project%>
-                      <% if user == current_user %>
-                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
-                      <% else %>
-                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
-                      <% end %>
-                  <% end %>
-                </div>
-            <% end %>
-        <% end %>
+    <% if @project.persisted? %>
+      <div style="margin-top: 20px">
+        <%= f.label :users, t('projects.form.wimi', default: 'Research Assistants:'),  class: 'control-label', style: 'margin-bottom: 20px' %>
+        <div class="col-md-12">
+          <% @project.users.order('last_name').each do |user| %>
+              <% if user.is_wimi?%>
+                  <div style="margin-bottom: 15px">
+                    <%= user.name %>
+                    <% if can? :edit, @project%>
+                        <% if user == current_user %>
+                            <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
+                        <% else %>
+                            <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
+                        <% end %>
+                    <% end %>
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
       </div>
-    </div>
 
-    <div style="margin-bottom: 30px">
-      <%= f.label :users, t('projects.form.hiwi', default:'Student Assistants:'),  class: 'control-label', style: 'margin-bottom: 20px' %>
-      <div class="col-md-12">
-        <% @project.users.order('last_name').each do |user| %>
-            <% if user.is_hiwi?%>
-                <div style="margin-bottom: 15px">
-                  <%= user.name %>
-                  <% if can? :edit, @project%>
-                      <% if user == current_user %>
-                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
-                      <% else %>
-                          <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
-                      <% end %>
-                  <% end %>
-                </div>
-            <% end %>
-        <% end %>
+      <div style="margin-bottom: 30px">
+        <%= f.label :users, t('projects.form.hiwi', default:'Student Assistants:'),  class: 'control-label', style: 'margin-bottom: 20px' %>
+        <div class="col-md-12">
+          <% @project.users.order('last_name').each do |user| %>
+              <% if user.is_hiwi?%>
+                  <div style="margin-bottom: 15px">
+                    <%= user.name %>
+                    <% if can? :edit, @project%>
+                        <% if user == current_user %>
+                            <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOutMyself' %>
+                        <% else %>
+                            <%= link_to t('projects.form.sign_out_of_project', default:'Sign out of project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-bottom: 20px', id: 'SignOut' %>
+                        <% end %>
+                    <% end %>
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
-  <div class="col-md-2">
+  <div class="col-md-2 buttonGroup">
     <%= f.submit nil, class: 'btn btn-primary' %>
   </div>
 

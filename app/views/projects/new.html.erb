@@ -4,5 +4,7 @@
 </div>
 <%= render partial: 'form' %>
 
-<%= link_to t('.cancel', default: t("helpers.links.cancel")),
-            projects_path, class: 'btn btn-default' %>
+<div class="buttonGroup">
+  <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+              projects_path, class: 'btn btn-default' %>
+</div>
