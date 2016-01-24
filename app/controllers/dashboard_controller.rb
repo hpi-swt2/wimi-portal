@@ -3,7 +3,6 @@ class DashboardController < ApplicationController
     @notifications = []
     @activities = []
     temp = []
-    seclevel = Event.seclevel_of_user(current_user)
 
     temp += Event.where(seclevel: Event.seclevels[:superadmin]) if current_user.is_superadmin?
     temp += Event.where(seclevel: Event.seclevels[:admin]) if current_user.is_admin?
