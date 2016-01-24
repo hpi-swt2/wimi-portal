@@ -190,7 +190,7 @@ RSpec.describe ChairsController, type: :controller do
       expect(Chair.all.count).to eq(chair_count)
     end
 
-    it 'removes pending applications if user becomes admin or representative' do
+    it 'removes pending applications if user becomes admin or representative while creating a chair' do
       superadmin = FactoryGirl.create(:user, superadmin: true)
       user = FactoryGirl.create(:user)
       chair = FactoryGirl.create(:chair)
@@ -265,7 +265,7 @@ RSpec.describe ChairsController, type: :controller do
       expect(Chair.last.representative.user).to eq(@superadmin)
     end
 
-    it 'removes pending applications if user becomes admin or representative' do
+    it 'removes pending applications if user becomes admin or representative while modifying a chair' do
       superadmin = FactoryGirl.create(:user, superadmin: true)
       user = FactoryGirl.create(:user)
       chair = FactoryGirl.create(:chair)
