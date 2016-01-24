@@ -121,6 +121,8 @@ en:
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
+      password: "Change Password"
+      update_password: "Update Password"
       days: "Day(s)"
       time_sheets_overview: "time sheet overview"
       hiwi: "research assistants"

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+  get 'superadmin' => 'users#superadmin_index', as: 'superadmin'
+
   resources :chair_applications
   resources :chairs
 
@@ -90,8 +94,6 @@ Rails.application.routes.draw do
   #post 'holidays/:id/accept', to: 'holidays#accept', as: 'accept_holiday'
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'
   post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
-
-  devise_for :users
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
   
