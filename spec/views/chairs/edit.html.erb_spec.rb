@@ -11,8 +11,8 @@ RSpec.describe 'chairs/edit.html.erb', type: :view do
     chair = FactoryGirl.create(:chair)
     visit edit_chair_path(chair)
 
-    expect(page).to have_content('Joe Doe')
-    expect(page).to_not have_content('Super Admin')
+    expect(page).to have_content(@user.name)
+    expect(page).to_not have_content(@superadmin.name)
   end
 
 end

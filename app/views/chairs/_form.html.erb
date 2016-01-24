@@ -31,7 +31,7 @@
         <select name="admin_user" id="admin_user">
           <option value="null"><%= I18n.t('helpers.list_select') %></option>
           <%= User.all.each do |user| %>
-              <% if !user.is_superadmin? %>
+              <% unless user.is_superadmin? %>
                   <% if @chair.admins.count { |admin| admin.user.id == user.id } == 1 %>
                       <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
                   <% else %>
@@ -51,7 +51,7 @@
         <select name="representative_user">
           <option value="null"><%= I18n.t('helpers.list_select') %></option>
           <%= User.all.each do |user| %>
-              <% if !user.is_superadmin? %>
+              <% unless user.is_superadmin? %>
                   <% if @chair.representative != nil && @chair.representative.user.id == user.id %>
                       <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
                   <% else %>

@@ -42,10 +42,7 @@ class Chair < ActiveRecord::Base
     admin = User.find_by(id: admin_id)
     representative = User.find_by(id: representative_id)
 
-    if admin && representative
-      if admin.is_superadmin? || representative.is_superadmin?
-        return false
-      end
+    if admin && representative && !(admin.is_superadmin? || representative.is_superadmin?)
       if admin != representative
         unless admin.is_wimi? || representative.is_wimi?
           c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
@@ -73,10 +70,7 @@ class Chair < ActiveRecord::Base
     admin = User.find_by(id: admin_id)
     representative = User.find_by(id: representative_id)
 
-    if admin && representative
-      if admin.is_superadmin? || representative.is_superadmin?
-        return false
-      end
+    if admin && representative && !(admin.is_superadmin? || representative.is_superadmin?)
       chairwimi1 = ChairWimi.find_by(chair: self, admin: true)
       chairwimi2 = ChairWimi.find_by(chair: self, representative: true)
       if chairwimi1 != nil
