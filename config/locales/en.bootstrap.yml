@@ -198,6 +198,8 @@ en:
       new: "new"
       for: "for"
       by: "by"
+    new:
+      back: "Back"
   time_sheets:
     form:
       monthly: "monthly"

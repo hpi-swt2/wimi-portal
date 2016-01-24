@@ -189,6 +189,8 @@ de:
       new: "neu"
       for: "für"
       by: "von"
+    new:
+      back: "Zurück"
   time_sheets:
     form:
       monthly: "monatlich"
