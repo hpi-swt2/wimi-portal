@@ -52,6 +52,12 @@ class Chair < ActiveRecord::Base
             success = true
           end
         end
+        if adminApp = ChairWimi.find_by(user: admin, application: 'pending')
+          adminApp.destroy
+        end
+        if repApp = ChairWimi.find_by(user: representative, application: 'pending')
+          repApp.destroy
+        end
       else
         unless admin.is_wimi?
           c = ChairWimi.new(admin: true, representative: true, chair: self, user: admin, application: 'accepted')
@@ -59,6 +65,9 @@ class Chair < ActiveRecord::Base
           if save && c.save
             success = true
           end
+        end
+        if app = ChairWimi.find_by(user: admin, application: 'pending')
+          app.destroy
         end
       end
     end
@@ -89,6 +98,12 @@ class Chair < ActiveRecord::Base
             success = true
           end
         end
+        if adminApp = ChairWimi.find_by(user: admin, application: 'pending')
+          adminApp.destroy
+        end
+        if repApp = ChairWimi.find_by(user: representative, application: 'pending')
+          repApp.destroy
+        end
       else
         unless admin.is_wimi?
           c = ChairWimi.new(admin: true, representative: true, chair: self, user: admin, application: 'accepted')
@@ -96,6 +111,9 @@ class Chair < ActiveRecord::Base
           if save && c.save
             success = true
           end
+        end
+        if app = ChairWimi.find_by(user: admin, application: 'pending')
+          app.destroy
         end
       end
     end

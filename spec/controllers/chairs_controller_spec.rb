@@ -194,6 +194,23 @@ RSpec.describe ChairsController, type: :controller do
       post :create, {chair: {name: 'Test'}, admin_user: @superadmin, representative_user: @superadmin}
       expect(Chair.all.count).to eq(chair_count)
     end
+
+    it 'removes pending applications if user becomes admin or representative while creating a chair' do
+      superadmin = FactoryGirl.create(:user, superadmin: true)
+      user = FactoryGirl.create(:user)
+      chair = FactoryGirl.create(:chair)
+      chairwimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(chairwimi)
+      expect(ChairWimi.find_by(user: user, application: 'accepted')).to eq(nil)
+
+      login_with superadmin
+      expect {
+        post :create, {chair: {name: 'Test'}, admin_user: user, representative_user: user}
+      }.to change(ChairWimi, :count).by(0)
+
+      expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(nil)
+      expect(ChairWimi.find_by(user: user, application: 'accepted')).to_not eq(nil)
+    end
   end
 
   describe 'POST #update' do
@@ -251,6 +268,22 @@ RSpec.describe ChairsController, type: :controller do
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@anotheruser)
+    end
+
+    it 'removes pending applications if user becomes admin or representative while modifying a chair' do
+      superadmin = FactoryGirl.create(:user, superadmin: true)
+      user = FactoryGirl.create(:user)
+      chair = FactoryGirl.create(:chair)
+      newchair = FactoryGirl.create(:chair)
+      chairwimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(chairwimi)
+      expect(ChairWimi.find_by(user: user, application: 'accepted')).to eq(nil)
+
+      login_with superadmin
+      put :update, id: newchair.id, chair: {name: 'NewTest'}, admin_user: user, representative_user: user
+
+      expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(nil)
+      expect(ChairWimi.find_by(user: user, application: 'accepted')).to_not eq(nil)
     end
   end
 
