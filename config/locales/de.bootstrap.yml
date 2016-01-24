@@ -97,6 +97,7 @@ de:
       inactive: "inaktiv"
       private: "privat"
       public: "öffentlich"
+      projects: "Projekte"
   users:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
