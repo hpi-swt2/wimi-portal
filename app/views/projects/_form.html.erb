@@ -116,14 +116,12 @@
                     projects_path, class: 'btn btn-default' %>
       <% end %>
       <%= f.submit nil, class: 'btn btn-primary' %>
-      <%  if @project.persisted? %>
-        <% if can? :destroy, @project%>
-          <%= link_to t('helpers.links.destroy'),
-                      project_path(@project),
-                      method: 'delete',
-                      data: { confirm: t('helpers.links.confirm') },
-                      class: 'btn btn-danger' %>
-        <% end %>
+      <%  if (can? :destroy, @project) && @project.persisted? %>
+        <%= link_to t('helpers.links.destroy'),
+                    project_path(@project),
+                    method: 'delete',
+                    data: { confirm: t('helpers.links.confirm') },
+                    class: 'btn btn-danger' %>
       <% end %>
     </div>
   <% end %>
