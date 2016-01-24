@@ -27,7 +27,7 @@ class ProjectApplicationsController < ApplicationController
     @project_application.user = current_user
     @project_application.project_id = params[:id]
 
-    if @project_application.save
+    if (can? :create, ProjectApplication) && @project_application.save
       redirect_to project_applications_path
       flash[:success] = I18n.t('project_applications.created')
     else
