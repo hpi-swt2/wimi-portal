@@ -2,15 +2,14 @@ class WorkDaysController < ApplicationController
   before_action :set_work_day, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params.has_key?(:month) && params.has_key?(:year)
+    if params.has_key?(:month) && params.has_key?(:year) && params.has_key?(:project)
       @month = params[:month].to_i
       @year = params[:year].to_i
-      @project = params.has_key?(:project) ? Project.find(params[:project].to_i) : nil
+      @project = Project.find(params[:project].to_i)
       @time_sheet = TimeSheet.time_sheet_for(@year, @month, @project, current_user)
       @work_days = WorkDay.all_for(@year, @month, @project, current_user)
     else
-      date = Date.today
-      redirect_to work_days_path(month: date.month, year: date.year)
+      redirect_to user_path(current_user)
     end
   end
 
@@ -30,7 +29,7 @@ class WorkDaysController < ApplicationController
 
     if @work_day.save
       flash[:success] = 'Work Day was successfully created.'
-      redirect_to work_days_month_path
+      redirect_to path_to_list_with_work_day(@work_day)
     else
       render :new
     end
@@ -39,17 +38,17 @@ class WorkDaysController < ApplicationController
   def update
     if @work_day.update(work_day_params)
       flash[:success] = 'Work Day was successfully updated.'
-      redirect_to work_days_month_path
+      redirect_to path_to_list_with_work_day(@work_day)
     else
       render :edit
     end
   end
 
   def destroy
-    date = @work_day.date
+    old_work_day = @work_day
     @work_day.destroy
     flash[:success] = 'Work Day was successfully destroyed.'
-    redirect_to work_days_path(month: date.month, year: date.year)
+    redirect_to path_to_list_with_work_day(old_work_day)
   end
 
   private
@@ -63,7 +62,7 @@ class WorkDaysController < ApplicationController
     params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id, :project_id)
   end
 
-  def work_days_month_path
-    work_days_path(month: @work_day.date.month, year: @work_day.date.year)
+  def path_to_list_with_work_day(work_day)
+    work_days_path(month: work_day.date.month, year: work_day.date.year, project: work_day.project_id)
   end
 end
