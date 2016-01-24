@@ -22,10 +22,10 @@ RSpec.describe 'trips/edit', type: :view do
     end
   end
 
-  it "shows the trip detail page after editing" do
-      visit trip_path(@trip)
-      click_on I18n.t('helpers.links.edit')
-      find('input[name="commit"]').click
-      expect(current_path).to eq(trip_path(@trip))
+  it 'shows the trip detail page after editing' do
+    visit trip_path(@trip)
+    click_on I18n.t('helpers.links.edit')
+    find('input[name="commit"]').click
+    expect(current_path).to eq(trip_path(@trip))
   end
 end

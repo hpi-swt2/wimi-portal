@@ -52,7 +52,6 @@ class Project < ActiveRecord::Base
 
   def wimis
     users.select(&:is_wimi?)
-
   end
 
   def remove_user(user)

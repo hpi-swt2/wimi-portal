@@ -109,7 +109,7 @@ class Chair < ActiveRecord::Base
   end
 
   def create_allrequests(types, statuses)
-    @allrequests = Array.new
+    @allrequests = []
 
     users.each do |user|
       add_requests(I18n.t('chair.requests.holiday_request'), user.holidays, statuses) if types.include? 'holidays'

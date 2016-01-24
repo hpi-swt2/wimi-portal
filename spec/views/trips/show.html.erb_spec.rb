@@ -13,14 +13,14 @@ RSpec.describe 'trips/show', type: :view do
     expect(rendered).to match(/signature/)
   end
 
-  it "displays links for editing, applying ind destroing when status is not applied" do
+  it 'displays links for editing, applying ind destroing when status is not applied' do
     render
     expect(rendered).to have_link(t('helpers.links.hand_in'))
     expect(rendered).to have_link(t('helpers.links.edit'))
     expect(rendered).to have_link(t('helpers.links.destroy'))
   end
 
-  it "does not display links for editing, applying ind destroing when status is applied " do
+  it 'does not display links for editing, applying ind destroing when status is applied ' do
     @trip.update({status: 'applied'})
     render
     expect(@trip.status).to eq('applied')
@@ -29,5 +29,4 @@ RSpec.describe 'trips/show', type: :view do
     expect(rendered).not_to have_link(t('helpers.links.edit'))
     expect(rendered).not_to have_link(t('helpers.links.destroy'))
   end
-
 end
