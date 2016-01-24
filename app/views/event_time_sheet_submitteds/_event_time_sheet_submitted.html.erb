@@ -1,6 +1,6 @@
 <p>
   <%=
-    time_sheet = TimeSheet.find(event_time_sheet_submitted.trigger)
+    time_sheet = TimeSheet.find(event_time_sheet_submitted.trigger_id)
     t(
       '.full_html',
       link_to_user: link_to(time_sheet.user.name, time_sheet.user),

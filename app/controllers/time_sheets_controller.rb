@@ -15,21 +15,24 @@ class TimeSheetsController < ApplicationController
     time_sheet = TimeSheet.find(params[:id])
     time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
     ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.project_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
-    redirect_to user_path(current_user)
+    #redirect_to user_path(current_user)
+    redirect_to dashboard_path
   end
 
   def accept
     time_sheet = TimeSheet.find(params[:id])
     time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id)
     ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
-    redirect_to user_path(current_user)
+    #redirect_to user_path(current_user)
+    redirect_to dashboard_path
   end
 
   def reject
     time_sheet = TimeSheet.find(params[:id])
     time_sheet.update(status: 'rejected', handed_in: false, last_modified: Date.today, signer: current_user.id)
     ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.user_id, seclevel: :hiwi, type: 'EventTimeSheetDeclined')
-    redirect_to user_path(current_user)
+    #redirect_to user_path(current_user)
+    redirect_to dashboard_path
   end
 
   def update

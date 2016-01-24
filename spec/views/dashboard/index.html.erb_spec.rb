@@ -67,6 +67,21 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(page.body).to have_content(l(Date.new(1, time_sheet.month, 1), format: :without_day_year))
   end
 
+  it 'shows if a hiwi of one of your projects submitted a timesheet' do
+    chair = FactoryGirl.create(:chair)
+    project = FactoryGirl.create(:project, chair: chair)
+    time_sheet = FactoryGirl.create(:time_sheet, user_id: @user.id, project_id: project.id)
+    ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: project.id, seclevel: :wimi, type: 'EventTimeSheetSubmitted'})
+
+    wimi = User.find(FactoryGirl.create(:wimi, chair: chair).user_id)
+    wimi.projects << project
+    project.users << wimi
+    login_as wimi
+    visit dashboard_path
+    expect(wimi.is_wimi?).to eq(true)
+    expect(page.body).to have_content(@user.name)
+  end
+
   it 'hides the content for chairless and projectless users for all other users' do
     chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     chair2 = FactoryGirl.create(:chair, name: 'Chair2')
