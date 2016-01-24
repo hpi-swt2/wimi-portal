@@ -73,7 +73,9 @@ feature 'research assistant profile' do
   it "shows status, chair and projects" do
     visit user_path(@current_user)
     expect(page).to have_content 'First Name'
+    expect(page).to have_content @current_user.first_name
     expect(page).to have_content 'Last Name'
+    expect(page).to have_content @current_user.last_name
     expect(page).to have_content 'Research Assistant'
     expect(page).to have_content 'Research Group'
     expect(page).to have_content 'TestChair'
