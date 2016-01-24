@@ -132,7 +132,7 @@
                 work_days_path(month: 1, year: 2016, project: @project), class: 'btn btn-default pull-right', style: 'margin-right: 15px' %>
 <% end %>
 
-<% if can? :accept, ProjectApplication and @project.users.exists?(current_user) %>
+<% if can? :accept, ProjectApplication and @project.users.exists?(current_user.id) %>
   <table class='table table-striped'>
     <thead>
     <tr>

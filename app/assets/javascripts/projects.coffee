@@ -46,10 +46,9 @@ typeahead = ->
 
 inviteInitUser = ->
   count = 0
-  $('body').on 'click', '#AddOneMoreUser', ->
-    console.log 'clicked'
-    email = $('#invitations_email').val()
-    $('#invitations_email').val('')
+  $('body').on 'click', '#invite_user', ->
+    email = $('#invitation_mail').val()
+    $('#invitation_mail').val('')
 
     div = document.createElement("div")
     div.id = 'user' + count
@@ -68,7 +67,7 @@ inviteInitUser = ->
     div.appendChild(newInvitation)
     div.appendChild(deleteButton)
 
-    list = document.getElementById("invitedUser")
+    list = document.getElementById("invited_users")
     list.appendChild(div)
     count += 1
 
@@ -80,7 +79,7 @@ deleteInvitation = ->
   deleteButtonCount = $("input[type=button][clicked=true]").prevObject[0].activeElement.id
   deleteButtonCount = deleteButtonCount.split('delete')[1]
 
-  list = document.getElementById("invitedUser")
+  list = document.getElementById("invited_users")
   elem = document.getElementById("user" + deleteButtonCount)
   list.removeChild(elem)
 
@@ -93,7 +92,7 @@ ready = ->
     sendLanguageWithButtonToCallback $('#SignOutMyself'), signOutMyselfWarning
   if $('.typeahead').length
     typeahead()
-  if $('#AddOneMoreUser').length
+  if $('#invite_user').length
     inviteInitUser()
   return
 
