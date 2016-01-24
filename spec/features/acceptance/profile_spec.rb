@@ -2,7 +2,7 @@ require 'rails_helper'
 
 include Warden::Test::Helpers
 
-describe 'profile', type: feature do
+feature 'profile' do
   #self.use_transactional_fixtures = false #only necessary when using selenium with js:true
   before :each do
     @current_user = FactoryGirl.create(:user)
@@ -10,7 +10,7 @@ describe 'profile', type: feature do
   end
 
   it "shows only given details" do
-    visit "/users/#{@current_user.id}/"
+    visit user_path(@current_user)
     within('body/div.container') do
       expect(page).to have_content 'First Name'
       expect(page).to have_content 'Last Name'
@@ -29,7 +29,7 @@ describe 'profile', type: feature do
   end
 
   it "allows to add an personal address" do
-    visit "/users/#{@current_user.id}/"
+    visit user_path(@current_user)
     click_on('Edit')
     fill_in('Street', :with => 'August-Bebel-Str. 89')
     fill_in('Zip Code', :with => '14482')
@@ -45,7 +45,7 @@ describe 'profile', type: feature do
   end
 
   it "does not allow to change the research group" do
-    visit "/users/#{@current_user.id}/edit"
+    visit edit_user_path(@current_user)
     expect(page).to_not have_content 'Division'
     within 'form' do
       expect(page).to_not have_content 'Research Group'
@@ -53,7 +53,7 @@ describe 'profile', type: feature do
   end
 end
 
-describe 'research assistant profile', type: feature do
+feature 'research assistant profile' do
   #self.use_transactional_fixtures = false #only necessary when using selenium with js:true
   before :each do
     chair = FactoryGirl.create(:chair)
@@ -71,7 +71,7 @@ describe 'research assistant profile', type: feature do
   end
 
   it "shows status, chair and projects" do
-    visit "/users/#{@current_user.id}/"
+    visit user_path(@current_user)
     expect(page).to have_content 'First Name'
     expect(page).to have_content 'Last Name'
     expect(page).to have_content 'Research Assistant'
