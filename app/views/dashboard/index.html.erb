@@ -3,6 +3,7 @@
   <h1> <%= t('.dashboard_title') %></h1>
 </div>
 
+<!--Notifications-->
 <div class="col-md-8">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -30,6 +31,11 @@
           <%= link_to project.title, project %>
         </p>
       <%end%>
+      <% if can? :create, Project %>
+        <p style="margin-top:10px">
+          <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
+        </p>
+      <% end %>
     </div>
   </div>
 </div>
@@ -49,13 +55,15 @@
     </div>
   </div>
 </div>
-<div class="dashboard-content">
-  <!-- Left column -->
-  <div class="col-md-8" style="margin: 15px 0px">
-    <!-- Project invitations -->
-    <% if !(current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
-      <div class="col-md-12 dashboard-block">
-        <h3> <%= I18n.t('activerecord.models.chair.other') %> </h3>
+
+<!--Chairs-->
+<div class="col-md-8">
+  <% if !(current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4> <%= I18n.t('activerecord.models.chair.other') %> </h4>
+      </div>
+      <div class="panel-body">
         <table class="table table-striped">
           <thead>
           <tr>
@@ -81,11 +89,15 @@
           </tbody>
         </table>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
-    <% if current_user.is_superadmin? %>
-      <div class="col-md-12 dashboard-block">
-        <h3> <%= I18n.t('activerecord.models.chair.other') %> </h3>
+  <% if current_user.is_superadmin? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4> <%= I18n.t('activerecord.models.chair.other') %> </h4>
+      </div>
+      <div class="panel panel-body">
         <table class="table table-striped">
           <thead>
           <tr>
@@ -104,40 +116,31 @@
           <% end %>
           </tbody>
         </table>
+        <br>
         <%= link_to I18n.t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
       </div>
-    <% end %>
-  </div>
-
-  <!-- Right column -->
-  <div class="col-md-4" style="margin: 15px 0px">
-    <!-- Projects -->
-    <div class="col-md-12 dashboard-block">
-      <h3> <%= t('.projects') %> </h3>
-      <% current_user.projects.each do |project| %>
-          <p><%= link_to project.title, project %></p>
-      <% end %>
-      <% if can? :create, Project %>
-        <p style="margin-top:10px">
-          <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
-        </p>
-      <% end %>
     </div>
+  <% end %>
+</div>
 
-    <!-- Chair representative actions -->
-    <% if current_user.is_representative? %>
-        <div class="col-md-12 dashboard-block">
-          <h3> <%= t('.representative_actions') %> </h3>
-          <p>
-            <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holidays: true, applied: true, accepted: true, declined: true), method: :post %>
-          </p>
-          <p>
-            <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expenses: true, applied: true, accepted: true, declined: true), method: :post %>
-          </p>
-          <p>
-            <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
-          </p>
-        </div>
-    <% end %>
-  </div>
+<!-- Chair representative actions -->
+<div class="col-md-4">
+  <% if current_user.is_representative? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4> <%= t('.representative_actions') %> </h4>
+      </div>
+      <div class="panel-body">
+        <p>
+          <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holidays: true, applied: true, accepted: true, declined: true), method: :post %>
+        </p>
+        <p>
+          <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expenses: true, applied: true, accepted: true, declined: true), method: :post %>
+        </p>
+        <p>
+          <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
+        </p>
+      </div>
+    </div>
+  <% end %>
 </div>
