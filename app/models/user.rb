@@ -21,6 +21,7 @@
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
+#  signature                 :text
 #
 
 class User < ActiveRecord::Base

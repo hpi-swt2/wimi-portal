@@ -110,6 +110,10 @@ de:
       days: "Tag(e)"
       title: "Benutzerprofil"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      signature: "Unterschrift"
+      warning: "ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt!"
+      upload: "Unterschrift hochladen"
+      information: "Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus"
     edit:
       user_data: "Profilbezogene Daten"
     edit_leave:

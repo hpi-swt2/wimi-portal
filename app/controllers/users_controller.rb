@@ -25,23 +25,23 @@ class UsersController < ApplicationController
   def upload_signature
     if params[:upload]
       file = Base64.encode64(params[:upload]['datafile'].read)
-      file_name = params[:upload]['datafile'].original_filename unless params[:upload]['datafile'] == ''
+      file_name = params[:upload]['datafile'].original_filename
       file_type = file_name.split('.').last.to_s
       if ['jpg', 'bmp', 'jpeg', 'png'].include? file_type.downcase
-        current_user.update(signature: file)
-        flash[:success] = 'todo'
+        @user.update(signature: file)
+        flash[:success] = t('.upload_success')
       else
-        flash[:error] = 'todo'
+        flash[:error] = t('.invalid_file_extension')
       end
     else
-      flash[:error] = 'todo'
+      flash[:error] = t('.upload_error')
     end
     redirect_to current_user
   end
 
   def delete_signature
     @user.update(signature: nil)
-    flash[:success] = 'todo'
+    flash[:success] = t('.destroy_success')
     redirect_to current_user
   end
 
