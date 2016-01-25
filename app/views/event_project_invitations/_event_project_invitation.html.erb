@@ -10,10 +10,9 @@
         invitation.project.title,
         project_path(invitation.project)))
   %>
-  &nbsp;
-  <div class="text-nowrap">
+  <span class="text-nowrap">
     <%= link_to(t('.accept'), accept_invitation_project_path(invitation.project_id)) %>
-    &nbsp;/&nbsp;
+    /
     <%= link_to(t('.decline'), decline_invitation_project_path(invitation.project_id)) %>
-  </div>
+  </span>
 </p>
