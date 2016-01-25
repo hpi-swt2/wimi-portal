@@ -71,7 +71,9 @@ Rails.application.routes.draw do
   post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
 
 
-  get '/tasks/live_search', to: 'chairs#live_search', as: 'search'
+  get '/admin_search', to: 'chairs#admin_search', as: 'admin_search'
+  get '/representative_search', to: 'chairs#representative_search', as: 'representative_search'
+
 
   devise_for :users
 

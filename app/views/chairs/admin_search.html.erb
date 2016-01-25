@@ -1,0 +1,11 @@
+<% if @results.empty? %>
+	  <li><a href="#">
+	    no results<br>
+	  </a></li>
+<% else %>
+	<% @results.each do |user| %>
+	  <li><a><div onClick="addAdmin(<%= user.id %>, '<%= user.name %>')">
+	    <%= user.name %><br></div>
+	  </a></li>
+	<% end %>
+<% end %>

@@ -25,56 +25,29 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :chair_admin, class: 'control-label' %><br>
+      <!-- Admins -->
+      <div id="admins"><%= f.label :chair_admins, class: 'control-label' %><br>
+      </div>
 
-      <div class="controls">
-        <select name="admin_user" id="admin_user">
-          <option value="null"><%= I18n.t('helpers.list_select') %></option>
-          <%= User.all.each do |user| %>
-              <% if @chair.admins.count { |admin| admin.user.id == user.id } == 1 %>
-                  <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
-              <% else %>
-                  <option value="<%= user.id %>"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
-              <% end %>
-          <% end %>
-        </select>
-        <%= error_span(@chair[:chair_admin]) %>
+      <input id="search-box-admin" name="q" type="text" class="form-control"/>
+      <div class="dropdown">
+        <ul id="search-results-admin" class="dropdown-menu">
+        </ul>
       </div>
     </div>
 
     <div class="control-group">
-      <%= f.label :chair_representative, class: 'control-label' %><br>
+      <!-- Representative -->
+      <div id="representative"><%= f.label :chair_representative, class: 'control-label' %><br>
+      </div>
 
-      <div class="controls">
-        <select name="representative_user">
-          <option value="null"><%= I18n.t('helpers.list_select') %></option>
-          <%= User.all.each do |user| %>
-              <% if @chair.representative != nil && @chair.representative.user.id == user.id %>
-                  <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
-              <% else %>
-                  <option value="<%= user.id %>"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
-              <% end %>
-          <% end %>
-        </select>
-        <%= error_span(@chair[:chair_representative]) %>
+      <input id="search-box-representative" name="q" type="text" class="form-control"/>
+      <div class="dropdown">
+        <ul id="search-results-representative" class="dropdown-menu">
+        </ul>
       </div>
     </div>
     <br/>
-
-<div id="admins">ADMINS</div>
-
-
-  <input id="search-box-admin" name="q" type="text" class="form-control"/>
-  <div class="dropdown">
-    <ul id="search-results-admin" class="dropdown-menu">
-    </ul>
-  </div>
-
-<input class="test" name="user1" id="admins">safd</input>
-<input class="test" name="user1" id="admins">safd</input>
-  <input type="hidden" name="a" value="1" /> 
-  <input type="hidden" name="b" value="2" /> 
-  <input type="hidden" name="c" value="3" /> 
 
     <%= f.submit nil, class: 'btn btn-primary' %>
     <%= link_to t("helpers.links.cancel"),
@@ -82,20 +55,6 @@
 
 <% end %>
 
-
-search 1
-
-  <div class="dropdown">
-    <ul id="search-results" class="dropdown-menu">
-    </ul>
-  </div>
-
-
-Search 2
-
-<form id="live-search-form" method="get" action="<%= search_path %>">
-  <input id="search-box" name="q" type="text" class="form-control"/>
-</form>
 
 
 
@@ -105,7 +64,7 @@ Search 2
 var adminArray = [];
 var adminDiv = $( "#admins" );
 
-function divFunction(id, name){
+function addAdmin(id, name){
   //alert($.inArray(id,adminArray));
   if($.inArray(id,adminArray) == -1) {
     adminDiv.append("<div id=\"admin_"+id+"\"><p>"+name+" <a onClick=\"removeAdmin("+id+")\">entfernen</a></p><input type=\"hidden\" name=\"admins["+id+"]\" value=\""+id+"\" /></div>");
@@ -121,19 +80,13 @@ function removeAdmin(id){
   if(i != -1) {
     adminArray.splice(i, 1);
   }
-
 }
 
-
-
-//$("#big-search-box").focusout(function() {
-//  $("#live-search-results").hide();
-//});
 
   
 $("#search-box-admin").bind("keyup", function() {
   var form = $("#search-box-admin");
-  var url = "/tasks/live_search";
+  var url = "/admin_search";
 
   var formData = form.serialize();
   if (formData.length == 2) $("#search-results-admin").hide();
@@ -143,6 +96,19 @@ $("#search-box-admin").bind("keyup", function() {
       $("#search-results-admin").show();
     });
   }
+}); 
 
+$("#search-box-representative").bind("keyup", function() {
+  var form = $("#search-box-representative");
+  var url = "/representative_search";
+
+  var formData = form.serialize();
+  if (formData.length == 2) $("#search-results-representative").hide();
+  else {
+    $.get(url, formData, function(html) {
+      $("#search-results-representative").html(html);
+      $("#search-results-representative").show();
+    });
+  }
 }); 
 </script>

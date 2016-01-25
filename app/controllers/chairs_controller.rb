@@ -56,12 +56,13 @@ class ChairsController < ApplicationController
     end
   end
 
-  def live_search
-    @tasks = User.search(params[:q])
+  def admin_search
+    @results = User.search(params[:q])
+    render :layout => false
+  end
 
-
-    #@tasks = Task.find_latest params[:q]
-
+  def representative_search
+    @results = User.search(params[:q])
     render :layout => false
   end
 
