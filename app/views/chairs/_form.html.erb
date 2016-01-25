@@ -60,36 +60,46 @@
       </div>
     </div>
     <br/>
+    ADMINS
+
+<div id="myDiv">Some Content</div>
+
+
+  <input id="search-box-admin" name="q" type="text" class="form-control"/>
+  <div class="dropdown">
+    <ul id="search-results-admin" class="dropdown-menu">
+    </ul>
+  </div>
+
+<input class="test" name="user1" id="admins">safd</input>
+<input class="test" name="user1" id="admins">safd</input>
+  <input type="hidden" name="a" value="1" /> 
+  <input type="hidden" name="b" value="2" /> 
+  <input type="hidden" name="c" value="3" /> 
+
     <%= f.submit nil, class: 'btn btn-primary' %>
     <%= link_to t("helpers.links.cancel"),
                 chairs_path, class: 'btn btn-default' %>
 
 <% end %>
+
+
 search 1
 
-<form id="live-search-form" method="get" action="<%= search_path %>">
-  <input id="search-box-admin" name="q" type="text" class="form-control"/>
-</form>
-<div class="dropdown">
-   <ul id="search-results-admin" class="dropdown-menu">
-   </ul>
-</div>
+  <div class="dropdown">
+    <ul id="search-results" class="dropdown-menu">
+    </ul>
+  </div>
 
 
 Search 2
-<div id="myDiv">Some Content</div>
 
 <form id="live-search-form" method="get" action="<%= search_path %>">
   <input id="search-box" name="q" type="text" class="form-control"/>
 </form>
-<div class="dropdown">
-   <ul id="search-results" class="dropdown-menu">
-   </ul>
-</div>
 
-<% @test.each do |t| %>
-  <%= t %>
-<% end %>
+
+
 
 <script>
 
@@ -99,7 +109,7 @@ var myDivElement = $( "#myDiv" );
 function divFunction(id, name){
   //alert($.inArray(id,adminArray));
   if($.inArray(id,adminArray) == -1) {
-    myDivElement.append("<p>"+name+"</p>");
+    myDivElement.append("<p>"+name+"</p><input type=\"hidden\" name=\"admins["+id+"]\" value=\""+id+"\" />");
     adminArray.push(id);
   }
   $('#search-box-admin').val("");
@@ -112,7 +122,7 @@ function divFunction(id, name){
 
   
 $("#search-box-admin").bind("keyup", function() {
-  var form = $("#live-search-form");
+  var form = $("#search-box-admin");
   var url = "/tasks/live_search";
 
   var formData = form.serialize();

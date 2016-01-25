@@ -43,9 +43,6 @@ class ChairsController < ApplicationController
 
   def edit
     @chair = Chair.find(params[:id])
-    @test = Array.new
-
-    @test << "hi"
   end
 
   def update
