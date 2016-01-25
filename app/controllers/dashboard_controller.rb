@@ -29,8 +29,8 @@ class DashboardController < ApplicationController
     @activities = @activities.sort_by { |n| n[:created_at] }.reverse
 
     to_delete = @activities.drop(50)
-    unless to_delete.empty?
-      to_delete.delete_all
+    to_delete.each do |event|
+      event.destroy!
     end
 
     @activities = @activities.take(50)
