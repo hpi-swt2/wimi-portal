@@ -44,19 +44,20 @@
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4>Signature</h4>
+        <h4><%= t('.signature') %></h4>
       </div>
       <div class="panel-body">
         <% if current_user.signature.nil? %>
-            <%= form_tag({action: :upload_signature}, multipart: true) do %>
-                <p><label for="upload">Select File</label>
-                  <%= file_field 'upload', 'datafile' %></p>
-                <%= submit_tag "Upload" %>
-            <% end %>
+            <b><%= t('.warning') %></b><br/>
+            <%= t('.information') %>
+            <p><%= form_tag({action: :upload_signature}, multipart: true) do %>
+                  <%= file_field 'upload', 'datafile' %><br/>
+                  <%= submit_tag t('.upload') %>
+              <% end %></p>
         <% else %>
             <% path = 'data:image/png;base64,' + current_user.signature %>
-            <p><img src="<%= path %>" width="150" height="50"/></p><br />
-            <%= link_to I18n.t('helpers.titles.delete', model: 'Signature'), delete_signature_path(current_user), method: :post, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
+            <p><img src="<%= path %>" width="150" height="50"/></p><br/>
+            <%= link_to I18n.t('helpers.titles.delete', model: t('.signature')), delete_signature_path(current_user), method: :post, data: {confirm: t("helpers.links.confirm")}, class: 'btn btn-danger btn-xs' %>
         <% end %>
       </div>
     </div>
