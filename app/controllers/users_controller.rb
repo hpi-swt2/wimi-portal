@@ -22,6 +22,16 @@ class UsersController < ApplicationController
     render json: {msg: current_user.language}
   end
 
+  def upload_signature
+    User.save_signature(params[:id], params[:upload])
+    redirect_to current_user
+  end
+
+  def delete_signature
+    @user.update(signature: nil)
+    redirect_to current_user
+  end
+
   private
 
   def user_exists

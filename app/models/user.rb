@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
                'Knowledge Discovery and Data Mining']
 
   LANGUAGES = [
-    %w[English en],
-    %w[Deutsch de],
+      %w[English en],
+      %w[Deutsch de],
   ]
 
   INVALID_EMAIL = 'invalid_email'
@@ -65,10 +65,6 @@ class User < ActiveRecord::Base
   validates_numericality_of :remaining_leave, greater_than_or_equal: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
 
-  # TODO: implement signature upload, this is a placeholder
-  def signature
-    'placeholder'
-  end
 
   def name
     "#{first_name} #{last_name}"
@@ -82,7 +78,7 @@ class User < ActiveRecord::Base
 
   def projects_for_month(year, month)
     projects = TimeSheet.where(
-      user: self, month: month, year: year).map(&:project)
+        user: self, month: month, year: year).map(&:project)
     (projects.compact + self.projects).uniq
   end
 
@@ -143,7 +139,7 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    not projects.blank? and  not is_wimi?
+    not projects.blank? and not is_wimi?
   end
 
   def is_superadmin?
@@ -186,6 +182,11 @@ class User < ActiveRecord::Base
     all_trips.each do |trip|
       datespans.push(trip.trip_datespans.first)
     end
-    datespans.sort! { |a,b| b.start_date <=> a.start_date }
+    datespans.sort! { |a, b| b.start_date <=> a.start_date }
+  end
+
+  def self.save_signature(id, upload)
+    file = Base64.encode64(upload['datafile'].read)
+    User.find(id).update(signature: file)
   end
 end
