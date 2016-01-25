@@ -42,11 +42,7 @@
 <% end %>
 
 <!--Actions-->
-<% if @notifications.empty? %>
-<div class="col-md-4 col-md-offset-8">
-<% else %>
-<div class="col-md-4">
-<% end %>
+<div class="col-md-4 <%= @notifications.empty? ? 'col-md-offset-8' : '' %>">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4><%=t('.actions')%></h4>
