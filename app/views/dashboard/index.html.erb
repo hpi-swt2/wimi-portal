@@ -11,10 +11,8 @@
         <h4><%=t('.notifications')%></h4>
       </div>
       <div class="panel-body">
-        <% unless @notifications.nil? %>
-          <% @notifications.each do |event| %>
-            <%= render partial: event %>
-          <% end %>
+        <% @notifications.each do |event| %>
+          <%= render partial: event %>
         <% end %>
       </div>
     </div>
