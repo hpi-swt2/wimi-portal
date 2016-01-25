@@ -15,6 +15,5 @@ feature 'Project information' do
     expect(page).to have_content('Fachgebiet')
     expect(page).to have_content('Beauftragter des Fachgebiets')
     expect(page).to have_content('Sichtbarkeit')
-    expect(page).to have_content('Teamleiter')
   end
 end

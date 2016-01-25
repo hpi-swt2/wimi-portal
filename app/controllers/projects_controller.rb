@@ -59,9 +59,13 @@ class ProjectsController < ApplicationController
           flash[:error] = I18n.t('project.user.already_is_member')
           redirect_to @project
         else
-          @project.invite_user user, current_user
-          flash[:success] = I18n.t('project.user.was_successfully_invited')
-          redirect_to @project
+          if @project.invite_user user, current_user
+            flash[:success] = I18n.t('project.user.was_successfully_invited')
+            redirect_to @project
+          else
+            flash[:error] = I18n.t('project.user.cannot_be_invited')
+            redirect_to @project
+          end
         end
       end
     end
@@ -90,11 +94,23 @@ class ProjectsController < ApplicationController
   end
 
   def accept_invitation
+<<<<<<< HEAD
     @project.add_user current_user
     @project.destroy_invitation current_user
     flash[:success] = I18n.t('project.user.invitation_accepted')
     #redirect_to @project
     redirect_to root_path
+=======
+    if @project.add_user current_user
+      @project.destroy_invitation current_user
+      flash[:success] = I18n.t('project.user.invitation_accepted')
+      redirect_to @project
+    else
+      @project.destroy_invitation current_user
+      flash[:error] = I18n.t('project.user.cannot_be_invited')
+      redirect_to dashboard_path
+    end
+>>>>>>> dev
   end
 
   def decline_invitation

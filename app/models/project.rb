@@ -25,13 +25,23 @@ class Project < ActiveRecord::Base
   validates :title, presence: true
 
   def invite_user(user, sender)
-    inv = Invitation.create(user: user, project: self, sender: sender)
-    ActiveSupport::Notifications.instrument('event', {trigger: inv.id, target: user.id, seclevel: :hiwi, type: "EventProjectInvitation"})
-    user.invitations << inv
+    if(user && !user.is_superadmin?)
+      inv = Invitation.create(user: user, project: self, sender: sender)
+      ActiveSupport::Notifications.instrument('event', {trigger: inv.id, target: user.id, seclevel: :hiwi, type: "EventProjectInvitation"})
+      user.invitations << inv
+      return true
+    else
+      return false
+    end
   end
 
   def add_user(user)
-    users << user
+    if user && !user.is_superadmin?
+      users << user
+      return true
+    else
+      return false
+    end
   end
 
   def destroy_invitation(user)

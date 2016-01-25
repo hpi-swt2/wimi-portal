@@ -1,11 +1,11 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
+  <h1><%=t '.projects' %></h1>
 </div>
 <% if can? :create, Project %>
     <%= link_to t('.new', :default => t("helpers.links.new")),
                 new_project_path,
-                class: 'pull-right text-success' %>
+                class: 'btn btn-default btn-xs pull-right text-success' %>
 <% end %>
 <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
     <div class="col-md-12">
