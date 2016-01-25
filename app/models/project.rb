@@ -25,11 +25,21 @@ class Project < ActiveRecord::Base
   validates :title, presence: true
 
   def invite_user(user)
-    user.invitations << Invitation.create(user: user, project: self)
+    if user && !user.is_superadmin?
+      user.invitations << Invitation.create(user: user, project: self)
+      return true
+    else
+      return false
+    end
   end
 
   def add_user(user)
-    users << user
+    if user && !user.is_superadmin?
+      users << user
+      return true
+    else
+      return false
+    end
   end
 
   def destroy_invitation(user)
@@ -42,7 +52,6 @@ class Project < ActiveRecord::Base
 
   def wimis
     users.select(&:is_wimi?)
-
   end
 
   def remove_user(user)

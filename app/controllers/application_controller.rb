@@ -8,15 +8,16 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   def ensure_valid_email
+    requested_path = request.env['PATH_INFO']
     if current_user.nil?
-      if request.env['PATH_INFO'] != '/users/sign_in'
+      if requested_path != new_user_session_path && requested_path != superadmin_path
         flash[:error] = 'Please login first'
-        redirect_to '/users/sign_in'
+        redirect_to new_user_session_path
       end
     else
       has_invalid_email = (current_user.email == User::INVALID_EMAIL)
       allowed_paths = [destroy_user_session_path, edit_user_path(current_user), user_path(current_user)]
-      visits_allowed_path = allowed_paths.include?(request.env['PATH_INFO'])
+      visits_allowed_path = allowed_paths.include?(requested_path)
       if has_invalid_email && !visits_allowed_path
         flash[:error] = 'Please set a valid email address first'
         redirect_to edit_user_path(current_user)

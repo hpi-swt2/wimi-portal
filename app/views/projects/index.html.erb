@@ -1,11 +1,11 @@
 <%- model_class = Project -%>
 <div class="page-header">
-  <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
+  <h1><%=t '.projects' %></h1>
 </div>
 <% if can? :create, Project %>
     <%= link_to t('.new', :default => t("helpers.links.new")),
                 new_project_path,
-                class: 'pull-right text-success' %>
+                class: 'btn btn-default btn-xs pull-right text-success' %>
 <% end %>
 <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
     <div class="col-md-12">
@@ -52,8 +52,8 @@
       <td><%=l project.created_at %></td>
       <td>
         <% if can? :create, ProjectApplication %>
-          <% if project.project_applications.exists?(user_id: current_user.id) %>
-            <% project_application = project.project_applications.find_by(user_id: current_user.id) %>
+          <% if project.project_applications.exists?(user: current_user) %>
+            <% project_application = project.project_applications.find_by(user: current_user) %>
             <% case project_application.status %>
               <% when 'pending' %>
                 <%= link_to t('project_applications.index.cancel', default: t('helpers.links.cancel')),

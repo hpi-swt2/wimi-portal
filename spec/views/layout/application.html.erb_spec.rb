@@ -32,9 +32,9 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for a wimi' do
     it_behaves_like 'a registered User'
     before(:each) do
-      @chair = FactoryGirl.create(:chair)
-      @wimi_user = FactoryGirl.create(:user)
-      @user = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
+      chair = FactoryGirl.create(:chair)
+      wimi_user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:wimi, user: wimi_user, chair: chair).user
       login_as @user
       visit root_path
     end
@@ -52,9 +52,9 @@ RSpec.describe 'navigation bar', type: :view do
     it_behaves_like 'a registered User'
     before(:each) do
       @user = FactoryGirl.create(:user)
-      @chair = FactoryGirl.create(:chair)
-      @project = FactoryGirl.create(:project, chair: @chair, status: true)
-      @user.projects << @project
+      chair = FactoryGirl.create(:chair)
+      project = FactoryGirl.create(:project, chair: chair, status: true)
+      @user.projects << project
       login_as @user
       visit root_path
     end
@@ -71,9 +71,9 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for a chair representative' do
     it_behaves_like 'a registered User'
     before(:each) do
-      @chair = FactoryGirl.create(:chair)
+      chair = FactoryGirl.create(:chair)
       @user = FactoryGirl.create(:user)
-      FactoryGirl.create(:chair_representative, user: @user, chair: @chair)
+      FactoryGirl.create(:chair_representative, user: @user, chair: chair)
       login_as @user
       visit root_path
     end
@@ -94,9 +94,9 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for an admin' do
     it_behaves_like 'a registered User'
     before(:each) do
-      @chair = FactoryGirl.create(:chair)
+      chair = FactoryGirl.create(:chair)
       @user = FactoryGirl.create(:user)
-      FactoryGirl.create(:chair_wimi, user: @user, chair: @chair, admin: true)
+      FactoryGirl.create(:chair_wimi, user: @user, chair: chair, admin: true)
       login_as @user
       visit root_path
     end
