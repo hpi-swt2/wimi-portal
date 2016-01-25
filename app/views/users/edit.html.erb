@@ -4,7 +4,6 @@
 </div>
 
 <%= form_for(@user) do |f| %>
-
   <% if @user.errors.any? %>
   <div id="error_expl" class="panel panel-danger">
     <div class="panel-heading">
@@ -62,6 +61,8 @@
       </div>
     </div>
   </div>
-  <%= f.submit nil, class: 'btn btn-primary' %>
-  <%= link_to t('.cancel', default: t("helpers.links.cancel")), current_user, class: "btn btn-default" %>
+  <div class="actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    <%= link_to t('.cancel', default: t("helpers.links.cancel")), current_user, class: "btn btn-default" %>
+  </div>
 <% end %>

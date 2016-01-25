@@ -22,7 +22,7 @@
   <%= @trip.signature %>
 </p>
 
-</p>
+<p>
   <strong><%=t('.status') %>:</strong>
   <%= t(@trip.status, scope: 'status') %>
   <% if @trip.status == t('status.declined') %>

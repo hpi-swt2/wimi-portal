@@ -53,11 +53,20 @@
   </div>
 <% end %>
 
-<% if (@user == current_user) %>
+<% if can? :see_holidays, @user %>
   <%= form_for(@user) do |f| %>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4><%= t('.holiday_requests') %></h4>
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><%= t('.holiday_requests') %></h4>
+          </div>
+          <div class="col-sm-6 text text-right">
+            <% if @user == current_user %>
+              <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
       </div>
       <div class="panel-body">
         <div class="form-group">
@@ -84,12 +93,12 @@
             </thead>
             <tbody>
               <% @user.holidays.each do |holiday| %>
-                <% if @user == current_user || (can? :edit_holiday, holiday) %>
+                <% if can? :read, holiday %>
                   <tr>
                     <td><%= holiday.length %> <%= t('.days') %></td>
                     <td><%=l holiday.start %></td>
                     <td><%=l holiday.end %></td>
-                    <td><%= holiday.status %></td>
+                    <td><%= t(".status.#{holiday.status}") %></td>
                     <td>
                       <%= link_to t("helpers.links.show_details"),
                                   holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
@@ -100,9 +109,6 @@
               <% end %>
             </tbody>
           </table>
-        </div>
-        <div class="form-group">
-          <%=link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %><br><br>
         </div>
       </div>
     </div>
@@ -156,4 +162,16 @@
       </div>
     </div>
   <% end %>
+<% end %>
+
+<% if current_user.is_superadmin? %>
+  <br/>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><%= t('.password') %></h4>
+    </div>
+    <div class="panel-body">
+      <%= render partial: 'shared/passwords' %>
+    </div>
+  </div>
 <% end %>
