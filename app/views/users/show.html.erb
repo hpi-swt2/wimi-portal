@@ -48,7 +48,7 @@
             <%= link_to(project.title, work_days_path(month: month.last, year: month.first, project: project.id)) + ', '%>
           <% end %>
           <% project =  @user.projects_for_month(month.first, month.last).last%>
-          <%= link_to project.title, work_days_path(month: month.last, year: month.first, project: project.id)%>
+          <%= link_to project.title, work_days_path(month: month.last, year: month.first, project: project.id) unless project.nil?%>
         </p>
       <% end %>
     </div>
