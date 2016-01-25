@@ -185,6 +185,9 @@ en:
       status: "Status"
       user_id: "User"
       created_at: "Created at"
+      file: "File Request"
+      reject: "Reject Request"
+      accept: "Accept Request"
   date:
     formats:
       default: "%m/%d/%Y"

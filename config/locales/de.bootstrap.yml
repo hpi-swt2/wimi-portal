@@ -176,6 +176,9 @@ de:
       status: "Status"
       user_id: "Benutzer"
       created_at: "Erstellungsdatum"
+      file: "Antrag einreichen"
+      reject: "Antrag ablehnen"
+      accept: "Antrag annehmen"
   date:
     formats:
       default: "%d.%m.%Y"
