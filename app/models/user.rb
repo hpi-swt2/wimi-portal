@@ -184,9 +184,4 @@ class User < ActiveRecord::Base
     end
     datespans.sort! { |a, b| b.start_date <=> a.start_date }
   end
-
-  def self.save_signature(id, upload)
-    file = Base64.encode64(upload['datafile'].read)
-    User.find(id).update(signature: file)
-  end
 end
