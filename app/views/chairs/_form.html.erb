@@ -60,9 +60,8 @@
       </div>
     </div>
     <br/>
-    ADMINS
 
-<div id="myDiv">Some Content</div>
+<div id="admins">ADMINS</div>
 
 
   <input id="search-box-admin" name="q" type="text" class="form-control"/>
@@ -104,17 +103,28 @@ Search 2
 <script>
 
 var adminArray = [];
-var myDivElement = $( "#myDiv" );
+var adminDiv = $( "#admins" );
 
 function divFunction(id, name){
   //alert($.inArray(id,adminArray));
   if($.inArray(id,adminArray) == -1) {
-    myDivElement.append("<p>"+name+"</p><input type=\"hidden\" name=\"admins["+id+"]\" value=\""+id+"\" />");
+    adminDiv.append("<div id=\"admin_"+id+"\"><p>"+name+" <a onClick=\"removeAdmin("+id+")\">entfernen</a></p><input type=\"hidden\" name=\"admins["+id+"]\" value=\""+id+"\" /></div>");
     adminArray.push(id);
   }
   $('#search-box-admin').val("");
   $("#search-results-admin").hide();
 }
+
+function removeAdmin(id){
+  $("#admin_"+id).remove();
+  var i = adminArray.indexOf(id);
+  if(i != -1) {
+    adminArray.splice(i, 1);
+  }
+
+}
+
+
 
 //$("#big-search-box").focusout(function() {
 //  $("#live-search-results").hide();
