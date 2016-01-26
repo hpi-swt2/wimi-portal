@@ -19,7 +19,7 @@ class EventTimeSheetSubmitted < Event
   belongs_to :trigger, class_name: 'TimeSheet'
 
   def set_defaults
-      self.seclevel = :wimi
-      self.type = "EventTimeSheetSubmitted"
+    self.seclevel = :wimi
+    self.type = "EventTimeSheetSubmitted"
   end
 end

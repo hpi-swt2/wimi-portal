@@ -19,7 +19,7 @@ class EventTimeSheetAccepted < Event
   belongs_to :trigger, class_name: 'TimeSheet'
 
   def set_defaults
-      self.seclevel = :hiwi
-      self.type = "EventTimeSheetAccepted"
+    self.seclevel = :hiwi
+    self.type = "EventTimeSheetAccepted"
   end
 end
