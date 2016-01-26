@@ -13,11 +13,13 @@
 #  status     :string
 #
 
-FactoryGirl.define do
-  factory :event do
-    trigger_id 1
-    target_id 1
-    seclevel :user
-    type "Event"
+class EventTimeSheetSubmitted < Event
+  before_save :set_defaults
+  belongs_to :target, class_name: 'Project'
+  belongs_to :trigger, class_name: 'TimeSheet'
+
+  def set_defaults
+    self.seclevel = :wimi
+    self.type = "EventTimeSheetSubmitted"
   end
 end

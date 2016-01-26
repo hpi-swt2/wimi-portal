@@ -155,11 +155,49 @@ de:
     index:
       notifications: "Benachrichtigungen"
       dashboard_title: "Dashboard"
-      projects: "Meine Projekte"
       representative_actions: "LS-Beauftragter - Aktionen"
       show_holiday_requests: "Urlaubsanträge anzeigen"
       show_expense_requests: "Reisekostenabrechnung anzeigen"
       show_trip_requests: "Dienstreiseanträge anzeigen"
+      activities: "Aktivitäten"
+      notifications: "Wichtige Benachrichtigungen"
+      actions: "Aktionen"
+    projects:
+      projects: "Meine Projekte"
+    hiwi_actions:
+      action: "Arbeitsstunden für das Projekt %{project_name} eintragen"
+    wimi_actions:
+      create_project: "Projekt erstellen"
+      request_holiday: "Urlaub beantragen"
+      request_business_trip: "Dienstreise beantragen"
+      file_travel_expenses: "Reisekosten abrechnen"
+  event_time_sheet_declineds:
+    event_time_sheet_declined:
+      view: "Ansehen"
+      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>abgelehnt</b>."
+  event_time_sheet_accepteds:
+    event_time_sheet_accepted:
+      view: "Ansehen"
+      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>bestätigt</b>."
+  event_project_invitations:
+    event_project_invitation:
+      accept: "Annehmen"
+      decline: "Ablehnen"
+      full_html: "%{trigger_name} hat Sie in das Projekt %{project_name} eingeladen."
+  event_travel_request_accepteds:
+    event_travel_request_accepted:
+      view: "Ansehen"
+      request: "Dienstreiseantrag"
+      full_html: "Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>angenommen</b>. %{link_to_view}"
+  event_travel_request_declineds:
+    event_travel_request_declined:
+      view: "Ansehen"
+      request: "Dienstreiseantrag"
+      full_html: "Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>abgelehnt</b>. %{link_to_view}"
+  event_time_sheet_submitteds:
+    event_time_sheet_submitted:
+      view: "Ansehen"
+      full_html: "%{link_to_user} hat einen Stundenzettel zur Unterschrift vorgelegt. %{link_to_view}"
   travel_expense_reports:
     show:
       inland: "Inlandsreise"
@@ -238,12 +276,13 @@ de:
     formats:
       default: "%d.%m.%Y"
       without_day: "%B %Y"
+      without_day_year: "%B"
     order:
       - :day
       - :month
       - :year
     month_names:
-      - 
+      -
       - Januar
       - Februar
       - März
@@ -297,7 +336,7 @@ de:
       remove_from_chair: "Vom Lehrstuhl entfernen"
       withdraw_rights: "Rechte entziehen"
       grant_rights: "Als Admin ernennen"
-  roles:  
+  roles:
     wimi_long: "Wissenschaftlicher Mitarbeiter"
     wimi_long_plural: "Wissenschaftliche Mitarbeiter"
     chair_representative: "Fachgebietsbeauftragter"

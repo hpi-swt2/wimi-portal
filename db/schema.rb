@@ -70,7 +70,10 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "sender_id"
   end
+
+  add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
 
   create_table "project_applications", force: :cascade do |t|
     t.integer  "project_id"
@@ -181,6 +184,7 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.date     "last_modified"
   end
 
+  add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "user_events", force: :cascade do |t|

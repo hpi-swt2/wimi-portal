@@ -164,11 +164,49 @@ en:
     index:
       notifications: "Notifications"
       dashboard_title: "Dashboard"
-      projects: "My Projects"
       representative_actions: "Representative - Actions"
       show_holiday_requests: "Show holiday requests"
       show_expense_requests: "Show expense requests"
       show_trip_requests: "Show trip requests"
+      notifications: "Important Notifications"
+      activities: "Activities"
+      actions: "Actions"
+    projects:
+      projects: "My Projects"
+    hiwi_actions:
+      action: "Enter working hours for %{project_name}"
+    wimi_actions:
+      create_project: "Create Project"
+      request_holiday: "Request Holiday"
+      request_business_trip: "Request Business Trip"
+      file_travel_expenses: "File Travel Expenses"
+  event_time_sheet_declineds:
+    event_time_sheet_declined:
+      view: "View"
+      full_html: "%{signer} from %{project} <b>declined</b> your time sheet for %{month}."
+  event_time_sheet_accepteds:
+    event_time_sheet_accepted:
+      view: "View"
+      full_html: "%{signer} from %{project} <b>accepted</b> your time sheet for %{month}."
+  event_project_invitations:
+    event_project_invitation:
+      accept: "Accept"
+      decline: "Decline"
+      full_html: "%{trigger_name} invites you to join the project %{project_name}."
+  event_travel_request_accepteds:
+    event_travel_request_accepted:
+      view: "View"
+      request: "travel request"
+      full_html: "The %{link_to_request} you filed on the %{date} was <b>accepted</b> by %{person_in_power}. %{link_to_view}"
+  event_travel_request_declineds:
+    event_travel_request_declined:
+      view: "View"
+      request: "travel request"
+      full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
+  event_time_sheet_submitteds:
+    event_time_sheet_submitted:
+      view: "View"
+      full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
   travel_expense_reports:
     show:
       inland: "Inland Travel"
@@ -246,13 +284,14 @@ en:
   date:
     formats:
       without_day: "%B %Y"
+      without_day_year: "%B"
       default: "%m/%d/%Y"
     order:
       - :month
       - :day
       - :year
     month_names:
-      - 
+      -
       - January
       - February
       - March

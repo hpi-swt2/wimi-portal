@@ -45,7 +45,7 @@ en:
         other: "Workdays"
       time_sheet:
         one: "Timesheet"
-        other: "Timesheets"  
+        other: "Timesheets"
     attributes:
       chair:
         id: "Id"
