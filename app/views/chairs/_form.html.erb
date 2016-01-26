@@ -103,7 +103,7 @@ function addRepresentative(id, name){
   
 $("#search-box-admin").bind("keyup", function() {
   var form = $("#search-box-admin");
-  var url = "/admin_search";
+  var url = "/admin_search/<%= @chair.id %>";
 
   var formData = form.serialize();
   if (formData.length == 2) $("#search-results-admin").hide();
@@ -117,7 +117,7 @@ $("#search-box-admin").bind("keyup", function() {
 
 $("#search-box-representative").bind("keyup", function() {
   var form = $("#search-box-representative");
-  var url = "/representative_search";
+  var url = "/representative_search/<%= @chair.id %>";
 
   var formData = form.serialize();
   if (formData.length == 2) $("#search-results-representative").hide();
