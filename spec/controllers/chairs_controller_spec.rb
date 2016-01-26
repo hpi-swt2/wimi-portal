@@ -183,11 +183,11 @@ RSpec.describe ChairsController, type: :controller do
       }.to change(Chair, :count).by(1)
     end
 
-    it 'does not create chair with wrong parameters' do
+    it 'does create a chair without admins and without representative' do
       login_with @superadmin
       chair_count = Chair.all.count
       post :create, {chair: {name: 'Test'}}
-      expect(Chair.all.count).to eq(chair_count)
+      expect(Chair.all.count).to eq(chair_count+1)
     end
   end
 
@@ -235,13 +235,14 @@ RSpec.describe ChairsController, type: :controller do
     it 'does not modify a chair with wrong parameters' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, {chair: {name: 'Test'}, representative: nil, admins: nil}
+      post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @superadmin}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@superadmin)
 
-      put :update, id: Chair.last.id, chair: {name: 'NewTest'}
+      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: 9999999}
+      expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@superadmin)

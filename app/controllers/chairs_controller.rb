@@ -62,7 +62,6 @@ class ChairsController < ApplicationController
   end
 
   def representative_search
-    #debugger
     @results = User.search(params[:q], Chair.find_by(id: params[:chair_search_id]))
     render :layout => false
   end
