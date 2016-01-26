@@ -74,6 +74,7 @@ describe 'project inviations' do
     expect(@user.is_wimi?).to be true
   end
 
+
   it 'assigns the user as a hiwi if he has no role yet' do
     chair = FactoryGirl.create(:chair, name: 'Test Chair')
     user1 = FactoryGirl.create(:user)
@@ -89,5 +90,25 @@ describe 'project inviations' do
     @project.reload
     expect(@project.hiwis.size).to eq 1
     expect(chair.hiwis.include?(@user)).to be true
+  end
+
+  it 'can re-invite a user after he declined' do
+    chair = FactoryGirl.create(:chair, name: 'Test Chair')
+    user1 = FactoryGirl.create(:user)
+    representative1 = FactoryGirl.create(:chair_representative, user: user1, chair: chair).user
+    @project.update(chair: representative1.chair)
+    chair.projects << @project
+    expect(chair.hiwis.size).to eq 0
+
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project)
+    visit '/dashboard'
+    click_on 'Decline'
+    expect(chair.hiwis.size).to eq 0
+
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project)
+    visit '/dashboard'
+    click_on 'Accept'
+    @project.reload
+    expect(@project.hiwis.size).to eq 1
   end
 end
