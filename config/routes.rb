@@ -55,10 +55,17 @@ Rails.application.routes.draw do
   resources :work_days
   resources :time_sheets, only: [:edit, :update, :delete]
   resources :travel_expense_reports
+  
   resources :trips do
     member do
       get 'download'
+      get 'file'
+      get 'reject'
+      get 'accept'
     end
+    get 'trips/file', to: 'trips#file'
+    get 'trips/reject', to: 'trips#reject'
+    get 'trips/accept', to: 'trips#accept'
   end
 
   resources :chairs
