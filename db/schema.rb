@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160122145102) do
 
-
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
     t.boolean "representative", default: false
