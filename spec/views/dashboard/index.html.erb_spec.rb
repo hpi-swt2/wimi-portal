@@ -139,11 +139,11 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     FactoryGirl.create(:wimi, chair: chair, user: @user)
     holiday = FactoryGirl.create(:holiday, user: @user)
     login_as @user
-    visit holidays_path
-    expect(page).to have_link('Hand in')
+    visit holiday_path(holiday)
+    expect(page).to have_link t('holidays.show.file')
 
-    click_on('Hand in')
-    expect(page).to have_content('applied')
+    click_on t('holidays.show.file')
+    expect(page).to have_content t('users.show.status.applied')
 
     FactoryGirl.create(:wimi, chair: chair, user: @user, representative: true)
     notification = t('events.event_request.holiday', trigger: @user.name)
