@@ -177,11 +177,11 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.text     "reason"
     t.text     "annotation"
     t.integer  "user_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "status",             default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "status",        default: 0
     t.boolean  "signature"
-    t.integer  "person_in_power_id"
+    t.date     "last_modified"
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
