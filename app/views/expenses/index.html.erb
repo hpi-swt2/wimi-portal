@@ -1,0 +1,52 @@
+<%- model_class = Expense -%>
+<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%=t '.title', default: model_class.model_name.human(:count => 2).titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%=model_class.human_attribute_name(:inland)%></th>
+      <th><%=model_class.human_attribute_name(:country)%></th>
+      <th><%=model_class.human_attribute_name(:location_from)%></th>
+      <th><%=model_class.human_attribute_name(:location_via)%></th>
+      <th><%=model_class.human_attribute_name(:location_to)%></th>
+      <th><%=model_class.human_attribute_name(:reason)%></th>
+      <th><%=model_class.human_attribute_name(:date_start)%></th>
+      <th><%=model_class.human_attribute_name(:date_end)%></th>
+      <th><%=model_class.human_attribute_name(:status)%></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expenses.each do |expense| %>
+      <tr>
+        <td><%= expense.inland %></td>
+        <td><%= expense.country %></td>
+        <td><%= expense.location_from %></td>
+        <td><%= expense.location_via %></td>
+        <td><%= expense.location_to %></td>
+        <td><%= expense.reason %></td>
+        <td><%= l expense.date_start %></td>
+        <td><%= l expense.date_end %></td>
+        <td><%= expense.status %></td>
+        <td>
+        <%= link_to t('helpers.links.show_details'), expense ,class: "btn btn-default btn-xs"%>
+        <% if expense.status == 'saved' %>
+            <%= link_to t("helpers.links.hand_in"),
+                        hand_in_expense_path(expense), method: :post, class: 'btn btn-success btn-xs' %>
+            <%= link_to t('helpers.links.edit'),edit_expense_path(expense),class: "btn btn-default btn-xs" %>
+            <%= link_to t('helpers.links.destroy'), expense, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-xs" %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if can? :create, Expense %>
+<%= link_to t('helpers.links.new'), new_expense_path, class: "btn btn-primary" %>
+<% end %>

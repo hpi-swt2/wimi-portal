@@ -34,7 +34,7 @@ de:
       project:
         one: "Projekt"
         other: "Projekte"
-      travel_expense_report:
+      expense:
         one: "Reisekostenabrechnung"
         other: "Reisekostenabrechnungen"
       trip:
@@ -93,7 +93,7 @@ de:
         start_date: "Start"
         end_date: "Ende"
         days_abroad: "Auslandstage"
-      travel_expense_report:
+      expense:
         inland: "Inlandsreise"
         country: "Land"
         location_from: "Startort"
@@ -109,7 +109,7 @@ de:
         hotel: "Hotel"
         general_advance: "Vorschuss"
         signature: "Unterschreiben?"
-      travel_expense_report_item:
+      expense_item:
         date: "Datum"
         breakfast: "Frühstück"
         lunch: "Mittagessen"
@@ -146,7 +146,7 @@ de:
         not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
     errors:
       models:
-        travel_expense_report:
+        expense:
           attributes:
             location_from:
               blank: "darf nicht leer sein."
@@ -247,6 +247,6 @@ de:
   not_authorized: "Du bist nicht befugt, diese Aktion durchzuführen."
   holiday:
     applied: "Urlaubsantrag bereits eingereicht"
-  travel_expense_report:
+  expense:
     applied: "Reisekostenabrechnung bereits eingereicht"
 

@@ -331,7 +331,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'shows all requests of chair' do
       FactoryGirl.create(:holiday, user: @representative, status: 1)
       FactoryGirl.create(:trip, user: @representative, status: 1)
-      FactoryGirl.create(:travel_expense_report, user: @representative, status: 1)
+      FactoryGirl.create(:expense, user: @representative, status: 1)
       FactoryGirl.create(:holiday, user: @user, status: 1)
       sign_in @representative
       get :requests, {id: @chair}
@@ -341,7 +341,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'shows some filtered requests of chair' do
       FactoryGirl.create(:holiday, user_id: @representative.id, status: 1)
       FactoryGirl.create(:trip, user_id: @representative.id, status: 1)
-      FactoryGirl.create(:travel_expense_report, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:expense, user_id: @representative.id, status: 1)
       FactoryGirl.create(:holiday, user_id: @user.id, status: 1)
       sign_in @representative
       get :requests_filtered, {id: @chair, holiday: true, applied: true}
