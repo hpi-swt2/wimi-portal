@@ -53,3 +53,11 @@
   <%= link_to t('.back', default: t("helpers.links.back")), trips_path, class: 'btn btn-default btn-xs'  %>
   <%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-success btn-xs' %>
 </p>
+
+<h2><%= t('.expense') %></h2>
+
+<% if @trip.has_expense? %>
+  <%= render @trip.expense %>
+<% else %>
+  <%= link_to t('.create_expense'), new_trip_expense_path(@trip) %>
+<% end %>

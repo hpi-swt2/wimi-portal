@@ -159,7 +159,7 @@ en:
       show_expense_requests: "Show expense requests"
       show_trip_requests: "Show trip requests"
   expenses:
-    show:
+    expense:
       inland: "Inland Travel"
       country: "Country"
       location_from: "Starting in"
@@ -188,6 +188,8 @@ en:
       file: "File Request"
       reject: "Reject Request"
       accept: "Accept Request"
+      expense: "Details for trip expenses"
+      create_expense: "Create trip expense"
   date:
     formats:
       default: "%m/%d/%Y"

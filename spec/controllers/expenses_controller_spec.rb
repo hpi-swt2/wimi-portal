@@ -22,6 +22,7 @@ RSpec.describe ExpensesController, type: :controller do
   before(:each) do
     wimi = FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair))
     @user = wimi.user
+    @trip = FactoryGirl.create(:trip)
     login_with (@user)
   end
 
@@ -35,15 +36,14 @@ RSpec.describe ExpensesController, type: :controller do
      location_via: 'London',
      location_to: 'NYC',
      reason: 'Hana Things',
-     date_start: 8.days.ago,
-     date_end: DateTime.now,
      car: true,
      public_transport: true,
      vehicle_advance: false,
      hotel: true,
      general_advance: 2000,
      signature: true,
-     user: @user}
+     user: @user,
+     trip: @trip}
   }
 
   let(:advance_blank_attributes) {
@@ -53,15 +53,14 @@ RSpec.describe ExpensesController, type: :controller do
      location_via: 'London',
      location_to: 'NYC',
      reason: 'Hana Things',
-     date_start: 8.days.ago,
-     date_end: DateTime.now,
      car: true,
      public_transport: true,
      vehicle_advance: false,
      hotel: true,
      general_advance: '',
      signature: true,
-     user: @user}
+     user: @user,
+     trip: @trip}
   }
 
   let(:invalid_attributes) {
@@ -71,15 +70,14 @@ RSpec.describe ExpensesController, type: :controller do
      location_via: 'London',
      location_to: 'NYC',
      reason: 'Hana Things',
-     date_start: DateTime.now,
-     date_end: 8.days.ago,
      car: true,
      public_transport: true,
      vehicle_advance: false,
      hotel: true,
      general_advance: -100,
      signature: true,
-     user: @user}
+     user: @user,
+     trip: @trip}
   }
 
   # This should return the minimal set of values that should be in the session

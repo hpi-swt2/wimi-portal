@@ -3,6 +3,8 @@ class ExpensesController < ApplicationController
   skip_authorize_resource only: :index
 
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :hand_in]
+  before_action :set_trip, only: [:new, :create]
+
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = I18n.t('not_authorized')
     redirect_to expenses_path
@@ -16,7 +18,8 @@ class ExpensesController < ApplicationController
   end
 
   def new
-    @expense = Expense.new
+    @trip = Trip.find(params[:trip_id])
+    @expense = Expense.new(trip: @trip)
     @expense.user = current_user
     8.times { @expense.expense_items.build }
   end
@@ -32,6 +35,7 @@ class ExpensesController < ApplicationController
 
   def create
     @expense = Expense.new(expense_params)
+    @expense.trip = @trip
     @expense.user = current_user
 
     if @expense.save
@@ -82,5 +86,9 @@ class ExpensesController < ApplicationController
 
   def fill_blank_items
     (8 - @expense.expense_items.size).times { @expense.expense_items.build }
+  end
+
+  def set_trip
+    @trip = Trip.find_by_id([params[:trip_id]])
   end
 end

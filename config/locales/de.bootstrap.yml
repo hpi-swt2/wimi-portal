@@ -150,7 +150,7 @@ de:
       show_expense_requests: "Reisekostenabrechnung anzeigen"
       show_trip_requests: "Dienstreiseanträge anzeigen"
   expenses:
-    show:
+    expense:
       inland: "Inlandsreise"
       country: "Land"
       location_from: "Startort"
@@ -179,6 +179,8 @@ de:
       file: "Antrag einreichen"
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
+      expense: "Details für Reisekostenabrechnung"
+      create_expense: "Reisekosten eintragen"
   date:
     formats:
       default: "%d.%m.%Y"
