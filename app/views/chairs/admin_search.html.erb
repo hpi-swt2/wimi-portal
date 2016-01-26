@@ -1,6 +1,6 @@
 <% if @results.empty? %>
 	  <li><a href="#">
-	    no results<br>
+	    <%= t('chairs.form.no_results') %><br>
 	  </a></li>
 <% else %>
 	<% @results.each do |user| %>

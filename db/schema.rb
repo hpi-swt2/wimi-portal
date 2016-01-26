@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160117205720) do
+ActiveRecord::Schema.define(version: 20160125124611) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false
+    t.text     "signature"
     t.string   "username"
     t.string   "encrypted_password",        default: "",    null: false
   end

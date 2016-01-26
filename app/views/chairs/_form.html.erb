@@ -28,7 +28,7 @@
 
     <div class="control-group">
       <!-- Admins -->
-      <div id="admins"><%= f.label :chair_admins, class: 'control-label' %><br>
+      <div id="admins"><%= f.label t('roles.admin_long_plural'), class: 'control-label' %><br>
         <% @chair.admin_users.each do |admin| %>
           <div id="admin_<%= admin.id %>">
           <li><%= admin.name %><a onClick="removeAdmin(<%= admin.id %>)"><font color="red"> entfernen</font></a></li>
@@ -46,13 +46,13 @@
 
     <div class="control-group">
       <!-- Representative -->
-      <%= f.label :chair_representative, class: 'control-label' %><br>
+      <%= f.label t('roles.chair_representative'), class: 'control-label' %><br>
       <div id="representative">
         <% if @chair.representative %>
           <li><%= @chair.representative.user.name %></li>
           <input type="hidden" name="representative" value="<%= @chair.representative.user.id %>" />
         <% else %>
-          <p>no representative selected</p>
+          <p><%= t(".no_representative") %></p>
         <% end %>
       </div>
 
