@@ -106,6 +106,7 @@ en:
       private: "private"
       public: "public"
   users:
+    does_not_exist: "This user does not exist."
     update:
       user_updated: "User updated successfully"
     show:

@@ -97,6 +97,7 @@ de:
       private: "privat"
       public: "öffentlich"
   users:
+    does_not_exist: "Dieser Benutzer existiert nicht."
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
     show:

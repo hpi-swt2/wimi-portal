@@ -160,41 +160,43 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe 'POST #invite_user' do
+    before :each do
+      @project = Project.create! valid_attributes
+      @user = FactoryGirl.create(:user)
+    end
+
     it 'send the user an invitation if a valid email was given' do
-      project = Project.create! valid_attributes
-      user = FactoryGirl.create(:user)
       expect(Invitation.all.size).to eq(0)
       expect {
-        put :invite_user, {id: project.to_param, invite_user: {email: user.email}}, valid_session
+        put :invite_user, {id: @project.to_param, invite_user: {email: @user.email}}, valid_session
       }.to change(Invitation.all, :count).by(1)
-      expect(Invitation.first.user).to eq user
-      expect(Invitation.first.project).to eq project
+      expect(Invitation.first.user).to eq @user
+      expect(Invitation.first.project).to eq @project
     end
 
     it 'does not invite the user to the project if an invalid email was given' do
-      project = Project.create! valid_attributes
-      user = FactoryGirl.create(:user)
       expect {
-        put :invite_user, {id: project.to_param, invite_user: {email: 'invalid@email'}}, valid_session
+        put :invite_user, {id: @project.to_param, invite_user: {email: 'invalid@email'}}, valid_session
       }.to change(Invitation.all, :count).by(0)
     end
 
     it 'does not invite the user to the project if he already is a member' do
-      project = Project.create! valid_attributes
-      user = FactoryGirl.create(:user)
-      project.users << user
+      @project.users << @user
       expect {
-        put :invite_user, {id: project.to_param, invite_user: {email: user.email}}, valid_session
+        put :invite_user, {id: @project.to_param, invite_user: {email: @user.email}}, valid_session
       }.to change(Invitation.all, :count).by(0)
     end
 
     it 'does not add the user to the project if he already is invited' do
-      project = Project.create! valid_attributes
-      user = FactoryGirl.create(:user)
-      Invitation.create(user: user, project: project)
+      Invitation.create(user: @user, project: @project)
       expect {
-        put :invite_user, {id: project.to_param, invite_user: {email: user.email}}, valid_session
-      }.to change(project.users, :count).by(0)
+        put :invite_user, {id: @project.to_param, invite_user: {email: @user.email}}, valid_session
+      }.to change(@project.users, :count).by(0)
+    end
+
+    it 'shows an error message if the user does not exist' do
+      put :invite_user, {id: @project.to_param, invite_user: {email: 'does not exist'}}, valid_session
+      assert_equal "This user does not exist.", flash[:error]
     end
   end
 
