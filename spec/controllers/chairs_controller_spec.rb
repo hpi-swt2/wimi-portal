@@ -172,14 +172,14 @@ RSpec.describe ChairsController, type: :controller do
       user1 = FactoryGirl.create(:user)
       login_with @superadmin
       expect {
-        post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: user1}
+        post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: user1}
       }.to change(Chair, :count).by(1)
     end
 
     it 'creates a new Chair with one user as admin and representative' do
       login_with @superadmin
       expect {
-        post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
+        post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @user}
       }.to change(Chair, :count).by(1)
     end
 
@@ -201,12 +201,12 @@ RSpec.describe ChairsController, type: :controller do
     it 'modifies an existing chair with same admin and representative' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
+      post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @user}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@user)
-      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: @superadmin, representative_user: @superadmin
+      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: @superadmin}, representative: @superadmin
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(0)
@@ -218,12 +218,12 @@ RSpec.describe ChairsController, type: :controller do
     it 'modifies an existing chair with different admin and representative' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
+      post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @superadmin}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@superadmin)
-      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: @superadmin, representative_user: @user
+      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: @superadmin}, representative: @user
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
       expect(Chair.last.admins.count{ |admin| (admin.user == @user) }).to eq(0)
@@ -235,14 +235,13 @@ RSpec.describe ChairsController, type: :controller do
     it 'does not modify a chair with wrong parameters' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
+      post :create, {chair: {name: 'Test'}, representative: nil, admins: nil}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@superadmin)
 
-      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: nil, representative_user: nil
-      expect(Chair.all.size).to eq(1)
+      put :update, id: Chair.last.id, chair: {name: 'NewTest'}
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@superadmin)

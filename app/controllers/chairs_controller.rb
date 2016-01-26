@@ -1,6 +1,6 @@
 class ChairsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests, :admin_search, :representative_search ]
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests ]
 
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = I18n.t('chairs.navigation.not_authorized')
@@ -31,8 +31,9 @@ class ChairsController < ApplicationController
 
   def create
     @chair = Chair.new(chair_params)
+    @chair.set_initial_users(params[:admins], params[:representative])
 
-    if @chair.set_initial_users(params[:admins], params[:representative])
+    if @chair.save
       flash[:success] = I18n.t('chair.create.success')
       redirect_to chairs_path
     else
@@ -46,8 +47,7 @@ class ChairsController < ApplicationController
   end
 
   def update
-    if @chair.set_initial_users(params[:admins], params[:representative])
-      @chair.update(chair_params)
+    if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.update(chair_params)
       flash[:success] = I18n.t('chair.update.success')
       redirect_to chairs_path
     else
@@ -57,12 +57,13 @@ class ChairsController < ApplicationController
   end
 
   def admin_search
-    @results = User.search(params[:q], @chair)
+    @results = User.search(params[:q], Chair.find_by(id: params[:chair_search_id]))
     render :layout => false
   end
 
   def representative_search
-    @results = User.search(params[:q], @chair)
+    #debugger
+    @results = User.search(params[:q], Chair.find_by(id: params[:chair_search_id]))
     render :layout => false
   end
 

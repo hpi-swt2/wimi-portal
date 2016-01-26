@@ -16,6 +16,8 @@
         </div>
     <% end %>
 
+    <input type="hidden" name="chair_search_id" value="<%= @chair.id %>" />
+
     <div class="control-group">
       <%= f.label :name, class: 'control-label' %>
       <div class="controls">
@@ -103,11 +105,12 @@ function addRepresentative(id, name){
   
 $("#search-box-admin").bind("keyup", function() {
   var form = $("#search-box-admin");
-  var url = "/admin_search/<%= @chair.id %>";
+  var url = "/admin_search";
 
   var formData = form.serialize();
   if (formData.length == 2) $("#search-results-admin").hide();
   else {
+    formData += "&chair_search_id=<%= @chair.id %>";
     $.get(url, formData, function(html) {
       $("#search-results-admin").html(html);
       $("#search-results-admin").show();
@@ -117,11 +120,12 @@ $("#search-box-admin").bind("keyup", function() {
 
 $("#search-box-representative").bind("keyup", function() {
   var form = $("#search-box-representative");
-  var url = "/representative_search/<%= @chair.id %>";
+  var url = "/representative_search";
 
   var formData = form.serialize();
   if (formData.length == 2) $("#search-results-representative").hide();
   else {
+    formData += "&chair_search_id=<%= @chair.id %>";
     $.get(url, formData, function(html) {
       $("#search-results-representative").html(html);
       $("#search-results-representative").show();

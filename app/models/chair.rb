@@ -138,7 +138,9 @@ class Chair < ActiveRecord::Base
       success = check_correct_user(id[1])
       admin_array << User.find_by(id: id[1])
     end
-    success = check_correct_user(representative_param)
+    success = check_correct_user(representative_param) if representative_param
+
+    
 
     if success
       set_admins(admin_array)
@@ -155,7 +157,8 @@ class Chair < ActiveRecord::Base
     end
 
     admin_array.try(:each) do |admin|
-      if ChairWimi.find_by(user: admin)
+      chair_wimi = ChairWimi.find_by(user: admin)
+      if chair_wimi && chair_wimi.application == 'pending'
         admin.chair_wimi.destroy
       end
       ChairWimi.create(chair: self, user: admin, admin: true, application: 'accepted')
