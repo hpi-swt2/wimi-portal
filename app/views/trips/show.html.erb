@@ -59,7 +59,7 @@
 <% if @trip.has_expense? %>
   <%= render @trip.expense %>
   <% unless @trip.expense.status == 'applied' %>
-    <%= link_to t('helpers.links.edit'), edit_expense_path(@trip.expense) , class: "btn btn-default btn-xs"%> |
+    <%= link_to t('helpers.links.edit'), edit_trip_expense_path(@trip,@trip.expense) , class: "btn btn-default btn-xs"%> |
     <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
                       hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-primary btn-primary' %>
   <% end %>

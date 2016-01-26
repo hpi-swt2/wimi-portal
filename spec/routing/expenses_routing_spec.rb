@@ -2,20 +2,12 @@ require 'rails_helper'
 
 RSpec.describe ExpensesController, type: :routing do
   describe 'routing' do
-    it 'routes to #index' do
-      expect(get: '/expenses').to route_to('expenses#index')
-    end
-
     it 'routes to #new' do
       expect(get: '/trips/1/expenses/new').to route_to('expenses#new', trip_id:'1')
     end
 
-    it 'routes to #show' do
-      expect(get: '/expenses/1').to route_to('expenses#show', id: '1')
-    end
-
     it 'routes to #edit' do
-      expect(get: '/expenses/1/edit').to route_to('expenses#edit', id: '1')
+      expect(get: '/trips/1/expenses/1/edit').to route_to('expenses#edit', id: '1', trip_id:'1')
     end
 
     it 'routes to #create' do
@@ -23,15 +15,15 @@ RSpec.describe ExpensesController, type: :routing do
     end
 
     it 'routes to #update via PUT' do
-      expect(put: '/expenses/1').to route_to('expenses#update', id: '1')
+      expect(put: '/trips/1/expenses/1').to route_to('expenses#update', id: '1', trip_id:'1')
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/expenses/1').to route_to('expenses#update', id: '1')
+      expect(patch: '/trips/1/expenses/1').to route_to('expenses#update', id: '1', trip_id:'1')
     end
 
     it 'routes to #destroy' do
-      expect(delete: '/expenses/1').to route_to('expenses#destroy', id: '1')
+      expect(delete: '/trips/1/expenses/1').to route_to('expenses#destroy', id: '1', trip_id:'1')
     end
   end
 end

@@ -53,10 +53,9 @@ Rails.application.routes.draw do
   end
   resources :work_days
   resources :time_sheets, only: [:edit, :update, :delete]
-  resources :expenses, except: [:create, :new]
 
   resources :trips do
-    resources :expenses, only: [:new, :create]
+    resources :expenses, except: [:show, :index]
     member do
       get 'download'
       get 'file'

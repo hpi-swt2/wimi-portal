@@ -7,7 +7,7 @@ class ExpensesController < ApplicationController
 
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = I18n.t('not_authorized')
-    redirect_to expenses_path
+    redirect_to trips_path
   end
 
   def index
@@ -26,7 +26,7 @@ class ExpensesController < ApplicationController
 
   def edit
     if @expense.status == 'applied'
-      redirect_to @expense
+      redirect_to trip_path(@expense.trip)
       flash[:error] = I18n.t('expense.applied')
     else
       fill_blank_items
@@ -39,7 +39,7 @@ class ExpensesController < ApplicationController
     @expense.user = current_user
 
     if @expense.save
-      redirect_to @expense, notice: 'expense was successfully created.'
+      redirect_to trip_path(@expense.trip), notice: 'expense was successfully created.'
     else
       fill_blank_items
       render :new
@@ -48,7 +48,7 @@ class ExpensesController < ApplicationController
 
   def update
     if @expense.update(expense_params)
-      redirect_to @expense, notice: 'expense was successfully updated.'
+      redirect_to trip_path(@expense.trip), notice: 'expense was successfully updated.'
     else
       fill_blank_items
       render :edit
@@ -65,12 +65,13 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
+    trip = @expense.trip
     if @expense.status == 'applied'
-      redirect_to @expense
+      redirect_to trip_path(@expense.trip)
       flash[:error] = I18n.t('expense.applied')
     else
       @expense.destroy
-      redirect_to expenses_url, notice: 'expense was successfully destroyed.'
+      redirect_to trip_url(trip), notice: 'expense was successfully destroyed.'
     end
   end
 

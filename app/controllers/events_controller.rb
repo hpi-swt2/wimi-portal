@@ -16,7 +16,7 @@ class EventsController < ActionController::Base
              when 'trip' then
                trip_path(id: request_id)
              when 'expense' then
-               expense_path(id: request_id)
+               trip_path(id: Expense.find_by_id(request_id).trip.id)
              else
                dashboard_path
            end
