@@ -170,7 +170,8 @@ class Chair < ActiveRecord::Base
     end
 
     if new_representative
-      if ChairWimi.find_by(user: new_representative)
+      chair_wimi = ChairWimi.find_by(user: new_representative)
+      if chair_wimi && chair_wimi.application == 'pending'
         new_representative.chair_wimi.destroy
       end
       ChairWimi.create(chair: self, user: new_representative, representative: true, application: 'accepted')
