@@ -8,10 +8,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-md-6">
         <h4><%= t('.user_data')%></h4>
       </div>
-      <div class="col-sm-6 text text-right">
+      <div class="col-md-6 text text-right">
         <% if @user == current_user %>
           <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-primary' %>
         <% end %>
@@ -175,16 +175,22 @@
   <% end %>
 <% end %>
 
-<% if @user == current_user %>
+<% if can? :see_trips, @user %>
   <%= form_for(@user) do |f| %>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4><%= t('.business_trips') %></h4>
+        <div class="row">
+          <div class="col-md-6">
+            <h4><%= t('.business_trips') %></h4>
+          </div>
+          <div class="col-md-6 text text-right">
+            <% if @user == current_user %>
+              <%=link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
       </div>
       <div class="panel-body">
-        <div class="form-group">
-          <%=link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %><br><br>
-        </div>
         <div class="form-group">
           <table class="table table-striped">
             <thead>
@@ -200,8 +206,8 @@
               <% @datespans.each do |span| %>
                 <tr>
                   <td><%= Trip.find(span.trip_id).destination %></td>
-                  <td><%= span.start_date %></td>
-                  <td><%= span.end_date %></td>
+                  <td><%=l span.start_date %></td>
+                  <td><%=l span.end_date %></td>
                   <td><%= Trip.find(span.trip_id).status %></td>
                   <td>
                     <%= link_to t("helpers.links.show_details"),
@@ -216,16 +222,16 @@
       </div>
     </div>
   <% end %>
+<% end %>
 
-  <% if current_user.is_superadmin? %>
-    <br/>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%= t('.password') %></h4>
-      </div>
-      <div class="panel-body">
-        <%= render partial: 'shared/passwords' %>
-      </div>
+<% if current_user.is_superadmin? %>
+  <br/>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><%= t('.password') %></h4>
     </div>
-  <% end %>
+    <div class="panel-body">
+      <%= render partial: 'shared/passwords' %>
+    </div>
+  </div>
 <% end %>

@@ -27,7 +27,7 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     project_title = project.title
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed.')
@@ -38,7 +38,7 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
     click_on I18n.t('projects.show.set_inactive')
     project.reload
@@ -49,7 +49,7 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: false)
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_active'))
     click_on I18n.t('projects.show.set_active')
     project.reload

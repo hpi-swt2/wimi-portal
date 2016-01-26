@@ -93,6 +93,7 @@ en:
       not_defined: "not defined"
       research_assistants: "Research Assistants"
       student_assistants: "Student Assistants"
+      project_team: "Project Team"
       active: "aktiv"
       leave_project: "Leave Project"
     index:
@@ -105,6 +106,7 @@ en:
       inactive: "inactive"
       private: "private"
       public: "public"
+      projects: "Projects"
   users:
     update:
       user_updated: "User updated successfully"
@@ -194,6 +196,9 @@ en:
       status: "Status"
       user_id: "User"
       created_at: "Created at"
+      file: "File Request"
+      reject: "Reject Request"
+      accept: "Accept Request"
   work_days:
     index:
       working_hours_for: "Working hours for: "
@@ -238,6 +243,7 @@ en:
       pending: "pending"
       accepted: "accepted"
       rejected: "rejected"
+
   date:
     formats:
       without_day: "%B %Y"
