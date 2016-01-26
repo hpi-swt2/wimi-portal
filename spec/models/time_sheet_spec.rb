@@ -32,8 +32,8 @@ RSpec.describe TimeSheet, type: :model do
 
   it 'sums up the right ammount of working hours' do
   	first_day = FactoryGirl.create(:work_day)
-  	second_day = FactoryGirl.create(:work_day, start_time: Time.now.middle_of_day, end_time: Time.now.middle_of_day + 3.hour)
-  	expect(@sheet.sum_hours).to eq(first_day.duration + second_day.duration)
+  	second_day = FactoryGirl.create(:work_day, end_time: Time.now.middle_of_day + 3.hour)
+  	expect(@sheet.sum_hours).to eq(4)
   end
 
   it 'returns nil for a TimeSheet without a Project' do

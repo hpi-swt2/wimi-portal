@@ -9,8 +9,8 @@
       <%= @project.title %>
     <%end%>
     <% unless @time_sheet.nil? %>
-      <%= t('.by') + ' ' + User.find(@time_sheet.user_id).name %>
-      <% if @time_sheet.user_id == current_user.id && !@time_sheet.handed_in? %>
+      <%= t('.by') + ' ' + @time_sheet.user.name %>
+      <% if @time_sheet.user == current_user && !@time_sheet.handed_in? %>
       <div align = "right">
         <%= link_to t('.new'), new_work_day_path, class: 'btn btn-primary' %>
       </div>
@@ -49,7 +49,7 @@
           <td><%= work_day.attendance %></td>
           <td><%= work_day.notes %></td>
           <td>
-            <% if work_day.user_id == current_user.id && (@time_sheet.nil? ? true : @time_sheet.handed_in == false)%>
+            <% if work_day.user == current_user && (@time_sheet.nil? ? true : @time_sheet.handed_in == false)%>
               <%= link_to t('.edit', default: t("helpers.links.edit")),
                   edit_work_day_path(work_day), class: 'btn btn-default btn-xs' %>
               <%= link_to t('.destroy', default: t("helpers.links.destroy")),
