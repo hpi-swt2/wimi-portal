@@ -243,7 +243,6 @@ en:
       pending: "pending"
       accepted: "accepted"
       rejected: "rejected"
-
   date:
     formats:
       without_day: "%B %Y"
