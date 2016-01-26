@@ -27,21 +27,19 @@
       <th><%= model_class2.human_attribute_name(:end_date) %></td>
       <th><%= model_class2.human_attribute_name(:days_abroad) %></td>
     </tr>
-    <%= f.fields_for :trip_datespans do |d| %>
     <tr>
       <td>
         <div class="control-group">
-        <%= d.text_field :start_date, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+        <%= f.text_field :date_start, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
         </div>
       </td>
       <td>
         <div class="control-group">
-        <%= d.text_field :end_date, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+        <%= f.text_field :date_end, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
         </div>
       </td>
-      <td><%= d.number_field :days_abroad %></td>
+      <td><%= f.number_field :days_abroad %></td>
     </tr>
-    <% end %>
   </table>
   <div class="field">
     <%= f.label :annotation %><br>

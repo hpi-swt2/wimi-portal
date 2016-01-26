@@ -87,11 +87,10 @@ de:
         annotation: "Bemerkungen"
         signature: "Unterschreiben?"
         status: "Status"
-        user_id: "Benutzer"
+        user_id: "Benutzer"q
         created_at: "Erstellungsdatum"
-      trip_datespan:
-        start_date: "Start"
-        end_date: "Ende"
+        date_start: "Start"
+        date_end: "Ende"
         days_abroad: "Auslandstage"
       expense:
         inland: "Inlandsreise"
