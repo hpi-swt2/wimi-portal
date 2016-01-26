@@ -40,6 +40,12 @@ en:
       user:
         one: "User"
         other: "Users"
+      work_day:
+        one: "Workday"
+        other: "Workdays"
+      time_sheet:
+        one: "Timesheet"
+        other: "Timesheets"  
     attributes:
       chair:
         id: "Id"
@@ -140,6 +146,16 @@ en:
         handed_in: "Handed in"
         status: "Status"
         not_member_of_chair: "You are not a member of a chair."
+      work_day:
+        date: "Date"
+        start_time: "Start time"
+        break: "Break"
+        end_time: "End time"
+        duration: "Duration"
+        notes: "Notes"
+      time_sheet:
+        salary: "Salary"
+        workload: "Workload"
     errors:
       models:
         travel_expense_report:

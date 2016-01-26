@@ -112,6 +112,17 @@ de:
       days: "Tag(e)"
       title: "Benutzerprofil"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      work_times: "Arbeitszeit"
+      handed_in_timesheets: "Eingereichte Stundenzettel:"
+      by: "von"
+      time_sheets_overview: "Übersicht über die Stundenzettel"
+      hiwi: "HiWi"
+      month: "Monat"
+      number_of_hours: "Anzahl Std."
+      handed_in_at: "eingereicht am"
+      status_timesheet: "Status"
+      action: "Aktion"
+      inspect: "Ansehen"
       status:
         saved: "Gespeichert"
         accepted: "Akzeptiert"
@@ -179,9 +190,54 @@ de:
       file: "Antrag einreichen"
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
+  work_days:
+    index:
+      working_hours_for: "Arbeitsstunden für: "
+      new: "neu"
+      for: "für"
+      by: "von"
+    new:
+      back: "Zurück"
+  time_sheets:
+    form:
+      monthly: "monatlich"
+      weekly: "wöchentlich"
+      hourly: "stündlich"
+      time_sheet: "Stundenzettel"
+    show:
+      salary: "Bezahlung:"
+      salary_per_month: "Euro / Monat"
+      salary_per_hour: "Euro / Stunde"
+      workload: "Arbeitszeit"
+      workload_per_month: "Stunden / Monat"
+      workload_per_week: "Stunden / Woche"
+    show_footer:
+      new: "neu"
+      in: "im"
+      by: "von"
+      hand_in: "Einreichen"
+      accept: "Annehmen"
+      handed_in_at: "eingereicht am: "
+      reject: "Ablehnen"
+      reject_reason: "Ablehnungsgrund:"
+      rejected_by: "abgelehnt von: "
+      accepted_by: "angenommen von: "
+      at: "am"
+      export_as_PDF: "als PDF exportieren"
+      handed_in_at: "eingereicht am:"
+      add_signature: "Unterschrift hinzufügen"
+      document_was: "Das Dokument wurde"
+      not: "nicht"
+      signed: "unterschrieben"
+      status: "Status: "
+      acceptence_requested_at: "Genehmigung erfragt am: "
+      pending: "ausstehend"
+      accepted: "bestätigt"
+      rejected: "abgelehnt"
   date:
     formats:
       default: "%d.%m.%Y"
+      without_day: "%B %Y"
     order:
       - :day
       - :month
