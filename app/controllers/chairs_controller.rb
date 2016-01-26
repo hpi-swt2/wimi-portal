@@ -57,12 +57,12 @@ class ChairsController < ApplicationController
 
   def admin_search
     @results = User.search(params[:q], Chair.find_by(id: params[:chair_search_id]))
-    render :layout => false
+    render layout: false
   end
 
   def representative_search
     @results = User.search(params[:q], Chair.find_by(id: params[:chair_search_id]))
-    render :layout => false
+    render layout: false
   end
 
   # Admin / Representative tasks:
