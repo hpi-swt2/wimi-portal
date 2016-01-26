@@ -35,7 +35,7 @@ class TimeSheet < ActiveRecord::Base
     hour_counter = 0
     month_year_range = Date.new(year, month, 1)..Date.new(year, month, Time.days_in_month(month, year))
     WorkDay.where(date: month_year_range, project: project_id, user: user_id).each do |day|
-      hour_counter = hour_counter + day.duration
+      hour_counter += day.duration
     end
     return hour_counter
   end

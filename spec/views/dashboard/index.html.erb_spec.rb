@@ -78,7 +78,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     project.users << wimi
     login_as wimi
     visit dashboard_path
-    expect(wimi.is_wimi?).to eq(true)
+    expect(wimi.is_wimi?).to be true
     expect(page.body).to have_content(@user.name)
   end
 

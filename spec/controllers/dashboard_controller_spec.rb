@@ -34,7 +34,7 @@ RSpec.describe DashboardController, type: :controller do
     wimi.projects << project
     project.users << wimi
 
-    expect(wimi.is_wimi?).to eq(true)
+    expect(wimi.is_wimi?).to be true
 
     login_with(wimi)
     get :index
