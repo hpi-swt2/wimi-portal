@@ -93,6 +93,7 @@ en:
       not_defined: "not defined"
       research_assistants: "Research Assistants"
       student_assistants: "Student Assistants"
+      project_team: "Project Team"
       active: "aktiv"
       leave_project: "Leave Project"
     index:
@@ -105,6 +106,7 @@ en:
       inactive: "inactive"
       private: "private"
       public: "public"
+      projects: "Projects"
   users:
     does_not_exist: "This user does not exist."
     update:
@@ -184,6 +186,9 @@ en:
       status: "Status"
       user_id: "User"
       created_at: "Created at"
+      file: "File Request"
+      reject: "Reject Request"
+      accept: "Accept Request"
   date:
     formats:
       default: "%m/%d/%Y"

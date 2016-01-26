@@ -86,6 +86,7 @@ de:
       not_defined: "nicht festgelegt"
       research_assistants: "Wisenschaftliche Mitarbeiter"
       student_assistants: "Studentische Hilfskräfte"
+      project_team: "Projekt Team"
       leave_project: "Verlasse Projekt"
     index:
       new: "+ Projekt hinzufügen"
@@ -96,6 +97,7 @@ de:
       inactive: "inaktiv"
       private: "privat"
       public: "öffentlich"
+      projects: "Projekte"
   users:
     does_not_exist: "Dieser Benutzer existiert nicht."
     update:
@@ -175,6 +177,9 @@ de:
       status: "Status"
       user_id: "Benutzer"
       created_at: "Erstellungsdatum"
+      file: "Antrag einreichen"
+      reject: "Antrag ablehnen"
+      accept: "Antrag annehmen"
   date:
     formats:
       default: "%d.%m.%Y"
