@@ -61,7 +61,7 @@ class ExpensesController < ApplicationController
         ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @expense.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'expense'})
       end
     end
-    redirect_to expenses_path
+    redirect_to trip_path(@expense.trip)
   end
 
   def destroy
