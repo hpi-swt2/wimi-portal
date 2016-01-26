@@ -1,10 +1,10 @@
-<%= form_for @travel_expense_report,html: { class: "form-horizontal travel_expense_report" } do |f| %>
-  <% if @travel_expense_report.errors.any? %>
+<%= form_for [@expense.trip,@expense], html: { class: "form-horizontal expense" } do |f| %>
+  <% if @expense.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@travel_expense_report.errors.count, "error") %> prohibited this travel_expense_report from being saved:</h2>
+      <h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
 
       <ul>
-      <% @travel_expense_report.errors.full_messages.each do |message| %>
+      <% @expense.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -36,14 +36,6 @@
     <%= f.text_area :reason %>
   </div>
   <div class="control-group">
-    <%= f.label :date_start %><br>
-    <%= f.text_field :date_start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
-  </div>
-  <div class="control-group">
-    <%= f.label :date_end %><br>
-    <%= f.text_field :date_end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
-  </div>
-  <div class="control-group">
     <%= f.label :car %><br>
     <%= f.check_box :car %>
   </div>
@@ -67,13 +59,13 @@
   <div id="date_items">
     <table class="table table-striped">
       <tr>
-        <th><%= t('activerecord.attributes.travel_expense_report_item.date') %></th>
-        <th><%= t('activerecord.attributes.travel_expense_report_item.breakfast') %></th>
-        <th><%= t('activerecord.attributes.travel_expense_report_item.lunch') %></th>
-        <th><%= t('activerecord.attributes.travel_expense_report_item.dinner') %></th>
-        <th><%= t('activerecord.attributes.travel_expense_report_item.annotation') %></th>
+        <th><%= t('activerecord.attributes.expense_item.date') %></th>
+        <th><%= t('activerecord.attributes.expense_item.breakfast') %></th>
+        <th><%= t('activerecord.attributes.expense_item.lunch') %></th>
+        <th><%= t('activerecord.attributes.expense_item.dinner') %></th>
+        <th><%= t('activerecord.attributes.expense_item.annotation') %></th>
       </tr>
-      <%= f.fields_for :travel_expense_report_items do |t| %>
+      <%= f.fields_for :expense_items do |t| %>
       <tr>
         <td><%= t.text_field :date, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %></td>
         <td><%= t.check_box :breakfast %></td>

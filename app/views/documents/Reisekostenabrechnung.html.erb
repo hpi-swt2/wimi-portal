@@ -165,7 +165,7 @@ aber nicht seperat aus privaten Mitteln bezahlt worden sind
     <td width=40>A</td>
     <td width=140>&nbsp;</td>
   </tr>
-  <% report.travel_expense_report_items.each do |report_item|%>
+  <% report.expense_items.each do |report_item|%>
     <tr>
       <td>
         <div class="underlined-field">
@@ -178,7 +178,7 @@ aber nicht seperat aus privaten Mitteln bezahlt worden sind
       <td style="text-align:center">&nbsp;&nbsp;&nbsp;<%= report_item.annotation %>&nbsp;&nbsp;&nbsp;</td>
     </tr>
   <% end %>
-  <% (9 - report.travel_expense_report_items.size).times do |i| %>
+  <% (9 - report.expense_items.size).times do |i| %>
     <tr>
       <td>
         <div class="underlined-field">

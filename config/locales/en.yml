@@ -85,11 +85,14 @@ en:
         status: "Status"
         user_id: "User"
         created_at: "Created at"
+        date_end: "Start at"
+        date_start: "End at"
+        days_abroad: "Days abroad"
       trip_datespan:
         start_date: "Start at"
         end_date: "End at"
         days_abroad: "Days abroad"
-      travel_expense_report:
+      expense:
         inland: "Inland Travel"
         country: "Country"
         location_from: "Starting in"
@@ -105,7 +108,7 @@ en:
         hotel: "Hotel"
         general_advance: "Advance"
         signature: "Add signature?"
-      travel_expense_report_item:
+      expense_item:
         date: "Date"
         breakfast: "Breakfast"
         lunch: "Lunch"
@@ -142,7 +145,7 @@ en:
         not_member_of_chair: "You are not a member of a chair."
     errors:
       models:
-        travel_expense_report:
+        expense:
           attributes:
             location_from:
               blank: "cannot be blank."
@@ -244,5 +247,5 @@ en:
     apply: "Trip was successfully applied"
   not_authorized: "You're not authorized to do that action."
   not_enough_leave: "Not enough leave left"
-  travel_expense_report:
-    applied: "Travel expense request is already applied"
+  expense:
+    applied: "Expense request is already applied"

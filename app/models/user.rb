@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   has_many :work_days
   has_many :time_sheets
   has_many :holidays
-  has_many :travel_expense_reports
+  has_many :expenses
   has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
@@ -178,12 +178,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_desc_sorted_datespans
+  def get_desc_sorted_trips
     all_trips = Trip.where(user_id: id)
-    datespans = []
+    trips = []
     all_trips.each do |trip|
-      datespans.push(trip.trip_datespans.first)
+      trips.push(trip)
     end
-    datespans.sort! { |a,b| b.start_date <=> a.start_date }
+    trips.sort! { |a,b| b.date_start <=> a.date_start }
   end
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: travel_expense_reports
+# Table name: expenses
 #
 #  id               :integer          not null, primary key
 #  inland           :boolean
@@ -9,28 +9,29 @@
 #  location_via     :string
 #  location_to      :string
 #  reason           :text
-#  date_start       :datetime
-#  date_end         :datetime
 #  car              :boolean
 #  public_transport :boolean
 #  vehicle_advance  :boolean
 #  hotel            :boolean
+#  status           :integer          default(0)
 #  general_advance  :integer
 #  user_id          :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  signature        :boolean
+#  trip_id          :integer
 #
 
-class TravelExpenseReport < ActiveRecord::Base
+class Expense < ActiveRecord::Base
   belongs_to :user
-  has_many :travel_expense_report_items
-  accepts_nested_attributes_for :travel_expense_report_items, reject_if: lambda {|attributes| attributes['date'].blank? }
+  belongs_to :trip
+  has_many :expense_items
+  accepts_nested_attributes_for :expense_items, reject_if: lambda {|attributes| attributes['date'].blank? }
 
+  validates_presence_of :trip
   validates :location_from, presence: true
   validates :location_to, presence: true
   validates :general_advance, numericality: {greater_than_or_equal_to: 0}
-  validate 'start_before_end_date'
 
   enum status: [:saved, :applied, :accepted, :declined]
 
@@ -46,9 +47,11 @@ class TravelExpenseReport < ActiveRecord::Base
     user.signature
   end
 
-  def start_before_end_date
-    if date_start > date_end
-      errors.add(:date_start, "can't be after end date")
-    end
+  def date_start
+    trip.date_start
+  end
+
+  def date_end
+    trip.date_end
   end
 end

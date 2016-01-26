@@ -143,16 +143,16 @@
               </tr>
             </thead>
             <tbody>
-              <% @datespans.each do |span| %>
+              <% @trips.each do |trip| %>
                 <tr>
-                  <td><%= Trip.find(span.trip_id).destination %></td>
-                  <td><%=l span.start_date %></td>
-                  <td><%=l span.end_date %></td>
-                  <td><%= Trip.find(span.trip_id).status %></td>
+                  <td><%= trip.destination %></td>
+                  <td><%=l trip.start_date %></td>
+                  <td><%=l trip.end_date %></td>
+                  <td><%= trip.status %></td>
                   <td>
                     <%= link_to t("helpers.links.show_details"),
-                                trip_path(Trip.find(span.trip_id)), class: 'btn btn-default btn-xs' %><br>
-                    <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: Trip.find(span.trip_id)), class: 'btn btn-default btn-xs' %>
+                                trip_path(trip), class: 'btn btn-default btn-xs' %><br>
+                    <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: trip), class: 'btn btn-default btn-xs' %>
                   </td>
                 </tr>
               <% end %>

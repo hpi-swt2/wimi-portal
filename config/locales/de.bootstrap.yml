@@ -149,8 +149,8 @@ de:
       show_holiday_requests: "Urlaubsanträge anzeigen"
       show_expense_requests: "Reisekostenabrechnung anzeigen"
       show_trip_requests: "Dienstreiseanträge anzeigen"
-  travel_expense_reports:
-    show:
+  expenses:
+    expense:
       inland: "Inlandsreise"
       country: "Land"
       location_from: "Startort"
@@ -179,6 +179,8 @@ de:
       file: "Antrag einreichen"
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
+      expense: "Details für Reisekostenabrechnung"
+      create_expense: "Reisekosten eintragen"
   date:
     formats:
       default: "%d.%m.%Y"
@@ -212,7 +214,7 @@ de:
     event_request:
       holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
       trip: "%{trigger} hat einen Reiseantrag gestellt."
-      travel_expense_report: "%{trigger} hat eine Reisekostenabrechnung gestellt."
+      expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
   chairs:
     navigation:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
