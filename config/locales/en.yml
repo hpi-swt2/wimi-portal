@@ -85,8 +85,12 @@ en:
         status: "Status"
         user_id: "User"
         created_at: "Created at"
-        date_start: "Start at"
-        date_end: "End at"
+        date_end: "Start at"
+        date_start: "End at"
+        days_abroad: "Days abroad"
+      trip_datespan:
+        start_date: "Start at"
+        end_date: "End at"
         days_abroad: "Days abroad"
       expense:
         inland: "Inland Travel"

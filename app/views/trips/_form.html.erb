@@ -1,5 +1,4 @@
 <%- model_class = Trip -%>
-<%- model_class2 = TripDatespan -%>
 <%= form_for(@trip) do |f| %>
   <% if @trip.errors.any? %>
     <div id="error_explanation">
@@ -23,9 +22,9 @@
   </div>
   <table class="table table-striped">
     <tr>
-      <th><%= model_class2.human_attribute_name(:start_date) %></td>
-      <th><%= model_class2.human_attribute_name(:end_date) %></td>
-      <th><%= model_class2.human_attribute_name(:days_abroad) %></td>
+      <th><%= model_class.human_attribute_name(:date_start) %></td>
+      <th><%= model_class.human_attribute_name(:date_end) %></td>
+      <th><%= model_class.human_attribute_name(:days_abroad) %></td>
     </tr>
     <tr>
       <td>
