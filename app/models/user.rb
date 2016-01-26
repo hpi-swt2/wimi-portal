@@ -180,10 +180,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.search(search)
+  def self.search(search, chair)
     if search.length > 0
+      #debugger
       results = where('first_name LIKE ? or last_name LIKE ?', "%#{search}%", "%#{search}%")
-      return results.reject(&:is_wimi?)
+      return results.reject { |u| u.is_wimi? && u.chair != chair }
     else
       return nil
     end

@@ -141,8 +141,8 @@ class Chair < ActiveRecord::Base
     success = check_correct_user(representative_param)
 
     if success
-      set_admins(admin_array) unless admin_array.blank?
-      set_representative(User.find_by(id: representative_param)) unless representative_param.nil?
+      set_admins(admin_array)
+      set_representative(User.find_by(id: representative_param))
     else
       return false
     end
@@ -154,7 +154,7 @@ class Chair < ActiveRecord::Base
       admin.save
     end
 
-    admin_array.each do |admin|
+    admin_array.try(:each) do |admin|
       if ChairWimi.find_by(user: admin)
         admin.chair_wimi.destroy
       end
@@ -169,10 +169,12 @@ class Chair < ActiveRecord::Base
       former.save
     end
 
-    if ChairWimi.find_by(user: new_representative)
-      new_representative.chair_wimi.destroy
+    if new_representative
+      if ChairWimi.find_by(user: new_representative)
+        new_representative.chair_wimi.destroy
+      end
+      ChairWimi.create(chair: self, user: new_representative, representative: true, application: 'accepted')
     end
-    ChairWimi.create(chair: self, user: new_representative, representative: true, application: 'accepted')
   end
 
   def add_requests(type, array, statuses)

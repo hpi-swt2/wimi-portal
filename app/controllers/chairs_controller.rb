@@ -1,6 +1,6 @@
 class ChairsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
+  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests, :admin_search, :representative_search ]
 
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = I18n.t('chairs.navigation.not_authorized')
@@ -57,12 +57,12 @@ class ChairsController < ApplicationController
   end
 
   def admin_search
-    @results = User.search(params[:q])
+    @results = User.search(params[:q], @chair)
     render :layout => false
   end
 
   def representative_search
-    @results = User.search(params[:q])
+    @results = User.search(params[:q], @chair)
     render :layout => false
   end
 
