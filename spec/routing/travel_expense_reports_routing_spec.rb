@@ -7,7 +7,7 @@ RSpec.describe ExpensesController, type: :routing do
     end
 
     it 'routes to #new' do
-      expect(get: '/expenses/new').to route_to('expenses#new')
+      expect(get: '/trips/1/expenses/new').to route_to('expenses#new', trip_id:'1')
     end
 
     it 'routes to #show' do
@@ -19,7 +19,7 @@ RSpec.describe ExpensesController, type: :routing do
     end
 
     it 'routes to #create' do
-      expect(post: '/expenses').to route_to('expenses#create')
+      expect(post: '/trips/1/expenses').to route_to('expenses#create', trip_id:'1')
     end
 
     it 'routes to #update via PUT' do

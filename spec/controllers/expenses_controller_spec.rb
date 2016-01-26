@@ -112,7 +112,7 @@ RSpec.describe ExpensesController, type: :controller do
 
   describe 'GET #new' do
     it 'assigns a new expense as @expense' do
-      get :new, {}, valid_session
+      get :new, {trip_id: @trip.id}, valid_session
       expect(assigns(:expense)).to be_a_new(Expense)
     end
   end
@@ -137,34 +137,34 @@ RSpec.describe ExpensesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Expense' do
         expect {
-          post :create, {expense: valid_attributes}, valid_session
+          post :create, {trip_id: @trip.id,expense: valid_attributes}, valid_session
         }.to change(Expense, :count).by(1)
       end
 
       it 'assigns a newly created expense as @expense' do
-        post :create, {expense: valid_attributes}, valid_session
+        post :create, {trip_id: @trip.id,expense: valid_attributes}, valid_session
         expect(assigns(:expense)).to be_a(Expense)
         expect(assigns(:expense)).to be_persisted
       end
 
       it 'redirects to the created expense' do
-        post :create, {expense: valid_attributes}, valid_session
+        post :create, {trip_id: @trip.id,expense: valid_attributes}, valid_session
         expect(response).to redirect_to(Expense.last)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved expense as @expense' do
-        post :create, {expense: invalid_attributes}, valid_session
+        post :create, {trip_id: @trip.id,expense: invalid_attributes}, valid_session
         expect(assigns(:expense)).to be_a_new(Expense)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {expense: invalid_attributes}, valid_session
+        post :create, {trip_id: @trip.id,expense: invalid_attributes}, valid_session
         expect(response).to render_template('new')
       end
       it 'rejects blank values for advance' do
-        post :create, {expense: advance_blank_attributes}, valid_session
+        post :create, {trip_id: @trip.id,expense: advance_blank_attributes}, valid_session
         expect(response).to render_template('new')
       end
     end
