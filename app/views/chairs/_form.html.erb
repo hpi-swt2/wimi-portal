@@ -29,7 +29,7 @@
       <div id="admins"><%= f.label :chair_admins, class: 'control-label' %><br>
       </div>
 
-      <input id="search-box-admin" name="q" type="text" class="form-control"/>
+      <input id="search-box-admin" name="q" type="text" class="form-control" autocomplete="off"/>
       <div class="dropdown">
         <ul id="search-results-admin" class="dropdown-menu">
         </ul>
@@ -38,10 +38,12 @@
 
     <div class="control-group">
       <!-- Representative -->
-      <div id="representative"><%= f.label :chair_representative, class: 'control-label' %><br>
+      <%= f.label :chair_representative, class: 'control-label' %><br>
+      <div id="representative">
+        <p>no representative selected</p>
       </div>
 
-      <input id="search-box-representative" name="q" type="text" class="form-control"/>
+      <input id="search-box-representative" name="q" type="text" class="form-control" autocomplete="off"/>
       <div class="dropdown">
         <ul id="search-results-representative" class="dropdown-menu">
         </ul>
@@ -65,9 +67,8 @@ var adminArray = [];
 var adminDiv = $( "#admins" );
 
 function addAdmin(id, name){
-  //alert($.inArray(id,adminArray));
   if($.inArray(id,adminArray) == -1) {
-    adminDiv.append("<div id=\"admin_"+id+"\"><p>"+name+" <a onClick=\"removeAdmin("+id+")\">entfernen</a></p><input type=\"hidden\" name=\"admins["+id+"]\" value=\""+id+"\" /></div>");
+    adminDiv.append("<div id=\"admin_"+id+"\"><li>"+name+" <a onClick=\"removeAdmin("+id+")\"><font color=\"red\">entfernen</font></a></li><input type=\"hidden\" name=\"admins["+id+"]\" value=\""+id+"\" /></div>");
     adminArray.push(id);
   }
   $('#search-box-admin').val("");
@@ -82,6 +83,11 @@ function removeAdmin(id){
   }
 }
 
+function addRepresentative(id, name){
+  $( "#representative" ).replaceWith( "<div id=\"representative\"><li>"+name+"</li><input type=\"hidden\" name=\"representative\" value=\""+id+"\" /></div>" );
+  $('#search-box-representative').val("");
+  $("#search-results-representative").hide();
+}
 
   
 $("#search-box-admin").bind("keyup", function() {
