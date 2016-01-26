@@ -26,8 +26,7 @@ de:
       leave: "Verlassen"
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
-      show_pdf: "Als PDF anzeigen"
-      download: "Herunterladen"
+      download_pdf: "Als PDF herunterladen"
       apply_trip: "Antrag stellen"
       save: "Speichern"
     titles:
@@ -257,7 +256,7 @@ de:
       create_expense: "Reisekosten eintragen"
   work_days:
     index:
-      working_hours_for: "Arbeitsstunden für: "
+      working_hours_for: "Arbeitsstunden in"
       new: "neu"
       for: "für"
       by: "von"
@@ -288,7 +287,6 @@ de:
       rejected_by: "abgelehnt von: "
       accepted_by: "angenommen von: "
       at: "am"
-      export_as_PDF: "als PDF exportieren"
       handed_in_at: "eingereicht am:"
       add_signature: "Unterschrift hinzufügen"
       document_was: "Das Dokument wurde"

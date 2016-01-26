@@ -32,29 +32,66 @@
 
 .pdf-document div.logo {
   position: absolute;
-  top: 20px;
-  right: 50px;
-  width: 200px;
+  top: 10px;
+  right: 0px;
+}
+
+.pdf-document div.logo img {
+  width: 170px;
 }
 
 .pdf-document div.input-block {
   margin: 0cm;
   margin-bottom: 0.4cm;
-  padding: 0 10
+  padding: 2 3;
 }
 
 .pdf-document div.input-block > span, .big {
   font-size: 14.0pt;
 }
 
-.pdf-document table.pdf_table > tbody > tr > td {
-  border: solid 1.0pt;
-  text-align: center;
-  padding: 5px;
+.pdf-document span.text-field {
+  margin: 0 20px;
+  padding: 3px;
 }
 
-.pdf-document table.pdf_costs_table > tbody > tr > td {
+.pdf-document table.pdf-table td {
+  border: solid 1.0pt;
   text-align: center;
+  padding: 4px;
+}
+
+.pdf-document table.pdf-costs-table {
+  border-spacing: 7px;
+}
+
+.pdf-document table.pdf-costs-table td {
+  text-align: center;
+  padding: 2;
+}
+
+.pdf-document table.workdays_table {
+  width: 100%;
+  right: 50px;
+}
+
+.pdf-document table.workdays_table td {
+  border: 1.0px solid;
+  padding: 1 10;
+  font-size: 12pt;
+  text-align: center;
+}
+
+.pdf-document table.workdays_table th {
+  border: 1.0px solid;
+  padding: 3 10;
+  text-align: center;
+  font-size: 10pt;
+  font-weight: normal;
+}
+
+.pdf-document table.workdays_table tr.footer td {
+  border: 0;
 }
 
 .pdf-document div.seperating-line {

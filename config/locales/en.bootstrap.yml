@@ -30,11 +30,10 @@ en:
       leave: "Leave"
       edit_leave: "Edit Leave"
       show_details: "Show Details"
-      show_pdf: "Show PDF"
       apply: "Apply"
       accept: "Accept"
       decline: "Decline"
-      download: "Download"
+      download_pdf: "Download as PDF"
       apply_trip: "Apply Trip"
       save: "Save"
     titles:
@@ -267,7 +266,7 @@ en:
       create_expense: "Create trip expense"
   work_days:
     index:
-      working_hours_for: "Working hours for: "
+      working_hours_for: "Working hours for"
       new: "new"
       for: "for"
       by: "by"
@@ -298,7 +297,6 @@ en:
       rejected_by: "rejected by: "
       accepted_by: "accepted by: "
       at: "at"
-      export_as_PDF: "export as PDF"
       handed_in_at: "handed in at:"
       add_signature: "Add signature"
       document_was: "Document was"

@@ -4,13 +4,14 @@
 <title>Dienstreise-Antrag</title>
 <%= wicked_pdf_stylesheet_link_tag css_file %>
 </head>
-<body class='pdf-document'>
+
+<body class='pdf-document trip-document'>
 
 <div class='header-block'>
   <span class='big-headline'>Dienstreise-Antrag</span>
   <p style='margin-bottom:40px'>&nbsp;</p>
   <div class='logo'>
-    <img width='160px' src='<%= hpi_logo %>'>
+    <img src='<%= hpi_logo %>'>
   </div>
 </div>
 
@@ -27,7 +28,7 @@
 
 <p style='margin-bottom:40px'>&nbsp;</p>
 
-<table class='pdf_table' style='width:400.0pt; border-collapse:collapse'>
+<table class='pdf-table' style='width:400.0pt; border-collapse:collapse'>
  <tr style='height:17pt'>
   <td colspan=3 style='text-align:left; padding-left: 5px;'><b>Reisetage</b></td>
   <td></td>
@@ -49,7 +50,7 @@
 <p class='big' style='margin:40 0 20 0'>Anmerkungen:</p>
 
 <% annotation_splitted.each do |annotation_line| %>
-  <div class='text-field'><%= annotation_line %></div>
+  <div class='text-field' style='padding: 1 1'><%= annotation_line %></div>
 <% end %>
 <% (4 - annotation_splitted.size).times do |i| %>
   <div class='text-field'>&nbsp;</div>
