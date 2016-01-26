@@ -27,6 +27,12 @@
     <div class="control-group">
       <!-- Admins -->
       <div id="admins"><%= f.label :chair_admins, class: 'control-label' %><br>
+        <% @chair.admin_users.each do |admin| %>
+          <div id="admin_<%= admin.id %>">
+          <li><%= admin.name %><a onClick="removeAdmin(<%= admin.id %>)"><font color="red"> entfernen</font></a></li>
+          <input type="hidden" name="admins[<%= admin.id %>]" value="<%= admin.id %>" />
+          </div>
+        <% end %>
       </div>
 
       <input id="search-box-admin" name="q" type="text" class="form-control" autocomplete="off"/>
@@ -40,7 +46,12 @@
       <!-- Representative -->
       <%= f.label :chair_representative, class: 'control-label' %><br>
       <div id="representative">
-        <p>no representative selected</p>
+        <% if @chair.representative %>
+          <li><%= @chair.representative.user.name %></li>
+          <input type="hidden" name="representative" value="<%= @chair.representative.user.id %>" />
+        <% else %>
+          <p>no representative selected</p>
+        <% end %>
       </div>
 
       <input id="search-box-representative" name="q" type="text" class="form-control" autocomplete="off"/>
@@ -63,7 +74,7 @@
 
 <script>
 
-var adminArray = [];
+var adminArray = [-1<% @chair.admin_users.each do |admin| %>,<%= admin.id %><% end %>];
 var adminDiv = $( "#admins" );
 
 function addAdmin(id, name){

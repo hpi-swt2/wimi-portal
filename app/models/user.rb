@@ -181,11 +181,11 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search)
-    print search
     if search.length > 0
-      where('first_name LIKE ? or last_name LIKE ?', "%#{search}%", "%#{search}%")
+      results = where('first_name LIKE ? or last_name LIKE ?', "%#{search}%", "%#{search}%")
+      return results.reject(&:is_wimi?)
     else
-      nil
+      return nil
     end
   end
 
