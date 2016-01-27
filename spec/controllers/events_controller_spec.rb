@@ -52,7 +52,7 @@ RSpec.describe EventsController, type: :controller do
       ChairWimi.create(chair: chair, user: user, application: 'accepted')
       expense = FactoryGirl.create(:expense, user: user)
 
-      post :show_request, {status: 'expense', request_id: expense.id}
+      post :show_request, {status: 'expense', request: expense}
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(expense)
     end

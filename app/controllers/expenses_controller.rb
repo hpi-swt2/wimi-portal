@@ -35,7 +35,8 @@ class ExpensesController < ApplicationController
     @expense.user = current_user
 
     if @expense.save
-      redirect_to @expense, notice: 'expense was successfully created.'
+      redirect_to @expense
+      flash[:success] = I18n.t('expense.create.success')
     else
       fill_blank_items
       render :new
@@ -44,7 +45,8 @@ class ExpensesController < ApplicationController
 
   def update
     if @expense.update(expense_params)
-      redirect_to @expense, notice: 'expense was successfully updated.'
+      redirect_to @expense
+      flash[:success] = I18n.t('expense.update.success')
     else
       fill_blank_items
       render :edit
@@ -66,7 +68,8 @@ class ExpensesController < ApplicationController
       flash[:error] = I18n.t('expense.applied')
     else
       @expense.destroy
-      redirect_to expenses_url, notice: 'expense was successfully destroyed.'
+      redirect_to expenses_url
+      flash[:success] = I18n.t('expense.destroy.success')
     end
   end
 

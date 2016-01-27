@@ -74,7 +74,7 @@
 </ul>
 
 <% unless @expense.status == 'applied' %>
-<%= link_to t('helpers.links.edit'), edit_expense_path(@expense) , class: "btn btn-default btn-xs"%> |
+  <%= link_to t('helpers.links.edit'), edit_expense_path(@expense) , class: "btn btn-default btn-xs"%> |
 <% end %>
 <%= link_to t('helpers.links.back'), expenses_path , class: "btn btn-default btn-xs"%> |
 <%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Reisekostenabrechnung', doc_id: @expense) , class: "btn btn-success btn-xs"%>

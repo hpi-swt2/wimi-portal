@@ -34,10 +34,9 @@
         <td>
         <%= link_to t('helpers.links.show_details'), expense ,class: "btn btn-default btn-xs"%>
         <% if expense.status == 'saved' %>
-            <%= link_to t("helpers.links.hand_in"),
-                        hand_in_expense_path(expense), method: :post, class: 'btn btn-success btn-xs' %>
-            <%= link_to t('helpers.links.edit'),edit_expense_path(expense),class: "btn btn-default btn-xs" %>
-            <%= link_to t('helpers.links.destroy'), expense, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-xs" %>
+          <%= link_to t("helpers.links.hand_in"),hand_in_expense_path(expense), method: :post, class: 'btn btn-success btn-xs' %>
+          <%= link_to t('helpers.links.edit'),edit_expense_path(expense),class: "btn btn-default btn-xs" %>
+          <%= link_to t('helpers.links.destroy'), expense, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-xs" %>
         <% end %>
         </td>
       </tr>
