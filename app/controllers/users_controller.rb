@@ -12,10 +12,16 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:success] = t('.user_updated')
-      redirect_to current_user
+      if(user_params.has_key?(:language))
+        redirect_to :back
+      else
+        redirect_to current_user
+      end
     else
       render :edit
     end
+    rescue ActionController::RedirectBackError
+      redirect_to current_user
   end
 
   def superadmin_index
