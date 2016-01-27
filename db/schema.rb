@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20160127113150) do
     t.string   "annotation"
     t.text     "user_signature"
     t.text     "representative_signature"
+    t.integer  "length_last_year",         default: 0
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -71,7 +72,10 @@ ActiveRecord::Schema.define(version: 20160127113150) do
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "sender_id"
   end
+
+  add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
 
   create_table "project_applications", force: :cascade do |t|
     t.integer  "project_id"
@@ -111,8 +115,16 @@ ActiveRecord::Schema.define(version: 20160127113150) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "handed_in",             default: false
+    t.text     "rejection_message",     default: ""
+    t.boolean  "signed",                default: false
+    t.date     "last_modified"
+    t.integer  "status",                default: 0
+    t.integer  "signer"
+    t.boolean  "wimi_signed",           default: false
+    t.date     "hand_in_date"
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|
@@ -175,8 +187,11 @@ ActiveRecord::Schema.define(version: 20160127113150) do
     t.boolean  "signature"
     t.text     "user_signature"
     t.text     "representative_signature"
+    t.integer  "person_in_power_id"
+    t.date     "last_modified"
   end
 
+  add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "user_events", force: :cascade do |t|
@@ -191,24 +206,22 @@ ActiveRecord::Schema.define(version: 20160127113150) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "",    null: false
-    t.integer  "sign_in_count",             default: 0,     null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
     t.string   "language",                  default: "en",  null: false
-    t.string   "residence"
     t.string   "street"
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false
     t.text     "signature"
+    t.string   "username"
+    t.string   "encrypted_password",        default: "",    null: false
+    t.string   "city"
+    t.string   "zip_code"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

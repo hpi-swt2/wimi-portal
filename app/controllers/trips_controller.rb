@@ -13,6 +13,10 @@ class TripsController < ApplicationController
   end
 
   def show
+    unless (@trip.user == current_user) || ((can? :see_trips, @trip.user) && (can? :edit_trip, @trip))
+      redirect_to root_path
+      flash[:error] = I18n.t('trip.not_authorized')
+    end
   end
 
   def new
@@ -95,6 +99,26 @@ class TripsController < ApplicationController
   end
 
   def download
+  end
+
+  def reject
+    if (can? :read, @trip) && @trip.status == 'applied'
+      @trip.update_attributes(status: 'declined', last_modified: Date.today)
+      redirect_to @trip.user
+    else
+      redirect_to root_path
+      flash[:error] = t('trip.not_authorized')
+    end
+  end
+
+  def accept
+    if(can? :read, @trip) && @trip.status == 'applied'
+      @trip.update_attributes(status: 'accepted', last_modified: Date.today)
+      redirect_to @trip.user
+    else
+      redirect_to root_path
+      flash[:error] = t('trip.not_authorized')
+    end
   end
 
   private

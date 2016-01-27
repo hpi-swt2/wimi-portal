@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap/bootstrap-tooltip
  *= require devise_bootstrap_views
  *= require bootstrap-datepicker
  */
@@ -87,4 +88,11 @@ body {
 .time-select {
     display: inline-block;
     width: 48%;
+}
+
+.link {
+    color: mediumblue;
+}
+.buttonGroup {
+    margin-top: 40px;
 }
