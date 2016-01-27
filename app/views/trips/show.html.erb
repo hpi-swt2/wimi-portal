@@ -1,48 +1,62 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong><%= t('.destination') %>:</strong>
-  <%= @trip.destination %>
-</p>
-
-<p>
-  <strong><%= t('.reason') %>:</strong>
-  <%= @trip.reason %>
-</p>
-<ul>
-	<%= render @trip.trip_datespans %>
-</ul>
-<p>
-  <strong><%= t('.annotation') %>:</strong>
-  <%= @trip.annotation %>
-</p>
-
-<p>
-  <strong><%= t('.signature') %>:</strong>
-  <%= @trip.signature %>
-</p>
-
-</p>
-  <strong><%=t('.status') %>:</strong>
-  <%= t(@trip.status, scope: 'status') %>
-  <% if @trip.status == t('status.declined') %>
-    by:
-  <% end %>
-</p>
-
-<% unless @trip.status == 'applied' %>
-  <%= link_to t('.edit', default: t("helpers.links.edit")), edit_trip_path(@trip), class: 'btn btn-default btn-xs' %>
+<%- model_class = Trip -%>
+<div class="page-header">
+  <h1><%=t '.title', default: model_class.model_name.human.titleize %></h1>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-sm-6">
+      </div>
+      <% if @trip.user == current_user %>
+        <div class="col-sm-6 text text-right">
+          <% if (@trip.status == 'saved') || (@trip.status == 'declined')  %>
+            <%= link_to t('.edit', default: t("helpers.links.edit")),
+                          edit_trip_path(@trip), class: 'btn btn-primary' %>
+          <% else %>
+            <%= link_to t('.edit', default: t("helpers.links.edit")),
+                          '#', class: 'btn btn-primary', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="panel panel-body">
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:destination) %>:</strong></dt>
+      <dd><%= @trip.destination %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:reason) %>:</strong></dt>
+      <dd><%= @trip.reason %></dd>
+      <dt><strong><%= TripDatespan.human_attribute_name(:start_date) %>:</strong></dt>
+      <dd><%=l @trip.trip_datespans.first.start_date %><%=l @trip.trip_datespans.first.start_date, format: ' (%A)' %></dd>
+      <dt><strong><%= TripDatespan.human_attribute_name(:end_date) %>:</strong></dt>
+      <dd><%=l @trip.trip_datespans.first.end_date %><%=l @trip.trip_datespans.first.end_date, format: ' (%A)' %></dd>
+      <dt><strong><%= TripDatespan.human_attribute_name(:days_abroad) %>:</strong></dt>
+      <dd><%= @trip.trip_datespans.first.days_abroad %> <%= t('.days') %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>
+      <dd><%= @trip.annotation %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:signature) %>:</strong></dt>
+      <dd><%= @trip.signature %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+      <dd><%= t(".status.#{@trip.status}") + l(@trip.updated_at)%></dd>
+    </dl>
+  </div>
+</div>
+<% if (can? :accept, @trip) && @trip.status == 'applied' %>
+  <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %> 
+  <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-primary' %>
+<% end %>
+<% unless @trip.status == 'applied' || @trip.status == 'accepted' %>
   <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
-                      hand_in_trip_path(@trip), method: :post, class: 'btn btn-primary btn-xs' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      hand_in_trip_path(@trip), method: :post, class: 'btn btn-primary btn-primary' %>
+  <%= link_to t('.destroy', default: t("helpers.links.destroy")),
                       trip_path(@trip),
                       method: :delete,
-                      data: { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      class: 'btn btn-danger btn-xs' %>
+                      data: { confirm: t('.confirm', default: t("helpers.links.confirm")) },
+                      class: 'btn btn-danger btn-primary' %>
 <%end%>
-
-<%= link_to t('.back', default: t("helpers.links.back")),
-             trips_path, class: 'btn btn-default btn-xs'  %> 
+<br>
+<br>
 <p>
-<%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-success btn-xs' %>
+  <%= link_to t('.back', default: t("helpers.links.back")), trips_path, class: 'btn btn-default'  %>
+  <%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-success' %>
 </p>

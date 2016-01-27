@@ -15,7 +15,7 @@
     </div>
   <% end %>
 
-  <% I18n.locale.to_s == 'en' ? format = 'dd-mm-yyyy' : format = 'dd.mm.yyyy' %>
+  <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
 
   <%= f.label :remaining_leave, t('users.show.remaining_leave', leave: current_user.remaining_leave.to_s) %>
   <% if current_user.remaining_leave_last_year > 0 %>
@@ -38,7 +38,7 @@
   <div class="control-group">
     <%= f.label :duration, class: 'control-label' %>
     <div class="controls">
-      <%= f.number_field :length, class: 'form-control', min: 0, placeholder: 'Leave Blank for automatic calculation' %>
+      <%= f.number_field :length, class: 'form-control', min: 0, placeholder: t('.auto_calculation') %>
     </div>
   </div>
   <div class="control-group">
@@ -49,11 +49,11 @@
     <%= error_span(@holiday[:reason]) %>
   </div>
   <div class="control-group">
-    <%= f.check_box :replacement_user_id, onchange: "selection.style.display = this.checked ? 'block' : 'none'" %>
+    <%= f.check_box :replacement_user_id, {onclick: 'toggle(selection, replacement_selection, replacement_checkbox)', id: 'replacement_checkbox'} %>
     <%= f.label :replacement, class: 'control-label' %>
     <%# Capybara doesn't seem to find invisible selection boxes, so this div has to be displayed in a test environment %>
     <%= content_tag :div, class: "controls", id: 'selection', style: "#{Rails.env}" == 'test' ? "display:block" : "display: none" do %>
-      <%= f.collection_select :replacement_user_id, User.all.select { |user| user.chair == current_user.chair && user.is_wimi? }, :id, :name, include_blank: true, id: 'replacement_selection' %>
+      <%= f.collection_select :replacement_user_id, User.all.select {|user| user.chair == current_user.chair && user.is_wimi? && user != current_user}, :id, :name, {include_blank: true}, {id: 'replacement_selection'} %>
     <% end %>
     <%= error_span(@holiday[:replacement_user_id]) %>
   </div>
