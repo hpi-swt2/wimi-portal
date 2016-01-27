@@ -6,6 +6,7 @@ RSpec.describe 'trips/edit', type: :view do
     FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair), user: @user)
     login_as @user
     @trip = assign(:trip, FactoryGirl.create(:trip, user: @user))
+    trip_datespan = FactoryGirl.create(:trip_datespan, trip: @trip)
   end
 
   it 'renders the edit trip form' do

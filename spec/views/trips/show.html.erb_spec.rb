@@ -4,6 +4,7 @@ RSpec.describe 'trips/show', type: :view do
   before(:each) do
     user = FactoryGirl.create(:user)
     @trip = assign(:trip, FactoryGirl.create(:trip, user_id: user.id))
+    trip_datespan = FactoryGirl.create(:trip_datespan, trip: @trip)
     sign_in user
   end
 
@@ -26,9 +27,8 @@ RSpec.describe 'trips/show', type: :view do
     @trip.update({status: 'applied'})
     render
     expect(@trip.status).to eq('applied')
-    expect(rendered).to have_content(t('status.applied'))
+    expect(rendered).to have_content('Applied')
     expect(rendered).not_to have_link(t('helpers.links.hand_in'))
-    expect(rendered).not_to have_link(t('helpers.links.edit'))
     expect(rendered).not_to have_link(t('helpers.links.destroy'))
   end
 end
