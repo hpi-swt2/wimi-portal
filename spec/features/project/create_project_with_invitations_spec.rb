@@ -8,14 +8,6 @@ describe 'create project with invitations' do
     fill_in 'project_title', with: 'Test Project'
   end
 
-  # it 'invites people to the project' do
-  #   fill_in 'invitation_mail', with: FactoryGirl.create(:user).email
-  #   click_link_or_button 'Add new User'
-  #   expect(page).to have_content(User.last.email)
-  #   expect(page).to have_link_or_button('Remove Invitation')
-  #   click_on 'Create Project'
-  #   expect(User.last.invitations.count).to eq(1)
-  # end
 
   it 'does not invite the creator of the project' do
     fill_in 'invitation_mail', with: @wimi.email
@@ -30,14 +22,5 @@ describe 'create project with invitations' do
     click_on 'Create Project'
     expect(Project.last.invitations.count).to eq(0)
   end
-
-  # it 'does not invite people that were invited at first but then deleted'  do
-  #   fill_in 'invitation_mail', with: FactoryGirl.create(:user).email
-  #   click_on 'Add new User'
-  #   # expect(page).to have_content(User.last.email)
-  #   # expect(page).to have_button('Remove Invitation')
-  #   click_on 'Remove Invitation'
-  #   click_on 'Create Project'
-  #   expect(Project.last.invitations.count).to eq(0)
-  # end
+   
 end
