@@ -29,6 +29,7 @@ de:
       show_pdf: "Als PDF anzeigen"
       download: "Herunterladen"
       apply_trip: "Antrag stellen"
+      save: "Speichern"
     titles:
       edit: "%{model} bearbeiten"
       save: "%{model} speichern"
@@ -100,7 +101,7 @@ de:
       projects: "Projekte"
   users:
     update:
-      user_updated: "Benutzer erfolgreich aktualisiert"
+      user_updated: "Profil erfolgreich aktualisiert"
     show:
       business_trips: "Geschätsreisen"
       request_trip: "Geschätsreise beantragen"
@@ -110,8 +111,9 @@ de:
       remaining_leave: "Verbleibender Resturlaub: %{leave} Tag(e)"
       remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
       days: "Tag(e)"
-      title: "Benutzerprofil"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      password: "Passwort ändern"
+      update_password: "Passwort aktualisieren"
       work_times: "Arbeitszeit"
       handed_in_timesheets: "Eingereichte Stundenzettel:"
       by: "von"
@@ -128,15 +130,21 @@ de:
         accepted: "Akzeptiert"
         applied: "Eingereicht"
         declined: "Abgelehnt"
-    edit:
-      user_data: "Profilbezogene Daten"
-      password: "Passwort ändern"
-      update_password: "Passwort aktualisieren"
+    public_user_data:
+      public_data: "Öffentliche Daten"
+      projects: "Projekte"
+    private_user_data:
+      private_data: "Persönliche Daten"
+      user_status: "Status"
+      wimi: "WiMi"
+      hiwi: "HiWi"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
       save: "Resturlaub Speichern"
       title: "Resturlaub bearbeiten"
+    form:
+      user_data: "Profilbezogene Daten"
   holidays:
     show:
       days: "Tag(e)"

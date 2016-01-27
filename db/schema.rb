@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160117205720) do
+ActiveRecord::Schema.define(version: 20160123173135) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.datetime "updated_at",                     null: false
     t.integer  "status",             default: 0
     t.boolean  "signature"
+    t.integer  "person_in_power_id"
     t.date     "last_modified"
     t.integer  "person_in_power_id"
   end
@@ -206,7 +207,6 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
     t.string   "language",                  default: "en",  null: false
-    t.string   "residence"
     t.string   "street"
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
@@ -214,6 +214,8 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.boolean  "superadmin",                default: false
     t.string   "username"
     t.string   "encrypted_password",        default: "",    null: false
+    t.string   "city"
+    t.string   "zip_code"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

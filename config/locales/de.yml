@@ -139,9 +139,11 @@ de:
         password: "Passwort"
         remember_me: "Angemeldet bleiben"
         personal_data: "Benutzerdaten"
-        residence: "Wohnort"
+        city: "Wohnort"
         street: "Straße"
+        zip_code: "Postleitzahl"
         personnel_number: "Personalnummer"
+        chair: "Lehrstuhl"
         language: "Sprache"
         not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
       request:
