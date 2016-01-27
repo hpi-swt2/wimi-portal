@@ -117,6 +117,7 @@ en:
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
       user_data: "User Data"
+      work_times: "Working Times"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       days: "Day(s)"
