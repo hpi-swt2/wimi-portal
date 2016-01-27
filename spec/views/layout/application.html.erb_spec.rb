@@ -88,7 +88,7 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to chairs' do
-      expect(page).to have_link('Chairs', href: chairs_path)
+      expect(page).to have_link('Research Groups', href: chairs_path)
     end
 
     it 'should show 5 links' do
@@ -111,7 +111,7 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to chairs' do
-      expect(page).to have_link('Chairs', href: chairs_path)
+      expect(page).to have_link('Research Groups', href: chairs_path)
     end
 
     it 'should show 5 links' do
