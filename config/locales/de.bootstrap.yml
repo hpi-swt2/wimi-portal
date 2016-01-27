@@ -72,6 +72,7 @@ de:
       show_all_working_hours: "Alle Stundenzettel anzeigen"
       create_project: "Erstelle Projekt"
       update_project: "Aktualisiere Project"
+      invite_init_user: "Benutzer Einladen"
     show:
       working_hours: "Stundenzettel"
       add_working_hours: "Stundenzettel hinzufügen"

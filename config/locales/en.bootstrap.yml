@@ -79,6 +79,7 @@ en:
       show_all_working_hours: "Show all working hours"
       create_project: "Create Project"
       update_project: "Update Project"
+      invite_init_user: "Invite User"
     show:
       working_hours: "Working hours"
       add_working_hours: "Add working hours"

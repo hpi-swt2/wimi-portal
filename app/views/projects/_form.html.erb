@@ -112,7 +112,7 @@
       <div class="inviteBoxesHeading" ><strong> Invite Initial Users </strong></div>
       <div class="control-group inviteBoxes">
         <%= f.text_field :email, { id: 'invitation_mail', value: '', name:'invitationfield' ,class: 'typeahead form-control inviteInput', size: 57, placeholder: 'max.mustermann@student.hpi.uni-potsdam.de' } %>
-        <input type="button" id='invite_user' class='btn btn-default addnewUserButton' value="Add new User">
+        <input type="button" id='invite_user' class='btn btn-default addnewUserButton' value="<%= t('projects.form.invite_init_user') %>">
         <div id="invited_users"/>
       </div>
     <% end %>

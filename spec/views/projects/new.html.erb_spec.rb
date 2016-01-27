@@ -23,7 +23,7 @@ RSpec.describe 'projects/new', type: :view do
     wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
     login_as wimi
     visit new_project_path
-    expect(page).to have_selector(:link_or_button, 'Add new User')
+    expect(page).to have_selector(:link_or_button, 'Invite User')
     expect(page).to have_xpath("//input[@name='invitationfield']")
   end
 end
