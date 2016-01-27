@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125124611) do
+ActiveRecord::Schema.define(version: 20160127113150) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -49,17 +49,19 @@ ActiveRecord::Schema.define(version: 20160125124611) do
 
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",              default: 0, null: false
+    t.integer  "status",                   default: 0, null: false
     t.integer  "replacement_user_id"
     t.integer  "length"
     t.boolean  "signature"
     t.date     "last_modified"
     t.string   "reason"
     t.string   "annotation"
+    t.text     "user_signature"
+    t.text     "representative_signature"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -139,12 +141,14 @@ ActiveRecord::Schema.define(version: 20160125124611) do
     t.boolean  "public_transport"
     t.boolean  "vehicle_advance"
     t.boolean  "hotel"
-    t.integer  "status",           default: 0
+    t.integer  "status",                   default: 0
     t.integer  "general_advance"
     t.integer  "user_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.boolean  "signature"
+    t.text     "user_signature"
+    t.text     "representative_signature"
   end
 
   add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
@@ -165,10 +169,12 @@ ActiveRecord::Schema.define(version: 20160125124611) do
     t.text     "reason"
     t.text     "annotation"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "status",      default: 0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "status",                   default: 0
     t.boolean  "signature"
+    t.text     "user_signature"
+    t.text     "representative_signature"
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"

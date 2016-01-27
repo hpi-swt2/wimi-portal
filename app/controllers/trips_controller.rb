@@ -33,6 +33,15 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_user
 
+    if trip_params[:signature] == '1' && current_user.signature.nil?
+      @trip.signature = false
+      flash[:error] = 'selected signature, but not found'
+    elsif trip_params[:signature] == '1' && !current_user.signature.nil?
+      @trip.user_signature = current_user.signature
+    else
+      @trip.user_signature = nil
+    end
+
     if @trip.save
       redirect_to @trip
       flash[:success] = I18n.t('trip.save')
@@ -44,6 +53,16 @@ class TripsController < ApplicationController
 
   def update
     @trip.update(status: 'saved')
+
+    if trip_params[:signature] == '1' && current_user.signature.nil?
+      @trip.update(signature: :false)
+      flash[:error] = 'selected signature, but not found'
+    elsif trip_params[:signature] == '1' && !current_user.signature.nil?
+      @trip.user_signature = current_user.signature
+    else
+      @trip.user_signature = nil
+    end
+
     if @trip.update(trip_params)
       redirect_to @trip
       flash[:success] = I18n.t('trip.update')
