@@ -1,8 +1,9 @@
 <%- model_class = User -%>
 
 <div class="page-header">
-  <h1><%=t '.title' %></h1>
+  <h1><%= @user.name %></h1>
 </div>
+
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -10,47 +11,92 @@
       <div class="col-md-6">
         <h4><%= t('.user_data')%></h4>
       </div>
-      <div class="col-md-6 text text-right">
-        <% if @user == current_user %>
-          <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-primary' %>
-        <% end %>
+      <div class="col-sm-6 text text-right">
+        <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-primary' if @user == current_user %>
       </div>
     </div>
   </div>
   <div class="panel panel-body">
-    <p><strong><%= model_class.human_attribute_name(:first_name)+": " %></strong><%= @user.first_name %></p>
-    <p><strong><%= model_class.human_attribute_name(:last_name)+": " %></strong><%= @user.last_name %></p>
-    <p><strong><%= model_class.human_attribute_name(:residence)+": " %></strong><%= @user.residence %></p>
-    <p><strong><%= model_class.human_attribute_name(:street)+": " %></strong><%= @user.street %></p>
-    <p>
-      <strong><%= model_class.human_attribute_name(:chair)+": " %></strong>
-      <% if (chair = @user.chair) != nil %>
-          <%= chair.name %>
-      <% else %>
-          <%= I18n.t('activerecord.attributes.user.not_member_of_chair') %>
-      <% end %>
-    </p>
-    <p><strong><%= model_class.human_attribute_name(:personnel_number)+": " %></strong><%= @user.personnel_number %></p>
-    <p><strong><%= model_class.human_attribute_name(:language)+": " %></strong><%= @user.language %></p>
+    <%= render 'public_user_data'%><br>
+    <%= render 'private_user_data' if @user == current_user%>
   </div>
 </div>
 
 <% if @user == current_user %>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4>Work Times</h4>
+      <h4> <%= t('.work_times')%></h4>
     </div>
     <div class="panel-body">
       <% @user.years_and_months_of_existence.each do |month| %>
         <p>
-          <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s + ":  ", work_days_path(month: month.last, year: month.first)%>
-          <% @user.projects_for_month(month.first, month.last).each do |project|%>
-            <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id)%>
+          <%= link_to l(Date.new(month.first,month.last, 1), format: :without_day) + ':', work_days_path(month: month.last, year: month.first) %>
+          <% current_user.projects_for_month(month.first, month.last).each do |project|%>
+            <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user)%>
           <% end %>
         </p>
       <% end %>
     </div>
   </div>
+<% end %>
+
+<% if current_user.is_wimi? && @user == current_user %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><%= t('.handed_in_timesheets') %></h4>
+    </div>
+    <div class="panel-body">
+      <% @user.years_and_months_of_existence.each do |month| %>
+        <p>
+          <%= l(Date.new(month.first,month.last, 1), format: :without_day) + ':'%>
+          <% current_user.projects_for_month(month.first, month.last).each do |project|%>
+            <% TimeSheet.all.each do |timesheet| %>
+              <% if timesheet.month == month.last && timesheet.year == month.first && timesheet.project == project && timesheet.handed_in == true && (timesheet.status.include? 'pending') %>
+                <%= link_to project.title + ' ' + t('.by') + ' ' + timesheet.user.name, work_days_path(month: month.last, year: month.first, project: project.id, user_id: timesheet.user)%>
+              <% end %>
+            <% end %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+  <%= form_for(@user) do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%= t('.time_sheets_overview') %></h4>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t('.hiwi') %></th>
+                <th><%= t('.month') %></th>
+                <th><%= t('.number_of_hours') %></th>
+                <th><%= t('.handed_in_at') %></th>
+                <th><%= t('.status_timesheet') %></th>
+                <th><%= t('.action') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% TimeSheet.where(handed_in: true).order("hand_in_date DESC").each do |sheet| %>
+                <tr>
+                  <td><%= User.find(sheet.user_id).name %></td>
+                  <td><%= l(Date.new(sheet.year, sheet.month, 1), format: :without_day) %></td>
+                  <td><%= sheet.sum_hours %></td>
+                  <td><%= sheet.hand_in_date %></td>
+                  <td><%= t("time_sheets.show_footer.#{sheet.status}") %></td>
+                  <td>
+                    <%= link_to t('.inspect'), work_days_path(month: sheet.month, year: sheet.year, project: sheet.project_id, user_id: sheet.user_id) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
 <% if can? :see_holidays, @user %>
@@ -78,7 +124,7 @@
             <% end %>
           <% end %>
           <br><%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
-                        users_edit_leave_path(id: @user.id), class: 'btn btn-default btn-xs' %><br>
+                          users_edit_leave_path(id: @user.id), class: 'btn btn-default btn-xs' %><br>
         </div>
         <div class="form-group">
           <table class="table table-striped">

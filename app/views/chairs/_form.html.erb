@@ -16,6 +16,8 @@
         </div>
     <% end %>
 
+    <input type="hidden" name="chair_search_id" value="<%= @chair.id %>" />
+
     <div class="control-group">
       <%= f.label :name, class: 'control-label' %>
       <div class="controls">
@@ -25,47 +27,109 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :chair_admin, class: 'control-label' %><br>
+      <!-- Admins -->
+      <div id="admins"><%= f.label t('roles.admin_long_plural'), class: 'control-label' %><br>
+        <% @chair.admin_users.each do |admin| %>
+          <div id="admin_<%= admin.id %>">
+          <li><%= admin.name %><a onClick="removeAdmin(<%= admin.id %>)"><font color="red"> entfernen</font></a></li>
+          <input type="hidden" name="admins[<%= admin.id %>]" value="<%= admin.id %>" />
+          </div>
+        <% end %>
+      </div>
 
-      <div class="controls">
-        <select name="admin_user" id="admin_user">
-          <option value="null"><%= I18n.t('helpers.list_select') %></option>
-          <%= User.all.each do |user| %>
-              <% unless user.is_superadmin? %>
-                  <% if @chair.admins.count { |admin| admin.user.id == user.id } == 1 %>
-                      <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
-                  <% else %>
-                      <option value="<%= user.id %>"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
-                  <% end %>
-              <% end %>
-          <% end %>
-        </select>
-        <%= error_span(@chair[:chair_admin]) %>
+      <input id="search-box-admin" name="q" type="text" class="form-control" autocomplete="off"/>
+      <div class="dropdown">
+        <ul id="search-results-admin" class="dropdown-menu">
+        </ul>
       </div>
     </div>
 
     <div class="control-group">
-      <%= f.label :chair_representative, class: 'control-label' %><br>
+      <!-- Representative -->
+      <%= f.label t('roles.chair_representative'), class: 'control-label' %><br>
+      <div id="representative">
+        <% if @chair.representative %>
+          <li><%= @chair.representative.user.name %></li>
+          <input type="hidden" name="representative" value="<%= @chair.representative.user.id %>" />
+        <% else %>
+          <p><%= t(".no_representative") %></p>
+        <% end %>
+      </div>
 
-      <div class="controls">
-        <select name="representative_user">
-          <option value="null"><%= I18n.t('helpers.list_select') %></option>
-          <%= User.all.each do |user| %>
-              <% unless user.is_superadmin? %>
-                  <% if @chair.representative != nil && @chair.representative.user.id == user.id %>
-                      <option value="<%= user.id %>" selected="true"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
-                  <% else %>
-                      <option value="<%= user.id %>"><%= user.name %><% if user.is_wimi? %> (WiMi)<% end %></option>
-                  <% end %>
-              <% end %>
-          <% end %>
-        </select>
-        <%= error_span(@chair[:chair_representative]) %>
+      <input id="search-box-representative" name="q" type="text" class="form-control" autocomplete="off"/>
+      <div class="dropdown">
+        <ul id="search-results-representative" class="dropdown-menu">
+        </ul>
       </div>
     </div>
     <br/>
+
     <%= f.submit nil, class: 'btn btn-primary' %>
     <%= link_to t("helpers.links.cancel"),
                 chairs_path, class: 'btn btn-default' %>
 
 <% end %>
+
+
+
+
+
+<script>
+
+var adminArray = [-1<% @chair.admin_users.each do |admin| %>,<%= admin.id %><% end %>];
+var adminDiv = $( "#admins" );
+
+function addAdmin(id, name){
+  if($.inArray(id,adminArray) == -1) {
+    adminDiv.append("<div id=\"admin_"+id+"\"><li>"+name+" <a onClick=\"removeAdmin("+id+")\"><font color=\"red\">entfernen</font></a></li><input type=\"hidden\" name=\"admins["+id+"]\" value=\""+id+"\" /></div>");
+    adminArray.push(id);
+  }
+  $('#search-box-admin').val("");
+  $("#search-results-admin").hide();
+}
+
+function removeAdmin(id){
+  $("#admin_"+id).remove();
+  var i = adminArray.indexOf(id);
+  if(i != -1) {
+    adminArray.splice(i, 1);
+  }
+}
+
+function addRepresentative(id, name){
+  $( "#representative" ).replaceWith( "<div id=\"representative\"><li>"+name+"</li><input type=\"hidden\" name=\"representative\" value=\""+id+"\" /></div>" );
+  $('#search-box-representative').val("");
+  $("#search-results-representative").hide();
+}
+
+  
+$("#search-box-admin").bind("keyup", function() {
+  var form = $("#search-box-admin");
+  var url = "/admin_search";
+
+  var formData = form.serialize();
+  if (formData.length == 2) $("#search-results-admin").hide();
+  else {
+    formData += "&chair_search_id=<%= @chair.id %>";
+    $.get(url, formData, function(html) {
+      $("#search-results-admin").html(html);
+      $("#search-results-admin").show();
+    });
+  }
+}); 
+
+$("#search-box-representative").bind("keyup", function() {
+  var form = $("#search-box-representative");
+  var url = "/representative_search";
+
+  var formData = form.serialize();
+  if (formData.length == 2) $("#search-results-representative").hide();
+  else {
+    formData += "&chair_search_id=<%= @chair.id %>";
+    $.get(url, formData, function(html) {
+      $("#search-results-representative").html(html);
+      $("#search-results-representative").show();
+    });
+  }
+}); 
+</script>
