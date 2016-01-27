@@ -29,6 +29,8 @@ FactoryGirl.define do
     location_from 'Potsdam'
     location_via 'London'
     location_to 'NYC'
+    time_start '12:00'
+    time_end '23:00'
     reason 'Hana Things'
     car true
     public_transport true
@@ -49,6 +51,7 @@ FactoryGirl.define do
     location_from 'Potsdam'
     location_via 'London'
     location_to 'NYC'
+    time_start '1203102:231239asda'
     reason 'Hana Things'
     car true
     public_transport true

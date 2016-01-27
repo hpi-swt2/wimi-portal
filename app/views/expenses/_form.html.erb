@@ -36,6 +36,16 @@
     <%= f.text_area :reason %>
   </div>
   <div class="control-group">
+    <%= Trip.human_attribute_name(:date_start) %>:<%= l @expense.trip.date_start %>
+    <%= f.label :time_start %>
+    <%= f.text_field :time_start %>
+  </div>
+  <div class="control-group">
+    <%= Trip.human_attribute_name(:date_end) %>:<%= l @expense.trip.date_end %>
+    <%= f.label :time_end %>
+    <%= f.text_field :time_end %>
+  </div>
+  <div class="control-group">
     <%= f.label :car %><br>
     <%= f.check_box :car %>
   </div>
@@ -65,14 +75,16 @@
         <th><%= t('activerecord.attributes.expense_item.dinner') %></th>
         <th><%= t('activerecord.attributes.expense_item.annotation') %></th>
       </tr>
+      <% index = 0 %>
       <%= f.fields_for :expense_items do |t| %>
-      <tr>
-        <td><%= t.text_field :date, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %></td>
-        <td><%= t.check_box :breakfast %></td>
-        <td><%= t.check_box :lunch %></td>
-        <td><%= t.check_box :dinner %></td>
-        <td><%= t.text_field :annotation %></td>
-       </tr>
+        <tr>
+          <td><%= @expense.expense_items[index].date %></td>
+          <td><%= t.check_box :breakfast %></td>
+          <td><%= t.check_box :lunch %></td>
+          <td><%= t.check_box :dinner %></td>
+          <td><%= t.text_field :annotation %></td>
+        </tr>
+        <% index += 1 %>
       <% end %>
     </table>
   </div>

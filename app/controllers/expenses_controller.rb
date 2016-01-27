@@ -2,8 +2,8 @@ class ExpensesController < ApplicationController
   load_and_authorize_resource
   skip_authorize_resource only: :index
 
-  before_action :set_expense, only: [:show, :edit, :update, :destroy, :hand_in]
-  before_action :set_trip, only: [:new, :create]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :hand_in, :update_item_count]
+  before_action :set_trip, only: [:new, :create, :update_item_count]
 
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = I18n.t('not_authorized')
@@ -21,7 +21,7 @@ class ExpensesController < ApplicationController
     @trip = Trip.find(params[:trip_id])
     @expense = Expense.new(trip: @trip)
     @expense.user = current_user
-    8.times { @expense.expense_items.build }
+    create_items
   end
 
   def edit
@@ -29,7 +29,6 @@ class ExpensesController < ApplicationController
       redirect_to trip_path(@expense.trip)
       flash[:error] = I18n.t('expense.applied')
     else
-      fill_blank_items
     end
   end
 
@@ -37,12 +36,12 @@ class ExpensesController < ApplicationController
     @expense = Expense.new(expense_params)
     @expense.trip = @trip
     @expense.user = current_user
+    fill_items
 
     if @expense.save
       redirect_to trip_path(@expense.trip)
-      flash[:success] = I18n.t('expense.create.success')
+      flash[:success] = I18n.t('expense.save')
     else
-      fill_blank_items
       render :new
     end
   end
@@ -50,9 +49,8 @@ class ExpensesController < ApplicationController
   def update
     if @expense.update(expense_params)
       redirect_to trip_path(@expense.trip)
-      flash[:success] = I18n.t('expense.update.success')
+      flash[:success] = I18n.t('expense.update')
     else
-      fill_blank_items
       render :edit
     end
   end
@@ -74,7 +72,7 @@ class ExpensesController < ApplicationController
     else
       @expense.destroy
       redirect_to trip_url(trip)
-      flash[:success] = I18n.t('expense.destroy.success')
+      flash[:success] = I18n.t('expense.destroyed')
     end
   end
 
@@ -88,11 +86,22 @@ class ExpensesController < ApplicationController
     params.require(:expense).permit(Expense.column_names.map(&:to_sym), expense_items_attributes: [:id, :date, :breakfast, :lunch, :dinner, :annotation])
   end
 
-  def fill_blank_items
-    (8 - @expense.expense_items.size).times { @expense.expense_items.build }
-  end
-
   def set_trip
     @trip = Trip.find_by_id([params[:trip_id]])
+  end
+
+  def create_items
+    for i in 0..(@trip.total_days() - 1)
+      day = @expense.expense_items.build
+      day.date = @trip.date_start + i
+    end
+  end
+
+  def fill_items
+    i = 0
+    @expense.expense_items.each do |item|
+      item.date = @expense.trip.date_start + i
+      i += 1
+    end
   end
 end

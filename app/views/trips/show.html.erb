@@ -14,10 +14,14 @@
   <%= model_class.human_attribute_name(:date_start)%>: <%= l @trip.date_start %>
 </p>
 <p>
-  <%= model_class.human_attribute_name(:date_end)%>: <%= l @trip.date_end %></p>
+  <%= model_class.human_attribute_name(:date_end)%>: <%= l @trip.date_end %>
+</p>
+<p>
+  <%= t('.duration', days: @trip.total_days)%>
+</p>
 <p>
   <%= model_class.human_attribute_name(:days_abroad)%>: <%= @trip.days_abroad %>
-  </p>
+</p>
 <p>
   <strong><%= t('.annotation') %>:</strong>
   <%= @trip.annotation %>

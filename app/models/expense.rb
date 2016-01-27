@@ -26,14 +26,11 @@ class Expense < ActiveRecord::Base
   belongs_to :user
   belongs_to :trip
   has_many :expense_items
-  accepts_nested_attributes_for :expense_items, reject_if: lambda {|attributes| attributes['date'].blank? }
+  accepts_nested_attributes_for :expense_items
 
-  validates_presence_of :trip,:location_from, :location_to, :hours_start, :hours_end,:minutes_start, :minutes_end
+  validates_presence_of :trip,:location_from, :location_to, :time_start, :time_end
   validates :general_advance, numericality: {greater_than_or_equal_to: 0}
-  validates :hours_start, numericality: {greater_than_or_equal_to: 0, less_than: 24}
-  validates :hours_end, numericality: {greater_than_or_equal_to: 0, less_than: 24}
-  validates :minutes_start, numericality: {greater_than_or_equal_to: 0, less_than: 60}
-  validates :minutes_end, numericality: {greater_than_or_equal_to: 0, less_than: 60}
+  validate :time_format
 
   enum status: [:saved, :applied, :accepted, :declined]
 
@@ -56,4 +53,36 @@ class Expense < ActiveRecord::Base
   def date_end
     trip.date_end
   end
+
+  def update_item_count
+    expense_items.each do |item|
+      if item.date > trip.date_end || item.date < trip.date_start
+        item.destroy
+      end
+    end
+
+    for i in 0..(trip.total_days() - 1)
+      if !expense_items.include?(ExpenseItem.find_by_date_and_expense_id(trip.date_start + i, id))
+        day = expense_items.build
+        day.date = trip.date_start + i
+        day.breakfast = false
+        day.lunch = false
+        day.dinner = false
+        day.save
+      end
+    end
+  end
+
+  private
+
+  def time_format
+    if time_start && !time_start.match(/\A(?:[0-1]?[0-9]|2[0-3]):[0-5][0-9]/)
+      errors.add(:time_start, I18n.t('activerecord.errors.models.expense.attributes.time.format'))
+    end
+    if time_end && !time_end.match(/\A(?:[0-1]?[0-9]|2[0-3]):[0-5][0-9]/)
+      errors.add(:time_end, I18n.t('activerecord.errors.models.expense.attributes.time.format'))
+    end
+  end
+
+  
 end

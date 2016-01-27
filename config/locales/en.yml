@@ -101,7 +101,8 @@ en:
         reason: "Reason"
         date_start: "Start at"
         vehicle: "Vehicle"
-        date_end: "End at:"
+        time_start: "Depart by"
+        time_end: "Arrive by"
         car: "Travel by car"
         public_transport: "Travel by Bus/Train/Plane"
         vehicle_advance: "Travel paid by HPI"
@@ -154,7 +155,13 @@ en:
             general_advance:
               blank: "cannot be blank."
               not_a_number: "has to be a whole number."
-              greater_than_or_equal_to: "must not be negative"
+              greater_than_or_equal_to: "must not be negative."
+            time:
+              format: "must be of format HH:MM."
+            time_start:
+              blank: "cannot be blank."
+            time_end:
+              blank: "cannot be blank."
         holiday:
           too_far_in_the_future: ' is too far in the future.'
           attributes:
@@ -248,4 +255,8 @@ en:
   not_authorized: "You're not authorized to do that action."
   not_enough_leave: "Not enough leave left"
   expense:
-    applied: "Expense request is already applied"
+    update: "Expense was successfully updated"
+    save: "Expense was successfully created"
+    applied: "Expense is already applied"
+    destroyed: "Expense was successfully destroyed"
+    apply: "Expense was successfully applied"

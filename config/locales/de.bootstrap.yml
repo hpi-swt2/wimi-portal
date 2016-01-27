@@ -157,8 +157,8 @@ de:
       location_via: "Zwischenhalt"
       location_to: "Zielort"
       reason: "Grund"
-      date_start: "Startet am"
-      date_end: "Endet am"
+      time_start: "Abfahrtszeit"
+      time_end: "Ankunftszeit"
       vehicle: "Fahrzeug"
       car: "PKW"
       public_transport: "Bus/Bahn/Flug"
@@ -170,6 +170,7 @@ de:
     show:
       id: "Id"
       destination: "Ziel"
+      duration: "Dauer: %{days} Tag(e)"
       reason: "Grund"
       annotation: "Bemerkungen"
       signature: "Unterschreiben"

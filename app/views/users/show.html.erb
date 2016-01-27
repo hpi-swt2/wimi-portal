@@ -136,8 +136,8 @@
             <thead>
               <tr>
                 <th><%= t('activerecord.attributes.trip.destination') %></th>
-                <th><%= t('activerecord.attributes.trip_datespan.start_date') %></th>
-                <th><%= t('activerecord.attributes.trip_datespan.end_date') %></th>
+                <th><%= t('activerecord.attributes.trip.date_start') %></th>
+                <th><%= t('activerecord.attributes.trip.date_end') %></th>
                 <th><%= t('activerecord.attributes.trip.status') %></th>
                 <th><%= t('helpers.actions') %></th>
               </tr>
@@ -146,8 +146,8 @@
               <% @trips.each do |trip| %>
                 <tr>
                   <td><%= trip.destination %></td>
-                  <td><%=l trip.start_date %></td>
-                  <td><%=l trip.end_date %></td>
+                  <td><%=l trip.date_start %></td>
+                  <td><%=l trip.date_end %></td>
                   <td><%= trip.status %></td>
                   <td>
                     <%= link_to t("helpers.links.show_details"),

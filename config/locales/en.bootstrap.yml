@@ -166,7 +166,8 @@ en:
       location_via: "Via"
       location_to: "To"
       reason: "Reason"
-      date_start: "Start at"
+      time_start: "Depart by"
+      time_end: "Arrive by"
       vehicle: "Vehicle"
       date_end: "End at:"
       car: "Travel by car"
@@ -179,6 +180,7 @@ en:
     show:
       id: "Id"
       destination: "Destination"
+      duration: "Duration: %{days} day(s)"
       reason: "Reason"
       annotation: "Annotations"
       signature: "Add signature"

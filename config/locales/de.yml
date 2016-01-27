@@ -92,10 +92,6 @@ de:
         date_start: "Start"
         date_end: "Ende"
         days_abroad: "Auslandstage"
-      trip_datespan:
-        start_date: "Start"
-        end_date: "Ende"
-        days_abroad: "Auslandstage"
       expense:
         inland: "Inlandsreise"
         country: "Land"
@@ -103,8 +99,8 @@ de:
         location_via: "Zwischenhalt"
         location_to: "Zielort"
         reason: "Grund"
-        date_start: "Startet am"
-        date_end: "Endet am"
+        time_start: "Abfahrtszeit"
+        time_end: "Ankuftszeit"
         vehicle: "Fahrzeug"
         car: "PKW"
         public_transport: "Bus/Bahn/Flug"
@@ -159,6 +155,12 @@ de:
               blank: "darf nicht leer sein."
               not_a_number: "muss eine ganze Zahl sein."
               greater_than_or_equal_to: "darf nicht negativ sein."
+            time:
+              format: "muss im Format HH:MM sein."
+            time_start:
+              blank: "darf nicht leer sein."
+            time_end:
+              blank: "darf nicht leer sein."
         holiday:
           too_far_in_the_future: ' ist zu weit in der Zukunft.'
           attributes:
@@ -251,5 +253,9 @@ de:
   holiday:
     applied: "Urlaubsantrag bereits eingereicht"
   expense:
+    update: "Reisekostenabrechnung wurde erfolgreich aktualisiert"
+    save: "Reisekostenabrechnung wurde erfolgreich erstellt"
     applied: "Reisekostenabrechnung bereits eingereicht"
+    destroyed: "Reisekostenabrechnung wurde erfolgreich gelöscht"
+    apply: "Reisekostenabrechnung wurde erfolgreich eingereicht"
 

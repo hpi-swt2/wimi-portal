@@ -27,6 +27,12 @@ class Trip < ActiveRecord::Base
     self.status = 'saved'
   end
 
+  after_commit(on: :update) do
+    if expense
+      expense.update_item_count
+    end
+  end
+
   def name
     user.name
   end
@@ -36,7 +42,7 @@ class Trip < ActiveRecord::Base
   end
 
   def total_days
-    (date_end - date_start).to_i
+    (date_end - date_start).to_i + 1
   end
 
   private
