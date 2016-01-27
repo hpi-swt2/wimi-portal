@@ -196,7 +196,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'shows an error message if the user does not exist' do
       put :invite_user, {id: @project.to_param, invite_user: {email: 'does not exist'}}, valid_session
-      assert_equal "This user does not exist.", flash[:error]
+      assert_equal 'This user does not exist.', flash[:error]
     end
 
     it 'does not invite the user if user is superadmin' do

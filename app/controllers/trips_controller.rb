@@ -91,7 +91,7 @@ class TripsController < ApplicationController
   end
 
   def accept
-    if(can? :read, @trip) && @trip.status == 'applied'
+    if (can? :read, @trip) && @trip.status == 'applied'
       @trip.update_attributes(status: 'accepted', last_modified: Date.today)
       redirect_to @trip.user
     else

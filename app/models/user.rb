@@ -21,7 +21,6 @@
 #
 
 class User < ActiveRecord::Base
-
   LANGUAGES = [
     %w[English en],
     %w[Deutsch de],
@@ -129,7 +128,7 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    not projects.blank? and  not is_wimi?
+    !projects.blank? and  !is_wimi?
   end
 
   def is_superadmin?
@@ -186,6 +185,6 @@ class User < ActiveRecord::Base
     all_trips.each do |trip|
       datespans.push(trip.trip_datespans.first)
     end
-    datespans.sort! { |a,b| b.start_date <=> a.start_date }
+    datespans.sort! { |a, b| b.start_date <=> a.start_date }
   end
 end

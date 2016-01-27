@@ -9,7 +9,7 @@ feature 'profile' do
     login_as(@current_user, scope: :user)
   end
 
-  it "shows only given details" do
+  it 'shows only given details' do
     visit user_path(@current_user)
     within('body/div.container') do
       expect(page).to have_content 'First Name'
@@ -28,7 +28,7 @@ feature 'profile' do
     end
   end
 
-  it "allows to add an personal address" do
+  it 'allows to add an personal address' do
     visit user_path(@current_user)
     click_on('Edit')
     fill_in('Street', with: 'August-Bebel-Str. 89')
@@ -44,7 +44,7 @@ feature 'profile' do
     expect(page).to have_content 'Potsdam'
   end
 
-  it "does not allow to change the research group" do
+  it 'does not allow to change the research group' do
     visit edit_user_path(@current_user)
     expect(page).to_not have_content 'Division'
     within 'form' do
@@ -70,7 +70,7 @@ feature 'research assistant profile' do
     click_on('Create Project')
   end
 
-  it "shows status, chair and projects" do
+  it 'shows status, chair and projects' do
     visit user_path(@current_user)
     expect(page).to have_content 'First Name'
     expect(page).to have_content @current_user.first_name

@@ -14,5 +14,4 @@ RSpec.describe 'chairs/edit.html.erb', type: :view do
     expect(page).to have_content(@user.name)
     expect(page).to_not have_content(@superadmin.name)
   end
-
 end
