@@ -22,7 +22,7 @@ describe 'login via OpenID' do
     end
 
     fill_in 'user_email', with: 'valid email'
-    click_on 'Update User'
+    click_on 'Save'
 
     @routes.each do |route|
       visit route

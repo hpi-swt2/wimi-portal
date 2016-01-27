@@ -61,13 +61,21 @@ class Ability
     cannot :create, ProjectApplication
     can :new, Holiday
     can :create, Holiday
-    can :new, Trip
-    can :create, Trip
     can :new, TravelExpenseReport
     can :create, TravelExpenseReport
+    can :new, Trip
+    can :create, Trip
+    can :read, Trip.select { |t| t.user == user }
+    can :update, Trip.select { |t| t.user == user }
+    can :edit, Trip.select { |t| t.user == user }
+    can :hand_in, Trip.select { |t| t.user == user }
+    can :destroy, Trip.select { |t| t.user == user }
+    can :see_trips, User do |u|
+      u == user
+    end
     can :crud, Holiday.select { |h| h.user == user }
     can :file, Holiday.select { |h| h.user == user }
-    can :manage, Trip.select { |t| t.user == user }
+
     can :manage, TravelExpenseReport.select { |t| t.user == user }
     can :see_holidays, User do |u|
       u == user
@@ -79,33 +87,46 @@ class Ability
   def initialize_representative(user)
     initialize_wimi user
 
-    can :read, Holiday do |h|
-      user.is_representative?(h.user.chair)
-      h.status != ('saved' || 'declined')
-    end
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
+    can :see_trips,    User do |chair_user|
+      chair_user.chair == user.chair
+    end
+
     can :reject, Holiday.select {|h| h.user != user}
     can :accept, Holiday.select {|h| h.user != user}
+    can :read,   Holiday do |h|
+      user.is_representative?(h.user.chair)
+      h.status != ('saved' || 'declined')
+    end
 
-    can :read, Trip.select { |t| user.is_representative?(t.user.chair) }
+    can :read,      Trip.select { |t| user.is_representative?(t.user.chair) }
+    can :reject,    Trip
+    can :accept,    Trip
+    can :edit_trip, Trip do |trip|
+      trip.status != 'saved'
+    end
+    can :read,      Trip do |t|
+      user.is_representative?(t.user.chair)
+      t.status != ('saved' || 'declined')
+    end
+
     can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
 
-    can :read,               Chair do |chair|
+    can :read,              Chair do |chair|
       user.is_representative?(chair)
     end
-    can :requests,           Chair do |chair|
+    can :requests,          Chair do |chair|
       user.is_representative?(chair)
     end
-    can :add_requests,       Chair do |chair|
+    can :add_requests,      Chair do |chair|
       user.is_representative?(chair)
     end
-    can :requests_filtered,  Chair do |chair|
+    can :requests_filtered, Chair do |chair|
       user.is_representative?(chair)
     end
-    can :see,                Chair
-    #can show, Holidays of chair members
+    can :see,               Chair
   end
 
   def initialize_admin(user)
