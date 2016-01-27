@@ -12,6 +12,7 @@
 #  status             :integer          default(0)
 #  signature          :boolean
 #  person_in_power_id :integer
+#  last_modified      :date
 #
 
 class Trip < ActiveRecord::Base
@@ -31,15 +32,5 @@ class Trip < ActiveRecord::Base
 
   def name
     user.name
-  end
-
-  def accept(accepter)
-    self.update(person_in_power_id: accepter.id, status: :accepted)
-    ActiveSupport::Notifications.instrument('event', {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestAccepted"})
-  end
-
-  def decline(decliner)
-    self.update(person_in_power_id: decliner.id, status: :declined)
-    ActiveSupport::Notifications.instrument('event', {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestDeclined"})
   end
 end
