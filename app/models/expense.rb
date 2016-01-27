@@ -28,10 +28,12 @@ class Expense < ActiveRecord::Base
   has_many :expense_items
   accepts_nested_attributes_for :expense_items, reject_if: lambda {|attributes| attributes['date'].blank? }
 
-  validates_presence_of :trip
-  validates :location_from, presence: true
-  validates :location_to, presence: true
+  validates_presence_of :trip,:location_from, :location_to, :hours_start, :hours_end,:minutes_start, :minutes_end
   validates :general_advance, numericality: {greater_than_or_equal_to: 0}
+  validates :hours_start, numericality: {greater_than_or_equal_to: 0, less_than: 24}
+  validates :hours_end, numericality: {greater_than_or_equal_to: 0, less_than: 24}
+  validates :minutes_start, numericality: {greater_than_or_equal_to: 0, less_than: 60}
+  validates :minutes_end, numericality: {greater_than_or_equal_to: 0, less_than: 60}
 
   enum status: [:saved, :applied, :accepted, :declined]
 
