@@ -36,6 +36,7 @@ en:
       decline: "Decline"
       download: "Download"
       apply_trip: "Apply Trip"
+      save: "Save"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -84,8 +85,8 @@ en:
       inactive: "(inactive)"
       set_inactive: "set inactive"
       set_active: "set active"
-      chair: "Chair"
-      chair_representative: "Chair Representative"
+      chair: "Research Group"
+      chair_representative: "Research Group Representative"
       project_visibility: "Visibility"
       project_leader: "Project Leader"
       public: "public"
@@ -109,7 +110,7 @@ en:
       projects: "Projects"
   users:
     update:
-      user_updated: "User updated successfully"
+      user_updated: "Profile was successfully updated"
     show:
       business_trips: "Business Trips"
       request_trip: "Request Business Trip"
@@ -118,14 +119,13 @@ en:
       user_data: "User Data"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
-      title: "User Profile"
+      days: "Day(s)"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
+      password: "Change Password"
+      update_password: "Update Password"
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
-      password: "Change Password"
-      update_password: "Update Password"
-      days: "Day(s)"
       time_sheets_overview: "time sheet overview"
       hiwi: "research assistants"
       month: "month"
@@ -139,13 +139,21 @@ en:
         accepted: "Accepted"
         applied: "Applied"
         declined: "Rejected"
-    edit:
-      user_data: "User Data"
+    public_user_data:
+      public_data: "Public Data"
+      projects: "Projects"
+    private_user_data:
+      private_data: "Private Data"
+      user_status: "Status"
+      wimi: "Research Assistant"
+      hiwi: "Student Assistant"
     edit_leave:
       remaining_leave: "Remaining Leave"
       remaining_leave_fly: "Remaining Leave from last year"
       save: "Save Leave"
       title: "Edit Leave"
+    form:
+      user_data: "User Data"
   holidays:
     show:
       days: "Day(s)"
@@ -319,9 +327,9 @@ en:
       travel_expense_report: "%{trigger} created a travel expense request."
   chairs:
     navigation:
-      not_authorized: "You are not allowed to do this action for this chair."
+      not_authorized: "You are not allowed to do this action for this research group."
       apply_wimi: "Apply as Wimi"
-      manage: "Manage Chair"
+      manage: "Manage Research Group"
       show_timesheets: "Show timesheets"
       show_requests: "Show requests"
     requests:

@@ -21,19 +21,6 @@
 #
 
 class User < ActiveRecord::Base
-  DIVISIONS = ['',
-               'Enterprise Platform and Integration Concepts',
-               'Internet-Technologien und Systeme',
-               'Human Computer Interaction',
-               'Computergrafische Systeme',
-               'Algorithm Engineering',
-               'Systemanalyse und Modellierung',
-               'Software-Architekturen',
-               'Informationssysteme',
-               'Betriebssysteme und Middleware',
-               'Business Process Technology',
-               'School of Design Thinking',
-               'Knowledge Discovery and Data Mining']
 
   LANGUAGES = [
     %w[English en],
@@ -61,6 +48,7 @@ class User < ActiveRecord::Base
   validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999
   validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
+  validates_format_of :zip_code, with: /(\A\d{5}\Z)|(\A\Z)/i
   validates_confirmation_of :password, if: :is_superadmin?
 
   # TODO: implement signature upload, this is a placeholder
