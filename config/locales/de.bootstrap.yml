@@ -93,7 +93,7 @@ de:
       new: "+ Projekt hinzufügen"
       title: "Titel"
       accessibility: "Verfügbarkeit"
-      created_at: "erstellt am"
+      created_at: "Erstellt am"
       active: "aktiv"
       inactive: "inaktiv"
       private: "privat"

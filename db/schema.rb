@@ -181,7 +181,6 @@ ActiveRecord::Schema.define(version: 20160123173135) do
     t.datetime "updated_at",                     null: false
     t.integer  "status",             default: 0
     t.boolean  "signature"
-    t.integer  "person_in_power_id"
     t.date     "last_modified"
     t.integer  "person_in_power_id"
   end

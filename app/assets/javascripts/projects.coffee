@@ -48,44 +48,47 @@ inviteInitUser = ->
   count = 0
   $('body').on 'click', '#invite_user', ->
     email = $('#invitation_mail').val()
-    $('#invitation_mail').val('')
+    if validateEmail(email)
+      $('#invitation_mail').val('')
 
-    span = document.createElement("span")
-    span.id = 'user' + count
-
-
-    deleteButton = document.createElement("input")
-    deleteButton.type = 'RemoveButton'
-    deleteButton.value = 'Remove'
-    deleteButton.id = 'delete' + count
-    deleteButton.name = 'deleteInvitationButton' + count
-
-    newInvitation = document.createElement("input")
-    newInvitation.value = email
-    newInvitation.name = 'invitations[' + count + ']'
-    newInvitation.type = 'invitationEmail'
+      span = document.createElement("span")
+      span.id = 'user' + count
 
 
+      deleteButton = document.createElement("input")
+      deleteButton.type = 'RemoveButton'
+      deleteButton.value = 'Remove'
+      deleteButton.id = 'delete' + count
+      deleteButton.name = 'deleteInvitationButton' + count
 
-    span.appendChild(newInvitation)
-    span.appendChild(deleteButton)
-
-    list = document.getElementById("invited_users")
-    list.appendChild(span)
-
-    setTimeout ( ->
-      $('#invited_users > span').addClass('col-md-12')
-      $('input[type=invitationEmail').addClass('form-control email-invite col-md-2')
-      $('input[type=RemoveButton]').addClass('btn btn-default removeButton')
-    ), 5
-
-    count += 1
-
-    $(deleteButton).on 'click',  -> deleteInvitation()
+      newInvitation = document.createElement("input")
+      newInvitation.value = email
+      newInvitation.name = 'invitations[' + count + ']'
+      newInvitation.type = 'invitationEmail'
 
 
-    return
 
+      span.appendChild(newInvitation)
+      span.appendChild(deleteButton)
+
+      list = document.getElementById("invited_users")
+      list.appendChild(span)
+
+      setTimeout ( ->
+        $('#invited_users > span').addClass('col-md-12')
+        $('input[type=invitationEmail').addClass('form-control email-invite col-md-2').attr('readonly', true)
+        $('input[type=RemoveButton]').addClass('btn btn-default removeButton')
+
+      ), 5
+
+      count += 1
+
+      $(deleteButton).on 'click',  -> deleteInvitation()
+
+
+      return
+    else
+      alert 'Please enter a valid email adress'
 
 deleteInvitation = ->
   deleteButtonCount = $("input[type=button][clicked=true]").prevObject[0].activeElement.id
@@ -95,6 +98,9 @@ deleteInvitation = ->
   elem = document.getElementById("user" + deleteButtonCount)
   list.removeChild(elem)
 
+validateEmail = (email) ->
+  re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  re.test email
 
 
 ready = ->
