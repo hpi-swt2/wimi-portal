@@ -21,7 +21,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
   it 'expects buttons for admin' do
     chair = FactoryGirl.create(:chair)
     admin = FactoryGirl.create(:user)
-    chairwimi = FactoryGirl.create(:chair_wimi, user: admin, chair: chair, admin: true)
+    chairwimi = FactoryGirl.create(:wimi, user: admin, chair: chair, admin: true)
     login_as(admin, scope: :user)
     visit chairs_path
 
