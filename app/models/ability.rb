@@ -114,6 +114,7 @@ class Ability
 
     can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
 
+    can :see,               Chair
     can :read,              Chair do |chair|
       user.is_representative?(chair)
     end
@@ -126,7 +127,6 @@ class Ability
     can :requests_filtered, Chair do |chair|
       user.is_representative?(chair)
     end
-    can :see,               Chair
   end
 
   def initialize_admin(user)
