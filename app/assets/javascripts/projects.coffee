@@ -76,7 +76,7 @@ inviteInitUser = ->
 
       setTimeout ( ->
         $('#invited_users > span').addClass('col-md-12')
-        $('input[type=invitationEmail').addClass('form-control email-invite col-md-2').attr('readonly', true)
+        $('input[type=invitationEmail]').addClass('form-control email-invite col-md-2').attr('readonly', true)
         $('input[type=RemoveButton]').addClass('btn btn-default removeButton')
 
       ), 5
