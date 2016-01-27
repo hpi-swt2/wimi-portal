@@ -44,12 +44,11 @@ typeahead = ->
   return
 
 
-inviteInitUser = ->
+inviteInitUser = (locale) ->
   count = 0
   $('body').on 'click', '#invite_user', ->
     email = $('#invitation_mail').val()
     if validateEmail(email)
-      language = getLanguage()
       $('#invitation_mail').val('')
 
       span = document.createElement("span")
@@ -58,11 +57,12 @@ inviteInitUser = ->
 
       deleteButton = document.createElement("input")
       deleteButton.type = 'RemoveButton'
-      console.log language
-      if language == 'en'
+
+      if locale == 'en'
         deleteButton.value = 'Remove'
       else
         deleteButton.value = 'Entfernen'
+
       deleteButton.id = 'delete' + count
       deleteButton.name = 'deleteInvitationButton' + count
 
@@ -93,7 +93,7 @@ inviteInitUser = ->
 
       return
     else
-      if language == 'en'
+      if locale == 'en'
         alert 'Please enter a valid email adress'
       else
         alert 'Bitte gibt eine valide Email-Adresse ein'
@@ -110,11 +110,6 @@ validateEmail = (email) ->
   re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   re.test email
 
-getLanguage = ->
-  $.ajax '/users/language',
-    success: (res, status, xhr) ->
-      return language = res.msg
-
 ready = ->
   if $('#setInactiveButton').length
     sendLanguageWithButtonToCallback $('#setInactiveButton'), setInactiveWarning
@@ -123,7 +118,7 @@ ready = ->
   if $('.typeahead').length
     typeahead()
   if $('#invite_user').length
-    inviteInitUser()
+    sendLanguageWithButtonToCallback $('#invite_user'), inviteInitUser
   return
 
 
