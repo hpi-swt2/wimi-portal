@@ -2,34 +2,44 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  description :string           default("")
-#  public      :boolean          default(FALSE)
-#  active      :boolean          default(TRUE)
-#  chair_id    :integer
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  description    :string           default("")
+#  public         :boolean          default(TRUE)
+#  status         :boolean          default(TRUE)
+#  chair_id       :integer
+#  project_leader :string           default("")
 #
 
 class Project < ActiveRecord::Base
   scope :title, -> title { where('LOWER(title) LIKE ?', "%#{title.downcase}%") }
-  scope :chair, -> name { joins(:chair).where("LOWER(name) LIKE ?", "%#{name.downcase}%") }
+  scope :chair, -> name { joins(:chair).where('LOWER(name) LIKE ?', "%#{name.downcase}%") }
 
   has_and_belongs_to_many :users
-  has_many :publications
-  has_many :expenses
+  has_many :project_applications, dependent: :destroy
   has_many :invitations
   belongs_to :chair
 
   validates :title, presence: true
 
   def invite_user(user)
-    user.invitations << Invitation.create(user: user, project: self)
+    if user && !user.is_superadmin?
+      user.invitations << Invitation.create(user: user, project: self)
+      return true
+    else
+      return false
+    end
   end
 
   def add_user(user)
-    users << user
+    if user && !user.is_superadmin?
+      users << user
+      return true
+    else
+      return false
+    end
   end
 
   def destroy_invitation(user)
@@ -37,15 +47,17 @@ class Project < ActiveRecord::Base
   end
 
   def hiwis
-    users.select { |u| !u.is_wimi? }
+    users.select(&:is_hiwi?)
   end
 
   def wimis
-    users.select { |u| u.is_wimi? }
+    users.select(&:is_wimi?)
   end
 
   def remove_user(user)
     users.delete(user)
+    if project_applications.include?(ProjectApplication.find_by_user_id user.id)
+      project_applications.delete(ProjectApplication.find_by_user_id user.id)
+    end
   end
-
 end

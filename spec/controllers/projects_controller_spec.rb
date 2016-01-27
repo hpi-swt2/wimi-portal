@@ -31,7 +31,7 @@ RSpec.describe ProjectsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    {title: ''}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -165,7 +165,7 @@ RSpec.describe ProjectsController, type: :controller do
       user = FactoryGirl.create(:user)
       expect(Invitation.all.size).to eq(0)
       expect {
-        put :invite_user, { id: project.to_param, invite_user: { email: user.email } }, valid_session
+        put :invite_user, {id: project.to_param, invite_user: {email: user.email}}, valid_session
       }.to change(Invitation.all, :count).by(1)
       expect(Invitation.first.user).to eq user
       expect(Invitation.first.project).to eq project
@@ -175,7 +175,7 @@ RSpec.describe ProjectsController, type: :controller do
       project = Project.create! valid_attributes
       user = FactoryGirl.create(:user)
       expect {
-        put :invite_user, { id: project.to_param, invite_user: { email: 'invalid@email' } }, valid_session
+        put :invite_user, {id: project.to_param, invite_user: {email: 'invalid@email'}}, valid_session
       }.to change(Invitation.all, :count).by(0)
     end
 
@@ -184,7 +184,7 @@ RSpec.describe ProjectsController, type: :controller do
       user = FactoryGirl.create(:user)
       project.users << user
       expect {
-        put :invite_user, { id: project.to_param, :invite_user => { :email => user.email } }, valid_session
+        put :invite_user, {id: project.to_param, invite_user: {email: user.email}}, valid_session
       }.to change(Invitation.all, :count).by(0)
     end
 
@@ -193,8 +193,16 @@ RSpec.describe ProjectsController, type: :controller do
       user = FactoryGirl.create(:user)
       Invitation.create(user: user, project: project)
       expect {
-        put :invite_user, { id: project.to_param, invite_user: { email: user.email } }, valid_session
+        put :invite_user, {id: project.to_param, invite_user: {email: user.email}}, valid_session
       }.to change(project.users, :count).by(0)
+    end
+
+    it 'does not invite the user if user is superadmin' do
+      project = Project.create! valid_attributes
+      superadmin = FactoryGirl.create(:user, superadmin: true)
+      expect {
+        put :invite_user, {id: project.to_param, invite_user: {email: superadmin.email}}, valid_session
+      }.to change(Invitation.all, :count).by(0)
     end
   end
 
@@ -203,7 +211,7 @@ RSpec.describe ProjectsController, type: :controller do
       project = Project.create! valid_attributes
       matching_user = User.create(name: 'Max Mueller', email: 'max.mueller@student.hpi.de')
       not_matching_user = User.create(name: 'Not Matching', email: 'not.matching@email.de')
-      get :typeahead, { query: 'hpi' }, valid_session
+      get :typeahead, {query: 'hpi'}, valid_session
       expect(response.body).to have_content matching_user.email
       expect(response.body).to_not have_content not_matching_user.email
     end

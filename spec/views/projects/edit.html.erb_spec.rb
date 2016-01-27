@@ -4,9 +4,9 @@ RSpec.describe 'projects/edit', type: :view do
   before(:each) do
     @chair = FactoryGirl.create(:chair)
     @user = FactoryGirl.create(:user)
-    @representative = FactoryGirl.create(:chair_representative, user_id:@user.id, chair_id: @chair.id).user
+    @representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     @wimi_user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:wimi, user_id: @wimi_user.id, chair_id: @chair.id).user
+    @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
   end
 
   it 'can be edited by a wimi' do
@@ -25,20 +25,20 @@ RSpec.describe 'projects/edit', type: :view do
   it 'can be deleted by a wimi' do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
-    projectTitle = project.title
+    project_title = project.title
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed.')
-    expect(page).to have_no_content(projectTitle)
+    expect(page).to have_no_content(project_title)
   end
 
   it 'can be set inactive by a wimi' do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
     click_on I18n.t('projects.show.set_inactive')
     project.reload
@@ -49,7 +49,7 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: false)
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_active'))
     click_on I18n.t('projects.show.set_active')
     project.reload
@@ -61,7 +61,7 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: true)
     @wimi.projects << project
     visit edit_project_path(project)
-    find(:css, "#project_public_false").set(true)
+    find(:css, '#project_public_false').set(true)
     click_on I18n.t('projects.form.update_project')
     project.reload
     expect(project.public).to be false
@@ -86,9 +86,22 @@ RSpec.describe 'projects/edit', type: :view do
     find('a[id="SignOutMyself"]').click
     project.reload
     expect(current_path).to eq(project_path(project))
+    expect(project.users).not_to include(@wimi)
   end
 
-  it 'is possible for a wimi to sign a wimi out of the project' do
+  it 'is possible for a hiwi to sign himself out of the project' do
+    user = FactoryGirl.create(:user)
+    login_as user
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    user.projects << project
+    visit project_path(project)
+    click_on(I18n.t('projects.show.leave_project'))
+    project.reload
+    expect(current_path).to eq(project_path(project))
+    expect(project.users).not_to include(user)
+  end
+
+  it 'is possible for a wimi to sign a hiwi out of the project' do
     user = FactoryGirl.create(:user)
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
@@ -100,7 +113,6 @@ RSpec.describe 'projects/edit', type: :view do
     expect(current_path).to eq(edit_project_path(project))
     expect(project.users).not_to include(user)
   end
-
 
   it 'not possible for wimi to edit or delete a project he just signed out' do
     login_as @wimi
@@ -115,6 +127,4 @@ RSpec.describe 'projects/edit', type: :view do
     expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
   end
-
-
 end

@@ -22,11 +22,11 @@ class TimeSheetsController < ApplicationController
 
   private
 
-    def set_time_sheet
-      @time_sheet = TimeSheet.find(params[:id])
-    end
+  def set_time_sheet
+    @time_sheet = TimeSheet.find(params[:id])
+  end
 
-    def time_sheet_params
-      params.require(:time_sheet).permit(:month, :year, :salary, :salary_is_per_month, :workload, :workload_is_per_month, :user_id, :project_id)
-    end
+  def time_sheet_params
+    params.require(:time_sheet).permit(:month, :year, :salary, :salary_is_per_month, :workload, :workload_is_per_month, :user_id, :project_id)
+  end
 end

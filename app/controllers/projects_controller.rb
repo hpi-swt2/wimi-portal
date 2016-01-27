@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :accept_invitation, :decline_invitation]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user, :accept_invitation, :decline_invitation]
 
   has_scope :title
   has_scope :chair
@@ -13,7 +13,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-
   end
 
   def edit
@@ -60,14 +59,18 @@ class ProjectsController < ApplicationController
           flash[:error] = I18n.t('project.user.already_is_member')
           redirect_to @project
         else
-          @project.invite_user user
-          flash[:success] = I18n.t('project.user.was_successfully_invited')
-          redirect_to @project
+          if @project.invite_user user
+            flash[:success] = I18n.t('project.user.was_successfully_invited')
+            redirect_to @project
+          else
+            flash[:error] = I18n.t('project.user.cannot_be_invited')
+            redirect_to @project
+          end
+
         end
       end
     end
   end
-
 
   def toggle_status
     @project = Project.find(params[:id])
@@ -79,7 +82,6 @@ class ProjectsController < ApplicationController
     @project.reload
     redirect_to project_path(@project)
   end
-
 
   def sign_user_out
     user = User.find(params[:user_id])
@@ -93,17 +95,21 @@ class ProjectsController < ApplicationController
   end
 
   def accept_invitation
-    @project.add_user current_user
-    @project.destroy_invitation current_user
-    flash[:success] = I18n.t('project.user.invitation_accepted')
-    redirect_to @project
+    if @project.add_user current_user
+      @project.destroy_invitation current_user
+      flash[:success] = I18n.t('project.user.invitation_accepted')
+      redirect_to @project
+    else
+      @project.destroy_invitation current_user
+      flash[:error] = I18n.t('project.user.cannot_be_invited')
+      redirect_to dashboard_path
+    end
   end
 
   def decline_invitation
     @project.destroy_invitation current_user
     flash[:success] = I18n.t('project.user.invitation_declined')
     redirect_to root_path
-
   end
 
   def typeahead
@@ -112,11 +118,12 @@ class ProjectsController < ApplicationController
   end
 
   private
-    def set_project
-      @project = Project.find(params[:id])
-    end
 
-    def project_params
-      params[:project].permit(Project.column_names.map(&:to_sym), { user_ids:[] })
-    end
+  def set_project
+    @project = Project.find(params[:id])
+  end
+
+  def project_params
+    params[:project].permit(Project.column_names.map(&:to_sym), {user_ids: []})
+  end
 end

@@ -20,18 +20,66 @@ require 'rails_helper'
 
 RSpec.describe ExpensesController, type: :controller do
   before(:each) do
-    login_with create ( :user)
+    wimi = FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair))
+    @user = wimi.user
+    login_with (@user)
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Expense. As you add validations to Expense, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { amount: 1, purpose: 'Purpose' }
+    {inland: true,
+     country: 'Germany',
+     location_from: 'Potsdam',
+     location_via: 'London',
+     location_to: 'NYC',
+     reason: 'Hana Things',
+     date_start: 8.days.ago,
+     date_end: DateTime.now,
+     car: true,
+     public_transport: true,
+     vehicle_advance: false,
+     hotel: true,
+     general_advance: 2000,
+     signature: true,
+     user: @user}
+  }
+
+  let(:advance_blank_attributes) {
+    {inland: true,
+     country: 'Germany',
+     location_from: 'Potsdam',
+     location_via: 'London',
+     location_to: 'NYC',
+     reason: 'Hana Things',
+     date_start: 8.days.ago,
+     date_end: DateTime.now,
+     car: true,
+     public_transport: true,
+     vehicle_advance: false,
+     hotel: true,
+     general_advance: '',
+     signature: true,
+     user: @user}
   }
 
   let(:invalid_attributes) {
-    { amount: 0, purpose: 'Purpose' }
+    {inland: true,
+     country: 'Germany',
+     location_from: 'Potsdam',
+     location_via: 'London',
+     location_to: 'NYC',
+     reason: 'Hana Things',
+     date_start: DateTime.now,
+     date_end: 8.days.ago,
+     car: true,
+     public_transport: true,
+     vehicle_advance: false,
+     hotel: true,
+     general_advance: -100,
+     signature: true,
+     user: @user}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -43,7 +91,7 @@ RSpec.describe ExpensesController, type: :controller do
     it 'assigns all expenses as @expenses' do
       expense = Expense.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:expenses)).to eq(Expense.all)
+      expect(assigns(:expenses)).to eq(@user.expenses)
     end
   end
 
@@ -52,6 +100,15 @@ RSpec.describe ExpensesController, type: :controller do
       expense = Expense.create! valid_attributes
       get :show, {id: expense.to_param}, valid_session
       expect(assigns(:expense)).to eq(expense)
+    end
+
+    it 'does not show expenses for normal user' do
+      user = FactoryGirl.create(:user)
+      login_with user
+      ter = Expense.create! valid_attributes
+      get :show, {id: ter.to_param}, valid_session
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(expenses_path)
     end
   end
 
@@ -67,6 +124,14 @@ RSpec.describe ExpensesController, type: :controller do
       expense = Expense.create! valid_attributes
       get :edit, {id: expense.to_param}, valid_session
       expect(assigns(:expense)).to eq(expense)
+    end
+
+    it 'redirects to the expense, if it is already applied' do
+      expense = Expense.create! valid_attributes
+      expense.update_attributes(status: 'applied')
+      get :edit, {id: expense.id}
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(expense_path(expense))
     end
   end
 
@@ -100,20 +165,25 @@ RSpec.describe ExpensesController, type: :controller do
         post :create, {expense: invalid_attributes}, valid_session
         expect(response).to render_template('new')
       end
+      it 'rejects blank values for advance' do
+        post :create, {expense: advance_blank_attributes}, valid_session
+        expect(response).to render_template('new')
+      end
     end
   end
 
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        { amount: 2 }
+        valid_attributes[:first_name] = 'Tobias'
+        valid_attributes
       }
 
       it 'updates the requested expense' do
         expense = Expense.create! valid_attributes
         put :update, {id: expense.to_param, expense: new_attributes}, valid_session
         expense.reload
-        expect(expense.amount).to eq(2)
+        expect(assigns(:expense)).to eq(expense)
       end
 
       it 'assigns the requested expense as @expense' do
@@ -156,6 +226,35 @@ RSpec.describe ExpensesController, type: :controller do
       expense = Expense.create! valid_attributes
       delete :destroy, {id: expense.to_param}, valid_session
       expect(response).to redirect_to(expenses_url)
+    end
+
+    it 'can not destroy applied expenses' do
+      expense = Expense.create! valid_attributes
+      expense.user = @user
+      login_with(@user)
+      post :hand_in, {id: expense.id}
+      expect {
+        delete :destroy, {id: expense.to_param}, valid_session
+      }.to change(Expense, :count).by(0)
+    end
+  end
+
+  describe 'POST #hand_in' do
+    it 'hands in a expense request' do
+      expense = Expense.create! valid_attributes
+      expense.user = @user
+      login_with(@user)
+      post :hand_in, {id: expense.id}
+      expect(Expense.find(expense.id).status).to eq('applied')
+    end
+
+    it 'normal user can not hand in a expense request' do
+      user = FactoryGirl.create(:user)
+      expense = Expense.create! valid_attributes
+      expense.user = user
+      login_with(user)
+      post :hand_in, {id: expense.id}
+      expect(Expense.find(expense.id).status).to eq('saved')
     end
   end
 end

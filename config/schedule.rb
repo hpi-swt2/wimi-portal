@@ -18,7 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-set :environment, "development"
+set :environment, 'development'
 env :PATH, ENV['PATH']
 
 every '0 0 1 1 *' do

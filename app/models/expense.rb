@@ -2,24 +2,53 @@
 #
 # Table name: expenses
 #
-#  id         :integer          not null, primary key
-#  amount     :decimal(, )
-#  purpose    :text
-#  comment    :text
-#  user_id    :integer
-#  project_id :integer
-#  trip_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  status     :integer          default(0)
+#  id               :integer          not null, primary key
+#  inland           :boolean
+#  country          :string
+#  location_from    :string
+#  location_via     :string
+#  location_to      :string
+#  reason           :text
+#  date_start       :datetime
+#  date_end         :datetime
+#  car              :boolean
+#  public_transport :boolean
+#  vehicle_advance  :boolean
+#  hotel            :boolean
+#  general_advance  :integer
+#  user_id          :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  signature        :boolean
 #
 
 class Expense < ActiveRecord::Base
-  has_one :user
-  has_one :project
-  has_one :trip
-  enum status: [ :saved, :applied, :accepted, :declined ]
+  belongs_to :user
+  has_many :expense_items
+  accepts_nested_attributes_for :expense_items, reject_if: lambda {|attributes| attributes['date'].blank? }
 
-  validates :amount, format: {with: /\A\d+(?:\.\d{0,2})?\z/}, numericality: {greater_than: 0}
-  validates_length_of :purpose, minimum: 1,  allow_blank: false
+  validates :location_from, presence: true
+  validates :location_to, presence: true
+  validates :general_advance, numericality: {greater_than_or_equal_to: 0}
+  validate 'start_before_end_date'
+
+  enum status: [:saved, :applied, :accepted, :declined]
+
+  def first_name
+    user.first_name
+  end
+
+  def last_name
+    user.last_name
+  end
+
+  def get_signature
+    user.signature
+  end
+
+  def start_before_end_date
+    if date_start > date_end
+      errors.add(:date_start, "can't be after end date")
+    end
+  end
 end

@@ -4,7 +4,7 @@
 de:
   home:
     index:
-      welcome: "wilkommen"
+      welcome: "Willkommen"
   helpers:
     application_tabs:
       home: "Startseite"
@@ -14,15 +14,21 @@ de:
       logout: "Abmelden"
     actions: "Aktionen"
     links:
+      hand_in: "Einreichen"
+      show: "Anzeigen"
       back: "Zurück"
       cancel: "Abbrechen"
       confirm: "Sicher?"
       destroy: "Löschen"
       new: "Neu"
+      apply: "Bewerben"
       edit: "Bearbeiten"
+      leave: "Verlassen"
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
       show_pdf: "Als PDF anzeigen"
+      download: "Herunterladen"
+      apply_trip: "Antrag stellen"
     titles:
       edit: "%{model} bearbeiten"
       save: "%{model} speichern"
@@ -35,6 +41,23 @@ de:
     submit:
       create: "Erstelle %{model}"
       update: "Aktualisiere %{model}"
+      hide: "Ausblenden"
+    list_select: "Bitte auswählen"
+  project_applications:
+    states:
+      pending: "Ausstehend"
+      declined: "Abgelehnt"
+      accepted: "Akzeptiert"
+    created: "Bewerbung wurde erfolgreich erstellt"
+    not_created: "Bewerbung konnte nicht erstellt werden"
+    destroy: "Bewerbung wurde zurückgezogen"
+    index:
+      cancel: "Bewerbung zurückziehen"
+    reapply: "Erneut bewerben"
+    refused_reapply: "Bewerbung abgelehnt - Erneut bewerben"
+    pending_cancel: "Bewerbung ausstehend - Zurückziehen"
+    accept_application: "Bewerbung akzeptieren"
+    decline_application: "Bewerbung ablehnen"
   projects:
     form:
       wimi: "Wissenschaftliche Mitarbeiter"
@@ -49,6 +72,8 @@ de:
       create_project: "Erstelle Projekt"
       update_project: "Aktualisiere Project"
     show:
+      working_hours: "Stundenzettel"
+      add_working_hours: "Stundenzettel hinzufügen"
       inactive: "(inaktiv)"
       set_inactive: "inaktiv schalten "
       set_active: "aktiv schalten"
@@ -61,8 +86,10 @@ de:
       not_defined: "nicht festgelegt"
       research_assistants: "Wisenschaftliche Mitarbeiter"
       student_assistants: "Studentische Hilfskräfte"
+      project_team: "Projekt Team"
       leave_project: "Verlasse Projekt"
     index:
+      new: "+ Projekt hinzufügen"
       title: "Titel"
       accessibility: "Verfügbarkeit"
       created_at: "erstellt am"
@@ -70,10 +97,13 @@ de:
       inactive: "inaktiv"
       private: "privat"
       public: "öffentlich"
+      projects: "Projekte"
   users:
     update:
       user_updated: "Benutzer erfolgreich aktualisiert"
     show:
+      business_trips: "Geschätsreisen"
+      request_trip: "Geschätsreise beantragen"
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"
@@ -82,18 +112,44 @@ de:
       days: "Tag(e)"
       title: "Benutzerprofil"
       warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
+      status:
+        saved: "Gespeichert"
+        accepted: "Akzeptiert"
+        applied: "Eingereicht"
+        declined: "Abgelehnt"
     edit:
       user_data: "Profilbezogene Daten"
+      password: "Passwort ändern"
+      update_password: "Passwort aktualisieren"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
       save: "Resturlaub Speichern"
       title: "Resturlaub bearbeiten"
+  holidays:
+    show:
+      days: "Tag(e)"
+      file: "Antrag einreichen"
+      reject: "Antrag ablehnen"
+      accept: "Antrag annehmen"
+      filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
+      status:
+        saved: "Gespeichert am "
+        accepted: "Akzeptiert am "
+        applied: "Eingereicht am "
+        declined: "Abgelehnt am "
+    form:
+      auto_calculation: "Für automatische Berechnung leer lassen."
   dashboard:
     index:
+      notifications: "Benachrichtigungen"
       dashboard_title: "Dashboard"
       projects: "Meine Projekte"
-  travel_expense_reports:
+      representative_actions: "LS-Beauftragter - Aktionen"
+      show_holiday_requests: "Urlaubsanträge anzeigen"
+      show_expense_requests: "Reisekostenabrechnung anzeigen"
+      show_trip_requests: "Dienstreiseanträge anzeigen"
+  expenses:
     show:
       inland: "Inlandsreise"
       country: "Land"
@@ -120,6 +176,9 @@ de:
       status: "Status"
       user_id: "Benutzer"
       created_at: "Erstellungsdatum"
+      file: "Antrag einreichen"
+      reject: "Antrag ablehnen"
+      accept: "Antrag annehmen"
   date:
     formats:
       default: "%d.%m.%Y"
@@ -141,3 +200,50 @@ de:
       - Oktober
       - November
       - Dezember
+  events:
+    event_admin_right:
+      added: "%{trigger} hat %{target} Admin-Rechte verliehen."
+      removed: "%{trigger} hat %{target} Admin-Rechte entzogen."
+    event_user_chair:
+      added: "%{trigger} hat %{target} in den Lehrstuhl aufgenommen."
+      removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."
+      declined: "%{trigger} hat die Bewerbung von %{target} für den Lehrstuhl abgelehnt"
+    event_chair_application: "%{trigger} hat einen Mitgliedsantrag für ihren Lehrstuhl erstellt."
+    event_request:
+      holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
+      trip: "%{trigger} hat einen Reiseantrag gestellt."
+      expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
+  chairs:
+    navigation:
+      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
+      apply_wimi: "Als Wimi bewerben"
+      manage: "Lehrstuhl verwalten"
+      show_timesheets: "Stundenzettel anzeigen"
+      show_requests: "Anfragen anzeigen"
+    requests:
+      apply_filter: "Filter anwenden"
+      requests: "Anfragen"
+      type_filter: "Filtern nach Art"
+      status_filter: "Filtern nach Status"
+      holiday_request: "Urlaubsantrag"
+      trip_request: "Dienstreiseantrag"
+      expense_request: "Reisekostenabrechnung"
+      applied_plural: "Offene Anfragen"
+      applied: "Offene Anfrage"
+      accepted: "Angenommen"
+      declined: "Abgelehnt"
+      pending: "Ausstehend"
+    applications:
+      long_plural: "Anfragen"
+      no_applications: "Keine Anfragen"
+      accept: "Annehmen"
+      decline: "Ablehnen"
+      remove_from_chair: "Vom Lehrstuhl entfernen"
+      withdraw_rights: "Rechte entziehen"
+      grant_rights: "Als Admin ernennen"
+  roles:  
+    wimi_long: "Wissenschaftlicher Mitarbeiter"
+    wimi_long_plural: "Wissenschaftliche Mitarbeiter"
+    chair_representative: "Fachgebietsbeauftragter"
+    admin_long: "Administrator"
+    hiwi_long_plural: "Studentische Hilfskräfte"
