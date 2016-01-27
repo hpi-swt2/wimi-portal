@@ -53,7 +53,7 @@ RSpec.describe EventsController, type: :controller do
       trip = FactoryGirl.create(:trip)
       expense = FactoryGirl.create(:expense, user: user, trip: trip)
 
-      post :show_request, {status: 'expense', request_id: expense.id}
+      post :show_request, {status: 'expense', request: expense}
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(trip)
     end
