@@ -39,9 +39,6 @@ RSpec.describe Expense, type: :model do
       expect(@report.first_name).to eq(User.first.first_name)
       expect(@report.last_name).to eq(User.first.last_name)
     end
-    it 'has access to signature of the user' do
-      expect(@report.get_signature).to eq(User.first.signature)
-    end
   end
 
   context 'with invalid input' do

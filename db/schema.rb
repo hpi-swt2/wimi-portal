@@ -165,17 +165,6 @@ ActiveRecord::Schema.define(version: 20160127103107) do
     t.date     "hand_in_date"
   end
 
-  create_table "trip_datespans", force: :cascade do |t|
-    t.date     "start_date"
-    t.date     "end_date"
-    t.integer  "days_abroad"
-    t.integer  "trip_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "trip_datespans", ["trip_id"], name: "index_trip_datespans_on_trip_id"
-
   create_table "trips", force: :cascade do |t|
     t.string   "destination"
     t.text     "reason"

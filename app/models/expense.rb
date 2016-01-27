@@ -61,17 +61,21 @@ class Expense < ActiveRecord::Base
 
     for i in 0..(trip.total_days() - 1)
       if !expense_items.include?(ExpenseItem.find_by_date_and_expense_id(trip.date_start + i, id))
-        day = expense_items.build
-        day.date = trip.date_start + i
-        day.breakfast = false
-        day.lunch = false
-        day.dinner = false
-        day.save
+        add_expense_item(trip.date_start + i)
       end
     end
   end
 
   private
+
+  def add_expense_item(date)
+    day = expense_items.build
+    day.date = date
+    day.breakfast = false
+    day.lunch = false
+    day.dinner = false
+    day.save
+  end
 
   def time_format
     if time_start && !time_start.match(/\A(?:[0-1]?[0-9]|2[0-3]):[0-5][0-9]/)

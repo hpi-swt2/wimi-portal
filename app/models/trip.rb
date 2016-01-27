@@ -26,7 +26,6 @@ class Trip < ActiveRecord::Base
   validate :start_before_end_date, :days_abroad_leq_to_total_days
   belongs_to :person_in_power, class_name: 'User'
 
-
   enum status: %w[saved applied accepted declined]
 
   before_validation(on: :create) do

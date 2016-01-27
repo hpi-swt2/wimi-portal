@@ -27,7 +27,6 @@ class TripsController < ApplicationController
     if @trip.status == 'applied'
       redirect_to @trip
       flash[:error] = I18n.t('trip.applied')
-    else
     end
   end
 
