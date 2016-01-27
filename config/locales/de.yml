@@ -106,7 +106,7 @@ de:
         location_to: "Zielort"
         reason: "Grund"
         time_start: "Abfahrtszeit"
-        time_end: "Ankuftszeit"
+        time_end: "Ankunftszeit"
         vehicle: "Fahrzeug"
         car: "PKW"
         public_transport: "Bus/Bahn/Flug"

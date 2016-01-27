@@ -28,7 +28,6 @@ class ExpensesController < ApplicationController
     if @expense.status == 'applied'
       redirect_to trip_path(@expense.trip)
       flash[:error] = I18n.t('expense.applied')
-    else
     end
   end
 

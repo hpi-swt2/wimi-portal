@@ -41,9 +41,11 @@ ActiveRecord::Schema.define(version: 20160127103107) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "status"
+    t.integer  "project_id"
   end
 
   add_index "events", ["chair_id"], name: "index_events_on_chair_id"
+  add_index "events", ["project_id"], name: "index_events_on_project_id"
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
@@ -183,11 +185,11 @@ ActiveRecord::Schema.define(version: 20160127103107) do
     t.datetime "updated_at",                     null: false
     t.integer  "status",             default: 0
     t.boolean  "signature"
+    t.integer  "person_in_power_id"
     t.date     "last_modified"
     t.date     "date_start"
     t.date     "date_end"
     t.integer  "days_abroad"
-    t.integer  "person_in_power_id"
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"

@@ -44,10 +44,6 @@ class Expense < ActiveRecord::Base
     user.last_name
   end
 
-  def get_signature
-    user.signature
-  end
-
   def date_start
     trip.date_start
   end
@@ -85,6 +81,4 @@ class Expense < ActiveRecord::Base
       errors.add(:time_end, I18n.t('activerecord.errors.models.expense.attributes.time.format'))
     end
   end
-
-  
 end
