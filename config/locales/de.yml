@@ -89,6 +89,9 @@ de:
         status: "Status"
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
+        date_start: "Start"
+        date_end: "Ende"
+        days_abroad: "Auslandstage"
       trip_datespan:
         start_date: "Start"
         end_date: "Ende"

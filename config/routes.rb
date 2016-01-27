@@ -51,12 +51,11 @@ Rails.application.routes.draw do
     get 'holidays/accept', to: 'holidays#accept'
     get 'holidays/reject', to: 'holidays#reject'
   end
-  resources :expenses
   resources :work_days
   resources :time_sheets, only: [:edit, :update, :delete]
-  resources :expenses
 
   resources :trips do
+    resources :expenses, except: [:show, :index]
     member do
       get 'download'
       get 'file'

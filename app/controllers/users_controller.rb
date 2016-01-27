@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :user_exists, :set_user, except: [:superadmin_index, :language]
 
   def show
-    @datespans = @user.get_desc_sorted_datespans
+    @trips = @user.get_desc_sorted_trips
   end
 
   def edit

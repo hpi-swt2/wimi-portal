@@ -2,4 +2,4 @@
 <h1><%=t '.title', default: [:'helpers.titles.new', 'Edit %{model}'], model: model_class.model_name.human.titleize %></h1>
 <%= render 'form' %>
 
-<%= link_to t('helpers.links.back'), expenses_path , class: "btn btn-default btn-xs"%>
+<%= link_to t('helpers.links.back'), @expense.trip , class: "btn btn-default btn-xs"%>

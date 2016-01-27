@@ -9,17 +9,17 @@
 #  location_via     :string
 #  location_to      :string
 #  reason           :text
-#  date_start       :datetime
-#  date_end         :datetime
 #  car              :boolean
 #  public_transport :boolean
 #  vehicle_advance  :boolean
 #  hotel            :boolean
+#  status           :integer          default(0)
 #  general_advance  :integer
 #  user_id          :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  signature        :boolean
+#  trip_id          :integer
 #
 
 require 'rails_helper'
@@ -43,9 +43,6 @@ RSpec.describe Expense, type: :model do
   end
 
   context 'with invalid input' do
-    it 'rejects wrong dates' do
-      expect(FactoryGirl.build(:expense_wrong_dates).valid?).to be false
-    end
     it 'rejects negative advances' do
       expect(FactoryGirl.build(:expense_negative_advance).valid?).to be false
     end

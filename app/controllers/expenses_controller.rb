@@ -3,9 +3,11 @@ class ExpensesController < ApplicationController
   skip_authorize_resource only: :index
 
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :hand_in]
+  before_action :set_trip, only: [:new, :create]
+
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = I18n.t('not_authorized')
-    redirect_to expenses_path
+    redirect_to trips_path
   end
 
   def index
@@ -16,14 +18,15 @@ class ExpensesController < ApplicationController
   end
 
   def new
-    @expense = Expense.new
+    @trip = Trip.find(params[:trip_id])
+    @expense = Expense.new(trip: @trip)
     @expense.user = current_user
     8.times { @expense.expense_items.build }
   end
 
   def edit
     if @expense.status == 'applied'
-      redirect_to @expense
+      redirect_to trip_path(@expense.trip)
       flash[:error] = I18n.t('expense.applied')
     else
       fill_blank_items
@@ -32,10 +35,11 @@ class ExpensesController < ApplicationController
 
   def create
     @expense = Expense.new(expense_params)
+    @expense.trip = @trip
     @expense.user = current_user
 
     if @expense.save
-      redirect_to @expense
+      redirect_to trip_path(@expense.trip)
       flash[:success] = I18n.t('expense.create.success')
     else
       fill_blank_items
@@ -45,7 +49,7 @@ class ExpensesController < ApplicationController
 
   def update
     if @expense.update(expense_params)
-      redirect_to @expense
+      redirect_to trip_path(@expense.trip)
       flash[:success] = I18n.t('expense.update.success')
     else
       fill_blank_items
@@ -59,16 +63,17 @@ class ExpensesController < ApplicationController
         ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @expense.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'expense'})
       end
     end
-    redirect_to expenses_path
+    redirect_to trip_path(@expense.trip)
   end
 
   def destroy
+    trip = @expense.trip
     if @expense.status == 'applied'
-      redirect_to @expense
+      redirect_to trip_path(@expense.trip)
       flash[:error] = I18n.t('expense.applied')
     else
       @expense.destroy
-      redirect_to expenses_url
+      redirect_to trip_url(trip)
       flash[:success] = I18n.t('expense.destroy.success')
     end
   end
@@ -85,5 +90,9 @@ class ExpensesController < ApplicationController
 
   def fill_blank_items
     (8 - @expense.expense_items.size).times { @expense.expense_items.build }
+  end
+
+  def set_trip
+    @trip = Trip.find_by_id([params[:trip_id]])
   end
 end

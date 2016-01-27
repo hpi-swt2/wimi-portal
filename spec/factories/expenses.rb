@@ -9,17 +9,17 @@
 #  location_via     :string
 #  location_to      :string
 #  reason           :text
-#  date_start       :datetime
-#  date_end         :datetime
 #  car              :boolean
 #  public_transport :boolean
 #  vehicle_advance  :boolean
 #  hotel            :boolean
+#  status           :integer          default(0)
 #  general_advance  :integer
 #  user_id          :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  signature        :boolean
+#  trip_id          :integer
 #
 
 FactoryGirl.define do
@@ -30,8 +30,6 @@ FactoryGirl.define do
     location_via 'London'
     location_to 'NYC'
     reason 'Hana Things'
-    date_start 8.days.ago
-    date_end DateTime.now
     car true
     public_transport true
     vehicle_advance false
@@ -39,6 +37,7 @@ FactoryGirl.define do
     general_advance 2000
     signature true
     user
+    trip
     after(:create) do |report|
       report.expense_items << FactoryGirl.build(:expense_item, expense: report)
     end
@@ -51,8 +50,6 @@ FactoryGirl.define do
     location_via 'London'
     location_to 'NYC'
     reason 'Hana Things'
-    date_start DateTime.now
-    date_end 8.days.ago
     car true
     public_transport true
     vehicle_advance false
@@ -60,6 +57,7 @@ FactoryGirl.define do
     general_advance -20
     signature true
     user
+    trip
     to_create {|i| i.save(validate: false)}
   end
 
@@ -69,16 +67,10 @@ FactoryGirl.define do
     car false
     hotel false
     vehicle_advance true
-    date_start 5.days.ago
   end
 
   factory :expense_blank_name, parent: :expense do
     first_name ''
-  end
-
-  factory :expense_wrong_dates, parent: :expense do
-    date_start DateTime.now
-    date_end 8.days.ago
   end
 
   factory :expense_negative_advance, parent: :expense do

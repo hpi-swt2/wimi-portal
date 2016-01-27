@@ -1,3 +1,4 @@
+<%- model_class = Trip -%>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -9,9 +10,14 @@
   <strong><%= t('.reason') %>:</strong>
   <%= @trip.reason %>
 </p>
-<ul>
-	<%= render @trip.trip_datespans %>
-</ul>
+<p>
+  <%= model_class.human_attribute_name(:date_start)%>: <%= l @trip.date_start %>
+</p>
+<p>
+  <%= model_class.human_attribute_name(:date_end)%>: <%= l @trip.date_end %></p>
+<p>
+  <%= model_class.human_attribute_name(:days_abroad)%>: <%= @trip.days_abroad %>
+  </p>
 <p>
   <strong><%= t('.annotation') %>:</strong>
   <%= @trip.annotation %>
@@ -53,3 +59,18 @@
   <%= link_to t('.back', default: t("helpers.links.back")), trips_path, class: 'btn btn-default btn-xs'  %>
   <%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-success btn-xs' %>
 </p>
+
+<h2><%= t('.expense') %></h2>
+
+<% if @trip.has_expense? %>
+  <%= render @trip.expense %>
+  <% unless @trip.expense.status == 'applied' %>
+    <%= link_to t('helpers.links.edit'), edit_trip_expense_path(@trip,@trip.expense) , class: "btn btn-default btn-xs"%> |
+    <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
+                      hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-primary btn-primary' %>
+  <% end %>
+  <%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Reisekostenabrechnung', doc_id: @trip.expense) , class: "btn btn-success btn-xs"%>
+  <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-xs" %>
+<% else %>
+  <%= link_to t('.create_expense'), new_trip_expense_path(@trip) %>
+<% end %>

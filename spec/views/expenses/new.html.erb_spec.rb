@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'expenses/new', type: :view do
   before(:each) do
+    @trip = FactoryGirl.create(:trip)
     assign(:expense, Expense.new(
                                      inland: true,
                                      country: 'MyString',
@@ -15,14 +16,15 @@ RSpec.describe 'expenses/new', type: :view do
                                      hotel: false,
                                      general_advance: 1,
                                      signature: false,
-                                     user: FactoryGirl.create(:user)
+                                     user: FactoryGirl.create(:user),
+                                     trip: @trip
     ))
   end
 
   it 'renders new expense form' do
     render
 
-    assert_select 'form[action=?][method=?]', expenses_path, 'post' do
+    assert_select 'form[action=?][method=?]', trip_expenses_path(@trip), 'post' do
       assert_select 'input#expense_location_from[name=?]', 'expense[location_from]'
 
       assert_select 'input#expense_location_via[name=?]', 'expense[location_via]'
