@@ -88,7 +88,13 @@
 
 <p style='margin-bottom:40px'>&nbsp;</p>
 
-<div class='signature'><%= Date.today.strftime("%d.%m.%Y") %>, <%#= holiday.signature %></div>
+<div class='signature'>
+  <% if holiday.signature %>
+    <%= Date.today.strftime("%d.%m.%Y") %>,
+    <% path = 'data:image/png;base64,' << holiday.user_signature %>
+    <img src="<%= path %>" Zwidth="150" height="50"/></div>
+  <% end %>
+  </div>
 <p>
   <span>Datum/Unterschrift</span>
   <span>Antragssteller</span>

@@ -31,7 +31,18 @@ class HolidaysController < ApplicationController
       #disregard errors here, they should be handled in model validation later
       params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date + 1) rescue nil
     end
+
     @holiday = Holiday.new(holiday_params.merge(user: current_user, last_modified: Date.today))
+
+    if holiday_params[:signature] == '1' && current_user.signature.nil?
+      @holiday.signature = false
+      flash[:error] = 'selected signature, but not found'
+    elsif holiday_params[:signature] == '1' && !current_user.signature.nil?
+      @holiday.user_signature = current_user.signature
+    else
+      @holiday.user_signature = nil
+    end
+
     if @holiday.save
       subtract_leave(@holiday.length)
       flash[:success] = 'Holiday was successfully created.'
@@ -45,7 +56,18 @@ class HolidaysController < ApplicationController
     lengths = @holiday.calculate_length_difference(holiday_params['length'])
     params['holiday']['length'] = lengths[:length_difference]
 
-    if @holiday.update(holiday_params)
+    new_holiday_params = holiday_params
+
+    if new_holiday_params[:signature] == '1' && current_user.signature.nil?
+      new_holiday_params[:signature] = false
+      flash[:error] = 'selected signature, but not found'
+    elsif new_holiday_params[:signature] == '1' && !current_user.signature.nil?
+      @holiday.user_signature = current_user.signature
+    else
+      @holiday.user_signature = nil
+    end
+
+    if @holiday.update(new_holiday_params)
       flash[:success] = 'Holiday was successfully updated.'
       @holiday.update(length: lengths[:new_length])
       subtract_leave(lengths[:length_difference])
