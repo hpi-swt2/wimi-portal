@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(version: 20160123173135) do
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
+  create_table "expenses", force: :cascade do |t|
+    t.decimal  "amount"
+    t.text     "purpose"
+    t.text     "comment"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.integer  "trip_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "status",     default: 0
+  end
+
+  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
+  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
+
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",                      null: false
@@ -103,6 +119,25 @@ ActiveRecord::Schema.define(version: 20160123173135) do
 
   add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id"
   add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id"
+
+  create_table "publications", force: :cascade do |t|
+    t.string   "title"
+    t.string   "venue"
+    t.string   "type_"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "publications", ["project_id"], name: "index_publications_on_project_id"
+
+  create_table "publications_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "publication_id"
+  end
+
+  add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
+  add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
 
   create_table "time_sheets", force: :cascade do |t|
     t.integer  "month"
@@ -181,8 +216,8 @@ ActiveRecord::Schema.define(version: 20160123173135) do
     t.datetime "updated_at",                     null: false
     t.integer  "status",             default: 0
     t.boolean  "signature"
-    t.integer  "person_in_power_id"
     t.date     "last_modified"
+    t.integer  "person_in_power_id"
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"

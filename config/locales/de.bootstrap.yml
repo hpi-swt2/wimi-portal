@@ -318,12 +318,14 @@ de:
       trip: "%{trigger} hat einen Reiseantrag gestellt."
       travel_expense_report: "%{trigger} hat eine Reisekostenabrechnung gestellt."
   chairs:
+    form:
+      no_representative: "Kein FG-Beauftragter ausgewählt"
+      no_results: "Keine Ergebnisse"
     navigation:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
       apply_wimi: "Als Wimi bewerben"
       manage: "Lehrstuhl verwalten"
       show_timesheets: "Stundenzettel anzeigen"
-      show_requests: "Anfragen anzeigen"
     requests:
       apply_filter: "Filter anwenden"
       requests: "Anfragen"
@@ -350,4 +352,5 @@ de:
     wimi_long_plural: "Wissenschaftliche Mitarbeiter"
     chair_representative: "Fachgebietsbeauftragter"
     admin_long: "Administrator"
+    admin_long_plural: "Administratoren"
     hiwi_long_plural: "Studentische Hilfskräfte"
