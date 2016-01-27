@@ -20,6 +20,8 @@
 #  updated_at       :datetime         not null
 #  signature        :boolean
 #  trip_id          :integer
+#  time_start       :string
+#  time_end         :string
 #
 
 FactoryGirl.define do
