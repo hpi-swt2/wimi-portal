@@ -47,7 +47,7 @@ feature 'profile' do
   it "does not allow to change the research group" do
     visit edit_user_path(@current_user)
     expect(page).to_not have_content 'Division'
-    within 'form' do
+    within('form.edit_user') do
       expect(page).to_not have_content 'Research Group'
     end
   end

@@ -16,8 +16,26 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should have a select to change the language' do
-      select('German', from: 'languageSelect')
-      expect(@user).to have_attributes(lanuage: 'de')
+      select('Deutsch', from: 'languageSelect')
+      page.execute_script("$('#languageSelect').trigger('change')")
+      expect(@user).to have_attributes(language: 'de')
+    end
+  end
+
+  context 'for a registered User' do
+    it_behaves_like 'a registered User'
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      login_as @user
+      visit root_path
+    end
+
+    it 'should link to projects' do
+      expect(page).to have_link('Projects', href: projects_path)
+    end
+
+    it 'should show 4 links' do
+      expect(page).to have_css('nav a', count: 4)
     end
   end
 
