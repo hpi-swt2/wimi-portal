@@ -10,6 +10,7 @@
   <strong><%= t('.reason') %>:</strong>
   <%= @trip.reason %>
 </p>
+
 <p>
   <%= model_class.human_attribute_name(:date_start)%>: <%= l @trip.date_start %>
 </p>
@@ -22,6 +23,7 @@
 <p>
   <%= model_class.human_attribute_name(:days_abroad)%>: <%= @trip.days_abroad %>
 </p>
+
 <p>
   <strong><%= t('.annotation') %>:</strong>
   <%= @trip.annotation %>

@@ -23,8 +23,8 @@ en:
   activerecord:
     models:
       chair:
-        one: "Chair"
-        other: "Chairs"
+        one: "Research Group"
+        other: "Research Groups"
       expense:
         one: "Expense"
         other: "Expenses"
@@ -40,6 +40,12 @@ en:
       user:
         one: "User"
         other: "Users"
+      work_day:
+        one: "Workday"
+        other: "Workdays"
+      time_sheet:
+        one: "Timesheet"
+        other: "Timesheets"
     attributes:
       chair:
         id: "Id"
@@ -125,7 +131,7 @@ en:
         last_sign_in_at: "Last Sign In at"
         current_sign_in_ip: "Current Sign In IP"
         last_sign_in_ip: "Last Sign In IP"
-        first: "First Name"
+        first_name: "First Name"
         last_name: "Last Name"
         created_at: "Created at"
         current_password: "Current Password"
@@ -133,9 +139,11 @@ en:
         password: "Password"
         remember_me: "Remember me"
         personal_data: "User Data"
-        residence: "Residence"
+        city: "City"
         street: "Street"
+        zip_code: "Zip Code"
         personnel_number: "Staff Number"
+        chair: "Research Group"
         language: "Language"
         not_member_of_chair: "You are not a member of a chair."
       request:
@@ -144,6 +152,16 @@ en:
         handed_in: "Handed in"
         status: "Status"
         not_member_of_chair: "You are not a member of a chair."
+      work_day:
+        date: "Date"
+        start_time: "Start time"
+        break: "Break"
+        end_time: "End time"
+        duration: "Duration"
+        notes: "Notes"
+      time_sheet:
+        salary: "Salary"
+        workload: "Workload"
     errors:
       models:
         expense:
@@ -183,7 +201,7 @@ en:
     something_wrong: 'Something went wrong.'
     applied: "Holiday is already applied"
   project:
-    filter_chair: 'Filter for chair'
+    filter_chair: 'Filter for research group'
     invite_someone_to_project: 'Invite someone to the project'
     invite_someone_to_the_project: "Invite someone to the project \"%{title}\""
     send_invitation_to: 'Send invitation to:'
@@ -208,7 +226,7 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"
   chair:
-    not_authorized: "You're not authorized to do that for this chair."
+    not_authorized: "You're not authorized to do that for this research group."
     add_chair: "Add Chair"
     destroy:
       error: "Chair could not be destroyed"

@@ -43,6 +43,12 @@ de:
       user:
         one: "Benutzer"
         other: "Benutzer"
+      work_day:
+        one: "Arbeitstag"
+        other: "Arbeitstage"
+      time_sheet:
+        one: "Stundenzettel"
+        other: "Stundenzettel"
     attributes:
       chair:
         id: "Id"
@@ -132,9 +138,11 @@ de:
         password: "Passwort"
         remember_me: "Angemeldet bleiben"
         personal_data: "Benutzerdaten"
-        residence: "Wohnort"
+        city: "Wohnort"
         street: "Straße"
+        zip_code: "Postleitzahl"
         personnel_number: "Personalnummer"
+        chair: "Lehrstuhl"
         language: "Sprache"
         not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
       request:
@@ -143,6 +151,16 @@ de:
         handed_in: "Eingereicht am"
         status: "Status"
         not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
+      work_day:
+        date: "Datum"
+        start_time: "Startzeit"
+        break: "Pause"
+        end_time: "Endzeit"
+        duration: "Dauer"
+        notes: "Anmerkung"
+      time_sheet:
+        salary: "Bezahlung"
+        workload: "Arbeitszeit"
     errors:
       models:
         expense:
@@ -170,6 +188,10 @@ de:
               blank: 'darf nicht leer sein.'
             length:
               not_a_number: 'muss eine ganze Zahl sein.'
+        work_day:
+          attributes:
+            duration:
+              greater_than: 'Dauer muss größer 0 sein'
   date:
     day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
     formats:
@@ -258,4 +280,3 @@ de:
     applied: "Reisekostenabrechnung bereits eingereicht"
     destroyed: "Reisekostenabrechnung wurde erfolgreich gelöscht"
     apply: "Reisekostenabrechnung wurde erfolgreich eingereicht"
-

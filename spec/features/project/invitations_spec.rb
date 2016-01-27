@@ -31,10 +31,12 @@ describe 'project inviations' do
     expect(page).to have_link(I18n.t('project.invite_someone_to_project'))
   end
 
-  it 'shows an inviation after the user has been invited' do
-    FactoryGirl.create(:invitation, user: @user, project: @project)
+  it 'shows a notification after the user has been invited' do
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project, sender: @user)
+    FactoryGirl.create(:event_project_invitation, trigger: invitation, target: @user, seclevel: :hiwi, type: "EventProjectInvitation")
     visit '/dashboard'
-    expect(page).to have_content('You have been invited to the project "Invitation Project"')
+    content = @user.name + ' invites you to join the project ' + invitation.project.title
+    expect(page).to have_content(content)
   end
 
   it 'adds the user to the project if he accepts' do
@@ -43,7 +45,8 @@ describe 'project inviations' do
     user1 = FactoryGirl.create(:user)
     representative1 = FactoryGirl.create(:chair_representative, user: user1, chair: chair1).user
     @project.update(chair: representative1.chair)
-    FactoryGirl.create(:invitation, user: @user, project: @project)
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project, sender: user1)
+    FactoryGirl.create(:event_project_invitation, trigger: invitation, target: @user, seclevel: :hiwi, type: "EventProjectInvitation")
     visit '/dashboard'
     click_on 'Accept'
     expect(page).to have_content 'You are now a member of this project.'
@@ -53,7 +56,8 @@ describe 'project inviations' do
 
   it 'does not add the user to the project if he declines' do
     expect(@project.users.size).to eq 0
-    FactoryGirl.create(:invitation, user: @user, project: @project)
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project, sender: @user)
+    FactoryGirl.create(:event_project_invitation, trigger: invitation, target: @user, seclevel: :hiwi, type: "EventProjectInvitation")
     visit '/dashboard'
     click_on 'Decline'
     @project.reload
@@ -67,7 +71,8 @@ describe 'project inviations' do
     chair2 = FactoryGirl.create(:chair)
     chair2.projects << @project
     expect(@user.is_wimi?).to be true
-    invitation = FactoryGirl.create(:invitation, user: @user, project: @project)
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project, sender: @user)
+    FactoryGirl.create(:event_project_invitation, trigger: invitation, target: @user, seclevel: :hiwi, type: "EventProjectInvitation")
 
     visit '/dashboard'
     click_on 'Decline'
@@ -82,7 +87,8 @@ describe 'project inviations' do
     chair.projects << @project
     expect(chair.hiwis.size).to eq 0
 
-    invitation = FactoryGirl.create(:invitation, user: @user, project: @project)
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project, sender: @user)
+    FactoryGirl.create(:event_project_invitation, trigger: invitation, target: @user, seclevel: :hiwi, type: "EventProjectInvitation")
     visit '/dashboard'
     click_on 'Accept'
 

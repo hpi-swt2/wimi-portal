@@ -1,18 +1,7 @@
 # == Schema Information
 #
 # Table name: trips
-#
-#  id            :integer          not null, primary key
-#  destination   :string
-#  reason        :text
-#  annotation    :text
-#  user_id       :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  status        :integer          default(0)
-#  signature     :boolean
-#  last_modified :date
-#
+
 
 class Trip < ActiveRecord::Base
   belongs_to :user
@@ -20,6 +9,8 @@ class Trip < ActiveRecord::Base
   validates_presence_of :destination, :user,:date_start,:date_end, :days_abroad
   validates :days_abroad, numericality: {greater_than_or_equal_to: 0}
   validate :start_before_end_date, :days_abroad_leq_to_total_days
+  belongs_to :person_in_power, class_name: 'User'
+
 
   enum status: %w[saved applied accepted declined]
 
@@ -60,4 +51,13 @@ class Trip < ActiveRecord::Base
     end
   end
 
+  def accept(accepter)
+    self.update(person_in_power_id: accepter.id, status: :accepted)
+    ActiveSupport::Notifications.instrument('event', {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestAccepted"})
+  end
+
+  def decline(decliner)
+    self.update(person_in_power_id: decliner.id, status: :declined)
+    ActiveSupport::Notifications.instrument('event', {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestDeclined"})
+  end
 end
