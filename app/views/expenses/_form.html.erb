@@ -78,7 +78,7 @@
       <% index = 0 %>
       <%= f.fields_for :expense_items do |t| %>
         <tr>
-          <td><%= @expense.expense_items[index].date %></td>
+          <td><%= l @expense.expense_items[index].date %></td>
           <td><%= t.check_box :breakfast %></td>
           <td><%= t.check_box :lunch %></td>
           <td><%= t.check_box :dinner %></td>
