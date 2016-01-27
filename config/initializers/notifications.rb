@@ -2,7 +2,7 @@
 #
 # To trigger an event call the instrument function where your event should be created (for example in the controller) with
 #
-# ActiveSupport::Notifications.instrument("event", { trigger: object.id, target: object2.id, chair: chair, seclevel: <seclevel> , type: "EventName"})
+# ActiveSupport::Notifications.instrument('event', { trigger: object.id, target: object2.id, chair: chair, seclevel: <seclevel> , type: "EventName"})
 #
 # You will have to create a new Model that inherits from Event (look at EventAdminAdded for an example)
 # Your event will be automatically displayed on the dashboard (hooks for that are in dashboard controller and view)

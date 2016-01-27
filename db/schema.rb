@@ -70,7 +70,10 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "sender_id"
   end
+
+  add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
 
   create_table "project_applications", force: :cascade do |t|
     t.integer  "project_id"
@@ -110,8 +113,16 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "handed_in",             default: false
+    t.text     "rejection_message",     default: ""
+    t.boolean  "signed",                default: false
+    t.date     "last_modified"
+    t.integer  "status",                default: 0
+    t.integer  "signer"
+    t.boolean  "wimi_signed",           default: false
+    t.date     "hand_in_date"
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|
@@ -166,12 +177,15 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.text     "reason"
     t.text     "annotation"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "status",      default: 0
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "status",             default: 0
     t.boolean  "signature"
+    t.date     "last_modified"
+    t.integer  "person_in_power_id"
   end
 
+  add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "user_events", force: :cascade do |t|

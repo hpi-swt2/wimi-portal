@@ -51,14 +51,30 @@ Rails.application.routes.draw do
     get 'holidays/accept', to: 'holidays#accept'
     get 'holidays/reject', to: 'holidays#reject'
   end
+
   resources :expenses
   resources :work_days
-  resources :time_sheets, only: [:edit, :update, :delete]
+  resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
+    member do
+      get 'hand_in'
+      get 'accept_reject'
+    end
+    get 'time_sheets/hand_in', to:'time_sheets#hand_in'
+    get 'time_sheets/accept_reject', to:'time_sheets#accept_reject'
+  end
+
   resources :travel_expense_reports
+  
   resources :trips do
     member do
       get 'download'
+      get 'file'
+      get 'reject'
+      get 'accept'
     end
+    get 'trips/file', to: 'trips#file'
+    get 'trips/reject', to: 'trips#reject'
+    get 'trips/accept', to: 'trips#accept'
   end
 
   resources :chairs
@@ -86,4 +102,5 @@ Rails.application.routes.draw do
   post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
+
 end

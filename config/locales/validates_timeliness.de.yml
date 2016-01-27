@@ -5,9 +5,9 @@ de:
       invalid_time: "ist keine valide Zeitangabe!"
       invalid_datetime: "ist keine valide DateTime-Angabe!"
       is_at: "muss der %{restriction} sein!"
-      before: "muss vor dem %{restriction} sein!"
+      before: "muss vor %{restriction} liegen!"
       on_or_before: "muss spätestens der %{restriction} sein!"
-      after: "muss nach dem %{restriction} sein!"
+      after: "muss nach %{restriction} liegen!"
       on_or_after: "darf frühestens der %{restriction} sein!"
   validates_timeliness:
     error_value_formats:
