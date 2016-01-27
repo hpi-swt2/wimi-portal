@@ -181,8 +181,8 @@ ActiveRecord::Schema.define(version: 20160123173135) do
     t.datetime "updated_at",                     null: false
     t.integer  "status",             default: 0
     t.boolean  "signature"
-    t.date     "last_modified"
     t.integer  "person_in_power_id"
+    t.date     "last_modified"
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
