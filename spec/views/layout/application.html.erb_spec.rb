@@ -14,6 +14,11 @@ RSpec.describe 'navigation bar', type: :view do
     it 'should link to logout' do
       expect(page).to have_link('Logout', href: destroy_user_session_path)
     end
+
+    it 'should have a select to change the language' do
+      select('German', from: 'languageSelect')
+      expect(@user).to have_attributes(lanuage: 'de')
+    end
   end
 
   context 'for a superadmin' do
