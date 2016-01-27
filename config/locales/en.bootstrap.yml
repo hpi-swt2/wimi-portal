@@ -117,16 +117,9 @@ en:
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
       user_data: "User Data"
-      work_times: "Working Times"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       days: "Day(s)"
-      signature: "Signature"
-      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not being encrypted additionally!"
-      upload: "Upload signature"
-      information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
-    edit:
-      user_data: "User Data"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
       password: "Change Password"
       update_password: "Update Password"
@@ -146,6 +139,12 @@ en:
         accepted: "Accepted"
         applied: "Applied"
         declined: "Rejected"
+      signature: "Signature"
+      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not being encrypted additionally!"
+      upload: "Upload signature"
+      information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
+    edit:
+      user_data: "User Data"
     public_user_data:
       public_data: "Public Data"
       projects: "Projects"
@@ -332,7 +331,7 @@ en:
       holiday: "%{trigger} created a holiday request."
       trip: "%{trigger} created a trip request."
       travel_expense_report: "%{trigger} created a travel expense request."
-  chairs:    
+  chairs:
     form:
       no_representative: "No representative selected"
       no_results: "No results"
