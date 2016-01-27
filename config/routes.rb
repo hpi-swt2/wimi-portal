@@ -51,9 +51,18 @@ Rails.application.routes.draw do
     get 'holidays/accept', to: 'holidays#accept'
     get 'holidays/reject', to: 'holidays#reject'
   end
+
   resources :expenses
   resources :work_days
-  resources :time_sheets, only: [:edit, :update, :delete]
+  resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
+    member do
+      get 'hand_in'
+      get 'accept_reject'
+    end
+    get 'time_sheets/hand_in', to:'time_sheets#hand_in'
+    get 'time_sheets/accept_reject', to:'time_sheets#accept_reject'
+  end
+
   resources :travel_expense_reports
   
   resources :trips do
@@ -96,4 +105,5 @@ Rails.application.routes.draw do
   get '/representative_search', to: 'chairs#representative_search', as: 'representative_search'
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
+
 end

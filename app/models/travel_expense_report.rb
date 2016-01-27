@@ -15,6 +15,7 @@
 #  public_transport :boolean
 #  vehicle_advance  :boolean
 #  hotel            :boolean
+#  status           :integer          default(0)
 #  general_advance  :integer
 #  user_id          :integer
 #  created_at       :datetime         not null

@@ -36,6 +36,7 @@ en:
       decline: "Decline"
       download: "Download"
       apply_trip: "Apply Trip"
+      save: "Save"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -84,8 +85,8 @@ en:
       inactive: "(inactive)"
       set_inactive: "set inactive"
       set_active: "set active"
-      chair: "Chair"
-      chair_representative: "Chair Representative"
+      chair: "Research Group"
+      chair_representative: "Research Group Representative"
       project_visibility: "Visibility"
       project_leader: "Project Leader"
       public: "public"
@@ -109,32 +110,51 @@ en:
       projects: "Projects"
   users:
     update:
-      user_updated: "User updated successfully"
+      user_updated: "Profile was successfully updated"
     show:
       business_trips: "Business Trips"
       request_trip: "Request Business Trip"
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
       user_data: "User Data"
+      work_times: "Working Times"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
-      title: "User Profile"
+      days: "Day(s)"
       warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
       password: "Change Password"
       update_password: "Update Password"
-      days: "Day(s)"
+      work_times: "Work times"
+      handed_in_timesheets: "Handed in time sheets:"
+      by: "by"
+      time_sheets_overview: "time sheet overview"
+      hiwi: "research assistants"
+      month: "month"
+      number_of_hours: "number of hours"
+      handed_in_at: "handed in at"
+      status_timesheet: "status"
+      action: "action"
+      inspect: "inspect"
       status:
         saved: "Saved"
         accepted: "Accepted"
         applied: "Applied"
         declined: "Rejected"
-    edit:
-      user_data: "User Data"
+    public_user_data:
+      public_data: "Public Data"
+      projects: "Projects"
+    private_user_data:
+      private_data: "Private Data"
+      user_status: "Status"
+      wimi: "Research Assistant"
+      hiwi: "Student Assistant"
     edit_leave:
       remaining_leave: "Remaining Leave"
       remaining_leave_fly: "Remaining Leave from last year"
       save: "Save Leave"
       title: "Edit Leave"
+    form:
+      user_data: "User Data"
   holidays:
     show:
       days: "Day(s)"
@@ -153,11 +173,49 @@ en:
     index:
       notifications: "Notifications"
       dashboard_title: "Dashboard"
-      projects: "My Projects"
       representative_actions: "Representative - Actions"
       show_holiday_requests: "Show holiday requests"
       show_expense_requests: "Show expense requests"
       show_trip_requests: "Show trip requests"
+      notifications: "Important Notifications"
+      activities: "Activities"
+      actions: "Actions"
+    projects:
+      projects: "My Projects"
+    hiwi_actions:
+      action: "Enter working hours for %{project_name}"
+    wimi_actions:
+      create_project: "Create Project"
+      request_holiday: "Request Holiday"
+      request_business_trip: "Request Business Trip"
+      file_travel_expenses: "File Travel Expenses"
+  event_time_sheet_declineds:
+    event_time_sheet_declined:
+      view: "View"
+      full_html: "%{signer} from %{project} <b>declined</b> your time sheet for %{month}."
+  event_time_sheet_accepteds:
+    event_time_sheet_accepted:
+      view: "View"
+      full_html: "%{signer} from %{project} <b>accepted</b> your time sheet for %{month}."
+  event_project_invitations:
+    event_project_invitation:
+      accept: "Accept"
+      decline: "Decline"
+      full_html: "%{trigger_name} invites you to join the project %{project_name}."
+  event_travel_request_accepteds:
+    event_travel_request_accepted:
+      view: "View"
+      request: "travel request"
+      full_html: "The %{link_to_request} you filed on the %{date} was <b>accepted</b> by %{person_in_power}. %{link_to_view}"
+  event_travel_request_declineds:
+    event_travel_request_declined:
+      view: "View"
+      request: "travel request"
+      full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
+  event_time_sheet_submitteds:
+    event_time_sheet_submitted:
+      view: "View"
+      full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
   travel_expense_reports:
     show:
       inland: "Inland Travel"
@@ -188,15 +246,61 @@ en:
       file: "File Request"
       reject: "Reject Request"
       accept: "Accept Request"
+  work_days:
+    index:
+      working_hours_for: "Working hours for: "
+      new: "new"
+      for: "for"
+      by: "by"
+    new:
+      back: "Back"
+  time_sheets:
+    form:
+      monthly: "monthly"
+      weekly: "weekly"
+      hourly: "hourly"
+      time_sheet: "Time sheet"
+    show:
+      salary: "Salary:"
+      salary_per_month: "Euro / Month"
+      salary_per_hour: "Euro / Hour"
+      workload: "Workload:"
+      workload_per_month: "Hours / Month"
+      workload_per_week: "Hours / Week"
+    show_footer:
+      new: "new"
+      in: "in"
+      by: "by"
+      hand_in: "hand in"
+      accept: "accept"
+      handed_in_at: "handed in at: "
+      reject: "reject"
+      reject_reason: "Rejection reason:"
+      rejected_by: "rejected by: "
+      accepted_by: "accepted by: "
+      at: "at"
+      export_as_PDF: "export as PDF"
+      handed_in_at: "handed in at:"
+      add_signature: "Add signature"
+      document_was: "Document was"
+      not: "not"
+      signed: "signed"
+      status: "status: "
+      acceptence_requested_at: "acceptence requested at: "
+      pending: "pending"
+      accepted: "accepted"
+      rejected: "rejected"
   date:
     formats:
+      without_day: "%B %Y"
+      without_day_year: "%B"
       default: "%m/%d/%Y"
     order:
       - :month
       - :day
       - :year
     month_names:
-      - 
+      -
       - January
       - February
       - March
@@ -227,9 +331,9 @@ en:
       no_representative: "No representative selected"
       no_results: "No results"
     navigation:
-      not_authorized: "You are not allowed to do this action for this chair."
+      not_authorized: "You are not allowed to do this action for this research group."
       apply_wimi: "Apply as Wimi"
-      manage: "Manage Chair"
+      manage: "Manage Research Group"
       show_timesheets: "Show timesheets"
     requests:
       apply_filter: "Apply Filters"

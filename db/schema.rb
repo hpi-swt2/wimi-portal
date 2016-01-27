@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125124611) do
+ActiveRecord::Schema.define(version: 20160123173135) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(version: 20160125124611) do
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
+  create_table "expenses", force: :cascade do |t|
+    t.decimal  "amount"
+    t.text     "purpose"
+    t.text     "comment"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.integer  "trip_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "status",     default: 0
+  end
+
+  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id"
+  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
+
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",                      null: false
@@ -70,7 +86,10 @@ ActiveRecord::Schema.define(version: 20160125124611) do
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "sender_id"
   end
+
+  add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
 
   create_table "project_applications", force: :cascade do |t|
     t.integer  "project_id"
@@ -101,6 +120,25 @@ ActiveRecord::Schema.define(version: 20160125124611) do
   add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id"
   add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id"
 
+  create_table "publications", force: :cascade do |t|
+    t.string   "title"
+    t.string   "venue"
+    t.string   "type_"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "publications", ["project_id"], name: "index_publications_on_project_id"
+
+  create_table "publications_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "publication_id"
+  end
+
+  add_index "publications_users", ["publication_id"], name: "index_publications_users_on_publication_id"
+  add_index "publications_users", ["user_id"], name: "index_publications_users_on_user_id"
+
   create_table "time_sheets", force: :cascade do |t|
     t.integer  "month"
     t.integer  "year"
@@ -110,8 +148,16 @@ ActiveRecord::Schema.define(version: 20160125124611) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "handed_in",             default: false
+    t.text     "rejection_message",     default: ""
+    t.boolean  "signed",                default: false
+    t.date     "last_modified"
+    t.integer  "status",                default: 0
+    t.integer  "signer"
+    t.boolean  "wimi_signed",           default: false
+    t.date     "hand_in_date"
   end
 
   create_table "travel_expense_report_items", force: :cascade do |t|
@@ -166,13 +212,15 @@ ActiveRecord::Schema.define(version: 20160125124611) do
     t.text     "reason"
     t.text     "annotation"
     t.integer  "user_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "status",        default: 0
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "status",             default: 0
     t.boolean  "signature"
     t.date     "last_modified"
+    t.integer  "person_in_power_id"
   end
 
+  add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "user_events", force: :cascade do |t|
@@ -193,15 +241,15 @@ ActiveRecord::Schema.define(version: 20160125124611) do
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
     t.string   "language",                  default: "en",  null: false
-    t.string   "residence"
     t.string   "street"
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false
-    t.text     "signature"
     t.string   "username"
     t.string   "encrypted_password",        default: "",    null: false
+    t.string   "city"
+    t.string   "zip_code"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

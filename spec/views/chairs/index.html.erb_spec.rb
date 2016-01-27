@@ -11,10 +11,10 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     visit chairs_path
 
     expect(page).to have_content('New')
-    expect(page).to have_content('Edit Chair')
-    expect(page).to have_content('Delete Chair')
+    expect(page).to have_content('Edit Research Group')
+    expect(page).to have_content('Delete Research Group')
 
-    expect(page).to_not have_content('Manage Chair')
+    expect(page).to_not have_content('Manage Research Group')
     expect(page).to_not have_content('Apply as Wimi')
   end
 
@@ -25,11 +25,11 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     login_as(admin, scope: :user)
     visit chairs_path
 
-    expect(page).to have_content('Manage Chair')
+    expect(page).to have_content('Manage Research Group')
 
     expect(page).to_not have_content('New')
-    expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Delete Chair')
+    expect(page).to_not have_content('Edit Research Group')
+    expect(page).to_not have_content('Delete Research Group')
     expect(page).to_not have_content('Apply as Wimi')
   end
 
@@ -40,11 +40,11 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     login_as(representative, scope: :user)
     visit chairs_path
 
-    expect(page).to have_content('Manage Chair')
+    expect(page).to have_content('Manage Research Group')
 
     expect(page).to_not have_content('New')
-    expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Delete Chair')
+    expect(page).to_not have_content('Edit Research Group')
+    expect(page).to_not have_content('Delete Research Group')
     expect(page).to_not have_content('Apply as Wimi')
   end
 
@@ -57,9 +57,9 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     expect(page).to have_content('Apply as Wimi')
 
     expect(page).to_not have_content('New')
-    expect(page).to_not have_content('Edit Chair')
-    expect(page).to_not have_content('Delete Chair')
-    expect(page).to_not have_content('Manage Chair')
+    expect(page).to_not have_content('Edit Research Group')
+    expect(page).to_not have_content('Delete Research Group')
+    expect(page).to_not have_content('Manage Research Group')
   end
 
   it 'tests functionality of New Button' do
@@ -76,7 +76,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     login_as(@superadmin, scope: :user)
     visit chairs_path
 
-    click_on 'Edit Chair'
+    click_on 'Edit Research Group'
     expect(page).to have_current_path(edit_chair_path(chair))
   end
 
@@ -86,7 +86,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     visit chairs_path
 
     expect(page).to have_content('TestChair')
-    click_on 'Delete Chair'
+    click_on 'Delete Research Group'
     expect(page).to have_current_path(chairs_path)
     expect(page).to_not have_content('TestChair')
   end
@@ -98,7 +98,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     login_as(representative, scope: :user)
     visit chairs_path
 
-    click_on 'Manage Chair'
+    click_on 'Manage Research Group'
     expect(page).to have_current_path(chair_path(chair))
   end
 

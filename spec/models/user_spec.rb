@@ -62,4 +62,11 @@ RSpec.describe User, type: :model do
     datespan_b = FactoryGirl.create(:trip_datespan, trip: trip_b, start_date: Date.today + 10, end_date: Date.today + 16, days_abroad: 0)
     expect(user.get_desc_sorted_datespans[0]).to eq(datespan_b)
   end
+
+  it 'validates the zip code correctly' do
+    expect(FactoryGirl.build(:user, zip_code: '')).to be_valid
+    expect(FactoryGirl.build(:user, zip_code: '01234')).to be_valid
+    expect(FactoryGirl.build(:user, zip_code: 'abc')).to_not be_valid
+    expect(FactoryGirl.build(:user, zip_code: 'abcde')).to_not be_valid
+  end
 end
