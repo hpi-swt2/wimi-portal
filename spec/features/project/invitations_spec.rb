@@ -106,12 +106,14 @@ describe 'project inviations' do
     chair.projects << @project
     expect(chair.hiwis.size).to eq 0
 
-    invitation = FactoryGirl.create(:invitation, user: @user, project: @project)
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project, sender: @user)
+    FactoryGirl.create(:event_project_invitation, trigger: invitation, target: @user, seclevel: :hiwi, type: "EventProjectInvitation")
     visit '/dashboard'
     click_on 'Decline'
     expect(chair.hiwis.size).to eq 0
 
-    invitation = FactoryGirl.create(:invitation, user: @user, project: @project)
+    invitation = FactoryGirl.create(:invitation, user: @user, project: @project, sender: @user)
+    FactoryGirl.create(:event_project_invitation, trigger: invitation, target: @user, seclevel: :hiwi, type: "EventProjectInvitation")
     visit '/dashboard'
     click_on 'Accept'
     @project.reload
