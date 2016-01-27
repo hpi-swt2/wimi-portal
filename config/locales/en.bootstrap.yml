@@ -247,10 +247,8 @@ en:
       file: "File Request"
       reject: "Reject Request"
       accept: "Accept Request"
-<<<<<<< HEAD
       expense: "Details for trip expenses"
       create_expense: "Create trip expense"
-=======
   work_days:
     index:
       working_hours_for: "Working hours for: "
@@ -295,7 +293,6 @@ en:
       pending: "pending"
       accepted: "accepted"
       rejected: "rejected"
->>>>>>> dev
   date:
     formats:
       without_day: "%B %Y"

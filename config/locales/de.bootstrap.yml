@@ -237,10 +237,8 @@ de:
       file: "Antrag einreichen"
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
-<<<<<<< HEAD
       expense: "Details für Reisekostenabrechnung"
       create_expense: "Reisekosten eintragen"
-=======
   work_days:
     index:
       working_hours_for: "Arbeitsstunden für: "
@@ -285,7 +283,6 @@ de:
       pending: "ausstehend"
       accepted: "bestätigt"
       rejected: "abgelehnt"
->>>>>>> dev
   date:
     formats:
       default: "%d.%m.%Y"

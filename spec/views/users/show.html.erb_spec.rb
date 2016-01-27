@@ -8,7 +8,7 @@ RSpec.describe 'users/show', type: :view do
 
   it 'shows the profile page' do
     visit user_path(@user)
-    expect(page).to have_content(I18n.t('users.show.title'))
+    expect(page).to have_content(@user.name)
   end
 
   it 'expects Handed in time sheets section for wimis' do

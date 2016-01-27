@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160123173135) do
-
+ActiveRecord::Schema.define(version: 20160127103107) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -184,11 +183,11 @@ ActiveRecord::Schema.define(version: 20160123173135) do
     t.datetime "updated_at",                     null: false
     t.integer  "status",             default: 0
     t.boolean  "signature"
-    t.integer  "person_in_power_id"
     t.date     "last_modified"
     t.date     "date_start"
     t.date     "date_end"
     t.integer  "days_abroad"
+    t.integer  "person_in_power_id"
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
