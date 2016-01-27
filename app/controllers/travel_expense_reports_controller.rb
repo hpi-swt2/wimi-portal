@@ -34,6 +34,16 @@ class TravelExpenseReportsController < ApplicationController
     @travel_expense_report = TravelExpenseReport.new(travel_expense_report_params)
     @travel_expense_report.user = current_user
 
+    if travel_expense_report_params[:signature] == '1' && current_user.signature.nil?
+      @travel_expense_report.signature = false
+      flash[:error] = 'selected signature, but not found'
+    elsif travel_expense_report_params[:signature] == '1' && !current_user.signature.nil?
+      @travel_expense_report.user_signature = current_user.signature
+    else
+      @travel_expense_report.user_signature = nil
+    end
+
+
     if @travel_expense_report.save
       redirect_to @travel_expense_report, notice: 'Travel expense report was successfully created.'
     else
@@ -43,6 +53,18 @@ class TravelExpenseReportsController < ApplicationController
   end
 
   def update
+
+    new_travel_expense_report_params = travel_expense_report_params
+
+    if new_travel_expense_report_params[:signature] == '1' && current_user.signature.nil?
+      new_travel_expense_report_params[:signature] = false
+      flash[:error] = 'selected signature, but not found'
+    elsif travel_expense_report_params[:signature] == '1' && !current_user.signature.nil?
+      @travel_expense_report.user_signature = current_user.signature
+    else
+      @travel_expense_report.user_signature = nil
+    end
+
     if @travel_expense_report.update(travel_expense_report_params)
       redirect_to @travel_expense_report, notice: 'Travel expense report was successfully updated.'
     else
