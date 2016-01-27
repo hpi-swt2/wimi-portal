@@ -32,7 +32,7 @@
 <table class="table table-striped">
   <% @chair.wimis.each do |wimi| %>
     <tr>
-      <td><%= link_to wimi.name, wimi %></td>
+      <td><%= wimi.name %></td>
       <td>
         <% if current_user.is_representative?(@chair) %>
           <%= I18n.t('chair.wimi.show_requests', default: 'Show Requests') %>

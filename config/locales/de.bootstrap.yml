@@ -108,6 +108,7 @@ de:
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"
+      work_times: "Arbeitszeiten"
       remaining_leave: "Verbleibender Resturlaub: %{leave} Tag(e)"
       remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
       days: "Tag(e)"
@@ -320,12 +321,14 @@ de:
       trip: "%{trigger} hat einen Reiseantrag gestellt."
       expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
   chairs:
+    form:
+      no_representative: "Kein FG-Beauftragter ausgewählt"
+      no_results: "Keine Ergebnisse"
     navigation:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
       apply_wimi: "Als Wimi bewerben"
       manage: "Lehrstuhl verwalten"
       show_timesheets: "Stundenzettel anzeigen"
-      show_requests: "Anfragen anzeigen"
     requests:
       apply_filter: "Filter anwenden"
       requests: "Anfragen"
@@ -352,4 +355,5 @@ de:
     wimi_long_plural: "Wissenschaftliche Mitarbeiter"
     chair_representative: "Fachgebietsbeauftragter"
     admin_long: "Administrator"
+    admin_long_plural: "Administratoren"
     hiwi_long_plural: "Studentische Hilfskräfte"

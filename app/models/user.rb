@@ -167,6 +167,20 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.search(search, chair)
+    if search.length > 0
+      results = where('first_name LIKE ? or last_name LIKE ?', "%#{search}%", "%#{search}%")
+      results = results.reject(&:is_superadmin?)
+      if chair
+        return results.reject { |u| u.is_wimi? && u.chair != chair }
+      else
+        return results.reject(&:is_wimi?)
+      end
+    else
+      return nil
+    end
+  end
+
   def get_desc_sorted_trips
     all_trips = Trip.where(user_id: id)
     trips = []

@@ -41,11 +41,9 @@ ActiveRecord::Schema.define(version: 20160127103107) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "status"
-    t.integer  "project_id"
   end
 
   add_index "events", ["chair_id"], name: "index_events_on_chair_id"
-  add_index "events", ["project_id"], name: "index_events_on_project_id"
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 

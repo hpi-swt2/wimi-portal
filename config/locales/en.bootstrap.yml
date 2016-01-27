@@ -117,6 +117,7 @@ en:
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
       user_data: "User Data"
+      work_times: "Working Times"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       days: "Day(s)"
@@ -329,13 +330,15 @@ en:
       holiday: "%{trigger} created a holiday request."
       trip: "%{trigger} created a trip request."
       expense: "%{trigger} created a travel expense request."
-  chairs:
+  chairs:   
+    form:
+      no_representative: "No representative selected"
+      no_results: "No results"
     navigation:
       not_authorized: "You are not allowed to do this action for this research group."
       apply_wimi: "Apply as Wimi"
       manage: "Manage Research Group"
       show_timesheets: "Show timesheets"
-      show_requests: "Show requests"
     requests:
       apply_filter: "Apply Filters"
       requests: "Requests"
@@ -362,4 +365,5 @@ en:
     wimi_long_plural: "Research Assistants"
     chair_representative: "Chair Representative"
     admin_long: "Administrator"
+    admin_long_plural: "Administrators"
     hiwi_long_plural: "Student Assistants"
