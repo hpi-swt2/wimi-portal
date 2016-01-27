@@ -4,11 +4,6 @@
 #
 #  id                        :integer          not null, primary key
 #  email                     :string           default(""), not null
-#  sign_in_count             :integer          default(0), not null
-#  current_sign_in_at        :datetime
-#  last_sign_in_at           :datetime
-#  current_sign_in_ip        :string
-#  last_sign_in_ip           :string
 #  first_name                :string
 #  last_name                 :string
 #  created_at                :datetime         not null
@@ -22,22 +17,11 @@
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
 #  signature                 :text
+#  username                  :string
+#  encrypted_password        :string           default(""), not null
 #
 
 class User < ActiveRecord::Base
-  DIVISIONS = ['',
-               'Enterprise Platform and Integration Concepts',
-               'Internet-Technologien und Systeme',
-               'Human Computer Interaction',
-               'Computergrafische Systeme',
-               'Algorithm Engineering',
-               'Systemanalyse und Modellierung',
-               'Software-Architekturen',
-               'Informationssysteme',
-               'Betriebssysteme und Middleware',
-               'Business Process Technology',
-               'School of Design Thinking',
-               'Knowledge Discovery and Data Mining']
 
   LANGUAGES = [
       %w[English en],
@@ -46,7 +30,7 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
-  devise :openid_authenticatable, :trackable
+  devise :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
 
   has_many :work_days
   has_many :time_sheets
@@ -63,8 +47,10 @@ class User < ActiveRecord::Base
   validates :last_name, length: {minimum: 1}
   validates :email, length: {minimum: 1}
   validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999
-  validates_numericality_of :remaining_leave, greater_than_or_equal: 0
-  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal: 0
+  validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
+  validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
+  validates_format_of :zip_code, with: /(\A\d{5}\Z)|(\A\Z)/i
+  validates_confirmation_of :password, if: :is_superadmin?
 
 
   def name
@@ -174,6 +160,20 @@ class User < ActiveRecord::Base
           end
         end
       end
+    end
+  end
+
+  def self.search(search, chair)
+    if search.length > 0
+      results = where('first_name LIKE ? or last_name LIKE ?', "%#{search}%", "%#{search}%")
+      results = results.reject(&:is_superadmin?)
+      if chair
+        return results.reject { |u| u.is_wimi? && u.chair != chair }
+      else
+        return results.reject(&:is_wimi?)
+      end
+    else
+      return nil
     end
   end
 

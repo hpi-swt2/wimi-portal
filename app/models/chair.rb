@@ -33,6 +33,10 @@ class Chair < ActiveRecord::Base
     chair_wimis.select(&:is_admin?)
   end
 
+  def admin_users
+    admins.collect(&:user)
+  end
+
   def representative
     chair_wimis.find(&:is_representative?)
   end
@@ -42,7 +46,7 @@ class Chair < ActiveRecord::Base
     admin = User.find_by(id: admin_id)
     representative = User.find_by(id: representative_id)
 
-    if admin && representative
+    if admin && representative && !(admin.is_superadmin? || representative.is_superadmin?)
       if admin != representative
         unless admin.is_wimi? || representative.is_wimi?
           c1 = ChairWimi.new(admin: true, chair: self, user: admin, application: 'accepted')
@@ -52,6 +56,12 @@ class Chair < ActiveRecord::Base
             success = true
           end
         end
+        if adminApp = ChairWimi.find_by(user: admin, application: 'pending')
+          adminApp.destroy
+        end
+        if repApp = ChairWimi.find_by(user: representative, application: 'pending')
+          repApp.destroy
+        end
       else
         unless admin.is_wimi?
           c = ChairWimi.new(admin: true, representative: true, chair: self, user: admin, application: 'accepted')
@@ -59,6 +69,9 @@ class Chair < ActiveRecord::Base
           if save && c.save
             success = true
           end
+        end
+        if app = ChairWimi.find_by(user: admin, application: 'pending')
+          app.destroy
         end
       end
     end
@@ -70,7 +83,7 @@ class Chair < ActiveRecord::Base
     admin = User.find_by(id: admin_id)
     representative = User.find_by(id: representative_id)
 
-    if admin && representative
+    if admin && representative && !(admin.is_superadmin? || representative.is_superadmin?)
       chairwimi1 = ChairWimi.find_by(chair: self, admin: true)
       chairwimi2 = ChairWimi.find_by(chair: self, representative: true)
       if chairwimi1 != nil
@@ -89,6 +102,12 @@ class Chair < ActiveRecord::Base
             success = true
           end
         end
+        if adminApp = ChairWimi.find_by(user: admin, application: 'pending')
+          adminApp.destroy
+        end
+        if repApp = ChairWimi.find_by(user: representative, application: 'pending')
+          repApp.destroy
+        end
       else
         unless admin.is_wimi?
           c = ChairWimi.new(admin: true, representative: true, chair: self, user: admin, application: 'accepted')
@@ -96,6 +115,9 @@ class Chair < ActiveRecord::Base
           if save && c.save
             success = true
           end
+        end
+        if app = ChairWimi.find_by(user: admin, application: 'pending')
+          app.destroy
         end
       end
     end
@@ -112,6 +134,68 @@ class Chair < ActiveRecord::Base
     end
 
     return @allrequests.sort_by { |v| v[:handed_in] }.reverse
+  end
+
+  def check_correct_user(id)
+    user = User.find_by(id: id)
+    if !user || user.is_superadmin?
+      return false
+    elsif user.chair_wimi && user.chair_wimi.application == 'accepted'
+      if user.chair_wimi.chair != self
+        return false
+      end
+    end
+    return true
+  end
+
+  def set_initial_users(admins_param, representative_param)
+    success = true
+
+    admin_array = []
+    admins_param.try(:each) do |id|
+      success = check_correct_user(id[1])
+      admin_array << User.find_by(id: id[1])
+    end
+    success = check_correct_user(representative_param) if representative_param
+
+    if success
+      set_admins(admin_array)
+      set_representative(User.find_by(id: representative_param))
+      return true
+    else
+      return false
+    end
+  end
+
+  def set_admins(admin_array)
+    admins.each do |admin|
+      admin.admin = false
+      admin.save
+    end
+
+    admin_array.try(:each) do |admin|
+      chair_wimi = ChairWimi.find_by(user: admin)
+      if chair_wimi && chair_wimi.application == 'pending'
+        admin.chair_wimi.destroy
+      end
+      ChairWimi.create(chair: self, user: admin, admin: true, application: 'accepted')
+    end
+  end
+
+  def set_representative(new_representative)
+    former = representative
+    if former
+      former.representative = false
+      former.save
+    end
+
+    if new_representative
+      chair_wimi = ChairWimi.find_by(user: new_representative)
+      if chair_wimi && chair_wimi.application == 'pending'
+        new_representative.chair_wimi.destroy
+      end
+      ChairWimi.create(chair: self, user: new_representative, representative: true, application: 'accepted')
+    end
   end
 
   def add_requests(type, array, statuses)

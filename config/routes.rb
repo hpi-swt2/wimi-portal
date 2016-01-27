@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+  get 'superadmin' => 'users#superadmin_index', as: 'superadmin'
+
   resources :chair_applications
   resources :chairs
 
@@ -37,15 +41,40 @@ Rails.application.routes.draw do
 
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
-  resources :holidays
+  resources :holidays do
+    member do
+      get 'file'
+      get 'accept'
+      get 'reject'
+    end
+    get 'holidays/file', to: 'holidays#file'
+    get 'holidays/accept', to: 'holidays#accept'
+    get 'holidays/reject', to: 'holidays#reject'
+  end
 
+  resources :expenses
   resources :work_days
-  resources :time_sheets, only: [:edit, :update, :delete]
+  resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
+    member do
+      get 'hand_in'
+      get 'accept_reject'
+    end
+    get 'time_sheets/hand_in', to:'time_sheets#hand_in'
+    get 'time_sheets/accept_reject', to:'time_sheets#accept_reject'
+  end
+
   resources :travel_expense_reports
+  
   resources :trips do
     member do
       get 'download'
+      get 'file'
+      get 'reject'
+      get 'accept'
     end
+    get 'trips/file', to: 'trips#file'
+    get 'trips/reject', to: 'trips#reject'
+    get 'trips/accept', to: 'trips#accept'
   end
 
   resources :chairs
@@ -66,14 +95,18 @@ Rails.application.routes.draw do
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   # status 'saved' -> status 'applied'
-  post 'holidays/:id/hand_in', to: 'holidays#hand_in', as: 'hand_in_holiday'
+  #post 'holidays/:id/file', to: 'holidays#file', as: 'file_holiday'
+  #post 'holidays/:id/reject', to: 'holidays#reject', as: 'reject_holiday'
+  #post 'holidays/:id/accept', to: 'holidays#accept', as: 'accept_holiday'
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'
   post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
 
   post 'users/:id/upload_signature', to: 'users#upload_signature'
   post 'users/:id/delete_signature', to: 'users#delete_signature', as: 'delete_signature'
 
-  devise_for :users
+  get '/admin_search', to: 'chairs#admin_search', as: 'admin_search'
+  get '/representative_search', to: 'chairs#representative_search', as: 'representative_search'
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
+
 end

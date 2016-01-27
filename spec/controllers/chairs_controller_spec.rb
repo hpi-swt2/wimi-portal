@@ -143,8 +143,7 @@ RSpec.describe ChairsController, type: :controller do
 
   describe 'GET #new' do
     before(:each) do
-      @superadmin = FactoryGirl.create(:user)
-      @superadmin.superadmin = true
+      @superadmin = FactoryGirl.create(:user, superadmin: true)
       @user = FactoryGirl.create(:user)
     end
 
@@ -163,8 +162,7 @@ RSpec.describe ChairsController, type: :controller do
 
   describe 'POST #create' do
     before(:each) do
-      @superadmin = FactoryGirl.create(:user)
-      @superadmin.superadmin = true
+      @superadmin = FactoryGirl.create(:user, superadmin: true)
       @user = FactoryGirl.create(:user)
     end
 
@@ -172,80 +170,120 @@ RSpec.describe ChairsController, type: :controller do
       user1 = FactoryGirl.create(:user)
       login_with @superadmin
       expect {
-        post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: user1}
+        post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: user1}
       }.to change(Chair, :count).by(1)
     end
 
     it 'creates a new Chair with one user as admin and representative' do
       login_with @superadmin
       expect {
-        post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
+        post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @user}
       }.to change(Chair, :count).by(1)
     end
 
-    it 'does not create chair with wrong parameters' do
+    it 'does create a chair without admins and without representative' do
       login_with @superadmin
       chair_count = Chair.all.count
       post :create, {chair: {name: 'Test'}}
+      expect(Chair.all.count).to eq(chair_count+1)
+    end
+
+    it 'does not create chair with superadmin as admin or representative' do
+      login_with @superadmin
+      chair_count = Chair.all.count
+      post :create, {chair: {name: 'Test'}, admins: {user: @superadmin}, representative: @superadmin}
       expect(Chair.all.count).to eq(chair_count)
+    end
+
+    it 'removes pending applications if user becomes admin or representative while creating a chair' do
+      superadmin = FactoryGirl.create(:user, superadmin: true)
+      user = FactoryGirl.create(:user)
+      chair = FactoryGirl.create(:chair)
+      chairwimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(chairwimi)
+      expect(ChairWimi.find_by(user: user, application: 'accepted')).to eq(nil)
+
+      login_with superadmin
+      expect {
+        post :create, {chair: {name: 'Test'}, admins: {user: user}, representative: user}
+      }.to change(ChairWimi, :count).by(1)
+
+      expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(nil)
+      expect(ChairWimi.find_by(user: user, application: 'accepted')).to_not eq(nil)
     end
   end
 
   describe 'POST #update' do
     before(:each) do
-      @superadmin = FactoryGirl.create(:user)
-      @superadmin.superadmin = true
+      @superadmin = FactoryGirl.create(:user, superadmin: true)
       @user = FactoryGirl.create(:user)
+      @anotheruser = FactoryGirl.create(:user)
     end
 
     it 'modifies an existing chair with same admin and representative' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @user}
+      post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @user}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@user)
-      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: @superadmin, representative_user: @superadmin
+      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: @anotheruser}, representative: @anotheruser
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(0)
       expect(Chair.last.representative.user).to_not eq(@user)
-      expect(Chair.last.admins.count { |admin| (admin.user == @superadmin) }).to eq(1)
-      expect(Chair.last.representative.user).to eq(@superadmin)
+      expect(Chair.last.admins.count { |admin| (admin.user == @anotheruser) }).to eq(1)
+      expect(Chair.last.representative.user).to eq(@anotheruser)
     end
 
     it 'modifies an existing chair with different admin and representative' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
+      post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @anotheruser}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
-      expect(Chair.last.representative.user).to eq(@superadmin)
-      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: @superadmin, representative_user: @user
+      expect(Chair.last.representative.user).to eq(@anotheruser)
+      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: @anotheruser}, representative: @user
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
       expect(Chair.last.admins.count{ |admin| (admin.user == @user) }).to eq(0)
-      expect(Chair.last.representative.user).to_not eq(@superadmin)
-      expect(Chair.last.admins.count{ |admin| (admin.user == @superadmin) }).to eq(1)
+      expect(Chair.last.representative.user).to_not eq(@anotheruser)
+      expect(Chair.last.admins.count{ |admin| (admin.user == @anotheruser) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@user)
     end
 
     it 'does not modify a chair with wrong parameters' do
       login_with @superadmin
       expect(Chair.all.size).to eq(0)
-      post :create, {chair: {name: 'Test'}, admin_user: @user, representative_user: @superadmin}
+      post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @anotheruser}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
-      expect(Chair.last.representative.user).to eq(@superadmin)
+      expect(Chair.last.representative.user).to eq(@anotheruser)
 
-      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admin_user: nil, representative_user: nil
+      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: 9999999}
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
-      expect(Chair.last.representative.user).to eq(@superadmin)
+      expect(Chair.last.representative.user).to eq(@anotheruser)
+    end
+
+    it 'removes pending applications if user becomes admin or representative while modifying a chair' do
+      superadmin = FactoryGirl.create(:user, superadmin: true)
+      user = FactoryGirl.create(:user)
+      chair = FactoryGirl.create(:chair)
+      newchair = FactoryGirl.create(:chair)
+      chairwimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(chairwimi)
+      expect(ChairWimi.find_by(user: user, application: 'accepted')).to eq(nil)
+
+      login_with superadmin
+      put :update, id: newchair.id, chair: {name: 'NewTest'}, admins: {user: user}, representative: user
+
+      expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(nil)
+      expect(ChairWimi.find_by(user: user, application: 'accepted')).to_not eq(nil)
     end
   end
 

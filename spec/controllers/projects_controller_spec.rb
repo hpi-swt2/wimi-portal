@@ -196,6 +196,14 @@ RSpec.describe ProjectsController, type: :controller do
         put :invite_user, {id: project.to_param, invite_user: {email: user.email}}, valid_session
       }.to change(project.users, :count).by(0)
     end
+
+    it 'does not invite the user if user is superadmin' do
+      project = Project.create! valid_attributes
+      superadmin = FactoryGirl.create(:user, superadmin: true)
+      expect {
+        put :invite_user, {id: project.to_param, invite_user: {email: superadmin.email}}, valid_session
+      }.to change(Invitation.all, :count).by(0)
+    end
   end
 
   describe 'GET #typeahead' do

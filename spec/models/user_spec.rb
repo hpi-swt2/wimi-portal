@@ -4,11 +4,6 @@
 #
 #  id                        :integer          not null, primary key
 #  email                     :string           default(""), not null
-#  sign_in_count             :integer          default(0), not null
-#  current_sign_in_at        :datetime
-#  last_sign_in_at           :datetime
-#  current_sign_in_ip        :string
-#  last_sign_in_ip           :string
 #  first_name                :string
 #  last_name                 :string
 #  created_at                :datetime         not null
@@ -22,6 +17,8 @@
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
 #  signature                 :text
+#  username                  :string
+#  encrypted_password        :string           default(""), not null
 #
 
 require 'rails_helper'
@@ -65,5 +62,12 @@ RSpec.describe User, type: :model do
     trip_b = FactoryGirl.create(:trip, user: user)
     datespan_b = FactoryGirl.create(:trip_datespan, trip: trip_b, start_date: Date.today + 10, end_date: Date.today + 16, days_abroad: 0)
     expect(user.get_desc_sorted_datespans[0]).to eq(datespan_b)
+  end
+
+  it 'validates the zip code correctly' do
+    expect(FactoryGirl.build(:user, zip_code: '')).to be_valid
+    expect(FactoryGirl.build(:user, zip_code: '01234')).to be_valid
+    expect(FactoryGirl.build(:user, zip_code: 'abc')).to_not be_valid
+    expect(FactoryGirl.build(:user, zip_code: 'abcde')).to_not be_valid
   end
 end

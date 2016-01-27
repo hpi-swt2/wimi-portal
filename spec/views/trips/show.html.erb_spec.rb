@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'trips/show', type: :view do
   before(:each) do
-    @trip = assign(:trip, FactoryGirl.create(:trip))
+    user = FactoryGirl.create(:user)
+    @trip = assign(:trip, FactoryGirl.create(:trip, user_id: user.id))
+    sign_in user
   end
 
   it 'renders attributes in <p>' do
