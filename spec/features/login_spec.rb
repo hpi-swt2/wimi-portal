@@ -32,12 +32,10 @@ describe 'login via OpenID' do
 end
 
 describe 'login via username/password' do
-  before :each do
-    visit '/'
-    expect(page).to have_content 'Please login first'
-  end
 
   it 'should login the superadmin with his credentials' do
+    visit '/'
+    expect(page).to have_content 'Please login first'
     superadmin = FactoryGirl.create(:user, superadmin: true, username: 'wimi-admin', password: 'wimi-admin-password')
     visit superadmin_path
 
@@ -82,5 +80,12 @@ describe 'login via username/password' do
       visit route
       expect(page).to_not have_content 'Logout'
     end
+  end
+
+  it 'should not access the page if the user is already logged in' do
+    superadmin = FactoryGirl.create(:user, superadmin: true, username: 'wimi-admin', password: 'wimi-admin-password')
+    login_as superadmin
+    visit superadmin_path
+    expect(page).to have_content 'Log out first before accessing the superadmin login page.'
   end
 end
