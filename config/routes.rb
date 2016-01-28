@@ -101,6 +101,9 @@ Rails.application.routes.draw do
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'
   post 'travel_expense_reports/:id/hand_in', to: 'travel_expense_reports#hand_in', as: 'hand_in_travel_expense_report'
 
+  post 'users/:id/upload_signature', to: 'users#upload_signature'
+  post 'users/:id/delete_signature', to: 'users#delete_signature', as: 'delete_signature'
+
   get '/admin_search', to: 'chairs#admin_search', as: 'admin_search'
   get '/representative_search', to: 'chairs#representative_search', as: 'representative_search'
 

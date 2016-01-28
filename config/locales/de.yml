@@ -271,3 +271,12 @@ de:
     applied: "Urlaubsantrag bereits eingereicht"
   travel_expense_report:
     applied: "Reisekostenabrechnung bereits eingereicht"
+  users:
+    upload_signature:
+      upload_success: "Unterschrift wurde erfolgreich hochgeladen"
+      invalid_file_extension: "Bitte wählen Sie eine Datei mit einer gültigen Endung"
+      upload_error: "Bitte wählen Sie eine Datei aus"
+    delete_signature:
+      destroy_success: "Unterschrift erfolgreich gelöscht"
+
+

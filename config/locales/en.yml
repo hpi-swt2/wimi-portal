@@ -264,3 +264,10 @@ en:
   not_enough_leave: "Not enough leave left"
   travel_expense_report:
     applied: "Travel expense request is already applied"
+  users:
+    upload_signature:
+      upload_success: "Signature was successfully uploaded"
+      invalid_file_extension: "Please choose a file with a correct extension"
+      upload_error: "Please choose a file"
+    delete_signature:
+      destroy_success: "Signature successfully deleted"

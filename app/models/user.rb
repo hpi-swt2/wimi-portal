@@ -16,6 +16,7 @@
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
+#  signature                 :text
 #  username                  :string
 #  encrypted_password        :string           default(""), not null
 #
@@ -51,10 +52,6 @@ class User < ActiveRecord::Base
   validates_format_of :zip_code, with: /(\A\d{5}\Z)|(\A\Z)/i
   validates_confirmation_of :password, if: :is_superadmin?
 
-  # TODO: implement signature upload, this is a placeholder
-  def signature
-    'placeholder'
-  end
 
   def name
     "#{first_name} #{last_name}"
@@ -129,7 +126,7 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    not projects.blank? and  not is_wimi?
+    not projects.blank? and not is_wimi?
   end
 
   def is_superadmin?
@@ -186,6 +183,6 @@ class User < ActiveRecord::Base
     all_trips.each do |trip|
       datespans.push(trip.trip_datespans.first)
     end
-    datespans.sort! { |a,b| b.start_date <=> a.start_date }
+    datespans.sort! { |a, b| b.start_date <=> a.start_date }
   end
 end
