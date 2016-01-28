@@ -28,7 +28,6 @@ sendLanguageWithButtonToCallback = (clickedButton, callbackWarning) ->
       callbackWarning 'en', clickedButton
       return
 
-
 typeahead = ->
   engine = new Bloodhound(
     datumTokenizer: (d) ->
@@ -43,7 +42,6 @@ typeahead = ->
     source: engine.ttAdapter()
   return
 
-
 inviteInitUser = (locale) ->
   count = 0
   $('body').on 'click', '#invite_user', ->
@@ -53,7 +51,6 @@ inviteInitUser = (locale) ->
 
       span = document.createElement("span")
       span.id = 'user' + count
-
 
       deleteButton = document.createElement("input")
       deleteButton.type = 'RemoveButton'
@@ -71,8 +68,6 @@ inviteInitUser = (locale) ->
       newInvitation.name = 'invitations[' + count + ']'
       newInvitation.type = 'invitationEmail'
 
-
-
       span.appendChild(newInvitation)
       span.appendChild(deleteButton)
 
@@ -83,14 +78,10 @@ inviteInitUser = (locale) ->
         $('#invited_users > span').addClass('col-md-12')
         $('input[type=invitationEmail]').addClass('form-control email-invite col-md-2').attr('readonly', true)
         $('input[type=RemoveButton]').addClass('btn btn-default removeButton')
-
       ), 5
 
       count += 1
-
       $(deleteButton).on 'click',  -> deleteInvitation()
-
-
       return
     else
       if locale == 'en'
@@ -121,7 +112,5 @@ ready = ->
     sendLanguageWithButtonToCallback $('#invite_user'), inviteInitUser
   return
 
-
 $(document).ready ready
 $(document).on 'page:load', ready
-

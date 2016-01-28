@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'projects/typeahead/:query' => 'projects#typeahead', :constraints => { :query => /[^\/]+/ }
+  get 'projects/typeahead/:query', to: 'projects#typeahead', constraints: { query: /[^\/]+/ }
 
   resources :holidays do
     member do
