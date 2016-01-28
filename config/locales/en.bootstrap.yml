@@ -140,7 +140,7 @@ en:
         applied: "Applied"
         declined: "Rejected"
       signature: "Signature"
-      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not being encrypted additionally!"
+      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not be encrypted additionally!"
       upload: "Upload signature"
       information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
     edit:
