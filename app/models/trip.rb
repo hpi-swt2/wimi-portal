@@ -11,12 +11,11 @@
 #  updated_at         :datetime         not null
 #  status             :integer          default(0)
 #  signature          :boolean
+#  person_in_power_id :integer
 #  last_modified      :date
 #  date_start         :date
 #  date_end           :date
 #  days_abroad        :integer
-#  person_in_power_id :integer
-#  last_modified      :date
 #
 
 class Trip < ActiveRecord::Base
