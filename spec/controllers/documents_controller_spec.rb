@@ -19,7 +19,7 @@ RSpec.describe DocumentsController, type: :controller do
     end
 
     it 'should generate a PDF file for a travel expense reports' do
-      report = FactoryGirl.create(:travel_expense_report)
+      report = FactoryGirl.create(:expense)
       params = {doc_type: 'Reisekostenabrechnung', doc_id: report.id}
       get :generate_pdf, params
       expect(response.headers['Content-Type']).to eq('application/pdf')

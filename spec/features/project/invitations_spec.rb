@@ -12,7 +12,7 @@ describe 'project inviations' do
     chair2 = FactoryGirl.create(:chair)
     user1 = FactoryGirl.create(:user)
     representative1 = FactoryGirl.create(:chair_representative, user: user1, chair: chair2).user
-    wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: chair1, application: 'accepted')
+    wimi1 = FactoryGirl.create(:wimi, user: @user, chair: chair1, application: 'accepted')
     @project.update(chair: representative1.chair)
     expect(@user.is_wimi?).to be true
     visit "/projects/#{@project.id}"
@@ -23,7 +23,7 @@ describe 'project inviations' do
     chair1 = FactoryGirl.create(:chair)
     user1 = FactoryGirl.create(:user)
     representative1 = FactoryGirl.create(:chair_representative, user: user1, chair: chair1).user
-    wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: representative1.chair, application: 'accepted')
+    wimi1 = FactoryGirl.create(:wimi, user: @user, chair: representative1.chair, application: 'accepted')
     @project.update(chair: wimi1.chair)
     expect(@user.is_wimi?).to be true
     @user.projects << @project
@@ -66,7 +66,7 @@ describe 'project inviations' do
 
   it 'assigns the user as a wimi if he already is a wimi' do
     chair1 = FactoryGirl.create(:chair)
-    wimi1 = FactoryGirl.create(:chair_wimi, user: @user, chair: chair1, application: 'accepted')
+    wimi1 = FactoryGirl.create(:wimi, user: @user, chair: chair1, application: 'accepted')
 
     chair2 = FactoryGirl.create(:chair)
     chair2.projects << @project

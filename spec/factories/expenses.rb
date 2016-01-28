@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: travel_expense_reports
+# Table name: expenses
 #
 #  id               :integer          not null, primary key
 #  inland           :boolean
@@ -9,8 +9,6 @@
 #  location_via     :string
 #  location_to      :string
 #  reason           :text
-#  date_start       :datetime
-#  date_end         :datetime
 #  car              :boolean
 #  public_transport :boolean
 #  vehicle_advance  :boolean
@@ -21,18 +19,21 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  signature        :boolean
+#  trip_id          :integer
+#  time_start       :string
+#  time_end         :string
 #
 
 FactoryGirl.define do
-  factory :travel_expense_report do
+  factory :expense do
     inland true
     country 'Germany'
     location_from 'Potsdam'
     location_via 'London'
     location_to 'NYC'
+    time_start '12:00'
+    time_end '23:00'
     reason 'Hana Things'
-    date_start 8.days.ago
-    date_end DateTime.now
     car true
     public_transport true
     vehicle_advance false
@@ -40,20 +41,20 @@ FactoryGirl.define do
     general_advance 2000
     signature true
     user
+    trip
     after(:create) do |report|
-      report.travel_expense_report_items << FactoryGirl.build(:travel_expense_report_item, travel_expense_report: report)
+      report.expense_items << FactoryGirl.build(:expense_item, expense: report)
     end
   end
 
-  factory :travel_expense_report_invalid, class: TravelExpenseReport do
+  factory :expense_invalid, class: Expense do
     inland true
     country 'Germany'
     location_from 'Potsdam'
     location_via 'London'
     location_to 'NYC'
+    time_start '1203102:231239asda'
     reason 'Hana Things'
-    date_start DateTime.now
-    date_end 8.days.ago
     car true
     public_transport true
     vehicle_advance false
@@ -61,28 +62,23 @@ FactoryGirl.define do
     general_advance -20
     signature true
     user
+    trip
     to_create {|i| i.save(validate: false)}
   end
 
-  factory :travel_expense_report_changed, parent: :travel_expense_report do
+  factory :expense_changed, parent: :expense do
     location_from 'Berlin'
     general_advance 1337
     car false
     hotel false
     vehicle_advance true
-    date_start 5.days.ago
   end
 
-  factory :travel_expense_report_blank_name, parent: :travel_expense_report do
+  factory :expense_blank_name, parent: :expense do
     first_name ''
   end
 
-  factory :travel_expense_report_wrong_dates, parent: :travel_expense_report do
-    date_start DateTime.now
-    date_end 8.days.ago
-  end
-
-  factory :travel_expense_report_negative_advance, parent: :travel_expense_report do
+  factory :expense_negative_advance, parent: :expense do
     general_advance -10
   end
 end

@@ -61,8 +61,8 @@ class Ability
     cannot :create, ProjectApplication
     can :new, Holiday
     can :create, Holiday
-    can :new, TravelExpenseReport
-    can :create, TravelExpenseReport
+    can :new, Expense
+    can :create, Expense
     can :new, Trip
     can :create, Trip
     can :read, Trip.select { |t| t.user == user }
@@ -76,7 +76,7 @@ class Ability
     can :crud, Holiday.select { |h| h.user == user }
     can :file, Holiday.select { |h| h.user == user }
 
-    can :manage, TravelExpenseReport.select { |t| t.user == user }
+    can :manage, Expense.select { |t| t.user == user }
     can :see_holidays, User do |u|
       u == user
     end
@@ -112,7 +112,7 @@ class Ability
       t.status != ('saved' || 'declined')
     end
 
-    can :read, TravelExpenseReport.select { |t| user.is_representative?(t.user.chair) }
+    can :read, Expense.select { |t| user.is_representative?(t.user.chair) }
 
     can :see,               Chair
     can :read,              Chair do |chair|
