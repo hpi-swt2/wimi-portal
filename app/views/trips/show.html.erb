@@ -26,12 +26,12 @@
       <dd><%= @trip.destination %></dd>
       <dt><strong><%= model_class.human_attribute_name(:reason) %>:</strong></dt>
       <dd><%= @trip.reason %></dd>
-      <dt><strong><%= TripDatespan.human_attribute_name(:start_date) %>:</strong></dt>
-      <dd><%=l @trip.trip_datespans.first.start_date %><%=l @trip.trip_datespans.first.start_date, format: ' (%A)' %></dd>
-      <dt><strong><%= TripDatespan.human_attribute_name(:end_date) %>:</strong></dt>
-      <dd><%=l @trip.trip_datespans.first.end_date %><%=l @trip.trip_datespans.first.end_date, format: ' (%A)' %></dd>
-      <dt><strong><%= TripDatespan.human_attribute_name(:days_abroad) %>:</strong></dt>
-      <dd><%= @trip.trip_datespans.first.days_abroad %> <%= t('.days') %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:date_start) %>:</strong></dt>
+      <dd><%=l @trip.date_start %><%=l @trip.date_start, format: ' (%A)' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:date_end) %>:</strong></dt>
+      <dd><%=l @trip.date_end %><%=l @trip.date_end, format: ' (%A)' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:days_abroad) %>:</strong></dt>
+      <dd><%= @trip.days_abroad %> <%= t('.days') %></dd>
       <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>
       <dd><%= @trip.annotation %></dd>
       <dt><strong><%= model_class.human_attribute_name(:signature) %>:</strong></dt>
@@ -60,3 +60,18 @@
   <%= link_to t('.back', default: t("helpers.links.back")), trips_path, class: 'btn btn-default'  %>
   <%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-success' %>
 </p>
+
+<h2><%= t('.expense') %></h2>
+
+<% if @trip.has_expense? %>
+  <%= render @trip.expense %>
+  <% unless @trip.expense.status == 'applied' %>
+    <%= link_to t('helpers.links.edit'), edit_trip_expense_path(@trip,@trip.expense) , class: "btn btn-default btn-xs"%> |
+    <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
+                      hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-primary btn-primary' %>
+  <% end %>
+  <%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Reisekostenabrechnung', doc_id: @trip.expense) , class: "btn btn-success btn-xs"%>
+  <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-xs" %>
+<% else %>
+  <%= link_to t('.create_expense'), new_trip_expense_path(@trip) %>
+<% end %>

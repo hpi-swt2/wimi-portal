@@ -31,19 +31,24 @@ RSpec.describe TripsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {destination: 'NYC Conference',
-     reason: 'Hana Things',
-     annotation: 'HANA pls',
-     signature: true,
-     user: @user}
+    reason: 'Hana Things',
+    annotation: 'HANA pls',
+    date_start: Date.today,
+    date_end: Date.today+2,
+    days_abroad: 1,
+    signature: true,
+    user: @user}
   }
 
   let(:invalid_attributes) {
-    {
-        destination: '',
-        reason: 'Hana Things',
-        annotation: 'HANA pls',
-        signature: true,
-        user: FactoryGirl.create(:user)}
+    {destination: '',
+    reason: 'Hana Things',
+    annotation: 'HANA pls',
+    date_start: Date.today,
+    date_end: Date.today-10,
+    days_abroad: -20,
+    signature: true,
+    user: @user}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -109,7 +114,7 @@ RSpec.describe TripsController, type: :controller do
         user = FactoryGirl.create(:user)
         login_with(user)
         expect{
-        post :create, {trip: valid_attributes}, valid_session
+          post :create, {trip: valid_attributes}, valid_session
         }.to change(Trip, :count).by(0)
         expect(response).to redirect_to(trips_path)
       end
@@ -265,7 +270,6 @@ RSpec.describe TripsController, type: :controller do
         expect(response).to redirect_to(trips_path)
       end
     end
-
   end
 
   describe 'GET #reject' do

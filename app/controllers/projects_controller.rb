@@ -48,7 +48,7 @@ class ProjectsController < ApplicationController
   def invite_user
     user = User.find_by_email params[:invite_user][:email]
     if user.nil?
-      flash[:error] = I18n.t('project.user.doesnt_exist')
+      flash[:error] = I18n.t('users.does_not_exist')
       redirect_to @project
     else
       if Invitation.where(project: @project, user: user).size > 0

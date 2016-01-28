@@ -1,0 +1,8 @@
+<%- model_class = ExpenseItem -%>
+<li>
+  <%= model_class.human_attribute_name(:date) %>: <%= l expense_item.date %>
+  <%= model_class.human_attribute_name(:breakfast) %>: <%= t(expense_item.breakfast.to_s) %>
+  <%= model_class.human_attribute_name(:lunch) %>: <%= t(expense_item.lunch.to_s) %>
+  <%= model_class.human_attribute_name(:dinner) %>: <%= t(expense_item.dinner.to_s) %>
+  <%= model_class.human_attribute_name(:annotation) %>: <%= expense_item.annotation %>
+</li>

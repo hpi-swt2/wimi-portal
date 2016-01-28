@@ -19,3 +19,6 @@
 //= require bootstrap-typeahead-rails
 //= require turbolinks
 //= require_tree .
+
+$('.datepicker').datepicker();
+

@@ -100,6 +100,7 @@ de:
       public: "öffentlich"
       projects: "Projekte"
   users:
+    does_not_exist: "Dieser Benutzer existiert nicht."
     update:
       user_updated: "Profil erfolgreich aktualisiert"
     show:
@@ -130,6 +131,12 @@ de:
         accepted: "Akzeptiert"
         applied: "Eingereicht"
         declined: "Abgelehnt"
+      signature: "Unterschrift"
+      warning: "ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt!"
+      upload: "Unterschrift hochladen"
+      information: "Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus"
+    edit:
+      user_data: "Profilbezogene Daten"
     public_user_data:
       public_data: "Öffentliche Daten"
       projects: "Projekte"
@@ -206,16 +213,16 @@ de:
     event_time_sheet_submitted:
       view: "Ansehen"
       full_html: "%{link_to_user} hat einen Stundenzettel zur Unterschrift vorgelegt. %{link_to_view}"
-  travel_expense_reports:
-    show:
+  expenses:
+    expense:
       inland: "Inlandsreise"
       country: "Land"
       location_from: "Startort"
       location_via: "Zwischenhalt"
       location_to: "Zielort"
       reason: "Grund"
-      date_start: "Startet am"
-      date_end: "Endet am"
+      time_start: "Abfahrtszeit"
+      time_end: "Ankunftszeit"
       vehicle: "Fahrzeug"
       car: "PKW"
       public_transport: "Bus/Bahn/Flug"
@@ -227,6 +234,7 @@ de:
     show:
       id: "Id"
       destination: "Ziel"
+      duration: "Dauer: %{days} Tag(e)"
       reason: "Grund"
       annotation: "Bemerkungen"
       signature: "Unterschreiben"
@@ -243,6 +251,8 @@ de:
         accepted: "Akzeptiert am "
         applied: "Eingereicht am "
         declined: "Abgelehnt am "
+      expense: "Details für Reisekostenabrechnung"
+      create_expense: "Reisekosten eintragen"
   work_days:
     index:
       working_hours_for: "Arbeitsstunden für: "
@@ -322,14 +332,16 @@ de:
     event_request:
       holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
       trip: "%{trigger} hat einen Reiseantrag gestellt."
-      travel_expense_report: "%{trigger} hat eine Reisekostenabrechnung gestellt."
+      expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
   chairs:
+    form:
+      no_representative: "Kein FG-Beauftragter ausgewählt"
+      no_results: "Keine Ergebnisse"
     navigation:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
       apply_wimi: "Als Wimi bewerben"
       manage: "Lehrstuhl verwalten"
       show_timesheets: "Stundenzettel anzeigen"
-      show_requests: "Anfragen anzeigen"
     requests:
       apply_filter: "Filter anwenden"
       requests: "Anfragen"
@@ -357,3 +369,4 @@ de:
     chair_representative: "Fachgebietsbeauftragter"
     admin_long: "Administrator"
     hiwi_long_plural: "Studentische Hilfskräfte"
+    admin_long_plural: "Administratoren"
