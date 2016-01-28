@@ -96,7 +96,7 @@ RSpec.describe 'navigation bar', type: :view do
     before(:each) do
       chair = FactoryGirl.create(:chair)
       @user = FactoryGirl.create(:user)
-      FactoryGirl.create(:chair_wimi, user: @user, chair: chair, admin: true)
+      FactoryGirl.create(:wimi, user: @user, chair: chair, admin: true)
       login_as @user
       visit root_path
     end
