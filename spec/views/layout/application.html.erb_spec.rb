@@ -15,7 +15,7 @@ RSpec.describe 'navigation bar', type: :view do
       expect(page).to have_link('Logout', href: destroy_user_session_path)
     end
 
-#     Test for the language select, doesn't work at the moment. When javascript tests are fully funtional, it may does.
+#     Test for the language select, doesn't work at the moment. When javascript tests are fully funtional, it may work.
 #    it 'should have a select to change the language', js: true do
 #      select('Deutsch', from: 'languageSelect')
 #      page.execute_script("$('#languageSelect').trigger('change')")
