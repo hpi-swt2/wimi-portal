@@ -14,6 +14,30 @@ RSpec.describe 'navigation bar', type: :view do
     it 'should link to logout' do
       expect(page).to have_link('Logout', href: destroy_user_session_path)
     end
+
+#     Test for the language select, doesn't work at the moment. When javascript tests are fully funtional, it may work.
+#    it 'should have a select to change the language', js: true do
+#      select('Deutsch', from: 'languageSelect')
+#      page.execute_script("$('#languageSelect').trigger('change')")
+#      expect(@user).to have_attributes(language: 'de')
+#    end
+  end
+
+  context 'for a registered User' do
+    it_behaves_like 'a registered User'
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      login_as @user
+      visit root_path
+    end
+
+    it 'should link to projects' do
+      expect(page).to have_link('Projects', href: projects_path)
+    end
+
+    it 'should show 4 links' do
+      expect(page).to have_css('nav a', count: 4)
+    end
   end
 
   context 'for a superadmin' do
