@@ -26,10 +26,10 @@
 class TimeSheet < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-  enum status: [ :pending, :accepted, :rejected]
+  enum status: [:pending, :accepted, :rejected]
 
-  validates :workload_is_per_month, inclusion: { in: [true, false] }
-  validates :salary_is_per_month, inclusion: { in: [true, false] }
+  validates :workload_is_per_month, inclusion: {in: [true, false]}
+  validates :salary_is_per_month, inclusion: {in: [true, false]}
 
   def sum_hours
     hour_counter = 0

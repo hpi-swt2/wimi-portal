@@ -30,7 +30,7 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {start: Date.today, end: Date.today+1, user: @user, length: 1}
+    {start: Date.today, end: Date.today + 1, user: @user, length: 1}
   }
 
   let(:invalid_attributes) {
@@ -71,7 +71,7 @@ RSpec.describe HolidaysController, type: :controller do
       user = FactoryGirl.create(:user)
       sign_in user
       holiday = Holiday.create! valid_attributes
-      get :show, { id: holiday.to_param }, valid_session
+      get :show, {id: holiday.to_param}, valid_session
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_path)
     end
@@ -137,7 +137,7 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user: @user, length: 1, status: 'applied'}
+        {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: 1, status: 'applied'}
       }
 
       it 'updates the requested holiday' do
@@ -162,7 +162,7 @@ RSpec.describe HolidaysController, type: :controller do
       it 'calculates the length if no length is entered' do
         holiday = Holiday.create! valid_attributes
         holiday.update_attribute(:length, 2)
-        put :update, {id: holiday.to_param, holiday: {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user: @user, length: ''}}
+        put :update, {id: holiday.to_param, holiday: {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: ''}}
         holiday.reload
         expect(holiday.length).to eq(holiday.duration)
       end

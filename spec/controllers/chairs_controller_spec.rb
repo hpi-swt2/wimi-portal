@@ -5,9 +5,9 @@ RSpec.describe ChairsController, type: :controller do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
       @admin = FactoryGirl.create(:user)
-      FactoryGirl.create(:chair_wimi, user: @admin, chair: @chair, admin: true, application: 'accepted')
+      FactoryGirl.create(:wimi, user: @admin, chair: @chair, admin: true, application: 'accepted')
       @wimi = FactoryGirl.create(:user)
-      FactoryGirl.create(:chair_wimi, user: @wimi, chair: @chair, application: 'accepted')
+      FactoryGirl.create(:wimi, user: @wimi, chair: @chair, application: 'accepted')
       @user = FactoryGirl.create(:user)
       @superadmin = FactoryGirl.create(:user, superadmin: true)
     end
@@ -81,7 +81,7 @@ RSpec.describe ChairsController, type: :controller do
 
     it 'edits the chair for the chair admin' do
       user = FactoryGirl.create(:user)
-      chair_wimi = FactoryGirl.create(:chair_wimi, admin: true, user: user, chair: @chair)
+      chair_wimi = FactoryGirl.create(:wimi, admin: true, user: user, chair: @chair)
       login_with(user)
       get :edit, {id: @chair.to_param}
       expect(response).to have_http_status(302)
@@ -90,7 +90,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'does not edit the chair for another admin' do
       user = FactoryGirl.create(:user)
       chair2 = FactoryGirl.create(:chair)
-      chair_wimi = FactoryGirl.create(:chair_wimi, admin: true, user: user, chair: chair2)
+      chair_wimi = FactoryGirl.create(:wimi, admin: true, user: user, chair: chair2)
       login_with(user)
       get :edit, {id: @chair.to_param}
       expect(response).to_not have_http_status(:success)
@@ -127,9 +127,9 @@ RSpec.describe ChairsController, type: :controller do
     it 'accepts a hiwi' do
       chair = FactoryGirl.create(:chair)
       user = FactoryGirl.create(:user)
-      pending_wimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      pending_wimi = FactoryGirl.create(:wimi, user: user, chair: chair, application: 'pending')
       admin = FactoryGirl.create(:user)
-      FactoryGirl.create(:chair_wimi, user: admin, chair: chair, admin: true, application: 'accepted')
+      FactoryGirl.create(:wimi, user: admin, chair: chair, admin: true, application: 'accepted')
 
       login_with admin
       old_wimi_amount = chair.wimis.count
@@ -185,7 +185,7 @@ RSpec.describe ChairsController, type: :controller do
       login_with @superadmin
       chair_count = Chair.all.count
       post :create, {chair: {name: 'Test'}}
-      expect(Chair.all.count).to eq(chair_count+1)
+      expect(Chair.all.count).to eq(chair_count + 1)
     end
 
     it 'does not create chair with superadmin as admin or representative' do
@@ -199,7 +199,7 @@ RSpec.describe ChairsController, type: :controller do
       superadmin = FactoryGirl.create(:user, superadmin: true)
       user = FactoryGirl.create(:user)
       chair = FactoryGirl.create(:chair)
-      chairwimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      chairwimi = FactoryGirl.create(:wimi, user: user, chair: chair, application: 'pending')
       expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(chairwimi)
       expect(ChairWimi.find_by(user: user, application: 'accepted')).to eq(nil)
 
@@ -275,7 +275,7 @@ RSpec.describe ChairsController, type: :controller do
       user = FactoryGirl.create(:user)
       chair = FactoryGirl.create(:chair)
       newchair = FactoryGirl.create(:chair)
-      chairwimi = FactoryGirl.create(:chair_wimi, user: user, chair: chair, application: 'pending')
+      chairwimi = FactoryGirl.create(:wimi, user: user, chair: chair, application: 'pending')
       expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(chairwimi)
       expect(ChairWimi.find_by(user: user, application: 'accepted')).to eq(nil)
 
@@ -331,7 +331,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'shows all requests of chair' do
       FactoryGirl.create(:holiday, user: @representative, status: 1)
       FactoryGirl.create(:trip, user: @representative, status: 1)
-      FactoryGirl.create(:travel_expense_report, user: @representative, status: 1)
+      FactoryGirl.create(:expense, user: @representative, status: 1)
       FactoryGirl.create(:holiday, user: @user, status: 1)
       sign_in @representative
       get :requests, {id: @chair}
@@ -341,7 +341,7 @@ RSpec.describe ChairsController, type: :controller do
     it 'shows some filtered requests of chair' do
       FactoryGirl.create(:holiday, user_id: @representative.id, status: 1)
       FactoryGirl.create(:trip, user_id: @representative.id, status: 1)
-      FactoryGirl.create(:travel_expense_report, user_id: @representative.id, status: 1)
+      FactoryGirl.create(:expense, user_id: @representative.id, status: 1)
       FactoryGirl.create(:holiday, user_id: @user.id, status: 1)
       sign_in @representative
       get :requests_filtered, {id: @chair, holiday: true, applied: true}

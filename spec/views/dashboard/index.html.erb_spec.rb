@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'dashboard/index.html.erb', type: :view do
   before :each do
     @user = FactoryGirl.create(:user)
-    sign_in @user
   end
 
   it 'displays the projects of the user' do
@@ -59,7 +58,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     project = FactoryGirl.create(:project)
     time_sheet = FactoryGirl.create(:time_sheet, user_id: hiwi.id, project_id: project.id)
     time_sheet.update(signer: @user.id)
-    ActiveSupport::Notifications.instrument("event", {trigger: time_sheet.id, target: hiwi.id, seclevel: :hiwi, type: 'EventTimeSheetAccepted'})
+    ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: hiwi.id, seclevel: :hiwi, type: 'EventTimeSheetAccepted'})
 
     visit dashboard_path
     expect(page.body).to have_content(@user.name)

@@ -20,6 +20,6 @@ class EventTravelRequestAccepted < Event
 
   def set_defaults
     self.seclevel = :wimi
-    self.type = "EventTravelRequestAccepted"
+    self.type = 'EventTravelRequestAccepted'
   end
 end

@@ -100,6 +100,7 @@ de:
       public: "öffentlich"
       projects: "Projekte"
   users:
+    does_not_exist: "Dieser Benutzer existiert nicht."
     update:
       user_updated: "Profil erfolgreich aktualisiert"
     show:
@@ -108,7 +109,6 @@ de:
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"
-      work_times: "Arbeitszeiten"
       remaining_leave: "Verbleibender Resturlaub: %{leave} Tag(e)"
       remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
       days: "Tag(e)"
@@ -131,6 +131,12 @@ de:
         accepted: "Akzeptiert"
         applied: "Eingereicht"
         declined: "Abgelehnt"
+      signature: "Unterschrift"
+      warning: "ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt!"
+      upload: "Unterschrift hochladen"
+      information: "Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus"
+    edit:
+      user_data: "Profilbezogene Daten"
     public_user_data:
       public_data: "Öffentliche Daten"
       projects: "Projekte"
@@ -209,16 +215,16 @@ de:
     event_time_sheet_submitted:
       view: "Ansehen"
       full_html: "%{link_to_user} hat einen Stundenzettel zur Unterschrift vorgelegt. %{link_to_view}"
-  travel_expense_reports:
-    show:
+  expenses:
+    expense:
       inland: "Inlandsreise"
       country: "Land"
       location_from: "Startort"
       location_via: "Zwischenhalt"
       location_to: "Zielort"
       reason: "Grund"
-      date_start: "Startet am"
-      date_end: "Endet am"
+      time_start: "Abfahrtszeit"
+      time_end: "Ankunftszeit"
       vehicle: "Fahrzeug"
       car: "PKW"
       public_transport: "Bus/Bahn/Flug"
@@ -230,6 +236,7 @@ de:
     show:
       id: "Id"
       destination: "Ziel"
+      duration: "Dauer: %{days} Tag(e)"
       reason: "Grund"
       annotation: "Bemerkungen"
       signature: "Unterschreiben"
@@ -239,6 +246,8 @@ de:
       file: "Antrag einreichen"
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
+      expense: "Details für Reisekostenabrechnung"
+      create_expense: "Reisekosten eintragen"
   work_days:
     index:
       working_hours_for: "Arbeitsstunden für: "
@@ -318,7 +327,7 @@ de:
     event_request:
       holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
       trip: "%{trigger} hat einen Reiseantrag gestellt."
-      travel_expense_report: "%{trigger} hat eine Reisekostenabrechnung gestellt."
+      expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
   chairs:
     form:
       no_representative: "Kein FG-Beauftragter ausgewählt"
@@ -354,5 +363,5 @@ de:
     wimi_long_plural: "Wissenschaftliche Mitarbeiter"
     chair_representative: "Fachgebietsbeauftragter"
     admin_long: "Administrator"
-    admin_long_plural: "Administratoren"
     hiwi_long_plural: "Studentische Hilfskräfte"
+    admin_long_plural: "Administratoren"

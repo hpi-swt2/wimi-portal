@@ -23,7 +23,7 @@ RSpec.describe DashboardController, type: :controller do
     project = FactoryGirl.create(:project, chair: chair)
     user = FactoryGirl.create(:hiwi)
     time_sheet = FactoryGirl.create(:time_sheet, user_id: user.id, project_id: project.id)
-    60.times do |i|
+    60.times do |_i|
       ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: project.id, seclevel: :wimi, type: 'EventTimeSheetSubmitted'})
     end
 
