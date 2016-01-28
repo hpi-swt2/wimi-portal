@@ -8,7 +8,6 @@ RSpec.describe 'expenses/new', type: :view do
                                      country: 'MyString',
                                      location_from: 'MyString',
                                      location_via: 'MyString',
-                                     location_to: 'MyString',
                                      reason: 'MyText',
                                      car: false,
                                      public_transport: false,
@@ -28,8 +27,6 @@ RSpec.describe 'expenses/new', type: :view do
       assert_select 'input#expense_location_from[name=?]', 'expense[location_from]'
 
       assert_select 'input#expense_location_via[name=?]', 'expense[location_via]'
-
-      assert_select 'input#expense_location_to[name=?]', 'expense[location_to]'
 
       assert_select 'textarea#expense_reason[name=?]', 'expense[reason]'
 

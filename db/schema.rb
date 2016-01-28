@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127103107) do
+ActiveRecord::Schema.define(version: 20160128142238) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 20160127103107) do
     t.string   "country"
     t.string   "location_from"
     t.string   "location_via"
-    t.string   "location_to"
     t.text     "reason"
     t.boolean  "car"
     t.boolean  "public_transport"
