@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 20160127103107) do
     t.string   "encrypted_password",        default: "",    null: false
     t.string   "city"
     t.string   "zip_code"
+    t.text     "signature"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

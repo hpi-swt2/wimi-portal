@@ -108,7 +108,6 @@ de:
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"
-      work_times: "Arbeitszeiten"
       remaining_leave: "Verbleibender Resturlaub: %{leave} Tag(e)"
       remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
       days: "Tag(e)"
@@ -131,6 +130,12 @@ de:
         accepted: "Akzeptiert"
         applied: "Eingereicht"
         declined: "Abgelehnt"
+      signature: "Unterschrift"
+      warning: "ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt!"
+      upload: "Unterschrift hochladen"
+      information: "Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus"
+    edit:
+      user_data: "Profilbezogene Daten"
     public_user_data:
       public_data: "Öffentliche Daten"
       projects: "Projekte"
@@ -355,5 +360,5 @@ de:
     wimi_long_plural: "Wissenschaftliche Mitarbeiter"
     chair_representative: "Fachgebietsbeauftragter"
     admin_long: "Administrator"
-    admin_long_plural: "Administratoren"
     hiwi_long_plural: "Studentische Hilfskräfte"
+    admin_long_plural: "Administratoren"

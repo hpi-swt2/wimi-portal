@@ -280,3 +280,10 @@ de:
     applied: "Reisekostenabrechnung bereits eingereicht"
     destroyed: "Reisekostenabrechnung wurde erfolgreich gelöscht"
     apply: "Reisekostenabrechnung wurde erfolgreich eingereicht"
+  users:
+    upload_signature:
+      upload_success: "Unterschrift wurde erfolgreich hochgeladen"
+      invalid_file_extension: "Bitte wählen Sie eine Datei mit einer gültigen Endung"
+      upload_error: "Bitte wählen Sie eine Datei aus"
+    delete_signature:
+      destroy_success: "Unterschrift erfolgreich gelöscht"

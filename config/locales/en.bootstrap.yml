@@ -117,7 +117,6 @@ en:
       holiday_requests: "Holiday Requests"
       request_holiday: "Request Holiday"
       user_data: "User Data"
-      work_times: "Working Times"
       remaining_leave: "Remaining Leave: %{leave} Day(s)"
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       days: "Day(s)"
@@ -127,7 +126,7 @@ en:
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
-      time_sheets_overview: "time sheet overview"
+      time_sheets_overview: "Time sheet overview"
       hiwi: "research assistants"
       month: "month"
       number_of_hours: "number of hours"
@@ -140,6 +139,12 @@ en:
         accepted: "Accepted"
         applied: "Applied"
         declined: "Rejected"
+      signature: "Signature"
+      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not be encrypted additionally!"
+      upload: "Upload signature"
+      information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
+    edit:
+      user_data: "User Data"
     public_user_data:
       public_data: "Public Data"
       projects: "Projects"
@@ -330,7 +335,7 @@ en:
       holiday: "%{trigger} created a holiday request."
       trip: "%{trigger} created a trip request."
       expense: "%{trigger} created a travel expense request."
-  chairs:   
+  chairs:
     form:
       no_representative: "No representative selected"
       no_results: "No results"
