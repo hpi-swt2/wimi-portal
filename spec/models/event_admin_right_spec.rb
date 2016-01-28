@@ -18,11 +18,13 @@ require 'rails_helper'
 RSpec.describe EventAdminRight, type: :model do
   describe 'GET #index' do
     it 'sets defaults for seclevel and type' do
-      chair = FactoryGirl.create(:chair)
-      trigger = FactoryGirl.create(:user)
-      target = FactoryGirl.create(:user)
+      chair = FactoryGirl.build_stubbed(:chair)
+      trigger = FactoryGirl.build_stubbed(:user)
+      target = FactoryGirl.build_stubbed(:user)
       event = EventAdminRight.create(trigger_id: trigger.id, target_id: target.id, chair_id: chair.id)
+
       expect(event.seclevel).to eq('admin')
+      expect(event.type).to eq('EventAdminRight')
     end
   end
 end
