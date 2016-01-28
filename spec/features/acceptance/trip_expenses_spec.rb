@@ -22,8 +22,8 @@ describe 'trips and expenses', type: feature do
     expect(page).to have_content I18n.t('activerecord.attributes.trip.days_abroad')
     fill_in(I18n.t('activerecord.attributes.trip.destination'), :with => 'Orlando, Florida')
     fill_in(I18n.t('activerecord.attributes.trip.reason'), :with => 'Conference')
-    fill_in "trip_date_start", with: Date.today #don't run if datepicker was implemented
-    fill_in "trip_date_end", with: Date.today+10 #don't run if datepicker was implemented
+    fill_in "trip_date_start", with: I18n.l(Date.today, locale: 'en') #don't run if datepicker was implemented
+    fill_in "trip_date_end", with: I18n.l(Date.today+10, locale: 'en') #don't run if datepicker was implemented
     fill_in("trip_days_abroad", with: 1)
     click_on(I18n.t('helpers.submit.create', model: I18n.t('activerecord.models.trip.one')))
     expect(page).to have_content I18n.t('trip.save')

@@ -31,6 +31,7 @@ class TripsController < ApplicationController
   end
 
   def create
+    parse_date
     @trip = Trip.new(trip_params)
     @trip.user = current_user
 
@@ -43,6 +44,7 @@ class TripsController < ApplicationController
   end
 
   def update
+    parse_date
     @trip.update(status: 'saved')
     if @trip.update(trip_params)
       redirect_to @trip
@@ -105,5 +107,10 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(Trip.column_names.map(&:to_sym))
+  end
+
+  def parse_date
+    params['trip']['date_start'] = Date.strptime(params['trip']['date_start'], t('date.formats.default'))
+    params['trip']['date_end'] = Date.strptime(params['trip']['date_end'], t('date.formats.default'))
   end
 end
