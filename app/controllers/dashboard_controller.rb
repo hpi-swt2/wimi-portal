@@ -1,5 +1,9 @@
 class DashboardController < ApplicationController
   def index
+    #activities are events you dont necessarily need to react to
+    # => get destroyed if they're not under the newest 50
+    #notifications are events you need to react to
+    # => get destroyed when you react to them
     @activities = []
     @notifications = []
     temp = []
