@@ -29,13 +29,13 @@
     <tr>
       <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
       <td>
-        <div class="control-group">
-        <%= f.text_field :date_start, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @trip.date_start ? l(@trip.date_start) : nil   %>
+        <div class="controls">
+          <%= f.text_field :date_start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @trip.date_start ? l(@trip.date_start) : nil  %>
         </div>
       </td>
       <td>
-        <div class="control-group">
-        <%= f.text_field :date_end, required: false, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @trip.date_end ? l(@trip.date_end) : nil   %>
+        <div class="controls">
+          <%= f.text_field :date_end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @trip.date_end ? l(@trip.date_end) : nil  %>
         </div>
       </td>
       <td><%= f.number_field :days_abroad %></td>
@@ -51,6 +51,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit nil,class: "btn btn-primary"%>
+    <%= f.submit nil, class: "btn btn-primary"%>
   </div>
 <% end %>

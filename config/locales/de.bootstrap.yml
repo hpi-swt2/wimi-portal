@@ -247,6 +247,13 @@ de:
       file: "Antrag einreichen"
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
+      filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
+      days: "Tag(e)"
+      status:
+        saved: "Gespeichert am "
+        accepted: "Akzeptiert am "
+        applied: "Eingereicht am "
+        declined: "Abgelehnt am "
       expense: "Details für Reisekostenabrechnung"
       create_expense: "Reisekosten eintragen"
   work_days:

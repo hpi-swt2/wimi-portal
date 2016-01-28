@@ -86,7 +86,7 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-
+    
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
@@ -98,7 +98,7 @@ class Ability
     can :accept, Holiday.select {|h| h.user != user}
     can :read,   Holiday do |h|
       user.is_representative?(h.user.chair)
-      h.status != ('saved' || 'declined')
+      h.status != 'saved' && h.status != 'declined'
     end
 
     can :read,      Trip.select { |t| user.is_representative?(t.user.chair) }
@@ -109,7 +109,7 @@ class Ability
     end
     can :read,      Trip do |t|
       user.is_representative?(t.user.chair)
-      t.status != ('saved' || 'declined')
+      t.status != 'saved' && t.status != 'declined'
     end
 
     can :read, Expense.select { |t| user.is_representative?(t.user.chair) }

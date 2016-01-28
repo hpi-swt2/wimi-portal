@@ -91,8 +91,8 @@ en:
         status: "Status"
         user_id: "User"
         created_at: "Created at"
-        date_end: "Start at"
-        date_start: "End at"
+        date_end: "End at"
+        date_start: "Start at"
         days_abroad: "Days abroad"
       trip_datespan:
         start_date: "Start at"
