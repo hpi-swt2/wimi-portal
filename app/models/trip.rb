@@ -16,6 +16,7 @@
 #  date_end           :date
 #  days_abroad        :integer
 #  person_in_power_id :integer
+#  last_modified      :date
 #
 
 class Trip < ActiveRecord::Base
@@ -63,15 +64,5 @@ class Trip < ActiveRecord::Base
     if date_start && date_end && date_end < date_start
       errors.add(:date_start, "can't be before date_end")
     end
-  end
-
-  def accept(accepter)
-    self.update(person_in_power_id: accepter.id, status: :accepted)
-    ActiveSupport::Notifications.instrument('event', {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestAccepted"})
-  end
-
-  def decline(decliner)
-    self.update(person_in_power_id: decliner.id, status: :declined)
-    ActiveSupport::Notifications.instrument('event', {trigger: self.id, target: self.user.id, seclevel: :wimi, type: "EventTravelRequestDeclined"})
   end
 end
