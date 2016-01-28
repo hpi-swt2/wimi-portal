@@ -21,15 +21,12 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    2.times { @trip.trip_datespans.build }
   end
 
   def edit
     if @trip.status == 'applied'
       redirect_to @trip
       flash[:error] = I18n.t('trip.applied')
-    else
-      fill_blank_items
     end
   end
 
@@ -41,7 +38,6 @@ class TripsController < ApplicationController
       redirect_to @trip
       flash[:success] = I18n.t('trip.save')
     else
-      fill_blank_items
       render :new
     end
   end
@@ -52,7 +48,6 @@ class TripsController < ApplicationController
       redirect_to @trip
       flash[:success] = I18n.t('trip.update')
     else
-      fill_blank_items
       render :edit
     end
   end
@@ -109,10 +104,6 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(Trip.column_names.map(&:to_sym), trip_datespans_attributes: [:id, :start_date, :end_date, :days_abroad])
-  end
-
-  def fill_blank_items
-    (2 - @trip.trip_datespans.size).times { @trip.trip_datespans.build }
+    params.require(:trip).permit(Trip.column_names.map(&:to_sym))
   end
 end

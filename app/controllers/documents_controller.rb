@@ -27,7 +27,7 @@ class DocumentsController < ApplicationController
     when 'Urlaubsantrag'
       @tmp_vars[:holiday] = Holiday.find(params[:doc_id])
     when 'Reisekostenabrechnung'
-      @tmp_vars[:report] = TravelExpenseReport.find(params[:doc_id])
+      @tmp_vars[:report] = Expense.find(params[:doc_id])
       @tmp_vars[:reason_splitted] = @tmp_vars[:report].reason.split("\n")
     else
       raise NotImplementedError

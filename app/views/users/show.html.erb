@@ -185,50 +185,50 @@
 
 <% if can? :see_trips, @user %>
     <%= form_for(@user) do |f| %>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <div class="row">
-              <div class="col-md-6">
-                <h4><%= t('.business_trips') %></h4>
-              </div>
-              <div class="col-md-6 text text-right">
-                <% if @user == current_user %>
-                    <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %>
-                <% end %>
-              </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-md-6">
+              <h4><%= t('.business_trips') %></h4>
             </div>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th><%= t('activerecord.attributes.trip.destination') %></th>
-                  <th><%= t('activerecord.attributes.trip_datespan.start_date') %></th>
-                  <th><%= t('activerecord.attributes.trip_datespan.end_date') %></th>
-                  <th><%= t('activerecord.attributes.trip.status') %></th>
-                  <th><%= t('helpers.actions') %></th>
-                </tr>
-                </thead>
-                <tbody>
-                <% @datespans.each do |span| %>
-                    <tr>
-                      <td><%= Trip.find(span.trip_id).destination %></td>
-                      <td><%= l span.start_date %></td>
-                      <td><%= l span.end_date %></td>
-                      <td><%= Trip.find(span.trip_id).status %></td>
-                      <td>
-                        <%= link_to t("helpers.links.show_details"),
-                                    trip_path(Trip.find(span.trip_id)), class: 'btn btn-default btn-xs' %><br>
-                        <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: Trip.find(span.trip_id)), class: 'btn btn-default btn-xs' %>
-                      </td>
-                    </tr>
-                <% end %>
-                </tbody>
-              </table>
+            <div class="col-md-6 text text-right">
+              <% if @user == current_user %>
+                  <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %>
+              <% end %>
             </div>
           </div>
         </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th><%= t('activerecord.attributes.trip.destination') %></th>
+                  <th><%= t('activerecord.attributes.trip.date_start') %></th>
+                  <th><%= t('activerecord.attributes.trip.date_end') %></th>
+                  <th><%= t('activerecord.attributes.trip.status') %></th>
+                  <th><%= t('helpers.actions') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @trips.each do |trip| %>
+                  <tr>
+                    <td><%= trip.destination %></td>
+                    <td><%=l trip.date_start %></td>
+                    <td><%=l trip.date_end %></td>
+                    <td><%= trip.status %></td>
+                    <td>
+                      <%= link_to t("helpers.links.show_details"),
+                                  trip_path(trip), class: 'btn btn-default btn-xs' %><br>
+                      <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: trip), class: 'btn btn-default btn-xs' %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     <% end %>
 <% end %>
 

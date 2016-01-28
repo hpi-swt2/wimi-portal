@@ -165,11 +165,11 @@ aber nicht seperat aus privaten Mitteln bezahlt worden sind
     <td width=40>A</td>
     <td width=140>&nbsp;</td>
   </tr>
-  <% report.travel_expense_report_items.each do |report_item|%>
+  <% report.expense_items.each do |report_item|%>
     <tr>
       <td>
         <div class="underlined-field">
-          <%= report_item.date %>
+          <%=l report_item.date, locale: :de%>
         </div>
       </td>
       <td><input type='checkbox' <%= report_item.breakfast ? "checked" : "" %> ></input></td>
@@ -178,20 +178,6 @@ aber nicht seperat aus privaten Mitteln bezahlt worden sind
       <td style="text-align:center">&nbsp;&nbsp;&nbsp;<%= report_item.annotation %>&nbsp;&nbsp;&nbsp;</td>
     </tr>
   <% end %>
-  <% (9 - report.travel_expense_report_items.size).times do |i| %>
-    <tr>
-      <td>
-        <div class="underlined-field">
-          &nbsp;
-        </div>
-      </td>
-      <td><input type='checkbox'></input></td>
-      <td><input type='checkbox'></input></td>
-      <td><input type='checkbox'></input></td>
-      <td>&nbsp;</td>
-    </tr>
-  <% end %>
-  <!-- For loop (9 times) -->
   <tr>
     <td colspan=5 style='text-align:left'>
       (F - Frühstück, M - Mittagessen, A - Abendessen)
@@ -206,7 +192,7 @@ aber nicht seperat aus privaten Mitteln bezahlt worden sind
 Nein <input type='checkbox' <%= report.general_advance <= 0 ? "checked" : "" %> ></input><br/><br/>
 &nbsp; Höhe:
 <div class='input-block' style='margin-left: 5px; display: inline; border-bottom:solid 1.0pt'>
-  <span><%= report.general_advance <= 0 ? "" : report.general_advance %></span>
+  <span><%= report.general_advance <= 0 ? "" : report.general_advance.to_s + "€"%></span>
 </div>
 <p style='margin:0px'>&nbsp;</p>
 
