@@ -256,6 +256,13 @@ en:
       file: "File Request"
       reject: "Reject Request"
       accept: "Accept Request"
+      filed_request_cant_be_edited: "A filed request can't be edited"
+      days: "Day(s)"
+      status:
+        saved: "Saved at "
+        accepted: "Accepted at "
+        applied: "Applied at "
+        declined: "Rejected at "
       expense: "Details for trip expenses"
       create_expense: "Create trip expense"
   work_days:
