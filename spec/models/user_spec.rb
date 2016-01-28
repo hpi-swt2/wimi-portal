@@ -10,7 +10,6 @@
 #  updated_at                :datetime         not null
 #  identity_url              :string
 #  language                  :string           default("en"), not null
-#  residence                 :string
 #  street                    :string
 #  personnel_number          :integer          default(0)
 #  remaining_leave           :integer          default(28)
@@ -19,6 +18,8 @@
 #  signature                 :text
 #  username                  :string
 #  encrypted_password        :string           default(""), not null
+#  city                      :string
+#  zip_code                  :string
 #
 
 require 'rails_helper'
