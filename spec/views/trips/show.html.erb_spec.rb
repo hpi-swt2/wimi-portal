@@ -4,7 +4,6 @@ RSpec.describe 'trips/show', type: :view do
   before(:each) do
     user = FactoryGirl.create(:user)
     @trip = assign(:trip, FactoryGirl.create(:trip, user_id: user.id))
-    trip_datespan = FactoryGirl.create(:trip_datespan, trip: @trip)
     sign_in user
   end
 
