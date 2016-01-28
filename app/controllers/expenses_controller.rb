@@ -17,13 +17,6 @@ class ExpensesController < ApplicationController
     create_items
   end
 
-  def edit
-    if @expense.status == 'applied'
-      redirect_to trip_path(@expense.trip)
-      flash[:error] = I18n.t('expense.applied')
-    end
-  end
-
   def create
     @expense = Expense.new(expense_params)
     @expense.trip = @trip
@@ -38,6 +31,13 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def edit
+    if @expense.status == 'applied'
+      redirect_to trip_path(@expense.trip)
+      flash[:error] = I18n.t('expense.applied')
+    end
+  end
+
   def update
     if @expense.update(expense_params)
       redirect_to trip_path(@expense.trip)
@@ -45,15 +45,6 @@ class ExpensesController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def hand_in
-    if @expense.status == 'saved'
-      if @expense.update(status: 'applied')
-        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @expense.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'expense'})
-      end
-    end
-    redirect_to trip_path(@expense.trip)
   end
 
   def destroy
@@ -66,6 +57,15 @@ class ExpensesController < ApplicationController
       redirect_to trip_url(trip)
       flash[:success] = I18n.t('expense.destroyed')
     end
+  end
+
+  def hand_in
+    if @expense.status == 'saved'
+      if @expense.update(status: 'applied')
+        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @expense.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'expense'})
+      end
+    end
+    redirect_to trip_path(@expense.trip)
   end
 
   private
