@@ -17,6 +17,7 @@ class Ability
   end
 
   def initialize_user(_user)
+    can :see, Project
     can :index, Chair
     can :apply, Chair
     can :read, Project do |project|
@@ -28,6 +29,7 @@ class Ability
   end
 
   def initialize_hiwi(user)
+    can :see, Project
     cannot :create, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
@@ -84,45 +86,52 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-    can :read, Holiday do |h|
-      user.is_representative?(h.user.chair)
-      h.status != ('saved' || 'declined')
-    end
+
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
-    can :reject, Holiday.select {|h| h.user != user}
-    can :accept, Holiday.select {|h| h.user != user}
-    can :read, Trip.select { |t| user.is_representative?(t.user.chair) }
-    can :read, Expense.select { |t| user.is_representative?(t.user.chair) }
-    can :read, Chair do |chair|
-      user.is_representative?(chair)
-    end
-    can :requests, Chair do |chair|
-      user.is_representative?(chair)
-    end
-    can :read, Trip do |t|
-      user.is_representative?(t.user.chair)
-      t.status != ('saved' || 'declined')
-    end
-    can :see_trips, User do |chair_user|
+    can :see_trips,    User do |chair_user|
       chair_user.chair == user.chair
     end
+
+    can :reject, Holiday.select {|h| h.user != user}
+    can :accept, Holiday.select {|h| h.user != user}
+    can :read,   Holiday do |h|
+      user.is_representative?(h.user.chair)
+      h.status != ('saved' || 'declined')
+    end
+
+    can :read,      Trip.select { |t| user.is_representative?(t.user.chair) }
+    can :reject,    Trip
+    can :accept,    Trip
     can :edit_trip, Trip do |trip|
       trip.status != 'saved'
     end
-    can :add_requests, Chair do |chair|
+    can :read,      Trip do |t|
+      user.is_representative?(t.user.chair)
+      t.status != ('saved' || 'declined')
+    end
+
+    can :read, Expense.select { |t| user.is_representative?(t.user.chair) }
+
+    can :see,               Chair
+    can :read,              Chair do |chair|
+      user.is_representative?(chair)
+    end
+    can :requests,          Chair do |chair|
+      user.is_representative?(chair)
+    end
+    can :add_requests,      Chair do |chair|
       user.is_representative?(chair)
     end
     can :requests_filtered, Chair do |chair|
       user.is_representative?(chair)
     end
-    can :reject, Trip
-    can :accept, Trip
   end
 
   def initialize_admin(user)
     initialize_wimi user
+
     can :read,              Chair do |chair|
       user.is_admin?(chair)
     end
@@ -138,15 +147,18 @@ class Ability
     can :withdraw_admin,    Chair do |chair|
       user.is_admin?(chair)
     end
+    can :see,               Chair
     #can :manage, own chair
     #can accept application from wimi to project
     #can remove wimis from project
   end
 
   def initialize_superadmin(_user)
-    can :manage,      Chair
-    cannot :show,    Chair
-    cannot :create, ProjectApplication
+    can     :manage,   Chair
+    cannot  :see,      Chair
+    cannot  :show,     Chair
+
+    cannot  :create,   ProjectApplication
     #assign representative/admin role to user
   end
 end
