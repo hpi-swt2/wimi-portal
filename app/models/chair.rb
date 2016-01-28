@@ -175,8 +175,8 @@ class Chair < ActiveRecord::Base
 
     admin_array.try(:each) do |admin|
       chair_wimi = ChairWimi.find_by(user: admin)
-      if chair_wimi && chair_wimi.application == 'pending'
-        admin.chair_wimi.destroy
+      if chair_wimi
+          admin.chair_wimi.destroy
       end
       ChairWimi.create(chair: self, user: admin, admin: true, application: 'accepted')
     end
@@ -191,10 +191,16 @@ class Chair < ActiveRecord::Base
 
     if new_representative
       chair_wimi = ChairWimi.find_by(user: new_representative)
-      if chair_wimi && chair_wimi.application == 'pending'
-        new_representative.chair_wimi.destroy
+      if chair_wimi
+        if chair_wimi.application == 'pending'
+          chair_wimi.destroy
+        else
+          chair_wimi.representative = true
+          chair_wimi.save
+        end
+      else
+        ChairWimi.create(chair: self, user: new_representative, representative: true, application: 'accepted')
       end
-      ChairWimi.create(chair: self, user: new_representative, representative: true, application: 'accepted')
     end
   end
 

@@ -20,6 +20,10 @@ class UsersController < ApplicationController
   end
 
   def superadmin_index
+    unless current_user.nil?
+      flash[:error] = t('.logout_before_access_superadmin_page')
+      redirect_to root_path
+    end
   end
 
   def resource_name

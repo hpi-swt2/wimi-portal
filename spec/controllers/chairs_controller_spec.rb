@@ -206,7 +206,7 @@ RSpec.describe ChairsController, type: :controller do
       login_with superadmin
       expect {
         post :create, {chair: {name: 'Test'}, admins: {user: user}, representative: user}
-      }.to change(ChairWimi, :count).by(1)
+      }.to change(ChairWimi, :count).by(0)
 
       expect(ChairWimi.find_by(user: user, application: 'pending')).to eq(nil)
       expect(ChairWimi.find_by(user: user, application: 'accepted')).to_not eq(nil)
