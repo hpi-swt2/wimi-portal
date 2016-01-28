@@ -20,6 +20,6 @@ class EventProjectInvitation < Event
 
   def set_defaults
     self.seclevel = :hiwi
-    self.type = "EventProjectInvitation"
+    self.type = 'EventProjectInvitation'
   end
 end

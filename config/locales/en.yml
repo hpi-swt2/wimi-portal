@@ -91,11 +91,14 @@ en:
         status: "Status"
         user_id: "User"
         created_at: "Created at"
+        date_end: "Start at"
+        date_start: "End at"
+        days_abroad: "Days abroad"
       trip_datespan:
         start_date: "Start at"
         end_date: "End at"
         days_abroad: "Days abroad"
-      travel_expense_report:
+      expense:
         inland: "Inland Travel"
         country: "Country"
         location_from: "Starting in"
@@ -104,14 +107,15 @@ en:
         reason: "Reason"
         date_start: "Start at"
         vehicle: "Vehicle"
-        date_end: "End at:"
+        time_start: "Depart by"
+        time_end: "Arrive by"
         car: "Travel by car"
         public_transport: "Travel by Bus/Train/Plane"
         vehicle_advance: "Travel paid by HPI"
         hotel: "Hotel"
         general_advance: "Advance"
         signature: "Add signature?"
-      travel_expense_report_item:
+      expense_item:
         date: "Date"
         breakfast: "Breakfast"
         lunch: "Lunch"
@@ -160,7 +164,7 @@ en:
         workload: "Workload"
     errors:
       models:
-        travel_expense_report:
+        expense:
           attributes:
             location_from:
               blank: "cannot be blank."
@@ -169,7 +173,13 @@ en:
             general_advance:
               blank: "cannot be blank."
               not_a_number: "has to be a whole number."
-              greater_than_or_equal_to: "must not be negative"
+              greater_than_or_equal_to: "must not be negative."
+            time:
+              format: "must be of format HH:MM."
+            time_start:
+              blank: "cannot be blank."
+            time_end:
+              blank: "cannot be blank."
         holiday:
           too_far_in_the_future: ' is too far in the future.'
           attributes:
@@ -262,5 +272,16 @@ en:
     apply: "Trip was successfully applied"
   not_authorized: "You're not authorized to do that action."
   not_enough_leave: "Not enough leave left"
-  travel_expense_report:
-    applied: "Travel expense request is already applied"
+  expense:
+    update: "Expense was successfully updated"
+    save: "Expense was successfully created"
+    applied: "Expense is already applied"
+    destroyed: "Expense was successfully destroyed"
+    apply: "Expense was successfully applied"
+  users:
+    upload_signature:
+      upload_success: "Signature was successfully uploaded"
+      invalid_file_extension: "Please choose a file with a correct extension"
+      upload_error: "Please choose a file"
+    delete_signature:
+      destroy_success: "Signature successfully deleted"

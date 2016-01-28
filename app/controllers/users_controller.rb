@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :user_exists, :set_user, except: [:superadmin_index, :language]
 
   def show
-    @datespans = @user.get_desc_sorted_datespans
+    @trips = @user.get_desc_sorted_trips
   end
 
   def edit
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      I18n.locale = @user.language
       flash[:success] = t('.user_updated')
       redirect_to current_user
     else
@@ -19,6 +20,10 @@ class UsersController < ApplicationController
   end
 
   def superadmin_index
+    unless current_user.nil?
+      flash[:error] = t('.logout_before_access_superadmin_page')
+      redirect_to root_path
+    end
   end
 
   def resource_name
@@ -36,6 +41,29 @@ class UsersController < ApplicationController
 
   def language
     render json: {msg: current_user.language}
+  end
+
+  def upload_signature
+    if params[:upload]
+      file = Base64.encode64(params[:upload]['datafile'].read)
+      file_name = params[:upload]['datafile'].original_filename
+      file_type = file_name.split('.').last.to_s
+      if ['jpg', 'bmp', 'jpeg', 'png'].include? file_type.downcase
+        @user.update(signature: file)
+        flash[:success] = t('.upload_success')
+      else
+        flash[:error] = t('.invalid_file_extension')
+      end
+    else
+      flash[:error] = t('.upload_error')
+    end
+    redirect_to current_user
+  end
+
+  def delete_signature
+    @user.update(signature: nil)
+    flash[:success] = t('.destroy_success')
+    redirect_to current_user
   end
 
   private

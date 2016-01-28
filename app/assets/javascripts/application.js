@@ -18,3 +18,6 @@
 //= require bootstrap-datepicker
 //= require bootstrap-typeahead-rails
 //= require_tree .
+
+$('.datepicker').datepicker();
+

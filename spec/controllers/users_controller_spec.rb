@@ -18,7 +18,7 @@ RSpec.describe UsersController, type: :controller do
   let(:valid_session) { {} }
 
   describe 'GET #show' do
-    it 'shows my page' do
+    it 'shows the users profile page' do
       user = User.create! valid_attributes
       login_with user
       get :show, {id: user.to_param}
