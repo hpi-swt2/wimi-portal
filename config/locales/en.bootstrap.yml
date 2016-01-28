@@ -126,7 +126,7 @@ en:
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
-      time_sheets_overview: "time sheet overview"
+      time_sheets_overview: "Time sheet overview"
       hiwi: "research assistants"
       month: "month"
       number_of_hours: "number of hours"
@@ -139,6 +139,12 @@ en:
         accepted: "Accepted"
         applied: "Applied"
         declined: "Rejected"
+      signature: "Signature"
+      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not be encrypted additionally!"
+      upload: "Upload signature"
+      information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
+    edit:
+      user_data: "User Data"
     public_user_data:
       public_data: "Public Data"
       projects: "Projects"
@@ -215,15 +221,16 @@ en:
     event_time_sheet_submitted:
       view: "View"
       full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
-  travel_expense_reports:
-    show:
+  expenses:
+    expense:
       inland: "Inland Travel"
       country: "Country"
       location_from: "Starting in"
       location_via: "Via"
       location_to: "To"
       reason: "Reason"
-      date_start: "Start at"
+      time_start: "Departure time"
+      time_end: "Arrival time"
       vehicle: "Vehicle"
       date_end: "End at:"
       car: "Travel by car"
@@ -236,6 +243,7 @@ en:
     show:
       id: "Id"
       destination: "Destination"
+      duration: "Duration: %{days} day(s)"
       reason: "Reason"
       annotation: "Annotations"
       signature: "Add signature"
@@ -245,6 +253,8 @@ en:
       file: "File Request"
       reject: "Reject Request"
       accept: "Accept Request"
+      expense: "Details for trip expenses"
+      create_expense: "Create trip expense"
   work_days:
     index:
       working_hours_for: "Working hours for: "
@@ -324,14 +334,16 @@ en:
     event_request:
       holiday: "%{trigger} created a holiday request."
       trip: "%{trigger} created a trip request."
-      travel_expense_report: "%{trigger} created a travel expense request."
+      expense: "%{trigger} created a travel expense request."
   chairs:
+    form:
+      no_representative: "No representative selected"
+      no_results: "No results"
     navigation:
       not_authorized: "You are not allowed to do this action for this research group."
       apply_wimi: "Apply as Wimi"
       manage: "Manage Research Group"
       show_timesheets: "Show timesheets"
-      show_requests: "Show requests"
     requests:
       apply_filter: "Apply Filters"
       requests: "Requests"
@@ -358,4 +370,5 @@ en:
     wimi_long_plural: "Research Assistants"
     chair_representative: "Chair Representative"
     admin_long: "Administrator"
+    admin_long_plural: "Administrators"
     hiwi_long_plural: "Student Assistants"

@@ -1,5 +1,9 @@
 class DashboardController < ApplicationController
   def index
+    #activities are events you dont necessarily need to react to
+    # => get destroyed if they're not under the newest 50
+    #notifications are events you need to react to
+    # => get destroyed when you react to them
     @activities = []
     @notifications = []
     temp = []
@@ -18,7 +22,7 @@ class DashboardController < ApplicationController
 
     @activities += temp.select{|event| event.target_id == current_user.id && (event.type == 'EventTimeSheetAccepted' || event.type == "EventTimeSheetDeclined")}
     current_user.projects.each do |project|
-      @activities += temp.select{|event| event.target == project && event.type == "EventTimeSheetSubmitted"}
+      @activities += temp.select{|event| event.target_id == project.id && event.type == "EventTimeSheetSubmitted"}
     end
     @activities += temp.select{|event| event.target_id == current_user.id && event.type == 'EventAdminRight'}
     @activities += temp.select{|event| event.chair == current_user.chair && (event.status == 'holiday' || event.status == 'travel_expense_report' || event.status == 'trip') && event.type == 'EventRequest'}
