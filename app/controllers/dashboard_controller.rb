@@ -20,9 +20,9 @@ class DashboardController < ApplicationController
 
     @notifications = @notifications.sort_by { |n| n[:created_at] }.reverse
 
-    @activities += temp.select{|event| event.target_id == current_user.id && (event.type == 'EventTimeSheetAccepted' || event.type == "EventTimeSheetDeclined")}
+    @activities += temp.select{|event| event.target_id == current_user.id && (event.type == 'EventTimeSheetAccepted' || event.type == 'EventTimeSheetDeclined')}
     current_user.projects.each do |project|
-      @activities += temp.select{|event| event.target_id == project.id && event.type == "EventTimeSheetSubmitted"}
+    @activities += temp.select{|event| event.target_id == project.id && event.type == "EventTimeSheetSubmitted"}
     end
     @activities += temp.select{|event| event.target_id == current_user.id && event.type == 'EventAdminRight'}
     @activities += temp.select{|event| event.chair == current_user.chair && (event.status == 'holiday' || event.status == 'travel_expense_report' || event.status == 'trip') && event.type == 'EventRequest'}
@@ -33,9 +33,7 @@ class DashboardController < ApplicationController
     @activities = @activities.sort_by { |n| n[:created_at] }.reverse
 
     to_delete = @activities.drop(50)
-    to_delete.each do |event|
-      event.destroy!
-    end
+    to_delete.each(&:destroy!)
 
     @activities = @activities.take(50)
   end

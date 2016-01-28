@@ -114,7 +114,7 @@ RSpec.describe TripsController, type: :controller do
         user = FactoryGirl.create(:user)
         login_with(user)
         expect{
-        post :create, {trip: valid_attributes}, valid_session
+          post :create, {trip: valid_attributes}, valid_session
         }.to change(Trip, :count).by(0)
         expect(response).to redirect_to(trips_path)
       end
@@ -270,7 +270,6 @@ RSpec.describe TripsController, type: :controller do
         expect(response).to redirect_to(trips_path)
       end
     end
-
   end
 
   describe 'GET #reject' do

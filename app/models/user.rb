@@ -23,7 +23,6 @@
 #
 
 class User < ActiveRecord::Base
-
   LANGUAGES = [
     %w[English en],
     %w[Deutsch de],
@@ -127,7 +126,7 @@ class User < ActiveRecord::Base
   end
 
   def is_hiwi?
-    not projects.blank? and not is_wimi?
+    !projects.blank? and  !is_wimi?
   end
 
   def is_superadmin?

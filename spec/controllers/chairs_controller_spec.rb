@@ -185,7 +185,7 @@ RSpec.describe ChairsController, type: :controller do
       login_with @superadmin
       chair_count = Chair.all.count
       post :create, {chair: {name: 'Test'}}
-      expect(Chair.all.count).to eq(chair_count+1)
+      expect(Chair.all.count).to eq(chair_count + 1)
     end
 
     it 'does not create chair with superadmin as admin or representative' do

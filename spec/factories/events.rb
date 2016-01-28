@@ -18,6 +18,6 @@ FactoryGirl.define do
     trigger_id 1
     target_id 1
     seclevel :user
-    type "Event"
+    type 'Event'
   end
 end

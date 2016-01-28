@@ -124,6 +124,5 @@ RSpec.describe 'projects/show', type: :view do
     wimi.projects << project
     visit project_path(project.id)
     expect(page).to have_content(I18n.t('projects.form.show_all_working_hours'), count: 1)
-
   end
 end

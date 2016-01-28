@@ -109,6 +109,7 @@ en:
       public: "public"
       projects: "Projects"
   users:
+    does_not_exist: "This user does not exist."
     update:
       user_updated: "Profile was successfully updated"
     show:

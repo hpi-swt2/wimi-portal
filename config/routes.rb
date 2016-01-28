@@ -58,12 +58,12 @@ Rails.application.routes.draw do
       get 'hand_in'
       get 'accept_reject'
     end
-    get 'time_sheets/hand_in', to:'time_sheets#hand_in'
-    get 'time_sheets/accept_reject', to:'time_sheets#accept_reject'
+    get 'time_sheets/hand_in', to: 'time_sheets#hand_in'
+    get 'time_sheets/accept_reject', to: 'time_sheets#accept_reject'
   end
 
   resources :travel_expense_reports
-  
+
   resources :trips do
     resources :expenses, except: [:show, :index]
     member do
@@ -108,5 +108,4 @@ Rails.application.routes.draw do
   get '/representative_search', to: 'chairs#representative_search', as: 'representative_search'
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
-
 end
