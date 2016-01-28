@@ -205,6 +205,7 @@ en:
     invite_someone_to_project: 'Invite someone to the project'
     invite_someone_to_the_project: "Invite someone to the project \"%{title}\""
     send_invitation_to: 'Send invitation to:'
+    not_authorized: "You're not authorized to do that for this project"
     user:
       does_not_exist: 'This user does not exist.'
       already_invited: 'This user is already invited to the project.'

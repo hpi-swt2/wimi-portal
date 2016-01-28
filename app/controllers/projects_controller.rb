@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user, :accept_invitation, :decline_invitation]
 
   has_scope :title
@@ -85,11 +86,16 @@ class ProjectsController < ApplicationController
   def sign_user_out
     user = User.find(params[:user_id])
     @project = Project.find(params[:id])
-    @project.remove_user(user)
-    if user == current_user
-      redirect_to @project
+    if can?(:edit, @project) || current_user.id == user.id
+      @project.remove_user(user)
+      if user == current_user
+        redirect_to projects_path
+      else
+        redirect_to edit_project_path(@project)
+      end
     else
-      redirect_to edit_project_path(@project)
+      redirect_to dashboard_path
+      flash[:error] = I18n.t('project.user.not_authorized')
     end
   end
 

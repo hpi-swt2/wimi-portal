@@ -20,18 +20,21 @@ require 'rails_helper'
 
 RSpec.describe ProjectsController, type: :controller do
   before(:each) do
-    login_with create (:user)
+    @user = create(:user)
+    create(:wimi, user: @user)
+    login_with @user
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {title: 'My Project'}
+    {
+      title: 'My Project'}
   }
-
   let(:invalid_attributes) {
-    {title: ''}
+    {
+      title: ''}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -42,7 +45,9 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all projects as @projects' do
       project = Project.create! valid_attributes
+
       get :index, {}, valid_session
+
       expect(assigns(:projects)).to eq(Project.all)
     end
   end
@@ -50,7 +55,9 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested project as @project' do
       project = Project.create! valid_attributes
+
       get :show, {id: project.to_param}, valid_session
+
       expect(assigns(:project)).to eq(project)
     end
   end
@@ -58,6 +65,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET #new' do
     it 'assigns a new project as @project' do
       get :new, {}, valid_session
+
       expect(assigns(:project)).to be_a_new(Project)
     end
   end
@@ -65,7 +73,10 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET #edit' do
     it 'assigns the requested project as @project' do
       project = Project.create! valid_attributes
+      @user.projects << project
+
       get :edit, {id: project.to_param}, valid_session
+
       expect(assigns(:project)).to eq(project)
     end
   end
@@ -111,20 +122,29 @@ RSpec.describe ProjectsController, type: :controller do
 
       it 'updates the requested project' do
         project = Project.create! valid_attributes
+        @user.projects << project
+
         put :update, {id: project.to_param, project: new_attributes}, valid_session
         project.reload
+
         expect(project.title).to eq('New Title')
       end
 
       it 'assigns the requested project as @project' do
         project = Project.create! valid_attributes
+        @user.projects << project
+
         put :update, {id: project.to_param, project: valid_attributes}, valid_session
+
         expect(assigns(:project)).to eq(project)
       end
 
       it 'redirects to the project' do
         project = Project.create! valid_attributes
+        @user.projects << project
+
         put :update, {id: project.to_param, project: valid_attributes}, valid_session
+
         expect(response).to redirect_to(project)
       end
     end
@@ -132,13 +152,19 @@ RSpec.describe ProjectsController, type: :controller do
     context 'with invalid params' do
       it 'assigns the project as @project' do
         project = Project.create! valid_attributes
+        @user.projects << project
+
         put :update, {id: project.to_param, project: invalid_attributes}, valid_session
+
         expect(assigns(:project)).to eq(project)
       end
 
       it "re-renders the 'edit' template" do
         project = Project.create! valid_attributes
+        @user.projects << project
+
         put :update, {id: project.to_param, project: invalid_attributes}, valid_session
+
         expect(response).to render_template('edit')
       end
     end
@@ -147,6 +173,8 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested project' do
       project = Project.create! valid_attributes
+      @user.projects << project
+
       expect {
         delete :destroy, {id: project.to_param}, valid_session
       }.to change(Project, :count).by(-1)
@@ -154,7 +182,10 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects to the projects list' do
       project = Project.create! valid_attributes
+      @user.projects << project
+
       delete :destroy, {id: project.to_param}, valid_session
+
       expect(response).to redirect_to(projects_url)
     end
   end
@@ -162,15 +193,16 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'POST #invite_user' do
     before :each do
       @project = Project.create! valid_attributes
-      @user = FactoryGirl.create(:user)
+      @user2 = FactoryGirl.create(:user)
+      @user.projects << @project
     end
 
     it 'send the user an invitation if a valid email was given' do
       expect(Invitation.all.size).to eq(0)
       expect {
-        put :invite_user, {id: @project.to_param, invite_user: {email: @user.email}}, valid_session
+        put :invite_user, {id: @project.to_param, invite_user: {email: @user2.email}}, valid_session
       }.to change(Invitation.all, :count).by(1)
-      expect(Invitation.first.user).to eq @user
+      expect(Invitation.first.user).to eq @user2
       expect(Invitation.first.project).to eq @project
     end
 
@@ -181,16 +213,16 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'does not invite the user to the project if he already is a member' do
-      @project.users << @user
+      @project.users << @user2
       expect {
-        put :invite_user, {id: @project.to_param, invite_user: {email: @user.email}}, valid_session
+        put :invite_user, {id: @project.to_param, invite_user: {email: @user2.email}}, valid_session
       }.to change(Invitation.all, :count).by(0)
     end
 
     it 'does not add the user to the project if he already is invited' do
-      Invitation.create(user: @user, project: @project)
+      Invitation.create(user: @user2, project: @project)
       expect {
-        put :invite_user, {id: @project.to_param, invite_user: {email: @user.email}}, valid_session
+        put :invite_user, {id: @project.to_param, invite_user: {email: @user2.email}}, valid_session
       }.to change(@project.users, :count).by(0)
     end
 
@@ -200,10 +232,9 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'does not invite the user if user is superadmin' do
-      project = Project.create! valid_attributes
       superadmin = FactoryGirl.create(:user, superadmin: true)
       expect {
-        put :invite_user, {id: project.to_param, invite_user: {email: superadmin.email}}, valid_session
+        put :invite_user, {id: @project.to_param, invite_user: {email: superadmin.email}}, valid_session
       }.to change(Invitation.all, :count).by(0)
     end
   end
