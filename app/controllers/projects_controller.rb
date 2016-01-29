@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
   def sign_user_out
     user = User.find(params[:user_id])
     @project = Project.find(params[:id])
-    if can?(:edit, @project) || current_user.id == user.id
+    if can?(:edit, @project) || current_user == user
       @project.remove_user(user)
       if user == current_user
         redirect_to projects_path

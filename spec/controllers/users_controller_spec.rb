@@ -123,4 +123,19 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe "POST #delete_signature" do
+    before(:each) do
+      @user = FactoryGirl.create(:user, signature: "test")
+      login_with @user
+    end
+
+    it 'deletes the users signature' do
+      post :delete_signature, {id: @user.id}
+      @user.reload
+
+      expect(flash[:success]).to eq("Signature successfully deleted")
+      expect(@user.signature).to be_nil()
+    end
+  end
 end

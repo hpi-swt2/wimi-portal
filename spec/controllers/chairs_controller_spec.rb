@@ -13,14 +13,14 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'shows index of all chairs' do
-      login_with(@user)
+      login_with @user
       get :index
 
       expect(response).to have_http_status(:success)
     end
 
     it 'returns http success as admin' do
-      login_with(@admin)
+      login_with @admin
       get :show, {id: @chair}
 
       expect(response).to have_http_status(:success)
@@ -28,21 +28,21 @@ RSpec.describe ChairsController, type: :controller do
 
     context 'redirects to root as' do
       it 'not authorized user' do
-        login_with(@user)
+        login_with @user
         get :show, {id: @chair}
 
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(dashboard_path)
       end
       it 'wimi' do
-        login_with(@wimi)
+        login_with @wimi
         get :show, {id: @chair}
 
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(dashboard_path)
       end
       it 'superadmin' do
-        login_with(@superadmin)
+        login_with @superadmin
         get :show, {id: @chair}
 
         expect(response).to have_http_status(302)
@@ -88,7 +88,7 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'edits the chair for superadmins' do
-      login_with(FactoryGirl.create(:user, superadmin: true))
+      login_with FactoryGirl.create(:user, superadmin: true)
 
       get :edit, {id: @chair.to_param}
 
@@ -99,7 +99,7 @@ RSpec.describe ChairsController, type: :controller do
       user = FactoryGirl.create(:user)
       chair_wimi = FactoryGirl.create(:wimi, admin: true, user: user, chair: @chair)
 
-      login_with(user)
+      login_with user
       get :edit, {id: @chair.to_param}
 
       expect(response).to have_http_status(302)
@@ -110,7 +110,7 @@ RSpec.describe ChairsController, type: :controller do
       chair2 = FactoryGirl.create(:chair)
       chair_wimi = FactoryGirl.create(:wimi, admin: true, user: user, chair: chair2)
 
-      login_with(user)
+      login_with user
       get :edit, {id: @chair.to_param}
 
       expect(response).to_not have_http_status(:success)
