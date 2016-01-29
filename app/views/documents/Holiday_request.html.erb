@@ -1,0 +1,119 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Urlaubsantrag</title>
+<%= wicked_pdf_stylesheet_link_tag css_file %>
+</head>
+
+<body class='pdf-document'>
+
+<div class='header-block'>
+  <span class='big-headline'>Urlaubsantrag</span>
+  <p style='margin-bottom:40px'>&nbsp;</p>
+  <div class='logo'>
+    <img src='<%= hpi_logo %>'>
+  </div>
+
+</div>
+
+<div class='input-block' style='border-bottom:solid 1.0pt'>
+  <span>Name: <%= User.find(holiday.user_id).name %></span>
+</div>
+<div class='input-block' style='border-bottom:solid 1.0pt'>
+  <span>Grund f&uuml;r Sonderurlaub: <%= holiday.reason %></span>
+</div>
+
+<p style='margin-bottom:50px'>&nbsp;</p>
+
+<table class='pdf-table' style='width:100%; border-collapse:collapse'>
+ <tr style='height:17pt'>
+  <td colspan=4 style='text-align:left; padding-left: 5px;'><b>Urlaubsanspruch</b></td>
+  <td colspan=3 style='text-align:left; padding-left: 5px;'> <b>Urlaubsantrag</b></td>
+  <td style='text-align:left; padding-left: 5px;'><b>Rest</b></td>
+ </tr>
+ <tr style='height:17pt'>
+  <td>Vorjahr</td>
+  <td>Lfd. Jahr</td>
+  <td>erhalten</td>
+  <td>bleiben</td>
+  <td><b>von</b></td>
+  <td><b>bis</b></td>
+  <td><b>Tage</b></td>
+  <td>Tage</td>
+ </tr>
+
+<tr style='height:17pt'>
+  <% leave_last_year = User.find(holiday.user_id).remaining_leave_last_year %>
+  <% leave_this_year = User.find(holiday.user_id).remaining_leave - User.find(holiday.user_id).remaining_leave_last_year %>
+  <% @obtained_days = Holiday.where(:user_id == holiday.user_id).inject(0) {|sum, hol| sum + hol[:length]} %>
+  <td width=30><%= leave_last_year %></td>
+  <td width=30><%= leave_this_year + @obtained_days %></td>
+  <td width=30><%= @obtained_days %></td>
+  <td width=30><%= leave_last_year + leave_this_year - @obtained_days %></td>
+  <td width=110><b><%= holiday.start.strftime("%d.%m.%Y") %></b></td>
+  <td width=110><b><%= holiday.end.strftime("%d.%m.%Y") %></b></td>
+  <td width=30><b><%= holiday.length %></b></td>
+  <td width=30><%= User.find(holiday.user_id).remaining_leave %></td>
+  <!--td width=30><%#= holiday.new_remainig_days %></td> < holiday.remainig_days=holiday.remainig_days-holiday.duration%> -->
+ </tr>
+ <tr style='height:17pt'>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+ </tr>
+  <tr style='height:17pt'>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+  <td> </td>
+ </tr>
+</table>
+
+<p class='big' style='margin:40 0 20 0'>Anmerkungen:</p>
+
+<%# annotation_splitted.each do |annotation_line| %>
+  <div class='text-field'><%= holiday.annotation %></div>
+<%# end %>
+<%# (4 - annotation_splitted.size).times do |i| %>
+  <div class='text-field'>&nbsp;</div>
+<%# end %>
+
+<p style='margin-bottom:40px'>&nbsp;</p>
+
+<div class='signature'>
+  <% if holiday.signature %>
+    <%= Date.today.strftime("%d.%m.%Y") %>,
+    <% path = 'data:image/png;base64,' << holiday.user_signature %>
+    <img src="<%= path %>" Zwidth="150" height="50"/></div>
+  <% end %>
+  </div>
+<p>
+  <span>Datum/Unterschrift</span>
+  <span>Antragssteller</span>
+</p>
+
+<div class='headline' style='margin-bottom: 40px'>Genehmigt</div>
+<div class='signature'>&nbsp;</div>
+<p>
+  <span>Datum/Unterschrift</span>
+  <span>Lehrstuhlinhaber</span>
+</p>
+
+<div class='signature'>&nbsp;</div>
+<p>
+  <span>Datum/Unterschrift</span>
+  <span>Gesch&auml;ftsf&uuml;hrung</span>
+</p>
+</div>
+
+</body>
+</html>

@@ -30,11 +30,10 @@ en:
       leave: "Leave"
       edit_leave: "Edit Leave"
       show_details: "Show Details"
-      show_pdf: "Show PDF"
       apply: "Apply"
       accept: "Accept"
       decline: "Decline"
-      download: "Download"
+      download_pdf: "Download as PDF"
       apply_trip: "Apply Trip"
       save: "Save"
     titles:
@@ -79,6 +78,7 @@ en:
       show_all_working_hours: "Show all working hours"
       create_project: "Create Project"
       update_project: "Update Project"
+      invite_init_user: "Invite User"
     show:
       working_hours: "Working hours"
       add_working_hours: "Add working hours"
@@ -102,13 +102,14 @@ en:
       title: "Title"
       project_status: "Project Status"
       accessibility: "Accessibility"
-      created_at: "created_at"
+      created_at: "Created at"
       active: "active"
       inactive: "inactive"
       private: "private"
       public: "public"
       projects: "Projects"
   users:
+    does_not_exist: "This user does not exist."
     update:
       user_updated: "Profile was successfully updated"
     show:
@@ -126,7 +127,7 @@ en:
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
-      time_sheets_overview: "time sheet overview"
+      time_sheets_overview: "Time sheet overview"
       hiwi: "research assistants"
       month: "month"
       number_of_hours: "number of hours"
@@ -140,7 +141,7 @@ en:
         applied: "Applied"
         declined: "Rejected"
       signature: "Signature"
-      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not being encrypted additionally!"
+      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not be encrypted additionally!"
       upload: "Upload signature"
       information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
     edit:
@@ -160,6 +161,8 @@ en:
       title: "Edit Leave"
     form:
       user_data: "User Data"
+    superadmin_index:
+      logout_before_access_superadmin_page: "Log out first before accessing the superadmin login page."
   holidays:
     show:
       days: "Day(s)"
@@ -221,15 +224,16 @@ en:
     event_time_sheet_submitted:
       view: "View"
       full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
-  travel_expense_reports:
-    show:
+  expenses:
+    expense:
       inland: "Inland Travel"
       country: "Country"
       location_from: "Starting in"
       location_via: "Via"
       location_to: "To"
       reason: "Reason"
-      date_start: "Start at"
+      time_start: "Departure time"
+      time_end: "Arrival time"
       vehicle: "Vehicle"
       date_end: "End at:"
       car: "Travel by car"
@@ -242,6 +246,7 @@ en:
     show:
       id: "Id"
       destination: "Destination"
+      duration: "Duration: %{days} day(s)"
       reason: "Reason"
       annotation: "Annotations"
       signature: "Add signature"
@@ -251,9 +256,18 @@ en:
       file: "File Request"
       reject: "Reject Request"
       accept: "Accept Request"
+      filed_request_cant_be_edited: "A filed request can't be edited"
+      days: "Day(s)"
+      status:
+        saved: "Saved at "
+        accepted: "Accepted at "
+        applied: "Applied at "
+        declined: "Rejected at "
+      expense: "Details for trip expenses"
+      create_expense: "Create trip expense"
   work_days:
     index:
-      working_hours_for: "Working hours for: "
+      working_hours_for: "Working hours for"
       new: "new"
       for: "for"
       by: "by"
@@ -284,7 +298,6 @@ en:
       rejected_by: "rejected by: "
       accepted_by: "accepted by: "
       at: "at"
-      export_as_PDF: "export as PDF"
       handed_in_at: "handed in at:"
       add_signature: "Add signature"
       document_was: "Document was"
@@ -330,8 +343,11 @@ en:
     event_request:
       holiday: "%{trigger} created a holiday request."
       trip: "%{trigger} created a trip request."
-      travel_expense_report: "%{trigger} created a travel expense request."
+      expense: "%{trigger} created a travel expense request."
   chairs:
+    form:
+      no_representative: "No representative selected"
+      no_results: "No results"
     navigation:
       not_authorized: "You are not allowed to do this action for this research group."
       apply_wimi: "Apply as Wimi"
@@ -363,4 +379,5 @@ en:
     wimi_long_plural: "Research Assistants"
     chair_representative: "Chair Representative"
     admin_long: "Administrator"
+    admin_long_plural: "Administrators"
     hiwi_long_plural: "Student Assistants"

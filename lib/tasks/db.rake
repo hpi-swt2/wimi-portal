@@ -33,11 +33,13 @@ namespace :db do
       last_name: 'Mustermann')
     Holiday.create!(start: Date.today - 1,
       end: Date.today,
+      length: 1,
       user_id: epic_admin.id)
     Holiday.create!(status: :declined,
       start: Date.today - 7,
       end: Date.today - 6,
-      user_id: epic_representative)
+      length: 1,
+      user_id: epic_representative.id)
     WorkDay.create!(
       date: '2015-11-18',
       start_time: '2015-11-18 15:11:53',
@@ -61,50 +63,37 @@ namespace :db do
       workload_is_per_month: true,
       user_id: alice.id,
       project_id: swt2.id)
-    Trip.create!(
+    trip = Trip.create!(
       destination: 'ME310 Kickoff USA',
       reason: 'ME310',
       annotation: 'Sample Trip',
       signature: true,
-      trip_datespans_attributes: [{
-        start_date: Date.today,
-        end_date: Date.today + 10,
-        days_abroad: 5}],
+      date_start: Date.today,
+      date_end: Date.today + 10,
+      days_abroad: 5,
       user: epic_representative)
     Trip.create!(
       destination: 'Ridiculous Meeting',
       reason: 'Party',
       annotation: 'Sample declined Trip',
       signature: true,
-      trip_datespans_attributes: [{
-        start_date: Date.today + 7,
-        end_date: Date.today + 10,
-        days_abroad: 2}],
+      date_start: Date.today + 7,
+      date_end: Date.today + 10,
+      days_abroad: 2,
       status: :declined,
       user: meinel_both)
-    TravelExpenseReport.create!(
+    Expense.create!(
       inland: true,
       country: 'Germany',
       location_from: 'Potsdam',
-      location_to: 'Munich',
       reason: 'Hana Things',
-      date_start: 8.days.ago,
-      date_end: DateTime.now,
+      time_start: "12:00",
+      time_end: "14:00",
       public_transport: true,
       hotel: true,
       general_advance: 2000,
-      user: meinel_both,
-      travel_expense_report_items_attributes: [
-        {
-        date: 5.days.ago,
-        breakfast: false,
-        lunch: true,
-        dinner: true},
-        {
-        date: 4.days.ago,
-        breakfast: true,
-        lunch: false,
-        dinner: false}
-      ])
+      user: epic_representative,
+      trip: trip)
+    trip.update(date_start: Date.today)
   end
 end

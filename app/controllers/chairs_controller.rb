@@ -32,7 +32,7 @@ class ChairsController < ApplicationController
   def create
     @chair = Chair.new(chair_params)
 
-    if @chair.add_users(params[:admin_user], params[:representative_user])
+    if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.save
       flash[:success] = I18n.t('chair.create.success')
       redirect_to chairs_path
     else
@@ -46,14 +46,23 @@ class ChairsController < ApplicationController
   end
 
   def update
-    if @chair.edit_users(params[:admin_user], params[:representative_user])
-      @chair.update(chair_params)
+    if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.update(chair_params)
       flash[:success] = I18n.t('chair.update.success')
       redirect_to chairs_path
     else
       flash[:error] = I18n.t('chair.update.error')
       render :new
     end
+  end
+
+  def admin_search
+    @results = User.search(params[:q], Chair.find_by(id: params[:chair_search_id]))
+    render layout: false
+  end
+
+  def representative_search
+    @results = User.search(params[:q], Chair.find_by(id: params[:chair_search_id]))
+    render layout: false
   end
 
   # Admin / Representative tasks:

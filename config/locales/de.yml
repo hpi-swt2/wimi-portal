@@ -34,7 +34,7 @@ de:
       project:
         one: "Projekt"
         other: "Projekte"
-      travel_expense_report:
+      expense:
         one: "Reisekostenabrechnung"
         other: "Reisekostenabrechnungen"
       trip:
@@ -95,19 +95,18 @@ de:
         status: "Status"
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
-      trip_datespan:
-        start_date: "Start"
-        end_date: "Ende"
+        date_start: "Start"
+        date_end: "Ende"
         days_abroad: "Auslandstage"
-      travel_expense_report:
+      expense:
         inland: "Inlandsreise"
         country: "Land"
         location_from: "Startort"
         location_via: "Zwischenhalt"
         location_to: "Zielort"
         reason: "Grund"
-        date_start: "Startet am"
-        date_end: "Endet am"
+        time_start: "Abfahrtszeit"
+        time_end: "Ankunftszeit"
         vehicle: "Fahrzeug"
         car: "PKW"
         public_transport: "Bus/Bahn/Flug"
@@ -115,7 +114,7 @@ de:
         hotel: "Hotel"
         general_advance: "Vorschuss"
         signature: "Unterschreiben?"
-      travel_expense_report_item:
+      expense_item:
         date: "Datum"
         breakfast: "Frühstück"
         lunch: "Mittagessen"
@@ -164,7 +163,7 @@ de:
         workload: "Arbeitszeit"
     errors:
       models:
-        travel_expense_report:
+        expense:
           attributes:
             location_from:
               blank: "darf nicht leer sein."
@@ -174,6 +173,12 @@ de:
               blank: "darf nicht leer sein."
               not_a_number: "muss eine ganze Zahl sein."
               greater_than_or_equal_to: "darf nicht negativ sein."
+            time:
+              format: "muss im Format HH:MM sein."
+            time_start:
+              blank: "darf nicht leer sein."
+            time_end:
+              blank: "darf nicht leer sein."
         holiday:
           too_far_in_the_future: ' ist zu weit in der Zukunft.'
           attributes:
@@ -269,8 +274,12 @@ de:
   not_authorized: "Du bist nicht befugt, diese Aktion durchzuführen."
   holiday:
     applied: "Urlaubsantrag bereits eingereicht"
-  travel_expense_report:
+  expense:
+    update: "Reisekostenabrechnung wurde erfolgreich aktualisiert"
+    save: "Reisekostenabrechnung wurde erfolgreich erstellt"
     applied: "Reisekostenabrechnung bereits eingereicht"
+    destroyed: "Reisekostenabrechnung wurde erfolgreich gelöscht"
+    apply: "Reisekostenabrechnung wurde erfolgreich eingereicht"
   users:
     upload_signature:
       upload_success: "Unterschrift wurde erfolgreich hochgeladen"

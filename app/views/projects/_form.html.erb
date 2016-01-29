@@ -107,23 +107,32 @@
       </div>
     <% end %>
 
-    <div class=" btn-group buttonGroup" role="group">
-      <% if @project.persisted? %>
-        <%= link_to t('helpers.links.cancel'),
-                    project_path(@project), class: 'btn btn-default' %>
-      <% else %>
-        <%= link_to t('helpers.links.cancel'),
-                    projects_path, class: 'btn btn-default' %>
-      <% end %>
-      <%= f.submit nil, class: 'btn btn-primary' %>
-      <%  if (can? :destroy, @project) && @project.persisted? %>
-        <%= link_to t('helpers.links.destroy'),
-                    project_path(@project),
-                    method: 'delete',
-                    data: { confirm: t('helpers.links.confirm') },
-                    class: 'btn btn-danger' %>
-      <% end %>
-    </div>
+
+    <% unless @project.persisted? %>
+      <div class="inviteBoxesHeading" ><strong> Invite Initial Users </strong></div>
+      <div class="control-group inviteBoxes">
+        <%= f.text_field :email, { id: 'invitation_mail', value: '', name:'invitationfield' ,class: 'typeahead form-control inviteInput', size: 57, placeholder: 'max.mustermann@student.hpi.uni-potsdam.de' } %>
+        <input type="button" id='invite_user' class='btn btn-default addnewUserButton' value="<%= t('projects.form.invite_init_user') %>">
+        <div id="invited_users"/>
+      </div>
+    <% end %>
+
+      <div class=" btn-group buttonGroup" role="group">
+        <% if @project.persisted? %>
+            <%= link_to t('helpers.links.cancel'),
+                        project_path(@project), class: 'btn btn-default' %>
+        <% else %>
+            <%= link_to t('helpers.links.cancel'),
+                        projects_path, class: 'btn btn-default' %>
+        <% end %>
+        <%= f.submit nil, class: 'btn btn-primary' %>
+        <%  if (can? :destroy, @project) && @project.persisted? %>
+            <%= link_to t('helpers.links.destroy'),
+                        project_path(@project),
+                        method: 'delete',
+                        data: { confirm: t('helpers.links.confirm') },
+                        class: 'btn btn-danger' %>
+        <% end %>
+      </div>
   <% end %>
 </div>
-

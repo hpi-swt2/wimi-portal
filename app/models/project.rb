@@ -22,12 +22,14 @@ class Project < ActiveRecord::Base
   has_many :invitations
   belongs_to :chair
 
+  accepts_nested_attributes_for :invitations, allow_destroy: true
+
   validates :title, presence: true
 
   def invite_user(user, sender)
-    if(user && !user.is_superadmin?)
+    if user && !user.is_superadmin?
       inv = Invitation.create(user: user, project: self, sender: sender)
-      ActiveSupport::Notifications.instrument('event', {trigger: inv.id, target: user.id, seclevel: :hiwi, type: "EventProjectInvitation"})
+      ActiveSupport::Notifications.instrument('event', {trigger: inv.id, target: user.id, seclevel: :hiwi, type: 'EventProjectInvitation'})
       user.invitations << inv
       return true
     else

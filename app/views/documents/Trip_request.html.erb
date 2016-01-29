@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Dienstreise-Antrag</title>
+<%= wicked_pdf_stylesheet_link_tag css_file %>
+</head>
+
+<body class='pdf-document trip-document'>
+
+<div class='header-block'>
+  <span class='big-headline'>Dienstreise-Antrag</span>
+  <p style='margin-bottom:40px'>&nbsp;</p>
+  <div class='logo'>
+    <img src='<%= hpi_logo %>'>
+  </div>
+</div>
+
+<div>
+<div class='input-block' style='border-bottom:solid 1.0pt'>
+  <span>Name: <%= trip.name %></span>
+</div>
+<div class='input-block' style='border-bottom:solid 1.0pt'>
+  <span>Dienstreiseziel: <%= trip.destination %></span>
+</div>
+<div class='input-block' style='border-bottom:solid 1.0pt'>
+  <span>Grund f&uuml;r Dienstreise: <%= trip.reason %></span>
+</div>
+
+<p style='margin-bottom:40px'>&nbsp;</p>
+
+<table class='pdf-table' style='width:400.0pt; border-collapse:collapse'>
+ <tr style='height:17pt'>
+  <td colspan=3 style='text-align:left; padding-left: 5px;'><b>Reisetage</b></td>
+  <td></td>
+ </tr>
+ <tr>
+  <td><b>von</b></td>
+  <td><b>bis</b></td>
+  <td><b>Tage</b></td>
+  <td><b style='font-size:10.0pt'>davon Auslandstage</b></td>
+ </tr>
+   <tr>
+    <td width=96><%= trip.date_start.strftime("%d.%m.%Y") %></td>
+    <td width=96><%= trip.date_end.strftime("%d.%m.%Y") %></td>
+    <td width=96><%= trip.total_days %></td>
+    <td width=120><%= trip.days_abroad %></td>
+   </tr>
+</table>
+
+<p class='big' style='margin:40 0 20 0'>Anmerkungen:</p>
+
+<% annotation_splitted.each do |annotation_line| %>
+  <div class='text-field' style='padding: 1 1'><%= annotation_line %></div>
+<% end %>
+<% (4 - annotation_splitted.size).times do |i| %>
+  <div class='text-field'>&nbsp;</div>
+<% end %>
+
+<p style='margin-bottom:40px'>&nbsp;</p>
+
+<div class='signature'>
+  <% if trip.signature %>
+      <%= Date.today.strftime("%d.%m.%Y") %>,
+          <% path = 'data:image/png;base64,' << trip.user_signature %>
+          <img src="<%= path %>" Zwidth="150" height="50"/>
+  <% end %>
+</div>
+<p>
+  <span>Datum/Unterschrift</span>
+  <span>Antragssteller</span>
+</p>
+
+<div class='headline' style='margin-bottom: 40px'>Genehmigt</div>
+
+<div class='signature'>&nbsp;</div>
+<p>
+  <span>Datum/Unterschrift</span>
+  <span>Lehrstuhlinhaber</span>
+</p>
+
+<div class='signature'>&nbsp;</div>
+<p>
+  <span>Datum/Unterschrift</span>
+  <span>Gesch&auml;ftsf&uuml;hrung</span>
+</p>
+</div>
+
+</body>
+
+</html>

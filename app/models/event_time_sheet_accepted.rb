@@ -20,6 +20,6 @@ class EventTimeSheetAccepted < Event
 
   def set_defaults
     self.seclevel = :hiwi
-    self.type = "EventTimeSheetAccepted"
+    self.type = 'EventTimeSheetAccepted'
   end
 end

@@ -20,6 +20,6 @@ class EventTimeSheetSubmitted < Event
 
   def set_defaults
     self.seclevel = :wimi
-    self.type = "EventTimeSheetSubmitted"
+    self.type = 'EventTimeSheetSubmitted'
   end
 end

@@ -17,4 +17,13 @@ RSpec.describe 'projects/new', type: :view do
     click_on I18n.t('projects.form.create_project')
     expect(page).to have_content(wimi.chair.name)
   end
+
+  it 'can invite initial user' do
+    chair_representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair)
+    wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
+    login_as wimi
+    visit new_project_path
+    expect(page).to have_selector(:link_or_button, 'Invite User')
+    expect(page).to have_xpath("//input[@name='invitationfield']")
+  end
 end

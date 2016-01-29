@@ -3,6 +3,6 @@ FactoryGirl.define do
     trigger_id 1
     target_id 1
     seclevel :hiwi
-    type "EventProjectInvitation"
+    type 'EventProjectInvitation'
   end
 end

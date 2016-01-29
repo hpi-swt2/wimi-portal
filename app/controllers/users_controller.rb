@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :user_exists, :set_user, except: [:superadmin_index, :language]
 
   def show
-    @datespans = @user.get_desc_sorted_datespans
+    @trips = @user.get_desc_sorted_trips
   end
 
   def edit
@@ -11,14 +11,25 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      I18n.locale = @user.language
       flash[:success] = t('.user_updated')
-      redirect_to current_user
+      if(user_params.has_key?(:language))
+        redirect_to :back
+      else
+        redirect_to current_user
+      end
     else
       render :edit
     end
+    rescue ActionController::RedirectBackError
+      redirect_to current_user
   end
 
   def superadmin_index
+    unless current_user.nil?
+      flash[:error] = t('.logout_before_access_superadmin_page')
+      redirect_to root_path
+    end
   end
 
   def resource_name

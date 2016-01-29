@@ -50,11 +50,12 @@ RSpec.describe EventsController, type: :controller do
       user = FactoryGirl.create(:user)
       ChairWimi.create(chair: chair, user: representative, representative: true, application: 'accepted')
       ChairWimi.create(chair: chair, user: user, application: 'accepted')
-      travel_expense_report = FactoryGirl.create(:travel_expense_report, user: user)
+      trip = FactoryGirl.create(:trip)
+      expense = FactoryGirl.create(:expense, user: user, trip: trip)
 
-      post :show_request, {status: 'travel_expense_report', request_id: travel_expense_report.id}
+      post :show_request, {status: 'expense', request_id: expense.id}
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(travel_expense_report)
+      expect(response).to redirect_to(trip)
     end
 
     it 'tests the redirection to dashboard if request does not exist' do

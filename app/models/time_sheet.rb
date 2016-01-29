@@ -26,10 +26,10 @@
 class TimeSheet < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-  enum status: [ :pending, :accepted, :rejected]
+  enum status: [:pending, :accepted, :rejected]
 
-  validates :workload_is_per_month, inclusion: { in: [true, false] }
-  validates :salary_is_per_month, inclusion: { in: [true, false] }
+  validates :workload_is_per_month, inclusion: {in: [true, false]}
+  validates :salary_is_per_month, inclusion: {in: [true, false]}
 
   def sum_hours
     hour_counter = 0
@@ -56,5 +56,9 @@ class TimeSheet < ActiveRecord::Base
   def self.create_new_time_sheet(year, month, project, user)
     sheet = TimeSheet.create!({year: year, month: month, project: project, user: user, workload_is_per_month: true, salary_is_per_month: true})
     return sheet
+  end
+
+  def work_days
+    WorkDay.all_for(self.year, self.month, self.project, self.user)
   end
 end
