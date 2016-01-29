@@ -17,7 +17,6 @@
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-typeahead-rails
-//= require turbolinks
 //= require_tree .
 
 $('.datepicker').datepicker();
