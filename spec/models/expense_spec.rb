@@ -7,7 +7,6 @@
 #  country          :string
 #  location_from    :string
 #  location_via     :string
-#  location_to      :string
 #  reason           :text
 #  car              :boolean
 #  public_transport :boolean

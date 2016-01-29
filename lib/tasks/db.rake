@@ -86,7 +86,6 @@ namespace :db do
       inland: true,
       country: 'Germany',
       location_from: 'Potsdam',
-      location_to: 'USA',
       reason: 'Hana Things',
       time_start: "12:00",
       time_end: "14:00",
