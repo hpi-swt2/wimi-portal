@@ -6,5 +6,7 @@ class AddSignatureFieldsToRequests < ActiveRecord::Migration
     add_column :trips, :representative_signature, :text
     add_column :expenses, :user_signature, :text
     add_column :expenses, :representative_signature, :text
+    add_column :time_sheets, :user_signature, :text
+    add_column :time_sheets, :representative_signature, :text
   end
 end

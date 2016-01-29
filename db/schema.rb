@@ -154,16 +154,18 @@ ActiveRecord::Schema.define(version: 20160128142238) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.boolean  "handed_in",             default: false
-    t.text     "rejection_message",     default: ""
-    t.boolean  "signed",                default: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "handed_in",                default: false
+    t.text     "rejection_message",        default: ""
+    t.boolean  "signed",                   default: false
     t.date     "last_modified"
-    t.integer  "status",                default: 0
+    t.integer  "status",                   default: 0
     t.integer  "signer"
-    t.boolean  "wimi_signed",           default: false
+    t.boolean  "wimi_signed",              default: false
     t.date     "hand_in_date"
+    t.text     "user_signature"
+    t.text     "representative_signature"
   end
 
   create_table "trips", force: :cascade do |t|

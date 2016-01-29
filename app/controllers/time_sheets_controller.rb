@@ -13,9 +13,22 @@ class TimeSheetsController < ApplicationController
 
   def hand_in
     time_sheet = TimeSheet.find(params[:id])
-    time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
-    ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.project_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
-    redirect_to dashboard_path
+
+    if time_sheet_params[:signed] == '1' && current_user.signature.nil?
+      time_sheet.signed = false
+      redirect_to :back
+      flash[:error] = 'selected signature, but not found, not handed in'
+    else
+      if time_sheet_params[:signed] == '1' && !current_user.signature.nil?
+        time_sheet.user_signature = current_user.signature
+        time_sheet.signed = true
+      else
+        time_sheet.user_signature = nil
+      end
+      time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
+      ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.project_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
+      redirect_to dashboard_path
+    end
   end
 
   def accept
