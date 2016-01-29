@@ -31,6 +31,7 @@ class ChairsController < ApplicationController
 
   def create
     @chair = Chair.new(chair_params)
+    MailNotifier.invited.deliver
 
     if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.save
       flash[:success] = I18n.t('chair.create.success')
