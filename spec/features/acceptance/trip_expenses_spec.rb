@@ -55,7 +55,6 @@ describe 'trips and expenses', type: feature do
     expect(page).to have_content I18n.t('trips.show.expense')
     click_on(I18n.t('trips.show.create_expense'))
     fill_in(I18n.t('activerecord.attributes.expense.location_from'), :with => 'Potsdam')
-    fill_in(I18n.t('activerecord.attributes.expense.location_to'), :with => 'redrum')
     fill_in(I18n.t('activerecord.attributes.expense.time_start'), :with => '12:00')
     fill_in(I18n.t('activerecord.attributes.expense.time_end'), :with => '13:00')
     click_on(I18n.t('helpers.submit.create', model: I18n.t('activerecord.models.expense.one')))

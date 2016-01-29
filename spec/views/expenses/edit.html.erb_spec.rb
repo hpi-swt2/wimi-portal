@@ -13,8 +13,6 @@ RSpec.describe 'expenses/edit', type: :view do
 
       assert_select 'input#expense_location_via[name=?]', 'expense[location_via]'
 
-      assert_select 'input#expense_location_to[name=?]', 'expense[location_to]'
-
       assert_select 'textarea#expense_reason[name=?]', 'expense[reason]'
 
       assert_select 'input#expense_car[name=?]', 'expense[car]'
