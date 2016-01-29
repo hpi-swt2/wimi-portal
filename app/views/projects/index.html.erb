@@ -45,7 +45,11 @@
   <% @projects.each do |project| %>
     <tr>
       <td><%= link_to project.title, project %></td>
-      <td><%= link_to project.chair.name, project.chair %></td>
+      <td>
+        <% if project.chair %>
+            <%= link_to project.chair.name, project.chair %>
+        <% end %>
+      </td>
       <td><%= project.status ? t('.active', default:'active') : t('.inactive', default:'inactive') %></td>
       <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
 
