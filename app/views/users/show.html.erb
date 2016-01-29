@@ -170,7 +170,7 @@
                           <td>
                             <%= link_to t("helpers.links.show_details"),
                                         holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
-                            <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: holiday), class: 'btn btn-default btn-xs' %>
+                            <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Holiday_request', doc_id: holiday), class: 'btn btn-default btn-xs' %>
                           </td>
                         </tr>
                     <% end %>
@@ -220,7 +220,7 @@
                     <td>
                       <%= link_to t("helpers.links.show_details"),
                                   trip_path(trip), class: 'btn btn-default btn-xs' %><br>
-                      <%= link_to t("helpers.links.show_pdf"), generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: trip), class: 'btn btn-default btn-xs' %>
+                      <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Trip_request', doc_id: trip), class: 'btn btn-default btn-xs' %>
                     </td>
                   </tr>
                 <% end %>
