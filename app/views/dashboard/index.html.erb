@@ -2,176 +2,174 @@
 <div class="row">
   <div class="col-md-8 wrapper-large">
     <div class="row">
+      <!-- header -->
       <div class="col-md-12">
         <div class="display">
           <div class="page-header">
             <h1> <%= t('.dashboard_title') %></h1>
           </div>
-
-          <% unless @notifications.empty? %>
-            <!-- Notifications -->
-            <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4><%=t('.notifications')%></h4>
-                  </div>
-                  <div class="panel-body">
-                    <% @notifications.each do |event| %>
-                      <%= render partial: event %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-              <%= render partial: 'projects' %>
-            </div>
-          <% end %>
         </div>
-        <% unless @activities.size == 0 %>
-          <div class="display col-md-12">
-          
-            <!-- Activities -->
-            <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4><%=t('.activities')%></h4>
-                  </div>
-                  <div class="panel-body">
-                    
-                      <% @activities.each do |event| %>
-                        <%= render partial: event %>
-                      <% end %>
-                    
-                  </div>
-                </div>
-              </div>
+      </div>
+      
+      <!-- Notifications -->
+      <% unless @notifications.empty? %>
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><%=t('.notifications')%></h4>
             </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-
-<div class="col-md-4 wrapper-small">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="display">
-        <!-- Projects -->
-        <% unless !@notifications.empty? %>
-          <%= render partial: 'projects' %>
-        <% end %>
-      </div>
-    </div>
-
-    <!--Actions-->
-    <div class="col-md-12">
-      <div class="display">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4><%=t('.actions')%></h4>
-          </div>
-          <div class="panel-body">
-            <% if current_user.is_wimi? %>
-              <%= render partial: 'wimi_actions' %>
-            <% elsif current_user.is_hiwi? %>
-              <%= render partial: 'hiwi_actions' %>
-            <% end %>
+            <div class="panel-body">
+              <% @notifications.each do |event| %>
+              <%= render partial: event %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+      <% end %>
 
-
-<!--Chairs-->
-<div class="col-md-8">
-  <% if !(current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4> <%= I18n.t('activerecord.models.chair.other') %> </h4>
+      <!-- Activities -->
+      <% unless @activities.size == 0 %>
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><%=t('.activities')%></h4>
+            </div>
+            <div class="panel-body">
+              <% @activities.each do |event| %>
+              <%= render partial: event %>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="panel-body">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th><%= model_class.human_attribute_name(:name) %></th>
-            <th><%= t '.actions', :default => t("helpers.actions") %></th>
-          </tr>
-          </thead>
-          <tbody>
-          <% Chair.all.each do |chair| %>
-              <tr>
-                <td><%= chair.name %></td>
-                <td>
-                  <% if current_user.chair_wimi == nil %>
+      <% end %>
+
+      <!--Chairs-->
+      <% if !(current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4> <%= I18n.t('activerecord.models.chair.other') %> </h4>
+            </div>
+            <div class="panel-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th><%= model_class.human_attribute_name(:name) %></th>
+                    <th><%= t '.actions', :default => t("helpers.actions") %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% Chair.all.each do |chair| %>
+                  <tr>
+                    <td><%= chair.name %></td>
+                    <td>
+                      <% if current_user.chair_wimi == nil %>
                       <%= link_to I18n.t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
-                  <% else %>
+                      <% else %>
                       <% if current_user.chair_wimi.chair == chair %>
-                        <span class="label label-warning"><%= I18n.t('activerecord.attributes.chair.application.status.pending') %></span>
+                      <span class="label label-warning"><%= I18n.t('activerecord.attributes.chair.application.status.pending') %></span>
                       <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
                   <% end %>
-                </td>
-              </tr>
-          <% end %>
-          </tbody>
-        </table>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  <% end %>
+      <% end %>
 
-  <% if current_user.is_superadmin? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4> <%= I18n.t('activerecord.models.chair.other') %> </h4>
+      <% if current_user.is_superadmin? %>
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4> <%= I18n.t('activerecord.models.chair.other') %> </h4>
+            </div>
+            <div class="panel panel-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th><%= t('activerecord.attributes.chair.id', default: model_class.human_attribute_name(:id)) %></th>
+                    <th><%= t('activerecord.attributes.chair.name', default: model_class.human_attribute_name(:name)) %></th>
+                    <th><%= t('activerecord.attributes.chair.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% Chair.all.each do |chair| %>
+                  <tr>
+                    <td><%= chair.id %></td>
+                    <td><%= chair.name %></td>
+                    <td><%=l chair.created_at %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+              <br>
+              <%= link_to I18n.t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="panel panel-body">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th><%= t('activerecord.attributes.chair.id', default: model_class.human_attribute_name(:id)) %></th>
-            <th><%= t('activerecord.attributes.chair.name', default: model_class.human_attribute_name(:name)) %></th>
-            <th><%= t('activerecord.attributes.chair.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
-          </tr>
-          </thead>
-          <tbody>
-          <% Chair.all.each do |chair| %>
-              <tr>
-                <td><%= chair.id %></td>
-                <td><%= chair.name %></td>
-                <td><%=l chair.created_at %></td>
-              </tr>
-          <% end %>
-          </tbody>
-        </table>
-        <br>
-        <%= link_to I18n.t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
-      </div>
+      <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
 
-<!-- Chair representative actions -->
-<div class="col-md-4">
-  <% if current_user.is_representative? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4> <%= t('.representative_actions') %> </h4>
+  <div class="col-md-4 wrapper-small">
+    <div class="row">
+      <!-- Projects -->
+      <% unless !current_user.2is_wimi? %>
+        <%= render partial: 'projects' %>
+      <% end %>
+
+      <!--Actions-->
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><%=t('.actions')%></h4>
+            </div>
+            <div class="panel-body">
+              <% if current_user.is_wimi? %>
+              <%= render partial: 'wimi_actions' %>
+              <% elsif current_user.is_hiwi? %>
+              <%= render partial: 'hiwi_actions' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="panel-body">
-        <p>
-          <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holidays: true, applied: true, accepted: true, declined: true), method: :post %>
-        </p>
-        <p>
-          <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expenses: true, applied: true, accepted: true, declined: true), method: :post %>
-        </p>
-        <p>
-          <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
-        </p>
+
+      <!-- Chair representative actions -->
+      <% if current_user.is_representative? %>
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4> <%= t('.representative_actions') %> </h4>
+            </div>
+            <div class="panel-body">
+              <p>
+                <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holidays: true, applied: true, accepted: true, declined: true), method: :post %>
+              </p>
+              <p>
+                <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expenses: true, applied: true, accepted: true, declined: true), method: :post %>
+              </p>
+              <p>
+                <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
+      <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
 </div>

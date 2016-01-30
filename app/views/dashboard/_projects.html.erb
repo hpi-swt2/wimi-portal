@@ -1,17 +1,21 @@
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><%=t ('.projects') %></h4>
-    </div>
-    <div class="panel-body">
-      <% current_user.projects.each do |project|%>
+<div class="col-md-12">
+  <div class="display">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%=t ('.projects') %></h4>
+      </div>
+      <div class="panel-body">
+        <% current_user.projects.each do |project|%>
         <p>
           <%= link_to project.title, project %>
         </p>
-      <%end%>
-      <% if can? :create, Project %>
+        <%end%>
+        <% if can? :create, Project %>
         <p style="margin-top:10px">
           <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
         </p>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
+</div>
