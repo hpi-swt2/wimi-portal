@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top navbar-offset">
+<nav class="navbar navbar-default navbar-fixed-top navbar-offset navbar-shadow">
   <%= nav_bar fixed: :top, brand: 'Wimi Portal', responsive: true do %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
@@ -33,10 +33,12 @@
   <% end %>
 </nav>
 
-<div class="container ">
+<div class="container">
   <%= render 'shared/flash_messages' %>
-  <div class="col-md-12">
-    <%= yield %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= yield %>
+    </div>
   </div>
 </div>
 
