@@ -125,7 +125,7 @@
   <div class="col-md-4 wrapper-small">
     <div class="row">
       <!-- Projects -->
-      <% unless !current_user.2is_wimi? %>
+      <% unless !current_user.is_wimi? %>
         <%= render partial: 'projects' %>
       <% end %>
 

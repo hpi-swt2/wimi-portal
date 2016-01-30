@@ -34,7 +34,11 @@
 </nav>
 
 <div class="container">
-  <%= render 'shared/flash_messages' %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render 'shared/flash_messages' %>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-12">
       <%= yield %>
