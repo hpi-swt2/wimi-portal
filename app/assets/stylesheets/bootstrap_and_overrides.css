@@ -14,3 +14,19 @@
  	padding-top: 15px;
  	padding-bottom: 15px;
  }
+
+ * {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+.panel {
+	margin-bottom: 0px;
+	border: 0px solid !important;
+	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0)
+}
+
+.panel-heading {
+	background-color: #FFFFFF !important;
+}
