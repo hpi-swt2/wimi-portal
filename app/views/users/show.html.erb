@@ -12,7 +12,7 @@
             <h4><%= t('.user_data') %></h4>
           </div>
           <div class="col-sm-6 text text-right">
-            <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-primary' if @user == current_user %>
+            <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-warning' if @user == current_user %>
           </div>
         </div>
       </div>
@@ -29,7 +29,6 @@
     </div>
   </div>
 </div>
-
 
 <% if @user == current_user %>
 <% content_for :sidebar do %>
