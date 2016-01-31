@@ -1,21 +1,27 @@
 <div class="col-md-12">
   <div class="display">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%=t ('.projects') %></h4>
+      <div class="page-header">
+        <h4>
+          <div class="row">
+            <div class="col-md-9">
+              <%=t ('.projects') %>
+            </div>
+            <div class="col-md-3">
+              <% if can? :create, Project %>
+                <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-success' %>
+              <% end %>
+            </div>
+          </div>
+        </h4>
       </div>
-      <div class="panel-body">
-        <% current_user.projects.each do |project|%>
-        <p>
-          <%= link_to project.title, project %>
-        </p>
-        <%end%>
-        <% if can? :create, Project %>
-        <p style="margin-top:10px">
-          <%= link_to t('.new', default: t("helpers.links.new")), new_project_path, class: 'btn btn-primary' %>
-        </p>
-        <% end %>
-      </div>
-    </div>
+      <% unless current_user.projects.nil?%>
+        <div class="row">
+          <% current_user.projects.each do |project|%>
+            <div class="col-md-12">
+              <%= link_to project.title, project, class: "btn btn-default btn-block" %>
+            </div>
+          <%end%>
+        </div>
+      <% end %>
   </div>
 </div>
