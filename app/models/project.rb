@@ -66,4 +66,12 @@ class Project < ActiveRecord::Base
       project_applications.delete(ProjectApplication.find_by_user_id user.id)
     end
   end
+
+  def hiwi_workdays_for(year, month)
+    sum_working_hours = 0
+    hiwis.each do |hiwi|
+      sum_working_hours += TimeSheet.time_sheet_for(year, month, self, hiwi).sum_hours
+    end
+    return sum_working_hours
+  end
 end
