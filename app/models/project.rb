@@ -74,4 +74,13 @@ class Project < ActiveRecord::Base
     end
     return sum_working_hours
   end
+
+  def self.workdays_data(year, month)
+    data = []
+    Project.find_each do |project|
+      entry = "{ y: #{project.hiwi_workdays_for(year, month)}, name: \"#{project.title}\"}"
+      data.push(entry)
+    end
+    return data.join(",\n")
+  end
 end
