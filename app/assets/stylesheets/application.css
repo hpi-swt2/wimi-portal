@@ -142,3 +142,12 @@ body {
     background-color: #FFFFFF;
     padding: 15px;
 }
+
+.novertpadding {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.btn-eq {
+    width: auto;
+}

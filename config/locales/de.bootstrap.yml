@@ -229,9 +229,12 @@ de:
       car: "PKW"
       public_transport: "Bus/Bahn/Flug"
       vehicle_advance: "vom HPI im Voraus bezahlt"
-      hotel: "Hotel"
+      hotel: "Hotel?"
       general_advance: "Vorschuss"
       signature: "Unterschreiben"
+    form:
+      travel_by: "Reise mit"
+      catering: "Geben Sie hier für jeden Tag an, welche Mahlzeiten nicht aus privaten Mitteln bezahlt wurden. (z.B. Frühstück im Hotel)"
   trips:
     show:
       id: "Id"
@@ -255,6 +258,11 @@ de:
         declined: "Abgelehnt am "
       expense: "Details für Reisekostenabrechnung"
       create_expense: "Reisekosten eintragen"
+    form:
+      destination: "Zielort der Geschätsreise"
+      reason: "Kurze Begründung"
+      annotation: "Sonstige Bemerkungen"
+      date: "TT.MM.JJJJ"
   work_days:
     index:
       working_hours_for: "Arbeitsstunden in"

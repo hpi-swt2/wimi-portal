@@ -239,9 +239,12 @@ en:
       car: "Travel by car"
       public_transport: "Travel by Bus/Train/Plane"
       vehicle_advance: "Travel paid by HPI"
-      hotel: "Hotel"
+      hotel: "Hotel?"
       general_advance: "Advance"
       signature: "Add signature"
+    form:
+      travel_by: "Travel by"
+      catering: "Mark every meal that has not been paid by private means"
   trips:
     show:
       id: "Id"
@@ -265,6 +268,11 @@ en:
         declined: "Rejected at "
       expense: "Details for trip expenses"
       create_expense: "Create trip expense"
+    form:
+      destination: "Destination of the Business Trip"
+      reason: "Short explanation"
+      annotation: "Other remarks"
+      date: "MM/DD/YYYY"
   work_days:
     index:
       working_hours_for: "Working hours for"

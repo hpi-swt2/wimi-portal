@@ -30,3 +30,11 @@
 .panel-heading {
 	background-color: #FFFFFF !important;
 }
+
+.page-header {
+	margin-top: 0px;
+}
+
+h1,h2,h3,h4 {
+	margin-top: 0px;
+}
