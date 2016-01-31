@@ -102,7 +102,7 @@ validateEmail = (email) ->
   re.test email
 
 renderHiwiWorkingHoursCharts = (data) ->
-  chart = new (CanvasJS.Chart)('chartContainer',
+  chart = new (CanvasJS.Chart)('hiwiWorkingHoursChart',
     animationEnabled: true
     legend:
       verticalAlign: 'bottom'
@@ -133,6 +133,20 @@ sendWorkingHoursForMonthYearToRenderer = (monthYear, callback) ->
       callback JSON.parse "{ \"y\": 0, \"name\": \"Error - Try again later | Fehler - Bitte versuchen Sie es später nochmal\"}"
       return
 
+refreshWorkingHoursChart = ->
+  month = $('#workingHoursChartMonth').val()
+  year = $('#workingHoursChartYear').val()
+  sendWorkingHoursForMonthYearToRenderer month + "-" + year, renderHiwiWorkingHoursCharts
+
+initWorkingHoursChart = ->
+  today = new Date
+  monthDate = today.getMonth() + 1 + "-" + today.getFullYear()
+  sendWorkingHoursForMonthYearToRenderer monthDate, renderHiwiWorkingHoursCharts
+  $('#workingHoursChartMonth').change ->
+    refreshWorkingHoursChart()
+  $('#workingHoursChartYear').change ->
+    refreshWorkingHoursChart()
+
 ready = ->
   if $('#setInactiveButton').length
     sendLanguageWithButtonToCallback $('#setInactiveButton'), setInactiveWarning
@@ -142,10 +156,8 @@ ready = ->
     typeahead()
   if $('#invite_user').length
     sendLanguageWithButtonToCallback $('#invite_user'), inviteInitUser
-  if $('#chartContainer').length
-    today = new Date
-    monthDate = today.getMonth() + 1 + "-" + today.getFullYear()
-    sendWorkingHoursForMonthYearToRenderer monthDate, renderHiwiWorkingHoursCharts
+  if $('#hiwiWorkingHoursChart').length
+    initWorkingHoursChart()
   return
 
 $(document).ready ready
