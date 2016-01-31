@@ -67,7 +67,7 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def hiwi_workdays_for(year, month)
+  def hiwi_working_hours_for(year, month)
     sum_working_hours = 0
     hiwis.each do |hiwi|
       sum_working_hours += TimeSheet.time_sheet_for(year, month, self, hiwi).sum_hours
@@ -75,10 +75,10 @@ class Project < ActiveRecord::Base
     return sum_working_hours
   end
 
-  def self.workdays_data(year, month)
+  def self.working_hours_data(year, month)
     data = []
     Project.find_each do |project|
-      entry = {y: project.hiwi_workdays_for(year, month), name: project.title}
+      entry = {y: project.hiwi_working_hours_for(year, month), name: project.title}
       data.push(entry)
     end
     return data.to_json

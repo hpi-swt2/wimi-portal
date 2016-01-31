@@ -128,7 +128,7 @@ class ProjectsController < ApplicationController
   def hiwi_working_hours
     month = params[:month_year].split('-')[0]
     year = params[:month_year].split('-')[1]
-    render json: {msg: Project.workdays_data(year, month)}
+    render json: {msg: Project.working_hours_data(year, month)}
   end
 
   private

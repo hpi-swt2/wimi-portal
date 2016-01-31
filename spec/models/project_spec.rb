@@ -64,8 +64,8 @@ RSpec.describe Project, type: :model do
     FactoryGirl.create(:work_day, date: '2015-11-26', start_time: '2015-11-26 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user2, project: project)
     FactoryGirl.create(:work_day, date: '2015-12-25', start_time: '2015-12-25 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user1, project: project)
 
-    expect(project.hiwi_workdays_for(2015, 11)).to eq 8.5
-    expect(project.hiwi_workdays_for(2015, 12)).to eq 8
+    expect(project.hiwi_working_hours_for(2015, 11)).to eq 8.5
+    expect(project.hiwi_working_hours_for(2015, 12)).to eq 8
   end
 
   it 'returns correct data for ChartJS' do
@@ -81,8 +81,9 @@ RSpec.describe Project, type: :model do
 
     FactoryGirl.create(:work_day, date: '2015-11-26', start_time: '2015-11-26 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user2, project: project)
 
-    expect(Project.workdays_data(2015, 11)).to eq( "[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":8.5,\"name\":\"Working Hours Project\"}]")
-    expect(Project.workdays_data(2015, 12)).to eq( "[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":8.0,\"name\":\"Working Hours Project\"}]"
+    expect(Project.working_hours_data(2015, 10)).to eq( "[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":0,\"name\":\"Working Hours Project\"}]")
+    expect(Project.working_hours_data(2015, 11)).to eq( "[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":8.5,\"name\":\"Working Hours Project\"}]")
+    expect(Project.working_hours_data(2015, 12)).to eq( "[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":8.0,\"name\":\"Working Hours Project\"}]"
 )
   end
 end
