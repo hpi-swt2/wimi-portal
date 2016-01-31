@@ -256,7 +256,7 @@ de:
         accepted: "Akzeptiert am "
         applied: "Eingereicht am "
         declined: "Abgelehnt am "
-      expense: "Details für Reisekostenabrechnung"
+      expense: "Reisekostenabrechnung"
       create_expense: "Reisekosten eintragen"
     form:
       destination: "Zielort der Geschätsreise"

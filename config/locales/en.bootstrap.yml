@@ -266,7 +266,7 @@ en:
         accepted: "Accepted at "
         applied: "Applied at "
         declined: "Rejected at "
-      expense: "Details for trip expenses"
+      expense: "Trip expenses report"
       create_expense: "Create trip expense"
     form:
       destination: "Destination of the Business Trip"

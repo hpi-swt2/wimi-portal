@@ -1,74 +1,152 @@
-<p id="notice"><%= notice %></p>
+<%= form_for [expense.trip,expense] do |f| %>
+<fieldset disabled>
+<div class="row">
+  <div class="col-md-12 novertpadding">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group" id="div_inland">
+          <%= f.label :country %><br>
+          <%= f.text_field :country, id: "field_inland" , readonly: true, class: "form-control"%>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group" >
+          <%= f.label :inland %><br>
+          <%= f.check_box :inland , {onclick: "toggleField(field_inland,checkbox_inland)", id: "checkbox_inland"} , readonly: true, class: "form-control"%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= f.label :location_from %><br>
+      <%= f.text_field :location_from , readonly: true, class: "form-control"%>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= f.label :location_via %><br>
+      <%= f.text_field :location_via , readonly: true, class: "form-control"%>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= f.label :location_to %><br>
+      <%= f.text_field :location_to, value: expense.location_to.to_s , readonly: true, class: "form-control", readonly: true, class: "form-control"%>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 novertpadding">
+    <div class="form-group">
+      <%= f.label :reason %><br>
+      <%= f.text_area :reason, readonly: true, class: "form-control" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= label_tag Trip.human_attribute_name(:date_start) %>
+      <%= text_field_tag "date_start", I18n.l(expense.trip.date_start) , readonly: true, class: "form-control"%>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= label_tag Trip.human_attribute_name(:date_end) %>
+      <%= text_field_tag "date_end", I18n.l(expense.trip.date_end), readonly: true, class: "form-control" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <%= f.label :time_start %>
+    <%= f.text_field :time_start, readonly: true, class: "form-control" , placeholder: "HH:MM" %>
+  </div>
+  <div class="col-md-6">
+    <%= f.label :time_end %>
+    <%= f.text_field :time_end , readonly: true, class: "form-control", placeholder: "HH:MM" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-2">
+        <%= label_tag t('expenses.form.travel_by') %>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.check_box :car , readonly: true%> <%= f.label :car %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
 
-<p>
-  <strong><%= t('.inland') %>:</strong>
-  <%= t(expense.inland.to_s) %>
-</p>
+          <%= f.check_box :public_transport, readonly: true%> <%= f.label :public_transport %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
 
-<p>
-  <strong><%= t('.country') %>:</strong>
-  <%= expense.country %>
-</p>
+          <%= f.check_box :vehicle_advance , readonly: true%> <%= f.label :vehicle_advance %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong><%= t('.location_from') %>:</strong>
-  <%= expense.location_from %>
-</p>
-
-<p>
-  <strong><%= t('.location_via') %>:</strong>
-  <%= expense.location_via %>
-</p>
-
-<p>
-  <strong><%= t('.location_to') %>:</strong>
-  <%= expense.location_to %>
-</p>
-
-<p>
-  <strong><%= t('.reason') %>:</strong>
-  <%= expense.reason %>
-</p>
-
-<p>
-  <strong><%= t('.time_start') %>:</strong>
-  <%= expense.time_start %>
-</p>
-<p>
-  <strong><%= t('.time_end') %>:</strong>
-  <%= expense.time_end %>
-</p>
-
-<p>
-  <strong><%= t('.car') %>:</strong>
-  <%= t(expense.car.to_s) %>
-</p>
-
-<p>
-  <strong><%= t('.public_transport') %>:</strong>
-  <%= t(expense.public_transport.to_s) %>
-</p>
-
-<p>
-  <strong><%= t('.vehicle_advance') %>:</strong>
-  <%= t(expense.vehicle_advance.to_s) %>
-</p>
-
-<p>
-  <strong><%= t('.hotel') %>:</strong>
-  <%= t(expense.hotel.to_s) %>
-</p>
-
-<p>
-  <strong><%= t('.general_advance') %>:</strong>
-  <%= expense.general_advance %>
-</p>
-
-<p>
-  <strong><%= t('.signature') %>:</strong>
-  <%= t(expense.signature.to_s) %>
-</p>
-
-<ul>
-  <%= render expense.expense_items.order(:date) %>
-</ul>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.check_box :hotel, readonly: true%> <%= f.label :hotel %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :general_advance %><br>
+      <%= f.number_field :general_advance, :value => "0", readonly: true, class: "form-control" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+   <span><%= t('expenses.form.catering') %></span>
+ </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div id="date_items">
+      <table class="table table-striped">
+        <tr>
+          <th><%= t('activerecord.attributes.expense_item.date') %></th>
+          <th><%= t('activerecord.attributes.expense_item.breakfast') %></th>
+          <th><%= t('activerecord.attributes.expense_item.lunch') %></th>
+          <th><%= t('activerecord.attributes.expense_item.dinner') %></th>
+          <th><%= t('activerecord.attributes.expense_item.annotation') %></th>
+        </tr>
+        <% index = 0 %>
+        <%= f.fields_for :expense_items do |t| %>
+        <tr>
+          <td><%= l expense.expense_items[index].date %></td>
+          <td><%= t.check_box :breakfast , readonly: true%></td>
+          <td><%= t.check_box :lunch , readonly: true%></td>
+          <td><%= t.check_box :dinner , readonly: true%></td>
+          <td><%= t.text_field :annotation , readonly: true, class: "form-control"%></td>
+        </tr>
+        <% index += 1 %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div>
+      <%= f.check_box :signature, readonly: true%> <%= f.label :signature %>
+    </div>
+  </div>
+</div>
+<% end %>
+</fieldset>
