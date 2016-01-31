@@ -37,7 +37,6 @@
     <th><%= t('.accessibility', default:'Accessibility') %></th>
     <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
     <th><%=t '.actions', default: t("helpers.actions") %></th>
-
   </tr>
 
   </thead>
@@ -48,7 +47,6 @@
       <td><%= link_to project.chair.name, project.chair %></td>
       <td><%= project.status ? t('.active', default:'active') : t('.inactive', default:'inactive') %></td>
       <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
-
       <td><%=l project.created_at %></td>
       <td>
         <% if can? :create, ProjectApplication %>
@@ -92,3 +90,4 @@
   <% end %>
   </tbody>
 </table>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>

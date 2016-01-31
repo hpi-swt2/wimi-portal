@@ -231,7 +231,7 @@ RSpec.describe ProjectsController, type: :controller do
     FactoryGirl.create(:work_day, date: '2015-11-26', start_time: '2015-11-26 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user2, project: project)
 
     get :hiwi_working_hours, {month_year: '11-2015'}, valid_session
-    expect(response.body).to eq("{\"msg\":\"{ y: 8.5, name: \\\"My Project\\\"}\"}")
+    expect(response.body).to eq("{\"msg\":\"[{\\\"y\\\":8.5,\\\"name\\\":\\\"My Project\\\"}]\"}")
     end
   end
 end
