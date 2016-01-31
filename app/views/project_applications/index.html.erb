@@ -11,36 +11,36 @@
   </tr>
   </thead>
   <tbody>
-    <% @project_applications.each do |project_application| %>
-        <tr>
-          <td><%= link_to project_application.project.title, project_path(project_application.project_id) %></td>
-            <% case project_application.status %>
-              <% when "pending" %>
+  <% @project_applications.each do |project_application| %>
+      <tr>
+        <td><%= link_to project_application.project.title, project_path(project_application.project_id) %></td>
+          <% case project_application.status %>
+            <% when "pending" %>
+              <td>
+                <span class="label label-xs label-info"><%= I18n.t('project_applications.states.pending') %></span>
+              </td>
+              <td>
+                <%= link_to t('.cancel', default: 'Cancel Application'),
+                  project_application_path(project_application),
+                  method: :delete,
+                  data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
+                  class: 'btn btn-danger btn-xs' %>
+              </td>
+            <% when "accepted" %>
+              <td>
+                <span class="label label-xs label-success"><%= I18n.t('project_applications.states.accepted') %></span>
+              </td>
+              <td></td>
+            <% when "declined"%>
                 <td>
-                  <span class="label label-xs label-info"><%= I18n.t('project_applications.states.pending') %></span>
+                  <span class="label label-xs label-danger"><%= I18n.t('project_applications.states.declined') %></span>
                 </td>
                 <td>
-                  <%= link_to t('.cancel', default: 'Cancel Application'),
-                    project_application_path(project_application),
-                    method: :delete,
-                    data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
-                    class: 'btn btn-danger btn-xs' %>
+                  <%= link_to t('project_applications.reapply', default: 'Reapply'),
+                              reapply_project_application_path(project_application), class: 'btn btn-primary btn-xs' %>
                 </td>
-              <% when "accepted" %>
-                <td>
-                  <span class="label label-xs label-success"><%= I18n.t('project_applications.states.accepted') %></span>
-                </td>
-                <td></td>
-              <% when "declined"%>
-                  <td>
-                    <span class="label label-xs label-danger"><%= I18n.t('project_applications.states.declined') %></span>
-                  </td>
-                  <td>
-                    <%= link_to t('project_applications.reapply', default: 'Reapply'),
-                                reapply_project_application_path(project_application), class: 'btn btn-primary btn-xs' %>
-                  </td>
-            <% end %>
-        </tr>
-    <% end %>
+          <% end %>
+      </tr>
+  <% end %>
   </tbody>
 </table>
