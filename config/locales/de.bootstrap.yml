@@ -99,6 +99,7 @@ de:
       private: "privat"
       public: "öffentlich"
       projects: "Projekte"
+      all_working_hours: "Hiwi Stunden Gesamt"
   users:
     does_not_exist: "Dieser Benutzer existiert nicht."
     update:

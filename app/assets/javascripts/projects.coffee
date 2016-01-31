@@ -119,7 +119,7 @@ renderHiwiWorkingHoursCharts = (data) ->
       indexLabelPlacement: 'inside'
       toolTipContent: '{name}: {y}hrs'
       showInLegend: true
-      indexLabel: '#percent%'
+      indexLabel: '{y}'
       dataPoints: data
     } ])
   chart.render()
@@ -143,7 +143,9 @@ ready = ->
   if $('#invite_user').length
     sendLanguageWithButtonToCallback $('#invite_user'), inviteInitUser
   if $('#chartContainer').length
-    sendWorkingHoursForMonthYearToRenderer "11-2015", renderHiwiWorkingHoursCharts
+    today = new Date
+    monthDate = today.getMonth() + 1 + "-" + today.getFullYear()
+    sendWorkingHoursForMonthYearToRenderer monthDate, renderHiwiWorkingHoursCharts
   return
 
 $(document).ready ready
