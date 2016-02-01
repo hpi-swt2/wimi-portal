@@ -85,7 +85,7 @@ RSpec.describe 'projects/edit', type: :view do
     visit edit_project_path(project)
     find('a[id="SignOutMyself"]').click
     project.reload
-    expect(current_path).to eq(project_path(project))
+    expect(current_path).to eq(projects_path)
     expect(project.users).not_to include(@wimi)
   end
 
@@ -97,7 +97,7 @@ RSpec.describe 'projects/edit', type: :view do
     visit project_path(project)
     click_on(I18n.t('projects.show.leave_project'))
     project.reload
-    expect(current_path).to eq(project_path(project))
+    expect(current_path).to eq(projects_path)
     expect(project.users).not_to include(user)
   end
 
@@ -121,7 +121,8 @@ RSpec.describe 'projects/edit', type: :view do
     visit edit_project_path(project)
     find('a[id="SignOutMyself"]').click
     project.reload
-    expect(current_path).to eq(project_path(project))
+    expect(current_path).to eq(projects_path)
+    visit project_path(project)
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))

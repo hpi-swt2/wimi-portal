@@ -16,7 +16,7 @@ class Ability
     end
   end
 
-  def initialize_user(_user)
+  def initialize_user(user)
     can :see, Project
     can :index, Chair
     can :apply, Chair
@@ -25,15 +25,22 @@ class Ability
     end
     can :create, ProjectApplication
 
-    # can :accept_invitation, Project
+    can :accept_invitation, Project do |project|
+      Invitation.select{ |i| i.user == user && i.project == project}
+    end
+    can :decline_invitation, Project do |project|
+      Invitation.select { |i| i.user == user && i.project == project }
+    end
   end
 
   def initialize_hiwi(user)
-    can :see, Project
+    initialize_user user
+
+    can :read, Project
     cannot :create, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
-    can :leave_project, Project do |project|
+    can :sign_user_out, Project do |project|
       project.users.include? user
     end
     # can :accept_invitation, Project
@@ -45,14 +52,18 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, to: :crud
 
+    can :read, Project
     can :create, Project
     can :manage, Project do |project|
+      project.users.include?(user)
+    end
+    can :edit, Project do |project|
       project.users.include?(user)
     end
     can :invite_user, Project do |project|
       project.users.include? user
     end
-    can :leave_project, Project do |project|
+    can :sign_user_out, Project do |project|
       project.users.include? user
     end
     can :manage, ProjectApplication do |project_application|
