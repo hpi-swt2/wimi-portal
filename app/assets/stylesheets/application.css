@@ -41,7 +41,7 @@ html, body {
 body {
     padding-top: 50px; /*50px for the height of the navbar*/
     padding-bottom: 50px; /*50px for the height of the bottom navbar*/
-    background-color: #DD6108;
+    background-image: url("startseitehintergrund.jpg");
 }
 
 .container-fluid.scrollable {

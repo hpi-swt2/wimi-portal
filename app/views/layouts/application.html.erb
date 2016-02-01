@@ -33,27 +33,30 @@
     <% end %>
   </nav>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <%= render 'shared/flash_messages' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="col-md-8 wrapper-large">
-          <div class="row">
-            <%= yield %>
+
+    <div class="container">
+      <div class="content" style="background-color: rgba(221,97,8,0.6)">
+        <div class="row">
+          <div class="col-md-12">
+            <%= render 'shared/flash_messages' %>
           </div>
         </div>
-        <div class="col-md-4 wrapper-small">
-          <div class="row">
-            <%= yield :sidebar%>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-8 wrapper-large">
+              <div class="row">
+                <%= yield %>
+              </div>
+            </div>
+            <div class="col-md-4 wrapper-small">
+              <div class="row">
+                <%= yield :sidebar%>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
   <%= yield :modals %>
 
