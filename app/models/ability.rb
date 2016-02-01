@@ -14,6 +14,8 @@ class Ability
         end
       end
     end
+
+    can :superadmin_index, User
   end
 
   def initialize_user(user)
@@ -24,6 +26,26 @@ class Ability
       project.public
     end
     can :create, ProjectApplication
+    can :show, User
+    can :read, User
+    can :update, User do |_user|
+      _user == user
+    end
+    can :edit, User do |_user|
+      _user == user
+    end
+    can :upload_signature, User do |_user|
+      _user == user
+    end
+    can :delete_signature, User do |_user|
+      _user == user
+    end
+    can :user_exists, User
+    can :resource_name, User
+    can :resource, User
+    can :devise_mapping, User
+    can :language, User
+    can :set_user, User
 
     can :accept_invitation, Project do |project|
       Invitation.select{ |i| i.user == user && i.project == project}
@@ -168,6 +190,9 @@ class Ability
     can     :manage,   Chair
     cannot  :see,      Chair
     cannot  :show,     Chair
+    can     :show,     User do |user|
+      user == _user
+    end
 
     cannot  :create,   ProjectApplication
     #assign representative/admin role to user
