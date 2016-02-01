@@ -18,8 +18,8 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th text-align="center"><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
-                <th align="center"><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
+                <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
+                <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
                 <th><%= t('.accessibility', default:'Accessibility') %></th>
                 <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
                 <th><%=t '.actions', default: t("helpers.actions") %></th>
@@ -91,9 +91,11 @@
           </div>
           <div class="panel-body">
             <div class="col-md-12">
+              <strong><%= t('projects.index.title')%></strong>
               <%= text_field_tag :title, params[:title], placeholder: t('activerecord.attributes.project.title'), class: "form-control" %>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
+              <strong><%= t('projects.show.chair')%></strong>
               <%= select_tag :chair, options_from_collection_for_select(Chair.all, 'name', 'name', params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
             </div>
             <div class="col-md-6">

@@ -193,6 +193,7 @@ en:
   links:
     search: 'Search'
     submit: 'Submit'
+    filter: 'Filter'
   holiday:
     not_authorized: "You're not authorized to see this holiday request."
     not_enough_leave: 'Not enough leave left!'
@@ -202,7 +203,7 @@ en:
     something_wrong: 'Something went wrong.'
     applied: "Holiday is already applied"
   project:
-    filter_chair: 'Filter for research group'
+    filter_chair: 'Filter for ...'
     invite_someone_to_project: 'Invite someone to the project'
     invite_someone_to_the_project: "Invite someone to the project \"%{title}\""
     send_invitation_to: 'Send invitation to:'

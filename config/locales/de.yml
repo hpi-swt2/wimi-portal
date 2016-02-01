@@ -202,6 +202,7 @@ de:
   links:
     search: 'Suchen'
     submit: 'Abschicken'
+    filter: 'Filtern'
   holiday:
     not_authorized: 'Sie sind nicht befugt, diesen Urlaubsantrag einzusehen.'
     not_enough_leave: 'Nicht genug Resturlaub übrig!'
@@ -210,7 +211,7 @@ de:
     created: 'Urlaub wurde erfolgreich erstellt.'
     something_wrong: 'Es gab einen unbekannten Fehler.'
   project:
-    filter_chair: 'Nach Fachgebiet filtern'
+    filter_chair: 'Filtern nach ...'
     invite_someone_to_project: 'Jemanden zum Projekt einladen'
     invite_someone_to_the_project: "Jemanden zum Projekt \"%{title}\" einladen"
     send_invitation_to: 'Einladung senden an:'
