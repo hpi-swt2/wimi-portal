@@ -108,7 +108,7 @@ en:
       private: "private"
       public: "public"
       projects: "Projects"
-      all_working_hours: "All Student Working Hours for"
+      all_working_hours: "Overall Student Working Hours for"
   users:
     does_not_exist: "This user does not exist."
     update:
