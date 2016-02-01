@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <%= f.label :date, class: "control-label" %><br>
+        <%= f.label :date, class: "control-label" %>
         <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
       </div>
     </div>
@@ -32,13 +32,13 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :break, class: "control-label"  %> (minutes)<br>
-        <%= f.number_field :break, value: 0, class: "form-control" %>
+        <%= f.label :break, class: "control-label"  %> (<%= t('.minutes') %>)
+        <%= f.number_field :break, value: 0, class: "form-control"%>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :end_time, class: "control-label"  %><br>
+        <%= f.label :end_time, class: "control-label"  %> <br>
         <%= f.time_select :end_time, {}, class: "form-control time-select" %>
       </div>
     </div>
@@ -46,13 +46,13 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        <%= f.label :attendance, class: "control-label"  %><br>
+        <%= f.label :attendance, class: "control-label"  %>
         <%= f.select :attendance, [['Normal', ''], ['Ill', 'K'], ['Holiday', 'F'], ['Leave Day', 'U']], {}, {class: "form-control"} %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <%= f.label :project, class: "control-label" %><br>
+        <%= f.label :project, class: "control-label" %>
         <%= collection_select :work_day, :project_id, current_user.projects, :id, :title, {selected: @work_day.project_id}, class: "form-control"%>
       </div>
     </div>
@@ -60,7 +60,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <%= f.label :notes, class: "control-label"  %><br>
+        <%= f.label :notes, class: "control-label"  %>
         <%= f.text_field :notes, class: "form-control" %>
       </div>
     </div>

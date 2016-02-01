@@ -93,6 +93,7 @@ body {
 
 .time-select {
     display: inline-block;
+    width: 47%;
 }
 
 .email-invite {

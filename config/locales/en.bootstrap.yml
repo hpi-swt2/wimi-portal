@@ -286,6 +286,8 @@ en:
       title: "New Work Day"
     edit:
       title: "Edit Work Day"
+    form:
+      minutes: "Time in minutes"
   time_sheets:
     form:
       monthly: "monthly"

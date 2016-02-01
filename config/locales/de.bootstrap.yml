@@ -276,6 +276,8 @@ de:
       title: "Arbeitsstundeneintrag erstellen"
     edit:
       title: "Arbeitsstundeneintrag bearbeiten"
+    form:
+      minutes: "Zeit in Minuten"
   time_sheets:
     form:
       monthly: "monatlich"
