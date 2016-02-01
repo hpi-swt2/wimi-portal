@@ -159,6 +159,7 @@ en:
         end_time: "End time"
         duration: "Duration"
         notes: "Notes"
+        attendance: "Attendance"
       time_sheet:
         salary: "Salary"
         workload: "Workload"

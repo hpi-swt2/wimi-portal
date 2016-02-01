@@ -283,6 +283,9 @@ en:
       user: "Benutzer"
     new:
       back: "Back"
+      title: "New Work Day"
+    edit:
+      title: "Edit Work Day"
   time_sheets:
     form:
       monthly: "monthly"

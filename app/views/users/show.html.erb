@@ -76,6 +76,7 @@
 <% end %>
 <% end %>
 
+<!-- time sheet overview for hiwi -->
 <% if @user == current_user %>
   <div class="col-md-12">
     <div class="display">
@@ -84,19 +85,26 @@
           <h4><%= t('.time_sheets_overview')%></h4>
         </div>
         <div class="panel-body">
-          <% @user.years_and_months_of_existence.each do |month| %>
-              <p>
-                <%= link_to l(Date.new(month.first, month.last, 1), format: :without_day) + ':', work_days_path(month: month.last, year: month.first) %>
-                <% current_user.projects_for_month(month.first, month.last).each do |project| %>
-                    <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user) %>
-                <% end %>
-              </p>
-          <% end %>
+          <div class="row">
+            <% @user.years_and_months_of_existence.each do |month| %>
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <%= link_to l(Date.new(month.first, month.last, 1), format: :without_day) , work_days_path(month: month.last, year: month.first) , class: "btn btn-info btn-block" %>
+                  </div>
+                  <div class="panel-body">
+                    <% current_user.projects_for_month(month.first, month.last).each do |project| %>
+                        <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user) , class: "btn btn-default btn-block"%>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-    
 <% end %>
 
 <% if current_user.is_wimi? && @user == current_user %>

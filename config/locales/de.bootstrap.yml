@@ -273,6 +273,9 @@ de:
       user: "Benutzer"
     new:
       back: "Zurück"
+      title: "Arbeitsstundeneintrag erstellen"
+    edit:
+      title: "Arbeitsstundeneintrag bearbeiten"
   time_sheets:
     form:
       monthly: "monatlich"

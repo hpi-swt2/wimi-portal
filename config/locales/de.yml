@@ -158,6 +158,7 @@ de:
         end_time: "Endzeit"
         duration: "Dauer"
         notes: "Anmerkung"
+        attendance: "Anwesenheit"
       time_sheet:
         salary: "Bezahlung"
         workload: "Arbeitszeit"
