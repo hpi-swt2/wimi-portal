@@ -16,10 +16,10 @@
   <dd><%= @project.public ? t('.public', default:'Public') : t('.private', default:'private') %></dd>
 </dl>
 
-<% if current_user.is_hiwi? %>
+<% if can? :add_working_hours, @project %>
   <dl class="dl-horizontal">
     <dt><strong><%= t('.working_hours', default:'Working hours') %>:</strong></dt>
-    <dd><%= link_to t('projects.form.add_working_hours', default:'Add working hours'),
+    <dd><%= link_to t('.add_working_hours', default:'Add working hours'),
                     new_work_day_path, class: 'pull-right', style: 'margin-right: 15px' %>
       <div>
         <% current_user.work_year_months_for_project(@project).each do |month| %>
