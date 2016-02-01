@@ -96,9 +96,9 @@ en:
       student_assistants: "Student Assistants"
       project_team: "Project Team"
       active: "aktiv"
-      leave_project: "Leave Project"
+      leave_project: "Leave"
     index:
-      new: "+ Add project"
+      new: "Add project"
       title: "Title"
       project_status: "Project Status"
       accessibility: "Accessibility"

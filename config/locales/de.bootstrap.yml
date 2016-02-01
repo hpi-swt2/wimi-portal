@@ -88,9 +88,9 @@ de:
       research_assistants: "Wisenschaftliche Mitarbeiter"
       student_assistants: "Studentische Hilfskräfte"
       project_team: "Projekt Team"
-      leave_project: "Verlasse Projekt"
+      leave_project: "Verlassen"
     index:
-      new: "+ Projekt hinzufügen"
+      new: "Projekt hinzufügen"
       title: "Titel"
       accessibility: "Verfügbarkeit"
       created_at: "Erstellt am"
