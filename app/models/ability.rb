@@ -193,6 +193,24 @@ class Ability
     can     :show,     User do |user|
       user == _user
     end
+    can :update, User do |user|
+      _user == user
+    end
+    can :edit, User do |user|
+      _user == user
+    end
+    can :upload_signature, User do |user|
+      _user == user
+    end
+    can :delete_signature, User do |user|
+      _user == user
+    end
+    can :user_exists, User
+    can :resource_name, User
+    can :resource, User
+    can :devise_mapping, User
+    can :language, User
+    can :set_user, User
 
     cannot  :create,   ProjectApplication
     #assign representative/admin role to user
