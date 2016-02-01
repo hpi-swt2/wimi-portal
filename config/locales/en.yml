@@ -285,3 +285,7 @@ en:
       upload_error: "Please choose a file"
     delete_signature:
       destroy_success: "Signature successfully deleted"
+  signatures:
+    signature_not_found: "You have selected to sign the document, but there was no signature found"
+    signature_not_found_time_sheet: "The document was not handed in, because you have selected to sign the document, but there was no signature found"
+    signature_not_found_representative: "You tried to accept a document, but there was no signature found. Please upload a signature first!"

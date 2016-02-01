@@ -17,7 +17,7 @@ class TimeSheetsController < ApplicationController
     if time_sheet_params[:signed] == '1' && current_user.signature.nil?
       time_sheet.signed = false
       redirect_to :back
-      flash[:error] = 'selected signature, but not found, not handed in'
+      flash[:error] = t('signatures.signature_not_found_time_sheet')
     else
       if time_sheet_params[:signed] == '1' && !current_user.signature.nil?
         time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
@@ -32,9 +32,15 @@ class TimeSheetsController < ApplicationController
 
   def accept
     time_sheet = TimeSheet.find(params[:id])
-    time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id)
-    ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
-    redirect_to dashboard_path
+
+    if current_user.signature.nil?
+      redirect_to time_sheet
+      flash[:error] = t('signatures.signature_not_found_representative')
+    else
+      time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id, representative_signature: current_user.signature, representative_signed_at: Date.today)
+      ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
+      redirect_to dashboard_path
+    end
   end
 
   def reject

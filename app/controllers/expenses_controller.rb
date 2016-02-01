@@ -25,11 +25,10 @@ class ExpensesController < ApplicationController
 
     if expense_params[:signature] == '1' && current_user.signature.nil?
       @expense.signature = false
-      flash[:error] = 'selected signature, but not found'
+      flash[:error] = t('signatures.signature_not_found')
     elsif expense_params[:signature] == '1' && !current_user.signature.nil?
       @expense.user_signature = current_user.signature
-    else
-      @expense.user_signature = nil
+      @expense.user_signed_at = Date.today
     end
 
     if @expense.save
@@ -53,11 +52,13 @@ class ExpensesController < ApplicationController
 
     if new_expense_params[:signature] == '1' && current_user.signature.nil?
       new_expense_params[:signature] = false
-      flash[:error] = 'selected signature, but not found'
+      flash[:error] = t('signatures.signature_not_found')
     elsif new_expense_params[:signature] == '1' && !current_user.signature.nil?
       @expense.user_signature = current_user.signature
+      @expense.user_signed_at = Date.today
     else
       @expense.user_signature = nil
+      @expense.user_signed_at = nil
     end
 
     if @expense.update(new_expense_params)

@@ -37,7 +37,7 @@ class TripsController < ApplicationController
 
     if trip_params[:signature] == '1' && current_user.signature.nil?
       @trip.signature = false
-      flash[:error] = 'selected signature, but not found'
+      flash[:error] = t('signatures.signature_not_found')
     elsif trip_params[:signature] == '1' && !current_user.signature.nil?
       @trip.user_signature = current_user.signature
       @trip.user_signed_at = Date.today
@@ -59,7 +59,7 @@ class TripsController < ApplicationController
 
     if new_trip_params[:signature] == '1' && current_user.signature.nil?
       new_trip_params[:signature] = false
-      flash[:error] = 'selected signature, but not found'
+      flash[:error] = t('signatures.signature_not_found')
     elsif new_trip_params[:signature] == '1' && !current_user.signature.nil?
       @trip.user_signature = current_user.signature
       @trip.user_signed_at = Date.today
@@ -114,7 +114,7 @@ class TripsController < ApplicationController
     if (can? :read, @trip) && @trip.status == 'applied'
       if current_user.signature.nil?
         redirect_to @trip
-        flash[:error] = 'stuff'
+        flash[:error] = t('signatures.signature_not_found_representative')
       else
         @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user, representative_signature: current_user.signature, representative_signed_at: Date.today)
         ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})

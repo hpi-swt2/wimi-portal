@@ -88,7 +88,7 @@
     <td style="height:30pt" colspan=3>
       <div class='signature'>
         <% if timesheet.signed %>
-            <%= Date.today.strftime("%d.%m.%Y") %>,
+            <%= timesheet.user_signed_at.strftime("%d.%m.%Y") %>,
             <% path = 'data:image/png;base64,' << timesheet.user_signature %>
             <img src="<%= path %>" Zwidth="150" height="50"/></div>
         <% end %>
@@ -102,7 +102,13 @@
 
     <td>&nbsp;</td>
     <td colspan=4>
-      <div class='signature'>&nbsp;</div>
+      <div class='signature'>
+        <% unless timesheet.representative_signature.nil? %>
+            <%= timesheet.representative_signed_at.strftime("%d.%m.%Y") %>,
+            <% path = 'data:image/png;base64,' << timesheet.representative_signature %>
+            <img src="<%= path %>" Zwidth="150" height="50"/></div>
+        <% end %>
+      </div>
       <p>
         <span>Datum</span>
         <span>Unterschrift Fachgebiet</span>

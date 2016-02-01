@@ -37,7 +37,7 @@ class HolidaysController < ApplicationController
 
     if holiday_params[:signature] == '1' && current_user.signature.nil?
       @holiday.signature = false
-      flash[:error] = 'selected signature, but not found'
+      flash[:error] = t('signatures.signature_not_found')
     elsif holiday_params[:signature] == '1' && !current_user.signature.nil?
       @holiday.user_signature = current_user.signature
       @holiday.user_signed_at = Date.today
@@ -62,7 +62,7 @@ class HolidaysController < ApplicationController
 
     if new_holiday_params[:signature] == '1' && current_user.signature.nil?
       new_holiday_params[:signature] = false
-      flash[:error] = 'selected signature, but not found'
+      flash[:error] = t('signatures.signature_not_found')
     elsif new_holiday_params[:signature] == '1' && !current_user.signature.nil?
       @holiday.user_signature = current_user.signature
       @holiday.user_signed_at = Date.today
@@ -128,7 +128,7 @@ class HolidaysController < ApplicationController
     if (can? :read, @holiday) && @holiday.status == 'applied'
       if current_user.signature.nil?
         redirect_to @holiday
-        flash[:error] = 'stuff'
+        flash[:error] = t('signatures.signature_not_found_representative')
       else
       @holiday.update_attributes(status: 'accepted', last_modified: Date.today, representative_signature: current_user.signature, representative_signed_at: Date.today)
       redirect_to @holiday.user
