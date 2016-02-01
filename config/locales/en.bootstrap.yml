@@ -187,6 +187,7 @@ en:
       show_trip_requests: "Show trip requests"
       notifications: "Important Notifications"
       activities: "Activities"
+      activities_empty: "No activities yet."
       actions: "Actions"
     projects:
       projects: "My Projects"

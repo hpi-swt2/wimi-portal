@@ -177,6 +177,7 @@ de:
       show_expense_requests: "Reisekostenabrechnung anzeigen"
       show_trip_requests: "Dienstreiseanträge anzeigen"
       activities: "Aktivitäten"
+      activities_empty: "Noch keine Aktivitäten verfügbar."
       notifications: "Wichtige Benachrichtigungen"
       actions: "Aktionen"
     projects:

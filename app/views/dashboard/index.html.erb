@@ -27,7 +27,7 @@
 <% end %>
 
 <!-- Activities -->
-<% unless @activities.size == 0 %>
+
 <div class="col-md-12">
   <div class="display">
     <div class="panel panel-default">
@@ -35,14 +35,18 @@
         <h4><%=t('.activities')%></h4>
       </div>
       <div class="panel-body">
-        <% @activities.each do |event| %>
-        <%= render partial: event %>
+        <% if @activities.size != 0 %>
+          <% @activities.each do |event| %>
+          <%= render partial: event %>
+          <% end %>
+        <% else %>
+          <%= t('.activities_empty') %>
         <% end %>
       </div>
     </div>
   </div>
 </div>
-<% end %>
+
 
 <!--Chairs-->
 <% if !(current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
