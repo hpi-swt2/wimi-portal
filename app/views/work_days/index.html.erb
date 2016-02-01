@@ -67,43 +67,45 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="page-header"></div>
-      </div>
-    </div>
-
     <% unless @project.nil? && @time_sheet.nil? %>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <%= label_tag nil, t('.project') %>
-          <%= text_field_tag nil, !@project.nil? ? @project.title : "", {class: "form-control", readonly: "readonly"} %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-header"></div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <%= label_tag nil, t('.user') %>
-          <%= text_field_tag nil, !@time_sheet.nil? ? @time_sheet.user.name : "", {class: "form-control", readonly: "readonly"} %>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= label_tag nil, t('.project') %>
+            <%= text_field_tag nil, !@project.nil? ? @project.title : "", {class: "form-control", readonly: "readonly"} %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= label_tag nil, t('.user') %>
+            <%= text_field_tag nil, !@time_sheet.nil? ? @time_sheet.user.name : "", {class: "form-control", readonly: "readonly"} %>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="page-header"></div>
-      </div>
-    </div>
     <% end %>
 
     <% unless @time_sheet.nil? %>
-    <%= render "time_sheets/show"%>
-    <div class="col-md-12">
-      <div class="page-header"></div>
-    </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-header"></div>
+        </div>
+      </div>
+      <%= render "time_sheets/show"%>
+      
     <% end %>
 
     <% unless @time_sheet.nil? %>
-    <%= render "time_sheets/show_footer" %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-header"></div>
+        </div>
+      </div>
+      <%= render "time_sheets/show_footer" %>
     <% end %>
 
   </div>
