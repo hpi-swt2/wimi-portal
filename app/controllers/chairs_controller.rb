@@ -31,7 +31,6 @@ class ChairsController < ApplicationController
 
   def create
     @chair = Chair.new(chair_params)
-    MailNotifier.invited.deliver
 
     if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.save
       flash[:success] = I18n.t('chair.create.success')
@@ -147,6 +146,7 @@ class ChairsController < ApplicationController
 
     success = false
     unless ChairWimi.find_by(user: current_user)
+      EventChairApplication.where(trigger: current_user).destroy_all
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, chair: wimi.chair, type: 'EventChairApplication', seclevel: :admin})
       success = wimi.save
     end
