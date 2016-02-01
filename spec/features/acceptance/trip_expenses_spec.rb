@@ -29,7 +29,7 @@ describe 'trips and expenses', type: feature do
     expect(page).to have_content I18n.t('trip.save')
     expect(page).to have_content I18n.t('helpers.links.edit')
     expect(page).to have_content 'Saved' #as status
-    expect(page).to have_content I18n.t('helpers.links.download')
+    expect(page).to have_content I18n.t('helpers.links.download_pdf')
     expect(page).to have_content I18n.t('helpers.links.hand_in') #to submit it to the chair representative
     visit "/users/#{@current_user.id}/"
   end

@@ -4,10 +4,10 @@
 
 <div class="page-header">
   <h1>
-    <%= t('.working_hours_for')%> <%=l Date.new(@year,@month,1), format: :without_day %>
-    <%unless @project.nil?%>
-      <%= @project.title %>
-    <%end%>
+    <%= t('.working_hours_for') %> <%=l Date.new(@year, @month, 1), format: :without_day %>
+    <% unless @project.nil? %>
+      <%= ' ' + t('.for') + ' ' + @project.title%>
+    <% end %>
     <% unless @time_sheet.nil? %>
       <%= t('.by') + ' ' + @time_sheet.user.name %>
       <% if @time_sheet.user == current_user && !@time_sheet.handed_in? %>
