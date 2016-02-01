@@ -40,8 +40,7 @@ class TripsController < ApplicationController
       flash[:error] = 'selected signature, but not found'
     elsif trip_params[:signature] == '1' && !current_user.signature.nil?
       @trip.user_signature = current_user.signature
-    else
-      @trip.user_signature = nil
+      @trip.user_signed_at = Date.today
     end
 
     if @trip.save
@@ -63,8 +62,10 @@ class TripsController < ApplicationController
       flash[:error] = 'selected signature, but not found'
     elsif new_trip_params[:signature] == '1' && !current_user.signature.nil?
       @trip.user_signature = current_user.signature
+      @trip.user_signed_at = Date.today
     else
       @trip.user_signature = nil
+      @trip.user_signed_at = nil
     end
 
     if @trip.update(new_trip_params)
@@ -110,10 +111,15 @@ class TripsController < ApplicationController
   end
 
   def accept
-    if(can? :read, @trip) && @trip.status == 'applied'
-      @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user)
-      ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})
-      redirect_to @trip.user
+    if (can? :read, @trip) && @trip.status == 'applied'
+      if current_user.signature.nil?
+        redirect_to @trip
+        flash[:error] = 'stuff'
+      else
+        @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user, representative_signature: current_user.signature, representative_signed_at: Date.today)
+        ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})
+        redirect_to @trip.user
+      end
     else
       redirect_to root_path
       flash[:error] = t('trip.not_authorized')

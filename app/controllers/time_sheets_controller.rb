@@ -20,8 +20,7 @@ class TimeSheetsController < ApplicationController
       flash[:error] = 'selected signature, but not found, not handed in'
     else
       if time_sheet_params[:signed] == '1' && !current_user.signature.nil?
-        time_sheet.user_signature = current_user.signature
-        time_sheet.signed = true
+        time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
       else
         time_sheet.user_signature = nil
       end

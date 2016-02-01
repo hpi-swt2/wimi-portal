@@ -40,8 +40,7 @@ class HolidaysController < ApplicationController
       flash[:error] = 'selected signature, but not found'
     elsif holiday_params[:signature] == '1' && !current_user.signature.nil?
       @holiday.user_signature = current_user.signature
-    else
-      @holiday.user_signature = nil
+      @holiday.user_signed_at = Date.today
     end
 
     if @holiday.save
@@ -66,8 +65,10 @@ class HolidaysController < ApplicationController
       flash[:error] = 'selected signature, but not found'
     elsif new_holiday_params[:signature] == '1' && !current_user.signature.nil?
       @holiday.user_signature = current_user.signature
+      @holiday.user_signed_at = Date.today
     else
       @holiday.user_signature = nil
+      @holiday.user_signed_at = nil
     end
 
     if @holiday.update(new_holiday_params)
@@ -125,9 +126,13 @@ class HolidaysController < ApplicationController
 
   def accept
     if (can? :read, @holiday) && @holiday.status == 'applied'
-      @holiday.update_attribute(:status, 'accepted')
-      @holiday.update_attribute(:last_modified, Date.today)
+      if current_user.signature.nil?
+        redirect_to @holiday
+        flash[:error] = 'stuff'
+      else
+      @holiday.update_attributes(status: 'accepted', last_modified: Date.today, representative_signature: current_user.signature, representative_signed_at: Date.today)
       redirect_to @holiday.user
+      end
     else
       redirect_to root_path
       flash[:error] = t('holiday.not_authorized')

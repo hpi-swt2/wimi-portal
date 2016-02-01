@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 20160128142238) do
     t.string   "time_end"
     t.text     "user_signature"
     t.text     "representative_signature"
+    t.date     "user_signed_at"
+    t.date     "representative_signed_at"
   end
 
   add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
@@ -102,6 +104,8 @@ ActiveRecord::Schema.define(version: 20160128142238) do
     t.integer  "length_last_year",         default: 0
     t.text     "user_signature"
     t.text     "representative_signature"
+    t.date     "user_signed_at"
+    t.date     "representative_signed_at"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -166,6 +170,8 @@ ActiveRecord::Schema.define(version: 20160128142238) do
     t.date     "hand_in_date"
     t.text     "user_signature"
     t.text     "representative_signature"
+    t.date     "user_signed_at"
+    t.date     "representative_signed_at"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -184,6 +190,8 @@ ActiveRecord::Schema.define(version: 20160128142238) do
     t.integer  "days_abroad"
     t.text     "user_signature"
     t.text     "representative_signature"
+    t.date     "user_signed_at"
+    t.date     "representative_signed_at"
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"

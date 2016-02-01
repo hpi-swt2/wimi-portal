@@ -199,10 +199,12 @@ Nein <input type='checkbox' <%= report.general_advance <= 0 ? "checked" : "" %> 
 
 <div class='seperating-line'>&nbsp;</div>
 
+
+<!-- TODO user oder representative? -->
 <b>Datum</b> &nbsp;
 <div class='input-block' style='margin-right: 35px; display: inline; border-bottom:solid 1.0pt'>
   <% if report.signature %>
-      <span><%= Date.today.strftime("%d.%m.%Y") %>&nbsp;</span>
+      <span><%= report.user_signed_at.strftime("%d.%m.%Y") %>&nbsp;</span>
   <% else %>
       <span style="padding-right:70px">&nbsp;</span>
   <% end %>
