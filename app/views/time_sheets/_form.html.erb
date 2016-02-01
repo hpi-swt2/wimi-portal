@@ -17,20 +17,14 @@
 <div class="row">
   <div class="col-md-6">
     <div class="form-group">
-      <%= f.label :salary, class: "control-label" %>
-      <div class="row">
-        <div class="col-md-6">
-          <%= f.number_field :salary, class: "form-control" %>
-        </div>
-        <div class="col-md-6">
-          <%= f.select :salary_is_per_month, [[t('.monthly'), true], [t('.hourly'), false]], {}, {class: "form-control"} %>
-        </div>
-      </div>
+        <%= f.label :salary, class: "control-label" %><br>
+        <%= f.number_field :salary, class: "form-control" %>
+        <%= f.select :salary_is_per_month, [[t('.monthly'), true], [t('.hourly'), false]], {}, {class: "form-control"} %>
       </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">
-        <%= f.label :workload, class: "control-label" %>
+        <%= f.label :workload, class: "control-label" %><br>
         <%= f.number_field :workload, class: "form-control" %>
         <%= f.select :workload_is_per_month, [[t('.monthly'), true], [t('.weekly'), false]], {}, {class: "form-control"} %>
       </div>

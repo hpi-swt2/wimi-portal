@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    
+  </fieldset>
     <% if current_user == @time_sheet.user && !@time_sheet.handed_in? %>
       <div class="row">
         <div class="col-md-12">
@@ -24,6 +24,4 @@
         </div>
       </div>
     <% end %>
-    
-  </fieldset>
 <% end %>
