@@ -30,11 +30,13 @@ RSpec.describe ProjectsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
-      title: 'My Project'}
+      title: 'My Project'
+    }
   }
   let(:invalid_attributes) {
     {
-      title: ''}
+      title: ''
+    }
   }
 
   # This should return the minimal set of values that should be in the session
