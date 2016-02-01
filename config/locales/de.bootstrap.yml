@@ -265,10 +265,12 @@ de:
       date: "TT.MM.JJJJ"
   work_days:
     index:
-      working_hours_for: "Arbeitsstunden in"
-      new: "neu"
+      working_hours_for: "Arbeitsstunden im"
+      new: "hinzufügen"
       for: "für"
       by: "von"
+      project: "Projekt"
+      user: "Benutzer"
     new:
       back: "Zurück"
   time_sheets:
@@ -277,6 +279,8 @@ de:
       weekly: "wöchentlich"
       hourly: "stündlich"
       time_sheet: "Stundenzettel"
+    edit:
+      title: "Stundenzettel bearbeiten"
     show:
       salary: "Bezahlung:"
       salary_per_month: "Euro / Monat"

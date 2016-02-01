@@ -276,9 +276,11 @@ en:
   work_days:
     index:
       working_hours_for: "Working hours for"
-      new: "new"
+      new: "add work day"
       for: "for"
       by: "by"
+      project: "Project"
+      user: "Benutzer"
     new:
       back: "Back"
   time_sheets:
@@ -287,6 +289,8 @@ en:
       weekly: "weekly"
       hourly: "hourly"
       time_sheet: "Time sheet"
+    edit:
+      title: "Edit Time Sheet"
     show:
       salary: "Salary:"
       salary_per_month: "Euro / Month"
