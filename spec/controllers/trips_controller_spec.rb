@@ -20,7 +20,7 @@ require 'rails_helper'
 
 RSpec.describe TripsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user, signature: 'Signature')
     chair = FactoryGirl.create(:chair)
     FactoryGirl.create(:wimi, chair: chair, user: @user)
     login_with @user

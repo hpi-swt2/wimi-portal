@@ -34,7 +34,7 @@ class TimeSheetsController < ApplicationController
     time_sheet = TimeSheet.find(params[:id])
 
     if current_user.signature.nil?
-      redirect_to time_sheet
+      redirect_to :back
       flash[:error] = t('signatures.signature_not_found_representative')
     else
       time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id, representative_signature: current_user.signature, representative_signed_at: Date.today)
