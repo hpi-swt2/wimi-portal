@@ -43,7 +43,6 @@ RSpec.describe Project, type: :model do
     expect(FactoryGirl.create(:project)).to be_valid
   end
 
-
   it 'lists all wimis of a project' do
     expect(@project.wimis.size).to eq(2)
   end
@@ -81,9 +80,9 @@ RSpec.describe Project, type: :model do
 
     FactoryGirl.create(:work_day, date: '2015-11-26', start_time: '2015-11-26 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user2, project: project)
 
-    expect(Project.working_hours_data(2015, 10)).to eq( "[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":0,\"name\":\"Working Hours Project\"}]")
-    expect(Project.working_hours_data(2015, 11)).to eq( "[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":8.5,\"name\":\"Working Hours Project\"}]")
-    expect(Project.working_hours_data(2015, 12)).to eq( "[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":8.0,\"name\":\"Working Hours Project\"}]"
+    expect(Project.working_hours_data(2015, 10)).to eq("[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":0,\"name\":\"Working Hours Project\"}]")
+    expect(Project.working_hours_data(2015, 11)).to eq("[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":8.5,\"name\":\"Working Hours Project\"}]")
+    expect(Project.working_hours_data(2015, 12)).to eq("[{\"y\":0,\"name\":\"Factory Project\"},{\"y\":8.0,\"name\":\"Working Hours Project\"}]"
 )
   end
 end

@@ -50,5 +50,4 @@ RSpec.describe 'users/show', type: :view do
     visit user_path(@user)
     expect(current_path).to eq(dashboard_path)
   end
-
 end

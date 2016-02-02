@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
   validates_format_of :zip_code, with: /(\A\d{5}\Z)|(\A\Z)/i
   validates_confirmation_of :password, if: :is_superadmin?
 
-
   def name
     "#{first_name} #{last_name}"
   end
@@ -183,6 +182,6 @@ class User < ActiveRecord::Base
     all_trips.each do |trip|
       trips.push(trip)
     end
-    trips.sort! { |a,b| b.date_start <=> a.date_start }
+    trips.sort! { |a, b| b.date_start <=> a.date_start }
   end
 end

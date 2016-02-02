@@ -119,7 +119,7 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-    
+
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
