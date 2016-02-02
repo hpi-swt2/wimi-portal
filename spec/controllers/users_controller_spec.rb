@@ -87,4 +87,55 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe 'POST #upload_signature' do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      
+      login_with @user
+    end
+
+    context 'with valid file extension' do
+      it 'uploads a signature' do
+        file = fixture_file_upload('files/signature.png')
+        @file = Hash.new
+        @file['datafile'] = file
+
+        post :upload_signature, {id: @user.id, upload: @file }
+        @user.reload
+
+        expect(flash[:success]).to eq("Signature was successfully uploaded")
+        expect(@user.signature).not_to be_nil()
+      end
+    end
+
+    context 'with invalid file extension' do
+      it 'rejects the signature' do
+        file = fixture_file_upload('files/signature.invalid')
+        @file = Hash.new
+        @file['datafile'] = file
+
+        post :upload_signature, {id: @user.id, upload: @file }
+        @user.reload
+
+        expect(flash[:error]).to eq("Please choose a file with a correct extension")
+        expect(@user.signature).to be_nil()
+      end
+    end
+  end
+
+  describe "POST #delete_signature" do
+    before(:each) do
+      @user = FactoryGirl.create(:user, signature: "test")
+      login_with @user
+    end
+
+    it 'deletes the users signature' do
+      post :delete_signature, {id: @user.id}
+      @user.reload
+
+      expect(flash[:success]).to eq("Signature successfully deleted")
+      expect(@user.signature).to be_nil()
+    end
+  end
 end
