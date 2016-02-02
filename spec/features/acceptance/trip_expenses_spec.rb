@@ -51,7 +51,6 @@ describe 'trips and expenses', type: feature do
     click_on(I18n.t('helpers.links.show_details'))
     expect(page).to have_content I18n.t('activerecord.attributes.trip.date_start')
     expect(page).to have_content I18n.t('activerecord.attributes.trip.date_end')
-    expect(page).to have_content '3' #show number of days
     expect(page).to have_content I18n.t('trips.show.expense')
     click_on(I18n.t('trips.show.create_expense'))
     fill_in(I18n.t('activerecord.attributes.expense.location_from'), :with => 'Potsdam')
