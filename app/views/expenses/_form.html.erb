@@ -49,13 +49,13 @@
   <div class="col-md-6">
     <div class="form-group">
       <%= label_tag Trip.human_attribute_name(:date_start) %>
-      <%= text_field_tag "date_start", I18n.l(@expense.trip.date_start) , class: "form-control"%>
+      <%= text_field_tag "date_start", I18n.l(@expense.trip.date_start) , class: "form-control", readonly: "readonly" %>
     </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">
       <%= label_tag Trip.human_attribute_name(:date_end) %>
-      <%= text_field_tag "date_end", I18n.l(@expense.trip.date_end), class: "form-control" %>
+      <%= text_field_tag "date_end", I18n.l(@expense.trip.date_end), class: "form-control" , readonly: "readonly"%>
     </div>
   </div>
 </div>
@@ -99,7 +99,17 @@
 <div class="row">
   <div class="col-md-6">
     <div class="form-group">
-      <%= f.check_box :hotel%> <%= f.label :hotel %>
+      <%= label_tag nil, t('.accommodation') %> <br>
+      <div class="row">
+        <div class="col-xs-6">
+          <%= f.radio_button :hotel, true%>
+          <%= label_tag :hotel_true, t('.hotel_true')%>
+        </div>
+        <div class="col-xs-6">
+          <%= f.radio_button :hotel, false%>
+          <%= label_tag :hotel, t('.hotel_false') %>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-6">

@@ -119,7 +119,7 @@ de:
         breakfast: "Frühstück"
         lunch: "Mittagessen"
         dinner: "Abendessen"
-        annotation: "Beschreibung"
+        annotation: "Tätigkeit"
       user:
         id: "Id"
         email: "E-Mail"

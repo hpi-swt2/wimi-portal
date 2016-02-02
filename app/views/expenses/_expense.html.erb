@@ -100,7 +100,17 @@
 <div class="row">
   <div class="col-md-6">
     <div class="form-group">
-      <%= f.check_box :hotel, readonly: true%> <%= f.label :hotel %>
+      <%= label_tag nil, t('expenses.form.accommodation') %> <br>
+      <div class="row">
+        <div class="col-xs-6">
+          <%= f.radio_button :hotel, true%>
+          <%= label_tag :hotel_true, t('expenses.form.hotel_true')%>
+        </div>
+        <div class="col-xs-6">
+          <%= f.radio_button :hotel, false%>
+          <%= label_tag :hotel, t('expenses.form.hotel_false') %>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-6">

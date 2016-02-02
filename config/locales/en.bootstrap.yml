@@ -244,6 +244,9 @@ en:
       general_advance: "Advance"
       signature: "Add signature"
     form:
+      hotel_true: "Hotel"
+      hotel_false: "Private"
+      accommodation: "Accommodation"
       travel_by: "Travel by"
       catering: "Mark every meal that has not been paid by private means"
   trips:

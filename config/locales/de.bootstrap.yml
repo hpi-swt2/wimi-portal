@@ -234,6 +234,9 @@ de:
       general_advance: "Vorschuss"
       signature: "Unterschreiben"
     form:
+      hotel_true: "Hotel"
+      hotel_false: "Privat"
+      accommodation: "Unterkunft"
       travel_by: "Reise mit"
       catering: "Geben Sie hier für jeden Tag an, welche Mahlzeiten nicht aus privaten Mitteln bezahlt wurden. (z.B. Frühstück im Hotel)"
   trips:
