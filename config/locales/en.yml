@@ -160,6 +160,7 @@ en:
         duration: "Duration"
         notes: "Notes"
         attendance: "Attendance"
+        project: "Project"
       time_sheet:
         salary: "Salary"
         workload: "Workload"

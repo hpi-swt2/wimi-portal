@@ -180,11 +180,11 @@
           <div class="panel-heading">
             <div class="row">
               <div class="col-sm-6">
-                <h4><%= t('.holiday_requests') %></h4>
+                <h4><a name="holidays"><%= t('.holiday_requests') %></a></h4>
               </div>
               <div class="col-sm-6 text text-right">
                 <% if @user == current_user %>
-                    <%= link_to t('.request_holiday'), new_holiday_path, class: "btn btn-primary" %>
+                    <%= link_to t('.request_holiday'), new_holiday_path, class: "btn btn-success" %>
                 <% end %>
               </div>
             </div>
@@ -246,11 +246,11 @@
         <div class="panel-heading">
           <div class="row">
             <div class="col-md-6">
-              <h4><%= t('.business_trips') %></h4>
+              <h4><a name="trips"><%= t('.business_trips') %></a></h4>
             </div>
             <div class="col-md-6 text text-right">
               <% if @user == current_user %>
-                  <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-primary" %>
+                  <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-success" %>
               <% end %>
             </div>
           </div>
@@ -277,7 +277,7 @@
                     <td>
                       <%= link_to t("helpers.links.show_details"),
                                   trip_path(trip), class: 'btn btn-default btn-xs' %><br>
-                      <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Trip_request', doc_id: trip), class: 'btn btn-default btn-xs' %>
+                      <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Trip_request', doc_id: trip), class: 'btn btn-info btn-xs' %>
                     </td>
                   </tr>
                 <% end %>

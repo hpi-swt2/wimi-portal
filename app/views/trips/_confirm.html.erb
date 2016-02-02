@@ -1,0 +1,14 @@
+<%= form_for @trip, url: accept_trip_path(@trip), method: :get do |b| %>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-6">
+      <div class="form-group">
+        <%= b.label :rejection_message %>
+        <%= b.text_field :rejection_message, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+  <div class="btn-group btn-group-justified">
+    <%= b.submit t('trips.show.accept'), class: 'btn btn-success' %>
+    <%= link_to t('trips.show.reject'), reject_trip_path, class: 'btn btn-danger' %>
+  </div>
+<% end %>

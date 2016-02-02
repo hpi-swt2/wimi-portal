@@ -159,6 +159,7 @@ de:
         duration: "Dauer"
         notes: "Anmerkung"
         attendance: "Anwesenheit"
+        project: "Projekt"
       time_sheet:
         salary: "Bezahlung"
         workload: "Arbeitszeit"
