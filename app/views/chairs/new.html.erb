@@ -1,5 +1,9 @@
 <%- model_class = Chair -%>
-<div class="page-header">
-  <h1><%=t('helpers.titles.new', model: model_class.model_name.human.titleize) %></h1>
+<div class="col-md-12 col-sm-12">
+	<div class="display">
+		<div class="page-header">
+  			<h1><%=t('helpers.titles.new', model: model_class.model_name.human.titleize) %></h1>
+		</div>
+		<%= render partial: 'form' %>
+	</div>
 </div>
-<%= render partial: 'form' %>
