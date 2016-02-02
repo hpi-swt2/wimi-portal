@@ -68,16 +68,27 @@ inviteInitUser = (locale) ->
       newInvitation.name = 'invitations[' + count + ']'
       newInvitation.type = 'invitationEmail'
 
-      span.appendChild(newInvitation)
-      span.appendChild(deleteButton)
+      divcol9 = document.createElement('div')
+      divcol9.id = 'div9'
+      divcol3 = document.createElement('div')
+      divcol3.id = 'div3'
+
+      divcol9.appendChild(newInvitation)
+      divcol3.appendChild(deleteButton)
+
+      span.appendChild(divcol9)
+      span.appendChild(divcol3)
 
       list = document.getElementById("invited_users")
       list.appendChild(span)
 
       setTimeout ( ->
         $('#invited_users > span').addClass('col-md-12')
-        $('input[type=invitationEmail]').addClass('form-control email-invite col-md-2').attr('readonly', true)
-        $('input[type=RemoveButton]').addClass('btn btn-default removeButton')
+        $('#invited_users > span').css('padding-top', '0px')
+        $('#invited_users > span > #div9').addClass('col-md-9')
+        $('#invited_users > span > #div3').addClass('col-md-3')
+        $('input[type=invitationEmail]').addClass('form-control').attr('readonly', true)
+        $('input[type=RemoveButton]').addClass('btn btn-default btn-block')
       ), 5
 
       count += 1
