@@ -1,6 +1,6 @@
 <% if flash[:error] || flash[:success] || flash[:notice] %>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 novertpadding">
       <div class="col-md-8 flash-message">
         <% if flash[:error] %>
           <div class="alert alert-danger" style="<%= style if defined? style %>">
