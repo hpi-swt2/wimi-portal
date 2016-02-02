@@ -35,10 +35,10 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_user
 
-    if trip_params[:signature] == '1' && current_user.signature.nil?
+    if trip_params[:signature] && current_user.signature.nil?
       @trip.signature = false
       flash[:error] = t('signatures.signature_not_found')
-    elsif trip_params[:signature] == '1' && !current_user.signature.nil?
+    elsif trip_params[:signature] && !current_user.signature.nil?
       @trip.user_signature = current_user.signature
       @trip.user_signed_at = Date.today
     end
@@ -57,10 +57,10 @@ class TripsController < ApplicationController
 
     new_trip_params = trip_params
 
-    if new_trip_params[:signature] == '1' && current_user.signature.nil?
+    if new_trip_params[:signature] && current_user.signature.nil?
       new_trip_params[:signature] = false
       flash[:error] = t('signatures.signature_not_found')
-    elsif new_trip_params[:signature] == '1' && !current_user.signature.nil?
+    elsif new_trip_params[:signature] && !current_user.signature.nil?
       @trip.user_signature = current_user.signature
       @trip.user_signed_at = Date.today
     else

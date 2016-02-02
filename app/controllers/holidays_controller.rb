@@ -130,8 +130,8 @@ class HolidaysController < ApplicationController
         redirect_to @holiday
         flash[:error] = t('signatures.signature_not_found_representative')
       else
-      @holiday.update_attributes(status: 'accepted', last_modified: Date.today, representative_signature: current_user.signature, representative_signed_at: Date.today)
-      redirect_to @holiday.user
+        @holiday.update_attributes(status: 'accepted', last_modified: Date.today, representative_signature: current_user.signature, representative_signed_at: Date.today)
+        redirect_to @holiday.user
       end
     else
       redirect_to root_path

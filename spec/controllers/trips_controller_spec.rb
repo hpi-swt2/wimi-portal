@@ -128,6 +128,14 @@ RSpec.describe TripsController, type: :controller do
         }.to change(Trip, :count).by(1)
       end
 
+      it 'should set signature to false if no signature was found' do
+        @user.signature = nil
+        expect {
+          post :create, {trip: valid_attributes_format}
+        }.to change(Trip, :count).by(1)
+        expect(Trip.last.signature).to eq(false)
+      end
+
       it 'assigns a newly created trip as @trip' do
         post :create, {trip: valid_attributes_format}, valid_session
         expect(assigns(:trip)).to be_a(Trip)
@@ -196,6 +204,15 @@ RSpec.describe TripsController, type: :controller do
         put :update, {id: trip.to_param, trip: valid_attributes_format}, valid_session
         expect(response).to redirect_to(trip)
       end
+
+      it 'redirects to the trip' do
+        @user.signature = nil
+        trip = Trip.create! valid_attributes
+        put :update, {id: trip.to_param, trip: valid_attributes_format}, valid_session
+        expect(Trip.last.signature).to eq(false)
+        assert_equal 'You have selected to sign the document, but there was no signature found', flash[:error]
+      end
+
     end
 
     context 'with invalid params' do
@@ -270,8 +287,8 @@ RSpec.describe TripsController, type: :controller do
       it 'redirects to the users page' do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
-        login_with(@user)
         post :hand_in, {id: trip.id}
+        login_with(@user)
         get :accept, {id: trip.to_param}, valid_session
         expect(response).to redirect_to(@user)
       end
@@ -291,6 +308,18 @@ RSpec.describe TripsController, type: :controller do
         post :hand_in, {id: trip.id}
         get :accept, {id: trip.to_param}, valid_session
         expect(Trip.find(trip.id).status).to eq('accepted')
+      end
+
+      it 'redirects to trip if accepter has no signature' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        post :hand_in, {id: trip.id}
+        @user.signature = nil
+        login_with @user
+        get :accept, {id: trip.to_param}, valid_session
+
+        expect(response).to redirect_to(trip)
+        assert_equal 'You tried to accept a document, but there was no signature found. Please upload a signature first!', flash[:error]
       end
     end
 

@@ -331,8 +331,22 @@ RSpec.describe HolidaysController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         user2 = FactoryGirl.create(:user, chair: chair)
         holiday = FactoryGirl.create(:holiday, user: user2, status: 'applied')
+        @user.signature = 'Signature'
+        login_with @user
         get :accept, {id: holiday.to_param}, valid_session
         expect(response).to redirect_to(user2)
+      end
+
+      it 'redirects to holiday if accepter has no signature' do
+        chair = FactoryGirl.create(:chair)
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        user2 = FactoryGirl.create(:user, chair: chair)
+        holiday = FactoryGirl.create(:holiday, user: user2, status: 'applied')
+        login_with @user
+        get :accept, {id: holiday.to_param}, valid_session
+
+        expect(response).to redirect_to(holiday)
+        assert_equal 'You tried to accept a document, but there was no signature found. Please upload a signature first!', flash[:error]
       end
 
       it 'updates the status' do
@@ -340,6 +354,8 @@ RSpec.describe HolidaysController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         wimi = FactoryGirl.create(:wimi, chair: chair)
         holiday = FactoryGirl.create(:holiday, user: wimi.user, status: 'applied')
+        @user.signature = 'Signature'
+        login_with @user
         get :accept, {id: holiday.to_param}, valid_session
         holiday.reload
         expect(holiday.status).to eq('accepted')
