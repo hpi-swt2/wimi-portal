@@ -1,73 +1,87 @@
 <%= form_for @chair, html: {class: "form-horizontal project"} do |f| %>
-
-    <% if @chair.errors.any? %>
-        <div id="error_expl" class="panel panel-danger">
-          <div class="panel-heading">
-            <h3 class="panel-title"><%= pluralize(@chair.errors.count, "error") %> prohibited this chair from being
-              saved:</h3>
+  <% if @chair.errors.any? %>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        
+          <div id="error_expl" class="panel panel-danger">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= pluralize(@chair.errors.count, "error") %> prohibited this chair from being
+                saved:</h3>
+            </div>
+            <div class="panel-body">
+              <ul>
+                <% @chair.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
           </div>
-          <div class="panel-body">
-            <ul>
-              <% @chair.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <input type="hidden" name="chair_search_id" value="<%= @chair.id %>" />
+      <div class="control-group">
+        <%= f.label :name, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :name, class: 'form-control' %>
         </div>
-    <% end %>
-
-    <input type="hidden" name="chair_search_id" value="<%= @chair.id %>" />
-
-    <div class="control-group">
-      <%= f.label :name, class: 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :name, class: 'form-control' %>
-      </div>
-      <%= error_span(@chair[:title]) %>
-    </div>
-
-    <div class="control-group">
-      <!-- Admins -->
-      <div id="admins"><%= f.label t('roles.admin_long_plural'), class: 'control-label' %><br>
-        <% @chair.admin_users.each do |admin| %>
-          <div id="admin_<%= admin.id %>">
-          <li><%= admin.name %><a onClick="removeAdmin(<%= admin.id %>)"><font color="red"> entfernen</font></a></li>
-          <input type="hidden" name="admins[<%= admin.id %>]" value="<%= admin.id %>" />
-          </div>
-        <% end %>
-      </div>
-
-      <input id="search-box-admin" name="q" type="text" class="form-control" autocomplete="off"/>
-      <div class="dropdown">
-        <ul id="search-results-admin" class="dropdown-menu">
-        </ul>
+        <%= error_span(@chair[:title]) %>
       </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="control-group">
+        <!-- Admins -->
+        <div id="admins"><%= f.label t('roles.admin_long_plural'), class: 'control-label' %><br>
+          <% @chair.admin_users.each do |admin| %>
+            <div id="admin_<%= admin.id %>">
+            <li><%= admin.name %><a onClick="removeAdmin(<%= admin.id %>)"><font color="red"> entfernen</font></a></li>
+            <input type="hidden" name="admins[<%= admin.id %>]" value="<%= admin.id %>" />
+            </div>
+          <% end %>
+        </div>
 
-    <div class="control-group">
-      <!-- Representative -->
-      <%= f.label t('roles.chair_representative'), class: 'control-label' %><br>
-      <div id="representative">
-        <% if @chair.representative %>
-          <li><%= @chair.representative.user.name %></li>
-          <input type="hidden" name="representative" value="<%= @chair.representative.user.id %>" />
-        <% else %>
-          <p><%= t(".no_representative") %></p>
-        <% end %>
-      </div>
-
-      <input id="search-box-representative" name="q" type="text" class="form-control" autocomplete="off"/>
-      <div class="dropdown">
-        <ul id="search-results-representative" class="dropdown-menu">
-        </ul>
+        <input id="search-box-admin" name="q" type="text" class="form-control" autocomplete="off"/>
+        <div class="dropdown">
+          <ul id="search-results-admin" class="dropdown-menu">
+          </ul>
+        </div>
       </div>
     </div>
-    <br/>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="control-group">
+        <!-- Representative -->
+        <%= f.label t('roles.chair_representative'), class: 'control-label' %><br>
+        <div id="representative">
+          <% if @chair.representative %>
+            <li><%= @chair.representative.user.name %></li>
+            <input type="hidden" name="representative" value="<%= @chair.representative.user.id %>" />
+          <% else %>
+            <p><%= t(".no_representative") %></p>
+          <% end %>
+        </div>
 
-    <%= f.submit nil, class: 'btn btn-primary' %>
-    <%= link_to t("helpers.links.cancel"),
-                chairs_path, class: 'btn btn-default' %>
-
+        <input id="search-box-representative" name="q" type="text" class="form-control" autocomplete="off"/>
+        <div class="dropdown">
+          <ul id="search-results-representative" class="dropdown-menu">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9 col-sm-9">
+      <%= f.submit nil, class: 'btn btn-success btn-block' %>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <%= link_to t("helpers.links.cancel"), chairs_path, class: 'btn btn-default btn-block' %>
+    </div>
+  </div>
 <% end %>
 
 

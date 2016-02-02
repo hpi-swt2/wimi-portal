@@ -53,7 +53,7 @@
     <% if can? :create, Chair %>
         <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize),
                     new_chair_path,
-                    class: 'btn btn-primary' %>
+                    class: 'btn btn-success btn-block' %>
     <% end %>
   </div>
 </div>
