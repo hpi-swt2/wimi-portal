@@ -205,7 +205,7 @@ RSpec.describe TripsController, type: :controller do
         expect(response).to redirect_to(trip)
       end
 
-      it 'redirects to the trip' do
+      it 'does not save signature if absent' do
         @user.signature = nil
         trip = Trip.create! valid_attributes
         put :update, {id: trip.to_param, trip: valid_attributes_format}, valid_session

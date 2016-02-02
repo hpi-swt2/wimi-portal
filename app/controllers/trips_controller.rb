@@ -15,7 +15,7 @@ class TripsController < ApplicationController
   def show
     unless (@trip.user == current_user) || ((can? :see_trips, @trip.user) && (can? :edit_trip, @trip))
       redirect_to root_path
-      flash[:error] = I18n.t('trip.not_authorized')
+      flash[:error] = I18n.t('not_authorized')
     end
   end
 
