@@ -21,9 +21,9 @@
                 <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
                 <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
                 <th><%= t('.accessibility', default:'Accessibility') %></th>
+                <th><%= t('.status')%></th>
                 <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
                 <th><%=t '.actions', default: t("helpers.actions") %></th>
-
               </tr>
             </thead>
             <tbody>
@@ -33,6 +33,7 @@
                 <td><%= link_to project.chair.name, project.chair %></td>
                 <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
 
+                <td><%= t('.status_' + project.status.to_s) %></td>
                 <td><%=l project.created_at %></td>
                 <td>
                   <% if can? :create, ProjectApplication %>

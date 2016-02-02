@@ -103,11 +103,12 @@ en:
       project_status: "Project Status"
       accessibility: "Accessibility"
       created_at: "Created at"
-      active: "active"
-      inactive: "inactive"
       private: "private"
       public: "public"
       projects: "Projects"
+      status: "Status"
+      status_true: "Active"
+      status_false: "Inactive"
   users:
     does_not_exist: "This user does not exist."
     update:

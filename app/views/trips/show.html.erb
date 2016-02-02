@@ -12,7 +12,7 @@
             <div class="col-sm-6 text text-right">
               <% if (@trip.status == 'saved') || (@trip.status == 'declined')  %>
               <%= link_to t('.edit', default: t("helpers.links.edit")),
-              edit_trip_path(@trip), class: 'btn btn-warning' %>
+              edit_trip_path(@trip), class: 'btn btn-warning', id: "edit_trip"%>
               <% else %>
               <%= link_to t('.edit', default: t("helpers.links.edit")),
               '#', class: 'btn btn-warning', disabled: 'disabled', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
@@ -70,7 +70,7 @@
           <div class="col-sm-6 col-sm-offset-6">
             <div class="form-group">
               <%= b.label :rejection_message %>
-              <%= b.text_field :rejection_message, class: "form-control" %>
+              <%= b.text_field :rejection_message, class: "form-control", value: "" %>
             </div>
           </div>
         </div>

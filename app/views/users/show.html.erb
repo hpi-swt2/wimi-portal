@@ -250,7 +250,7 @@
             </div>
             <div class="col-md-6 text text-right">
               <% if @user == current_user %>
-                  <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-success" %>
+                  <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-success", id: "create_trip" %>
               <% end %>
             </div>
           </div>

@@ -1,4 +1,4 @@
-# Sample localization file for English. Add more files in this directory for other locales.
+ # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 de:
@@ -94,11 +94,12 @@ de:
       title: "Titel"
       accessibility: "Verfügbarkeit"
       created_at: "Erstellt am"
-      active: "aktiv"
-      inactive: "inaktiv"
       private: "privat"
       public: "öffentlich"
       projects: "Projekte"
+      status: "Status"
+      status_true: "Aktiv"
+      status_false: "Inaktiv"
   users:
     does_not_exist: "Dieser Benutzer existiert nicht."
     update:

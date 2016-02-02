@@ -80,7 +80,7 @@ class TripsController < ApplicationController
 
   def reject
     if (can? :read, @trip) && @trip.status == 'applied'
-      @trip.update_attributes(status: 'declined', last_modified: Date.today, person_in_power: current_user, rejection_message: trip_params['rejection_message'])
+      @trip.update_attributes(status: 'declined', last_modified: Date.today, person_in_power: current_user, rejection_message: get_rejection_message)
       ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestDeclined'})
       redirect_to @trip.user
     else
@@ -108,6 +108,10 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(Trip.column_names.map(&:to_sym))
+  end
+
+  def get_rejection_message
+    params['trip'].nil? ? "" : trip_params['rejection_message']
   end
 
   def parse_date

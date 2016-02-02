@@ -21,8 +21,6 @@ RSpec.describe 'expenses/edit', type: :view do
 
       assert_select 'input#expense_vehicle_advance[name=?]', 'expense[vehicle_advance]'
 
-      assert_select 'input#expense_hotel[name=?]', 'expense[hotel]'
-
       assert_select 'input#expense_general_advance[name=?]', 'expense[general_advance]'
     end
   end
