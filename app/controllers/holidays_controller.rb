@@ -62,6 +62,8 @@ class HolidaysController < ApplicationController
 
     if new_holiday_params[:signature] && current_user.signature.nil?
       new_holiday_params[:signature] = false
+      @holiday.user_signature = nil
+      @holiday.user_signed_at = nil
       flash[:error] = t('signatures.signature_not_found')
     elsif new_holiday_params[:signature] && !current_user.signature.nil?
       @holiday.user_signature = current_user.signature

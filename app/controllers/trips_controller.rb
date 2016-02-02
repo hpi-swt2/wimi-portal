@@ -59,6 +59,8 @@ class TripsController < ApplicationController
 
     if new_trip_params[:signature] && current_user.signature.nil?
       new_trip_params[:signature] = false
+      @trip.user_signature = nil
+      @trip.user_signed_at = nil
       flash[:error] = t('signatures.signature_not_found')
     elsif new_trip_params[:signature] && !current_user.signature.nil?
       @trip.user_signature = current_user.signature

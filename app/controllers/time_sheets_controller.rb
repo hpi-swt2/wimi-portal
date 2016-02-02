@@ -1,5 +1,5 @@
 class TimeSheetsController < ApplicationController
-  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject]
+  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject, :hand_in]
 
   def show
   end
@@ -12,20 +12,16 @@ class TimeSheetsController < ApplicationController
   end
 
   def hand_in
-    time_sheet = TimeSheet.find(params[:id])
-
     if time_sheet_params[:signed] == '1' && current_user.signature.nil?
-      time_sheet.signed = false
+      @time_sheet.signed = false
       redirect_to :back
       flash[:error] = t('signatures.signature_not_found_time_sheet')
     else
       if time_sheet_params[:signed] == '1' && !current_user.signature.nil?
-        time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
-      else
-        time_sheet.user_signature = nil
+        @time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
       end
-      time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
-      ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.project_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
+      @time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
+      ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.project_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
       redirect_to dashboard_path
     end
   end
