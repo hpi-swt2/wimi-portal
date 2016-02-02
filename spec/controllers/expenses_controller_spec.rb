@@ -101,6 +101,14 @@ RSpec.describe ExpensesController, type: :controller do
         }.to change(Expense, :count).by(1)
       end
 
+      it 'should add signature to expense if signature was found' do
+        @user.signature = 'Signature'
+        expect {
+          post :create, {trip_id: @trip.id,expense: valid_attributes}, valid_session
+        }.to change(Expense, :count).by(1)
+        expect(Expense.last.signature).to eq(true)
+      end
+
       it 'assigns a newly created expense as @expense' do
         post :create, {trip_id: @trip.id,expense: valid_attributes}, valid_session
         expect(assigns(:expense)).to be_a(Expense)
@@ -130,10 +138,15 @@ RSpec.describe ExpensesController, type: :controller do
     end
   end
 
+
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
         valid_attributes[:first_name] = 'Tobias'
+        valid_attributes
+      }
+      let(:valid_attributes_without_signature) {
+        valid_attributes[:signature] = false
         valid_attributes
       }
 
@@ -142,6 +155,35 @@ RSpec.describe ExpensesController, type: :controller do
         put :update, {trip_id: @trip.id, id: expense.to_param, expense: new_attributes}, valid_session
         expense.reload
         expect(assigns(:expense)).to eq(expense)
+      end
+      
+      it 'should add signature to expense if signature was found' do
+        @user.signature = 'Signature'
+        expense = Expense.create! valid_attributes
+        expect {
+          put :update, {trip_id: @trip.id,id: expense.to_param, expense: new_attributes}, valid_session
+        }.to change(Expense, :count).by(0)
+        expect(Expense.last.signature).to eq(true)
+      end
+      
+      it 'should set signature to nil if signature was absent' do
+        @user.signature = nil
+        expense = Expense.create! valid_attributes
+        expect {
+          put :update, {trip_id: @trip.id,id: expense.to_param, expense: new_attributes}, valid_session
+        }.to change(Expense, :count).by(0)
+        expect(Expense.last.user_signature).to eq(nil)
+        expect(Expense.last.user_signed_at).to eq(nil)
+      end
+      
+      it 'should set signature and date to nil if signature should not be added' do
+        
+        expense = Expense.create! valid_attributes
+        expect {
+          put :update, {trip_id: @trip.id,id: expense.to_param, expense: valid_attributes_without_signature}, valid_session
+        }.to change(Expense, :count).by(0)
+        expect(Expense.last.user_signature).to eq(nil)
+        expect(Expense.last.user_signed_at).to eq(nil)
       end
 
       it 'assigns the requested expense as @expense' do
@@ -155,6 +197,7 @@ RSpec.describe ExpensesController, type: :controller do
         put :update, {trip_id: @trip.id,id: expense.to_param, expense: valid_attributes}, valid_session
         expect(response).to redirect_to(@trip)
       end
+
     end
 
     context 'with invalid params' do
