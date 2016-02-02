@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, except: :superadmin_index
   before_action :user_exists, :set_user, except: [:superadmin_index, :language]
+  load_and_authorize_resource
+
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('not_authorized')
+    redirect_to dashboard_path
+  end
 
   def show
     @trips = @user.get_desc_sorted_trips
