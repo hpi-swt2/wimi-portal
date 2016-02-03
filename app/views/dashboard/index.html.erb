@@ -54,7 +54,7 @@
   <div class="display">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4> <%= I18n.t('activerecord.models.chair.other') %> </h4>
+        <h4> <%= t('activerecord.models.chair.other') %> </h4>
       </div>
       <div class="panel-body">
         <table class="table table-striped">
@@ -70,10 +70,10 @@
               <td><%= chair.name %></td>
               <td>
                 <% if current_user.chair_wimi == nil %>
-                <%= link_to I18n.t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+                <%= link_to t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
                 <% else %>
                 <% if current_user.chair_wimi.chair == chair %>
-                <span class="label label-warning"><%= I18n.t('activerecord.attributes.chair.application.status.pending') %></span>
+                <span class="label label-warning"><%= t('activerecord.attributes.chair.application.status.pending') %></span>
                 <% end %>
                 <% end %>
               </td>
@@ -92,7 +92,7 @@
   <div class="display">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4> <%= I18n.t('activerecord.models.chair.other') %> </h4>
+        <h4> <%= t('activerecord.models.chair.other') %> </h4>
       </div>
       <div class="panel panel-body">
         <table class="table table-striped">
@@ -114,7 +114,7 @@
           </tbody>
         </table>
         <br>
-        <%= link_to I18n.t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
+        <%= link_to t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
       </div>
     </div>
   </div>
@@ -123,8 +123,8 @@
 
 <% content_for :sidebar do %>
   <!-- Projects -->
-  <% unless !current_user.is_wimi? %>
-  <%= render partial: 'projects' %>
+  <% if current_user.is_wimi? %>
+    <%= render partial: 'projects' %>
   <% end %>
 
   <!--Actions-->
