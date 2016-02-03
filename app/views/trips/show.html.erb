@@ -43,10 +43,10 @@
 </div>
 <% if (can? :accept, @trip) && @trip.status == 'applied' %>
   <%= form_for @trip, url: accept_reject_trip_path, method: :get do |f| %>
-    <%= f.submit t('.reject'), class: 'btn btn-primary' %>
+    <%= f.submit t('.reject'), class: 'btn btn-danger' %>
     <%= f.text_field :rejection_message, size: 50, placeholder: t('.reject_reason') %>
     <br>
-    <%= f.submit t('.accept'), class: 'btn btn-primary' %>
+    <%= f.submit t('.accept'), class: 'btn btn-success' %>
   <% end %>
 <% end %>
 <% unless @trip.status == 'applied' || @trip.status == 'accepted' %>

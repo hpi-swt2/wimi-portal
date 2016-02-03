@@ -51,9 +51,9 @@
 <% end %>
 <% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
   <%= form_for @holiday, url: accept_reject_holiday_path, method: :get do |f| %>
-    <%= f.submit t('.reject'), class: 'btn btn-primary' %>
+    <%= f.submit t('.reject'), class: 'btn btn-danger' %>
     <%= f.text_field :annotation, size: 50, placeholder: t('.reject_reason') %>
     <br>
-    <%= f.submit t('.accept'), class: 'btn btn-primary' %>
+    <%= f.submit t('.accept'), class: 'btn btn-success' %>
   <% end %>
 <% end %>
