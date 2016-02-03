@@ -96,9 +96,9 @@ RSpec.describe TimeSheetsController, type: :controller do
         time_sheet = TimeSheet.create! valid_attributes
         get :hand_in, {id: time_sheet.to_param, time_sheet: signature_valid_attributes}, valid_session
 
-        expect(TimeSheet.find_by(time_sheet.id).user_signature).to_not eq(nil)
-        expect(TimeSheet.find_by(time_sheet.id).signed).to eq(true)
-        expect(TimeSheet.find_by(time_sheet.id).user_signed_at).to_not eq(nil)
+        expect(TimeSheet.find(time_sheet.id).user_signature).to_not eq(nil)
+        expect(TimeSheet.find(time_sheet.id).signed).to eq(true)
+        expect(TimeSheet.find(time_sheet.id).user_signed_at).to_not eq(nil)
       end
     end
   end
