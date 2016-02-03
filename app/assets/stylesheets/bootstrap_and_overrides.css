@@ -48,6 +48,75 @@ h1,h2,h3,h4 {
 .vertical-align > [class*=" col-"] {
   display: flex;
   align-items: center;
-  justify-content: center; /* Optional, to align inner items 
+  justify-content: center; /* Optional, to align inner items
                               horizontally inside the column */
+}
+
+
+.navbar-default {
+    background-color: #ffffff;
+}
+.navbar-default .navbar-brand {
+    color: #767171;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #040303;
+}
+.navbar-default .navbar-text {
+    color: #767171;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #767171;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #040303;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #040303;
+    background-color: rgba(221,97,8,0.3);
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #040303;
+    background-color: rgba(221,97,8,0.3);
+}
+.navbar-default .navbar-toggle {
+    border-color: rgba(221,97,8,0.3);
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: rgba(221,97,8,0.3);
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #767171;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+}
+.navbar-default .navbar-link {
+    color: #767171;
+}
+.navbar-default .navbar-link:hover {
+    color: #040303;
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #767171;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #040303;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #040303;
+        background-color: rgba(221,97,8,0.3);
+    }
 }

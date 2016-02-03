@@ -40,8 +40,7 @@ html, body {
 
 body {
     padding-top: 50px; /*50px for the height of the navbar*/
-    padding-bottom: 50px; /*50px for the height of the bottom navbar*/
-    background-image: url("startseitehintergrund.jpg");
+    background-image: url("startseitehintergrund.png");
 }
 
 .container-fluid.scrollable {
@@ -93,7 +92,7 @@ body {
 
 .time-select {
     display: inline-block;
-    width: 47%;
+    width: 45%;
 }
 
 .email-invite {

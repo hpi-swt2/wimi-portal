@@ -2,7 +2,7 @@
   <% if @chair.errors.any? %>
     <div class="row">
       <div class="col-md-12 col-sm-12">
-        
+
           <div id="error_expl" class="panel panel-danger">
             <div class="panel-heading">
               <h3 class="panel-title"><%= pluralize(@chair.errors.count, "error") %> prohibited this chair from being
@@ -68,8 +68,7 @@
 
         <input id="search-box-representative" name="q" type="text" class="form-control" autocomplete="off"/>
         <div class="dropdown">
-          <ul id="search-results-representative" class="dropdown-menu">
-          </ul>
+          <ul id="search-results-representative" class="dropdown-menu" />
         </div>
       </div>
     </div>
@@ -116,7 +115,7 @@ function addRepresentative(id, name){
   $("#search-results-representative").hide();
 }
 
-  
+
 $("#search-box-admin").bind("keyup", function() {
   var form = $("#search-box-admin");
   var url = "/admin_search";
@@ -130,7 +129,7 @@ $("#search-box-admin").bind("keyup", function() {
       $("#search-results-admin").show();
     });
   }
-}); 
+});
 
 $("#search-box-representative").bind("keyup", function() {
   var form = $("#search-box-representative");
@@ -145,5 +144,5 @@ $("#search-box-representative").bind("keyup", function() {
       $("#search-results-representative").show();
     });
   }
-}); 
+});
 </script>

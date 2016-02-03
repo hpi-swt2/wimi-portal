@@ -50,6 +50,6 @@
   <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
 <% end %>
 <% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
-  <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
-  <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary' %>
+  <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger btn-xs' %>
+  <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success btn-xs' %>
 <% end %>

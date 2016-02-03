@@ -30,13 +30,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <%= label_tag nil, t('time_sheets.show_footer.rejected_by') %>
-            <%= text_field_tag nil, @trip.person_in_power.name , {class: "form-control", readonly: "readonly"} %> 
+            <%= text_field_tag nil, @trip.person_in_power.name , {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <%= label_tag nil, t('time_sheets.show_footer.at') %>
-            <%= text_field_tag nil ,l(@trip.last_modified), {class: "form-control", readonly: "readonly"} %> 
+            <%= text_field_tag nil ,l(@trip.last_modified), {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
         </div>
       </div>
     </div>
-    
+
     <% if (can? :accept, @trip) && @trip.status == 'applied' %>
       <%= form_for @trip, url: reject_trip_path(@trip), method: :get do |b| %>
         <div class="row">
@@ -107,7 +107,7 @@
             <% end %>
           </div>
         </div>
-        
+
       </h1>
     </div>
     <% if @trip.has_expense? %>
@@ -124,6 +124,7 @@
     <% end %>
   </div>
 </div>
+
 
 
 

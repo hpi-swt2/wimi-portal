@@ -15,7 +15,7 @@ class Chair < ActiveRecord::Base
 
   has_many :chair_wimis, dependent: :destroy
   has_many :users, through: :chair_wimis
-  has_many :projects
+  has_many :projects, dependent: :destroy
   has_many :requests
   has_many :events
 

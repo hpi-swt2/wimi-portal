@@ -107,7 +107,8 @@ de:
     no_email: "ist keine gültige Email-Adresse."
     does_not_exist: "Dieser Benutzer existiert nicht."
     update:
-      user_updated: "Profil erfolgreich aktualisiert"
+      user_updated: "Profil erfolgreich aktualisiert."
+      user_updated_language: "Sprache erfolgreich aktualisiert."
     show:
       business_trips: "Geschätsreisen"
       request_trip: "Geschätsreise beantragen"

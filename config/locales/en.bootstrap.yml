@@ -116,7 +116,8 @@ en:
     does_not_exist: "This user does not exist."
     no_email: "is not a valid email address."
     update:
-      user_updated: "Profile was successfully updated"
+      user_updated: "Profile was updated successfully"
+      user_updated_language: "Language was updated successfully"
     show:
       business_trips: "Business Trips"
       request_trip: "Request Business Trip"

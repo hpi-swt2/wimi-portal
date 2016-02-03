@@ -3,13 +3,13 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= label_tag t('.acceptence_requested_at') %>
-        <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: "form-control", readonly: true} %>
+        <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: 'form-control', readonly: true} %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <%= label_tag t('.status') %>
-        <%= text_field_tag nil, t(".#{@time_sheet.status}"), {class: "form-control", readonly: true} %>
+        <%= text_field_tag nil, t(".#{@time_sheet.status}"), {class: 'form-control', readonly: true} %>
       </div>
     </div>
   </div>
@@ -29,14 +29,19 @@
       <div class="row vertical-align">
         <% unless @time_sheet.wimi_signed %>
           <div class="col-md-6">
-            <%= f.check_box :wimi_signed , style: "margin: 0px 10px;"%>
-            <%= f.label t('.add_signature'), style: "margin: 0px;"%>
+            <%= f.check_box :wimi_signed , style: 'margin: 0px 10px;' %>
+            <%= f.label t('.add_signature'), style: 'margin: 0px;' %>
           </div>
         <% end %>
-        <div class=<%= @time_sheet.wimi_signed ? "col-md-6" : "col-md-6 col-md-offset-6"%>>
+        <div class=<%= @time_sheet.wimi_signed ? 'col-md-6' : 'col-md-6 col-md-offset-6'%>>
           <div class="form-group">
+<<<<<<< HEAD
             <%= f.label t('.reject_reason') %>
             <%= f.text_field :rejection_message, id: 'message', size: 50 , class: "form-control"%>
+=======
+             <%= f.label t('.reject_reason') %>
+             <%= f.text_field :rejection_message, id: 'message', size: 50 , class: 'form-control'%>
+>>>>>>> 3bde3607d8fdbc887364b59a5cdf4c6b0ee110a0
           </div>
         </div>
       </div>
@@ -59,13 +64,13 @@
           <div class="col-md-6">
             <div class="form-group">
               <%= label_tag nil, t('.handed_in_at') %>
-              <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: "form-control", readonly: "readonly"} %> 
+              <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <%= label_tag nil, t('.status') %>
-              <%= text_field_tag nil, @time_sheet.status, {class: "form-control", readonly: "readonly"} %> 
+              <%= text_field_tag nil, @time_sheet.status, {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
         </div>
@@ -81,18 +86,18 @@
         <% end %>
         <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
       <% end %>
-      <% if @time_sheet.status.include? 'accepted'%>
+      <% if @time_sheet.status.include? 'accepted' %>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <%= label_tag nil, t('.accepted_by') %>
-              <%= text_field_tag nil ,User.find(@time_sheet.signer).name, {class: "form-control", readonly: "readonly"} %> 
+              <%= text_field_tag nil, User.find(@time_sheet.signer).name, {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <%= label_tag nil, t('.at') %>
-              <%= text_field_tag nil, l(@time_sheet.last_modified), {class: "form-control", readonly: "readonly"} %> 
+              <%= text_field_tag nil, l(@time_sheet.last_modified), {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
         </div>
@@ -104,13 +109,13 @@
           <div class="col-md-6">
             <div class="form-group">
               <%= label_tag nil, t('.rejected_by') %>
-              <%= text_field_tag nil, User.find(@time_sheet.signer).name, {class: "form-control", readonly: "readonly"} %> 
+              <%= text_field_tag nil, User.find(@time_sheet.signer).name, {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <%= label_tag nil, t('.at') %>
-              <%= text_field_tag nil ,l(@time_sheet.last_modified), {class: "form-control", readonly: "readonly"} %> 
+              <%= text_field_tag nil ,l(@time_sheet.last_modified), {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
         </div>
@@ -118,7 +123,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <%= label_tag nil, t('.reject_reason') %>
-              <%= text_field_tag nil, @time_sheet.rejection_message, {class: "form-control", readonly: "readonly"} %>
+              <%= text_field_tag nil, @time_sheet.rejection_message, {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
         </div>
@@ -126,8 +131,8 @@
           <div class="col-md-6">
             <% unless @time_sheet.signed %>
               <div class="control-group">
-                <%= f.check_box :signed , style: "margin: 0px 10px;"%>
-                <%= f.label t('.add_signature') , style: "margin: 0px;"%>
+                <%= f.check_box :signed , style: 'margin: 0px 10px;' %>
+                <%= f.label t('.add_signature') , style: 'margin: 0px;' %>
               </div>
             <% end %>
           </div>
@@ -141,8 +146,8 @@
             <div class="col-md-6">
               <% unless @time_sheet.signed %>
                 <div class="control-group">
-                  <%= f.check_box :signed , style: "margin: 0px 10px;" %>
-                  <%= f.label t('.add_signature') , style: "margin: 0px;"%>
+                  <%= f.check_box :signed , style: 'margin: 0px 10px;' %>
+                  <%= f.label t('.add_signature') , style: 'margin: 0px;' %>
                 </div>
               <% end %>
             </div>
