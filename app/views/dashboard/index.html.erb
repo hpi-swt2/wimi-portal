@@ -105,6 +105,7 @@
             <th><%= t('activerecord.attributes.chair.id', default: model_class.human_attribute_name(:id)) %></th>
             <th><%= t('activerecord.attributes.chair.name', default: model_class.human_attribute_name(:name)) %></th>
             <th><%= t('activerecord.attributes.chair.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
+            <th><%= t('helpers.actions') %></th>
           </tr>
           </thead>
           <tbody>
@@ -113,6 +114,10 @@
                 <td><%= chair.id %></td>
                 <td><%= chair.name %></td>
                 <td><%=l chair.created_at %></td>
+                <td>
+                  <%= link_to I18n.t('helpers.titles.edit', model: Chair.model_name.human.titleize), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %><br />
+                  <%= link_to I18n.t('helpers.titles.delete', model: Chair.model_name.human.titleize), chair_path(id: chair), method: :delete, data: {confirm: t('.confirm', default: t('helpers.links.confirm'))}, class: 'btn btn-danger btn-xs' %>
+                </td>
               </tr>
           <% end %>
           </tbody>
