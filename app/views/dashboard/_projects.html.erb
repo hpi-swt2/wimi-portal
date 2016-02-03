@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12 col-sm-12">
   <div class="display">
       <div class="page-header">
         <h4>
@@ -17,7 +17,7 @@
       <% unless current_user.projects.nil?%>
         <div class="row">
           <% current_user.projects.each do |project|%>
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12">
               <%= link_to project.title, project, class: "btn btn-default btn-block" %>
             </div>
           <%end%>

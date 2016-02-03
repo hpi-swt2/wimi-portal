@@ -1,6 +1,6 @@
 <%- model_class = Project -%>
 <!-- header -->
-<div class="col-md-12">
+<div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="page-header">
       <h1> <%= t('.dashboard_title') %></h1>
@@ -10,7 +10,7 @@
 
 <!-- Notifications -->
 <% unless @notifications.empty? %>
-<div class="col-md-12">
+<div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -28,7 +28,7 @@
 
 <!-- Activities -->
 
-<div class="col-md-12">
+<div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -49,8 +49,8 @@
 
 
 <!--Chairs-->
-<% if !(current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin?) %>
-<div class="col-md-12">
+<% unless current_user.is_wimi? || current_user.is_hiwi? || current_user.is_superadmin? %>
+<div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -61,7 +61,7 @@
           <thead>
             <tr>
               <th><%= model_class.human_attribute_name(:name) %></th>
-              <th><%= t '.actions', :default => t("helpers.actions") %></th>
+              <th><%= t '.actions', :default => t('helpers.actions') %></th>
             </tr>
           </thead>
           <tbody>
@@ -70,11 +70,11 @@
               <td><%= chair.name %></td>
               <td>
                 <% if current_user.chair_wimi == nil %>
-                <%= link_to t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+                  <%= link_to t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
                 <% else %>
-                <% if current_user.chair_wimi.chair == chair %>
-                <span class="label label-warning"><%= t('activerecord.attributes.chair.application.status.pending') %></span>
-                <% end %>
+                  <% if current_user.chair_wimi.chair == chair %>
+                    <span class="label label-warning"><%= t('activerecord.attributes.chair.application.status.pending') %></span>
+                  <% end %>
                 <% end %>
               </td>
             </tr>
@@ -88,7 +88,7 @@
 <% end %>
 
 <% if current_user.is_superadmin? %>
-<div class="col-md-12">
+<div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -128,7 +128,7 @@
   <% end %>
 
   <!--Actions-->
-  <div class="col-md-12">
+  <div class="col-md-12 col-sm-12">
     <div class="display">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -147,7 +147,7 @@
 
   <!-- Chair representative actions -->
   <% if current_user.is_representative? %>
-  <div class="col-md-12">
+  <div class="col-md-12 col-sm-12">
     <div class="display">
       <div class="panel panel-default">
         <div class="panel-heading">
