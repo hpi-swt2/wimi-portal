@@ -108,17 +108,17 @@
           <div class="panel-heading">
             <h4> <%= t('project.filter_chair') %> </h4>
           </div>
-          <div class="panel-body">
-            <div class="col-md-12">
+          <div class="panel-body" style="padding: 0px;">
+            <div class="col-md-12 nobottompadding">
               <strong><%= t('projects.index.title')%></strong>
               <%= text_field_tag :title, params[:title], placeholder: t('activerecord.attributes.project.title'), class: "form-control" %>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 nobottompadding">
               <strong><%= t('projects.show.chair')%></strong>
               <%= select_tag :chair, options_from_collection_for_select(Chair.all, 'name', 'name', params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
             </div>
-            <div class="col-md-6">
-              <%= submit_tag t('links.search'), class: "btn btn-primary" %>
+            <div class="col-md-12">
+              <%= submit_tag t('links.search'), class: "btn btn-primary btn-block" %>
             </div>
           </div>
         </div>
