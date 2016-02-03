@@ -59,7 +59,7 @@
                           apply_project_applications_path(id: project.id), method: :post, class: 'btn btn-default btn-xs' %>
                       <% end %>
                     <% end %>
-                    <% if can? :leave_project, project %>
+                    <% if can?(:leave_project, project) and not(current_user.is_wimi? and project.wimis.count <= 1) %>
                         <%= link_to t('projects.show.leave_project'),
                                     sign_user_out_project_path(user_id: current_user.id, id: project), method: :delete, class: 'btn btn-default btn-xs' %>
                     <% end %>
