@@ -1,5 +1,4 @@
-MailNotifier#invited
+<%= @greeting %>,
 
-<%= @greeting %>, find me in app/views/mail_notifier/invited.text.erb
-  <%= @greeting %>, find me in app/views/mail_notifier/invited.html.erb
-  <%= render partial: @event %>
+<%= t('mail_notifier.notification.text')  %>
+"<%= render partial: @event %>"

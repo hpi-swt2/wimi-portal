@@ -7,7 +7,7 @@ class MailNotifier < ApplicationMailer
   #   en.mail_notifier.invited.subject
   #
   def notification(event, user)
-    @greeting = 'Hello ' + user.name + ','
+    @greeting = 'Hello ' + user.name
     @event = event
 
     mail to: "marcel@jankrift.de"
