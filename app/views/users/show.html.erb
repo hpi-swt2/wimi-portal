@@ -43,9 +43,7 @@
         <% end %>
       </div>
     </div>
-<% end %>
-
-<% if !@user.is_superadmin? && @user == current_user %>
+    
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4><%= t('.time_sheets_overview')%></h4>
