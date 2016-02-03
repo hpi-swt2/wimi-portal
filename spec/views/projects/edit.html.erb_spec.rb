@@ -126,8 +126,7 @@ RSpec.describe 'projects/edit', type: :view do
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
-    #expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
-    expect(page).to have_content(I18n.t('helpers.links.back'))
+    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
   end
 
   it 'denies the superadmin to edit a project' do
