@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap/bootstrap-tooltip
  *= require devise_bootstrap_views
  *= require bootstrap-datepicker
  */
@@ -36,9 +37,11 @@ h1 span { font-size:20px; }
 html, body {
     height: 100%; /*Fixes the height to 100% of the viewport*/
 }
+
 body {
     padding-top: 50px; /*50px for the height of the navbar*/
-    padding-bottom: 50px; /*50px for the height of the bottom navbar*/
+    background-image: url("startseitehintergrund.png");
+    background-attachment: fixed;
 }
 
 .container-fluid.scrollable {
@@ -49,6 +52,10 @@ body {
 
 .navbar-fixed-top {
     height:50px;
+}
+
+.navbar-shadow {
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
 }
 
 .flash-message {
@@ -86,5 +93,61 @@ body {
 
 .time-select {
     display: inline-block;
-    width: 48%;
+    width: 45%;
+}
+
+.email-invite {
+    width: 503px;
+    margin-right: 5px;
+}
+
+.inviteBoxes {
+    margin-top: 20px;
+    max-height: 200px;
+}
+
+.inviteBoxesHeading {
+    margin-top: 40px;
+}
+
+.submitGroup {
+    margin-top: 40px;
+}
+
+.removeButton {
+    width: 103.516px;
+}
+
+.inviteInput {
+    margin-left: 15px;
+}
+
+.addnewUserButton {
+    margin-left: 15px;
+}
+
+.link {
+    color: mediumblue;
+}
+.buttonGroup {
+    margin-top: 40px;
+}
+
+.page-body {
+    margin-top: 50px;
+}
+
+.display {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4);
+    background-color: #FFFFFF;
+    padding: 15px;
+}
+
+.novertpadding {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.btn-eq {
+    width: auto;
 }

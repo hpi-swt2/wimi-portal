@@ -7,6 +7,8 @@ RSpec.describe 'projects/edit', type: :view do
     @representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     @wimi_user = FactoryGirl.create(:user)
     @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
+    @wimi_user2 = FactoryGirl.create(:user)
+    @wimi2 = FactoryGirl.create(:wimi, user: @wimi_user2, chair: @chair).user
   end
 
   it 'can be edited by a wimi' do
@@ -27,7 +29,7 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     project_title = project.title
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     click_on 'Delete'
     expect(page).to have_content('Project was successfully destroyed.')
@@ -38,7 +40,7 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
     click_on I18n.t('projects.show.set_inactive')
     project.reload
@@ -49,7 +51,7 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: false)
     @wimi.projects << project
-    visit project_path(project)
+    visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_active'))
     click_on I18n.t('projects.show.set_active')
     project.reload
@@ -82,11 +84,21 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
     @wimi.projects << project
+    @wimi2.projects << project
     visit edit_project_path(project)
     find('a[id="SignOutMyself"]').click
     project.reload
-    expect(current_path).to eq(project_path(project))
+    expect(current_path).to eq(projects_path)
     expect(project.users).not_to include(@wimi)
+  end
+
+  it 'is not possible for a wimi to sign himself out of the project when he is the last one' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    @wimi2.projects << project
+    visit edit_project_path(project)
+    expect(page).not_to have_link('id="SignOutMyself"')
   end
 
   it 'is possible for a hiwi to sign himself out of the project' do
@@ -97,7 +109,7 @@ RSpec.describe 'projects/edit', type: :view do
     visit project_path(project)
     click_on(I18n.t('projects.show.leave_project'))
     project.reload
-    expect(current_path).to eq(project_path(project))
+    expect(current_path).to eq(projects_path)
     expect(project.users).not_to include(user)
   end
 
@@ -116,15 +128,25 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'not possible for wimi to edit or delete a project he just signed out' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    project = FactoryGirl.create(:project, chair: @wimi.chair)
     @wimi.projects << project
+    @wimi2.projects << project
     visit edit_project_path(project)
     find('a[id="SignOutMyself"]').click
     project.reload
-    expect(current_path).to eq(project_path(project))
+    expect(current_path).to eq(projects_path)
+    visit project_path(project)
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
+  end
+
+  it 'denies the superadmin to edit a project' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    project = FactoryGirl.create(:project)
+    login_as superadmin
+    visit edit_project_path(project)
+    expect(current_path).to eq(dashboard_path)
   end
 end

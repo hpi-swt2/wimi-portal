@@ -1,48 +1,126 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Trip -%>
+<div class="col-md-12">
+  <div class="display">
+    <div class="page-header">
+      <h1>
+        <div class="row">
+          <div class="col-md-9">
+            <%=t '.title', default: model_class.model_name.human.titleize %>
+          </div>
+          <div class="col-sm-3">
+            <% if @trip.user == current_user %>
+            <div class="col-sm-6 text text-right">
+              <% if (@trip.status == 'saved') || (@trip.status == 'declined')  %>
+              <%= link_to t('.edit', default: t("helpers.links.edit")),
+              edit_trip_path(@trip), class: 'btn btn-warning', id: "edit_trip"%>
+              <% else %>
+              <%= link_to t('.edit', default: t("helpers.links.edit")),
+              '#', class: 'btn btn-warning', disabled: 'disabled', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
+              <% end %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </h1>
+    </div>
+    <%= render @trip %>
+    <% if @trip.status == 'declined' %>
+      <div class="page-header"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= label_tag nil, t('time_sheets.show_footer.rejected_by') %>
+            <%= text_field_tag nil, @trip.person_in_power.name , {class: "form-control", readonly: "readonly"} %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= label_tag nil, t('time_sheets.show_footer.at') %>
+            <%= text_field_tag nil ,l(@trip.last_modified), {class: "form-control", readonly: "readonly"} %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <%= label_tag nil, t('time_sheets.show_footer.reject_reason') %>
+            <%= text_field_tag nil, @trip.rejection_message, {class: "form-control", readonly: "readonly"} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
-<p>
-  <strong><%= t('.destination') %>:</strong>
-  <%= @trip.destination %>
-</p>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-group btn-group-justified">
+          <% unless @trip.status == 'applied' || @trip.status == 'accepted' %>
+            <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
+            hand_in_trip_path(@trip), method: :post, class: 'btn btn-success' %>
+            <%= link_to t('.destroy', default: t("helpers.links.destroy")), trip_path(@trip), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger btn-primary' %>
+          <%end%>
+          <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Trip_request', doc_id: @trip), class: 'btn btn-info' %>
+          <%= link_to t('.back', default: t("helpers.links.back")), trips_path, class: 'btn btn-default'  %>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong><%= t('.reason') %>:</strong>
-  <%= @trip.reason %>
-</p>
-<ul>
-	<%= render @trip.trip_datespans %>
-</ul>
-<p>
-  <strong><%= t('.annotation') %>:</strong>
-  <%= @trip.annotation %>
-</p>
+    <% if (can? :accept, @trip) && @trip.status == 'applied' %>
+      <%= form_for @trip, url: accept_reject_trip_path, method: :get do |b| %>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-6">
+            <div class="form-group">
+              <%= b.label :rejection_message %>
+              <%= b.text_field :rejection_message, class: "form-control", value: "" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <%= b.submit t('trips.show.accept'), class: 'btn btn-success btn-block' %>
+          </div>
+          <div class="col-sm-6">
+            <%= b.submit t('trips.show.reject'), class: 'btn btn-danger btn-block' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <strong><%= t('.signature') %>:</strong>
-  <%= @trip.signature %>
-</p>
+<div class="col-md-12">
+  <div class="display">
+    <div class="page-header">
+      <h1>
+        <div class="row">
+          <div class="col-md-9">
+            <%= t('.expense') %>
+          </div>
+          <div class="col-sm-3">
+            <% if @trip.user == current_user %>
+              <div class="col-sm-6 text text-right">
+                <% if @trip.has_expense? && !(@trip.expense.status == 'applied')  %>
+                  <%= link_to t('helpers.links.edit'), edit_trip_expense_path(@trip,@trip.expense) , class: "btn btn-warning"%>
+                <% else %>
+                  <%= link_to t('helpers.links.edit'), '#', class: 'btn btn-warning', disabled: 'disabled', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
 
-</p>
-  <strong><%=t('.status') %>:</strong>
-  <%= t(@trip.status, scope: 'status') %>
-  <% if @trip.status == t('status.declined') %>
-    by:
-  <% end %>
-</p>
-
-<% unless @trip.status == 'applied' %>
-  <%= link_to t('.edit', default: t("helpers.links.edit")), edit_trip_path(@trip), class: 'btn btn-default btn-xs' %>
-  <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
-                      hand_in_trip_path(@trip), method: :post, class: 'btn btn-primary btn-xs' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      trip_path(@trip),
-                      method: :delete,
-                      data: { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      class: 'btn btn-danger btn-xs' %>
-<%end%>
-
-<%= link_to t('.back', default: t("helpers.links.back")),
-             trips_path, class: 'btn btn-default btn-xs'  %> 
-<p>
-<%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-success btn-xs' %>
-</p>
+      </h1>
+    </div>
+    <% if @trip.has_expense? %>
+      <%= render @trip.expense %>
+      <div class="btn-group btn-group-justified">
+        <% unless @trip.expense.status == 'applied' %>
+          <%= link_to t('.hand_in', default: t("helpers.links.hand_in")), hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-success' %>
+        <% end %>
+          <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+          <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Expense_request', doc_id: @trip.expense) , class: "btn btn-info"%>
+      </div>
+    <% else %>
+      <%= link_to t('.create_expense'), new_trip_expense_path(@trip), class: "btn btn-success btn-block" %>
+    <% end %>
+  </div>
+</div>

@@ -78,6 +78,14 @@ RSpec.describe ProjectApplicationsController, type: :controller do
         expect(response).to redirect_to(project_applications_path)
       end
     end
+
+    it 'does not accept applications if user is superadmin' do
+      superadmin = FactoryGirl.create(:user, superadmin: true)
+      login_with superadmin
+      expect {
+        post :create, {project_application: {user: superadmin, project_id: @wimi.projects.first.id}, id: @project.id}, valid_session
+      }.to change(ProjectApplication, :count).by(0)
+    end
   end
 
   describe 'DELETE #destroy' do

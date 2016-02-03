@@ -1,0 +1,19 @@
+<%- model_class = User -%>
+
+<h4><%=t('.private_data')%></h4><br>
+
+<% [:email, :zip_code, :city, :street].each do |field| %>
+  <% unless @user[field].blank? %>
+    <p><strong><%= model_class.human_attribute_name(field)%>: </strong><%= @user[field] %></p>
+  <% end %>
+<% end %>
+
+<% if @user.is_hiwi? || @user.is_wimi? %>
+  <p><strong><%= t('.user_status')%>: </strong><%= @user.is_wimi? ? t('.wimi') : t('.hiwi') %></p>
+<% end %>
+
+<% unless @user.personnel_number == 0 || @user.personnel_number.blank? %>
+  <p><strong><%= model_class.human_attribute_name(:personnel_number)%>: </strong><%= @user.personnel_number %></p>
+<% end %>
+
+<p><strong><%= model_class.human_attribute_name(:language)%>: </strong><%= @user.language %></p>

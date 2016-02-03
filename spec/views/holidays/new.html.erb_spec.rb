@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe 'holidays/new', type: :view do
   before(:each) do
     assign(:holiday, Holiday.new)
+    user = FactoryGirl.create(:user)
     @chair = FactoryGirl.create(:chair)
-    user = FactoryGirl.create(:user, chair: @chair)
-    FactoryGirl.create(:wimi, user: user, chair: @chair)
+    ChairWimi.first.update_attributes(user_id: user.id)
     login_as user
   end
 
@@ -19,8 +19,15 @@ RSpec.describe 'holidays/new', type: :view do
 
     visit new_holiday_path
 
-    expect(page).to have_select 'holiday_replacement_user_id', with_options: [user2.name]
-    expect(page).not_to have_select 'holiday_replacement_user_id', with_options: [user3.name]
-    expect(page).not_to have_select 'holiday_replacement_user_id', with_options: [user4.name]
+    expect(page).to have_select 'replacement_selection', with_options: [user2.name]
+    expect(page).not_to have_select 'replacement_selection', with_options: [user3.name]
+    expect(page).not_to have_select 'replacement_selection', with_options: [user4.name]
+  end
+
+  it 'denies the superadmin to create new holidays' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit new_holiday_path
+    expect(current_path).to eq(root_path)
   end
 end

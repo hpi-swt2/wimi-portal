@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Stundenzettel</title>
+<%= wicked_pdf_stylesheet_link_tag css_file %>
+</head>
+
+<body class='pdf-document timesheet-document'>
+<div class='logo' style='right:-70px'>
+  <img src='<%= hpi_logo %>'>
+</div>
+<table class='pdf-costs-table'>
+  <tr>
+    <td style='padding-bottom: 4px'>
+      <span class='headline' style='font-size: 16.0pt'>Arbeitszeitnachweis</span>
+    </td>
+  </tr>
+  <tr>
+    <td style='text-align: left'>
+      Name des Mitarbeiters:
+    </td>
+    <td colspan=3 style='border: solid 1.0pt'>
+      <span class='text-field'><%= timesheet.user.name %></span>
+    </td>
+    <td width=60px>
+      &nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td style='text-align: left'>
+      Wochenarbeitszeit lt. Vertrag:
+    </td>
+    <td style='border: solid 1.0pt'>
+      <span class='text-field'><%= timesheet.workload %></span>
+    </td>
+    <td width=40>
+      &nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td style='text-align: left'>
+      Monat/Jahr:
+    </td>
+    <td style='border: solid 1.0pt' width=130>
+      <span class='text-field'><%= timesheet.month %> / <%= timesheet.year %></span>
+    </td>
+    <td style='padding-left:15px'>
+      Pers.-Nr.:
+    </td>
+    <td style='border: solid 1.0pt' rowspan=2 width=60>
+      <span class='text-field'><%= timesheet.user.personnel_number %></span>
+    </td>
+  </tr>
+</table>
+
+<table class='workdays_table' cellspacing='0'>
+  <tr style='height:17pt; background-color: #AAA'>
+    <th><b>Kalendertag</b></th>
+    <th><b>Beginn</b> (Uhrzeit)</th>
+    <th><b>Pause</b> (Dauer)</th>
+    <th><b>Ende</b> (Uhrzeit)</th>
+    <th><b>Dauer</b> (Summe)</th>
+    <th><b>*</b></th>
+    <th style='padding: 3 20'><b>Bemerkungen</b></th>
+  </tr>
+  <% days_in_month.each do |day| %>
+    <tr>
+      <td><%= l(day[:date], format: '%A', locale: :de)[0..1] %>, <%= sprintf '%02d', day[:date].day %></td>
+      <td><%= day[:start] %></td>
+      <td><%= day[:break] %></td>
+      <td><%= day[:end] %></td>
+      <td><b><%= day[:duration] %></b></td>
+      <td><%= day[:attendance] %></td>
+      <td style='font-size:10pt'><%= day[:notes] %></td>
+    </tr>
+  <% end %>
+  <tr class='footer'>
+    <td colspan=3 >&nbsp;</td>
+    <td><b>Summe:</b></td>
+    <td><b style="font-size: 15.0pt; border-bottom-style: double"><%= sum %></b></td>
+    <td colspan=2 >&nbsp;</td>
+  </tr>
+  <tr class='footer'>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class='footer'>
+    <td style="height:30pt" colspan=3 >
+      <div class='signature'>&nbsp;</div>
+      <p>
+        <span>Datum</span>
+        <span>Unterschrift des Arbeitsnehmers</span>
+      </p>
+    </td>
+    <td>&nbsp;</td>
+    <td colspan=4 >
+      <div class='signature'>&nbsp;</div>
+      <p>
+        <span>Datum</span>
+        <span>Unterschrift Fachgebiet</span>
+      </p>
+    </td>
+  </tr>
+</table>
+<div style="font-size:10pt; margin-top: -5px">
+  <b style="font-size:10pt">* Tragen Sie in diese Spalte eines der folgenden Kürzel ein, wenn es für diesen Kalendertag zutrifft:</b>
+  <br/>
+  <b style="margin: 0px 30px">K</b> Krank
+  <br/>
+  <b style="margin: 0px 30px">F</b> Feiertag
+  <br/>
+  Der Zeitnachweis ist bis zum 10.Tag des Folgemonats über das FG oder Postfach Buchhaltung einzureichen!
+</div>
+</body>
+</html>
