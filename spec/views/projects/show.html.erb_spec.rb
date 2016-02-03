@@ -102,7 +102,7 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content('Leave Project')
     end
 
-    it 'dont show leave project button if he is the only wimi' do
+    it 'does not show leave project button if he is the only wimi' do
       @wimi.projects << @project
       visit current_path
       expect(page).not_to have_content('Leave Project')
