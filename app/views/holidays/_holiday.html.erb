@@ -1,25 +1,5 @@
 <%= form_for @holiday do |f| %>
-  
-  
-  <% if @holiday.errors.any? %>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="error_expl" class="panel panel-danger">
-          <div class="panel-heading">
-            <h3 class="panel-title"><%= pluralize(@holiday.errors.count, "error") %> prohibited this holiday from being saved:</h3>
-          </div>
-          <div class="panel-body">
-            <ul>
-            <% @holiday.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
+<fieldset disabled>
   <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
 
   <div class="row">
@@ -54,7 +34,7 @@
       <div class="form-group">
         <%= f.label :duration, class: '' %>
         <div class="">
-          <%= f.number_field :length, class: 'form-control', min: 0, placeholder: t('.auto_calculation') %>
+          <%= f.number_field :length, class: 'form-control', min: 0, placeholder: t('holidays.form.auto_calculation') %>
         </div>
       </div>
     </div>
@@ -89,7 +69,5 @@
       </div> 
     </div>
   </div>
-
-  <%= f.submit nil, class: 'btn btn-success btn-block' %>
-  
+</fieldset>
 <% end %>

@@ -3,7 +3,7 @@ class ChairsController < ApplicationController
   before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
 
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('chairs.navigation.not_authorized')
+    flash[:error] = t('chairs.navigation.not_authorized')
     if current_user.is_admin? || current_user.is_representative?
       redirect_to chair_path(current_user.chair)
     else

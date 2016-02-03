@@ -13,4 +13,11 @@ RSpec.describe 'holidays/edit', type: :view do
     assert_select 'form[action=?][method=?]', holiday_path(@holiday), 'post' do
     end
   end
+
+  it 'denies the superadmin to edit holidays' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit edit_holiday_path(@holiday)
+    expect(current_path).to eq(root_path)
+  end
 end

@@ -127,4 +127,11 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_selector(:link_or_button, 'Show all working hours')
     end
   end
+
+  it 'denies the superadmin to see details of a project' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit project_path(@project)
+    expect(current_path).to eq(dashboard_path)
+  end
 end
