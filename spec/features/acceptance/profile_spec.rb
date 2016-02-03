@@ -35,7 +35,7 @@ feature 'profile' do
     fill_in('Zip Code', with: '14482')
     fill_in('City', with: 'Potsdam')
     click_on('Save')
-    expect(page).to have_content 'Profile was successfully updated'
+    expect(page).to have_content 'Profile was updated successfully'
     expect(page).to have_content 'Street'
     expect(page).to have_content 'August-Bebel-Str. 89'
     expect(page).to have_content 'Zip Code'
