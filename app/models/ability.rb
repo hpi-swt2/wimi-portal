@@ -63,7 +63,10 @@ class Ability
   def initialize_hiwi(user)
     initialize_user user
 
-    can :read, Project
+    can :read, Project do |project|
+      (project.public) ||
+      (project.users.include? user)
+    end
     cannot :create, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
@@ -82,7 +85,6 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, to: :crud
 
-    can :read, Project
     can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
@@ -132,6 +134,9 @@ class Ability
   def initialize_representative(user)
     initialize_wimi user
 
+    can :read, Project do |project|
+      user.chair == project.chair
+    end
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end

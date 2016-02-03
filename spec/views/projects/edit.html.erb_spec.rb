@@ -128,7 +128,7 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'not possible for wimi to edit or delete a project he just signed out' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    project = FactoryGirl.create(:project, chair: @wimi.chair)
     @wimi.projects << project
     @wimi2.projects << project
     visit edit_project_path(project)
