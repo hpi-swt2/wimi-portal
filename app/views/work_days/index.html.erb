@@ -6,10 +6,10 @@
     <div class="page-header">
       <h1>
         <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-6">
             <%= t('.working_hours_for') %> <%=l Date.new(@year, @month, 1), format: :without_day %>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 col-md-offset-3">
             <% unless @time_sheet.nil? %>
             <% if @time_sheet.user == current_user && !@time_sheet.handed_in? %>
             <div align = "right">
