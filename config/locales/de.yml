@@ -212,6 +212,7 @@ de:
     updated: 'Urlaub wurde erfolgreich bearbeitet.'
     created: 'Urlaub wurde erfolgreich erstellt.'
     something_wrong: 'Es gab einen unbekannten Fehler.'
+    applied: "Urlaubsantrag bereits eingereicht"
   project:
     filter_chair: 'Filtern nach ...'
     invite_someone_to_project: 'Jemanden zum Projekt einladen'
@@ -277,8 +278,6 @@ de:
     destroyed: "Dienstreiseantrag wurde erfolgreich gelöscht"
     apply: "Dienstreiseantrag wurde erfolgreich eingereicht"
   not_authorized: "Du bist nicht befugt, diese Aktion durchzuführen."
-  holiday:
-    applied: "Urlaubsantrag bereits eingereicht"
   expense:
     update: "Reisekostenabrechnung wurde erfolgreich aktualisiert"
     save: "Reisekostenabrechnung wurde erfolgreich erstellt"
