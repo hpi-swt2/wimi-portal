@@ -141,6 +141,7 @@ class Ability
 
     can :reject, Holiday.select {|h| h.user != user}
     can :accept, Holiday.select {|h| h.user != user}
+    can :accept_reject, Holiday.select {|h| h.user != user}
     can :read,   Holiday do |h|
       user.is_representative?(h.user.chair)
       h.status != 'saved' && h.status != 'declined'
@@ -149,6 +150,7 @@ class Ability
     can :read,      Trip.select { |t| user.is_representative?(t.user.chair) }
     can :reject,    Trip
     can :accept,    Trip
+    can :accept_reject, Trip
     can :edit_trip, Trip do |trip|
       trip.status != 'saved'
     end

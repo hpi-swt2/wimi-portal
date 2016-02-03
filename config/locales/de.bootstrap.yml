@@ -173,6 +173,7 @@ de:
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
+      reject_reason: "Ablehnungsgrund"
       status:
         saved: "Gespeichert am "
         accepted: "Akzeptiert am "
@@ -267,6 +268,7 @@ de:
       accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
       days: "Tag(e)"
+      reject_reason: "Ablehnungsgrund"
       status:
         saved: "Gespeichert am "
         accepted: "Akzeptiert am "
