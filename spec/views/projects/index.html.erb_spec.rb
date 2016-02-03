@@ -38,7 +38,7 @@ RSpec.describe 'projects/index', type: :view do
     expect(page).to have_content(I18n.t('projects.index.private'))
   end
 
-  it 'denys the superadmin the the list of projects' do
+  it 'denies the superadmin the the list of projects' do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit projects_path

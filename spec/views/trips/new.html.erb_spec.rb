@@ -11,7 +11,7 @@ RSpec.describe 'trips/new', type: :view do
     end
   end
 
-  it 'denys the superadmin to create a new trip' do
+  it 'denies the superadmin to create a new trip' do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit new_trip_path

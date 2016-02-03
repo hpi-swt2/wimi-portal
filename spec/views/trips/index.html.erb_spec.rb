@@ -16,7 +16,7 @@ RSpec.describe 'trips/index', type: :view do
     expect(rendered).to match /#{@trip2.destination}/
   end
 
-  it 'denys the superadmin to see the list of trips' do
+  it 'denies the superadmin to see the list of trips' do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit trips_path

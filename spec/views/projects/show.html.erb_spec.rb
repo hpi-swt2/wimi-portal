@@ -130,7 +130,7 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(I18n.t('projects.form.show_all_working_hours'), count: 1)
   end
 
-  it 'denys the superadmin to see details of a project' do
+  it 'denies the superadmin to see details of a project' do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit project_path(@project)

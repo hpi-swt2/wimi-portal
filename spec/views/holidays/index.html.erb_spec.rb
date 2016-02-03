@@ -18,7 +18,7 @@ RSpec.describe 'holidays/index', type: :view do
     assert_select 'tr>td', text: 'saved'.to_s, count: 1
   end
 
-  it 'denys the superadmin to see the list of holidays' do
+  it 'denies the superadmin to see the list of holidays' do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit holidays_path

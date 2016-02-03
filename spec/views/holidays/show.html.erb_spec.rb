@@ -16,7 +16,7 @@ RSpec.describe 'holidays/show', type: :view do
     expect(@holiday.status).to eq('applied')
   end
 
-  it 'denys the superadmin see details of holidays' do
+  it 'denies the superadmin see details of holidays' do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit holiday_path(@holiday)

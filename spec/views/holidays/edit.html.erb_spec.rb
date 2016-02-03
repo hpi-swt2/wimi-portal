@@ -14,7 +14,7 @@ RSpec.describe 'holidays/edit', type: :view do
     end
   end
 
-  it 'denys the superadmin to edit holidays' do
+  it 'denies the superadmin to edit holidays' do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit edit_holiday_path(@holiday)

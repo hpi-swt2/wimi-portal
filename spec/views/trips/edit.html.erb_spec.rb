@@ -29,7 +29,7 @@ RSpec.describe 'trips/edit', type: :view do
     expect(current_path).to eq(trip_path(@trip))
   end
 
-  it 'denys the superadmin to edit a trip' do
+  it 'denies the superadmin to edit a trip' do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit edit_trip_path(@trip)
