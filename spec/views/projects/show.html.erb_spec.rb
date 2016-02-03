@@ -21,7 +21,7 @@ RSpec.describe 'projects/show', type: :view do
     login_as representative
     project = FactoryGirl.create(:project, chair: representative.chair, status: true)
     representative.projects << project
-    visit project_path(project.id)
+    visit project_path(project)
 
     expect(page).to have_content(project.title)
     expect(page).to have_content(project.chair.name)
@@ -38,7 +38,7 @@ RSpec.describe 'projects/show', type: :view do
     login_as wimi
     project = FactoryGirl.create(:project, chair: wimi.chair, status: true)
     wimi.projects << project
-    visit project_path(project.id)
+    visit project_path(project)
 
     expect(page).to have_content(project.title)
     expect(page).to have_content(project.chair.name)
@@ -54,7 +54,7 @@ RSpec.describe 'projects/show', type: :view do
 
       login_as @hiwi
       @project = FactoryGirl.create(:project, chair: chair_representative.chair, status: true)
-      visit project_path(@project.id)
+      visit project_path(@project)
     end
 
     it 'has information about the project on page' do
@@ -126,7 +126,7 @@ RSpec.describe 'projects/show', type: :view do
     login_as wimi
     project = FactoryGirl.create(:project, chair: wimi.chair, status: true)
     wimi.projects << project
-    visit project_path(project.id)
+    visit project_path(project)
     expect(page).to have_content(I18n.t('projects.form.show_all_working_hours'), count: 1)
   end
 end
