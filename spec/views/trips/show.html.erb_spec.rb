@@ -30,4 +30,11 @@ RSpec.describe 'trips/show', type: :view do
     expect(rendered).not_to have_link(t('helpers.links.hand_in'))
     expect(rendered).not_to have_link(t('helpers.links.destroy'))
   end
+
+  it 'denys the superadmin to see trip details' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit trip_path(@trip)
+    expect(current_path).to eq(dashboard_path)
+  end
 end

@@ -58,4 +58,11 @@ RSpec.describe 'work_days/index.html.erb', type: :view do
     timesheet.reload
     expect(timesheet.status).eql? ('rejected')
   end
+
+  it 'denys the superadmin to access the work days page' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit work_days_path
+    expect(current_path).to eq(dashboard_path)
+  end
 end

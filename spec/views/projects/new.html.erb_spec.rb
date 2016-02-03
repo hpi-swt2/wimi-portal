@@ -26,4 +26,11 @@ RSpec.describe 'projects/new', type: :view do
     expect(page).to have_selector(:link_or_button, 'Invite User')
     expect(page).to have_xpath("//input[@name='invitationfield']")
   end
+
+  it 'denys the superadmin to create a new project' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit new_project_path
+    expect(current_path).to eq(dashboard_path)
+  end
 end
