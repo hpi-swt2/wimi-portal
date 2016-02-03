@@ -3,7 +3,7 @@ class HolidaysController < ApplicationController
 
   before_action :set_holiday, only: [:show, :edit, :update, :destroy, :file, :reject, :accept]
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('not_authorized')
+    flash[:error] = t('not_authorized')
     redirect_to root_path
   end
 

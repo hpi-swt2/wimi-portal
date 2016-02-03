@@ -3,7 +3,7 @@ class TripsController < ApplicationController
 
   before_action :set_trip, only: [:show, :edit, :update, :destroy, :download, :apply, :hand_in]
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('not_authorized')
+    flash[:error] = t('not_authorized')
     if current_user && !current_user.is_superadmin?
       redirect_to trips_path
     else
