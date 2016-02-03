@@ -18,10 +18,12 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       I18n.locale = @user.language
-      flash[:success] = t('.user_updated')
+
       if user_params.has_key?(:language)
+        flash[:success] = t('.user_updated_language')
         redirect_to :back
       else
+        flash[:success] = t('.user_updated')
         redirect_to current_user
       end
     else

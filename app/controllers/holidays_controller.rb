@@ -9,6 +9,7 @@ class HolidaysController < ApplicationController
 
   def index
     @holidays = Holiday.all
+    redirect_to user_path(current_user, anchor: 'holidays')
   end
 
   def show
