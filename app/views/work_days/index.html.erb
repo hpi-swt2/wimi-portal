@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col-md-12">
         <% if @work_days.empty? %>
-          <p> <%= t 'no_entries_yet', target: (t 'activerecord.view.work_days.other', default: model_class.model_name.human.pluralize) %> </p> <br>
+          <p> <%= t 'no_entries_yet', target: (t 'activerecord.view.work_days.other', default: model_class.model_name.human.pluralize) %> </p>
         <% else %>
           <table  class="table table-striped">
             <thead>
