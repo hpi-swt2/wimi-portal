@@ -291,3 +291,9 @@ de:
       upload_error: "Bitte wählen Sie eine Datei aus"
     delete_signature:
       destroy_success: "Unterschrift erfolgreich gelöscht"
+  mail_notifier:
+    notification:
+      subject: "Sie haben eine neue Benachrichtigung erhalten"
+      hello: "Hallo "
+      text: "Sie haben eine neue Benachrichtigung. Besuchen Sie das Wimi-Portal Dashboard, um alle neuen Benachrichtigungen zu sehen."
+      your_wimi_portal: "Ihr Wimi-Portal"
