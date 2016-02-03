@@ -88,7 +88,7 @@ class TripsController < ApplicationController
   end
 
   def accept
-    if(can? :read, @trip) && @trip.status == 'applied'
+    if (can? :read, @trip) && @trip.status == 'applied'
       @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user)
       ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})
       redirect_to @trip.user

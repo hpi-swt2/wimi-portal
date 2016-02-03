@@ -13,18 +13,18 @@ describe 'trips and expenses', type: feature do
     login_as(@current_user, scope: :user)
   end
 
-  it "creates a business trip from profile page" do
+  it 'creates a business trip from profile page' do
     visit "/users/#{@current_user.id}/"
     click_on(I18n.t('users.show.request_trip'))
     expect(page).to have_content I18n.t('activerecord.attributes.trip.destination')
     expect(page).to have_content I18n.t('activerecord.attributes.trip.reason')
     expect(page).to have_content I18n.t('activerecord.attributes.trip.annotation')
     expect(page).to have_content I18n.t('activerecord.attributes.trip.days_abroad')
-    fill_in(I18n.t('activerecord.attributes.trip.destination'), :with => 'Orlando, Florida')
-    fill_in(I18n.t('activerecord.attributes.trip.reason'), :with => 'Conference')
-    fill_in "trip_date_start", with: I18n.l(Date.today, locale: 'en') #don't run if datepicker was implemented
-    fill_in "trip_date_end", with: I18n.l(Date.today+10, locale: 'en') #don't run if datepicker was implemented
-    fill_in("trip_days_abroad", with: 1)
+    fill_in(I18n.t('activerecord.attributes.trip.destination'), with: 'Orlando, Florida')
+    fill_in(I18n.t('activerecord.attributes.trip.reason'), with: 'Conference')
+    fill_in 'trip_date_start', with: I18n.l(Date.today, locale: 'en') #don't run if datepicker was implemented
+    fill_in 'trip_date_end', with: I18n.l(Date.today + 10, locale: 'en') #don't run if datepicker was implemented
+    fill_in('trip_days_abroad', with: 1)
     click_on(I18n.t('helpers.submit.create', model: I18n.t('activerecord.models.trip.one')))
     expect(page).to have_content I18n.t('trip.save')
     expect(page).to have_content I18n.t('helpers.links.edit')
@@ -34,7 +34,7 @@ describe 'trips and expenses', type: feature do
     visit "/users/#{@current_user.id}/"
   end
 
-  it "submits the request for a business trip" do #ready
+  it 'submits the request for a business trip' do #ready
     @trip = FactoryGirl.create(:trip, user_id: @current_user.id)
     visit "/users/#{@current_user.id}/"
     click_on(I18n.t('helpers.links.show_details'))
@@ -45,7 +45,7 @@ describe 'trips and expenses', type: feature do
     expect(page).to have_content I18n.t('status.applied') #as status of submitted request
   end
 
-  it "adds expenses to a business trip"  do
+  it 'adds expenses to a business trip'  do
     @trip = FactoryGirl.create(:trip, user_id: @current_user.id)
     visit "/users/#{@current_user.id}/"
     click_on(I18n.t('helpers.links.show_details'))
@@ -53,9 +53,9 @@ describe 'trips and expenses', type: feature do
     expect(page).to have_content I18n.t('activerecord.attributes.trip.date_end')
     expect(page).to have_content I18n.t('trips.show.expense')
     click_on(I18n.t('trips.show.create_expense'))
-    fill_in(I18n.t('activerecord.attributes.expense.location_from'), :with => 'Potsdam')
-    fill_in(I18n.t('activerecord.attributes.expense.time_start'), :with => '12:00')
-    fill_in(I18n.t('activerecord.attributes.expense.time_end'), :with => '13:00')
+    fill_in(I18n.t('activerecord.attributes.expense.location_from'), with: 'Potsdam')
+    fill_in(I18n.t('activerecord.attributes.expense.time_start'), with: '12:00')
+    fill_in(I18n.t('activerecord.attributes.expense.time_end'), with: '13:00')
     click_on(I18n.t('helpers.submit.create', model: I18n.t('activerecord.models.expense.one')))
     expect(page).to have_content I18n.t('expense.save')
     expect(page).to have_content I18n.l(@trip.date_start)

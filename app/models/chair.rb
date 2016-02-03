@@ -93,7 +93,7 @@ class Chair < ActiveRecord::Base
     admin_array.try(:each) do |admin|
       chair_wimi = ChairWimi.find_by(user: admin)
       if chair_wimi
-          admin.chair_wimi.destroy
+        admin.chair_wimi.destroy
       end
       ChairWimi.create(chair: self, user: admin, admin: true, application: 'accepted')
     end
