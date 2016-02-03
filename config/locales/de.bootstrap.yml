@@ -394,3 +394,4 @@ de:
     admin_long: "Administrator"
     hiwi_long_plural: "Studentische Hilfskräfte"
     admin_long_plural: "Administratoren"
+  no_entries_yet: "Es sind noch keine %{target} vorhanden."
