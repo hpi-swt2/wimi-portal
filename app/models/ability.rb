@@ -65,6 +65,9 @@ class Ability
     can :sign_user_out, Project do |project|
       project.users.include? user
     end
+    can :add_working_hours, Project do |project|
+      project.users.include? user
+    end
     # can :accept_invitation, Project
     # can :manage, Stundenzettel
   end
