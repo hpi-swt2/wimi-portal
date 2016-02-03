@@ -68,7 +68,7 @@ RSpec.describe 'projects/show', type: :view do
     it 'shows leave project button if part of project' do
       @hiwi.projects << @project
       visit current_path
-      expect(page).to have_content('Leave Project')
+      expect(page).to have_content('Leave')
     end
 
     it 'shows no leave project button if not part of project' do

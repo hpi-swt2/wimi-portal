@@ -1,5 +1,4 @@
 <%- model_class = Project -%>
-<<<<<<< HEAD
 <div class="col-md-12">
   <div class="display">
 
@@ -15,85 +14,83 @@
     </div>
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="form-group">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
-                <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
-                <th><%= t('.accessibility', default:'Accessibility') %></th>
-                <th><%= t('.status')%></th>
-                <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
-                <th><%=t '.actions', default: t("helpers.actions") %></th>
-              </tr>
-            </thead>
-            <tbody>
-            <% @projects.each do |project| %>
-              <tr>
-                <td><%= link_to project.title, project %></td>
-                <td><%= link_to project.chair.name, project.chair %></td>
-                <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
+              <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
+              <th><%= t('.accessibility', default:'Accessibility') %></th>
+              <th><%= t('.status')%></th>
+              <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
+              <th><%=t '.actions', default: t("helpers.actions") %></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @projects.each do |project| %>
+            <tr>
+              <td><%= link_to project.title, project %></td>
+              <td><%= link_to project.chair.name, project.chair %></td>
+              <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
 
-                <td><%= t('.status_' + project.status.to_s) %></td>
-                <td><%=l project.created_at %></td>
-                <td>
-                  <% if can? :create, ProjectApplication %>
-                    <% if project.project_applications.exists?(user: current_user) %>
-                      <% project_application = project.project_applications.find_by(user: current_user) %>
-                      <% case project_application.status %>
-                        <% when 'pending' %>
-                          <%= link_to t('project_applications.index.cancel', default: t('helpers.links.cancel')),
-                            project_application_path(project_application),
-                                      method: :delete,
-                                      data: { confirm: t('helpers.links.confirm') },
-                                      class: 'btn btn-danger btn-xs' %>
-                        <% when 'accepted' %>
-                          <span class='label label-success'><%= project_application.status %></span>
-                        <% when 'declined' %>
-                          <%= link_to t('project_applications.reapply', default: 'Reapply'),
-                            reapply_project_application_path(project_application), class: 'btn btn-danger btn-xs' %>
-                      <% end %>
-                    <% else %>
-                      <%= link_to t('helpers.links.apply'),
-                        apply_project_applications_path(id: project.id), method: :post, class: 'btn btn-default btn-xs' %>
+              <td><%= t('.status_' + project.status.to_s) %></td>
+              <td><%=l project.created_at %></td>
+              <td>
+                <% if can? :create, ProjectApplication %>
+                  <% if project.project_applications.exists?(user: current_user) %>
+                    <% project_application = project.project_applications.find_by(user: current_user) %>
+                    <% case project_application.status %>
+                      <% when 'pending' %>
+                        <%= link_to t('project_applications.index.cancel', default: t('helpers.links.cancel')),
+                          project_application_path(project_application),
+                                    method: :delete,
+                                    data: { confirm: t('helpers.links.confirm') },
+                                    class: 'btn btn-danger btn-xs' %>
+                      <% when 'accepted' %>
+                        <span class='label label-success'><%= project_application.status %></span>
+                      <% when 'declined' %>
+                        <%= link_to t('project_applications.reapply', default: 'Reapply'),
+                          reapply_project_application_path(project_application), class: 'btn btn-danger btn-xs' %>
                     <% end %>
+                  <% else %>
+                    <%= link_to t('helpers.links.apply'),
+                      apply_project_applications_path(id: project.id), method: :post, class: 'btn btn-default btn-xs' %>
                   <% end %>
-                  <% if can? :leave_project, project %>
-                      <%= link_to t('projects.show.leave_project'),
-                                  sign_user_out_project_path(user_id: current_user.id, id: project), method: :delete, class: 'btn btn-default btn-xs' %>
-                  <% end %>
-                  <% if can? :manage, project%>
-                    <%= link_to t('helpers.links.edit'),
-                                edit_project_path(project), class: 'btn btn-warning btn-xs' %>
-                    <%= link_to 'X',
-                                project_path(project),
-                                method: :delete,
-                                data: { confirm: t('helpers.links.confirm') },
-                                class: 'btn btn-xs btn-danger' %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
+                <% end %>
+                <% if can? :leave_project, project %>
+                    <%= link_to t('projects.show.leave_project'),
+                                sign_user_out_project_path(user_id: current_user.id, id: project), method: :delete, class: 'btn btn-default btn-xs' %>
+                <% end %>
+                <% if can? :manage, project%>
+                  <%= link_to t('helpers.links.edit'),
+                              edit_project_path(project), class: 'btn btn-warning btn-xs' %>
+                  <%= link_to 'X',
+                              project_path(project),
+                              method: :delete,
+                              data: { confirm: t('helpers.links.confirm') },
+                              class: 'btn btn-xs btn-danger' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
-    <center>
+    <div class="page-header">
       <h3><%= t('.all_working_hours') %></h3>
-      <div class="col-md-12">
-        <div class="col-md-3"></div>
-        <div class="col-md-3">
-          <%= select_month(Date.today, {}, { class: "form-control", id: "workingHoursChartMonth"}) %>
-        </div>
-        <div class="col-md-3">
-          <%= select_year(Date.today, {start_year: Date.today.year - 2, end_year: Date.today.year + 2}, { class: "form-control", id: "workingHoursChartYear"}) %>
-        </div>
-        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-md-offset-3">
+        <%= select_month(Date.today, {}, { class: "form-control", id: "workingHoursChartMonth"}) %>
       </div>
-    </center>
-    <div class="col-md-12">
-      <div id="hiwiWorkingHoursChart" style="height: 300px; width: 100%;"></div>
+      <div class="col-md-3">
+        <%= select_year(Date.today, {start_year: Date.today.year - 2, end_year: Date.today.year + 2}, { class: "form-control", id: "workingHoursChartYear"}) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="hiwiWorkingHoursChart" style="height: 300px; width: 100%;"></div>
+      </div>
     </div>
   </div>
 </div>
