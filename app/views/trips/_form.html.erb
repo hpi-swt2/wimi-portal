@@ -16,12 +16,6 @@
 </div>
 <% end %>
 
-<div class= "row">
-  <div class= "col-md-12" align="right">
-  <font color="red">  * <%= t('helpers.forms.required_field')%></font>
-  </div>
-</div>
-
 <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
 <div class="row">
   <div class="col-md-12 novertpadding">
@@ -89,6 +83,12 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class= "row">
+  <div class= "col-md-12" align="right">
+  <font color="red">  * <%= t('helpers.forms.required_field')%></font>
   </div>
 </div>
 
