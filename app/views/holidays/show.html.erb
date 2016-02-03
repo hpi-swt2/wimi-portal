@@ -44,12 +44,22 @@
     </dl>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-12">
+      <%= link_to link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Holiday_request', doc_id: @holiday), class: 'btn btn-default' %>
+      <% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
+        <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
+        <%= link_to t('.destroy', default: t("helpers.links.destroy")), holiday_path(@holiday), method: :delete, 
+            data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger btn-primary' %>
+      <% end %>
+  </div>
+</div>
 
-<%= link_to link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Holiday_request', doc_id: @holiday), class: 'btn btn-default' %>
-<% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
-  <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
-<% end %>
 <% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
-  <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger btn-xs' %>
-  <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success btn-xs' %>
+<div class="row">
+  <div class="col-md-12">
+      <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger btn-xs' %>
+      <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success btn-xs' %>
+  </div>
+</div>
 <% end %>

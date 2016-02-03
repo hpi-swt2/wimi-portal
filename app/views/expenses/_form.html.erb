@@ -20,7 +20,7 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :location_from %><br>
+        <%= f.label :location_from %><font color="red">*</font><br>
         <%= f.text_field :location_from , class: 'form-control' %>
       </div>
     </div>
@@ -61,11 +61,11 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <%= f.label :time_start %>
+      <%= f.label :time_start %><font color="red">*</font>
       <%= f.text_field :time_start, class: 'form-control', placeholder: 'HH:MM' %>
     </div>
     <div class="col-md-6">
-      <%= f.label :time_end %>
+      <%= f.label :time_end %><font color="red">*</font>
       <%= f.text_field :time_end , class: 'form-control', placeholder: 'HH:MM' %>
     </div>
   </div>
@@ -153,6 +153,9 @@
       <div>
         <%= f.check_box :signature %> <%= f.label :signature %>
       </div>
+      <p align="right">
+        <font color="red">* <%= t('helpers.forms.required_field')%></font>
+      </p>
     </div>
   </div>
 

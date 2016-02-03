@@ -18,7 +18,10 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <%= f.label :date, class: "control-label" %>
+        <div align="right">
+        <font color="red">* <%= t('helpers.forms.required_field')%></font>
+        </div>
+        <%= f.label :date, class: "control-label" %><font color="red">*</font>
         <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
       </div>
     </div>
@@ -26,19 +29,19 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :start_time, class: "control-label"  %><br>
+        <%= f.label :start_time, class: "control-label" %><font color="red">*</font><br>
         <%= f.time_select :start_time, {}, class: "form-control time-select" %>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :break, class: "control-label"  %> (<%= t('.minutes') %>)
+        <%= f.label :break, class: "control-label"  %> (<%= t('.minutes') %>) <font color="red">*</font>
         <%= f.number_field :break, value: 0, class: "form-control"%>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :end_time, class: "control-label"  %> <br>
+        <%= f.label :end_time, class: "control-label"  %><font color="red">*</font> <br>
         <%= f.time_select :end_time, {}, class: "form-control time-select" %>
       </div>
     </div>

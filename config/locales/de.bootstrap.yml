@@ -13,6 +13,8 @@ de:
       login: "Anmelden"
       logout: "Abmelden"
     actions: "Aktionen"
+    forms:
+      required_field: "Pflichtfeld"
     links:
       hand_in: "Einreichen"
       show: "Anzeigen"

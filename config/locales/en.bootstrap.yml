@@ -18,6 +18,8 @@ en:
       login: "Login"
       logout: "Logout"
     actions: "Actions"
+    forms:
+      required_field: "required field"
     links:
       hand_in: "Hand in"
       show: "Show"
