@@ -49,13 +49,13 @@
     <div class="col-md-6">
       <div class="form-group">
         <%= label_tag Trip.human_attribute_name(:date_start) %>
-        <%= text_field_tag 'date_start', l(@expense.trip.date_start) , class: 'form-control', readonly: 'readonly' %>
+        <%= text_field_tag 'date_start', I18n.l(@expense.trip.date_start) , class: 'form-control', readonly: 'readonly' %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <%= label_tag Trip.human_attribute_name(:date_end) %>
-        <%= text_field_tag 'date_end', l(@expense.trip.date_end), class: 'form-control' , readonly: 'readonly' %>
+        <%= text_field_tag 'date_end', I18n.l(@expense.trip.date_end), class: 'form-control' , readonly: 'readonly' %>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@
     <div class="col-md-12">
       <div class="row">
         <div class="col-md-2">
-          <%= label_tag t'.travel_by' %>
+          <%= label_tag t('.travel_by') %>
         </div>
         <div class="col-md-3">
           <div class="form-group">
@@ -97,15 +97,15 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        <%= label_tag nil, t'.accommodation' %> <br>
+        <%= label_tag nil, t('.accommodation') %> <br>
         <div class="row">
           <div class="col-xs-6">
             <%= f.radio_button :hotel, true %>
-            <%= label_tag :hotel_true, t'.hotel_true' %>
+            <%= label_tag :hotel_true, t('.hotel_true') %>
           </div>
           <div class="col-xs-6">
             <%= f.radio_button :hotel, false %>
-            <%= label_tag :hotel, t'.hotel_false' %>
+            <%= label_tag :hotel, t('.hotel_false') %>
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-       <span><%= t'.catering' %></span>
+       <span><%= t('.catering') %></span>
     </div>
   </div>
   <div class="row">
@@ -140,7 +140,7 @@
               <td><%= t.check_box :breakfast %></td>
               <td><%= t.check_box :lunch %></td>
               <td><%= t.check_box :dinner %></td>
-              <td><%= t.text_field :annotation , class: '"form-control' %></td>
+              <td><%= t.text_field :annotation , class: 'form-control' %></td>
             </tr>
             <% index += 1 %>
           <% end %>
