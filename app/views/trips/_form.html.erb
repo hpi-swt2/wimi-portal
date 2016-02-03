@@ -23,14 +23,14 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= f.label :destination %>
-          <font color="red">*</font>
+          <span style = "color: red">*</span>
           <%= f.text_field :destination, class: "form-control", placeholder: t('.destination')%>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <%= f.label :date_start %>
-          <font color="red">*</font>
+          <span style = "color: red">*</span>
           <div class="controls">
             <%= f.text_field :date_start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @trip.date_start ? l(@trip.date_start) : nil, placeholder: t('.date')  %>
           </div>
@@ -51,7 +51,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <%= f.label :date_end %>
-          <font color="red">*</font>
+          <span style = "color: red">*</span>
           <div class="controls">
             <%= f.text_field :date_end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @trip.date_end ? l(@trip.date_end) : nil, placeholder: t('.date')  %>
           </div>
@@ -73,7 +73,7 @@
         
         <div class="form-group">
           <%= f.label :days_abroad %>
-          <font color="red">*</font>
+          <span style = "color: red">*</span>
           <%= f.number_field :days_abroad, class: "form-control" %>
         </div>
 
@@ -88,7 +88,7 @@
 
 <div class= "row">
   <div class= "col-md-12" align="right">
-  <font color="red">  * <%= t('helpers.forms.required_field')%></font>
+  <span style = "color: red">  * <%= t'helpers.forms.required_field'%></span>
   </div>
 </div>
 
