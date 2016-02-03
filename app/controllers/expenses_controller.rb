@@ -6,7 +6,7 @@ class ExpensesController < ApplicationController
   before_action :set_trip, only: [:new, :create, :update_item_count]
 
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('not_authorized')
+    flash[:error] = t('not_authorized')
     redirect_to trips_path
   end
 
