@@ -351,6 +351,12 @@ RSpec.describe ChairsController, type: :controller do
         delete :destroy, {id: @chair.id}
       }.to change(Chair, :count).by(-1)
     end
+
+    it 'destroys the projects of the chair' do
+      project = FactoryGirl.create(:project, chair_id: @chair.id)
+      delete :destroy, {id: @chair.id}
+      expect project == nil
+    end
   end
 
   describe 'GET #requests' do
