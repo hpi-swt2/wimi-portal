@@ -68,13 +68,13 @@
             </thead>
             <tbody>
             <% @project.users.order('last_name').each do |user| %>
-                <% if user.is_wimi?%>
-                    <tr>
-                      <td>
-                        <%= link_to user.name, user  %>
-                      </td>
-                    </tr>
-                <% end %>
+              <% if user.is_wimi?%>
+                <tr>
+                  <td>
+                    <%= link_to user.name, user  %>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
             </tbody>
           </table>
@@ -89,18 +89,18 @@
             </thead>
             <tbody>
             <% @project.users.order('last_name').each do |user| %>
-                <% if user.is_hiwi?%>
-                    <tr>
-                      <td>
-                        <%= link_to user.name, user  %>
-                      </td>
-                      <td>
-                        <% if can? :edit, @project or user == current_user%>
-                            <%= link_to t('projects.form.show_working_hours', default:'Show working hours'), work_days_path(month: 1, year: 2016, project: @project.id), class: 'btn btn-default btn-xs' %>
-                        <% end %>
-                      </td>
-                    </tr>
-                <% end %>
+              <% if user.is_hiwi?%>
+                <tr>
+                  <td>
+                    <%= link_to user.name, user  %>
+                  </td>
+                  <td>
+                    <% if can? :edit, @project or user == current_user%>
+                        <%= link_to t('projects.form.show_working_hours', default:'Show working hours'), work_days_path(month: 1, year: 2016, project: @project.id), class: 'btn btn-default btn-xs' %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
             </tbody>
           </table>
@@ -169,43 +169,43 @@
 
 <% content_for :sidebar do %>
     <!--Filter-->
-    <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
-        <div class="col-md-12">
-          <div class="display">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4> <%= t 'helpers.actions'%> </h4>
-              </div>
-              <div class="panel-body">
-                <p>
-                  <% if @project.users.include? current_user%>
-                      <%= link_to t('.leave_project', default:'Leave Project'),
-                                  sign_user_out_project_path(user_id: current_user.id, id: @project), method: :delete %>
-                  <% end %>
-                </p>
-                <p>
-                  <% content_for :modals do %>
-                      <%= render 'invite_user' %>
-                  <% end %>
-                  <% if can?(:invite_user, @project) %>
-                      <%= link_to t('project.invite_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }%>
-                  <% end %>
-                </p>
-                <p>
-                  <% if can? :edit, @project %>
-                      <%= link_to t('projects.form.show_all_working_hours', default:'Show all working hours'),
-                                  work_days_path(month: 1, year: 2016, project: @project)%>
-                  <% end %>
-                </p>
-                <p>
-                  <% if current_user.is_hiwi? %>
-                    <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
-                                new_work_day_path %>
-                  <% end %>
-                </p>
-              </div>
-            </div>
+  <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4> <%= t 'helpers.actions'%> </h4>
+          </div>
+          <div class="panel-body">
+            <p>
+              <% if @project.users.include? current_user%>
+                  <%= link_to t('.leave_project', default:'Leave Project'),
+                              sign_user_out_project_path(user_id: current_user.id, id: @project), method: :delete %>
+              <% end %>
+            </p>
+            <p>
+              <% content_for :modals do %>
+                  <%= render 'invite_user' %>
+              <% end %>
+              <% if can?(:invite_user, @project) %>
+                  <%= link_to t('project.invite_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }%>
+              <% end %>
+            </p>
+            <p>
+              <% if can? :edit, @project %>
+                  <%= link_to t('projects.form.show_all_working_hours', default:'Show all working hours'),
+                              work_days_path(month: 1, year: 2016, project: @project)%>
+              <% end %>
+            </p>
+            <p>
+              <% if current_user.is_hiwi? %>
+                <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
+                            new_work_day_path %>
+              <% end %>
+            </p>
           </div>
         </div>
-    <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
