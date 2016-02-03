@@ -1,6 +1,12 @@
 class TimeSheetsController < ApplicationController
   before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject]
 
+  load_and_authorize_resource
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('not_authorized')
+    redirect_to dashboard_path
+  end
+
   def show
   end
 

@@ -1,6 +1,12 @@
 class WorkDaysController < ApplicationController
   before_action :set_work_day, only: [:show, :edit, :update, :destroy]
 
+  load_and_authorize_resource
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('not_authorized')
+    redirect_to dashboard_path
+  end
+
   def index
     if params.has_key?(:month) && params.has_key?(:year) && params.has_key?(:user_id) && User.find_by_id(params[:user_id]) != nil
       @month = params[:month].to_i

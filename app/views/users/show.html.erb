@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<% if @user == current_user %>
+<% if !@user.is_superadmin? && @user == current_user %>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4><%= t('.signature') %></h4>
@@ -44,7 +44,7 @@
     </div>
 <% end %>
 
-<% if @user == current_user %>
+<% if !@user.is_superadmin? && @user == current_user %>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4><%= t('.time_sheets_overview')%></h4>
