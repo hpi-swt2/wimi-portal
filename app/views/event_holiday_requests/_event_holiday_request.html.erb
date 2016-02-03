@@ -1,12 +1,16 @@
-<p><%= event_holiday_request.trigger.name %>
-  <%if false%><%=
-    trip = Trip.find(event_travel_request_accepted.trigger)
-    person_in_power = trip.person_in_power
+<%=
+    holiday = Holiday.find(event_holiday_request.target)
+    user = User.find(holiday.user_id)
+    person_in_power = event_holiday_request.trigger
+    status = event_holiday_request.status
     t(
       '.full_html',
-      link_to_request: link_to(t('.request'), trip),
-      date: l(trip.created_at),
-      person_in_power: link_to(person_in_power.name, person_in_power),
-      link_to_view: link_to(t('.view'), trip))
-  %><%end%>
-</p>
+      user: user.name,
+      link_to_request: link_to(t('.holiday'), holiday),
+      date: l(holiday.created_at),
+      status: t('.'+status),
+      person_in_power: person_in_power.name,
+      link_to_view: link_to(t('.view'), holiday)
+      )
+  %>
+<br>

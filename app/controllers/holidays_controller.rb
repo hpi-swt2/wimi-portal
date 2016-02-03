@@ -94,7 +94,7 @@ class HolidaysController < ApplicationController
       add_leave(@holiday.length)
       @holiday.update_attribute(:status, 'declined')
       @holiday.update_attribute(:last_modified, Date.today)
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @holiday.user_id, chair: current_user.chair, type: 'EventHolidayRequest', seclevel: :representative, status: 'rejected'})
+      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @holiday.id, chair: current_user.chair, type: 'EventHolidayRequest', seclevel: :representative, status: 'rejected'})
       redirect_to @holiday.user
     else
       redirect_to root_path

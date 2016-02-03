@@ -221,6 +221,13 @@ en:
       view: "View"
       request: "travel request"
       full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
+  event_holiday_requests:
+    event_holiday_request:
+      view: "View"
+      holiday: "holiday request"
+      accepted: "accepted"
+      rejected: "rejected"
+      full_html: "%{person_in_power} <b>%{status}</b> the %{link_to_request} of %{user}. %{link_to_view}"
   event_time_sheet_submitteds:
     event_time_sheet_submitted:
       view: "View"
