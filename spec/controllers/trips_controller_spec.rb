@@ -34,7 +34,7 @@ RSpec.describe TripsController, type: :controller do
     reason: 'Hana Things',
     annotation: 'HANA pls',
     date_start: Date.today,
-    date_end: Date.today+2,
+    date_end: Date.today + 2,
     days_abroad: 1,
     signature: true,
     user: @user}
@@ -45,7 +45,7 @@ RSpec.describe TripsController, type: :controller do
     reason: 'Hana Things',
     annotation: 'HANA pls',
     date_start: I18n.l(Date.today, locale: 'en'),
-    date_end: I18n.l(Date.today+2, locale: 'en'),
+    date_end: I18n.l(Date.today + 2, locale: 'en'),
     days_abroad: 1,
     signature: 1,
     user: @user}
@@ -55,8 +55,8 @@ RSpec.describe TripsController, type: :controller do
     {destination: 'NYC',
     reason: 'Hana ',
     annotation: 'HANA pls',
-    date_start: I18n.l(Date.today+2, locale: 'en'),
-    date_end: I18n.l(Date.today+4, locale: 'en'),
+    date_start: I18n.l(Date.today + 2, locale: 'en'),
+    date_end: I18n.l(Date.today + 4, locale: 'en'),
     days_abroad: 2,
     signature: 0,
     user: @user}
@@ -67,7 +67,7 @@ RSpec.describe TripsController, type: :controller do
     reason: 'Hana Things',
     annotation: 'HANA pls',
     date_start: Date.today,
-    date_end: Date.today-10,
+    date_end: Date.today - 10,
     days_abroad: -20,
     signature: 1,
     user: @user}
@@ -78,7 +78,7 @@ RSpec.describe TripsController, type: :controller do
     reason: 'Hana Things',
     annotation: 'HANA pls',
     date_start: I18n.l(Date.today, locale: 'en'),
-    date_end: I18n.l(Date.today-10, locale: 'en'),
+    date_end: I18n.l(Date.today - 10, locale: 'en'),
     days_abroad: -20,
     signature: 1,
     user: @user}

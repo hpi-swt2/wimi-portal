@@ -114,9 +114,9 @@ class TripsController < ApplicationController
 
   def accept
     if (can? :read, @trip) && @trip.status == 'applied'
-        @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user, representative_signature: current_user.signature, representative_signed_at: Date.today)
-        ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})
-        redirect_to @trip.user
+      @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user, representative_signature: current_user.signature, representative_signed_at: Date.today)
+      ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})
+      redirect_to @trip.user
     else
       redirect_to root_path
       flash[:error] = t('not_authorized')

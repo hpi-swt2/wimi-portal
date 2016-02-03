@@ -14,6 +14,8 @@ class Ability
         end
       end
     end
+
+    can :superadmin_index, User
   end
 
   def initialize_user(user)
@@ -24,6 +26,26 @@ class Ability
       project.public
     end
     can :create, ProjectApplication
+    can :show, User
+    can :read, User
+    can :update, User do |_user|
+      _user == user
+    end
+    can :edit, User do |_user|
+      _user == user
+    end
+    can :upload_signature, User do |_user|
+      _user == user
+    end
+    can :delete_signature, User do |_user|
+      _user == user
+    end
+    can :user_exists, User
+    can :resource_name, User
+    can :resource, User
+    can :devise_mapping, User
+    can :language, User
+    can :set_user, User
 
     can :accept_invitation, Project do |project|
       Invitation.select{ |i| i.user == user && i.project == project}
@@ -44,6 +66,9 @@ class Ability
       project.users.include? user
     end
     can :read,  TimeSheet.select { |t| t.user == user}
+    can :add_working_hours, Project do |project|
+      project.users.include? user
+    end
     # can :accept_invitation, Project
     # can :manage, Stundenzettel
   end
@@ -102,7 +127,7 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-    
+
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
@@ -181,6 +206,27 @@ class Ability
     can     :manage,   Chair
     cannot  :see,      Chair
     cannot  :show,     Chair
+    can     :show,     User do |user|
+      user == _user
+    end
+    can :update, User do |user|
+      _user == user
+    end
+    can :edit, User do |user|
+      _user == user
+    end
+    can :upload_signature, User do |user|
+      _user == user
+    end
+    can :delete_signature, User do |user|
+      _user == user
+    end
+    can :user_exists, User
+    can :resource_name, User
+    can :resource, User
+    can :devise_mapping, User
+    can :language, User
+    can :set_user, User
 
     cannot  :create,   ProjectApplication
     #assign representative/admin role to user

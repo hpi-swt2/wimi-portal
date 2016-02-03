@@ -4,19 +4,19 @@ RSpec.describe 'expenses/new', type: :view do
   before(:each) do
     @trip = FactoryGirl.create(:trip)
     assign(:expense, Expense.new(
-                                     inland: true,
-                                     country: 'MyString',
-                                     location_from: 'MyString',
-                                     location_via: 'MyString',
-                                     reason: 'MyText',
-                                     car: false,
-                                     public_transport: false,
-                                     vehicle_advance: false,
-                                     hotel: false,
-                                     general_advance: 1,
-                                     signature: false,
-                                     user: FactoryGirl.create(:user),
-                                     trip: @trip
+                       inland: true,
+                       country: 'MyString',
+                       location_from: 'MyString',
+                       location_via: 'MyString',
+                       reason: 'MyText',
+                       car: false,
+                       public_transport: false,
+                       vehicle_advance: false,
+                       hotel: false,
+                       general_advance: 1,
+                       signature: false,
+                       user: FactoryGirl.create(:user),
+                       trip: @trip
     ))
   end
 
