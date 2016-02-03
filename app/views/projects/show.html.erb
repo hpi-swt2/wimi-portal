@@ -201,8 +201,10 @@
                   <% end %>
                 </p>
                 <p>
-                  <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
-                              new_work_day_path %>
+                  <% if current_user.is_hiwi? %>
+                    <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
+                                new_work_day_path %>
+                  <% end %>
                 </p>
               </div>
             </div>
