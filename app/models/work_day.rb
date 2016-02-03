@@ -34,7 +34,7 @@ class WorkDay < ActiveRecord::Base
     other_date = other.end_time
     start_time_same_date = Time.new(other_date.year, other_date.month, other_date.day, start_time.hour, start_time.min, start_time.sec)
     end_time_same_date = Time.new(other_date.year, other_date.month, other_date.day, end_time.hour, end_time.min, end_time.sec)
-    return (not (start_time_same_date >= other.end_time || end_time_same_date <= other.start_time))
+    return other.id != id && (not (start_time_same_date >= other.end_time || end_time_same_date <= other.start_time))
   end
 
   def no_overlap
