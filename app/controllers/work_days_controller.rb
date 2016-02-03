@@ -1,6 +1,12 @@
 class WorkDaysController < ApplicationController
   before_action :set_work_day, only: [:show, :edit, :update, :destroy]
 
+  load_and_authorize_resource
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = t('not_authorized')
+    redirect_to dashboard_path
+  end
+
   def index
     if params.has_key?(:month) && params.has_key?(:year) && params.has_key?(:user_id) && User.find_by_id(params[:user_id]) != nil
       @month = params[:month].to_i
@@ -31,7 +37,7 @@ class WorkDaysController < ApplicationController
 
     if @work_day.save
       flash[:success] = 'Work Day was successfully created.'
-      redirect_to work_days_month_path
+      redirect_to work_days_month_project_path
     else
       render :new
     end
@@ -40,7 +46,7 @@ class WorkDaysController < ApplicationController
   def update
     if @work_day.update(work_day_params)
       flash[:success] = 'Work Day was successfully updated.'
-      redirect_to work_days_month_path
+      redirect_to work_days_month_project_path
     else
       render :edit
     end
@@ -66,5 +72,9 @@ class WorkDaysController < ApplicationController
 
   def work_days_month_path
     work_days_path(month: @work_day.date.month, year: @work_day.date.year)
+  end
+
+  def work_days_month_project_path
+    work_days_path(month: @work_day.date.month, year: @work_day.date.year, project: @work_day.project.id, user_id: current_user.id)
   end
 end

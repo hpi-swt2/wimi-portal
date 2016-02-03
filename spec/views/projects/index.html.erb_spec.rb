@@ -28,13 +28,20 @@ RSpec.describe 'projects/index', type: :view do
     expect(page).to have_content(chair.name)
 
     expect(page).to have_content(I18n.t('projects.index.public'))
-    expect(page).to have_content(I18n.t('projects.index.active'))
+    expect(page).to have_content(I18n.t('projects.index.status_true'))
 
     project.update(status: false)
     project.update(public: false)
     visit projects_path
 
-    expect(page).to have_content(I18n.t('projects.index.inactive'))
+    expect(page).to have_content(I18n.t('projects.index.status_false'))
     expect(page).to have_content(I18n.t('projects.index.private'))
+  end
+
+  it 'denies the superadmin the the list of projects' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit projects_path
+    expect(current_path).to eq(dashboard_path)
   end
 end

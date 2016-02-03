@@ -1,13 +1,32 @@
 <%- model_class = Project -%>
-<div class="page-header">
-  <h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %>#<%= @project.id %>: <%= @project.title %> <span> <%= @project.status ? '' : t('.inactive', default: t("projects.show.inactive")) %></span></h1>
-  <% if can? :edit, @project%>
-      <% if @project.status == true%>
-          <%= button_to t('.set_inactive', default: t("projects.show.set_inactive")), toggle_status_project_path, method: :get, class: 'btn btn-danger btn-xs pull-right', style:'margin-top: -20px', id: 'setInactiveButton' %>
-      <% else %>
-          <%= button_to t('.set_active', default: t("projects.show.set_active")), toggle_status_project_path, method: :get, class: 'btn btn-success btn-xs pull-right', style:'margin-top: -20px'%>
-      <% end %>
-  <% end %>
+<div class="col-md-12 col-sm-12">
+  <div class="display">
+    <div class="page-header">
+      <h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %>: <%= @project.title %> <span> <%= @project.status ? '' : t('.inactive', default: t("projects.show.inactive")) %></span></h1>
+    </div>
+    <%= render partial: 'form' %>
+  </div>
 </div>
-<%= render partial: 'form' %>
+<% content_for :sidebar do %>
+    <!--Actions-->
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4><%=t('dashboard.index.actions')%></h4>
+          </div>
+          <div class="panel-body">
+            <% if can? :edit, @project%>
+              <% if @project.status %>
+                <%= link_to t('projects.show.set_inactive'), toggle_status_project_path, method: :get, class: 'btn btn-danger btn-xs', id: 'setInactiveButton' %>
+              <% else %>
+                <%= link_to t('projects.show.set_active'), toggle_status_project_path, method: :get, class: 'btn btn-success btn-xs'%>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
 

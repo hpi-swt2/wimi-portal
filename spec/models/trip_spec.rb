@@ -16,6 +16,7 @@
 #  date_start         :date
 #  date_end           :date
 #  days_abroad        :integer
+#  rejection_message  :text
 #
 
 require 'rails_helper'

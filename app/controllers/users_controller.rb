@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('not_authorized')
+    flash[:error] = t('not_authorized')
     redirect_to dashboard_path
   end
 
@@ -18,10 +18,12 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       I18n.locale = @user.language
-      flash[:success] = t('.user_updated')
+
       if user_params.has_key?(:language)
+        flash[:success] = t('.user_updated_language')
         redirect_to :back
       else
+        flash[:success] = t('.user_updated')
         redirect_to current_user
       end
     else

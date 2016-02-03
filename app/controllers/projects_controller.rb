@@ -5,6 +5,11 @@ class ProjectsController < ApplicationController
   has_scope :title
   has_scope :chair
 
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = t('not_authorized')
+    redirect_to dashboard_path
+  end
+
   def index
     @projects = apply_scopes(Project.all)
   end
@@ -50,6 +55,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    @project.destroy_invitations
     @project.destroy
     flash[:success] = 'Project was successfully destroyed.'
     redirect_to projects_url

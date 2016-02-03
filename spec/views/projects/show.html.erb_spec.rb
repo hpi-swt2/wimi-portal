@@ -52,7 +52,7 @@ RSpec.describe 'projects/show', type: :view do
     it 'shows leave project button if part of project' do
       @hiwi.projects << @project
       visit current_path
-      expect(page).to have_content('Leave Project')
+      expect(page).to have_content('Leave')
     end
 
     it 'shows no leave project button if not part of project' do
@@ -134,5 +134,12 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content(I18n.t('projects.form.show_all_working_hours'), count: 1)
       expect(page).to have_selector(:link_or_button, 'Show all working hours')
     end
+  end
+
+  it 'denies the superadmin to see details of a project' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit project_path(@project)
+    expect(current_path).to eq(dashboard_path)
   end
 end

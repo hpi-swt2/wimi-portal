@@ -69,4 +69,8 @@ RSpec.describe User, type: :model do
     expect(FactoryGirl.build(:user, zip_code: 'abc')).to_not be_valid
     expect(FactoryGirl.build(:user, zip_code: 'abcde')).to_not be_valid
   end
+
+  it 'is valid with no personnel_number' do
+    expect(FactoryGirl.build(:user, personnel_number: nil)).to be_valid
+  end
 end

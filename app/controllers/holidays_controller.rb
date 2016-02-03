@@ -1,15 +1,15 @@
 class HolidaysController < ApplicationController
   load_and_authorize_resource
-  skip_authorize_resource only: :index
 
   before_action :set_holiday, only: [:show, :edit, :update, :destroy, :file, :reject, :accept]
   rescue_from CanCan::AccessDenied do |_exception|
-    flash[:error] = I18n.t('not_authorized')
+    flash[:error] = t('not_authorized')
     redirect_to root_path
   end
 
   def index
     @holidays = Holiday.all
+    redirect_to user_path(current_user, anchor: 'holidays')
   end
 
   def show

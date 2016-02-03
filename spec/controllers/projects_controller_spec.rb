@@ -102,6 +102,12 @@ RSpec.describe ProjectsController, type: :controller do
         post :create, {project: valid_attributes}, valid_session
         expect(response).to redirect_to(Project.last)
       end
+
+      it 'invites all users on the invitations list' do
+        @user2 = FactoryGirl.create(:user)
+        post :create, {project: valid_attributes, invitations: {user: @user2.email}}, valid_session
+        expect(Invitation.find_by_user_id(@user2.id)).not_to be_nil
+      end
     end
 
     context 'with invalid params' do
@@ -191,6 +197,24 @@ RSpec.describe ProjectsController, type: :controller do
 
       expect(response).to redirect_to(projects_url)
     end
+
+    it 'destroys every associated Invitation and EventProjectInvitation' do
+      user2 = FactoryGirl.create(:user)
+      project = Project.create! valid_attributes
+      @user.projects << project
+
+      expect(Invitation.all.size).to eq(0)
+      expect(Event.all.size).to eq(0)
+
+      put :invite_user, {id: project.to_param, invite_user: {email: user2.email}}, valid_session
+
+      expect(Invitation.all.size).to eq(1)
+      expect(Event.all.size).to eq(1)
+
+      delete :destroy, {id: project.to_param}, valid_session
+      expect(Invitation.all.size).to eq(0)
+      expect(Event.all.size).to eq(0)
+    end
   end
 
   describe 'POST #invite_user' do
@@ -250,6 +274,26 @@ RSpec.describe ProjectsController, type: :controller do
       get :typeahead, {query: 'hpi'}, valid_session
       expect(response.body).to have_content matching_user.email
       expect(response.body).to_not have_content not_matching_user.email
+    end
+  end
+
+  describe 'GET #accept_invitation' do
+    it 'rejects the invitation if user is superadmin' do
+      @user2 = FactoryGirl.create(:user)
+
+      post :create, {project: valid_attributes, invitations: {user: @user2.email}}, valid_session
+
+      expect(Invitation.find_by_user_id(@user2.id)).not_to be_nil
+
+      @user2.update(superadmin: true)
+      @user2.reload
+
+      login_with @user2
+
+      get :accept_invitation, {id: Project.last.id}
+
+      expect(flash[:error]).not_to be_nil
+      expect(response).to redirect_to(dashboard_path)
     end
   end
 
