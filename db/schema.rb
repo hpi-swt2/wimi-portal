@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128142238) do
+ActiveRecord::Schema.define(version: 20160202134043) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -70,17 +70,18 @@ ActiveRecord::Schema.define(version: 20160128142238) do
     t.boolean  "public_transport"
     t.boolean  "vehicle_advance"
     t.boolean  "hotel"
-    t.integer  "status",           default: 0
+    t.integer  "status",            default: 0
     t.integer  "general_advance"
     t.integer  "user_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.boolean  "signature"
     t.integer  "trip_id"
     t.string   "time_start"
     t.string   "time_end"
     t.text     "user_signature"
     t.date     "user_signed_at"
+    t.text     "rejection_message"
   end
 
   add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
@@ -190,6 +191,7 @@ ActiveRecord::Schema.define(version: 20160128142238) do
     t.text     "representative_signature"
     t.date     "user_signed_at"
     t.date     "representative_signed_at"
+    t.text     "rejection_message"
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"

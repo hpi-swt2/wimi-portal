@@ -59,7 +59,7 @@ RSpec.describe EventsController, type: :controller do
     end
 
     it 'tests the redirection to dashboard if request does not exist' do
-      post :show_request, {status: 'xyz', request_id: 132812}
+      post :show_request, {status: 'xyz', request_id: 132_812}
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(dashboard_path)
     end

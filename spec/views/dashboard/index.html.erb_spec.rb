@@ -6,11 +6,13 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   end
 
   it 'displays the projects of the user' do
+    FactoryGirl.create(:wimi, user: @user)
     project1 = FactoryGirl.create(:project)
     project2 = FactoryGirl.create(:project, title: 'Unassigned Project')
     project1.users << @user
     login_as @user
     visit dashboard_path
+    expect(@user.is_wimi?).to be true
     expect(page).to have_content('My Projects')
     expect(page).to have_content(project1.title)
     expect(page).to_not have_content(project2.title)
