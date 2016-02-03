@@ -75,9 +75,9 @@ describe WorkDaysController, type: :controller do
         expect(assigns(:work_day)).to be_persisted
       end
 
-      it 'redirects to the work_day list for the work_days month' do
+      it 'redirects to the time_sheet for the work_days month and project' do
         post :create, {work_day: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year))
+        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user_id: @user.id, project: @project.id))
       end
     end
 
@@ -114,10 +114,10 @@ describe WorkDaysController, type: :controller do
         expect(assigns(:work_day)).to eq(work_day)
       end
 
-      it 'redirects to work_day list for November 2015' do
+      it 'redirects to the time_sheet for the work_days month and project' do
         work_day = WorkDay.create! valid_attributes
         put :update, {id: work_day.to_param, work_day: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year))
+        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user_id: @user.id, project: @project.id))
       end
     end
 

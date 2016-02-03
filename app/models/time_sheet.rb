@@ -43,7 +43,7 @@ class TimeSheet < ActiveRecord::Base
     WorkDay.where(date: month_year_range, project: project_id, user: user_id).each do |day|
       hour_counter += day.duration
     end
-    return hour_counter
+    hour_counter
   end
 
   def self.time_sheet_for(year, month, project, user)

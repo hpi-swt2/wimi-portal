@@ -1,32 +1,35 @@
-<div class="col-sm-6">
-  <p>
-    <strong><%= t('.salary') %> </strong>
-    <%= @time_sheet.salary %>
-    <% if @time_sheet.salary_is_per_month %>
-      <%= t('.salary_per_month') %>
-    <% else %>
-      <%= t('.salary_per_hour') %>
-    <% end %>
-  </p>
-
-  <p>
-    <strong><%= t('.workload') %> </strong>
-    <%= @time_sheet.workload %>
-    <% if @time_sheet.workload_is_per_month %>
-        <%= t('.workload_per_month') %>
-    <% else %>
-        <%= t('.workload_per_week') %>
-    <% end %>
-  </p>
-
-  <p>
-    <strong><%= t('.total_work_time') %> </strong>
-    <%= @time_sheet.sum_minutes_formatted %>
-  </p>
-</div>
-<% if current_user == @time_sheet.user && !@time_sheet.handed_in? %>
-  <div class="col-sm-6 text text-right">
-    <%= link_to t('.edit', default: t("helpers.links.edit")),
-        edit_time_sheet_path(@time_sheet), class: 'btn btn-default btn-xs' %>
-  </div>
+<%= form_for(@time_sheet) do |f| %>
+  <fieldset disabled>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :salary, class: "control-label" %><br>
+          <%= f.text_field :salary, class: "form-control" %>
+          <%= f.select :salary_is_per_month, [[t('.salary_per_month'), true], [t('.salary_per_hour'), false]], {}, {class: "form-control"} %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :workload, class: "control-label" %><br>
+          <%= f.text_field :workload, class: "form-control" %>
+          <%= f.select :workload_is_per_month, [[t('.workload_per_month'), true], [t('.workload_per_week'), false]], {}, {class: "form-control"} %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :salary, class: "control-label", value: t('.total_work_time') %><br>
+          <%= f.text_field :salary, value: @time_sheet.sum_minutes_formatted, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <% if current_user == @time_sheet.user && !@time_sheet.handed_in? %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= link_to t('.edit', default: t("helpers.links.edit")), edit_time_sheet_path(@time_sheet), class: 'btn btn-warning btn-block' %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
