@@ -1,25 +1,5 @@
 <%= form_for @holiday do |f| %>
-  
-  
-  <% if @holiday.errors.any? %>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="error_expl" class="panel panel-danger">
-          <div class="panel-heading">
-            <h3 class="panel-title"><%= pluralize(@holiday.errors.count, "error") %> prohibited this holiday from being saved:</h3>
-          </div>
-          <div class="panel-body">
-            <ul>
-            <% @holiday.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
+<fieldset disabled>
   <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
 
   <div class="row">
@@ -34,7 +14,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
-        <%= f.label :start, class: '' %><span style = "color: red">*</span>
+        <%= f.label :start, class: '' %>
         <div class="">
           <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.start ? l(@holiday.start) : nil , placeholder: t('trips.form.date') %>
         </div>
@@ -43,7 +23,7 @@
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <%= f.label :end, class: '' %><span style = "color: red">*</span>
+        <%= f.label :end, class: '' %>
         <div class="">
           <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.end ? l(@holiday.end) : nil , placeholder: t('trips.form.date') %>
         </div>
@@ -54,7 +34,7 @@
       <div class="form-group">
         <%= f.label :duration, class: '' %>
         <div class="">
-          <%= f.number_field :length, class: 'form-control', min: 0, placeholder: t('.auto_calculation') %>
+          <%= f.number_field :length, class: 'form-control', min: 0, placeholder: t('holidays.form.auto_calculation') %>
         </div>
       </div>
     </div>
@@ -71,7 +51,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-6">
       <div class="form-group">
         <%= f.check_box :replacement_user_id, {onclick: 'toggle(selection, replacement_selection, replacement_checkbox)', id: 'replacement_checkbox'} %>
         <%= f.label :replacement%>
@@ -82,18 +62,12 @@
         <%= error_span(@holiday[:replacement_user_id]) %>
       </div>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-6">
       <div class="form-group">
         <%= f.check_box :signature %>
         <%= f.label :signature %>
       </div> 
     </div>
-    <div class = "col-sm-2">
-      <div align="right">
-        <span style = "color: red">* <%= t'helpers.forms.required_field'%></span>
-      </div>
-    </div>
   </div>
-
-  <%= f.submit nil, class: 'btn btn-success btn-block' %>
+</fieldset>
 <% end %>

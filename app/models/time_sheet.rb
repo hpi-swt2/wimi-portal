@@ -24,12 +24,18 @@
 #
 
 class TimeSheet < ActiveRecord::Base
+
+  DEFAULT_SALARY = 10.00
+  DEFAULT_WORKLOAD = 9
+
   belongs_to :user
   belongs_to :project
   enum status: [:pending, :accepted, :rejected]
 
-  validates :workload_is_per_month, inclusion: {in: [true, false]}
+  validates_numericality_of :salary, greater_than_or_equal_to: 0
   validates :salary_is_per_month, inclusion: {in: [true, false]}
+  validates_numericality_of :workload, greater_than_or_equal_to: 0
+  validates :workload_is_per_month, inclusion: {in: [true, false]}
 
   def sum_hours
     hour_counter = 0
@@ -54,11 +60,21 @@ class TimeSheet < ActiveRecord::Base
   end
 
   def self.create_new_time_sheet(year, month, project, user)
-    sheet = TimeSheet.create!({year: year, month: month, project: project, user: user, workload_is_per_month: true, salary_is_per_month: true})
-    sheet
+    TimeSheet.create(year: year, month: month, project: project, user: user, workload_is_per_month: false, salary_is_per_month: false, salary: DEFAULT_SALARY, workload: DEFAULT_WORKLOAD)
   end
 
   def work_days
     WorkDay.all_for(year, month, project, user)
+  end
+
+  def sum_minutes
+    sum_hours * 60
+  end
+
+  def sum_minutes_formatted
+    work_time = sum_minutes
+    minutes = work_time % 60
+    hours = (work_time - minutes) / 60
+    format("%d:%02d", hours, minutes)
   end
 end

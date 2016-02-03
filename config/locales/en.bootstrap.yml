@@ -315,6 +315,7 @@ en:
       workload: "Workload:"
       workload_per_month: "Hours / Month"
       workload_per_week: "Hours / Week"
+      total_work_time: "Total time worked"
     show_footer:
       new: "new"
       in: "in"

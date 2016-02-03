@@ -122,6 +122,9 @@ class Ability
     can :see_holidays, User do |u|
       u == user
     end
+    can :edit_leave, User do |u|
+      u == user
+    end
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end
