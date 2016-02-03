@@ -60,9 +60,9 @@
 
 <div class='signature'>
   <% if trip.signature %>
-      <%= trip.user_signed_at.strftime("%d.%m.%Y") %>,
-          <% path = 'data:image/png;base64,' << trip.user_signature %>
-          <img src="<%= path %>" Zwidth="150" height="50"/>
+    <%= trip.user_signed_at.strftime("%d.%m.%Y") %>,
+    <% path = 'data:image/png;base64,' << trip.user_signature %>
+    <img src="<%= path %>" Zwidth="150" height="50"/>
   <% end %>
 </div>
 <p>
@@ -74,9 +74,9 @@
 
   <div class='signature'>
     <% unless trip.representative_signature.nil? %>
-        <%= trip.representative_signed_at.strftime("%d.%m.%Y") %>,
-        <% path = 'data:image/png;base64,' << trip.representative_signature %>
-        <img src="<%= path %>" Zwidth="150" height="50"/>
+      <%= trip.representative_signed_at.strftime("%d.%m.%Y") %>,
+      <% path = 'data:image/png;base64,' << trip.representative_signature %>
+      <img src="<%= path %>" Zwidth="150" height="50"/>
     <% end %>
   </div>
 <p>

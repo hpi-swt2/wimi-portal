@@ -8,8 +8,8 @@
             <%=t '.title', default: model_class.model_name.human.titleize %>
           </div>
           <div class="col-sm-3">
-              <% if (@holiday.status == 'saved') || (@holiday.status == 'declined')  %>
-                <%= link_to t('.edit', default: t("helpers.links.edit")),
+            <% if (@holiday.status == 'saved') || (@holiday.status == 'declined')  %>
+              <%= link_to t('.edit', default: t("helpers.links.edit")),
                               edit_holiday_path(@holiday), class: 'btn btn-warning' %>
               <% else %>
                 <%= link_to t('.edit', default: t("helpers.links.edit")),
@@ -30,15 +30,15 @@
           <% end %>
 
           <% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
-              <% if current_user.signature.nil? %>
-                  <%= t('signature_warning') %>
-                  <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
-                  <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success', disabled: "disabled" %>
-                  <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger' %>
-              <% else %>
-                  <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success' %>
-                  <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger' %>
-              <% end %>
+            <% if current_user.signature.nil? %>
+              <%= t('signature_warning') %>
+              <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
+              <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success', disabled: "disabled" %>
+              <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger' %>
+            <% else %>
+              <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success' %>
+              <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger' %>
+            <% end %>
           <% end %>
           <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Holiday_request', doc_id: @holiday), class: 'btn btn-info' %>
         </div>

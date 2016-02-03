@@ -104,9 +104,9 @@
 <div class='headline' style='margin-bottom: 40px'>Genehmigt</div>
 <div class='signature'>
   <% unless holiday.representative_signature.nil? %>
-      <%= holiday.representative_signed_at.strftime("%d.%m.%Y") %>,
-      <% path = 'data:image/png;base64,' << holiday.representative_signature %>
-      <img src="<%= path %>" Zwidth="150" height="50"/></div>
+    <%= holiday.representative_signed_at.strftime("%d.%m.%Y") %>,
+    <% path = 'data:image/png;base64,' << holiday.representative_signature %>
+    <img src="<%= path %>" Zwidth="150" height="50"/></div>
   <% end %>
 </div>
 <p>
