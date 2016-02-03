@@ -54,6 +54,11 @@
       <div class="col-md-12">
         <div class="btn-group btn-group-justified">
           <% unless @trip.status == 'applied' || @trip.status == 'accepted' %>
+           <% if @trip.status == 'declined' %>
+            <%= form_for @trip do |b| %>
+              <%= b.label :rejection_message, value: @trip.rejection_message %>
+            <% end %>
+           <% end %>
             <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
             hand_in_trip_path(@trip), method: :post, class: 'btn btn-success' %>
             <%= link_to t('.destroy', default: t("helpers.links.destroy")), trip_path(@trip), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger btn-primary' %>
