@@ -14,15 +14,12 @@ namespace :db do
     chair1 = Chair.create!(name: 'Epic', description: 'Enterprise Platform and Integration Concepts')
     chair2 = Chair.create!(name: 'Meinel', description: 'Internet-Technologien und -Systeme')
 
-    swt2 = Project.create!(title: 'Softwaretechnik II')
+    swt2 = Project.create!(title: 'Softwaretechnik II', chair: chair1)
     swt2.users << epic_admin
     swt2.users << alice
 
-    hana_project = Project.create!(title: 'HANA Project')
+    hana_project = Project.create!(title: 'HANA Project', chair: chair1)
     hana_project.users << andre
-
-    chair1.projects << swt2
-    chair1.projects << hana_project
 
     # set user roles
     ChairWimi.create!(chair_id: chair1.id, user_id: epic_admin.id, admin: true, application: 'accepted')
