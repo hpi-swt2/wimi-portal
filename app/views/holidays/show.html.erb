@@ -34,6 +34,7 @@
     
     <% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
       <%= link_to t('.file'), file_holiday_path, class: 'btn btn-success' %>
+      <%= link_to t('.destroy', default: t("helpers.links.destroy")), holiday_path(@holiday), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger btn-primary' %>
     <% end %>
 
     <% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
