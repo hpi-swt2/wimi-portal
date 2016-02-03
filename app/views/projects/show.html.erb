@@ -51,7 +51,7 @@
     <% end %>
   </dd>
   <dd>
-    <% if @project.users.include? current_user%>
+    <% if can?(:sign_user_out,@project) and not(current_user.is_wimi? and @project.wimis.count <= 1) %>
         <%= link_to t('.leave_project', default:'Leave Project'),
                     sign_user_out_project_path(user_id: current_user.id, id: @project), method: :delete, class: 'btn-default link' %>
     <% end %>
