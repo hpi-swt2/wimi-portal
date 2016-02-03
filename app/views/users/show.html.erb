@@ -1,112 +1,123 @@
 <%- model_class = User -%>
 
-<div class="col-md-12">
-  <div class="display">
-    <div class="page-header">
-      <h1><%= @user.name %></h1>
+<% if current_user.is_superadmin? %>
+  <div class="col-md-12">
+    <div class="display">
+        <div class="page-header">
+          <h4><%= t('.password') %></h4>
+        </div>
+          <%= render partial: 'shared/passwords' %>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="row">
-          <div class="col-md-6 col-sm-6">
-            <h3><%= t('.user_data') %></h3>
-          </div>
-          <div class="col-sm-6 text text-right">
-            <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-warning' if @user == current_user %>
+  </div>
+<% else %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="page-header">
+        <h1><%= @user.name %></h1>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <h3><%= t('.user_data') %></h3>
+            </div>
+            <div class="col-sm-6 text text-right">
+              <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-warning' if @user == current_user %>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="panel panel-body">
-        <div class="row">
-          <div class="col-md-6">
-            <%= render 'public_user_data' %>
-          </div>
-          <div class="col-md-6">
-            <%= render 'private_user_data' if @user == current_user %>
+        <div class="panel panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              <%= render 'public_user_data' %>
+            </div>
+            <div class="col-md-6">
+              <%= render 'private_user_data' if @user == current_user %>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<% if @user == current_user %>
-  <% content_for :sidebar do %>
-    <!--Actions-->
-    <div class="col-md-12">
-      <div class="display">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4><%=t('dashboard.index.actions')%></h4>
-          </div>
-          <div class="panel-body">
-            <% if current_user.is_wimi? %>
-            <%= render partial: 'dashboard/wimi_actions' %>
-            <% elsif current_user.is_hiwi? %>
-            <%= render partial: 'dashboard/hiwi_actions' %>
-            <% end %>
+  <% if @user == current_user %>
+    <% content_for :sidebar do %>
+      <!--Actions-->
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><%=t('dashboard.index.actions')%></h4>
+            </div>
+            <div class="panel-body">
+              <% if current_user.is_wimi? %>
+              <%= render partial: 'dashboard/wimi_actions' %>
+              <% elsif current_user.is_hiwi? %>
+              <%= render partial: 'dashboard/hiwi_actions' %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Signature -->
+      <!-- Signature -->
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><%= t('.signature') %></h4>
+            </div>
+            <div class="panel-body">
+              <% if current_user.signature.nil? %>
+                <b><%= t('.warning') %></b><br/>
+                <%= t('.information') %>
+                <p>
+                  <%= form_tag({action: :upload_signature}, multipart: true) do %>
+                    <%= file_field 'upload', 'datafile' %><br/>
+                    <%= submit_tag t('.upload') %>
+                  <% end %>
+                </p>
+              <% else %>
+                <% path = 'data:image/png;base64,' << current_user.signature %>
+                <p><img src="<%= path %>" width="150" height="50"/></p><br/>
+                <%= link_to I18n.t('helpers.titles.delete', model: t('.signature')), delete_signature_path(current_user), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <!-- time sheet overview for hiwi -->
+  <% if @user == current_user %>
     <div class="col-md-12">
       <div class="display">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4><%= t('.signature') %></h4>
+            <h4><%= t('.time_sheets_overview')%></h4>
           </div>
           <div class="panel-body">
-            <% if current_user.signature.nil? %>
-              <b><%= t('.warning') %></b><br/>
-              <%= t('.information') %>
-              <p>
-                <%= form_tag({action: :upload_signature}, multipart: true) do %>
-                  <%= file_field 'upload', 'datafile' %><br/>
-                  <%= submit_tag t('.upload') %>
-                <% end %>
-              </p>
-            <% else %>
-              <% path = 'data:image/png;base64,' << current_user.signature %>
-              <p><img src="<%= path %>" width="150" height="50"/></p><br/>
-              <%= link_to I18n.t('helpers.titles.delete', model: t('.signature')), delete_signature_path(current_user), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
-            <% end %>
+            <div class="row">
+              <% @user.years_and_months_of_existence.each do |month| %>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <%= link_to l(Date.new(month.first, month.last, 1), format: :without_day) , work_days_path(month: month.last, year: month.first) , class: "btn btn-info btn-block" %>
+                    </div>
+                    <div class="panel-body">
+                      <% current_user.projects_for_month(month.first, month.last).each do |project| %>
+                        <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user) , class: "btn btn-default btn-block"%>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
   <% end %>
-<% end %>
-
-<!-- time sheet overview for hiwi -->
-<% if @user == current_user %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4><%= t('.time_sheets_overview')%></h4>
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <% @user.years_and_months_of_existence.each do |month| %>
-              <div class="col-md-6">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <%= link_to l(Date.new(month.first, month.last, 1), format: :without_day) , work_days_path(month: month.last, year: month.first) , class: "btn btn-info btn-block" %>
-                  </div>
-                  <div class="panel-body">
-                    <% current_user.projects_for_month(month.first, month.last).each do |project| %>
-                      <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user) , class: "btn btn-default btn-block"%>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 <% end %>
 
 <% if current_user.is_wimi? && @user == current_user %>
@@ -193,15 +204,21 @@
           </div>
           <div class="panel-body">
             <div class="form-group">
-              <%= f.label :remaining_leave, t('.remaining_leave', leave: @user.remaining_leave.to_s) %>
-              <% if @user.remaining_leave_last_year > 0 %>
-                <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: @user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
-                <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
-                    <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000') %>
-                <% end %>
-              <% end %>
-              <br><%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
-                              users_edit_leave_path(id: @user.id), class: 'btn btn-default btn-xs' %><br>
+              <div class="row">
+                <div class="col-sm-4">
+                  <%= f.label :remaining_leave, t('.remaining_leave', leave: @user.remaining_leave.to_s) %>
+                  <% if @user.remaining_leave_last_year > 0 %>
+                    <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: @user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
+                    <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
+                        <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000') %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="col-sm-2">
+                  <%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
+                              users_edit_leave_path(id: @user.id), class: 'btn btn-warning btn-xs' %>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <table class="table table-striped">
@@ -223,9 +240,11 @@
                       <td><%= l holiday.end %></td>
                       <td><%= t(".status.#{holiday.status}") %></td>
                       <td>
-                        <%= link_to t("helpers.links.show_details"),
-                                    holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
-                        <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Holiday_request', doc_id: holiday), class: 'btn btn-default btn-xs' %>
+                        <div class="btn-group">
+                          <%= link_to t("helpers.links.show_details"),
+                                    holiday_path(holiday), class: 'btn btn-default btn-xs' %>
+                          <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Holiday_request', doc_id: holiday), class: 'btn btn-info btn-xs' %>
+                        </div>
                       </td>
                     </tr>
                   <% end %>
@@ -277,9 +296,11 @@
                       <td><%=l trip.date_end %></td>
                       <td><%= trip.status %></td>
                       <td>
-                        <%= link_to t("helpers.links.show_details"),
-                                    trip_path(trip), class: 'btn btn-default btn-xs' %><br>
+                        <div class="btn-group">
+                          <%= link_to t("helpers.links.show_details"),
+                                    trip_path(trip), class: 'btn btn-default btn-xs' %>
                         <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Trip_request', doc_id: trip), class: 'btn btn-info btn-xs' %>
+                        </div>
                       </td>
                     </tr>
                   <% end %>
@@ -291,17 +312,4 @@
       </div>
     </div>
   <% end %>
-<% end %>
-
-<% if current_user.is_superadmin? %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4><%= t('.password') %></h4>
-        </div>
-        <%= render partial: 'shared/passwords' %>
-      </div>
-    </div>
-  </div>
 <% end %>

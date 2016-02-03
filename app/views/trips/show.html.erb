@@ -30,8 +30,6 @@
         <div class="col-md-6">
           <div class="form-group">
             <%= label_tag nil, t('time_sheets.show_footer.rejected_by') %>
-            <%= label_tag nil, t('time_sheets.show_footer.reject_reason') %>
-            <%= label_tag nil, @trip.rejection_message %>
             <%= text_field_tag nil, @trip.person_in_power.name , {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>

@@ -23,4 +23,11 @@ RSpec.describe 'holidays/new', type: :view do
     expect(page).not_to have_select 'replacement_selection', with_options: [user3.name]
     expect(page).not_to have_select 'replacement_selection', with_options: [user4.name]
   end
+
+  it 'denies the superadmin to create new holidays' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as superadmin
+    visit new_holiday_path
+    expect(current_path).to eq(root_path)
+  end
 end
