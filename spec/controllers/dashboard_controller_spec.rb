@@ -23,11 +23,6 @@ RSpec.describe DashboardController, type: :controller do
     project = FactoryGirl.create(:project, chair: chair)
     user = FactoryGirl.create(:hiwi)
     time_sheet = FactoryGirl.create(:time_sheet, user_id: user.id, project_id: project.id)
-    60.times do |_i|
-      ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: project.id, seclevel: :wimi, type: 'EventTimeSheetSubmitted'})
-    end
-
-    expect(Event.all.size).to eq(60)
 
     wimi = User.find(FactoryGirl.create(:wimi, chair: chair).user_id)
     wimi.projects = []
@@ -35,6 +30,12 @@ RSpec.describe DashboardController, type: :controller do
     project.users << wimi
 
     expect(wimi.is_wimi?).to be true
+
+    60.times do |_i|
+      ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: wimi.id, seclevel: :wimi, type: 'EventTimeSheetAccepted'})
+    end
+
+    expect(Event.all.size).to eq(60)
 
     login_with(wimi)
     get :index
