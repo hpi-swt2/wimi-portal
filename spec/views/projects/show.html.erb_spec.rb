@@ -26,7 +26,7 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.title)
     expect(page).to have_content(project.chair.name)
     expect(page).to have_content(project.chair.representative.user.name)
-    expect(page).to have_content(I18n.t('projects.show.public'))
+    expect(page).to have_content('public')
     expect(page).to have_content(representative.name)
   end
 
@@ -44,7 +44,7 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content(@project.title)
       expect(page).to have_content(@project.chair.name)
       expect(page).to have_content(@project.chair.representative.user.name)
-      expect(page).to have_content(I18n.t('projects.show.public'))
+      expect(page).to have_content('public')
       expect(page).to have_content(@hiwi.name)
     end
 
@@ -90,7 +90,7 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content(@project.title)
       expect(page).to have_content(@project.chair.name)
       expect(page).to have_content(@project.chair.representative.user.name)
-      expect(page).to have_content(I18n.t('projects.show.public'))
+      expect(page).to have_content('public')
       expect(page).to have_content(@wimi.name)
     end
 
@@ -115,7 +115,7 @@ RSpec.describe 'projects/show', type: :view do
       @wimi.projects << @project
       user.projects << @project
       visit current_path
-      expect(page).to have_selector(:link_or_button, I18n.t('projects.form.show_working_hours'))
+      expect(page).to have_selector(:link_or_button, 'Show working hours')
     end
 
     it 'shows one button to inspect all working hour report for this project' do
@@ -124,7 +124,7 @@ RSpec.describe 'projects/show', type: :view do
       user.projects << @project
       visit current_path
       expect(page).to have_content(I18n.t('projects.form.show_all_working_hours'), count: 1)
-      expect(page).to have_selector(:link_or_button, I18n.t('projects.form.show_all_working_hours'))
+      expect(page).to have_selector(:link_or_button, 'Show all working hours')
     end
   end
 end
