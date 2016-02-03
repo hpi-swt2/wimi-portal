@@ -20,6 +20,8 @@ class Event < ActiveRecord::Base
   validates :type, presence: true
   validates :seclevel, presence: true
 
+  after_save :send_mail
+
   enum seclevel: [:superadmin, :admin, :representative, :wimi, :hiwi, :user]
 
   def is_hidden_by(user)
@@ -29,4 +31,11 @@ class Event < ActiveRecord::Base
   def hide_for(user)
     UserEvent.create(user: user, event: self) unless is_hidden_by(user)
   end
+
+  def send_mail
+    MailNotifier.invited(Event.find(id)).deliver_now
+
+
+  end
+
 end
