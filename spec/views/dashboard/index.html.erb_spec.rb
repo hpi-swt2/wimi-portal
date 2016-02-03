@@ -170,7 +170,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   it 'shows notifications for representative' do
     chair = FactoryGirl.create(:chair, name: 'Chair')
     FactoryGirl.create(:wimi, chair: chair, user: @user)
-    holiday = FactoryGirl.create(:holiday, user: @user)
+    holiday = FactoryGirl.create(:holiday, user: @user, signature: 1)
     login_as @user
     visit holiday_path(holiday)
     expect(page).to have_link t('holidays.show.file')
