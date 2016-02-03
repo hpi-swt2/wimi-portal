@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'navigation bar', type: :view do
-
   shared_examples 'a registered User' do
     it 'should link to home' do
       expect(page).to have_link('Wimi Portal', href: current_url)
@@ -15,12 +14,12 @@ RSpec.describe 'navigation bar', type: :view do
       expect(page).to have_link('Logout', href: destroy_user_session_path)
     end
 
-#     Test for the language select, doesn't work at the moment. When javascript tests are fully funtional, it may work.
-#    it 'should have a select to change the language', js: true do
-#      select('Deutsch', from: 'languageSelect')
-#      page.execute_script("$('#languageSelect').trigger('change')")
-#      expect(@user).to have_attributes(language: 'de')
-#    end
+    #     Test for the language select, doesn't work at the moment. When javascript tests are fully funtional, it may work.
+    #    it 'should have a select to change the language', js: true do
+    #      select('Deutsch', from: 'languageSelect')
+    #      page.execute_script("$('#languageSelect').trigger('change')")
+    #      expect(@user).to have_attributes(language: 'de')
+    #    end
   end
 
   context 'for a registered User' do

@@ -37,7 +37,7 @@ class DocumentsController < ApplicationController
       # First day of month
       day = Date.new(@tmp_vars[:timesheet].year, @tmp_vars[:timesheet].month)
       # Iterate over all days for this month
-      while day.month == @tmp_vars[:timesheet].month do
+      while day.month == @tmp_vars[:timesheet].month
         @tmp_vars[:days_in_month].push({
           date: day, start: ' ', break: ' ', end: ' ',
           duration: '0:00', attendance: ' ', notes: ' '
@@ -47,17 +47,17 @@ class DocumentsController < ApplicationController
       for workday in @tmp_vars[:timesheet].work_days do
         @tmp_vars[:sum] += (workday.duration * 60).to_i
         for day in @tmp_vars[:days_in_month] do
-          if workday.date == day[:date] then
-            day[:start] = workday.start_time.strftime("%H:%M")
+          if workday.date == day[:date]
+            day[:start] = workday.start_time.strftime('%H:%M')
             day[:break] = workday.break.to_s
-            day[:end] = workday.end_time.strftime("%H:%M")
-            day[:duration] = workday.duration.to_i.to_s + ":" + sprintf('%02d', workday.duration * 60 % 60)
+            day[:end] = workday.end_time.strftime('%H:%M')
+            day[:duration] = workday.duration.to_i.to_s + ':' + sprintf('%02d', workday.duration * 60 % 60)
             day[:attendance] = workday.attendance[0..0]
             day[:notes] = workday.notes[0..25]
           end
         end
       end
-      @tmp_vars[:sum] = (@tmp_vars[:sum] / 60).to_s + ":" + sprintf('%02d', (@tmp_vars[:sum] % 60).to_s)
+      @tmp_vars[:sum] = (@tmp_vars[:sum] / 60).to_s + ':' + sprintf('%02d', (@tmp_vars[:sum] % 60).to_s)
     else
       raise NotImplementedError
     end

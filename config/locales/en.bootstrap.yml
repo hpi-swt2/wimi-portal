@@ -109,6 +109,7 @@ en:
       status: "Status"
       status_true: "Active"
       status_false: "Inactive"
+      all_working_hours: "Overall Student Working Hours for"
   users:
     does_not_exist: "This user does not exist."
     update:

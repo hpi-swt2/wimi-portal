@@ -165,6 +165,7 @@ en:
         salary: "Salary"
         workload: "Workload"
     errors:
+      try_again_later: "Error - Please try again later."
       models:
         expense:
           attributes:

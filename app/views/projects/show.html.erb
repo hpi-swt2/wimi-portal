@@ -19,10 +19,22 @@
           <dd><%= @project.public ? t('.public', default:'Public') : t('.private', default:'private') %></dd>
         </dl>
       </div>
+    
       <div class="col-md-6 col-sm-6">
         <dl class="">
+          <% if can? :add_working_hours, @project %>
+          <dt><strong><%= t('.working_hours') %>:</strong></dt>
+          <dd><%= link_to t('.add_working_hours'),
+                          new_work_day_path, class: 'pull-right', style: 'margin-right: 15px' %>
+            <div>
+              <% current_user.work_year_months_for_project(@project).each do |month| %>
+                <p>
+                  <%= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
+                              work_days_path(month: month.last, year: month.first, project: @project)%>
+                </p>
+              <% end %>
+            </div>
           <dt><%= 'Actions' %>:</dt>
-          <br>
           <dd>
             <% content_for :modals do %>
                 <%= render 'invite_user' %>

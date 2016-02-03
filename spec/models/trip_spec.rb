@@ -22,7 +22,6 @@
 require 'rails_helper'
 
 RSpec.describe Trip, type: :model do
-
   before :each do
     @trip = FactoryGirl.build(:trip)
   end

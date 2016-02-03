@@ -32,7 +32,6 @@ describe 'login via OpenID' do
 end
 
 describe 'login via username/password' do
-
   it 'should login the superadmin with his credentials' do
     visit '/'
     expect(page).to have_content 'Please login first'

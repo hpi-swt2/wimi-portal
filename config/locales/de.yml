@@ -164,6 +164,7 @@ de:
         salary: "Bezahlung"
         workload: "Arbeitszeit"
     errors:
+      try_again_later: "Fehler - Bitte versuchen Sie es später nochmal."
       models:
         expense:
           attributes:
