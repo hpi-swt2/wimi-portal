@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160117205720) do
+ActiveRecord::Schema.define(version: 20160203130657) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -47,6 +47,43 @@ ActiveRecord::Schema.define(version: 20160117205720) do
   add_index "events", ["target_id"], name: "index_events_on_target_id"
   add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
 
+  create_table "expense_items", force: :cascade do |t|
+    t.date     "date"
+    t.boolean  "breakfast"
+    t.boolean  "lunch"
+    t.boolean  "dinner"
+    t.integer  "expense_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "annotation"
+  end
+
+  add_index "expense_items", ["expense_id"], name: "index_expense_items_on_expense_id"
+
+  create_table "expenses", force: :cascade do |t|
+    t.boolean  "inland"
+    t.string   "country"
+    t.string   "location_from"
+    t.string   "location_via"
+    t.text     "reason"
+    t.boolean  "car"
+    t.boolean  "public_transport"
+    t.boolean  "vehicle_advance"
+    t.boolean  "hotel"
+    t.integer  "status",           default: 0
+    t.integer  "general_advance"
+    t.integer  "user_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "signature"
+    t.integer  "trip_id"
+    t.string   "time_start"
+    t.string   "time_end"
+  end
+
+  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
+
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",                      null: false
@@ -70,7 +107,10 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "sender_id"
   end
+
+  add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
 
   create_table "project_applications", force: :cascade do |t|
     t.integer  "project_id"
@@ -110,68 +150,36 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "handed_in",             default: false
+    t.text     "rejection_message",     default: ""
+    t.boolean  "signed",                default: false
+    t.date     "last_modified"
+    t.integer  "status",                default: 0
+    t.integer  "signer"
+    t.boolean  "wimi_signed",           default: false
+    t.date     "hand_in_date"
   end
-
-  create_table "travel_expense_report_items", force: :cascade do |t|
-    t.date     "date"
-    t.boolean  "breakfast"
-    t.boolean  "lunch"
-    t.boolean  "dinner"
-    t.integer  "travel_expense_report_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.text     "annotation"
-  end
-
-  add_index "travel_expense_report_items", ["travel_expense_report_id"], name: "index_travel_expense_report_items_on_travel_expense_report_id"
-
-  create_table "travel_expense_reports", force: :cascade do |t|
-    t.boolean  "inland"
-    t.string   "country"
-    t.string   "location_from"
-    t.string   "location_via"
-    t.string   "location_to"
-    t.text     "reason"
-    t.datetime "date_start"
-    t.datetime "date_end"
-    t.boolean  "car"
-    t.boolean  "public_transport"
-    t.boolean  "vehicle_advance"
-    t.boolean  "hotel"
-    t.integer  "status",           default: 0
-    t.integer  "general_advance"
-    t.integer  "user_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "signature"
-  end
-
-  add_index "travel_expense_reports", ["user_id"], name: "index_travel_expense_reports_on_user_id"
-
-  create_table "trip_datespans", force: :cascade do |t|
-    t.date     "start_date"
-    t.date     "end_date"
-    t.integer  "days_abroad"
-    t.integer  "trip_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "trip_datespans", ["trip_id"], name: "index_trip_datespans_on_trip_id"
 
   create_table "trips", force: :cascade do |t|
     t.string   "destination"
     t.text     "reason"
     t.text     "annotation"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "status",      default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "status",             default: 0
     t.boolean  "signature"
+    t.integer  "person_in_power_id"
+    t.date     "last_modified"
+    t.date     "date_start"
+    t.date     "date_end"
+    t.integer  "days_abroad"
+    t.text     "rejection_message",  default: ""
   end
 
+  add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "user_events", force: :cascade do |t|
@@ -192,7 +200,6 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
     t.string   "language",                  default: "en",  null: false
-    t.string   "residence"
     t.string   "street"
     t.integer  "personnel_number",          default: 0
     t.integer  "remaining_leave",           default: 28
@@ -200,6 +207,9 @@ ActiveRecord::Schema.define(version: 20160117205720) do
     t.boolean  "superadmin",                default: false
     t.string   "username"
     t.string   "encrypted_password",        default: "",    null: false
+    t.string   "city"
+    t.string   "zip_code"
+    t.text     "signature"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

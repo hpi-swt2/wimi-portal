@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'login via OpenID' do
   before :each do
-    @routes = ['/projects', '/holidays', '/trips', '/travel_expense_reports']
+    @routes = ['/projects', '/holidays', '/trips']
   end
 
   it 'should not show any page as long as you are not logged in' do
@@ -22,7 +22,7 @@ describe 'login via OpenID' do
     end
 
     fill_in 'user_email', with: 'valid email'
-    click_on 'Update User'
+    click_on 'Save'
 
     @routes.each do |route|
       visit route
@@ -32,12 +32,9 @@ describe 'login via OpenID' do
 end
 
 describe 'login via username/password' do
-  before :each do
+  it 'should login the superadmin with his credentials' do
     visit '/'
     expect(page).to have_content 'Please login first'
-  end
-
-  it 'should login the superadmin with his credentials' do
     superadmin = FactoryGirl.create(:user, superadmin: true, username: 'wimi-admin', password: 'wimi-admin-password')
     visit superadmin_path
 
@@ -46,7 +43,7 @@ describe 'login via username/password' do
     click_on 'Log in'
 
     expect(page).to_not have_content 'Please sign in'
-    routes = ['/projects', '/holidays', '/trips']
+    routes = ['/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to have_content 'Logout'
@@ -61,7 +58,7 @@ describe 'login via username/password' do
     fill_in 'user_password', with: 'wrong_password'
     click_on 'Log in'
 
-    routes = ['/projects', '/holidays', '/trips']
+    routes = ['/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to_not have_content 'Logout'
@@ -77,10 +74,17 @@ describe 'login via username/password' do
     click_on 'Log in'
 
     expect(page).to have_content 'Please sign in'
-    routes = ['/projects', '/holidays', '/trips']
+    routes = ['/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to_not have_content 'Logout'
     end
+  end
+
+  it 'should not access the page if the user is already logged in' do
+    superadmin = FactoryGirl.create(:user, superadmin: true, username: 'wimi-admin', password: 'wimi-admin-password')
+    login_as superadmin
+    visit superadmin_path
+    expect(page).to have_content 'Log out first before accessing the superadmin login page.'
   end
 end

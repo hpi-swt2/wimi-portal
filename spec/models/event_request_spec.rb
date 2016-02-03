@@ -21,7 +21,9 @@ RSpec.describe EventRequest, type: :model do
       chair = FactoryGirl.create(:chair)
       trigger = FactoryGirl.create(:user)
       event = EventRequest.create(trigger_id: trigger.id, chair_id: chair.id)
+
       expect(event.seclevel).to eq('representative')
+      expect(event.type).to	eq('EventRequest')
     end
   end
 end

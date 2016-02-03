@@ -30,7 +30,7 @@ RSpec.describe HolidaysController, type: :controller do
   # Holiday. As you add validations to Holiday, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {start: Date.today, end: Date.today+1, user: @user, length: 1}
+    {start: Date.today, end: Date.today + 1, user: @user, length: 1}
   }
 
   let(:invalid_attributes) {
@@ -71,7 +71,7 @@ RSpec.describe HolidaysController, type: :controller do
       user = FactoryGirl.create(:user)
       sign_in user
       holiday = Holiday.create! valid_attributes
-      get :show, { id: holiday.to_param }, valid_session
+      get :show, {id: holiday.to_param}, valid_session
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(root_path)
     end
@@ -137,7 +137,7 @@ RSpec.describe HolidaysController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user: @user, length: 1, status: 'applied'}
+        {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: 1, status: 'applied'}
       }
 
       it 'updates the requested holiday' do
@@ -162,7 +162,7 @@ RSpec.describe HolidaysController, type: :controller do
       it 'calculates the length if no length is entered' do
         holiday = Holiday.create! valid_attributes
         holiday.update_attribute(:length, 2)
-        put :update, {id: holiday.to_param, holiday: {start: I18n.l(Date.today), end: I18n.l(Date.today+1), user: @user, length: ''}}
+        put :update, {id: holiday.to_param, holiday: {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: ''}}
         holiday.reload
         expect(holiday.length).to eq(holiday.duration)
       end
@@ -280,7 +280,7 @@ RSpec.describe HolidaysController, type: :controller do
       it 'adds the length to the users remaining leave' do
         old_remaining_leave = @user.remaining_leave
         holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
-        get :reject, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Reject Request', holiday: {length: holiday.length}}, valid_session
         @user.reload
         expect @user.remaining_leave == old_remaining_leave + holiday.length
       end
@@ -290,7 +290,7 @@ RSpec.describe HolidaysController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         user2 = FactoryGirl.create(:user, chair: chair)
         holiday = FactoryGirl.create(:holiday, user: user2, status: 'applied')
-        get :reject, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Reject Request', holiday: {length: holiday.length}}, valid_session
         expect(response).to redirect_to(user2)
       end
 
@@ -299,7 +299,7 @@ RSpec.describe HolidaysController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         wimi = FactoryGirl.create(:wimi, chair: chair)
         holiday = FactoryGirl.create(:holiday, user: wimi.user, status: 'applied')
-        get :reject, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Reject Request', holiday: {length: holiday.length}}, valid_session
         holiday.reload
         expect(holiday.status).to eq('declined')
       end
@@ -309,7 +309,7 @@ RSpec.describe HolidaysController, type: :controller do
       it 'redirects to the root path if an unauthorized person wants to reject it' do
         sign_in FactoryGirl.create(:user)
         holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
-        get :reject, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Reject Request', holiday: {length: holiday.length}}, valid_session
         expect(response).to redirect_to(root_path)
       end
 
@@ -317,7 +317,7 @@ RSpec.describe HolidaysController, type: :controller do
         FactoryGirl.create(:chair)
         ChairWimi.first.update_attributes(user: @user, representative: true)
         holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
-        get :reject, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Reject Request', holiday: {length: holiday.length}}, valid_session
         holiday.reload
         expect(holiday.status).to eq('applied')
       end
@@ -331,7 +331,7 @@ RSpec.describe HolidaysController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         user2 = FactoryGirl.create(:user, chair: chair)
         holiday = FactoryGirl.create(:holiday, user: user2, status: 'applied')
-        get :accept, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Accept Request', holiday: {length: holiday.length}}, valid_session
         expect(response).to redirect_to(user2)
       end
 
@@ -340,7 +340,7 @@ RSpec.describe HolidaysController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         wimi = FactoryGirl.create(:wimi, chair: chair)
         holiday = FactoryGirl.create(:holiday, user: wimi.user, status: 'applied')
-        get :accept, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Accept Request', holiday: {length: holiday.length}}, valid_session
         holiday.reload
         expect(holiday.status).to eq('accepted')
       end
@@ -350,7 +350,7 @@ RSpec.describe HolidaysController, type: :controller do
       it 'redirects to the root path if an unauthorized person wants to reject it' do
         sign_in FactoryGirl.create(:user)
         holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
-        get :accept, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Accept Request', holiday: {length: holiday.length}}, valid_session
         expect(response).to redirect_to(root_path)
       end
 
@@ -358,7 +358,7 @@ RSpec.describe HolidaysController, type: :controller do
         FactoryGirl.create(:chair)
         ChairWimi.first.update_attributes(user: @user, representative: true)
         holiday = FactoryGirl.create(:holiday, user: @user, status: 'applied')
-        get :accept, {id: holiday.to_param}, valid_session
+        get :accept_reject, {id: holiday.to_param, commit: 'Accept Request', holiday: {length: holiday.length}}, valid_session
         holiday.reload
         expect(holiday.status).to eq('applied')
       end

@@ -102,7 +102,7 @@ class HolidaysController < ApplicationController
   end
 
   def accept
-    if(can? :read, @holiday) && @holiday.status == 'applied'
+    if (can? :read, @holiday) && @holiday.status == 'applied'
       @holiday.update_attribute(:status, 'accepted')
       @holiday.update_attribute(:last_modified, Date.today)
       redirect_to @holiday.user
@@ -113,7 +113,7 @@ class HolidaysController < ApplicationController
   end
 
   def accept_reject
-    if params[:commit] == I18n.t('holidays.show.reject')
+    if params[:commit] == t('holidays.show.reject')
       @holiday.update(holiday_params)
       reject
     else
