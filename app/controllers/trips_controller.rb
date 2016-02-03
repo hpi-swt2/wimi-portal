@@ -101,7 +101,6 @@ class TripsController < ApplicationController
 
   def accept_reject
     if params[:commit] == t('trips.show.reject')
-      @trip.update(trip_params)
       reject
     else
       accept

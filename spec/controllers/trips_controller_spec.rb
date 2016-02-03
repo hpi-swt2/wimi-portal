@@ -272,7 +272,7 @@ RSpec.describe TripsController, type: :controller do
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
         login_with(@user)
         post :hand_in, {id: trip.id}
-        get :accept, {id: trip.to_param}, valid_session
+        get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
         expect(response).to redirect_to(@user)
       end
 
@@ -280,7 +280,7 @@ RSpec.describe TripsController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         trip = FactoryGirl.create(:trip, user: @user, status: 'saved')
         login_with(@user)
-        get :accept, {id: trip.to_param}, valid_session
+        get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
         expect(response).to redirect_to(root_path)
       end
 
@@ -289,7 +289,7 @@ RSpec.describe TripsController, type: :controller do
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
         login_with(@user)
         post :hand_in, {id: trip.id}
-        get :accept, {id: trip.to_param}, valid_session
+        get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
         expect(Trip.find(trip.id).status).to eq('accepted')
       end
     end
@@ -299,7 +299,7 @@ RSpec.describe TripsController, type: :controller do
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
         login_with(@user)
         post :hand_in, {id: trip.id}
-        get :accept, {id: trip.to_param}, valid_session
+        get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
         expect(response).to redirect_to(trips_path)
       end
     end
@@ -312,7 +312,7 @@ RSpec.describe TripsController, type: :controller do
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
         login_with(@user)
         post :hand_in, {id: trip.id}
-        get :reject, {id: trip.to_param}, valid_session
+        get :accept_reject, {id: trip.to_param, commit: 'Reject Request'}, valid_session
         expect(response).to redirect_to(@user)
       end
 
@@ -320,7 +320,7 @@ RSpec.describe TripsController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         trip = FactoryGirl.create(:trip, user: @user, status: 'saved')
         login_with(@user)
-        get :reject, {id: trip.to_param}, valid_session
+        get :accept_reject, {id: trip.to_param, commit: 'Reject Request'}, valid_session
         expect(response).to redirect_to(root_path)
       end
 
@@ -329,7 +329,7 @@ RSpec.describe TripsController, type: :controller do
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
         login_with(@user)
         post :hand_in, {id: trip.id}
-        get :reject, {id: trip.to_param}, valid_session
+        get :accept_reject, {id: trip.to_param, commit: 'Reject Request'}, valid_session
         expect(Trip.find(trip.id).status).to eq('declined')
       end
     end
@@ -339,7 +339,7 @@ RSpec.describe TripsController, type: :controller do
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
         login_with(@user)
         post :hand_in, {id: trip.id}
-        get :reject, {id: trip.to_param}, valid_session
+        get :accept_reject, {id: trip.to_param, commit: 'Reject Request'}, valid_session
         expect(response).to redirect_to(trips_path)
       end
     end
