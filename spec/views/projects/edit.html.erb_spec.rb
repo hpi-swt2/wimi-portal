@@ -7,6 +7,8 @@ RSpec.describe 'projects/edit', type: :view do
     @representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
     @wimi_user = FactoryGirl.create(:user)
     @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
+    @wimi_user2 = FactoryGirl.create(:user)
+    @wimi2 = FactoryGirl.create(:wimi, user: @wimi_user2, chair: @chair).user
   end
 
   it 'can be edited by a wimi' do
@@ -82,11 +84,21 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
     @wimi.projects << project
+    @wimi2.projects << project
     visit edit_project_path(project)
     find('a[id="SignOutMyself"]').click
     project.reload
     expect(current_path).to eq(projects_path)
     expect(project.users).not_to include(@wimi)
+  end
+
+  it 'is not possible for a wimi to sign himself out of the project when he is the last one' do
+    login_as @wimi
+    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    @wimi.projects << project
+    @wimi2.projects << project
+    visit edit_project_path(project)
+    expect(page).not_to have_link('id="SignOutMyself"')
   end
 
   it 'is possible for a hiwi to sign himself out of the project' do
@@ -118,6 +130,7 @@ RSpec.describe 'projects/edit', type: :view do
     login_as @wimi
     project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
     @wimi.projects << project
+    @wimi2.projects << project
     visit edit_project_path(project)
     find('a[id="SignOutMyself"]').click
     project.reload

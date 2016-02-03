@@ -5,6 +5,7 @@ RSpec.describe 'projects/show', type: :view do
     @user = FactoryGirl.create(:user)
     @chair = FactoryGirl.create(:chair)
     @wimi = FactoryGirl.create(:chair_representative, user: FactoryGirl.create(:user), chair: @chair).user
+    @wimi2 = FactoryGirl.create(:chair_representative, user: FactoryGirl.create(:user), chair: @chair).user
 
     login_as @user
     @project = FactoryGirl.create(:project, chair_id: @wimi.chair.id)
@@ -96,8 +97,15 @@ RSpec.describe 'projects/show', type: :view do
 
     it 'shows leave project button if part of project' do
       @wimi.projects << @project
+      @wimi2.projects << @project
       visit current_path
       expect(page).to have_content('Leave Project')
+    end
+
+    it 'dont show leave project button if he is the only wimi' do
+      @wimi.projects << @project
+      visit current_path
+      expect(page).not_to have_content('Leave Project')
     end
 
     it 'shows no leave project button if not part of project' do
