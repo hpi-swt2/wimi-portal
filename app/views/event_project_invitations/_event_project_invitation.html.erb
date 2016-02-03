@@ -1,4 +1,3 @@
-<p>
   <%=
     invitation = Invitation.find(event_project_invitation.trigger_id)
     t(
@@ -15,5 +14,3 @@
     /
     <%= link_to(t('.decline'), decline_invitation_project_path(invitation.project_id)) %>
   </span>
-  <%= link_to t('helpers.submit.hide'), hide_event_path(id: event_project_invitation, request: current_user), method: :post, class: 'label label-warning' %>
-</p>

@@ -5,5 +5,3 @@
       link_to_user: link_to(time_sheet.user.name, time_sheet.user),
       link_to_view: link_to(t('.view'), work_days_path(month: time_sheet.month, year: time_sheet.year, project: time_sheet.project.id, user_id: time_sheet.user.id)))
   %>
-  <%= link_to t('helpers.submit.hide'), hide_event_path(id: event_time_sheet_submitted, request: current_user), method: :post, class: 'label label-warning' %>
-<br>

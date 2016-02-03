@@ -11,5 +11,3 @@
       month: l(Date.new(1, time_sheet.month, 1), format: :without_day_year))
   %>
   <%= link_to(t('.view'), work_days_path(month: time_sheet.month, year: time_sheet.year, project: time_sheet.project.id, user_id: current_user.id)) %>
-  <%= link_to t('helpers.submit.hide'), hide_event_path(id: event_time_sheet_accepted, request: current_user), method: :post, class: 'label label-warning' %>
-<br>

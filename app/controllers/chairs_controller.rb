@@ -122,6 +122,7 @@ class ChairsController < ApplicationController
 
     if chair_wimi.save
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventAdminRight', seclevel: :admin, status: 'added'})
+      MailNotifier.invited(Event.last).deliver_now
       flash[:success] = I18n.t('chair.set_admin.success')
     else
       flash[:error] = I18n.t('chair.set_admin.error')
