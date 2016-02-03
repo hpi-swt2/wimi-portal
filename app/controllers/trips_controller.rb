@@ -100,11 +100,7 @@ class TripsController < ApplicationController
   end
 
   def accept_reject
-    if params[:commit] == t('trips.show.reject')
-      reject
-    else
-      accept
-    end
+    params[:commit] == t('trips.show.reject') ? reject : accept
   end
 
   private
