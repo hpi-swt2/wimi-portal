@@ -15,9 +15,14 @@ describe 'updating email address' do
   end
 
   it 'should not update without a valid email address' do
-    invalid_email = 'invalid mail'
     former_mail = @user.email
-    fill_in :user_email, with: invalid_email
+    fill_in :user_email, with: 'invalid mail'
+    click_button 'Save'
+    expect(page).to have_text('is not a valid email address.')
+    fill_in :user_email, with: 'invalid.mail'
+    click_button 'Save'
+    expect(page).to have_text('is not a valid email address.')
+    fill_in :user_email, with: 'invalid@mail'
     click_button 'Save'
     expect(page).to have_text('is not a valid email address.')
     expect(@user.reload.email).to eq(former_mail)
