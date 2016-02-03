@@ -1,4 +1,4 @@
-# Sample localization file for English. Add more files in this directory for other locales.
+ # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 de:
@@ -88,23 +88,27 @@ de:
       research_assistants: "Wisenschaftliche Mitarbeiter"
       student_assistants: "Studentische Hilfskräfte"
       project_team: "Projekt Team"
-      leave_project: "Verlasse Projekt"
+      leave_project: "Projekt verlassen"
+      edit_project: "Projekt bearbeiten"
+      leave_p: "Verlassen"
     index:
-      new: "+ Projekt hinzufügen"
+      new: "Projekt hinzufügen"
       title: "Titel"
       accessibility: "Verfügbarkeit"
       created_at: "Erstellt am"
-      active: "aktiv"
-      inactive: "inaktiv"
       private: "privat"
       public: "öffentlich"
       projects: "Projekte"
+      status: "Status"
+      status_true: "Aktiv"
+      status_false: "Inaktiv"
       all_working_hours: "Hiwi Stunden Gesamt für"
   users:
     no_email: "ist keine gültige Email-Adresse."
     does_not_exist: "Dieser Benutzer existiert nicht."
     update:
-      user_updated: "Profil erfolgreich aktualisiert"
+      user_updated: "Profil erfolgreich aktualisiert."
+      user_updated_language: "Sprache erfolgreich aktualisiert."
     show:
       business_trips: "Geschätsreisen"
       request_trip: "Geschätsreise beantragen"
@@ -179,6 +183,7 @@ de:
       show_expense_requests: "Reisekostenabrechnung anzeigen"
       show_trip_requests: "Dienstreiseanträge anzeigen"
       activities: "Aktivitäten"
+      activities_empty: "Noch keine Aktivitäten verfügbar."
       notifications: "Wichtige Benachrichtigungen"
       actions: "Aktionen"
     projects:
@@ -236,9 +241,15 @@ de:
       car: "PKW"
       public_transport: "Bus/Bahn/Flug"
       vehicle_advance: "vom HPI im Voraus bezahlt"
-      hotel: "Hotel"
+      hotel: "Hotel?"
       general_advance: "Vorschuss"
       signature: "Unterschreiben"
+    form:
+      hotel_true: "Hotel"
+      hotel_false: "Privat"
+      accommodation: "Unterkunft"
+      travel_by: "Reise mit"
+      catering: "Geben Sie hier für jeden Tag an, welche Mahlzeiten nicht aus privaten Mitteln bezahlt wurden. (z.B. Frühstück im Hotel)"
   trips:
     show:
       id: "Id"
@@ -260,22 +271,36 @@ de:
         accepted: "Akzeptiert am "
         applied: "Eingereicht am "
         declined: "Abgelehnt am "
-      expense: "Details für Reisekostenabrechnung"
+      expense: "Reisekostenabrechnung"
       create_expense: "Reisekosten eintragen"
+    form:
+      destination: "Zielort der Geschätsreise"
+      reason: "Kurze Begründung"
+      annotation: "Sonstige Bemerkungen"
+      date: "TT.MM.JJJJ"
   work_days:
     index:
-      working_hours_for: "Arbeitsstunden in"
-      new: "neu"
+      working_hours_for: "Arbeitsstunden im"
+      new: "hinzufügen"
       for: "für"
       by: "von"
+      project: "Projekt"
+      user: "Benutzer"
     new:
       back: "Zurück"
+      title: "Arbeitsstundeneintrag erstellen"
+    edit:
+      title: "Arbeitsstundeneintrag bearbeiten"
+    form:
+      minutes: "Zeit in Minuten"
   time_sheets:
     form:
       monthly: "monatlich"
       weekly: "wöchentlich"
       hourly: "stündlich"
       time_sheet: "Stundenzettel"
+    edit:
+      title: "Stundenzettel bearbeiten"
     show:
       salary: "Bezahlung:"
       salary_per_month: "Euro / Monat"
@@ -289,13 +314,13 @@ de:
       by: "von"
       hand_in: "Einreichen"
       accept: "Annehmen"
-      handed_in_at: "eingereicht am: "
+      handed_in_at: "Eingereicht am"
       reject: "Ablehnen"
-      reject_reason: "Ablehnungsgrund:"
-      rejected_by: "abgelehnt von: "
-      accepted_by: "angenommen von: "
-      at: "am"
-      handed_in_at: "eingereicht am:"
+      reject_reason: "Ablehnungsgrund"
+      rejected_by: "Abgelehnt von"
+      accepted_by: "Angenommen von"
+      at: "Am"
+      handed_in_at: "Eingereicht am:"
       add_signature: "Unterschrift hinzufügen"
       document_was: "Das Dokument wurde"
       not: "nicht"
@@ -378,3 +403,4 @@ de:
     admin_long: "Administrator"
     hiwi_long_plural: "Studentische Hilfskräfte"
     admin_long_plural: "Administratoren"
+  no_entries_yet: "Es sind noch keine %{target} vorhanden."

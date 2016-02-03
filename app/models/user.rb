@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
         year_months.push([year, month])
       end
     end
-    return year_months
+    year_months
   end
 
   def work_year_months_for_project(project)
@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
         year_months << [date.year, date.month]
       end
     end
-    return year_months
+    year_months
   end
 
   def prepare_leave_for_new_year
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     if opt_chair
       return false if opt_chair != chair
     end
-    return chair_wimi.representative
+    chair_wimi.representative
   end
 
   def is_admin?(opt_chair = false)
@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
     if opt_chair
       return false if opt_chair != chair
     end
-    return chair_wimi.admin
+    chair_wimi.admin
   end
 
   def is_hiwi?

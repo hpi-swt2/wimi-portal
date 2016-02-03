@@ -1,107 +1,128 @@
 <%- model_class = Project -%>
-<div class="page-header">
-  <h1><%=t '.projects' %></h1>
-</div>
-<% if can? :create, Project %>
-    <%= link_to t('.new', :default => t("helpers.links.new")),
-                new_project_path,
-                class: 'btn btn-default btn-xs pull-right text-success' %>
-<% end %>
-<%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
-  <div class="col-md-12">
-    <div class="col-md-3">
-      <strong><%= t('project.filter_chair') %></strong>
-    </div>
-    <div class="col-md-2">
-      <%= select_tag :chair, options_from_collection_for_select(Chair.all, 'name', 'name', params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
-    </div>
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-5">
-      <%= text_field_tag :title, params[:title], placeholder: t('activerecord.attributes.project.title'), class: "form-control" %>
-    </div>
-    <div class="col-md-2">
-      <%= submit_tag t('links.search'), class: "btn btn-primary" %>
-    </div>
-  </div>
-<% end %>
 <div class="col-md-12">
-  </br>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
-      <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
-      <th><%= t('projects.show.project_visibility', default: t("projects.show.project_visibility")) %></th>
-      <th><%= t('.accessibility', default:'Accessibility') %></th>
-      <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
-      <th><%=t '.actions', default: t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= link_to project.title, project %></td>
-        <td><%= link_to project.chair.name, project.chair %></td>
-        <td><%= project.status ? t('.active', default:'active') : t('.inactive', default:'inactive') %></td>
-        <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
-        <td><%=l project.created_at %></td>
-        <td>
-          <% if can? :create, ProjectApplication %>
-            <% if project.project_applications.exists?(user: current_user) %>
-              <% project_application = project.project_applications.find_by(user: current_user) %>
-              <% case project_application.status %>
-                <% when 'pending' %>
-                  <%= link_to t('project_applications.index.cancel', default: t('helpers.links.cancel')),
-                    project_application_path(project_application),
-                              method: :delete,
-                              data: { confirm: t('.confirm', default: t('helpers.links.confirm', default: 'Are you sure?')) },
-                              class: 'btn btn-danger btn-xs' %>
-                <% when 'accepted' %>
-                  <span class='label label-success'><%= project_application.status %></span>
-                <% when 'declined' %>
-                  <%= link_to t('project_applications.reapply', default: 'Reapply'),
-                    reapply_project_application_path(project_application), class: 'btn btn-danger btn-xs' %>
+  <div class="display">
+
+    <div class="page-header">
+      <h1>
+        <%=t '.projects' %>
+        <% if can? :create, Project %>
+          <%= link_to t('.new', :default => t("helpers.links.new")),
+                      new_project_path,
+                      class: 'btn btn-success pull-right' %>
+        <% end %>
+      </h1>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <% if @projects.empty? %>
+          <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.project.other', default: model_class.model_name.human.pluralize) %> </p> <br>
+        <% else %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
+                <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
+                <th><%= t('.accessibility', default:'Accessibility') %></th>
+                <th><%= t('.status')%></th>
+                <th><%= t('.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
+                <th><%=t '.actions', default: t("helpers.actions") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @projects.each do |project| %>
+                <tr>
+                  <td><%= link_to project.title, project %></td>
+                  <td><%= link_to project.chair.name, project.chair %></td>
+                  <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
+
+                  <td><%= t('.status_' + project.status.to_s) %></td>
+                  <td><%=l project.created_at %></td>
+                  <td>
+                    <% if can? :create, ProjectApplication %>
+                      <% if project.project_applications.exists?(user: current_user) %>
+                        <% project_application = project.project_applications.find_by(user: current_user) %>
+                        <% case project_application.status %>
+                          <% when 'pending' %>
+                            <%= link_to t('project_applications.index.cancel', default: t('helpers.links.cancel')),
+                              project_application_path(project_application),
+                                        method: :delete,
+                                        data: { confirm: t('helpers.links.confirm') },
+                                        class: 'btn btn-danger btn-xs' %>
+                          <% when 'accepted' %>
+                            <span class='label label-success'><%= project_application.status %></span>
+                          <% when 'declined' %>
+                            <%= link_to t('project_applications.reapply', default: 'Reapply'),
+                              reapply_project_application_path(project_application), class: 'btn btn-danger btn-xs' %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to t('helpers.links.apply'),
+                          apply_project_applications_path(id: project.id), method: :post, class: 'btn btn-default btn-xs' %>
+                      <% end %>
+                    <% end %>
+                    <% if can? :leave_project, project %>
+                        <%= link_to t('projects.show.leave_project'),
+                                    sign_user_out_project_path(user_id: current_user.id, id: project), method: :delete, class: 'btn btn-default btn-xs' %>
+                    <% end %>
+                    <% if can? :manage, project%>
+                      <%= link_to t('helpers.links.edit'),
+                                  edit_project_path(project), class: 'btn btn-warning btn-xs' %>
+                      <%= link_to 'X',
+                                  project_path(project),
+                                  method: :delete,
+                                  data: { confirm: t('helpers.links.confirm') },
+                                  class: 'btn btn-xs btn-danger' %>
+                    <% end %>
+                  </td>
+                </tr>
               <% end %>
-            <% else %>
-              <%= link_to t('.apply', default: t('helpers.links.apply')),
-                apply_project_applications_path(id: project.id), method: :post, class: 'btn btn-primary btn-xs' %>
-            <% end %>
-          <% end %>
-          <% if can? :leave_project, project %>
-            <%= link_to t('.leave_project', default:'Leave Project'),
-                          sign_user_out_project_path(user_id: current_user.id, id: project), method: :delete, class: 'btn btn-default btn-xs' %>
-          <% end %>
-          <% if can? :edit, project%>
-            <%= link_to t('.edit', default: t("helpers.links.edit")),
-                        edit_project_path(project), class: 'btn btn-default btn-xs' %>
-          <% end %>
-          <% if can? :destroy, project %>
-            <%= link_to t('.destroy', default: t("helpers.links.destroy")),
-                        project_path(project),
-                        method: :delete,
-                        data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
-                        class: 'btn btn-xs btn-danger' %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<center>
-  <h3><%= t('.all_working_hours') %></h3>
-  <div class="col-md-12">
-    <div class="col-md-3"></div>
-    <div class="col-md-3">
-      <%= select_month(Date.today, {}, { class: "form-control", id: "workingHoursChartMonth"}) %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
     </div>
-    <div class="col-md-3">
-      <%= select_year(Date.today, {start_year: Date.today.year - 2, end_year: Date.today.year + 2}, { class: "form-control", id: "workingHoursChartYear"}) %>
+    <div class="page-header">
+      <h3><%= t('.all_working_hours') %></h3>
     </div>
-    <div class="col-md-3"></div>
+    <div class="row">
+      <div class="col-md-3 col-md-offset-3">
+        <%= select_month(Date.today, {}, { class: "form-control", id: "workingHoursChartMonth"}) %>
+      </div>
+      <div class="col-md-3">
+        <%= select_year(Date.today, {start_year: Date.today.year - 2, end_year: Date.today.year + 2}, { class: "form-control", id: "workingHoursChartYear"}) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="hiwiWorkingHoursChart" style="height: 300px; width: 100%;"></div>
+      </div>
+    </div>
   </div>
-</center>
-<div class="col-md-12">
-  <div id="hiwiWorkingHoursChart" style="height: 300px; width: 100%;"></div>
 </div>
+
+<% content_for :sidebar do %>
+  <!--Filter-->
+  <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4> <%= t('project.filter_chair') %> </h4>
+          </div>
+          <div class="panel-body">
+            <div class="col-md-12">
+              <strong><%= t('projects.index.title')%></strong>
+              <%= text_field_tag :title, params[:title], placeholder: t('activerecord.attributes.project.title'), class: "form-control" %>
+            </div>
+            <div class="col-md-12">
+              <strong><%= t('projects.show.chair')%></strong>
+              <%= select_tag :chair, options_from_collection_for_select(Chair.all, 'name', 'name', params.fetch(:chair, nil)), { class: 'select optional form-control', include_blank: true} %>
+            </div>
+            <div class="col-md-6">
+              <%= submit_tag t('links.search'), class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

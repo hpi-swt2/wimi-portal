@@ -37,9 +37,10 @@ h1 span { font-size:20px; }
 html, body {
     height: 100%; /*Fixes the height to 100% of the viewport*/
 }
+
 body {
     padding-top: 50px; /*50px for the height of the navbar*/
-    padding-bottom: 50px; /*50px for the height of the bottom navbar*/
+    background-image: url("startseitehintergrund.png");
 }
 
 .container-fluid.scrollable {
@@ -50,6 +51,10 @@ body {
 
 .navbar-fixed-top {
     height:50px;
+}
+
+.navbar-shadow {
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
 }
 
 .flash-message {
@@ -87,7 +92,7 @@ body {
 
 .time-select {
     display: inline-block;
-    width: 48%;
+    width: 45%;
 }
 
 .email-invite {
@@ -125,4 +130,23 @@ body {
 }
 .buttonGroup {
     margin-top: 40px;
+}
+
+.page-body {
+    margin-top: 50px;
+}
+
+.display {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4);
+    background-color: #FFFFFF;
+    padding: 15px;
+}
+
+.novertpadding {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.btn-eq {
+    width: auto;
 }
