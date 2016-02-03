@@ -284,6 +284,7 @@ de:
     applied: "Reisekostenabrechnung bereits eingereicht"
     destroyed: "Reisekostenabrechnung wurde erfolgreich gelöscht"
     apply: "Reisekostenabrechnung wurde erfolgreich eingereicht"
+    no_trip: "Bevor die Reisekostenabrechnung eingereicht werden kann, müssen Sie den Dienstreiseantrag einreichen"
   users:
     upload_signature:
       upload_success: "Unterschrift wurde erfolgreich hochgeladen"

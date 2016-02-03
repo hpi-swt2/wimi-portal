@@ -204,15 +204,21 @@
           </div>
           <div class="panel-body">
             <div class="form-group">
-              <%= f.label :remaining_leave, t('.remaining_leave', leave: @user.remaining_leave.to_s) %>
-              <% if @user.remaining_leave_last_year > 0 %>
-                <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: @user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
-                <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
-                    <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000') %>
-                <% end %>
-              <% end %>
-              <br><%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
-                              users_edit_leave_path(id: @user.id), class: 'btn btn-default btn-xs' %><br>
+              <div class="row">
+                <div class="col-sm-4">
+                  <%= f.label :remaining_leave, t('.remaining_leave', leave: @user.remaining_leave.to_s) %>
+                  <% if @user.remaining_leave_last_year > 0 %>
+                    <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: @user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
+                    <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
+                        <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000') %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="col-sm-2">
+                  <%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
+                              users_edit_leave_path(id: @user.id), class: 'btn btn-warning btn-xs' %>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <table class="table table-striped">
@@ -234,9 +240,11 @@
                       <td><%= l holiday.end %></td>
                       <td><%= t(".status.#{holiday.status}") %></td>
                       <td>
-                        <%= link_to t("helpers.links.show_details"),
-                                    holiday_path(holiday), class: 'btn btn-default btn-xs' %><br>
-                        <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Holiday_request', doc_id: holiday), class: 'btn btn-default btn-xs' %>
+                        <div class="btn-group">
+                          <%= link_to t("helpers.links.show_details"),
+                                    holiday_path(holiday), class: 'btn btn-default btn-xs' %>
+                          <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Holiday_request', doc_id: holiday), class: 'btn btn-info btn-xs' %>
+                        </div>
                       </td>
                     </tr>
                   <% end %>
@@ -288,9 +296,11 @@
                       <td><%=l trip.date_end %></td>
                       <td><%= trip.status %></td>
                       <td>
-                        <%= link_to t("helpers.links.show_details"),
-                                    trip_path(trip), class: 'btn btn-default btn-xs' %><br>
+                        <div class="btn-group">
+                          <%= link_to t("helpers.links.show_details"),
+                                    trip_path(trip), class: 'btn btn-default btn-xs' %>
                         <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Trip_request', doc_id: trip), class: 'btn btn-info btn-xs' %>
+                        </div>
                       </td>
                     </tr>
                   <% end %>

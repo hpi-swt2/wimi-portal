@@ -112,6 +112,12 @@ en:
       status_true: "Active"
       status_false: "Inactive"
       all_working_hours: "Overall Student Working Hours for"
+    create:
+      success: 'Project was successfully created.'
+    update:
+      success: 'Project was successfully updated.'
+    destroy:
+      success: 'Project was successfully destroyed.'
   users:
     does_not_exist: "This user does not exist."
     no_email: "is not a valid email address."
@@ -313,6 +319,7 @@ en:
       workload: "Workload:"
       workload_per_month: "Hours / Month"
       workload_per_week: "Hours / Week"
+      total_work_time: "Total time worked"
     show_footer:
       new: "new"
       in: "in"

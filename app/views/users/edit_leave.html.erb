@@ -1,19 +1,31 @@
 <%= form_for(@user) do |f| %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="page-header">
+        <h1>
+          <div class="row">
+            <div class="col-sm-9">
+              <%=t '.title', default: "Edit Your Leave" %>
+            </div>
+            <div class="col-sm-3">
+              <%= link_to t('helpers.links.back', default: t("helpers.links.cancel")), user_path(@user), class: 'btn btn-default btn-xs' %>
+            </div>
+          </div>  
+        </h1>
+      </div>
 
-  <div class="page-header">
-    <h1><%=t '.title', default: "Edit Your Leave" %></h1>
+      <div class="form-group">
+        <%= f.label :remaining_leave, t('.remaining_leave'), class: 'control-label' %>
+        <%= f.number_field :remaining_leave, value: @user.remaining_leave, min: 0, class: 'form-control' %>
+        <%= error_span(@user[:remaining_leave]) %>
+      </div>
+      <div class="form-group">
+        <%= f.label :remaining_leave_fly, t('.remaining_leave_fly'), class: 'control-label' %>
+        <%= f.number_field :remaining_leave_last_year, value: @user.remaining_leave_last_year, min: 0, class: 'form-control' %>
+        <%= error_span(@user[:remaining_leave_last_year]) %>
+      </div>
+      <%= f.submit t('.save'), class: 'btn btn-success btn-block' %>
+      
+    </div>
   </div>
-
-  <div class="form-group">
-    <%= f.label :remaining_leave, t('.remaining_leave'), class: 'control-label' %>
-    <%= f.number_field :remaining_leave, value: @user.remaining_leave, min: 0, class: 'form-control' %>
-    <%= error_span(@user[:remaining_leave]) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :remaining_leave_fly, t('.remaining_leave_fly'), class: 'control-label' %>
-    <%= f.number_field :remaining_leave_last_year, value: @user.remaining_leave_last_year, min: 0, class: 'form-control' %>
-    <%= error_span(@user[:remaining_leave_last_year]) %>
-  </div>
-  <%= f.submit t('.save'), class: 'btn btn-primary' %>
-  <%= link_to t('.cancel', default: t("helpers.links.cancel")), user_path(@user), class: 'btn btn-danger' %>
 <% end %>

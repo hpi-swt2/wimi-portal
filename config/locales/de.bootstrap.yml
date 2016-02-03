@@ -103,6 +103,12 @@ de:
       status_true: "Aktiv"
       status_false: "Inaktiv"
       all_working_hours: "Hiwi Stunden Gesamt für"
+    create:
+      success: 'Projekt wurde erfolgreich erstellt.'
+    update:
+      success: 'Projekt wurde erfolgreich bearbeitet.'
+    destroy:
+      success: 'Projekt wurde erfolgreich gelöscht.'
   users:
     no_email: "ist keine gültige Email-Adresse."
     does_not_exist: "Dieser Benutzer existiert nicht."
@@ -303,6 +309,7 @@ de:
       workload: "Arbeitszeit"
       workload_per_month: "Stunden / Monat"
       workload_per_week: "Stunden / Woche"
+      total_work_time: "Gesamtarbeitszeit"
     show_footer:
       new: "neu"
       in: "im"

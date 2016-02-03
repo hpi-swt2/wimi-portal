@@ -95,8 +95,8 @@ class Ability
     can :invite_user, Project do |project|
       project.users.include? user
     end
-    can :sign_user_out, Project do |project|
-      project.users.include? user
+    cannot :sign_user_out, Project do |project|
+      not project.users.include? user
     end
     cannot :add_working_hours, Project
     can :manage, ProjectApplication do |project_application|
@@ -122,6 +122,9 @@ class Ability
 
     can :manage, Expense.select { |t| t.user == user }
     can :see_holidays, User do |u|
+      u == user
+    end
+    can :edit_leave, User do |u|
       u == user
     end
     #can :set aktive/inaktive

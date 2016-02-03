@@ -68,11 +68,13 @@
                       <%= link_to user.name, user  %>
                     </td>
                     <td>
-                      <% if can? :edit, @project%>
-                        <% if user == current_user %>
-                          <%= link_to t('projects.form.sign_out_of_project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOutMyself' %>
-                        <% else %>
-                          <%= link_to t('projects.form.sign_out_of_project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOut' %>
+                      <% if @project.wimis.count > 1 %>
+                        <% if can? :edit, @project%>
+                          <% if user == current_user %>
+                            <%= link_to t('projects.form.sign_out_of_project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOutMyself' %>
+                          <% else %>
+                            <%= link_to t('projects.form.sign_out_of_project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOut' %>
+                          <% end %>
                         <% end %>
                       <% end %>
                     </td>
@@ -127,7 +129,7 @@
       <div class="col-md-12 novertpadding col-sm-12">
         <div class="row">
           <div class="col-md-12 col-sm-12" style="padding-bottom: 0px;">
-            <strong> <%=t '.invite_init_user' %></strong> <br>
+            <strong> <%= t '.invite_init_user' %></strong> <br>
           </div>
         </div>
         <span class="row" style="padding-top: 0px;">
