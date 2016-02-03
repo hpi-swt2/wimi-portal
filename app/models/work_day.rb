@@ -31,7 +31,13 @@ class WorkDay < ActiveRecord::Base
 
   def duration
     unless end_time.blank? || start_time.blank? || self.break.blank?
-      ((end_time - start_time).to_i / 60 - self.break) / 60.0
+      duration_in_minutes.to_f / 60
+    end
+  end
+
+  def duration_in_minutes
+    unless end_time.blank? || start_time.blank? || self.break.blank?
+      (end_time - start_time).to_i / 60 - self.break
     end
   end
 
@@ -48,5 +54,9 @@ class WorkDay < ActiveRecord::Base
     else
       return WorkDay.where(date: month_start..month_end, user: user, project_id: project)
     end
+  end
+  
+  def duration_hours_minutes
+    format_minutes(duration_in_minutes)
   end
 end

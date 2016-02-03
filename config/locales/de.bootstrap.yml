@@ -278,6 +278,7 @@ de:
       workload: "Arbeitszeit"
       workload_per_month: "Stunden / Monat"
       workload_per_week: "Stunden / Woche"
+      total_work_time: "Arbeitszeit:"
     show_footer:
       new: "neu"
       in: "im"

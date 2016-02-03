@@ -13,10 +13,15 @@
     <strong><%= t('.workload') %> </strong>
     <%= @time_sheet.workload %>
     <% if @time_sheet.workload_is_per_month %>
-      <%= t('.workload_per_month') %>
+        <%= t('.workload_per_month') %>
     <% else %>
-      <%= t('.workload_per_week') %>
+        <%= t('.workload_per_week') %>
     <% end %>
+  </p>
+
+  <p>
+    <strong><%= t('.total_work_time') %> </strong>
+    <%= @time_sheet.sum_minutes_formatted %>
   </p>
 </div>
 <% if current_user == @time_sheet.user && !@time_sheet.handed_in? %>
