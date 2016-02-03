@@ -145,13 +145,13 @@ en:
         personnel_number: "Staff Number"
         chair: "Research Group"
         language: "Language"
-        not_member_of_chair: "You are not a member of a chair."
+        not_member_of_chair: "You are not a member of a Research Group."
       request:
         name: "Name"
         type: "Type"
         handed_in: "Handed in"
         status: "Status"
-        not_member_of_chair: "You are not a member of a chair."
+        not_member_of_chair: "You are not a member of a Research Group."
       work_day:
         date: "Date"
         start_time: "Start time"
@@ -231,16 +231,16 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"
   chair:
-    not_authorized: "You're not authorized to do that for this research group."
-    add_chair: "Add Chair"
+    not_authorized: "You're not authorized to do that for this Research Group."
+    add_chair: "Add Research Group"
     destroy:
-      error: "Chair could not be destroyed"
-      success: "Chair was successfully destroyed"
+      error: "Research Group could not be destroyed"
+      success: "Research Group was successfully destroyed"
     create:
-      success: "Chair successfully created"
+      success: "Research Group successfully created"
       error: "The form is not filled completely!"
     update:
-      success: "Chair successfully updated"
+      success: "Research Group successfully updated"
       error: "The form is not filled completely!"
     accept_request:
       success: "Application was successfully accepted"

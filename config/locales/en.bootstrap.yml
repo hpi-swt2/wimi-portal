@@ -284,16 +284,16 @@ en:
   work_days:
     index:
       working_hours_for: "Working hours for"
-      new: "add work day"
+      new: "add workday"
       for: "for"
       by: "by"
       project: "Project"
       user: "Benutzer"
     new:
       back: "Back"
-      title: "New Work Day"
+      title: "New Workday"
     edit:
-      title: "Edit Work Day"
+      title: "Edit Workday"
     form:
       minutes: "Time in minutes"
   time_sheets:
@@ -361,10 +361,10 @@ en:
       added: "%{trigger} has granted %{target} admin rights."
       removed: "%{trigger} has withdrawn %{target} admin rights."
     event_user_chair:
-      added: "%{trigger} has admitted %{target} in chair."
-      removed: "%{trigger} has removed %{target} from chair."
+      added: "%{trigger} has admitted %{target} in the research group."
+      removed: "%{trigger} has removed %{target} from the research group."
       declined: "%{trigger} has declined the application of %{target}."
-    event_chair_application: "%{trigger} has applied for your chair."
+    event_chair_application: "%{trigger} has applied for your research group."
     event_request:
       holiday: "%{trigger} created a holiday request."
       trip: "%{trigger} created a trip request."
@@ -396,13 +396,14 @@ en:
       no_applications: "No applications"
       accept: "Accept"
       decline: "Decline"
-      remove_from_chair: "Remove from chair"
+      remove_from_chair: "Remove from Research Group"
       withdraw_rights: "Withdraw rights"
       grant_rights: "Grant admin rights"
   roles:
     wimi_long: "Research Assistant"
     wimi_long_plural: "Research Assistants"
-    chair_representative: "Chair Representative"
+    chair_representative: "Research Group Representative"
     admin_long: "Administrator"
     admin_long_plural: "Administrators"
     hiwi_long_plural: "Student Assistants"
+  no_entries_yet: "There are no %{target} yet."
