@@ -25,7 +25,7 @@ namespace :db do
     ChairWimi.create!(chair_id: chair1.id, user_id: epic_admin.id, admin: true, application: 'accepted')
     ChairWimi.create!(chair_id: chair1.id, user_id: epic_representative.id, representative: true, application: 'accepted')
     ChairWimi.create!(chair_id: chair2.id, user_id: meinel_both.id, admin: true, representative: true, application: 'accepted')
-    ChairWimi.create!(chair_id: chair1.id, user_id: wimi_epic.id, application: 'applied')
+    ChairWimi.create!(chair_id: chair1.id, user_id: wimi_epic.id, application: 'accepted')
     ChairWimi.create!(chair_id: chair1.id, user_id: pending_wimi_appl.id, application: 'pending')
 
     # create some holidays, trips, expenses
