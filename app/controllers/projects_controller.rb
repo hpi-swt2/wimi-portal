@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user, :accept_invitation, :decline_invitation]
 
   has_scope :title
@@ -13,6 +14,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @project.invitations.build
   end
 
   def edit
@@ -24,6 +26,14 @@ class ProjectsController < ApplicationController
       @project.update(chair: current_user.chair)
       current_user.projects << @project
       flash[:success] = 'Project was successfully created.'
+      unless params[:invitations].blank?
+        params[:invitations].values.each do |email|
+          user = User.find_by_email(email)
+          unless user.nil? or Invitation.where(project: @project, user: user).size > 0 or @project.users.include? user
+            @project.invite_user user, current_user
+          end
+        end
+      end
       redirect_to @project
     else
       render :new
@@ -85,11 +95,16 @@ class ProjectsController < ApplicationController
   def sign_user_out
     user = User.find(params[:user_id])
     @project = Project.find(params[:id])
-    @project.remove_user(user)
-    if user == current_user
-      redirect_to @project
+    if can?(:edit, @project) || current_user == user
+      @project.remove_user(user)
+      if user == current_user
+        redirect_to projects_path
+      else
+        redirect_to edit_project_path(@project)
+      end
     else
-      redirect_to edit_project_path(@project)
+      redirect_to dashboard_path
+      flash[:error] = I18n.t('project.user.not_authorized')
     end
   end
 
@@ -114,6 +129,16 @@ class ProjectsController < ApplicationController
   def typeahead
     @search = UserSearch.new(typeahead: params[:query])
     render json: @search.results
+  end
+
+  def hiwi_working_hours
+    month = params[:month_year].split('-')[0]
+    year = params[:month_year].split('-')[1]
+    month.to_i
+    year.to_i
+    render json: {msg: Project.working_hours_data(year, month)}
+    rescue
+      render json: {msg: {y: 0, name: I18n.t('activerecord.errors.try_again_later')}}
   end
 
   private

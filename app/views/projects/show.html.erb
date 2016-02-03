@@ -134,6 +134,7 @@
   <%= link_to t('.back', default: t('helpers.links.back')),
     projects_path, class: 'btn btn-default' %>
 </div>
+
 <% if @project.project_applications.exists? %>
   <% if can? :accept, ProjectApplication and @project.users.exists?(id: current_user.id) %>
     <table class='table table-striped'>

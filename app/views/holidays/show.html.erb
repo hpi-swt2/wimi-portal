@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<%= link_to 'Download', generate_pdf_path(doc_type: 'Urlaubsantrag', doc_id: @holiday), class: 'btn btn-default' %>
+<%= link_to link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Holiday_request', doc_id: @holiday), class: 'btn btn-default' %>
 <% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
   <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
 <% end %>

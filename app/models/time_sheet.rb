@@ -57,4 +57,8 @@ class TimeSheet < ActiveRecord::Base
     sheet = TimeSheet.create!({year: year, month: month, project: project, user: user, workload_is_per_month: true, salary_is_per_month: true})
     return sheet
   end
+
+  def work_days
+    WorkDay.all_for(year, month, project, user)
+  end
 end

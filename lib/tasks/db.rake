@@ -7,6 +7,7 @@ namespace :db do
     wimi_epic = User.create!(first_name: 'Wimi', last_name: 'Epic', email: 'wimi@epic.de')
     pending_wimi_appl = User.create!(first_name: 'Wimi-Pending', last_name: 'Epic', email: 'wimi.pending@epic.de')
     alice = User.create!(first_name: 'Alice', last_name: 'A', email: 'alice@user.de')
+    andre = User.create!(first_name: 'Andre', last_name: 'A', email: 'andre@user.de')
     User.create!(first_name: 'Bob', last_name: 'B', email: 'bob@user.de')
 
     # create! chairs
@@ -16,7 +17,12 @@ namespace :db do
     swt2 = Project.create!(title: 'Softwaretechnik II')
     swt2.users << epic_admin
     swt2.users << alice
+
+    hana_project = Project.create!(title: 'HANA Project')
+    hana_project.users << andre
+
     chair1.projects << swt2
+    chair1.projects << hana_project
 
     # set user roles
     ChairWimi.create!(chair_id: chair1.id, user_id: epic_admin.id, admin: true, application: 'accepted')
@@ -54,6 +60,13 @@ namespace :db do
       end_time: '2015-11-26 18:00:00',
       user_id: alice.id,
       project_id: swt2.id)
+    WorkDay.create!(
+      date: '2015-11-26',
+      start_time: '2015-11-26 10:00:00',
+      break: 0,
+      end_time: '2015-11-26 12:00:00',
+      user_id: andre.id,
+      project_id: hana_project.id)
     TimeSheet.create!(
       month: 11,
       year: 2015,
@@ -86,7 +99,6 @@ namespace :db do
       inland: true,
       country: 'Germany',
       location_from: 'Potsdam',
-      location_to: 'USA',
       reason: 'Hana Things',
       time_start: "12:00",
       time_end: "14:00",

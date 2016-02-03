@@ -14,9 +14,11 @@ class Ability
         end
       end
     end
+
+    can :superadmin_index, User
   end
 
-  def initialize_user(_user)
+  def initialize_user(user)
     can :see, Project
     can :index, Chair
     can :apply, Chair
@@ -24,16 +26,43 @@ class Ability
       project.public
     end
     can :create, ProjectApplication
+    can :show, User
+    can :read, User
+    can :update, User do |_user|
+      _user == user
+    end
+    can :edit, User do |_user|
+      _user == user
+    end
+    can :upload_signature, User do |_user|
+      _user == user
+    end
+    can :delete_signature, User do |_user|
+      _user == user
+    end
+    can :user_exists, User
+    can :resource_name, User
+    can :resource, User
+    can :devise_mapping, User
+    can :language, User
+    can :set_user, User
 
-    # can :accept_invitation, Project
+    can :accept_invitation, Project do |project|
+      Invitation.select{ |i| i.user == user && i.project == project}
+    end
+    can :decline_invitation, Project do |project|
+      Invitation.select { |i| i.user == user && i.project == project }
+    end
   end
 
   def initialize_hiwi(user)
-    can :see, Project
+    initialize_user user
+
+    can :read, Project
     cannot :create, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
-    can :leave_project, Project do |project|
+    can :sign_user_out, Project do |project|
       project.users.include? user
     end
     # can :accept_invitation, Project
@@ -45,14 +74,18 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, to: :crud
 
+    can :read, Project
     can :create, Project
     can :manage, Project do |project|
+      project.users.include?(user)
+    end
+    can :edit, Project do |project|
       project.users.include?(user)
     end
     can :invite_user, Project do |project|
       project.users.include? user
     end
-    can :leave_project, Project do |project|
+    can :sign_user_out, Project do |project|
       project.users.include? user
     end
     can :manage, ProjectApplication do |project_application|
@@ -86,7 +119,7 @@ class Ability
 
   def initialize_representative(user)
     initialize_wimi user
-    
+
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
@@ -157,6 +190,27 @@ class Ability
     can     :manage,   Chair
     cannot  :see,      Chair
     cannot  :show,     Chair
+    can     :show,     User do |user|
+      user == _user
+    end
+    can :update, User do |user|
+      _user == user
+    end
+    can :edit, User do |user|
+      _user == user
+    end
+    can :upload_signature, User do |user|
+      _user == user
+    end
+    can :delete_signature, User do |user|
+      _user == user
+    end
+    can :user_exists, User
+    can :resource_name, User
+    can :resource, User
+    can :devise_mapping, User
+    can :language, User
+    can :set_user, User
 
     cannot  :create,   ProjectApplication
     #assign representative/admin role to user

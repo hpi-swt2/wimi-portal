@@ -30,11 +30,10 @@ en:
       leave: "Leave"
       edit_leave: "Edit Leave"
       show_details: "Show Details"
-      show_pdf: "Show PDF"
       apply: "Apply"
       accept: "Accept"
       decline: "Decline"
-      download: "Download"
+      download_pdf: "Download as PDF"
       apply_trip: "Apply Trip"
       save: "Save"
     titles:
@@ -79,6 +78,7 @@ en:
       show_all_working_hours: "Show all working hours"
       create_project: "Create Project"
       update_project: "Update Project"
+      invite_init_user: "Invite User"
     show:
       working_hours: "Working hours"
       add_working_hours: "Add working hours"
@@ -102,12 +102,13 @@ en:
       title: "Title"
       project_status: "Project Status"
       accessibility: "Accessibility"
-      created_at: "created_at"
+      created_at: "Created at"
       active: "active"
       inactive: "inactive"
       private: "private"
       public: "public"
       projects: "Projects"
+      all_working_hours: "Overall Student Working Hours for"
   users:
     does_not_exist: "This user does not exist."
     update:
@@ -267,7 +268,7 @@ en:
       create_expense: "Create trip expense"
   work_days:
     index:
-      working_hours_for: "Working hours for: "
+      working_hours_for: "Working hours for"
       new: "new"
       for: "for"
       by: "by"
@@ -298,7 +299,6 @@ en:
       rejected_by: "rejected by: "
       accepted_by: "accepted by: "
       at: "at"
-      export_as_PDF: "export as PDF"
       handed_in_at: "handed in at:"
       add_signature: "Add signature"
       document_was: "Document was"

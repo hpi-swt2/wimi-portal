@@ -26,8 +26,7 @@ de:
       leave: "Verlassen"
       edit_leave: "Resturlaub bearbeiten"
       show_details: "Details anzeigen"
-      show_pdf: "Als PDF anzeigen"
-      download: "Herunterladen"
+      download_pdf: "Als PDF herunterladen"
       apply_trip: "Antrag stellen"
       save: "Speichern"
     titles:
@@ -72,6 +71,7 @@ de:
       show_all_working_hours: "Alle Stundenzettel anzeigen"
       create_project: "Erstelle Projekt"
       update_project: "Aktualisiere Project"
+      invite_init_user: "Benutzer Einladen"
     show:
       working_hours: "Stundenzettel"
       add_working_hours: "Stundenzettel hinzufügen"
@@ -93,12 +93,13 @@ de:
       new: "+ Projekt hinzufügen"
       title: "Titel"
       accessibility: "Verfügbarkeit"
-      created_at: "erstellt am"
+      created_at: "Erstellt am"
       active: "aktiv"
       inactive: "inaktiv"
       private: "privat"
       public: "öffentlich"
       projects: "Projekte"
+      all_working_hours: "Hiwi Stunden Gesamt für"
   users:
     does_not_exist: "Dieser Benutzer existiert nicht."
     update:
@@ -257,7 +258,7 @@ de:
       create_expense: "Reisekosten eintragen"
   work_days:
     index:
-      working_hours_for: "Arbeitsstunden für: "
+      working_hours_for: "Arbeitsstunden in"
       new: "neu"
       for: "für"
       by: "von"
@@ -288,7 +289,6 @@ de:
       rejected_by: "abgelehnt von: "
       accepted_by: "angenommen von: "
       at: "am"
-      export_as_PDF: "als PDF exportieren"
       handed_in_at: "eingereicht am:"
       add_signature: "Unterschrift hinzufügen"
       document_was: "Das Dokument wurde"

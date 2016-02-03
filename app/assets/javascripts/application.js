@@ -17,7 +17,7 @@
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-typeahead-rails
-//= require turbolinks
+//= require canvasjs.min
 //= require_tree .
 
 $('.datepicker').datepicker();

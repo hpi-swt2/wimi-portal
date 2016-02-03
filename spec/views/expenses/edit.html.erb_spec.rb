@@ -8,12 +8,10 @@ RSpec.describe 'expenses/edit', type: :view do
   it 'renders the edit expense form' do
     render
 
-    assert_select 'form[action=?][method=?]', trip_expense_path(@expense,@expense.trip), 'post' do
+    assert_select 'form[action=?][method=?]', trip_expense_path(@expense, @expense.trip), 'post' do
       assert_select 'input#expense_location_from[name=?]', 'expense[location_from]'
 
       assert_select 'input#expense_location_via[name=?]', 'expense[location_via]'
-
-      assert_select 'input#expense_location_to[name=?]', 'expense[location_to]'
 
       assert_select 'textarea#expense_reason[name=?]', 'expense[reason]'
 

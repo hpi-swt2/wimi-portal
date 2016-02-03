@@ -39,7 +39,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'projects/typeahead/:query' => 'projects#typeahead'
+  get 'projects/typeahead/:query', to: 'projects#typeahead', constraints: {query: /[^\/]+/}
+  get 'projects/hiwi_working_hours/:month_year', to: 'projects#hiwi_working_hours'
 
   resources :holidays do
     member do
@@ -101,7 +102,7 @@ Rails.application.routes.draw do
   post 'trips/:id/hand_in', to: 'trips#hand_in', as: 'hand_in_trip'
   post 'expenses/:id/hand_in', to: 'expenses#hand_in', as: 'hand_in_expense'
 
-  post 'users/:id/upload_signature', to: 'users#upload_signature'
+  post 'users/:id/upload_signature', to: 'users#upload_signature', as: 'upload_signature'
   post 'users/:id/delete_signature', to: 'users#delete_signature', as: 'delete_signature'
 
   get '/admin_search', to: 'chairs#admin_search', as: 'admin_search'

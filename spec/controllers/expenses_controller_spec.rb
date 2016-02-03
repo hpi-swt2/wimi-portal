@@ -16,7 +16,6 @@ RSpec.describe ExpensesController, type: :controller do
      country: 'Germany',
      location_from: 'Potsdam',
      location_via: 'London',
-     location_to: 'NYC',
      time_start: '12:00',
      time_end: '23:00',
      reason: 'Hana Things',
@@ -35,7 +34,6 @@ RSpec.describe ExpensesController, type: :controller do
      country: 'Germany',
      location_from: 'Potsdam',
      location_via: 'London',
-     location_to: 'NYC',
      time_start: '12:00',
      time_end: '23:00',
      reason: 'Hana Things',
@@ -54,7 +52,6 @@ RSpec.describe ExpensesController, type: :controller do
      country: 'Germany',
      location_from: 'Potsdam',
      location_via: 'London',
-     location_to: 'NYC',
      time_start: '1asda2:00',
      time_end: '2312:123100',
      reason: 'Hana Things',
@@ -83,14 +80,14 @@ RSpec.describe ExpensesController, type: :controller do
   describe 'GET #edit' do
     it 'assigns the requested expense as @expense' do
       expense = Expense.create! valid_attributes
-      get :edit, {trip_id: @trip.id,id: expense.to_param}, valid_session
+      get :edit, {trip_id: @trip.id, id: expense.to_param}, valid_session
       expect(assigns(:expense)).to eq(expense)
     end
 
     it 'redirects to the corresponding trip, if it is already applied' do
       expense = Expense.create! valid_attributes
       expense.update_attributes(status: 'applied')
-      get :edit, {trip_id: @trip.id,id: expense.id}
+      get :edit, {trip_id: @trip.id, id: expense.id}
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(@trip)
     end
@@ -100,34 +97,34 @@ RSpec.describe ExpensesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Expense' do
         expect {
-          post :create, {trip_id: @trip.id,expense: valid_attributes}, valid_session
+          post :create, {trip_id: @trip.id, expense: valid_attributes}, valid_session
         }.to change(Expense, :count).by(1)
       end
 
       it 'assigns a newly created expense as @expense' do
-        post :create, {trip_id: @trip.id,expense: valid_attributes}, valid_session
+        post :create, {trip_id: @trip.id, expense: valid_attributes}, valid_session
         expect(assigns(:expense)).to be_a(Expense)
         expect(assigns(:expense)).to be_persisted
       end
 
       it 'redirects to the corresponding trip' do
-        post :create, {trip_id: @trip.id,expense: valid_attributes}, valid_session
+        post :create, {trip_id: @trip.id, expense: valid_attributes}, valid_session
         expect(response).to redirect_to(@trip)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved expense as @expense' do
-        post :create, {trip_id: @trip.id,expense: invalid_attributes}, valid_session
+        post :create, {trip_id: @trip.id, expense: invalid_attributes}, valid_session
         expect(assigns(:expense)).to be_a_new(Expense)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {trip_id: @trip.id,expense: invalid_attributes}, valid_session
+        post :create, {trip_id: @trip.id, expense: invalid_attributes}, valid_session
         expect(response).to render_template('new')
       end
       it 'rejects blank values for advance' do
-        post :create, {trip_id: @trip.id,expense: advance_blank_attributes}, valid_session
+        post :create, {trip_id: @trip.id, expense: advance_blank_attributes}, valid_session
         expect(response).to render_template('new')
       end
     end
@@ -149,13 +146,13 @@ RSpec.describe ExpensesController, type: :controller do
 
       it 'assigns the requested expense as @expense' do
         expense = Expense.create! valid_attributes
-        put :update, {trip_id: @trip.id,id: expense.to_param, expense: valid_attributes}, valid_session
+        put :update, {trip_id: @trip.id, id: expense.to_param, expense: valid_attributes}, valid_session
         expect(assigns(:expense)).to eq(expense)
       end
 
       it 'redirects to the corresponding trip' do
         expense = Expense.create! valid_attributes
-        put :update, {trip_id: @trip.id,id: expense.to_param, expense: valid_attributes}, valid_session
+        put :update, {trip_id: @trip.id, id: expense.to_param, expense: valid_attributes}, valid_session
         expect(response).to redirect_to(@trip)
       end
     end
@@ -163,13 +160,13 @@ RSpec.describe ExpensesController, type: :controller do
     context 'with invalid params' do
       it 'assigns the expense as @expense' do
         expense = Expense.create! valid_attributes
-        put :update, {trip_id: @trip.id,id: expense.to_param, expense: invalid_attributes}, valid_session
+        put :update, {trip_id: @trip.id, id: expense.to_param, expense: invalid_attributes}, valid_session
         expect(assigns(:expense)).to eq(expense)
       end
 
       it "re-renders the 'edit' template" do
         expense = Expense.create! valid_attributes
-        put :update, {trip_id: @trip.id,id: expense.to_param, expense: invalid_attributes}, valid_session
+        put :update, {trip_id: @trip.id, id: expense.to_param, expense: invalid_attributes}, valid_session
         expect(response).to render_template('edit')
       end
     end
@@ -179,13 +176,13 @@ RSpec.describe ExpensesController, type: :controller do
     it 'destroys the requested expense' do
       expense = Expense.create! valid_attributes
       expect {
-        delete :destroy, {trip_id: @trip.id,id: expense.to_param}, valid_session
+        delete :destroy, {trip_id: @trip.id, id: expense.to_param}, valid_session
       }.to change(Expense, :count).by(-1)
     end
 
     it 'redirects to the corresponding trip' do
       expense = Expense.create! valid_attributes
-      delete :destroy, {trip_id: @trip.id,id: expense.to_param}, valid_session
+      delete :destroy, {trip_id: @trip.id, id: expense.to_param}, valid_session
       expect(response).to redirect_to(@trip)
     end
 
@@ -195,7 +192,7 @@ RSpec.describe ExpensesController, type: :controller do
       login_with(@user)
       post :hand_in, {id: expense.id}
       expect {
-        delete :destroy, {trip_id: @trip.id,id: expense.to_param}, valid_session
+        delete :destroy, {trip_id: @trip.id, id: expense.to_param}, valid_session
       }.to change(Expense, :count).by(0)
     end
   end

@@ -162,6 +162,7 @@ de:
         salary: "Bezahlung"
         workload: "Arbeitszeit"
     errors:
+      try_again_later: "Fehler - Bitte versuchen Sie es später nochmal."
       models:
         expense:
           attributes:
@@ -213,6 +214,7 @@ de:
     invite_someone_to_project: 'Jemanden zum Projekt einladen'
     invite_someone_to_the_project: "Jemanden zum Projekt \"%{title}\" einladen"
     send_invitation_to: 'Einladung senden an:'
+    not_authorized: 'Du bist nicht befugt, diese Aktion für das Projekt durchzuführen.'
     user:
       does_not_exist: 'Dieser Benutzer existiert nicht.'
       already_invited: 'Dieser Benutzer wurde bereits eingeladen.'

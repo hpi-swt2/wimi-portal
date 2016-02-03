@@ -35,4 +35,19 @@ RSpec.describe 'users/show', type: :view do
     visit user_path(@user)
     expect(page).to have_content(chair.name)
   end
+
+  it 'allows the superadmin to see his own profile' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as(superadmin, scope: :user)
+    visit user_path(superadmin)
+    expect(current_path).to eq(user_path(superadmin))
+  end
+
+  it 'does not allow the superadmin to see the profiles of other users' do
+    superadmin = FactoryGirl.create(:user, superadmin: true)
+    login_as(superadmin, scope: :user)
+
+    visit user_path(@user)
+    expect(current_path).to eq(dashboard_path)
+  end
 end

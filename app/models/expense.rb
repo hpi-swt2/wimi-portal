@@ -7,7 +7,6 @@
 #  country          :string
 #  location_from    :string
 #  location_via     :string
-#  location_to      :string
 #  reason           :text
 #  car              :boolean
 #  public_transport :boolean
@@ -30,7 +29,7 @@ class Expense < ActiveRecord::Base
   has_many :expense_items
   accepts_nested_attributes_for :expense_items
 
-  validates_presence_of :trip,:location_from, :location_to, :time_start, :time_end
+  validates_presence_of :trip, :location_from, :time_start, :time_end
   validates :general_advance, numericality: {greater_than_or_equal_to: 0}
   validate :time_format
 
@@ -52,6 +51,10 @@ class Expense < ActiveRecord::Base
     trip.date_end
   end
 
+  def location_to
+    trip.destination
+  end
+
   def update_item_count
     expense_items.each do |item|
       if item.date > trip.date_end || item.date < trip.date_start
@@ -59,8 +62,8 @@ class Expense < ActiveRecord::Base
       end
     end
 
-    for i in 0..(trip.total_days() - 1)
-      if !expense_items.include?(ExpenseItem.find_by_date_and_expense_id(trip.date_start + i, id))
+    for i in 0..(trip.total_days - 1)
+      unless expense_items.include?(ExpenseItem.find_by_date_and_expense_id(trip.date_start + i, id))
         add_expense_item(trip.date_start + i)
       end
     end

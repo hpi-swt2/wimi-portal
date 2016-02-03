@@ -32,7 +32,6 @@ describe 'login via OpenID' do
 end
 
 describe 'login via username/password' do
-
   it 'should login the superadmin with his credentials' do
     visit '/'
     expect(page).to have_content 'Please login first'
@@ -44,7 +43,7 @@ describe 'login via username/password' do
     click_on 'Log in'
 
     expect(page).to_not have_content 'Please sign in'
-    routes = ['/projects', '/holidays', '/trips']
+    routes = ['/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to have_content 'Logout'
@@ -59,7 +58,7 @@ describe 'login via username/password' do
     fill_in 'user_password', with: 'wrong_password'
     click_on 'Log in'
 
-    routes = ['/projects', '/holidays', '/trips']
+    routes = ['/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to_not have_content 'Logout'
@@ -75,7 +74,7 @@ describe 'login via username/password' do
     click_on 'Log in'
 
     expect(page).to have_content 'Please sign in'
-    routes = ['/projects', '/holidays', '/trips']
+    routes = ['/holidays', '/trips']
     routes.each do |route|
       visit route
       expect(page).to_not have_content 'Logout'

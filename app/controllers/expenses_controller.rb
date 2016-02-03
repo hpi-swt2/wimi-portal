@@ -83,7 +83,7 @@ class ExpensesController < ApplicationController
   end
 
   def create_items
-    for i in 0..(@trip.total_days() - 1)
+    for i in 0..(@trip.total_days - 1)
       day = @expense.expense_items.build
       day.date = @trip.date_start + i
     end

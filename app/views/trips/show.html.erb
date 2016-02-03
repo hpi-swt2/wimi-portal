@@ -42,7 +42,7 @@
   </div>
 </div>
 <% if (can? :accept, @trip) && @trip.status == 'applied' %>
-  <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %> 
+  <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %>
   <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-primary' %>
 <% end %>
 <% unless @trip.status == 'applied' || @trip.status == 'accepted' %>
@@ -58,7 +58,7 @@
 <br>
 <p>
   <%= link_to t('.back', default: t("helpers.links.back")), trips_path, class: 'btn btn-default'  %>
-  <%= link_to 'Download', generate_pdf_path(doc_type: 'Dienstreiseantrag', doc_id: @trip), class: 'btn btn-success' %>
+  <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Trip_request', doc_id: @trip), class: 'btn btn-success' %>
 </p>
 
 <h2><%= t('.expense') %></h2>
@@ -70,7 +70,7 @@
     <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
                       hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-primary btn-primary' %>
   <% end %>
-  <%= link_to t('helpers.links.show_pdf'), generate_pdf_path(doc_type: 'Reisekostenabrechnung', doc_id: @trip.expense) , class: "btn btn-success btn-xs"%>
+  <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Expense_request', doc_id: @trip.expense) , class: "btn btn-success btn-xs"%>
   <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger btn-xs" %>
 <% else %>
   <%= link_to t('.create_expense'), new_trip_expense_path(@trip) %>

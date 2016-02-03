@@ -33,6 +33,7 @@ RSpec.describe TimeSheet, type: :model do
   it 'sums up the right ammount of working hours' do
     first_day = FactoryGirl.create(:work_day)
     second_day = FactoryGirl.create(:work_day, end_time: Time.now.middle_of_day + 3.hour)
+
     expect(@sheet.sum_hours).to eq(4)
   end
 
@@ -47,6 +48,7 @@ RSpec.describe TimeSheet, type: :model do
   it 'creates a new sheet if no TimeSheet is found' do
     @project = FactoryGirl.create(:project)
     @user = FactoryGirl.create(:user)
+
     expect(TimeSheet.time_sheet_for((Date.today. + 2.year).year, Date.today.month, @project, @user)).to eql((TimeSheet.where(year: (Date.today + 2.year).year, month: Date.today.month, project: @project, user: @user)).first)
   end
 end
