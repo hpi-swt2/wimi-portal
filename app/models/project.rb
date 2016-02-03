@@ -47,6 +47,14 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def destroy_invitations
+    invitation = Invitation.where(project: self)
+    invitation.each do |inv|
+      Event.find_by(trigger: inv.id).destroy!
+      inv.destroy!
+    end
+  end
+
   def destroy_invitation(user)
     inv = Invitation.find_by(user: user, project: self)
     Event.find_by(trigger: inv.id, target_id: user.id).destroy!
