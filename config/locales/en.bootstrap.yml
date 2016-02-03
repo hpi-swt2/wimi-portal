@@ -227,7 +227,7 @@ en:
       holiday: "holiday request"
       accepted: "accepted"
       rejected: "rejected"
-      full_html: "%{person_in_power} <b>%{status}</b> the %{link_to_request} of %{user}. %{link_to_view}"
+      full_html: "%{person_in_power} <b>%{status}</b> the holiday request of %{user}."
   event_time_sheet_submitteds:
     event_time_sheet_submitted:
       view: "View"

@@ -1,16 +1,12 @@
 <%=
-    holiday = Holiday.find(event_holiday_request.target)
-    user = User.find(holiday.user_id)
+    user = event_holiday_request.target
     person_in_power = event_holiday_request.trigger
     status = event_holiday_request.status
     t(
       '.full_html',
       user: user.name,
-      link_to_request: link_to(t('.holiday'), holiday),
-      date: l(holiday.created_at),
       status: t('.'+status),
       person_in_power: person_in_power.name,
-      link_to_view: link_to(t('.view'), holiday)
       )
   %>
 <br>
