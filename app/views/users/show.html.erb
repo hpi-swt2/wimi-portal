@@ -195,10 +195,10 @@
             <div class="form-group">
               <%= f.label :remaining_leave, t('.remaining_leave', leave: @user.remaining_leave.to_s) %>
               <% if @user.remaining_leave_last_year > 0 %>
-                  <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: @user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
-                  <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
-                      <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000') %>
-                  <% end %>
+                <%= f.label :remaining_leave_last_year, t('.remaining_leave_last_year', leave_last_year: @user.remaining_leave_last_year.to_s, last_year: Date.today.year-1) %>
+                <% if Date.today <= Date.new(Date.today.year, 3, 31) %>
+                    <br><%= f.label(:warning, t('.warning_label', last_year: Date.today.year-1, year: Date.today.year), style: 'color:#ff0000') %>
+                <% end %>
               <% end %>
               <br><%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
                               users_edit_leave_path(id: @user.id), class: 'btn btn-default btn-xs' %><br>
