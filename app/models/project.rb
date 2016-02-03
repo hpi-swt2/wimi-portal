@@ -25,6 +25,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :invitations, allow_destroy: true
 
   validates :title, presence: true
+  validates :chair, presence: true
 
   def invite_user(user, sender)
     if user && !user.is_superadmin?
