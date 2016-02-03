@@ -116,7 +116,7 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'not possible for wimi to edit or delete a project he just signed out' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    project = FactoryGirl.create(:project, chair: @wimi.chair)
     @wimi.projects << project
     visit edit_project_path(project)
     find('a[id="SignOutMyself"]').click
@@ -126,7 +126,8 @@ RSpec.describe 'projects/edit', type: :view do
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
     expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
     expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
-    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
+    #expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
+    expect(page).to have_content(I18n.t('helpers.links.back'))
   end
 
   it 'denies the superadmin to edit a project' do
