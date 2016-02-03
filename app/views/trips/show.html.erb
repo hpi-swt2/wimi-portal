@@ -30,13 +30,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <%= label_tag nil, t('time_sheets.show_footer.rejected_by') %>
-            <%= text_field_tag nil, @trip.person_in_power.name , {class: "form-control", readonly: "readonly"} %> 
+            <%= text_field_tag nil, @trip.person_in_power.name , {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <%= label_tag nil, t('time_sheets.show_footer.at') %>
-            <%= text_field_tag nil ,l(@trip.last_modified), {class: "form-control", readonly: "readonly"} %> 
+            <%= text_field_tag nil ,l(@trip.last_modified), {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
         </div>
       </div>
     </div>
-    
+
     <% if (can? :accept, @trip) && @trip.status == 'applied' %>
       <%= form_for @trip, url: reject_trip_path(@trip), method: :get do |b| %>
         <div class="row">
@@ -107,23 +107,24 @@
             <% end %>
           </div>
         </div>
-        
+
       </h1>
     </div>
     <% if @trip.has_expense? %>
-    <%= render @trip.expense %>
-    <div class="btn-group btn-group-justified">
-      <% unless @trip.expense.status == 'applied' %>
-        <%= link_to t('.hand_in', default: t("helpers.links.hand_in")), hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-success' %>
-      <% end %>
-        <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
-        <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Expense_request', doc_id: @trip.expense) , class: "btn btn-info"%>
-    </div>
+      <%= render @trip.expense %>
+      <div class="btn-group btn-group-justified">
+        <% unless @trip.expense.status == 'applied' %>
+          <%= link_to t('.hand_in', default: t("helpers.links.hand_in")), hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-success' %>
+        <% end %>
+          <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+          <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Expense_request', doc_id: @trip.expense) , class: "btn btn-info"%>
+      </div>
     <% else %>
       <%= link_to t('.create_expense'), new_trip_expense_path(@trip), class: "btn btn-success btn-block" %>
     <% end %>
   </div>
 </div>
+
 
 
 
