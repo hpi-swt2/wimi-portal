@@ -12,7 +12,7 @@
   <p><strong><%= t('.user_status')%>: </strong><%= @user.is_wimi? ? t('.wimi') : t('.hiwi') %></p>
 <% end %>
 
-<% unless @user.personnel_number == 0 %>
+<% unless @user.personnel_number == 0 || @user.personnel_number.blank? %>
   <p><strong><%= model_class.human_attribute_name(:personnel_number)%>: </strong><%= @user.personnel_number %></p>
 <% end %>
 

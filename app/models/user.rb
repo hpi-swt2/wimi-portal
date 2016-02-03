@@ -45,8 +45,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, length: {minimum: 1}
   validates :last_name, length: {minimum: 1}
-  validates :email, length: {minimum: 1}
-  validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999
+  validates :email, length: {minimum: 1}, user_email: true
+  validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999, allow_blank: true
   validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
   validates_format_of :zip_code, with: /(\A\d{5}\Z)|(\A\Z)/i
@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
         year_months.push([year, month])
       end
     end
-    return year_months
+    year_months
   end
 
   def work_year_months_for_project(project)
@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
         year_months << [date.year, date.month]
       end
     end
-    return year_months
+    year_months
   end
 
   def prepare_leave_for_new_year
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     if opt_chair
       return false if opt_chair != chair
     end
-    return chair_wimi.representative
+    chair_wimi.representative
   end
 
   def is_admin?(opt_chair = false)
@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
     if opt_chair
       return false if opt_chair != chair
     end
-    return chair_wimi.admin
+    chair_wimi.admin
   end
 
   def is_hiwi?

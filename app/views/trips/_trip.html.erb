@@ -1,0 +1,69 @@
+<%- model_class = Trip -%>
+<%= form_for(@trip) do |f| %>
+  <fieldset disabled>
+    <div class="row">
+      <div class="col-md-12 novertpadding">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :destination %>
+              <%= f.text_field :destination, class: "form-control", readonly: true%>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :date_start %>
+              <div class="controls">
+                <%= f.text_field :date_start, class: "form-control", readonly: true%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 novertpadding">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :reason %>
+              <%= f.text_field :reason, class: "form-control" , readonly: true%>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :date_end %>
+              <div class="controls">
+                <%= f.text_field :date_end,class: 'form-control', readonly: true%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 novertpadding">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :annotation %>
+              <%= f.text_area :annotation, class: "form-control", rows: '3', style: 'resize: none', readonly: true%>
+            </div>
+          </div>
+          <div class="col-md-6">
+            
+            <div class="form-group">
+              <%= f.label :days_abroad %>
+              <%= f.number_field :days_abroad, class: "form-control", readonly: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :signature %>
+              <%= f.check_box :signature , readonly: true%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+<% end %>
