@@ -292,5 +292,7 @@ en:
       destroy_success: "Signature successfully deleted"
   mail_notifier:
     notification:
-      subject: "New Notification"
+      subject: "You received a new notification"
+      hello: "Hello "
       text: "you got a new notification. Check your Wimi-Portal Dashboard to see all the recent notifications."
+      your_wimi_portal: "Your Wimi-Portal"
