@@ -30,7 +30,8 @@ RSpec.describe ProjectsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
-      title: 'My Project'
+      title: 'My Project',
+      chair: FactoryGirl.create(:chair)
     }
   }
   let(:invalid_attributes) {
@@ -249,6 +250,22 @@ RSpec.describe ProjectsController, type: :controller do
       get :typeahead, {query: 'hpi'}, valid_session
       expect(response.body).to have_content matching_user.email
       expect(response.body).to_not have_content not_matching_user.email
+    end
+  end
+
+  describe 'GET #hiwi_working_hours' do
+    it 'returns the sum of all hiwi working hours as JSON' do
+      project = Project.create! valid_attributes
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      project.users << user1
+      project.users << user2
+
+      FactoryGirl.create(:work_day, date: '2015-11-18', start_time: '2015-11-18 15:11:53', break: 30, end_time: '2015-11-18 16:11:53', user: user1, project: project)
+      FactoryGirl.create(:work_day, date: '2015-11-26', start_time: '2015-11-26 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user2, project: project)
+
+      get :hiwi_working_hours, {month_year: '11-2015'}, valid_session
+      expect(response.body).to eq("{\"msg\":\"[{\\\"y\\\":8.5,\\\"name\\\":\\\"My Project\\\"}]\"}")
     end
   end
 end

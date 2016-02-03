@@ -269,7 +269,7 @@ RSpec.describe ChairsController, type: :controller do
       expect(Chair.last.representative.user).to eq(@user)
 
       put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: @anotheruser}, representative: @anotheruser
-      
+
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(0)
@@ -291,7 +291,7 @@ RSpec.describe ChairsController, type: :controller do
       expect(Chair.last.representative.user).to eq(@anotheruser)
 
       put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: @anotheruser}, representative: @user
-      
+
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('NewTest')
       expect(Chair.last.admins.count{ |admin| (admin.user == @user) }).to eq(0)
@@ -306,14 +306,14 @@ RSpec.describe ChairsController, type: :controller do
       expect(Chair.all.size).to eq(0)
 
       post :create, {chair: {name: 'Test'}, admins: {user: @user}, representative: @anotheruser}
-      
+
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)
       expect(Chair.last.representative.user).to eq(@anotheruser)
 
-      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: 9999999}
-      
+      put :update, id: Chair.last.id, chair: {name: 'NewTest'}, admins: {user: 9_999_999}
+
       expect(Chair.all.size).to eq(1)
       expect(Chair.last.name).to eq('Test')
       expect(Chair.last.admins.count { |admin| (admin.user == @user) }).to eq(1)

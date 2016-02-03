@@ -21,7 +21,7 @@
 class Trip < ActiveRecord::Base
   belongs_to :user
   has_one :expense
-  validates_presence_of :destination, :user,:date_start,:date_end, :days_abroad
+  validates_presence_of :destination, :user, :date_start, :date_end, :days_abroad
   validates :days_abroad, numericality: {greater_than_or_equal_to: 0}
   validate :start_before_end_date, :days_abroad_leq_to_total_days
   belongs_to :person_in_power, class_name: 'User'
@@ -43,7 +43,7 @@ class Trip < ActiveRecord::Base
   end
 
   def has_expense?
-    return !self.expense.nil?
+    !expense.nil?
   end
 
   def total_days

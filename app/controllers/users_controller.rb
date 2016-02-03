@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, except: :superadmin_index
   before_action :user_exists, :set_user, except: [:superadmin_index, :language]
+  load_and_authorize_resource
+
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('not_authorized')
+    redirect_to dashboard_path
+  end
 
   def show
     @trips = @user.get_desc_sorted_trips
@@ -13,7 +19,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       I18n.locale = @user.language
       flash[:success] = t('.user_updated')
-      if(user_params.has_key?(:language))
+      if user_params.has_key?(:language)
         redirect_to :back
       else
         redirect_to current_user
@@ -54,7 +60,7 @@ class UsersController < ApplicationController
       file = Base64.encode64(params[:upload]['datafile'].read)
       file_name = params[:upload]['datafile'].original_filename
       file_type = file_name.split('.').last.to_s
-      if ['jpg', 'bmp', 'jpeg', 'png'].include? file_type.downcase
+      if %w[jpg bmp jpeg png].include? file_type.downcase
         @user.update(signature: file)
         flash[:success] = t('.upload_success')
       else

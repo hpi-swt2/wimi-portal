@@ -22,8 +22,8 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.chair = current_user.chair
     if @project.save
-      @project.update(chair: current_user.chair)
       current_user.projects << @project
       flash[:success] = 'Project was successfully created.'
       unless params[:invitations].blank?
@@ -129,6 +129,16 @@ class ProjectsController < ApplicationController
   def typeahead
     @search = UserSearch.new(typeahead: params[:query])
     render json: @search.results
+  end
+
+  def hiwi_working_hours
+    month = params[:month_year].split('-')[0]
+    year = params[:month_year].split('-')[1]
+    month.to_i
+    year.to_i
+    render json: {msg: Project.working_hours_data(year, month)}
+    rescue
+      render json: {msg: {y: 0, name: I18n.t('activerecord.errors.try_again_later')}}
   end
 
   private

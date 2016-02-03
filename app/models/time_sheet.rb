@@ -59,6 +59,6 @@ class TimeSheet < ActiveRecord::Base
   end
 
   def work_days
-    WorkDay.all_for(self.year, self.month, self.project, self.user)
+    WorkDay.all_for(year, month, project, user)
   end
 end
