@@ -53,6 +53,11 @@ class Ability
     can :decline_invitation, Project do |project|
       Invitation.select { |i| i.user == user && i.project == project }
     end
+
+    can :manage, TimeSheet
+    can :manage, WorkDay
+    can :index, Holiday
+    can :index, Trip
   end
 
   def initialize_hiwi(user)

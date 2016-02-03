@@ -5,6 +5,11 @@ class ProjectsController < ApplicationController
   has_scope :title
   has_scope :chair
 
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = t('not_authorized')
+    redirect_to dashboard_path
+  end
+
   def index
     @projects = apply_scopes(Project.all)
   end
