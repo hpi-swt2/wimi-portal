@@ -41,27 +41,18 @@ class DashboardController < ApplicationController
     @activities += Event.where(chair: current_user.chair).where(type: 'EventHolidayRequest') if current_user.is_representative?
     @activities += Event.where(target_id: current_user.id).where(type: 'EventHolidayRequest')
 
+    # Project-Invitation
+    @notifications += Event.where(target_id: current_user.id).where(type: 'EventProjectInvitation')
 
-    
+    # Time-Sheets
+    @activities += Event.where(target_id: current_user.id).where(type: 'EventTimeSheetAccepted')
+    @activities += Event.where(target_id: current_user.id).where(type: 'EventTimeSheetDeclined')
+    current_user.projects.each do |project|
+      @notifications += Event.where(target_id: project.id).where(type: 'EventTimeSheetSubmitted') if current_user.is_wimi?
+    end
 
-
-
-
-    #@notifications += Event.select{|event| event.target_id == current_user.id && event.type == 'EventProjectInvitation'}
-    #@notifications += temp.select{|event| event.chair == current_user.chair && event.type == 'EventChairApplication'}
-
-    #@notifications = @notifications.sort_by { |n| n[:created_at] }.reverse
-
-    #@activities += temp.select{|event| event.target_id == current_user.id && (event.type == 'EventTimeSheetAccepted' || event.type == 'EventTimeSheetDeclined')}
-    #current_user.projects.each do |project|
-    #  @activities += temp.select{|event| event.target_id == project.id && event.type == 'EventTimeSheetSubmitted'}
-    #end
-    #@activities += temp.select{|event| event.target_id == current_user.id && event.type == 'EventAdminRight'}
-    #@activities += temp.select{|event| event.chair == current_user.chair && (event.status == 'holiday' || event.status == 'travel_expense_report' || event.status == 'trip') && event.type == 'EventRequest'}
-    #@activities += temp.select{|event| event.chair == current_user.chair && event.type == 'EventUserChair'}
-    #@activities += temp.select{|event| event.target_id == current_user.id && (event.type == 'EventTravelRequestAccepted' || event.type == 'EventTravelRequestDeclined')}
-
-    #@activities.delete_if { |event| event.is_hidden_by(current_user) }
+    @notifications.delete_if { |event| event.is_hidden_by(current_user) }
+    @activities.delete_if { |event| event.is_hidden_by(current_user) }
 
     @notifications = @notifications.uniq.sort_by { |n| n[:created_at] }.reverse
     @activities = @activities.uniq.sort_by { |n| n[:created_at] }.reverse
