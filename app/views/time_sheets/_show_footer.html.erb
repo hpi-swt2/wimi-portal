@@ -25,42 +25,37 @@
         </p>
       </div>
     </div>
-    <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
-      <div class="row vertical-align">
-        <% unless @time_sheet.wimi_signed %>
-          <div class="col-md-6">
-            <%= f.check_box :wimi_signed , style: 'margin: 0px 10px;' %>
-            <%= f.label t('.add_signature'), style: 'margin: 0px;' %>
-          </div>
+        <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
+            <div class="row vertical-align">
+              <div class=<%= @time_sheet.wimi_signed ? 'col-md-6' : 'col-md-6 col-md-offset-6'%>>
+                <div class="form-group">
+                  <%= f.label t('.reject_reason') %>
+                  <%= f.text_field :rejection_message, id: 'message', size: 50 , class: "form-control"%>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <% if current_user.signature.nil? %>
+                    <%= t('signature_warning') %>
+                    <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/><br/>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <%= f.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
+                <% else %>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
+                <% end %>
+                      </div>
+                        <div class="col-md-6">
+                            <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
+                        </div>
+                    </div>
+              </div>
+            </div>
         <% end %>
-        <% if current_user.signature.nil? %>
-          <%= t('signature_warning') %>
-          <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %> 
-          <br />
-          <%= f.submit t('.accept'), class: 'btn btn-success btn-xs', disabled: "disabled" %>
-          <%= f.submit t('.reject'), class: 'btn btn-danger btn-xs' %>
-        <% else %>
-          <%= f.submit t('.accept'), class: 'btn btn-success btn-xs' %>
-          <%= f.submit t('.reject'), class: 'btn btn-danger btn-xs' %>
-        <% end %>
-        <div class=<%= @time_sheet.wimi_signed ? 'col-md-6' : 'col-md-6 col-md-offset-6'%>>
-          <div class="form-group">
-           <%= f.label t('.reject_reason') %>
-           <%= f.text_field :rejection_message, id: 'message', size: 50 , class: 'form-control'%>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
-        </div>
-        <div class="col-md-6">
-          <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
-        </div>
-      </div>
     <% end %>
-  <% end %>
-
 <% else %>
   <%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet), method: :get do |f| %>
     <% if @time_sheet.handed_in? %>
@@ -146,7 +141,7 @@
           </div>
         </div>
       <% else %>
-        <% if @time_sheet.user_id = current_user.id %>
+        <% if @time_sheet.user_id == current_user.id %>
           <div class="row vertical-align">
             <div class="col-md-6">
               <% unless @time_sheet.signed %>

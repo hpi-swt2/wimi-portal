@@ -20,6 +20,7 @@ class Ability
 
   def initialize_user(user)
     can :see, Project
+    can :apply, Project
     can :index, Chair
     can :apply, Chair
     can :read, Project do |project|
