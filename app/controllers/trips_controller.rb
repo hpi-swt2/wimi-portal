@@ -111,7 +111,7 @@ class TripsController < ApplicationController
   end
 
   def get_rejection_message
-    params['trip'].nil? ? "" : trip_params['rejection_message']
+    params['trip'].nil? ? '' : trip_params['rejection_message']
   end
 
   def parse_date

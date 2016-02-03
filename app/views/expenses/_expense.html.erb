@@ -123,7 +123,7 @@
     <div class="row">
       <div class="col-md-12">
        <span><%= t('expenses.form.catering') %></span>
-     </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -138,14 +138,14 @@
             </tr>
             <% index = 0 %>
             <%= f.fields_for :expense_items do |t| %>
-            <tr>
-              <td><%= l expense.expense_items[index].date %></td>
-              <td><%= t.check_box :breakfast , readonly: true%></td>
-              <td><%= t.check_box :lunch , readonly: true%></td>
-              <td><%= t.check_box :dinner , readonly: true%></td>
-              <td><%= t.text_field :annotation , readonly: true, class: 'form-control'%></td>
-            </tr>
-            <% index += 1 %>
+              <tr>
+                <td><%= l expense.expense_items[index].date %></td>
+                <td><%= t.check_box :breakfast , readonly: true%></td>
+                <td><%= t.check_box :lunch , readonly: true%></td>
+                <td><%= t.check_box :dinner , readonly: true%></td>
+                <td><%= t.text_field :annotation , readonly: true, class: 'form-control'%></td>
+              </tr>
+              <% index += 1 %>
             <% end %>
           </table>
         </div>

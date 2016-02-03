@@ -151,7 +151,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% TimeSheet.where(handed_in: true).order("hand_in_date DESC").each do |sheet| %>
+                  <% TimeSheet.where(handed_in: true).order("hand_in_date DESC").each do |sheet| %>
                     <tr>
                       <td><%= User.find(sheet.user_id).name %></td>
                       <td><%= l(Date.new(sheet.year, sheet.month, 1), format: :without_day) %></td>
@@ -162,7 +162,7 @@
                         <%= link_to t('.inspect'), work_days_path(month: sheet.month, year: sheet.year, project: sheet.project_id, user_id: sheet.user_id) %>
                       </td>
                     </tr>
-                <% end %>
+                  <% end %>
                 </tbody>
               </table>
             </div>
@@ -173,10 +173,10 @@
 <% end %>
 
 <% if can? :see_holidays, @user %>
-    <%= form_for(@user) do |f| %>
-      <div class="col-md-12">
-        <div class="display">
-          <div class="panel panel-default">
+  <%= form_for(@user) do |f| %>
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
           <div class="panel-heading">
             <div class="row">
               <div class="col-sm-6">
@@ -233,73 +233,73 @@
             </div>
           </div>
         </div>
-        </div>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 <% end %>
 
 <% if can? :see_trips, @user %>
-    <%= form_for(@user) do |f| %>
+  <%= form_for(@user) do |f| %>
     <div class="col-md-12">
       <div class="display">
         <div class="panel panel-default">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-md-6">
-              <h4><a name="trips"><%= t('.business_trips') %></a></h4>
-            </div>
-            <div class="col-md-6 text text-right">
-              <% if @user == current_user %>
-                  <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-success", id: "create_trip" %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div class="panel-body">
-          <div class="form-group">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th><%= t('activerecord.attributes.trip.destination') %></th>
-                  <th><%= t('activerecord.attributes.trip.date_start') %></th>
-                  <th><%= t('activerecord.attributes.trip.date_end') %></th>
-                  <th><%= t('activerecord.attributes.trip.status') %></th>
-                  <th><%= t('helpers.actions') %></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @trips.each do |trip| %>
-                  <tr>
-                    <td><%= trip.destination %></td>
-                    <td><%=l trip.date_start %></td>
-                    <td><%=l trip.date_end %></td>
-                    <td><%= trip.status %></td>
-                    <td>
-                      <%= link_to t("helpers.links.show_details"),
-                                  trip_path(trip), class: 'btn btn-default btn-xs' %><br>
-                      <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Trip_request', doc_id: trip), class: 'btn btn-info btn-xs' %>
-                    </td>
-                  </tr>
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-md-6">
+                <h4><a name="trips"><%= t('.business_trips') %></a></h4>
+              </div>
+              <div class="col-md-6 text text-right">
+                <% if @user == current_user %>
+                    <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-success", id: "create_trip" %>
                 <% end %>
-              </tbody>
-            </table>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th><%= t('activerecord.attributes.trip.destination') %></th>
+                    <th><%= t('activerecord.attributes.trip.date_start') %></th>
+                    <th><%= t('activerecord.attributes.trip.date_end') %></th>
+                    <th><%= t('activerecord.attributes.trip.status') %></th>
+                    <th><%= t('helpers.actions') %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @trips.each do |trip| %>
+                    <tr>
+                      <td><%= trip.destination %></td>
+                      <td><%=l trip.date_start %></td>
+                      <td><%=l trip.date_end %></td>
+                      <td><%= trip.status %></td>
+                      <td>
+                        <%= link_to t("helpers.links.show_details"),
+                                    trip_path(trip), class: 'btn btn-default btn-xs' %><br>
+                        <%= link_to t("helpers.links.download_pdf"), generate_pdf_path(doc_type: 'Trip_request', doc_id: trip), class: 'btn btn-info btn-xs' %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
-    <% end %>
+  <% end %>
 <% end %>
 
 <% if current_user.is_superadmin? %>
   <div class="col-md-12">
     <div class="display">
       <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%= t('.password') %></h4>
-      </div>
+        <div class="panel-heading">
+          <h4><%= t('.password') %></h4>
+        </div>
         <%= render partial: 'shared/passwords' %>
-    </div>
+      </div>
     </div>
   </div>
 <% end %>

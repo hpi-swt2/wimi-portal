@@ -90,10 +90,10 @@
         <div class="form-group">
           <table class='table table-striped' width="1000px">
             <thead>
-            <tr>
-              <th width="600px"> <%= t('projects.form.hiwi') %></th>
-              <th width="600px"><%= t('helpers.actions')%></th>
-            </tr>
+              <tr>
+                <th width="600px"> <%= t('projects.form.hiwi') %></th>
+                <th width="600px"><%= t('helpers.actions')%></th>
+              </tr>
             </thead>
             <tbody>
               <% @project.users.order('last_name').each do |user| %>
@@ -152,14 +152,14 @@
         <div class="col-md-4 col-sm-4">
           <div class="btn-group btn-group-justified">
             <% if @project.persisted? %>
-            <%= link_to t('helpers.links.cancel'),
+              <%= link_to t('helpers.links.cancel'),
                           project_path(@project), class: 'btn btn-default btn-block' %>
             <% else %>
-                <%= link_to t('helpers.links.cancel'),
+              <%= link_to t('helpers.links.cancel'),
                             projects_path, class: 'btn btn-default btn-block' %>
             <% end %>
             <%  if (can? :destroy, @project) && @project.persisted? %>
-                <%= link_to t('helpers.links.destroy'),
+              <%= link_to t('helpers.links.destroy'),
                             project_path(@project),
                             method: 'delete',
                             data: { confirm: t('helpers.links.confirm') },

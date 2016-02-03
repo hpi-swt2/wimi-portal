@@ -1,34 +1,34 @@
 <%= form_for(@time_sheet) do |f| %>
-<% if @time_sheet.errors.any? %>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="error_explanation">
-        <h2><%= pluralize(@time_sheet.errors.count, "error") %> prohibited this time_sheet from being saved:</h2>
+  <% if @time_sheet.errors.any? %>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="error_explanation">
+          <h2><%= pluralize(@time_sheet.errors.count, "error") %> prohibited this time_sheet from being saved:</h2>
 
-        <ul>
-        <% @time_sheet.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
+          <ul>
+          <% @time_sheet.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
+  <% end %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
         <%= f.label :salary, class: "control-label" %><br>
         <%= f.number_field :salary, class: "form-control" %>
         <%= f.select :salary_is_per_month, [[t('.monthly'), true], [t('.hourly'), false]], {}, {class: "form-control"} %>
       </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
         <%= f.label :workload, class: "control-label" %><br>
         <%= f.number_field :workload, class: "form-control" %>
         <%= f.select :workload_is_per_month, [[t('.monthly'), true], [t('.weekly'), false]], {}, {class: "form-control"} %>
       </div>
+    </div>
   </div>
-</div>
-      <%= f.submit nil, class:"btn btn-success btn-block" %>
+  <%= f.submit nil, class:"btn btn-success btn-block" %>
 <% end %>

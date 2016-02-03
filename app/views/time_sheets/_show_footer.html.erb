@@ -35,14 +35,14 @@
         <% end %>
         <div class=<%= @time_sheet.wimi_signed ? "col-md-6" : "col-md-6 col-md-offset-6"%>>
           <div class="form-group">
-             <%= f.label t('.reject_reason') %>
-             <%= f.text_field :rejection_message, id: 'message', size: 50 , class: "form-control"%>
+            <%= f.label t('.reject_reason') %>
+            <%= f.text_field :rejection_message, id: 'message', size: 50 , class: "form-control"%>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
-            <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
+          <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
         </div>
         <div class="col-md-6">
           <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
@@ -70,16 +70,16 @@
           </div>
         </div>
         <% unless @time_sheet.wimi_signed %>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="control-group">
-              <%= f.check_box :wimi_signed , style: "margin: 0px 10px;"%>
-              <%= f.label t('.add_signature') , style: "margin: 0px;"%>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="control-group">
+                <%= f.check_box :wimi_signed , style: "margin: 0px 10px;"%>
+                <%= f.label t('.add_signature') , style: "margin: 0px;"%>
+              </div>
             </div>
           </div>
-        </div>
         <% end %>
-            <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
+        <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
       <% end %>
       <% if @time_sheet.status.include? 'accepted'%>
         <div class="row">
@@ -96,7 +96,7 @@
             </div>
           </div>
         </div>
-            <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
+        <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
       <% end %>
     <% else %>
       <% if @time_sheet.status == 'rejected' %>

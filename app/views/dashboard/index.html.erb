@@ -35,9 +35,9 @@
         <h4><%=t('.activities')%></h4>
       </div>
       <div class="panel-body">
-        <% if @activities.size != 0 %>
+        <% if !@activities.empty? %>
           <% @activities.each do |event| %>
-          <%= render partial: event %>
+            <%= render partial: event %>
           <% end %>
         <% else %>
           <%= t('.activities_empty') %>
@@ -68,16 +68,16 @@
             <% Chair.all.each do |chair| %>
             <tr>
               <td><%= chair.name %></td>
-              <td>
-                <% if current_user.chair_wimi == nil %>
-                  <%= link_to t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
-                <% else %>
-                  <% if current_user.chair_wimi.chair == chair %>
-                    <span class="label label-warning"><%= t('activerecord.attributes.chair.application.status.pending') %></span>
+                <td>
+                  <% if current_user.chair_wimi == nil %>
+                    <%= link_to t('activerecord.attributes.chair.apply'), chairs_apply_path(:chair => chair), :method => :post, :class => 'btn btn-default btn-xs' %>
+                  <% else %>
+                    <% if current_user.chair_wimi.chair == chair %>
+                      <span class="label label-warning"><%= t('activerecord.attributes.chair.application.status.pending') %></span>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </td>
-            </tr>
+                </td>
+              </tr>
             <% end %>
           </tbody>
         </table>
@@ -88,37 +88,37 @@
 <% end %>
 
 <% if current_user.is_superadmin? %>
-<div class="col-md-12 col-sm-12">
-  <div class="display">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4> <%= t('activerecord.models.chair.other') %> </h4>
-      </div>
-      <div class="panel panel-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th><%= t('activerecord.attributes.chair.id', default: model_class.human_attribute_name(:id)) %></th>
-              <th><%= t('activerecord.attributes.chair.name', default: model_class.human_attribute_name(:name)) %></th>
-              <th><%= t('activerecord.attributes.chair.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% Chair.all.each do |chair| %>
-            <tr>
-              <td><%= chair.id %></td>
-              <td><%= chair.name %></td>
-              <td><%=l chair.created_at %></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <br>
-        <%= link_to t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
+  <div class="col-md-12 col-sm-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t('activerecord.models.chair.other') %> </h4>
+        </div>
+        <div class="panel panel-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t('activerecord.attributes.chair.id', default: model_class.human_attribute_name(:id)) %></th>
+                <th><%= t('activerecord.attributes.chair.name', default: model_class.human_attribute_name(:name)) %></th>
+                <th><%= t('activerecord.attributes.chair.created_at', default: model_class.human_attribute_name(:created_at)) %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Chair.all.each do |chair| %>
+              <tr>
+                <td><%= chair.id %></td>
+                <td><%= chair.name %></td>
+                <td><%=l chair.created_at %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <br>
+          <%= link_to t('chair.add_chair'), new_chair_path, class: 'btn btn-primary' %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <% end %>
 
 <% content_for :sidebar do %>
@@ -147,25 +147,25 @@
 
   <!-- Chair representative actions -->
   <% if current_user.is_representative? %>
-  <div class="col-md-12 col-sm-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t('.representative_actions') %> </h4>
-        </div>
-        <div class="panel-body">
-          <p>
-            <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holidays: true, applied: true, accepted: true, declined: true), method: :post %>
-          </p>
-          <p>
-            <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expenses: true, applied: true, accepted: true, declined: true), method: :post %>
-          </p>
-          <p>
-            <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
-          </p>
+    <div class="col-md-12 col-sm-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4> <%= t('.representative_actions') %> </h4>
+          </div>
+          <div class="panel-body">
+            <p>
+              <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holidays: true, applied: true, accepted: true, declined: true), method: :post %>
+            </p>
+            <p>
+              <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expenses: true, applied: true, accepted: true, declined: true), method: :post %>
+            </p>
+            <p>
+              <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   <% end %>
 <% end %>

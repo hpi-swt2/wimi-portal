@@ -9,22 +9,22 @@
     <% else %>
       <table class="table table-striped">
         <thead>
-        <tr>
-          <th><%= model_class.human_attribute_name(:name) %></th>
-          <th><%= model_class.human_attribute_name(:status) %></th>
-          <th></th>
-        </tr>
+          <tr>
+            <th><%= model_class.human_attribute_name(:name) %></th>
+            <th><%= model_class.human_attribute_name(:status) %></th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
         <% @chairs.each do |chair| %>
-            <tr>
-              <% if current_user.is_admin?(chair) || current_user.is_representative?(chair) %>
-                  <td><%= link_to chair.name, chair_path(chair) %></td>
-              <% else %>
-                  <td><%= chair.name %></td>
-              <% end %>
-              <td>
-                <% if current_user.chair_wimi.nil? && !current_user.superadmin %>
+          <tr>
+            <% if current_user.is_admin?(chair) || current_user.is_representative?(chair) %>
+              <td><%= link_to chair.name, chair_path(chair) %></td>
+            <% else %>
+              <td><%= chair.name %></td>
+            <% end %>
+            <td>
+              <% if current_user.chair_wimi.nil? && !current_user.superadmin %>
                   <%= link_to I18n.t('chairs.navigation.apply_wimi'), chairs_apply_path(chair: chair), method: :post, class: 'btn btn-default btn-xs' %>
                 <% else %>
                   <% if current_user.chair == chair %>
@@ -50,14 +50,14 @@
                 <% end %>
               </td>
             </tr>
-        <% end %>
+          <% end %>
         </tbody>
       </table>
     <% end %>
     <% if can? :create, Chair %>
-        <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize),
-                    new_chair_path,
-                    class: 'btn btn-success btn-block' %>
+      <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize),
+                  new_chair_path,
+                  class: 'btn btn-success btn-block' %>
     <% end %>
   </div>
 </div>

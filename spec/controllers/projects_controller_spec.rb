@@ -105,7 +105,7 @@ RSpec.describe ProjectsController, type: :controller do
 
       it 'invites all users on the invitations list' do
         @user2 = FactoryGirl.create(:user)
-        post :create, {project: valid_attributes, invitations: { user: @user2.email }}, valid_session
+        post :create, {project: valid_attributes, invitations: {user: @user2.email}}, valid_session
         expect(Invitation.find_by_user_id(@user2.id)).not_to be_nil
       end
     end
@@ -263,7 +263,7 @@ RSpec.describe ProjectsController, type: :controller do
     it 'rejects the invitation if user is superadmin' do
       @user2 = FactoryGirl.create(:user)
 
-      post :create, {project: valid_attributes, invitations: { user: @user2.email }}, valid_session
+      post :create, {project: valid_attributes, invitations: {user: @user2.email}}, valid_session
 
       expect(Invitation.find_by_user_id(@user2.id)).not_to be_nil
 
