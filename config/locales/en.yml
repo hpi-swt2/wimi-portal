@@ -280,6 +280,7 @@ en:
     applied: "Expense is already applied"
     destroyed: "Expense was successfully destroyed"
     apply: "Expense was successfully applied"
+    no_trip: "You can not hand in an expense unless you have applied the business trip"
   users:
     upload_signature:
       upload_success: "Signature was successfully uploaded"
