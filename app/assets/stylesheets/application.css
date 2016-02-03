@@ -42,22 +42,6 @@ body {
     padding-bottom: 50px; /*50px for the height of the bottom navbar*/
 }
 
-a:link {
-  color: blue;
-}
-
-a:hover {
-  color: blue;
-  text-decoration: none;
-  background-color: transparent;
-}
-
-a:visited {
-  color: purple;
-  text-decoration: none;
-  background-color: transparent;
-}
-
 .container-fluid.scrollable {
     height: 100%; /*Sets the scrollable area to 100% of the viewport*/
     overflow: auto; /*Allows the scrollable area to have a scrollbar based on the height of its content*/
@@ -139,6 +123,7 @@ a:visited {
 .link {
     color: mediumblue;
 }
+
 .buttonGroup {
     margin-top: 40px;
 }
