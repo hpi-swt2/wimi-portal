@@ -96,7 +96,9 @@ en:
       student_assistants: "Student Assistants"
       project_team: "Project Team"
       active: "aktiv"
-      leave_project: "Leave"
+      leave_project: "Leave Project"
+      edit_project: "Edit Project"
+      leave_p: "Leave"
     index:
       new: "Add project"
       title: "Title"
