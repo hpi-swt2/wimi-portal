@@ -176,9 +176,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_worked_hours(year, month, project)
-  end
-
   def get_desc_sorted_trips
     all_trips = Trip.where(user_id: id)
     trips = []
