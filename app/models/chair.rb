@@ -45,9 +45,9 @@ class Chair < ActiveRecord::Base
     @allrequests = []
 
     users.each do |user|
-      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays, statuses) if types.include? 'holidays'
-      add_requests(I18n.t('chair.requests.expense_request'), user.expenses, statuses) if types.include? 'expenses'
-      add_requests(I18n.t('chair.requests.trip_request'), user.trips, statuses) if types.include? 'trips'
+      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays, statuses) if types.include?('holidays') || types.empty?
+      add_requests(I18n.t('chair.requests.expense_request'), user.expenses, statuses) if types.include?('expenses') || types.empty?
+      add_requests(I18n.t('chair.requests.trip_request'), user.trips, statuses) if types.include?('trips') || types.empty?
     end
 
     return @allrequests.sort_by { |v| v[:handed_in] }.reverse
@@ -123,7 +123,7 @@ class Chair < ActiveRecord::Base
 
   def add_requests(type, array, statuses)
     array.each do |r|
-      if statuses.include? r.status
+      if statuses.include?(r.status) || (statuses.empty? && r.status != 'saved')
         @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r}
       end
     end
