@@ -16,7 +16,7 @@
 class EventHolidayRequest < Event
   before_save :set_defaults
   belongs_to :target, class_name: 'User'
-  belongs_to :trigger, class_name: 'Trip'
+  belongs_to :trigger, class_name: 'User'
 
   def set_defaults
     self.seclevel = :wimi
