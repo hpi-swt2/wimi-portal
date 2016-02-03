@@ -34,7 +34,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
-        <%= f.label :start, class: '' %><span style = "color: red">*</span>
+        <%= f.label :start, class: '' %><span style="color: red">*</span>
         <div class="">
           <%= f.text_field :start, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.start ? l(@holiday.start) : nil , placeholder: t('trips.form.date') %>
         </div>
@@ -43,7 +43,7 @@
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <%= f.label :end, class: '' %><span style = "color: red">*</span>
+        <%= f.label :end, class: '' %><span style="color: red">*</span>
         <div class="">
           <%= f.text_field :end, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @holiday.end ? l(@holiday.end) : nil , placeholder: t('trips.form.date') %>
         </div>
@@ -90,7 +90,7 @@
     </div>
     <div class = "col-sm-2">
       <div align="right">
-        <span style = "color: red">* <%= t'helpers.forms.required_field'%></span>
+        <span style="color: red">* <%= t'helpers.forms.required_field'%></span>
       </div>
     </div>
   </div>

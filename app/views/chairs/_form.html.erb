@@ -38,7 +38,7 @@
         <div id="admins"><%= f.label t('roles.admin_long_plural'), class: 'control-label' %><br>
           <% @chair.admin_users.each do |admin| %>
             <div id="admin_<%= admin.id %>">
-            <li><%= admin.name %><a onClick="removeAdmin(<%= admin.id %>)"><span style = "color: red"> entfernen</span></a></li>
+            <li><%= admin.name %><a onClick="removeAdmin(<%= admin.id %>)"><span style="color: red"> entfernen</span></a></li>
             <input type="hidden" name="admins[<%= admin.id %>]" value="<%= admin.id %>" />
             </div>
           <% end %>
