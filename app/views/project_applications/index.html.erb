@@ -1,20 +1,22 @@
 <%- model_class = ProjectApplication -%>
-<div class="page-header">
-  <h1><%=t '.title', default: model_class.model_name.human.pluralize.titleize %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th><%= model_class.human_attribute_name(:project) %></th>
-    <th><%= model_class.human_attribute_name(:status) %></th>
-    <th><%=t '.actions', default: t("helpers.actions") %></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @project_applications.each do |project_application| %>
+<div class="col-md-12">
+  <div class="display">
+    <div class="page-header">
+      <h1><%=t '.title', default: model_class.model_name.human.pluralize.titleize %></h1>
+    </div>
+    <table class="table table-striped">
+      <thead>
       <tr>
-        <td><%= link_to project_application.project.title, project_path(project_application.project_id) %></td>
-          <% case project_application.status %>
+        <th><%= model_class.human_attribute_name(:project) %></th>
+        <th><%= model_class.human_attribute_name(:status) %></th>
+        <th><%=t '.actions', default: t("helpers.actions") %></th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @project_applications.each do |project_application| %>
+          <tr>
+            <td><%= link_to project_application.project.title, project_path(project_application.project_id) %></td>
+            <% case project_application.status %>
             <% when "pending" %>
               <td>
                 <span class="label label-xs label-info"><%= I18n.t('project_applications.states.pending') %></span>
@@ -32,15 +34,17 @@
               </td>
               <td></td>
             <% when "declined"%>
-                <td>
-                  <span class="label label-xs label-danger"><%= I18n.t('project_applications.states.declined') %></span>
-                </td>
-                <td>
-                  <%= link_to t('project_applications.reapply', default: 'Reapply'),
-                              reapply_project_application_path(project_application), class: 'btn btn-primary btn-xs' %>
-                </td>
-          <% end %>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+              <td>
+                <span class="label label-xs label-danger"><%= I18n.t('project_applications.states.declined') %></span>
+              </td>
+              <td>
+                <%= link_to t('project_applications.reapply', default: 'Reapply'),
+                            reapply_project_application_path(project_application), class: 'btn btn-primary btn-xs' %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
