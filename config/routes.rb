@@ -61,8 +61,6 @@ Rails.application.routes.draw do
     get 'time_sheets/accept_reject', to: 'time_sheets#accept_reject'
   end
 
-  resources :travel_expense_reports
-
   resources :trips do
     resources :expenses, except: [:show, :index]
     member do
