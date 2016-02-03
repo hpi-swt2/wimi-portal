@@ -30,7 +30,8 @@ RSpec.describe ProjectsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
-      title: 'My Project'
+      title: 'My Project',
+      chair: FactoryGirl.create(:chair)
     }
   }
   let(:invalid_attributes) {
