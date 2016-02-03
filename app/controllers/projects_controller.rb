@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
     @project.chair = current_user.chair
     if @project.save
       current_user.projects << @project
-      flash[:success] = 'Project was successfully created.'
+      flash[:success] = t '.success'
       unless params[:invitations].blank?
         params[:invitations].values.each do |email|
           user = User.find_by_email(email)
@@ -47,7 +47,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      flash[:success] = 'Project was successfully updated.'
+      flash[:success] = t '.success'
       redirect_to @project
     else
       render :edit
@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy_invitations
     @project.destroy
-    flash[:success] = 'Project was successfully destroyed.'
+    flash[:success] = t '.success'
     redirect_to projects_url
   end
 
