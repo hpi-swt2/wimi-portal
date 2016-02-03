@@ -47,7 +47,7 @@ RSpec.describe TripsController, type: :controller do
     date_start: I18n.l(Date.today, locale: 'en'),
     date_end: I18n.l(Date.today+2, locale: 'en'),
     days_abroad: 1,
-    signature: true,
+    signature: 1,
     user: @user}
   }
 
@@ -58,7 +58,7 @@ RSpec.describe TripsController, type: :controller do
     date_start: I18n.l(Date.today+2, locale: 'en'),
     date_end: I18n.l(Date.today+4, locale: 'en'),
     days_abroad: 2,
-    signature: false,
+    signature: 0,
     user: @user}
   }
 
@@ -69,7 +69,7 @@ RSpec.describe TripsController, type: :controller do
     date_start: Date.today,
     date_end: Date.today-10,
     days_abroad: -20,
-    signature: true,
+    signature: 1,
     user: @user}
   }
 
@@ -80,7 +80,7 @@ RSpec.describe TripsController, type: :controller do
     date_start: I18n.l(Date.today, locale: 'en'),
     date_end: I18n.l(Date.today-10, locale: 'en'),
     days_abroad: -20,
-    signature: true,
+    signature: 1,
     user: @user}
   }
 
@@ -308,18 +308,6 @@ RSpec.describe TripsController, type: :controller do
         post :hand_in, {id: trip.id}
         get :accept, {id: trip.to_param}, valid_session
         expect(Trip.find(trip.id).status).to eq('accepted')
-      end
-
-      it 'redirects to trip if accepter has no signature' do
-        ChairWimi.first.update_attributes(user: @user, representative: true)
-        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
-        post :hand_in, {id: trip.id}
-        @user.signature = nil
-        login_with @user
-        get :accept, {id: trip.to_param}, valid_session
-
-        expect(response).to redirect_to(trip)
-        assert_equal 'You tried to accept a document, but there was no signature found. Please upload a signature first!', flash[:error]
       end
     end
 

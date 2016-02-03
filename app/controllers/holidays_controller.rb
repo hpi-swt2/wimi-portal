@@ -35,10 +35,10 @@ class HolidaysController < ApplicationController
 
     @holiday = Holiday.new(holiday_params.merge(user: current_user, last_modified: Date.today))
 
-    if holiday_params[:signature] && current_user.signature.nil?
+    if holiday_params[:signature] == '1' && current_user.signature.nil?
       @holiday.signature = false
       flash[:error] = t('signatures.signature_not_found')
-    elsif holiday_params[:signature] && !current_user.signature.nil?
+    elsif holiday_params[:signature] == '1' && !current_user.signature.nil?
       @holiday.user_signature = current_user.signature
       @holiday.user_signed_at = Date.today
     end
@@ -60,12 +60,12 @@ class HolidaysController < ApplicationController
 
     new_holiday_params = holiday_params
 
-    if new_holiday_params[:signature] && current_user.signature.nil?
+    if new_holiday_params[:signature] == '1' && current_user.signature.nil?
       new_holiday_params[:signature] = false
       @holiday.user_signature = nil
       @holiday.user_signed_at = nil
       flash[:error] = t('signatures.signature_not_found')
-    elsif new_holiday_params[:signature] && !current_user.signature.nil?
+    elsif new_holiday_params[:signature] == '1' && !current_user.signature.nil?
       @holiday.user_signature = current_user.signature
       @holiday.user_signed_at = Date.today
     else
@@ -128,13 +128,8 @@ class HolidaysController < ApplicationController
 
   def accept
     if (can? :read, @holiday) && @holiday.status == 'applied'
-      if current_user.signature.nil?
-        redirect_to @holiday
-        flash[:error] = t('signatures.signature_not_found_representative')
-      else
         @holiday.update_attributes(status: 'accepted', last_modified: Date.today, representative_signature: current_user.signature, representative_signed_at: Date.today)
         redirect_to @holiday.user
-      end
     else
       redirect_to root_path
       flash[:error] = t('holiday.not_authorized')

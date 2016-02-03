@@ -42,8 +42,15 @@
   </div>
 </div>
 <% if (can? :accept, @trip) && @trip.status == 'applied' %>
-  <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %>
-  <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-primary' %>
+    <% if current_user.signature.nil? %>
+        <%= t('signature_warning') %>
+        <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/>
+        <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %>
+        <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-primary', disabled: "disabled" %>
+    <% else %>
+        <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-primary' %>
+        <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-primary' %>
+    <% end %>
 <% end %>
 <% unless @trip.status == 'applied' || @trip.status == 'accepted' %>
   <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),

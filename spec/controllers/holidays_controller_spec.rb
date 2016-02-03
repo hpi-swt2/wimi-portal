@@ -42,7 +42,7 @@ RSpec.describe HolidaysController, type: :controller do
   }
 
   let(:signature_valid_attributes) {
-    {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: 1, signature: true}
+    {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: 1, signature: 1}
   }
 
   let(:checked_invalid_attributes) {
@@ -375,18 +375,6 @@ RSpec.describe HolidaysController, type: :controller do
         login_with @user
         get :accept, {id: holiday.to_param}, valid_session
         expect(response).to redirect_to(user2)
-      end
-
-      it 'redirects to holiday if accepter has no signature' do
-        chair = FactoryGirl.create(:chair)
-        ChairWimi.first.update_attributes(user: @user, representative: true)
-        user2 = FactoryGirl.create(:user, chair: chair)
-        holiday = FactoryGirl.create(:holiday, user: user2, status: 'applied')
-        login_with @user
-        get :accept, {id: holiday.to_param}, valid_session
-
-        expect(response).to redirect_to(holiday)
-        assert_equal 'You tried to accept a document, but there was no signature found. Please upload a signature first!', flash[:error]
       end
 
       it 'updates the status' do

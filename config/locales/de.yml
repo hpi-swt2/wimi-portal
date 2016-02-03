@@ -291,4 +291,3 @@ de:
   signatures:
     signature_not_found: "Sie haben ausgewählt, das Dokument zu unterschreiben, haben aber noch keine Unterschrift hinzugefügt"
     signature_not_found_time_sheet: "Das Dokument wurde nicht eingereicht, da Sie ausgewählt haben, das Dokument zu unterschreiben, aber noch keine Unterschrift hinzugefügt wurde"
-    signature_not_found_representative: "Sie haben versucht ein Dokument zu akzeptieren, haben aber noch keine Unterschrift hinzugefügt. Bitte fügen Sie erst eine Unterschrift hinzu!"

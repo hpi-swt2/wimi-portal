@@ -44,12 +44,20 @@
     </dl>
   </div>
 </div>
-
 <%= link_to link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Holiday_request', doc_id: @holiday), class: 'btn btn-default' %>
 <% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
-  <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
+    <%= link_to t('.file'), file_holiday_path, class: 'btn btn-primary' %>
 <% end %>
-<% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
-  <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
-  <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary' %>
-<% end %>
+<div>
+  <% if (can? :accept, @holiday) && @holiday.status == 'applied' %>
+      <% if current_user.signature.nil? %>
+          <%= t('signature_warning') %>
+          <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
+          <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
+          <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary', disabled: "disabled" %>
+      <% else %>
+          <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
+          <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary' %>
+      <% end %>
+  <% end %>
+</div>

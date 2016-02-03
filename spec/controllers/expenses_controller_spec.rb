@@ -24,7 +24,7 @@ RSpec.describe ExpensesController, type: :controller do
      vehicle_advance: false,
      hotel: true,
      general_advance: 2000,
-     signature: true,
+     signature: 1,
      user: @user,
      trip: @trip}
   }
@@ -42,7 +42,7 @@ RSpec.describe ExpensesController, type: :controller do
      vehicle_advance: false,
      hotel: true,
      general_advance: '',
-     signature: true,
+     signature: 1,
      user: @user,
      trip: @trip}
   }
@@ -60,7 +60,7 @@ RSpec.describe ExpensesController, type: :controller do
      vehicle_advance: false,
      hotel: true,
      general_advance: -100,
-     signature: true,
+     signature: 1,
      user: @user,
      trip: @trip}
   }

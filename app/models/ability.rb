@@ -43,6 +43,7 @@ class Ability
     can :sign_user_out, Project do |project|
       project.users.include? user
     end
+    can :read,  TimeSheet.select { |t| t.user == user}
     # can :accept_invitation, Project
     # can :manage, Stundenzettel
   end
@@ -91,6 +92,10 @@ class Ability
     can :see_holidays, User do |u|
       u == user
     end
+
+    can :reject, TimeSheet.select { |t| Project.select {|p| p.users.include? user &&  p == t.project }}
+    can :accept, TimeSheet.select { |t| Project.select {|p| p.users.include? user &&  p == t.project }}
+    can :read, TimeSheet.select { |t| Project.select {|p| p.users.include? user &&  p == t.project }}
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end
@@ -138,6 +143,10 @@ class Ability
     can :requests_filtered, Chair do |chair|
       user.is_representative?(chair)
     end
+
+    cannot :reject, TimeSheet
+    cannot :accept, TimeSheet
+    cannot :see, TimeSheet
   end
 
   def initialize_admin(user)
@@ -159,6 +168,10 @@ class Ability
       user.is_admin?(chair)
     end
     can :see,               Chair
+
+    cannot :reject, TimeSheet
+    cannot :accept, TimeSheet
+    cannot :see, TimeSheet
     #can :manage, own chair
     #can accept application from wimi to project
     #can remove wimis from project

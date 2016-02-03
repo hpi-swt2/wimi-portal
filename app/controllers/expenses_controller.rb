@@ -23,10 +23,10 @@ class ExpensesController < ApplicationController
     @expense.user = current_user
     fill_items
 
-    if expense_params[:signature] && current_user.signature.nil?
+    if expense_params[:signature] == '1' && current_user.signature.nil?
       @expense.signature = false
       flash[:error] = t('signatures.signature_not_found')
-    elsif expense_params[:signature] && !current_user.signature.nil?
+    elsif expense_params[:signature] == '1' && !current_user.signature.nil?
       @expense.user_signature = current_user.signature
       @expense.user_signed_at = Date.today
     end
@@ -50,12 +50,12 @@ class ExpensesController < ApplicationController
 
     new_expense_params = expense_params
 
-    if new_expense_params[:signature] && current_user.signature.nil?
+    if new_expense_params[:signature] == '1' && current_user.signature.nil?
       new_expense_params[:signature] = false
       @expense.user_signature = nil
       @expense.user_signed_at = nil
       flash[:error] = t('signatures.signature_not_found')
-    elsif new_expense_params[:signature] && !current_user.signature.nil?
+    elsif new_expense_params[:signature] == '1' && !current_user.signature.nil?
       @expense.user_signature = current_user.signature
       @expense.user_signed_at = Date.today
     else

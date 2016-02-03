@@ -5,30 +5,40 @@
   <% if current_user.is_wimi? && @time_sheet.handed_in? %>
     <%= t('.acceptence_requested_at') %> <b><%=l @time_sheet.hand_in_date %></b><br>
     <%= t('.status') %> <b><%= t(".#{@time_sheet.status}") %></b><br>
-    <% if @time_sheet.status.include? 'pending' %>
+    <% if @time_sheet.status == 'pending' %>
       <%= t('.document_was') %>
       <% unless @time_sheet.signed %>
         <b><%= t('.not') %></b>
       <% end %>
       <%= t('.signed') %>
       <p>
-      <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
-        <% unless @time_sheet.wimi_signed %>
-          <div class="control-group">
-            <%= f.check_box :wimi_signed %>
-            <%= f.label t('.add_signature') %>
-          </div>
-          <br>
-        <% end %>
-        <%= f.submit t('.accept'), class: 'btn btn-primary' %>
-        <%= f.submit t('.reject'), class: 'btn btn-primary' %>
-        <br>
-        <br>
-        <%= f.label t('.reject_reason') %>
-        <br>
-        <%= f.text_field :rejection_message, id: 'message', size: 50 %>
+        <!-- TODO refactor -->
+        <% if (can? :accept, @time_sheet) && @time_sheet.handed_in? %>
+            <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
+                <% unless @time_sheet.wimi_signed %>
+                      <div class="control-group">
+                        <%= f.check_box :wimi_signed %>
+                        <%= f.label t('.add_signature') %>
+                      </div>
+                      <br>
+                  <% end %>
+                  <% if current_user.signature.nil? %>
+                      <%= t('signature_warning') %>
+                      <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
+                      <%= f.submit t('.accept'), class: 'btn btn-primary', disabled: "disabled" %>
+                      <%= f.submit t('.reject'), class: 'btn btn-primary' %>
+                  <% else %>
+                      <%= f.submit t('.accept'), class: 'btn btn-primary' %>
+                      <%= f.submit t('.reject'), class: 'btn btn-primary' %>
+                  <% end %>
+                  <br>
+                  <br>
+                  <%= f.label t('.reject_reason') %>
+                  <br>
+                  <%= f.text_field :rejection_message, id: 'message', size: 50 %>
+              <% end %>
+          <% end %>
       <% end %>
-    <% end %>
   <% else %>
     <%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet), method: :get do |f| %>
       <% if @time_sheet.handed_in? %>
