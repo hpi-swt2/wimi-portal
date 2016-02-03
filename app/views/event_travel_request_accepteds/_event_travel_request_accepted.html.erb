@@ -8,4 +8,5 @@
       person_in_power: link_to(person_in_power.name, person_in_power),
       link_to_view: link_to(t('.view'), trip))
   %>
+  <%= link_to t('helpers.submit.hide'), hide_event_path(id: event_travel_request_accepted, request: current_user), method: :post, class: 'label label-warning' %>
 <br>
