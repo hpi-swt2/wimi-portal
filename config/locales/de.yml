@@ -119,7 +119,7 @@ de:
         breakfast: "Frühstück"
         lunch: "Mittagessen"
         dinner: "Abendessen"
-        annotation: "Beschreibung"
+        annotation: "Tätigkeit"
       user:
         id: "Id"
         email: "E-Mail"
@@ -158,6 +158,8 @@ de:
         end_time: "Endzeit"
         duration: "Dauer"
         notes: "Anmerkung"
+        attendance: "Anwesenheit"
+        project: "Projekt"
       time_sheet:
         salary: "Bezahlung"
         workload: "Arbeitszeit"
@@ -202,6 +204,7 @@ de:
   links:
     search: 'Suchen'
     submit: 'Abschicken'
+    filter: 'Filtern'
   holiday:
     not_authorized: 'Sie sind nicht befugt, diesen Urlaubsantrag einzusehen.'
     not_enough_leave: 'Nicht genug Resturlaub übrig!'
@@ -211,7 +214,7 @@ de:
     something_wrong: 'Es gab einen unbekannten Fehler.'
     applied: "Urlaubsantrag bereits eingereicht"
   project:
-    filter_chair: 'Nach Fachgebiet filtern'
+    filter_chair: 'Filtern nach ...'
     invite_someone_to_project: 'Jemanden zum Projekt einladen'
     invite_someone_to_the_project: "Jemanden zum Projekt \"%{title}\" einladen"
     send_invitation_to: 'Einladung senden an:'

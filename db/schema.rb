@@ -70,15 +70,16 @@ ActiveRecord::Schema.define(version: 20160203130657) do
     t.boolean  "public_transport"
     t.boolean  "vehicle_advance"
     t.boolean  "hotel"
-    t.integer  "status",           default: 0
+    t.integer  "status",            default: 0
     t.integer  "general_advance"
     t.integer  "user_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.boolean  "signature"
     t.integer  "trip_id"
     t.string   "time_start"
     t.string   "time_end"
+    t.text     "rejection_message"
   end
 
   add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
