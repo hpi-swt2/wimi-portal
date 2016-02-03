@@ -77,6 +77,7 @@ de:
         reason: "Grund für Sonderurlaub"
         annotations: "Anmerkungen"
         replacement: "Vertretung"
+        signature: "Unterschreiben"
       expense:
         id: "Id"
         amount: "Betrag"
@@ -91,7 +92,7 @@ de:
         destination: "Ziel"
         reason: "Grund"
         annotation: "Bemerkungen"
-        signature: "Unterschreiben?"
+        signature: "Unterschreiben"
         status: "Status"
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
@@ -113,7 +114,7 @@ de:
         vehicle_advance: "vom HPI im Voraus bezahlt"
         hotel: "Hotel"
         general_advance: "Vorschuss"
-        signature: "Unterschreiben?"
+        signature: "Unterschreiben"
       expense_item:
         date: "Datum"
         breakfast: "Frühstück"

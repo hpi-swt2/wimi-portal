@@ -73,6 +73,7 @@ en:
         reason: "Reason for Special Leave"
         annotations: "Annotations"
         replacement: "Replacement"
+        signature: "Add signature"
       expense:
         id: "Id"
         amount: "Amount"
@@ -87,7 +88,7 @@ en:
         destination: "Destination"
         reason: "Reason"
         annotation: "Annotations"
-        signature: "Add signature?"
+        signature: "Add signature"
         status: "Status"
         user_id: "User"
         created_at: "Created at"
@@ -114,7 +115,7 @@ en:
         vehicle_advance: "Travel paid by HPI"
         hotel: "Hotel"
         general_advance: "Advance"
-        signature: "Add signature?"
+        signature: "Add signature"
       expense_item:
         date: "Date"
         breakfast: "Breakfast"

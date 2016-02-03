@@ -39,6 +39,8 @@
           <%= User.find(@holiday.replacement_user_id).name %>
         <% end %>
       </dd>
+      <dt><strong><%= model_class.human_attribute_name(:signature) %>:</strong></dt>
+      <dd><%= t(@holiday.signature.to_s) %></dd>
       <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
       <dd><%= t(".status.#{@holiday.status}") + l(@holiday.last_modified)%></dd>
     </dl>

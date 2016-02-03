@@ -35,7 +35,7 @@
       <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>
       <dd><%= @trip.annotation %></dd>
       <dt><strong><%= model_class.human_attribute_name(:signature) %>:</strong></dt>
-      <dd><%= @trip.signature %></dd>
+      <dd><%= t(@trip.signature.to_s) %></dd>
       <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
       <dd><%= t(".status.#{@trip.status}") + l(@trip.updated_at)%></dd>
     </dl>
