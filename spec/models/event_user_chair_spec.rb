@@ -22,7 +22,9 @@ RSpec.describe EventUserChair, type: :model do
       trigger = FactoryGirl.create(:user)
       target = FactoryGirl.create(:user)
       @event = EventUserChair.create(trigger_id: trigger.id, target_id: target.id, chair_id: chair.id)
+
       expect(@event.seclevel).to eq('admin')
+      expect(@event.type).to eq('EventUserChair')
     end
   end
 end

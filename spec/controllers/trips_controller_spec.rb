@@ -21,7 +21,8 @@ require 'rails_helper'
 RSpec.describe TripsController, type: :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair), user: @user)
+    chair = FactoryGirl.create(:chair)
+    FactoryGirl.create(:wimi, chair: chair, user: @user)
     login_with @user
   end
 
@@ -30,19 +31,57 @@ RSpec.describe TripsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {destination: 'NYC Conference',
-     reason: 'Hana Things',
-     annotation: 'HANA pls',
-     signature: true,
-     user: @user}
+    reason: 'Hana Things',
+    annotation: 'HANA pls',
+    date_start: Date.today,
+    date_end: Date.today + 2,
+    days_abroad: 1,
+    signature: true,
+    user: @user}
+  }
+
+  let(:valid_attributes_format) {
+    {destination: 'NYC Conference',
+    reason: 'Hana Things',
+    annotation: 'HANA pls',
+    date_start: I18n.l(Date.today, locale: 'en'),
+    date_end: I18n.l(Date.today + 2, locale: 'en'),
+    days_abroad: 1,
+    signature: true,
+    user: @user}
+  }
+
+  let(:new_attributes_format) {
+    {destination: 'NYC',
+    reason: 'Hana ',
+    annotation: 'HANA pls',
+    date_start: I18n.l(Date.today + 2, locale: 'en'),
+    date_end: I18n.l(Date.today + 4, locale: 'en'),
+    days_abroad: 2,
+    signature: false,
+    user: @user}
   }
 
   let(:invalid_attributes) {
-    {
-        destination: '',
-        reason: 'Hana Things',
-        annotation: 'HANA pls',
-        signature: true,
-        user: FactoryGirl.create(:user)}
+    {destination: '',
+    reason: 'Hana Things',
+    annotation: 'HANA pls',
+    date_start: Date.today,
+    date_end: Date.today - 10,
+    days_abroad: -20,
+    signature: true,
+    user: @user}
+  }
+
+  let(:invalid_attributes_format) {
+    {destination: '',
+    reason: 'Hana Things',
+    annotation: 'HANA pls',
+    date_start: I18n.l(Date.today, locale: 'en'),
+    date_end: I18n.l(Date.today - 10, locale: 'en'),
+    days_abroad: -20,
+    signature: true,
+    user: @user}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -85,18 +124,18 @@ RSpec.describe TripsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Trip' do
         expect {
-          post :create, {trip: valid_attributes}, valid_session
+          post :create, {trip: valid_attributes_format}, valid_session
         }.to change(Trip, :count).by(1)
       end
 
       it 'assigns a newly created trip as @trip' do
-        post :create, {trip: valid_attributes}, valid_session
+        post :create, {trip: valid_attributes_format}, valid_session
         expect(assigns(:trip)).to be_a(Trip)
         expect(assigns(:trip)).to be_persisted
       end
 
       it 'redirects to the created trip' do
-        post :create, {trip: valid_attributes}, valid_session
+        post :create, {trip: valid_attributes_format}, valid_session
         expect(response).to redirect_to(Trip.last)
       end
       it 'has the status saved' do
@@ -108,7 +147,7 @@ RSpec.describe TripsController, type: :controller do
         user = FactoryGirl.create(:user)
         login_with(user)
         expect{
-        post :create, {trip: valid_attributes}, valid_session
+          post :create, {trip: valid_attributes_format}, valid_session
         }.to change(Trip, :count).by(0)
         expect(response).to redirect_to(trips_path)
       end
@@ -116,12 +155,12 @@ RSpec.describe TripsController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved trip as @trip' do
-        post :create, {trip: invalid_attributes}, valid_session
+        post :create, {trip: invalid_attributes_format}, valid_session
         expect(assigns(:trip)).to be_a_new(Trip)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {trip: invalid_attributes}, valid_session
+        post :create, {trip: invalid_attributes_format}, valid_session
         expect(response).to render_template('new')
       end
     end
@@ -140,7 +179,7 @@ RSpec.describe TripsController, type: :controller do
 
       it 'updates the requested trip' do
         trip = Trip.create! valid_attributes
-        put :update, {id: trip.to_param, trip: new_attributes}, valid_session
+        put :update, {id: trip.to_param, trip: new_attributes_format}, valid_session
         trip.reload
         expect(trip.destination).to eq('NYC')
         expect(trip.status).to eq('saved')
@@ -148,13 +187,13 @@ RSpec.describe TripsController, type: :controller do
 
       it 'assigns the requested trip as @trip' do
         trip = Trip.create! valid_attributes
-        put :update, {id: trip.to_param, trip: valid_attributes}, valid_session
+        put :update, {id: trip.to_param, trip: valid_attributes_format}, valid_session
         expect(assigns(:trip)).to eq(trip)
       end
 
       it 'redirects to the trip' do
         trip = Trip.create! valid_attributes
-        put :update, {id: trip.to_param, trip: valid_attributes}, valid_session
+        put :update, {id: trip.to_param, trip: valid_attributes_format}, valid_session
         expect(response).to redirect_to(trip)
       end
     end
@@ -162,13 +201,13 @@ RSpec.describe TripsController, type: :controller do
     context 'with invalid params' do
       it 'assigns the trip as @trip' do
         trip = Trip.create! valid_attributes
-        put :update, {id: trip.to_param, trip: invalid_attributes}, valid_session
+        put :update, {id: trip.to_param, trip: invalid_attributes_format}, valid_session
         expect(assigns(:trip)).to eq(trip)
       end
 
       it "re-renders the 'edit' template" do
         trip = Trip.create! valid_attributes
-        put :update, {id: trip.to_param, trip: invalid_attributes}, valid_session
+        put :update, {id: trip.to_param, trip: invalid_attributes_format}, valid_session
         expect(response).to render_template('edit')
       end
     end
@@ -223,6 +262,86 @@ RSpec.describe TripsController, type: :controller do
       login_with(user)
       post :hand_in, {id: trip.id}
       expect(Trip.find(trip.id).status).to eq('saved')
+    end
+  end
+
+  describe 'GET #accept' do
+    context 'with valid params' do
+      it 'redirects to the users page' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :accept, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(@user)
+      end
+
+      it 'redirects to root path if status is not applied' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'saved')
+        login_with(@user)
+        get :accept, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'updates the status' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :accept, {id: trip.to_param}, valid_session
+        expect(Trip.find(trip.id).status).to eq('accepted')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'redirects to the trips path if not chair representative' do
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :accept, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(trips_path)
+      end
+    end
+  end
+
+  describe 'GET #reject' do
+    context 'with valid params' do
+      it 'redirects to the users page' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :reject, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(@user)
+      end
+
+      it 'redirects to root path if status is not applied' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'saved')
+        login_with(@user)
+        get :reject, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'updates the status' do
+        ChairWimi.first.update_attributes(user: @user, representative: true)
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :reject, {id: trip.to_param}, valid_session
+        expect(Trip.find(trip.id).status).to eq('declined')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'redirects to the trips path if not chair representative' do
+        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+        login_with(@user)
+        post :hand_in, {id: trip.id}
+        get :reject, {id: trip.to_param}, valid_session
+        expect(response).to redirect_to(trips_path)
+      end
     end
   end
 end

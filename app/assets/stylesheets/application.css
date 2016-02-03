@@ -105,3 +105,40 @@ a:visited {
     display: inline-block;
     width: 48%;
 }
+
+.email-invite {
+    width: 503px;
+    margin-right: 5px;
+}
+
+.inviteBoxes {
+    margin-top: 20px;
+    max-height: 200px;
+}
+
+.inviteBoxesHeading {
+    margin-top: 40px;
+}
+
+.submitGroup {
+    margin-top: 40px;
+}
+
+.removeButton {
+    width: 103.516px;
+}
+
+.inviteInput {
+    margin-left: 15px;
+}
+
+.addnewUserButton {
+    margin-left: 15px;
+}
+
+.link {
+    color: mediumblue;
+}
+.buttonGroup {
+    margin-top: 40px;
+}

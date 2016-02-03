@@ -13,23 +13,25 @@ class TripsController < ApplicationController
   end
 
   def show
+    unless (@trip.user == current_user) || ((can? :see_trips, @trip.user) && (can? :edit_trip, @trip))
+      redirect_to root_path
+      flash[:error] = I18n.t('trip.not_authorized')
+    end
   end
 
   def new
     @trip = Trip.new
-    2.times { @trip.trip_datespans.build }
   end
 
   def edit
     if @trip.status == 'applied'
       redirect_to @trip
       flash[:error] = I18n.t('trip.applied')
-    else
-      fill_blank_items
     end
   end
 
   def create
+    parse_date
     @trip = Trip.new(trip_params)
     @trip.user = current_user
 
@@ -37,18 +39,17 @@ class TripsController < ApplicationController
       redirect_to @trip
       flash[:success] = I18n.t('trip.save')
     else
-      fill_blank_items
       render :new
     end
   end
 
   def update
+    parse_date
     @trip.update(status: 'saved')
     if @trip.update(trip_params)
       redirect_to @trip
       flash[:success] = I18n.t('trip.update')
     else
-      fill_blank_items
       render :edit
     end
   end
@@ -76,6 +77,28 @@ class TripsController < ApplicationController
   def download
   end
 
+  def reject
+    if (can? :read, @trip) && @trip.status == 'applied'
+      @trip.update_attributes(status: 'declined', last_modified: Date.today, person_in_power: current_user)
+      ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestDeclined'})
+      redirect_to @trip.user
+    else
+      redirect_to root_path
+      flash[:error] = t('trip.not_authorized')
+    end
+  end
+
+  def accept
+    if (can? :read, @trip) && @trip.status == 'applied'
+      @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user)
+      ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})
+      redirect_to @trip.user
+    else
+      redirect_to root_path
+      flash[:error] = t('trip.not_authorized')
+    end
+  end
+
   private
 
   def set_trip
@@ -83,10 +106,11 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(Trip.column_names.map(&:to_sym), trip_datespans_attributes: [:id, :start_date, :end_date, :days_abroad])
+    params.require(:trip).permit(Trip.column_names.map(&:to_sym))
   end
 
-  def fill_blank_items
-    (2 - @trip.trip_datespans.size).times { @trip.trip_datespans.build }
+  def parse_date
+    params['trip']['date_start'] = Date.strptime(params['trip']['date_start'], t('date.formats.default'))
+    params['trip']['date_end'] = Date.strptime(params['trip']['date_end'], t('date.formats.default'))
   end
 end

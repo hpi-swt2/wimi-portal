@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user, :accept_invitation, :decline_invitation]
 
   has_scope :title
@@ -13,6 +14,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @project.invitations.build
   end
 
   def edit
@@ -20,10 +22,18 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.chair = current_user.chair
     if @project.save
-      @project.update(chair: current_user.chair)
       current_user.projects << @project
       flash[:success] = 'Project was successfully created.'
+      unless params[:invitations].blank?
+        params[:invitations].values.each do |email|
+          user = User.find_by_email(email)
+          unless user.nil? or Invitation.where(project: @project, user: user).size > 0 or @project.users.include? user
+            @project.invite_user user, current_user
+          end
+        end
+      end
       redirect_to @project
     else
       render :new
@@ -48,7 +58,7 @@ class ProjectsController < ApplicationController
   def invite_user
     user = User.find_by_email params[:invite_user][:email]
     if user.nil?
-      flash[:error] = I18n.t('project.user.doesnt_exist')
+      flash[:error] = I18n.t('users.does_not_exist')
       redirect_to @project
     else
       if Invitation.where(project: @project, user: user).size > 0
@@ -59,9 +69,13 @@ class ProjectsController < ApplicationController
           flash[:error] = I18n.t('project.user.already_is_member')
           redirect_to @project
         else
-          @project.invite_user user
-          flash[:success] = I18n.t('project.user.was_successfully_invited')
-          redirect_to @project
+          if @project.invite_user user, current_user
+            flash[:success] = I18n.t('project.user.was_successfully_invited')
+            redirect_to @project
+          else
+            flash[:error] = I18n.t('project.user.cannot_be_invited')
+            redirect_to @project
+          end
         end
       end
     end
@@ -81,19 +95,29 @@ class ProjectsController < ApplicationController
   def sign_user_out
     user = User.find(params[:user_id])
     @project = Project.find(params[:id])
-    @project.remove_user(user)
-    if user == current_user
-      redirect_to @project
+    if can?(:edit, @project) || current_user == user
+      @project.remove_user(user)
+      if user == current_user
+        redirect_to projects_path
+      else
+        redirect_to edit_project_path(@project)
+      end
     else
-      redirect_to edit_project_path(@project)
+      redirect_to dashboard_path
+      flash[:error] = I18n.t('project.user.not_authorized')
     end
   end
 
   def accept_invitation
-    @project.add_user current_user
-    @project.destroy_invitation current_user
-    flash[:success] = I18n.t('project.user.invitation_accepted')
-    redirect_to @project
+    if @project.add_user current_user
+      @project.destroy_invitation current_user
+      flash[:success] = I18n.t('project.user.invitation_accepted')
+      redirect_to dashboard_path
+    else
+      @project.destroy_invitation current_user
+      flash[:error] = I18n.t('project.user.cannot_be_invited')
+      redirect_to dashboard_path
+    end
   end
 
   def decline_invitation
@@ -105,6 +129,16 @@ class ProjectsController < ApplicationController
   def typeahead
     @search = UserSearch.new(typeahead: params[:query])
     render json: @search.results
+  end
+
+  def hiwi_working_hours
+    month = params[:month_year].split('-')[0]
+    year = params[:month_year].split('-')[1]
+    month.to_i
+    year.to_i
+    render json: {msg: Project.working_hours_data(year, month)}
+    rescue
+      render json: {msg: {y: 0, name: I18n.t('activerecord.errors.try_again_later')}}
   end
 
   private

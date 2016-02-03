@@ -1,25 +1,27 @@
 <div class="col-sm-6">
   <p>
-    <strong>Salary: </strong>
+    <strong><%= t('.salary') %> </strong>
     <%= @time_sheet.salary %>
     <% if @time_sheet.salary_is_per_month %>
-      <%= ' Euro / Month' %>
+      <%= t('.salary_per_month') %>
     <% else %>
-      <%= ' Euro / Hour' %>
+      <%= t('.salary_per_hour') %>
     <% end %>
   </p>
 
   <p>
-    <strong>Workload: </strong>
+    <strong><%= t('.workload') %> </strong>
     <%= @time_sheet.workload %>
     <% if @time_sheet.workload_is_per_month %>
-      <%= ' Hours / Month' %>
+      <%= t('.workload_per_month') %>
     <% else %>
-      <%= ' Hours / Week' %>
+      <%= t('.workload_per_week') %>
     <% end %>
   </p>
 </div>
-<div class="col-sm-6 text text-right">
-  <%= link_to t('.edit', default: t("helpers.links.edit")),
-      edit_time_sheet_path(@time_sheet), class: 'btn btn-default btn-xs' %>
-</div>
+<% if current_user == @time_sheet.user && !@time_sheet.handed_in? %>
+  <div class="col-sm-6 text text-right">
+    <%= link_to t('.edit', default: t("helpers.links.edit")),
+        edit_time_sheet_path(@time_sheet), class: 'btn btn-default btn-xs' %>
+  </div>
+<% end %>
