@@ -101,6 +101,7 @@ de:
       projects: "Projekte"
       all_working_hours: "Hiwi Stunden Gesamt für"
   users:
+    no_email: "ist keine gültige Email-Adresse."
     does_not_exist: "Dieser Benutzer existiert nicht."
     update:
       user_updated: "Profil erfolgreich aktualisiert"
