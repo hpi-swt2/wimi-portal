@@ -9,11 +9,11 @@ describe WorkDaysController, type: :controller do
   end
 
   let(:valid_attributes) {
-    {date: Date.today, start_time: Time.now.middle_of_day, end_time: Time.now.middle_of_day + 2.hour, break: 10, attendance: '', notes: 'some note', user_id: @user.id, project_id: @project.id}
+    {date: '2015-11-18', start_time: '2015-11-18 15:00:00', end_time: '2015-11-18 17:00:00', break: 10, attendance: '', notes: 'some note', user_id: @user.id, project_id: @project.id}
   }
 
   let(:invalid_attributes) {
-    {date: Date.today, start_time: Time.now.middle_of_day, end_time: Time.now.middle_of_day + 2.hour, break: nil, attendance: '', notes: 'some note', user_id: @user.id}
+    {date: '2015-11-18', start_time: '2015-11-18 15:00:00', end_time: '2015-11-18 17:00:00', break: nil, attendance: '', notes: 'some note', user_id: @user.id}
   }
 
   let(:valid_session) { {} }
@@ -21,19 +21,20 @@ describe WorkDaysController, type: :controller do
   describe 'GET #index' do
     it 'assigns work_days for this month as @work_days' do
       work_day = WorkDay.create! valid_attributes
-      get :index, {month: Date.today.month, year: Date.today.year, user_id: @user.id}, valid_session
+      get :index, {month: 11, year: 2015, project: work_day.project_id, user_id: @user.id}, valid_session
       expect(assigns(:work_days)).to eq([work_day])
     end
 
-    it 'redirects to work days of current month when no month is given' do
+    it 'redirects to user profile when no url params are given' do
       work_day = WorkDay.create! valid_attributes
       get :index, {}, valid_session
-      expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user_id: @user.id))
+      expect(response).to redirect_to(user_path(@user))
     end
 
     it 'shows work_days for month and project' do
       work_day = WorkDay.create! valid_attributes
-      get :index, {month: Date.today.month, year: Date.today.year, user_id: @user.id, project_id: @project.id}, valid_session
+      get :index, {month: 11, year: 2015, project: @project.id, user_id: @user.id}, valid_session
+      expect(response).to_not redirect_to(user_path(@user))
       expect(assigns(:work_days)).to eq([work_day])
     end
   end
@@ -76,8 +77,9 @@ describe WorkDaysController, type: :controller do
       end
 
       it 'redirects to the work_day list for the work_days month' do
+        work_day = WorkDay.create! valid_attributes
         post :create, {work_day: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year))
+        expect(response).to redirect_to(work_days_path(month: 11, year: 2015, project: work_day.project_id, user_id: @user.id))
       end
     end
 
@@ -114,10 +116,10 @@ describe WorkDaysController, type: :controller do
         expect(assigns(:work_day)).to eq(work_day)
       end
 
-      it 'redirects to work_day list for November 2015' do
+      it 'redirects to work_day list of updated work_days month and project' do
         work_day = WorkDay.create! valid_attributes
         put :update, {id: work_day.to_param, work_day: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year))
+        expect(response).to redirect_to(work_days_path(month: work_day.date.month, year: work_day.date.year, project: work_day.project_id, user_id: @user.id))
       end
     end
 
@@ -147,7 +149,7 @@ describe WorkDaysController, type: :controller do
     it 'redirects to the work_days list for current month' do
       work_day = WorkDay.create! valid_attributes
       delete :destroy, {id: work_day.to_param}, valid_session
-      expect(response).to redirect_to(work_days_path(month: work_day.date.month, year: work_day.date.year))
+      expect(response).to redirect_to(work_days_path(month: work_day.date.month, year: work_day.date.year, project: work_day.project_id, user_id: @user.id))
     end
   end
 end

@@ -45,19 +45,21 @@
 <% end %>
 
 <% if @user == current_user %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%= t('.time_sheets_overview')%></h4>
-      </div>
-      <div class="panel-body">
-        <% @user.years_and_months_of_existence.each do |month| %>
-            <p>
-              <%= link_to l(Date.new(month.first, month.last, 1), format: :without_day) + ':', work_days_path(month: month.last, year: month.first) %>
-              <% current_user.projects_for_month(month.first, month.last).each do |project| %>
-                  <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user) %>
-              <% end %>
-            </p>
-        <% end %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>t('.work_times')</h4>
+    </div>
+    <div class="panel-body">
+      <% @user.years_and_months_of_existence.each do |month| %>
+        <p>
+          <%= Date::MONTHNAMES[month.last] + " " + month.first.to_s + ":  "%>
+          <% @user.projects_for_month(month.first, month.last)[0..-2].each do |project|%>
+            <%= link_to(project.title, work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user), class: 'link') + ', '%>
+          <% end %>
+          <% project =  @user.projects_for_month(month.first, month.last).last%>
+          <%= link_to project.title, work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user), class: 'link' unless project.nil?%>
+        </p>
+      <% end %>
       </div>
     </div>
 <% end %>
