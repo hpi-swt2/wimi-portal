@@ -207,6 +207,11 @@ de:
       view: "Ansehen"
       request: "Dienstreiseantrag"
       full_html: "Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>angenommen</b>. %{link_to_view}"
+  event_holiday_requests:
+    event_holiday_request:
+      accepted: "akzeptiert"
+      rejected: "abgelehnt"
+      full_html: "%{person_in_power} hat den Urlaubsantrag von %{user} <b>%{status}</b>."
   event_travel_request_declineds:
     event_travel_request_declined:
       view: "Ansehen"
