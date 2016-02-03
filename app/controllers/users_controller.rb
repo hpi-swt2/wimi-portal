@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
-  before_action :user_exists, :set_user, except: :language
+  before_filter :authenticate_user!, except: :superadmin_index
+  before_action :user_exists, :set_user, except: [:superadmin_index, :language]
+  load_and_authorize_resource
+
+  rescue_from CanCan::AccessDenied do |_exception|
+    flash[:error] = I18n.t('not_authorized')
+    redirect_to dashboard_path
+  end
 
   def show
-    @datespans = current_user.get_desc_sorted_datespans
+    @trips = @user.get_desc_sorted_trips
   end
 
   def edit
@@ -11,15 +17,65 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      I18n.locale = @user.language
       flash[:success] = t('.user_updated')
-      redirect_to current_user
+      if user_params.has_key?(:language)
+        redirect_to :back
+      else
+        redirect_to current_user
+      end
     else
       render :edit
     end
+    rescue ActionController::RedirectBackError
+      redirect_to current_user
   end
+
+  def superadmin_index
+    unless current_user.nil?
+      flash[:error] = t('.logout_before_access_superadmin_page')
+      redirect_to root_path
+    end
+  end
+
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+  helper_method :resource, :resource_name, :devise_mapping
 
   def language
     render json: {msg: current_user.language}
+  end
+
+  def upload_signature
+    if params[:upload]
+      file = Base64.encode64(params[:upload]['datafile'].read)
+      file_name = params[:upload]['datafile'].original_filename
+      file_type = file_name.split('.').last.to_s
+      if %w[jpg bmp jpeg png].include? file_type.downcase
+        @user.update(signature: file)
+        flash[:success] = t('.upload_success')
+      else
+        flash[:error] = t('.invalid_file_extension')
+      end
+    else
+      flash[:error] = t('.upload_error')
+    end
+    redirect_to current_user
+  end
+
+  def delete_signature
+    @user.update(signature: nil)
+    flash[:success] = t('.destroy_success')
+    redirect_to current_user
   end
 
   private
@@ -35,6 +91,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :residence, :street, :personnel_number, :remaining_leave, :remaining_leave_last_year, :language)
+    params[:user].permit(User.column_names.map(&:to_sym))
   end
 end

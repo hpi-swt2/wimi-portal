@@ -2,12 +2,17 @@
 #
 # Table name: events
 #
-# id          :integer      not null, primary key
-# trigger     :integer      foreign key
-# target      :integer      foreign key
-# chair       :integer      foreign key
-# seclevel    :integer
-# type        :string
+#  id         :integer          not null, primary key
+#  trigger_id :integer
+#  target_id  :integer
+#  chair_id   :integer
+#  seclevel   :integer
+#  type       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  status     :string
+#
+
 class Event < ActiveRecord::Base
   belongs_to :chair
   belongs_to :trigger, class_name: 'User'

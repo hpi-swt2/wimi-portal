@@ -18,28 +18,38 @@ RSpec.describe DocumentsController, type: :controller do
       expect {get :generate_pdf, params}.to raise_error(NotImplementedError)
     end
 
-    it 'should generate a PDF file for a travel expense reports' do
-      report = FactoryGirl.create(:travel_expense_report)
-      params = {doc_type: 'Reisekostenabrechnung', doc_id: report.id}
+    it 'should generate a PDF file for a travel expense report application' do
+      report = FactoryGirl.create(:expense)
+      params = {doc_type: 'Expense_request', doc_id: report.id}
       get :generate_pdf, params
       expect(response.headers['Content-Type']).to eq('application/pdf')
-      expect(response.headers['Content-Disposition']).to eq("attachment; filename=\"Reisekostenabrechnung.pdf\"")
+      expect(response.headers['Content-Disposition']).to eq("attachment; filename=\"Expense_request.pdf\"")
     end
 
-    it 'should generate a PDF file for a business trip' do
+    it 'should generate a PDF file for a business trip application' do
       trip = FactoryGirl.create(:trip)
-      params = {doc_type: 'Dienstreiseantrag', doc_id: trip.id}
+      params = {doc_type: 'Trip_request', doc_id: trip.id}
       get :generate_pdf, params
       expect(response.headers['Content-Type']).to eq('application/pdf')
-      expect(response.headers['Content-Disposition']).to eq("attachment; filename=\"Dienstreiseantrag.pdf\"")
+      expect(response.headers['Content-Disposition']).to eq("attachment; filename=\"Trip_request.pdf\"")
     end
 
-    it 'should generate a PDF file for a holidays' do
+    it 'should generate a PDF file for a holiday application' do
       holiday = FactoryGirl.create(:holiday, user: @user)
-      params = {doc_type: 'Urlaubsantrag', doc_id: holiday.id}
+      params = {doc_type: 'Holiday_request', doc_id: holiday.id}
       get :generate_pdf, params
       expect(response.headers['Content-Type']).to eq('application/pdf')
-      expect(response.headers['Content-Disposition']).to eq("attachment; filename=\"Urlaubsantrag.pdf\"")
+      expect(response.headers['Content-Disposition']).to eq("attachment; filename=\"Holiday_request.pdf\"")
+    end
+
+    it 'should generate a PDF file for a time sheet' do
+      chair = FactoryGirl.create(:chair)
+      project = FactoryGirl.create(:project, chair: chair)
+      time_sheet = FactoryGirl.create(:time_sheet, user_id: @user.id, project_id: project)
+      params = {doc_type: 'Timesheet', doc_id: time_sheet.id}
+      get :generate_pdf, params
+      expect(response.headers['Content-Type']).to eq('application/pdf')
+      expect(response.headers['Content-Disposition']).to eq("attachment; filename=\"Timesheet.pdf\"")
     end
   end
 end
