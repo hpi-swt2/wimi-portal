@@ -91,6 +91,7 @@ class Ability
     can :sign_user_out, Project do |project|
       project.users.include? user
     end
+    cannot :add_working_hours, Project
     can :manage, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
