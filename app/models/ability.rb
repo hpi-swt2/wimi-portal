@@ -54,6 +54,11 @@ class Ability
     can :decline_invitation, Project do |project|
       Invitation.select { |i| i.user == user && i.project == project }
     end
+
+    can :manage, TimeSheet
+    can :manage, WorkDay
+    can :index, Holiday
+    can :index, Trip
   end
 
   def initialize_hiwi(user)
@@ -119,10 +124,9 @@ class Ability
     can :see_holidays, User do |u|
       u == user
     end
-
-    can :reject, TimeSheet.select { |t| Project.select {|p| p.users.include? user &&  p == t.project }}
-    can :accept, TimeSheet.select { |t| Project.select {|p| p.users.include? user &&  p == t.project }}
-    can :read, TimeSheet.select { |t| Project.select {|p| p.users.include? user &&  p == t.project }}
+    can :edit_leave, User do |u|
+      u == user
+    end
     #can :set aktive/inaktive
     #can :manage, Documents of hiwis in own projects
   end

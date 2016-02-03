@@ -1,47 +1,51 @@
 <%- model_class = Holiday -%>
-<div class="page-header">
-  <h1><%= t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th><%= model_class.human_attribute_name(:start) %></th>
-    <th><%= model_class.human_attribute_name(:end) %></th>
-    <th><%= model_class.human_attribute_name(:user_id) %></th>
-    <th><%= model_class.human_attribute_name(:created_at) %></th>
-    <th><%= model_class.human_attribute_name(:status) %></th>
-    <th><%= t '.actions', default: t('helpers.actions') %></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% current_user.holidays.each do |holiday| %>
+<div class="col-md-12">
+  <div class="display">
+    <div class="page-header">
+      <h1><%= t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
+    </div>
+    <table class="table table-striped">
+      <thead>
       <tr>
-        <td><%=l holiday.start %></td>
-        <td><%=l holiday.end %></td>
-        <td><%= User.find(holiday.user_id).email %></td>
-        <td><%=l holiday.created_at %></td>
-        <td><%= holiday.status %></td>
-        <td>
-          <%= link_to t('helpers.links.show_details'), holiday, class: 'btn btn-default btn-xs' %>
-          <% if holiday.status == 'saved' %>
-            <%= link_to t('holidays.show.file'),
-                      file_holiday_path(holiday), class: 'btn btn-success btn-xs' %>
-            <%= link_to t('.edit', default: t('helpers.links.edit')),
-                      edit_holiday_path(holiday), class: 'btn btn-default btn-xs' %>
-            <%= link_to t('.destroy', default: t('helpers.links.destroy')),
-                      holiday_path(holiday),
-                      method: :delete,
-                      data: { confirm: t('.confirm', default: 'Are you sure?') },
-                      class: 'btn btn-xs btn-danger' %>
-          <% end %>
-        </td>
+        <th><%= model_class.human_attribute_name(:start) %></th>
+        <th><%= model_class.human_attribute_name(:end) %></th>
+        <th><%= model_class.human_attribute_name(:user_id) %></th>
+        <th><%= model_class.human_attribute_name(:created_at) %></th>
+        <th><%= model_class.human_attribute_name(:status) %></th>
+        <th><%= t '.actions', default: t('helpers.actions') %></th>
       </tr>
-  <% end %>
-  </tbody>
-</table>
+      </thead>
+      <tbody>
+      <% current_user.holidays.each do |holiday| %>
+          <tr>
+            <td><%=l holiday.start %></td>
+            <td><%=l holiday.end %></td>
+            <td><%= User.find(holiday.user_id).email %></td>
+            <td><%=l holiday.created_at %></td>
+            <td><%= holiday.status %></td>
+            <td>
+              <%= link_to t('helpers.links.show_details'), holiday, class: 'btn btn-default btn-xs' %>
+              <% if holiday.status == 'saved' %>
+                <%= link_to t('holidays.show.file'),
+                          file_holiday_path(holiday), class: 'btn btn-success btn-xs' %>
+                <%= link_to t('.edit', default: t('helpers.links.edit')),
+                          edit_holiday_path(holiday), class: 'btn btn-default btn-xs' %>
+                <%= link_to t('.destroy', default: t('helpers.links.destroy')),
+                          holiday_path(holiday),
+                          method: :delete,
+                          data: { confirm: t('.confirm', default: 'Are you sure?') },
+                          class: 'btn btn-xs btn-danger' %>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
 
-<% if can? :create, Holiday %>
-    <%= link_to t('users.show.request_holiday'),
-                new_holiday_path,
-                class: 'btn btn-primary' %>
-<% end %>
+    <% if can? :create, Holiday %>
+        <%= link_to t('users.show.request_holiday'),
+                    new_holiday_path,
+                    class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

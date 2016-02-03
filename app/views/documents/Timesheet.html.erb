@@ -64,7 +64,7 @@
     <th style='padding: 3 20'><b>Bemerkungen</b></th>
   </tr>
   <% days_in_month.each do |day| %>
-      <tr>
+    <tr>
       <td><%= l(day[:date], format: '%A', locale: :de)[0..1] %>, <%= sprintf '%02d', day[:date].day %></td>
       <td><%= day[:start] %></td>
       <td><%= day[:break] %></td>
