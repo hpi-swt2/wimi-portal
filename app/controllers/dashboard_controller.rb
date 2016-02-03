@@ -39,7 +39,7 @@ class DashboardController < ApplicationController
 
     # Holiday-Requests: accepted / declined
     @activities += Event.where(chair: current_user.chair).where(type: 'EventHolidayRequest') if current_user.is_representative?
-    @activities += Event.where(trigger_id: current_user.id).where(type: 'EventHolidayRequest')
+    @activities += Event.where(target_id: current_user.id).where(type: 'EventHolidayRequest')
 
 
     
