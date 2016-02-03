@@ -25,11 +25,11 @@
                   <% if current_user.signature.nil? %>
                       <%= t('signature_warning') %>
                       <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
-                      <%= f.submit t('.accept'), class: 'btn btn-primary', disabled: "disabled" %>
-                      <%= f.submit t('.reject'), class: 'btn btn-primary' %>
+                      <%= f.submit t('.accept'), class: 'btn btn-success btn-xs', disabled: "disabled" %>
+                      <%= f.submit t('.reject'), class: 'btn btn-danger btn-xs' %>
                   <% else %>
-                      <%= f.submit t('.accept'), class: 'btn btn-primary' %>
-                      <%= f.submit t('.reject'), class: 'btn btn-primary' %>
+                      <%= f.submit t('.accept'), class: 'btn btn-success btn-xs' %>
+                      <%= f.submit t('.reject'), class: 'btn btn-danger btn-xs' %>
                   <% end %>
                   <br>
                   <br>

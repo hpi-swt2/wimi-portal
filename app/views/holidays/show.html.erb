@@ -55,11 +55,11 @@
       <% if current_user.signature.nil? %>
           <%= t('signature_warning') %>
           <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
-          <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
-          <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary', disabled: "disabled" %>
+          <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger btn-xs' %>
+          <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success btn-xs', disabled: "disabled" %>
       <% else %>
-          <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-primary' %>
-          <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-primary' %>
+          <%= link_to t('.reject'), reject_holiday_path, class: 'btn btn-danger btn-xs' %>
+          <%= link_to t('.accept'), accept_holiday_path, class: 'btn btn-success btn-xs' %>
       <% end %>
   <% end %>
 </div>
