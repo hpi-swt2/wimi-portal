@@ -38,10 +38,9 @@ describe 'trips and expenses', type: feature do
     visit "/users/#{@current_user.id}/"
     click_on(I18n.t('helpers.links.show_details'))
     click_on(I18n.t('helpers.links.hand_in'))
-    expect(page).to have_content I18n.t('status.applied')
     expect(page).to_not have_link 'edit_trip'
     visit "/users/#{@current_user.id}/"
-    expect(page).to have_content I18n.t('status.applied') #as status of submitted request
+    expect(page).to have_content I18n.t('users.show.status.applied') #as status of submitted request
   end
 
   it 'adds expenses to a business trip'  do

@@ -32,11 +32,13 @@ class Holiday < ActiveRecord::Base
   enum status: [:saved, :applied, :accepted, :declined]
 
   def duration
-    start.business_days_until(self.end + 1)
+    if self.end && self.start
+      return start.business_days_until(self.end + 1)
+    end
   end
 
   def duration_geq_length
-    if duration < length
+    if duration && duration < length
       errors.add(:length, I18n.t('activerecord.errors.models.holiday.duration_geq_length'))
     end
   end

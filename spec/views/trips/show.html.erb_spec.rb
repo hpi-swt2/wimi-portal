@@ -5,6 +5,11 @@ RSpec.describe 'trips/show', type: :view do
     user = FactoryGirl.create(:user)
     @trip = assign(:trip, FactoryGirl.create(:trip, user_id: user.id))
     sign_in user
+
+    # I'm a magician ! weeee
+    @ability = Object.new
+    @ability.extend(CanCan::Ability)
+    allow(controller).to receive(:current_ability) { @ability }
   end
 
   it 'renders attributes in <p>' do
@@ -16,6 +21,8 @@ RSpec.describe 'trips/show', type: :view do
   end
 
   it 'displays links for editing, applying and destroing when status is not applied' do
+    @ability.can :hand_in, Trip
+    @ability.can :destroy, Trip
     render
     expect(rendered).to have_link(t('helpers.links.hand_in'))
     expect(rendered).to have_link(t('helpers.links.edit'))
