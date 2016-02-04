@@ -123,20 +123,22 @@
           </div>
         </div>
         <div class="row vertical-align">
-          <div class="col-md-6">
-            <% unless @time_sheet.signed %>
-              <div class="control-group">
-                <%= f.check_box :signed , style: 'margin: 0px 10px;' %>
-                <%= f.label t('.add_signature') , style: 'margin: 0px;' %>
-              </div>
-            <% end %>
-          </div>
-          <div class="col-md-6">
-            <%= f.submit t('.hand_in'), class: 'btn btn-success btn-block' %>
-          </div>
+          <% if @time_sheet.user_id == current_user.id %>
+            <div class="col-md-6">
+              <% unless @time_sheet.signed %>
+                <div class="control-group">
+                  <%= f.check_box :signed , style: 'margin: 0px 10px;' %>
+                  <%= f.label t('.add_signature') , style: 'margin: 0px;' %>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <%= f.submit t('.hand_in'), class: 'btn btn-success btn-block' %>
+            </div>
+          <% end %>
         </div>
       <% else %>
-        <% if @time_sheet.user_id = current_user.id %>
+        <% if @time_sheet.user_id == current_user.id %>
           <div class="row vertical-align">
             <div class="col-md-6">
               <% unless @time_sheet.signed %>

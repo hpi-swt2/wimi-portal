@@ -286,6 +286,7 @@ de:
   work_days:
     index:
       working_hours_for: "Arbeitsstunden im"
+      working_hours: "Arbeitsstunden"
       new: "hinzufügen"
       for: "für"
       by: "von"

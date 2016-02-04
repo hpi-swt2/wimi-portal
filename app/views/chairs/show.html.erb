@@ -68,11 +68,6 @@
         <% @chair.hiwis.each do |hiwi| %>
           <tr>
             <td><%= hiwi.name %></td>
-            <td>
-              <% if current_user.chair_wimi.representative %>
-                <%= I18n.t('chairs.navigation.show_timesheets') %>
-              <% end %>
-            </td>
           </tr>
         <% end %>
       </table>
