@@ -104,7 +104,7 @@ de:
       status: "Status"
       status_true: "Aktiv"
       status_false: "Inaktiv"
-      all_working_hours: "Hiwi Stunden Gesamt für"
+      all_working_hours: "Gesamtstunden aller Hiwis für das Fachgebiet"
     create:
       success: 'Projekt wurde erfolgreich erstellt.'
     update:
