@@ -89,7 +89,7 @@
   <% end %>
 
   <!-- time sheet overview for hiwi -->
-  <% if @user == current_user %>
+  <% if @user == current_user and not current_user.is_wimi? %>
     <div class="col-md-12">
       <div class="display">
         <div class="panel panel-default">
@@ -120,7 +120,7 @@
   <% end %>
 <% end %>
 
-<% if current_user.is_wimi? && @user == current_user %>
+<% if not @user == current_user and current_user.is_wimi? %>
     <div class="col-md-12">
       <div class="display">
         <div class="panel panel-default">
@@ -144,46 +144,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12">
-      <div class="display">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4><%= t('.time_sheets_overview') %></h4>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th><%= t('.hiwi') %></th>
-                  <th><%= t('.month') %></th>
-                  <th><%= t('.number_of_hours') %></th>
-                  <th><%= t('.handed_in_at') %></th>
-                  <th><%= t('.status_timesheet') %></th>
-                  <th><%= t('.action') %></th>
-                </tr>
-                </thead>
-                <tbody>
-                  <% TimeSheet.where(handed_in: true).order("hand_in_date DESC").each do |sheet| %>
-                    <tr>
-                      <td><%= User.find(sheet.user_id).name %></td>
-                      <td><%= l(Date.new(sheet.year, sheet.month, 1), format: :without_day) %></td>
-                      <td><%= sheet.sum_hours %></td>
-                      <td><%= sheet.hand_in_date %></td>
-                      <td><%= t("time_sheets.show_footer.#{sheet.status}") %></td>
-                      <td>
-                        <%= link_to t('.inspect'), work_days_path(month: sheet.month, year: sheet.year, project: sheet.project_id, user_id: sheet.user_id) %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-<% end %>
+  <% end %>
 
 <% if can? :see_holidays, @user %>
   <%= form_for(@user) do |f| %>
@@ -312,4 +273,46 @@
       </div>
     </div>
   <% end %>
+<% end %>
+
+<% if @user == current_user and current_user.is_wimi? %>
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4><%= t('.time_sheets_overview') %></h4>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th><%= t('.hiwi') %></th>
+                  <th><%= t('.month') %></th>
+                  <th><%= t('.number_of_hours') %></th>
+                  <th><%= t('.handed_in_at') %></th>
+                  <th><%= t('.status_timesheet') %></th>
+                  <th><%= t('.action') %></th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% TimeSheet.where(handed_in: true).order("hand_in_date DESC").each do |sheet| %>
+                    <tr>
+                      <td><%= User.find(sheet.user_id).name %></td>
+                      <td><%= l(Date.new(sheet.year, sheet.month, 1), format: :without_day) %></td>
+                      <td><%= sheet.sum_hours %></td>
+                      <td><%= sheet.hand_in_date %></td>
+                      <td><%= t("time_sheets.show_footer.#{sheet.status}") %></td>
+                      <td>
+                        <%= link_to t('.inspect'), work_days_path(month: sheet.month, year: sheet.year, project: sheet.project_id, user_id: sheet.user_id) %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 <% end %>
