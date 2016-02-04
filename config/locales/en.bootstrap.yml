@@ -182,7 +182,7 @@ en:
   holidays:
     show:
       days: "Day(s)"
-      file: "File Request"
+      hand_in: "Hand in"
       reject: "Reject Request"
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
@@ -282,7 +282,7 @@ en:
       status: "Status"
       user_id: "User"
       created_at: "Created at"
-      file: "File Request"
+      hand_in: "Hand in"
       reject: "Reject Request"
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"

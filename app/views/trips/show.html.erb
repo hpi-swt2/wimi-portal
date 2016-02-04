@@ -119,8 +119,6 @@
             <% if @trip.user == current_user %>
                 <% if @trip.has_expense? && !(@trip.expense.status == 'applied')  %>
                   <%= link_to t('helpers.links.edit'), edit_trip_expense_path(@trip,@trip.expense) , class: "btn btn-warning btn-block"%>
-                <% else %>
-                  <%= link_to t('helpers.links.edit'), '#', class: 'btn btn-warning btn-block', disabled: 'disabled', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
                 <% end %>
             <% end %>
           </div>
@@ -133,7 +131,7 @@
       <div class="btn-group btn-group-justified">
         <% unless @trip.expense.status == 'applied' || @trip.expense.status == 'accepted' %>
           <% if can? :hand_in, @trip.expense %>
-            <%= link_to t('.hand_in', default: t("helpers.links.hand_in")), hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-success' %>
+            <%= link_to t('.hand_in'), hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-success' %>
           <% end %>
           <% if can? :destroy, @trip.expense %>
             <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
