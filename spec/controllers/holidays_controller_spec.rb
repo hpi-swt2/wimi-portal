@@ -41,6 +41,10 @@ RSpec.describe HolidaysController, type: :controller do
     {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: 1}
   }
 
+  let(:signature_valid_attributes) {
+    {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: 1, signature: 1}
+  }
+
   let(:checked_invalid_attributes) {
     {start: I18n.l(Date.today), end: I18n.l(Date.today - 1), user: @user, length: 1}
   }
@@ -109,6 +113,26 @@ RSpec.describe HolidaysController, type: :controller do
         }.to change(Holiday, :count).by(1)
       end
 
+      it 'does not save the signature if absent' do
+        expect {
+          post :create, {holiday: signature_valid_attributes}, valid_session
+        }.to change(Holiday, :count).by(1)
+
+        expect(Holiday.last.signature).to eq(false)
+        assert_equal 'You have selected to sign the document, but there was no signature found', flash[:error]
+      end
+
+      it 'saves the signature if present' do
+        @user.update(signature: 'Signature')
+        expect {
+          post :create, {holiday: signature_valid_attributes}, valid_session
+        }.to change(Holiday, :count).by(1)
+
+        expect(Holiday.last.signature).to eq(true)
+        expect(Holiday.last.user_signature).to_not eq(nil)
+        expect(Holiday.last.user_signed_at).to_not eq(nil)
+      end
+
       it 'assigns a newly created holiday as @holiday' do
         post :create, {holiday: checked_valid_attributes}, valid_session
         expect(assigns(:holiday)).to be_a(Holiday)
@@ -165,6 +189,22 @@ RSpec.describe HolidaysController, type: :controller do
         put :update, {id: holiday.to_param, holiday: {start: I18n.l(Date.today), end: I18n.l(Date.today + 1), user: @user, length: ''}}
         holiday.reload
         expect(holiday.length).to eq(holiday.duration)
+      end
+
+      it 'does not save signature if absent' do
+        holiday = Holiday.create! valid_attributes
+        put :update, {id: holiday.to_param, holiday: signature_valid_attributes}, valid_session
+        expect(Holiday.last.signature).to eq(false)
+        assert_equal 'You have selected to sign the document, but there was no signature found', flash[:error]
+      end
+
+      it 'saves the signature if chosen' do
+        @user.update(signature: 'Signature')
+        holiday = Holiday.create! valid_attributes
+        put :update, {id: holiday.to_param, holiday: signature_valid_attributes}, valid_session
+        expect(Holiday.last.signature).to eq(true)
+        expect(Holiday.last.user_signature).to_not eq(nil)
+        expect(Holiday.last.user_signed_at).to_not eq(nil)
       end
     end
 
@@ -331,6 +371,7 @@ RSpec.describe HolidaysController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         user2 = FactoryGirl.create(:user, chair: chair)
         holiday = FactoryGirl.create(:holiday, user: user2, status: 'applied')
+        @user.signature = 'Signature'
         get :accept_reject, {id: holiday.to_param, commit: 'Accept Request', holiday: {length: holiday.length}}, valid_session
         expect(response).to redirect_to(user2)
       end
@@ -340,6 +381,7 @@ RSpec.describe HolidaysController, type: :controller do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         wimi = FactoryGirl.create(:wimi, chair: chair)
         holiday = FactoryGirl.create(:holiday, user: wimi.user, status: 'applied')
+        @user.signature = 'Signature'
         get :accept_reject, {id: holiday.to_param, commit: 'Accept Request', holiday: {length: holiday.length}}, valid_session
         holiday.reload
         expect(holiday.status).to eq('accepted')

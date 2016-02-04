@@ -20,7 +20,7 @@ require 'rails_helper'
 
 RSpec.describe TripsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user, signature: 'Signature')
     chair = FactoryGirl.create(:chair)
     FactoryGirl.create(:wimi, chair: chair, user: @user)
     login_with @user
@@ -47,7 +47,7 @@ RSpec.describe TripsController, type: :controller do
     date_start: I18n.l(Date.today, locale: 'en'),
     date_end: I18n.l(Date.today + 2, locale: 'en'),
     days_abroad: 1,
-    signature: true,
+    signature: 1,
     user: @user}
   }
 
@@ -58,7 +58,7 @@ RSpec.describe TripsController, type: :controller do
     date_start: I18n.l(Date.today + 2, locale: 'en'),
     date_end: I18n.l(Date.today + 4, locale: 'en'),
     days_abroad: 2,
-    signature: false,
+    signature: 0,
     user: @user}
   }
 
@@ -69,7 +69,7 @@ RSpec.describe TripsController, type: :controller do
     date_start: Date.today,
     date_end: Date.today - 10,
     days_abroad: -20,
-    signature: true,
+    signature: 1,
     user: @user}
   }
 
@@ -80,7 +80,7 @@ RSpec.describe TripsController, type: :controller do
     date_start: I18n.l(Date.today, locale: 'en'),
     date_end: I18n.l(Date.today - 10, locale: 'en'),
     days_abroad: -20,
-    signature: true,
+    signature: 1,
     user: @user}
   }
 
@@ -126,6 +126,14 @@ RSpec.describe TripsController, type: :controller do
         expect {
           post :create, {trip: valid_attributes_format}, valid_session
         }.to change(Trip, :count).by(1)
+      end
+
+      it 'should set signature to false if no signature was found' do
+        @user.signature = nil
+        expect {
+          post :create, {trip: valid_attributes_format}
+        }.to change(Trip, :count).by(1)
+        expect(Trip.last.signature).to eq(false)
       end
 
       it 'assigns a newly created trip as @trip' do
@@ -196,6 +204,15 @@ RSpec.describe TripsController, type: :controller do
         put :update, {id: trip.to_param, trip: valid_attributes_format}, valid_session
         expect(response).to redirect_to(trip)
       end
+
+      it 'does not save signature if absent' do
+        @user.signature = nil
+        trip = Trip.create! valid_attributes
+        put :update, {id: trip.to_param, trip: valid_attributes_format}, valid_session
+        expect(Trip.last.signature).to eq(false)
+        assert_equal 'You have selected to sign the document, but there was no signature found', flash[:error]
+      end
+
     end
 
     context 'with invalid params' do
@@ -270,7 +287,6 @@ RSpec.describe TripsController, type: :controller do
       it 'redirects to the users page' do
         ChairWimi.first.update_attributes(user: @user, representative: true)
         trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
-        login_with(@user)
         post :hand_in, {id: trip.id}
         get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
         expect(response).to redirect_to(@user)
