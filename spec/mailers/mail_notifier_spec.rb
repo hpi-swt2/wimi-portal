@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe MailNotifier, type: :mailer do
   describe "notification" do
     before(:each) do
-      @event = FactoryGirl.create(:event_admin_right)
+      @event = FactoryGirl.create(:event_admin_right, status: 'added')
       @user = FactoryGirl.create(:user)
     end
     let(:mail) { MailNotifier.notification(@event, @user) }

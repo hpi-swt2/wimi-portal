@@ -7,11 +7,13 @@ class MailNotifier < ApplicationMailer
   #   en.mail_notifier.notification.subject
   #
   def notification(event, user)
+    l = I18n.locale
+    I18n.locale = user.language
+
     @greeting = t('mail_notifier.notification.hello') + user.name
     @event = event
 
     mail to: user.email
+    I18n.locale = l
   end
-
-
 end
