@@ -283,16 +283,18 @@ RSpec.describe HolidaysController, type: :controller do
     context 'with invalid params' do
       it 'leaves remaining leave unchanged' do
         @user.update(remaining_leave: 20)
-        holiday = FactoryGirl.create(:holiday, user: @user, length: 30)
+        holiday = Holiday.create! valid_attributes
+        holiday.update_attribute(:status, 'accepted')
         get :file, {id: holiday.to_param}, valid_session
         @user.reload
         expect @user.remaining_leave == 20
       end
 
       it 'redirects to the holiday page' do
-        holiday = FactoryGirl.create(:holiday, user: @user, length: 30)
+        holiday = Holiday.create! valid_attributes
+        holiday.update_attribute(:status, 'accepted')
         get :file, {id: holiday.to_param}, valid_session
-        expect(response).to redirect_to(holiday)
+        expect(response).to redirect_to(root_path)
       end
 
       it 'does not file the request if it has the wrong status' do
