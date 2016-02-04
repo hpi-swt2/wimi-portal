@@ -1,5 +1,5 @@
 class TimeSheetsController < ApplicationController
-  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject]
+  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject, :hand_in]
 
   load_and_authorize_resource
   rescue_from CanCan::AccessDenied do |_exception|
@@ -18,15 +18,23 @@ class TimeSheetsController < ApplicationController
   end
 
   def hand_in
-    time_sheet = TimeSheet.find(params[:id])
-    time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
-    ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.project_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
-    redirect_to dashboard_path
+    if time_sheet_params[:signed] == '1' && current_user.signature.nil?
+      @time_sheet.signed = false
+      redirect_to :back
+      flash[:error] = t('signatures.signature_not_found_time_sheet')
+    else
+      if time_sheet_params[:signed] == '1' && !current_user.signature.nil?
+        @time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
+      end
+      @time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
+      ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.project_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
+      redirect_to dashboard_path
+    end
   end
 
   def accept
     time_sheet = TimeSheet.find(params[:id])
-    time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id)
+    time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id, representative_signature: current_user.signature, representative_signed_at: Date.today)
     ActiveSupport::Notifications.instrument('event', trigger: time_sheet.id, target: time_sheet.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
     redirect_to dashboard_path
   end

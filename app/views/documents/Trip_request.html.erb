@@ -56,17 +56,29 @@
   <div class='text-field'>&nbsp;</div>
 <% end %>
 
-<p style='margin-bottom:40px'>&nbsp;</p>
+<p style='margin-bottom:30px'>&nbsp;</p>
 
-<div class='signature'><%= Date.today.strftime("%d.%m.%Y") %>, <%= trip.signature %></div>
+<div class='signature'>
+  <% if trip.signature %>
+    <%= trip.user_signed_at.strftime("%d.%m.%Y") %>,
+    <% path = 'data:image/png;base64,' << trip.user_signature %>
+    <img src="<%= path %>" Zwidth="150" height="50"/>
+  <% end %>
+</div>
 <p>
   <span>Datum/Unterschrift</span>
   <span>Antragssteller</span>
 </p>
 
-<div class='headline' style='margin-bottom: 40px'>Genehmigt</div>
+<div class='headline' style='margin-bottom: 30px'>Genehmigt</div>
 
-<div class='signature'>&nbsp;</div>
+  <div class='signature'>
+    <% unless trip.representative_signature.nil? %>
+      <%= trip.representative_signed_at.strftime("%d.%m.%Y") %>,
+      <% path = 'data:image/png;base64,' << trip.representative_signature %>
+      <img src="<%= path %>" Zwidth="150" height="50"/>
+    <% end %>
+  </div>
 <p>
   <span>Datum/Unterschrift</span>
   <span>Lehrstuhlinhaber</span>

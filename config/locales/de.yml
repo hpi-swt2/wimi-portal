@@ -77,6 +77,7 @@ de:
         reason: "Grund für Sonderurlaub"
         annotations: "Anmerkungen"
         replacement: "Vertretung"
+        signature: "Unterschreiben"
       expense:
         id: "Id"
         amount: "Betrag"
@@ -91,7 +92,7 @@ de:
         destination: "Ziel"
         reason: "Grund"
         annotation: "Bemerkungen"
-        signature: "Unterschreiben?"
+        signature: "Unterschreiben"
         status: "Status"
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
@@ -113,7 +114,7 @@ de:
         vehicle_advance: "vom HPI im Voraus bezahlt"
         hotel: "Hotel"
         general_advance: "Vorschuss"
-        signature: "Unterschreiben?"
+        signature: "Unterschreiben"
       expense_item:
         date: "Datum"
         breakfast: "Frühstück"
@@ -227,6 +228,7 @@ de:
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
       cannot_be_invited: 'Dieser Benutzer kann nicht eingeladen werden.'
       cannot_accept_invitations: 'Du kannst keine Projekteinladungen akzeptieren.'
+      last_wimi: 'Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.'
   time:
     formats:
       default: "%d.%m.%Y"
@@ -292,3 +294,6 @@ de:
       upload_error: "Bitte wählen Sie eine Datei aus"
     delete_signature:
       destroy_success: "Unterschrift erfolgreich gelöscht"
+  signatures:
+    signature_not_found: "Sie haben ausgewählt, das Dokument zu unterschreiben, haben aber noch keine Unterschrift hinzugefügt"
+    signature_not_found_time_sheet: "Das Dokument wurde nicht eingereicht, da Sie ausgewählt haben, das Dokument zu unterschreiben, aber noch keine Unterschrift hinzugefügt wurde"

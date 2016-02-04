@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <%= f.label :date, class: "control-label" %>
+        <%= f.label :date, class: 'control-label' %><span style="color: red">*</span>
         <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
       </div>
     </div>
@@ -26,19 +26,19 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :start_time, class: "control-label"  %><br>
+        <%= f.label :start_time, class: 'control-label' %><span style="color: red">*</span><br>
         <%= f.time_select :start_time, {}, class: "form-control time-select" %>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :break, class: "control-label"  %> (<%= t('.minutes') %>)
+        <%= f.label :break, class: 'control-label'  %> (<%= t'.minutes' %>) <span style="color: red">*</span>
         <%= f.number_field :break, value: 0, class: "form-control"%>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :end_time, class: "control-label"  %> <br>
+        <%= f.label :end_time, class: 'control-label'  %><span style="color: red">*</span> <br>
         <%= f.time_select :end_time, {}, class: "form-control time-select" %>
       </div>
     </div>
@@ -46,13 +46,13 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        <%= f.label :attendance, class: "control-label"  %>
+        <%= f.label :attendance, class: 'control-label'  %>
         <%= f.select :attendance, [['Normal', ''], ['Ill', 'K'], ['Holiday', 'F'], ['Leave Day', 'U']], {}, {class: "form-control"} %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <%= f.label :project, class: "control-label" %>
+        <%= f.label :project, class: 'control-label' %>
         <%= collection_select :work_day, :project_id, current_user.projects, :id, :title, {selected: @work_day.project_id}, class: "form-control"%>
       </div>
     </div>
@@ -60,9 +60,12 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <%= f.label :notes, class: "control-label"  %>
+        <%= f.label :notes, class: 'control-label'  %>
         <%= f.text_field :notes, class: "form-control" %>
       </div>
+        <div align="right">
+          <span style="color: red">* <%= t'helpers.forms.required_field'%></span>
+        </div>
     </div>
   </div>
   <%= f.submit nil, class:"btn btn-success btn-block"%>

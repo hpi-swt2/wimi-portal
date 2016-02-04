@@ -18,6 +18,8 @@ en:
       login: "Login"
       logout: "Logout"
     actions: "Actions"
+    forms:
+      required_field: "required field"
     links:
       hand_in: "Hand in"
       show: "Show"
@@ -417,4 +419,5 @@ en:
     admin_long: "Administrator"
     admin_long_plural: "Administrators"
     hiwi_long_plural: "Student Assistants"
+  signature_warning: "You have to upload a signature before you can accept the request."
   no_entries_yet: "There are no %{target} yet."
