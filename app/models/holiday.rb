@@ -28,10 +28,17 @@ class Holiday < ActiveRecord::Base
   validates_date :end, on_or_after: :start
   validate :too_far_in_the_future?
   validates :length, numericality: {greater_than_or_equal_to: 0}
+  validate :duration_geq_length
   enum status: [:saved, :applied, :accepted, :declined]
 
   def duration
     start.business_days_until(self.end + 1)
+  end
+
+  def duration_geq_length
+    if duration < length
+      errors.add(:length, I18n.t('activerecord.errors.models.holiday.duration_geq_length'))
+    end
   end
 
   def calculate_length_difference(length_param)

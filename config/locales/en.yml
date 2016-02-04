@@ -69,6 +69,7 @@ en:
         end: "End"
         user_id: "User"
         created_at: "Created at"
+        length: "Duration"
         duration: "Duration"
         reason: "Reason for Special Leave"
         annotations: "Annotations"
@@ -186,6 +187,7 @@ en:
             time_end:
               blank: "cannot be blank."
         holiday:
+          duration_geq_length: ' must not be greater than the actual timespan.'
           too_far_in_the_future: ' is too far in the future.'
           attributes:
             start:
