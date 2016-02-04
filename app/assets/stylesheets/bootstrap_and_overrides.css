@@ -29,6 +29,10 @@
           border-radius: 0 !important;
 }
 
+.modal-backdrop {
+  opacity: 0.5 !important;
+}
+
 .panel {
 	margin-bottom: 0px;
 	border: 0px solid !important;

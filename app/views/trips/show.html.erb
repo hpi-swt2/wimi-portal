@@ -25,13 +25,13 @@
     <% if @trip.status == 'declined' %>
       <div class="page-header"></div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <div class="form-group">
             <%= label_tag nil, t('time_sheets.show_footer.rejected_by') %>
             <%= text_field_tag nil, @trip.person_in_power.name , {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <div class="form-group">
             <%= label_tag nil, t('time_sheets.show_footer.at') %>
             <%= text_field_tag nil ,l(@trip.last_modified), {class: "form-control", readonly: "readonly"} %>
@@ -64,8 +64,14 @@
 
     <% if (can? :accept, @trip) && @trip.status == 'applied' %>
       <%= form_for @trip, url: accept_reject_trip_path, method: :get do |b| %>
-        <div class="row">
-          <div class="col-sm-6 col-sm-offset-6">
+        <div class="row vertical-align">
+          <div class="col-sm-6">
+            <% if current_user.signature.nil? %>
+              <%= t('signature_warning') %>
+                <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %>
+            <% end %>
+          </div>
+          <div class=<%= current_user.signature.nil? ? "col-sm-6" : "col-sm-6 col-sm-offset-6" %> style="display: block !important">
             <div class="form-group">
               <%= b.label :rejection_message %>
               <%= b.text_field :rejection_message, class: "form-control", value: "" %>
@@ -75,23 +81,21 @@
         <div class="row">
           <div class="col-md-12">
             <% if current_user.signature.nil? %>
-              <%= t('signature_warning') %>
-              <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
               <div class="row">
-                <div class="col-md-6">
-                  <%= b.submit t('.reject'), class: 'btn btn-danger btn-block' %>
-                </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <%= b.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
+                </div>
+                <div class="col-sm-6">
+                  <%= b.submit t('.reject'), class: 'btn btn-danger btn-block' %>
                 </div>
               </div>
             <% else %>
               <div class="row">
-                <div class="col-md-6">
-                  <%= b.submit t('.reject'), class: 'btn btn-danger btn-block' %>
-                </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <%= b.submit t('.accept'), class: 'btn btn-success btn-block' %>
+                </div>
+                <div class="col-sm-6">
+                  <%= b.submit t('.reject'), class: 'btn btn-danger btn-block' %>
                 </div>
               </div>
             <% end %>

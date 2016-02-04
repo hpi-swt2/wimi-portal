@@ -51,19 +51,19 @@
               <%= t('signature_warning') %>
               <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <%= f.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
                 </div>
               </div>
             <% else %>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
                 </div>
-              <div class="col-md-6">
+              <div class="col-sm-6">
                 <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
               </div>
             </div>
