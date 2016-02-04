@@ -34,7 +34,7 @@ class Event < ActiveRecord::Base
 
   def send_mail
     event = Event.find(id)
-    User.all.each do |user|
+    User.where(email_notification: true).each do |user|
       results = user.create_notification_arrays
       if (results[0].include? event) || (results[1].include? event)
         MailNotifier.notification(event, user).deliver_now
