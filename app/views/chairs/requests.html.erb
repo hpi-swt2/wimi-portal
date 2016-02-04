@@ -1,85 +1,91 @@
 <%- model_class = Chair -%>
-<div class="page-header">
-  <h1><%= @chair.name %></h1>
-</div>
-<div>
-  <h3> <%= t('.requests') %></h3>
-  <br/>
-  <table>
-    <colgroup>
-      <col span="0" style="width: 30%;">
-      <col span="0" style="width: 30%;">
-    </colgroup>
-
-    <%= form_tag(requests_filtered_path(@chair.id), method: :post) do %>
-
-        <thead>
-        <th><strong><%= t('.type_filter') %>:</strong></th>
-        <th><strong><%= t('.status_filter') %>:</strong></th>
-        </thead>
-        <tbody>
-        <tr>
-          <td>
-            <%= check_box_tag(:holidays, t('.holiday_request'), ("holidays".in? @types)) %>
-            <%= label_tag(:holidays, t('.holiday_request')) %>
-          </td>
-          <td>
-            <%= check_box_tag(:applied, t('.applied_plural'), ("applied".in? @statuses)) %>
-            <%= label_tag(:applied, t('.applied_plural')) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= check_box_tag(:trips, t('.trip_request'), ("trips".in? @types)) %>
-            <%= label_tag(:trips, t('.trip_request')) %>
-          </td>
-          <td>
-            <%= check_box_tag(:accepted, t('.accepted'), ("accepted".in? @statuses)) %>
-            <%= label_tag(:accepted, t('.accepted')) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= check_box_tag(:expenses, t('.expense_request'), ("expenses".in? @types)) %>
-            <%= label_tag(:expenses, t('.expense_request')) %>
-          </td>
-          <td>
-            <%= check_box_tag(:declined, t('.declined'), ("declined".in? @statuses)) %>
-            <%= label_tag(:declined, t('.declined')) %>
-          </td>
-        </tr>
-        </tbody>
-        </table>
-        <%= submit_tag t('.apply_filter') %>
-    <% end %>
-
-
-
-
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th><%= t('activerecord.attributes.request.name') %></th>
-        <th><%= t('activerecord.attributes.request.type') %></th>
-        <th><%= t('activerecord.attributes.request.handed_in') %></th>
-        <th><%= t('activerecord.attributes.request.status') %></th>
-        <th><%= t('helpers.actions') %></th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @allrequests.each do |request| %>
-          <tr>
-            <td><%= request[:name] %></td>
-            <td><%= request[:type] %></td>
-            <td><%= l request[:handed_in] %></td>
-            <td><%= t(request[:status], scope: 'chairs.requests') %></td>
-            <td><%= link_to t('helpers.links.show_details'), request[:action] %></td>
-
-      <% end %>
-      </tr>
-      </tbody>
-    </table>
+<div class="col-md-12 col-sm-12">
+  <div class="display">
+    <div class="page-header">
+      <h1><%= @chair.name %></h1>
     </div>
+    <div>
+      <h3> <%= t('.requests') %></h3>
+      <br/>
+      <table>
+        <colgroup>
+          <col span="0" style="width: 30%;">
+          <col span="0" style="width: 30%;">
+        </colgroup>
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t('activerecord.attributes.request.name') %></th>
+            <th><%= t('activerecord.attributes.request.type') %></th>
+            <th><%= t('activerecord.attributes.request.handed_in') %></th>
+            <th><%= t('activerecord.attributes.request.status') %></th>
+            <th><%= t('helpers.actions') %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @allrequests.each do |request| %>
+              <tr>
+                <td><%= request[:name] %></td>
+                <td><%= request[:type] %></td>
+                <td><%= l request[:handed_in] %></td>
+                <td><%= t(request[:status], scope: 'chairs.requests') %></td>
+                <td><%= link_to t('helpers.links.show_details'), request[:action] %></td>
+
+          <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar do %>
+    <!--Filter-->
+    <%= form_tag(requests_filtered_path(@chair.id), method: :post) do %>
+        <div class="col-md-12">
+          <div class="display">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4> <%= t('project.filter_chair') %> </h4>
+              </div>
+              <div class="panel-body">
+                <div class="col-md-12">
+                  <strong><%= t('.type_filter') %>:</strong>
+                  <div class="col-md-12">
+                    <%= check_box_tag(:holidays, t('.holiday_request'), ("holidays".in? @types)) %>
+                    <%= label_tag(:holidays, t('.holiday_request')) %>
+                    <br>
+                    <%= check_box_tag(:trips, t('.trip_request'), ("trips".in? @types)) %>
+                    <%= label_tag(:trips, t('.trip_request')) %>
+                    <br>
+                    <%= check_box_tag(:expenses, t('.expense_request'), ("expenses".in? @types)) %>
+                    <%= label_tag(:expenses, t('.expense_request')) %>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <strong><%= t('.status_filter') %>:</strong>
+                  <div class="col-md-12">
+                    <%= check_box_tag(:applied, t('.applied_plural'), ("applied".in? @statuses)) %>
+                    <%= label_tag(:applied, t('.applied_plural')) %>
+                    <br>
+                    <%= check_box_tag(:accepted, t('.accepted'), ("accepted".in? @statuses)) %>
+                    <%= label_tag(:accepted, t('.accepted')) %>
+                    <br>
+                    <%= check_box_tag(:declined, t('.declined'), ("declined".in? @statuses)) %>
+                    <%= label_tag(:declined, t('.declined')) %>
+                  </div>
+                </div>
+                <%= submit_tag t('.apply_filter') %>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+<% end %>
+
+
 
 
 
