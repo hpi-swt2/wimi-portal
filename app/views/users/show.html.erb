@@ -133,7 +133,7 @@
                 <%= l(Date.new(month.first, month.last, 1), format: :without_day) + ':' %>
                 <% current_user.projects_for_month(month.first, month.last).each do |project| %>
                   <% TimeSheet.all.each do |timesheet| %>
-                    <% if timesheet.month == month.last && timesheet.year == month.first && timesheet.project == project && timesheet.handed_in == true && (timesheet.status.include? 'pending') %>
+                    <% if timesheet.month == month.last && timesheet.year == month.first && timesheet.project == project && timesheet.handed_in == true %>
                         <%= link_to project.title + ' ' + t('.by') + ' ' + timesheet.user.name, work_days_path(month: month.last, year: month.first, project: project.id, user_id: timesheet.user) %>
                     <% end %>
                 <% end %>
