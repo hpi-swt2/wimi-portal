@@ -1,6 +1,6 @@
 <%=l event_chair_application.created_at %> - 
 <%= t('events.event_chair_application', trigger: event_chair_application.trigger.name) %>
 <% unless event_chair_application.trigger.chair_wimi.nil? || event_chair_application.trigger.chair_wimi.application == 'accepted' %>
-    <%= link_to t('chairs.applications.accept'), chairs_accept_path(id: event_chair_application.chair.id, request: event_chair_application.trigger.chair_wimi), method: :post, class: 'label label-success' %>
-    <%= link_to t('chairs.applications.decline'), chairs_remove_user_path(id: event_chair_application.chair.id, request: event_chair_application.trigger.chair_wimi), method: :post, data: { confirm: 'Are you sure?' }, class: 'label label-danger' %>
+    <%= link_to t('chairs.applications.accept'), chairs_accept_url(id: event_chair_application.chair.id, request: event_chair_application.trigger.chair_wimi), method: :post, class: 'label label-success' %>
+    <%= link_to t('chairs.applications.decline'), chairs_remove_user_url(id: event_chair_application.chair.id, request: event_chair_application.trigger.chair_wimi), method: :post, data: { confirm: 'Are you sure?' }, class: 'label label-danger' %>
 <% end %>
