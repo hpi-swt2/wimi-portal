@@ -82,22 +82,24 @@
         <% end %>
       </div>
     </div>
-    <div class="page-header">
-      <h3><%= t('.all_working_hours') %></h3>
-    </div>
-    <div class="row">
-      <div class="col-md-3 col-md-offset-3">
-        <%= select_month(Date.today, {}, { class: "form-control", id: "workingHoursChartMonth"}) %>
+    <% if current_user.is_representative? %>
+      <div class="page-header">
+        <h3><%= t('.all_working_hours') %></h3>
       </div>
-      <div class="col-md-3">
-        <%= select_year(Date.today, {start_year: Date.today.year - 2, end_year: Date.today.year + 2}, { class: "form-control", id: "workingHoursChartYear"}) %>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <%= select_month(Date.today, {}, { class: "form-control", id: "workingHoursChartMonth"}) %>
+        </div>
+        <div class="col-md-3">
+          <%= select_year(Date.today, {start_year: Date.today.year - 2, end_year: Date.today.year + 2}, { class: "form-control", id: "workingHoursChartYear"}) %>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="hiwiWorkingHoursChart" style="height: 300px; width: 100%;"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="hiwiWorkingHoursChart" style="height: 300px; width: 100%;"></div>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
 
