@@ -294,7 +294,7 @@ RSpec.describe HolidaysController, type: :controller do
         holiday = Holiday.create! valid_attributes
         holiday.update_attribute(:status, 'accepted')
         get :file, {id: holiday.to_param}, valid_session
-        expect(response).to redirect_to(holiday)
+        expect(response).to redirect_to(root_path)
       end
 
       it 'does not file the request if it has the wrong status' do
