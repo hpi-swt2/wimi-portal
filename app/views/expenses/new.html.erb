@@ -4,10 +4,10 @@
     <h1>
       <div class="page-header">
         <div class="row">
-          <div class="col-md-10">
+          <div class="col-sm-9">
             <%=t '.title', default: [:'helpers.titles.new', 'Edit %{model}'], model: model_class.model_name.human.titleize %>
           </div>
-          <div class="col-md-2">
+          <div class="col-sm-3">
             <%= link_to t('helpers.links.back'), @expense.trip , class: "btn btn-default btn-xs"%>
           </div>
         </div>
