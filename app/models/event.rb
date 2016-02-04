@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
   validates :type, presence: true
   validates :seclevel, presence: true
 
-  #after_save :send_mail
+  after_save :send_mail
 
   enum seclevel: [:superadmin, :admin, :representative, :wimi, :hiwi, :user]
 
