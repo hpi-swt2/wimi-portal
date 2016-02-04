@@ -159,6 +159,8 @@ de:
       user_status: "Status"
       wimi: "WiMi"
       hiwi: "HiWi"
+      is_on: "an"
+      is_off: "aus"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"

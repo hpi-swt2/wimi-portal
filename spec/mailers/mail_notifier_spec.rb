@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe MailNotifier, type: :mailer do
   describe "notification" do
     before(:each) do
-      @event = FactoryGirl.create(:event_admin_right)
       @user = FactoryGirl.create(:user)
+      @event = FactoryGirl.create(:event_admin_right, trigger: @user, target: @user, status: 'added')
     end
     let(:mail) { MailNotifier.notification(@event, @user) }
 
@@ -16,6 +16,10 @@ RSpec.describe MailNotifier, type: :mailer do
 
     it "renders the body" do
       expect(mail.body.encoded).to match('Hello')
+    end
+
+    it "finds name of user in email" do
+      expect(mail.body.encoded).to match(@user.name)
     end
   end
 
