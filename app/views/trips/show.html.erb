@@ -49,12 +49,16 @@
       <div class="col-md-12">
         <div class="btn-group btn-group-justified">
           <% unless @trip.status == 'applied' || @trip.status == 'accepted' %>
-            <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
-            hand_in_trip_path(@trip), method: :post, class: 'btn btn-success' %>
-            <%= link_to t('.destroy', default: t("helpers.links.destroy")), trip_path(@trip), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger btn-primary' %>
+            <% if can? :hand_in, @trip %>
+              <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
+              hand_in_trip_path(@trip), method: :post, class: 'btn btn-success' %>
+              <% if can? :destroy, @trip %>
+                <%= link_to t('.destroy', default: t("helpers.links.destroy")), trip_path(@trip), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger btn-primary' %>
+              <% end %>
+            <% end %>
           <%end%>
           <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Trip_request', doc_id: @trip), class: 'btn btn-info' %>
-          <%= link_to t('.back', default: t("helpers.links.back")), trips_path, class: 'btn btn-default'  %>
+          <%= link_to t('.back', default: t("helpers.links.back")), :back, class: 'btn btn-default'  %>
         </div>
       </div>
     </div>
@@ -127,14 +131,20 @@
     <% if @trip.has_expense? %>
       <%= render @trip.expense %>
       <div class="btn-group btn-group-justified">
-        <% unless @trip.expense.status == 'applied' %>
-          <%= link_to t('.hand_in', default: t("helpers.links.hand_in")), hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-success' %>
+        <% unless @trip.expense.status == 'applied' || @trip.expense.status == 'accepted' %>
+          <% if can? :hand_in, @trip.expense %>
+            <%= link_to t('.hand_in', default: t("helpers.links.hand_in")), hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-success' %>
+          <% end %>
+          <% if can? :destroy, @trip.expense %>
+            <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
+          <% end %>
         <% end %>
-          <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
-          <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Expense_request', doc_id: @trip.expense) , class: "btn btn-info"%>
+        <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Expense_request', doc_id: @trip.expense) , class: "btn btn-info"%>
       </div>
     <% else %>
-      <%= link_to t('.create_expense'), new_trip_expense_path(@trip), class: "btn btn-success btn-block" %>
+      <% if can? :create_expense, @trip %>
+        <%= link_to t('.create_expense'), new_trip_expense_path(@trip), class: "btn btn-success btn-block" %>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -215,8 +215,10 @@
                   <% end %>
                 </div>
                 <div class="col-sm-2">
-                  <%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
+                  <% if @user == current_user %>
+                    <%= link_to t('.edit_leave', default: t("helpers.links.edit_leave")),
                               users_edit_leave_path(id: @user.id), class: 'btn btn-warning btn-xs' %>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -294,7 +296,7 @@
                       <td><%= trip.destination %></td>
                       <td><%=l trip.date_start %></td>
                       <td><%=l trip.date_end %></td>
-                      <td><%= trip.status %></td>
+                      <td><%= t(".status.#{trip.status}")%></td>
                       <td>
                         <div class="btn-group">
                           <%= link_to t("helpers.links.show_details"),

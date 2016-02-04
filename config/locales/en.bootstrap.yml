@@ -250,7 +250,7 @@ en:
   expenses:
     expense:
       inland: "Inland Travel"
-      country: "Country"
+      country: "Destination country"
       location_from: "Starting in"
       location_via: "Via"
       location_to: "To"

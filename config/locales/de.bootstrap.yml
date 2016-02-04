@@ -241,7 +241,7 @@ de:
   expenses:
     expense:
       inland: "Inlandsreise"
-      country: "Land"
+      country: "Reiseland"
       location_from: "Startort"
       location_via: "Zwischenhalt"
       location_to: "Zielort"
