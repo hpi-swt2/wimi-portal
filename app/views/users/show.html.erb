@@ -21,8 +21,8 @@
             <div class="col-md-6 col-sm-6">
               <h3><%= t('.user_data') %></h3>
             </div>
-            <div class="col-sm-6 text text-right">
-              <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-warning' if @user == current_user %>
+            <div class="col-sm-3 col-sm-offset-3">
+              <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-warning btn-block' if @user == current_user %>
             </div>
           </div>
         </div>
@@ -195,9 +195,9 @@
               <div class="col-sm-6">
                 <h4><a class="anchor" name="holidays"><%= t('.holiday_requests') %></a></h4>
               </div>
-              <div class="col-sm-6 text text-right">
+              <div class="col-sm-4 col-sm-offset-2">
                 <% if @user == current_user %>
-                    <%= link_to t('.request_holiday'), new_holiday_path, class: "btn btn-success" %>
+                    <%= link_to t('.request_holiday'), new_holiday_path, class: "btn btn-success btn-block" %>
                 <% end %>
               </div>
             </div>
@@ -269,9 +269,9 @@
               <div class="col-md-6">
                 <h4><a class="anchor" name="trips"><%= t('.business_trips') %></a></h4>
               </div>
-              <div class="col-md-6 text text-right">
+              <div class="col-sm-4 col-sm-offset-2">
                 <% if @user == current_user %>
-                    <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-success", id: "create_trip" %>
+                    <%= link_to t('.request_trip'), new_trip_path, class: "btn btn-success btn-block", id: "create_trip" %>
                 <% end %>
               </div>
             </div>
