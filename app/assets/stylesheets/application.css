@@ -162,6 +162,10 @@ a.anchor {
     padding-bottom: 0px;
 }
 
+.nobottompadding {
+    padding-bottom: 0px;
+}
+
 .btn-eq {
     width: auto;
 }

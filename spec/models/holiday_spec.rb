@@ -51,6 +51,10 @@ RSpec.describe Holiday, type: :model do
     expect(FactoryGirl.build(:holiday, user: @user, start: Date.today, end: Date.today + 1, length: -1)).to_not be_valid
   end
 
+  it 'is invalid if duration is greater than date difference' do
+    expect(FactoryGirl.build(:holiday, user: @user, start: Date.today, end: Date.today + 1, length: 20)).to_not be_valid
+  end
+
   it 'returns the duration' do
     #if Jan 2nd isn't a business day this test would fail otherwise
     startdate = Date.new(Date.today.year, 12, 31)

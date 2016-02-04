@@ -8,6 +8,7 @@ RSpec.describe 'projects/index', type: :view do
     ])
     @user = FactoryGirl.create(:user)
     login_as @user
+    allow(view).to receive(:current_user).and_return(@user)
   end
 
   it 'renders a list of projects' do

@@ -28,7 +28,7 @@ class TimeSheetsController < ApplicationController
       end
       @time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
       ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.project_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
-      redirect_to dashboard_path
+      redirect_to user_path(current_user, anchor: 'timesheets')
     end
   end
 

@@ -175,9 +175,9 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     holiday = FactoryGirl.create(:holiday, user: @user, signature: true)
     login_as @user
     visit holiday_path(holiday)
-    expect(page).to have_link t('holidays.show.file')
+    expect(page).to have_link t('holidays.show.hand_in')
 
-    click_on t('holidays.show.file')
+    click_on t('holidays.show.hand_in')
     expect(page).to have_content t('users.show.status.applied')
 
     FactoryGirl.create(:wimi, chair: chair, user: @user, representative: true)

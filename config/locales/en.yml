@@ -69,6 +69,7 @@ en:
         end: "End"
         user_id: "User"
         created_at: "Created at"
+        length: "Duration"
         duration: "Duration"
         reason: "Reason for Special Leave"
         annotations: "Annotations"
@@ -144,6 +145,7 @@ en:
         street: "Street"
         zip_code: "Zip Code"
         personnel_number: "Staff Number"
+        email_notification : "Email Notifications"
         chair: "Research Group"
         language: "Language"
         not_member_of_chair: "You are not a member of a Research Group."
@@ -185,6 +187,7 @@ en:
             time_end:
               blank: "cannot be blank."
         holiday:
+          duration_geq_length: ' must not be greater than the actual timespan.'
           too_far_in_the_future: ' is too far in the future.'
           attributes:
             start:
@@ -293,6 +296,12 @@ en:
       upload_error: "Please choose a file"
     delete_signature:
       destroy_success: "Signature successfully deleted"
+  mail_notifier:
+    notification:
+      subject: "You received a new notification"
+      hello: "Hello "
+      text: "you got a new notification. Check your Wimi-Portal Dashboard to see all the recent notifications."
+      your_wimi_portal: "Your Wimi-Portal"
   signatures:
     signature_not_found: "You have selected to sign the document, but there was no signature found"
     signature_not_found_time_sheet: "The document was not handed in, because you have selected to sign the document, but there was no signature found"

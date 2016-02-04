@@ -109,6 +109,9 @@ class Ability
     can :create, Holiday
     can :new, Expense
     can :create, Expense
+    can :create_expense, Trip.select{ |t| t.user == user}
+    can :hand_in, Expense.select { |t| t.user == user }
+    can :destroy, Expense.select { |t| t.user == user }
     can :new, Trip
     can :create, Trip
     can :read, Trip.select { |t| t.user == user }

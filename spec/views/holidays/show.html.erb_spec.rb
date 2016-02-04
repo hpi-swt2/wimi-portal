@@ -11,7 +11,7 @@ RSpec.describe 'holidays/show', type: :view do
     chair = FactoryGirl.create(:chair)
     ChairWimi.first.update_attributes(user_id: @user.id)
     visit holiday_path(@holiday.id)
-    click_on I18n.t('holidays.show.file')
+    click_on t('holidays.show.hand_in')
     @holiday.reload
     expect(@holiday.status).to eq('applied')
   end

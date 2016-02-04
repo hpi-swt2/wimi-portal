@@ -26,7 +26,7 @@
             <td>
               <%= link_to t('helpers.links.show_details'), holiday, class: 'btn btn-default btn-xs' %>
               <% if holiday.status == 'saved' %>
-                <%= link_to t('holidays.show.file'),
+                <%= link_to t('holidays.show.hand_in'),
                           file_holiday_path(holiday), class: 'btn btn-success btn-xs' %>
                 <%= link_to t('.edit', default: t('helpers.links.edit')),
                           edit_holiday_path(holiday), class: 'btn btn-default btn-xs' %>
