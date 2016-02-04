@@ -6,6 +6,14 @@
   =require twitter-bootstrap-static/fontawesome
   */
 
+.btn-danger {
+  background-color: #C60F46
+}
+
+.btn-warning {
+  background-color: #F27D14
+}
+
  .page-header {
  	margin-top: 20px;
  }
