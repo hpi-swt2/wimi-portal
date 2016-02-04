@@ -8,7 +8,7 @@
             <%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %>
           </div>
           <div class="col-md-2">
-            <%= link_to t('helpers.links.back'), work_days_path(month: @work_day.date.month, year: @work_day.date.year, project: @work_day.project.id, user_id: @work_day.user.id), class: "btn btn-default btn-xs"%>
+            <%= link_to t('helpers.links.back'), work_days_path(month: @work_day.date.month, year: @work_day.date.year, project: @work_day.project.id, user_id: @work_day.user.id), class: 'btn btn-default btn-xs'%>
           </div>
         </div>
       </h1>
