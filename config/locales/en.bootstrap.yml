@@ -168,6 +168,8 @@ en:
       user_status: "Status"
       wimi: "Research Assistant"
       hiwi: "Student Assistant"
+      is_on: "on"
+      is_off: "off"
     edit_leave:
       remaining_leave: "Remaining Leave"
       remaining_leave_fly: "Remaining Leave from last year"
@@ -180,7 +182,7 @@ en:
   holidays:
     show:
       days: "Day(s)"
-      file: "File Request"
+      hand_in: "Hand in"
       reject: "Reject Request"
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
@@ -236,6 +238,11 @@ en:
       view: "View"
       request: "travel request"
       full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
+  event_holiday_requests:
+    event_holiday_request:
+      accepted: "accepted"
+      rejected: "rejected"
+      full_html: "%{person_in_power} <b>%{status}</b> the holiday request of %{user}."
   event_time_sheet_submitteds:
     event_time_sheet_submitted:
       view: "View"
@@ -243,7 +250,7 @@ en:
   expenses:
     expense:
       inland: "Inland Travel"
-      country: "Country"
+      country: "Destination country"
       location_from: "Starting in"
       location_via: "Via"
       location_to: "To"
@@ -275,7 +282,7 @@ en:
       status: "Status"
       user_id: "User"
       created_at: "Created at"
-      file: "File Request"
+      hand_in: "Hand in"
       reject: "Reject Request"
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"

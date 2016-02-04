@@ -21,6 +21,10 @@
           border-radius: 0 !important;
 }
 
+.modal-backdrop {
+  opacity: 0.5 !important;
+}
+
 .panel {
 	margin-bottom: 0px;
 	border: 0px solid !important;
@@ -48,7 +52,7 @@ h1,h2,h3,h4 {
 .vertical-align > [class*=" col-"] {
   display: flex;
   align-items: center;
-  justify-content: center; /* Optional, to align inner items
+  /*justify-content: center; /* Optional, to align inner items
                               horizontally inside the column */
 }
 

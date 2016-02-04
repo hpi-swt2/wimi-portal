@@ -146,6 +146,7 @@ class ChairsController < ApplicationController
 
     success = false
     unless ChairWimi.find_by(user: current_user)
+      EventChairApplication.where(trigger: current_user).destroy_all
       ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, chair: wimi.chair, type: 'EventChairApplication', seclevel: :admin})
       success = wimi.save
     end

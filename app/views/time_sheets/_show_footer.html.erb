@@ -1,12 +1,12 @@
 <% if current_user.is_wimi? && @time_sheet.handed_in? %>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
       <div class="form-group">
         <%= label_tag t('.acceptence_requested_at') %>
         <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: 'form-control', readonly: true} %>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
       <div class="form-group">
         <%= label_tag t('.status') %>
         <%= text_field_tag nil, t(".#{@time_sheet.status}"), {class: 'form-control', readonly: true} %>
@@ -27,7 +27,7 @@
     </div>
     <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
       <div class="row vertical-align">
-        <div class=<%= @time_sheet.wimi_signed ? 'col-md-6' : 'col-md-6 col-md-offset-6'%>>
+        <div class=<%= @time_sheet.wimi_signed ? 'col-sm-6' : 'col-sm-6 col-md-offset-6'%>>
           <div class="form-group">
             <%= f.label t('.reject_reason') %>
             <%= f.text_field :rejection_message, id: 'message', size: 50 , class: "form-control"%>
@@ -39,23 +39,17 @@
           <% if current_user.signature.nil? %>
             <%= t('signature_warning') %>
             <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/><br/>
-            <div class="row">
-              <div class="col-md-6">
-                <%= f.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
-              </div>
-              <div class="col-md-6">
-                <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
-              </div>
+            <div class="col-sm-6">
+              <%= f.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
             </div>
           <% else %>
-            <div class="row">
-              <div class="col-md-6">
-                <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
-              </div>
-              <div class="col-md-6">
-                <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
+            <div class="col-sm-6">
+              <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
             </div>
           <% end %>
+          <div class="col-sm-6">
+              <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
+          </div>
         </div>
       </div>
     <% end %>
@@ -65,13 +59,13 @@
     <% if @time_sheet.handed_in? %>
       <% if @time_sheet.status.include? 'pending' %>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="form-group">
               <%= label_tag nil, t('.handed_in_at') %>
               <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="form-group">
               <%= label_tag nil, t('.status') %>
               <%= text_field_tag nil, @time_sheet.status, {class: 'form-control', readonly: 'readonly'} %>
@@ -92,13 +86,13 @@
       <% end %>
       <% if @time_sheet.status.include? 'accepted' %>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="form-group">
               <%= label_tag nil, t('.accepted_by') %>
               <%= text_field_tag nil, User.find(@time_sheet.signer).name, {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="form-group">
               <%= label_tag nil, t('.at') %>
               <%= text_field_tag nil, l(@time_sheet.last_modified), {class: 'form-control', readonly: 'readonly'} %>
@@ -110,13 +104,13 @@
     <% else %>
       <% if @time_sheet.status == 'rejected' %>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="form-group">
               <%= label_tag nil, t('.rejected_by') %>
               <%= text_field_tag nil, User.find(@time_sheet.signer).name, {class: 'form-control', readonly: 'readonly'} %>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="form-group">
               <%= label_tag nil, t('.at') %>
               <%= text_field_tag nil ,l(@time_sheet.last_modified), {class: 'form-control', readonly: 'readonly'} %>
@@ -133,7 +127,7 @@
         </div>
         <div class="row vertical-align">
           <% if @time_sheet.user == current_user %>
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <% unless @time_sheet.signed %>
                 <div class="control-group">
                   <%= f.check_box :signed , style: 'margin: 0px 10px;' %>
@@ -141,7 +135,7 @@
                 </div>
               <% end %>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <%= f.submit t('.hand_in'), class: 'btn btn-success btn-block' %>
             </div>
           <% end %>
@@ -149,7 +143,7 @@
       <% else %>
         <% if @time_sheet.user == current_user %>
           <div class="row vertical-align">
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <% unless @time_sheet.signed %>
                 <div class="control-group">
                   <%= f.check_box :signed , style: 'margin: 0px 10px;' %>
@@ -157,7 +151,7 @@
                 </div>
               <% end %>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <%= f.submit t('.hand_in'), class: 'btn btn-success btn-block' %>
             </div>
           </div>
