@@ -27,7 +27,7 @@
 <% end %>
 
 <!-- Activities -->
-
+<% unless current_user.is_user? %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="panel panel-default">
@@ -35,7 +35,7 @@
         <h4><%=t('.activities')%></h4>
       </div>
       <div class="panel-body">
-        <% if !@activities.empty? %>
+        <% unless @activities.empty? %>
           <% @activities.each do |event| %>
             <%= render partial: event %>
           <% end %>
@@ -46,6 +46,7 @@
     </div>
   </div>
 </div>
+<% end %>
 
 
 <!--Chairs-->
@@ -132,6 +133,7 @@
   <% end %>
 
   <!--Actions-->
+  <% if current_user.is_wimi? || current_user.is_hiwi? %>
   <div class="col-md-12 col-sm-12">
     <div class="display">
       <div class="panel panel-default">
@@ -148,6 +150,7 @@
       </div>
     </div>
   </div>
+  <% end %>
 
   <!-- Chair representative actions -->
   <% if current_user.is_representative? %>

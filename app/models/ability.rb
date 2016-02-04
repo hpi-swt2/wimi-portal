@@ -156,7 +156,7 @@ class Ability
 
     can :read,      Trip.select { |t| user.is_representative?(t.user.chair) }
     can :reject,    Trip
-    can :accept,    Trip
+    can :accept,    Trip.select {|h| h.user != user}
     can :accept_reject, Trip
     can :edit_trip, Trip do |trip|
       trip.status != 'saved'
