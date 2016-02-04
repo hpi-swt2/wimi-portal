@@ -65,7 +65,7 @@
     </div>
 
     <% if (can? :accept, @trip) && @trip.status == 'applied' %>
-      <%= form_for @trip, url: reject_trip_path(@trip), method: :get do |b| %>
+      <%= form_for @trip, url: accept_reject_trip_path, method: :get do |b| %>
         <div class="row">
           <div class="col-sm-6 col-sm-offset-6">
             <div class="form-group">
@@ -76,7 +76,7 @@
         </div>
         <div class="row">
           <div class="col-sm-6">
-            <%= link_to t('trips.show.accept'), accept_trip_path,  class: 'btn btn-success btn-block' %>
+            <%= b.submit t('trips.show.accept'), class: 'btn btn-success btn-block' %>
           </div>
           <div class="col-sm-6">
             <%= b.submit t('trips.show.reject'), class: 'btn btn-danger btn-block' %>
@@ -124,7 +124,3 @@
     <% end %>
   </div>
 </div>
-
-
-
-

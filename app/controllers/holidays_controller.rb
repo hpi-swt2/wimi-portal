@@ -1,7 +1,7 @@
 class HolidaysController < ApplicationController
   load_and_authorize_resource
 
-  before_action :set_holiday, only: [:show, :edit, :update, :destroy, :file, :reject, :accept]
+  before_action :set_holiday, only: [:show, :edit, :update, :destroy, :file, :reject, :accept, :accept_reject]
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
     redirect_to root_path
@@ -111,6 +111,15 @@ class HolidaysController < ApplicationController
     else
       redirect_to root_path
       flash[:error] = t('holiday.not_authorized')
+    end
+  end
+
+  def accept_reject
+    if params[:commit] == t('holidays.show.reject')
+      @holiday.update(holiday_params)
+      reject
+    else
+      accept
     end
   end
 

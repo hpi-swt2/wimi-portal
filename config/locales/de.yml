@@ -227,6 +227,7 @@ de:
       invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
       cannot_be_invited: 'Dieser Benutzer kann nicht eingeladen werden.'
       cannot_accept_invitations: 'Du kannst keine Projekteinladungen akzeptieren.'
+      last_wimi: 'Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.'
   time:
     formats:
       default: "%d.%m.%Y"
@@ -284,6 +285,7 @@ de:
     applied: "Reisekostenabrechnung bereits eingereicht"
     destroyed: "Reisekostenabrechnung wurde erfolgreich gelöscht"
     apply: "Reisekostenabrechnung wurde erfolgreich eingereicht"
+    no_trip: "Bevor die Reisekostenabrechnung eingereicht werden kann, müssen Sie den Dienstreiseantrag einreichen"
   users:
     upload_signature:
       upload_success: "Unterschrift wurde erfolgreich hochgeladen"
