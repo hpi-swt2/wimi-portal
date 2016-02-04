@@ -43,17 +43,19 @@
               <div class="col-md-6">
                 <%= f.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
               </div>
+              <div class="col-md-6">
+                <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
+              </div>
             </div>
           <% else %>
             <div class="row">
               <div class="col-md-6">
                 <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
               </div>
+              <div class="col-md-6">
+                <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
             </div>
           <% end %>
-          <div class="col-md-6">
-              <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
-          </div>
         </div>
       </div>
     <% end %>
