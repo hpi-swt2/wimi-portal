@@ -6,6 +6,14 @@
   =require twitter-bootstrap-static/fontawesome
   */
 
+.btn-danger {
+  background-color: #C60F46
+}
+
+.btn-warning {
+  background-color: #F27D14
+}
+
  .page-header {
  	margin-top: 20px;
  }
@@ -19,6 +27,10 @@
   -webkit-border-radius: 0 !important;
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
+}
+
+.modal-backdrop {
+  opacity: 0.5 !important;
 }
 
 .panel {
@@ -48,7 +60,7 @@ h1,h2,h3,h4 {
 .vertical-align > [class*=" col-"] {
   display: flex;
   align-items: center;
-  justify-content: center; /* Optional, to align inner items
+  /*justify-content: center; /* Optional, to align inner items
                               horizontally inside the column */
 }
 

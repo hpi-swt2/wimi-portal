@@ -8,9 +8,9 @@
             <%=t '.title', default: model_class.model_name.human.titleize %>
           </div>
           <div class="col-sm-3">
-            <% if (@holiday.status == 'saved') || (@holiday.status == 'declined')  %>
-              <%= link_to t('.edit', default: t("helpers.links.edit")),
-                              edit_holiday_path(@holiday), class: 'btn btn-warning' %>
+              <% if (@holiday.status == 'saved') || (@holiday.status == 'declined')  %>
+                <%= link_to t('.edit', default: t("helpers.links.edit")),
+                              edit_holiday_path(@holiday), class: 'btn btn-warning btn-block' %>
               <% else %>
                 <%= link_to t('.edit', default: t("helpers.links.edit")),
                               '#', class: 'btn btn-warning btn-block', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
@@ -33,10 +33,7 @@
       </div>
     <% end %>
     
-    <% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
-      <%= link_to t('.file'), file_holiday_path, class: 'btn btn-success' %>
-      <%= link_to t('.destroy', default: t("helpers.links.destroy")), holiday_path(@holiday), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger btn-primary' %>
-    <% end %>
+    
 
     <% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
       <%= form_for @holiday, url: accept_reject_holiday_path, method: :get do |f| %>
@@ -54,19 +51,19 @@
               <%= t('signature_warning') %>
               <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <%= f.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
                 </div>
               </div>
             <% else %>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
                 </div>
-              <div class="col-md-6">
+              <div class="col-sm-6">
                 <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
               </div>
             </div>
@@ -77,6 +74,10 @@
     <div class="row">
       <div class="col-md-12">
         <div class="btn-group btn-group-justified">
+          <% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
+            <%= link_to t('.file'), file_holiday_path, class: 'btn btn-success' %>
+            <%= link_to t('.destroy', default: t("helpers.links.destroy")), holiday_path(@holiday), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger' %>
+          <% end %>
           <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Holiday_request', doc_id: @holiday), class: 'btn btn-info' %>
         </div>
       </div>
