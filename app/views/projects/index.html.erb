@@ -82,7 +82,7 @@
         <% end %>
       </div>
     </div>
-    <% if current_user.is_representative? %>
+    <% if @user.is_representative? %>
       <div class="page-header">
         <h3><%= t('.all_working_hours') %></h3>
       </div>

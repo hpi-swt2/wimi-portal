@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = apply_scopes(Project.all)
+    @user = current_user
   end
 
   def show
