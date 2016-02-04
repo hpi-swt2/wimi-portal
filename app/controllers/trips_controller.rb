@@ -19,7 +19,7 @@ class TripsController < ApplicationController
   def show
     unless (@trip.user == current_user) || ((can? :see_trips, @trip.user) && (can? :edit_trip, @trip))
       redirect_to root_path
-      flash[:error] = I18n.t('trip.not_authorized')
+      flash[:error] = I18n.t('not_authorized')
     end
   end
 
@@ -39,6 +39,14 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_user
 
+    if trip_params[:signature] == '1' && current_user.signature.nil?
+      @trip.signature = false
+      flash[:error] = t('signatures.signature_not_found')
+    elsif trip_params[:signature] == '1' && !current_user.signature.nil?
+      @trip.user_signature = current_user.signature
+      @trip.user_signed_at = Date.today
+    end
+
     if @trip.save
       redirect_to @trip
       flash[:success] = I18n.t('trip.save')
@@ -50,7 +58,23 @@ class TripsController < ApplicationController
   def update
     parse_date
     @trip.update(status: 'saved')
-    if @trip.update(trip_params)
+
+    new_trip_params = trip_params
+
+    if new_trip_params[:signature] == '1' && current_user.signature.nil?
+      new_trip_params[:signature] = false
+      @trip.user_signature = nil
+      @trip.user_signed_at = nil
+      flash[:error] = t('signatures.signature_not_found')
+    elsif new_trip_params[:signature] == '1' && !current_user.signature.nil?
+      @trip.user_signature = current_user.signature
+      @trip.user_signed_at = Date.today
+    else
+      @trip.user_signature = nil
+      @trip.user_signed_at = nil
+    end
+
+    if @trip.update(new_trip_params)
       redirect_to @trip
       flash[:success] = I18n.t('trip.update')
     else
@@ -88,19 +112,23 @@ class TripsController < ApplicationController
       redirect_to @trip.user
     else
       redirect_to root_path
-      flash[:error] = t('trip.not_authorized')
+      flash[:error] = t('not_authorized')
     end
   end
 
   def accept
     if (can? :read, @trip) && @trip.status == 'applied'
-      @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user)
+      @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user, representative_signature: current_user.signature, representative_signed_at: Date.today)
       ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})
       redirect_to @trip.user
     else
       redirect_to root_path
-      flash[:error] = t('trip.not_authorized')
+      flash[:error] = t('not_authorized')
     end
+  end
+
+  def accept_reject
+    params[:commit] == t('trips.show.reject') ? reject : accept
   end
 
   private

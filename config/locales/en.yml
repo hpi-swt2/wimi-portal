@@ -73,6 +73,7 @@ en:
         reason: "Reason for Special Leave"
         annotations: "Annotations"
         replacement: "Replacement"
+        signature: "Add signature"
       expense:
         id: "Id"
         amount: "Amount"
@@ -87,7 +88,7 @@ en:
         destination: "Destination"
         reason: "Reason"
         annotation: "Annotations"
-        signature: "Add signature?"
+        signature: "Add signature"
         status: "Status"
         user_id: "User"
         created_at: "Created at"
@@ -114,7 +115,7 @@ en:
         vehicle_advance: "Travel paid by HPI"
         hotel: "Hotel"
         general_advance: "Advance"
-        signature: "Add signature?"
+        signature: "Add signature"
       expense_item:
         date: "Date"
         breakfast: "Breakfast"
@@ -143,6 +144,7 @@ en:
         street: "Street"
         zip_code: "Zip Code"
         personnel_number: "Staff Number"
+        email_notification : "Email Notifications"
         chair: "Research Group"
         language: "Language"
         not_member_of_chair: "You are not a member of a Research Group."
@@ -219,6 +221,7 @@ en:
       invitation_declined: 'You declined the invitation.'
       cannot_be_invited: 'This user cannot be invited.'
       cannot_accept_invitations: 'You cannot accept project invitations.'
+      last_wimi: 'You are the last research assistant. You can not leave the project.'
   date:
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
     formats:
@@ -283,6 +286,7 @@ en:
     applied: "Expense is already applied"
     destroyed: "Expense was successfully destroyed"
     apply: "Expense was successfully applied"
+    no_trip: "You can not hand in an expense unless you have applied the business trip"
   users:
     upload_signature:
       upload_success: "Signature was successfully uploaded"
@@ -290,3 +294,12 @@ en:
       upload_error: "Please choose a file"
     delete_signature:
       destroy_success: "Signature successfully deleted"
+  mail_notifier:
+    notification:
+      subject: "You received a new notification"
+      hello: "Hello "
+      text: "you got a new notification. Check your Wimi-Portal Dashboard to see all the recent notifications."
+      your_wimi_portal: "Your Wimi-Portal"
+  signatures:
+    signature_not_found: "You have selected to sign the document, but there was no signature found"
+    signature_not_found_time_sheet: "The document was not handed in, because you have selected to sign the document, but there was no signature found"

@@ -18,6 +18,8 @@ en:
       login: "Login"
       logout: "Logout"
     actions: "Actions"
+    forms:
+      required_field: "required field"
     links:
       hand_in: "Hand in"
       show: "Show"
@@ -112,6 +114,12 @@ en:
       status_true: "Active"
       status_false: "Inactive"
       all_working_hours: "Overall Student Working Hours for"
+    create:
+      success: 'Project was successfully created.'
+    update:
+      success: 'Project was successfully updated.'
+    destroy:
+      success: 'Project was successfully destroyed.'
   users:
     does_not_exist: "This user does not exist."
     no_email: "is not a valid email address."
@@ -160,6 +168,8 @@ en:
       user_status: "Status"
       wimi: "Research Assistant"
       hiwi: "Student Assistant"
+      is_on: "on"
+      is_off: "off"
     edit_leave:
       remaining_leave: "Remaining Leave"
       remaining_leave_fly: "Remaining Leave from last year"
@@ -176,6 +186,7 @@ en:
       reject: "Reject Request"
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
+      reject_reason: "Rejection reason"
       status:
         saved: "Saved at "
         accepted: "Accepted at "
@@ -227,6 +238,11 @@ en:
       view: "View"
       request: "travel request"
       full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
+  event_holiday_requests:
+    event_holiday_request:
+      accepted: "accepted"
+      rejected: "rejected"
+      full_html: "%{person_in_power} <b>%{status}</b> the holiday request of %{user}."
   event_time_sheet_submitteds:
     event_time_sheet_submitted:
       view: "View"
@@ -271,6 +287,7 @@ en:
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
       days: "Day(s)"
+      reject_reason: "Rejection reason"
       status:
         saved: "Saved at "
         accepted: "Accepted at "
@@ -286,6 +303,7 @@ en:
   work_days:
     index:
       working_hours_for: "Working hours for"
+      working_hours: "Working hours"
       new: "add workday"
       for: "for"
       by: "by"
@@ -409,4 +427,5 @@ en:
     admin_long: "Administrator"
     admin_long_plural: "Administrators"
     hiwi_long_plural: "Student Assistants"
+  signature_warning: "You have to upload a signature before you can accept the request."
   no_entries_yet: "There are no %{target} yet."

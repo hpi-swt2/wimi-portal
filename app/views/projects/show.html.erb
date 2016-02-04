@@ -38,8 +38,6 @@
         </dl>
       </div>
     </div>
-
-
     <% if current_user.is_hiwi? %>
       <dl class="dl-horizontal">
         <dt><strong><%= t('.working_hours', default:'Working hours') %>:</strong></dt>
@@ -179,7 +177,7 @@
           </div>
           <div class="panel-body">
             <p>
-              <% if @project.users.include? current_user%>
+              <% if can?(:sign_user_out,@project) and not(current_user.is_wimi? and @project.wimis.count <= 1) %>
                 <%= link_to t('.leave_project', default:'Leave Project'),
                               sign_user_out_project_path(user_id: current_user.id, id: @project), method: :delete %>
               <% end %>
@@ -195,7 +193,7 @@
             <p>
               <% if can? :edit, @project %>
                 <%= link_to t('projects.form.show_all_working_hours', default:'Show all working hours'),
-                              work_days_path(month: 1, year: 2016, project: @project)%>
+                              work_days_path(project: @project)%>
               <% end %>
             </p>
             <p>

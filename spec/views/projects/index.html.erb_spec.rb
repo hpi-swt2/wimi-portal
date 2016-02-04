@@ -8,15 +8,50 @@ RSpec.describe 'projects/index', type: :view do
     ])
     @user = FactoryGirl.create(:user)
     login_as @user
+    allow(view).to receive(:current_user).and_return(@user)
   end
 
   it 'renders a list of projects' do
     render
   end
 
+  it 'does not show private projects that I do not belong to' do
+    chair = FactoryGirl.create(:chair)
+    chair2 = FactoryGirl.create(:chair)
+    @user.update(chair: chair)
+    not_my_project = FactoryGirl.create(:project, title: 'I should not see this project', public: false, chair: chair2)
+
+    visit projects_path
+
+    expect(page).to_not have_content(not_my_project.title)
+  end
+
+  it 'shows private projects that I do not belong to if I am representative of the chair' do
+    chair = FactoryGirl.create(:chair)
+    @user.update(chair: chair)
+    FactoryGirl.create(:wimi, user: @user, representative: true)
+    not_my_project = FactoryGirl.create(:project, title: 'I should not see this project', public: false, chair: chair)
+
+    visit projects_path
+
+    expect(page).to have_content(not_my_project.title)
+  end
+
+  it 'shows private projects that I belong to' do
+    chair = FactoryGirl.create(:chair)
+    @user.update(chair: chair)
+    my_project = FactoryGirl.create(:project, title: 'I should see this project', public: false, chair: chair)
+    my_project.users << @user
+
+    visit projects_path
+
+    expect(page).to have_content(my_project.title)
+  end
+
   it 'shows all details about a project' do
     chair = FactoryGirl.create(:chair)
     project = FactoryGirl.create(:project, chair: chair)
+    project.users << @user
 
     project.update(status: true)
     project.update(public: true)

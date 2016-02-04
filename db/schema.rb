@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202134043) do
+ActiveRecord::Schema.define(version: 20160204091724) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 20160202134043) do
     t.integer  "trip_id"
     t.string   "time_start"
     t.string   "time_end"
+    t.text     "user_signature"
+    t.date     "user_signed_at"
     t.text     "rejection_message"
   end
 
@@ -87,18 +89,22 @@ ActiveRecord::Schema.define(version: 20160202134043) do
 
   create_table "holidays", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.date     "start"
     t.date     "end"
-    t.integer  "status",              default: 0, null: false
+    t.integer  "status",                   default: 0, null: false
     t.integer  "replacement_user_id"
     t.integer  "length"
     t.boolean  "signature"
     t.date     "last_modified"
     t.string   "reason"
     t.string   "annotation"
-    t.integer  "length_last_year",    default: 0
+    t.integer  "length_last_year",         default: 0
+    t.text     "user_signature"
+    t.text     "representative_signature"
+    t.date     "user_signed_at"
+    t.date     "representative_signed_at"
   end
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
@@ -151,16 +157,20 @@ ActiveRecord::Schema.define(version: 20160202134043) do
     t.boolean  "workload_is_per_month"
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.boolean  "handed_in",             default: false
-    t.text     "rejection_message",     default: ""
-    t.boolean  "signed",                default: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "handed_in",                default: false
+    t.text     "rejection_message",        default: ""
+    t.boolean  "signed",                   default: false
     t.date     "last_modified"
-    t.integer  "status",                default: 0
+    t.integer  "status",                   default: 0
     t.integer  "signer"
-    t.boolean  "wimi_signed",           default: false
+    t.boolean  "wimi_signed",              default: false
     t.date     "hand_in_date"
+    t.text     "user_signature"
+    t.text     "representative_signature"
+    t.date     "user_signed_at"
+    t.date     "representative_signed_at"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -168,16 +178,20 @@ ActiveRecord::Schema.define(version: 20160202134043) do
     t.text     "reason"
     t.text     "annotation"
     t.integer  "user_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "status",             default: 0
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "status",                   default: 0
     t.boolean  "signature"
     t.integer  "person_in_power_id"
     t.date     "last_modified"
     t.date     "date_start"
     t.date     "date_end"
     t.integer  "days_abroad"
-    t.text     "rejection_message"
+    t.text     "user_signature"
+    t.text     "representative_signature"
+    t.date     "user_signed_at"
+    t.date     "representative_signed_at"
+    t.text     "rejection_message",        default: ""
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
@@ -211,6 +225,7 @@ ActiveRecord::Schema.define(version: 20160202134043) do
     t.string   "city"
     t.string   "zip_code"
     t.text     "signature"
+    t.boolean  "email_notification",        default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

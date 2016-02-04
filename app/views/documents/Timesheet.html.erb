@@ -1,8 +1,8 @@
 <html>
 <head>
-<meta charset="utf-8">
-<title>Stundenzettel</title>
-<%= wicked_pdf_stylesheet_link_tag css_file %>
+  <meta charset="utf-8">
+  <title>Stundenzettel</title>
+  <%= wicked_pdf_stylesheet_link_tag css_file %>
 </head>
 
 <body class='pdf-document timesheet-document'>
@@ -72,28 +72,43 @@
       <td><b><%= day[:duration] %></b></td>
       <td><%= day[:attendance] %></td>
       <td style='font-size:10pt'><%= day[:notes] %></td>
-    </tr>
+      </tr>
   <% end %>
   <tr class='footer'>
-    <td colspan=3 >&nbsp;</td>
+    <td colspan=3>&nbsp;</td>
     <td><b>Summe:</b></td>
     <td><b style="font-size: 15.0pt; border-bottom-style: double"><%= sum %></b></td>
-    <td colspan=2 >&nbsp;</td>
+    <td colspan=2>&nbsp;</td>
   </tr>
   <tr class='footer'>
     <td>&nbsp;</td>
   </tr>
   <tr class='footer'>
-    <td style="height:30pt" colspan=3 >
-      <div class='signature'>&nbsp;</div>
+
+    <td style="height:30pt" colspan=3>
+      <div class='signature'>
+        <% if timesheet.signed %>
+          <%= timesheet.user_signed_at.strftime("%d.%m.%Y") %>,
+          <% path = 'data:image/png;base64,' << timesheet.user_signature %>
+          <img src="<%= path %>" Zwidth="150" height="50"/></div>
+        <% end %>
+      </div>
       <p>
         <span>Datum</span>
         <span>Unterschrift des Arbeitsnehmers</span>
       </p>
     </td>
+
+
     <td>&nbsp;</td>
-    <td colspan=4 >
-      <div class='signature'>&nbsp;</div>
+    <td colspan=4>
+      <div class='signature'>
+        <% unless timesheet.representative_signature.nil? %>
+          <%= timesheet.representative_signed_at.strftime("%d.%m.%Y") %>,
+          <% path = 'data:image/png;base64,' << timesheet.representative_signature %>
+          <img src="<%= path %>" Zwidth="150" height="50"/></div>
+        <% end %>
+      </div>
       <p>
         <span>Datum</span>
         <span>Unterschrift Fachgebiet</span>
@@ -102,7 +117,8 @@
   </tr>
 </table>
 <div style="font-size:10pt; margin-top: -5px">
-  <b style="font-size:10pt">* Tragen Sie in diese Spalte eines der folgenden Kürzel ein, wenn es für diesen Kalendertag zutrifft:</b>
+  <b style="font-size:10pt">* Tragen Sie in diese Spalte eines der folgenden Kürzel ein, wenn es für diesen Kalendertag
+    zutrifft:</b>
   <br/>
   <b style="margin: 0px 30px">K</b> Krank
   <br/>

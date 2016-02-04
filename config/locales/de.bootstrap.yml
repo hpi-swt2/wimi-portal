@@ -13,6 +13,8 @@ de:
       login: "Anmelden"
       logout: "Abmelden"
     actions: "Aktionen"
+    forms:
+      required_field: "Pflichtfeld"
     links:
       hand_in: "Einreichen"
       show: "Anzeigen"
@@ -103,6 +105,12 @@ de:
       status_true: "Aktiv"
       status_false: "Inaktiv"
       all_working_hours: "Hiwi Stunden Gesamt für"
+    create:
+      success: 'Projekt wurde erfolgreich erstellt.'
+    update:
+      success: 'Projekt wurde erfolgreich bearbeitet.'
+    destroy:
+      success: 'Projekt wurde erfolgreich gelöscht.'
   users:
     no_email: "ist keine gültige Email-Adresse."
     does_not_exist: "Dieser Benutzer existiert nicht."
@@ -151,6 +159,8 @@ de:
       user_status: "Status"
       wimi: "WiMi"
       hiwi: "HiWi"
+      is_on: "an"
+      is_off: "aus"
     edit_leave:
       remaining_leave: "Verbleibender Resturlaub"
       remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
@@ -167,6 +177,7 @@ de:
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
+      reject_reason: "Ablehnungsgrund"
       status:
         saved: "Gespeichert am "
         accepted: "Akzeptiert am "
@@ -213,6 +224,11 @@ de:
       view: "Ansehen"
       request: "Dienstreiseantrag"
       full_html: "Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>angenommen</b>. %{link_to_view}"
+  event_holiday_requests:
+    event_holiday_request:
+      accepted: "akzeptiert"
+      rejected: "abgelehnt"
+      full_html: "%{person_in_power} hat den Urlaubsantrag von %{user} <b>%{status}</b>."
   event_travel_request_declineds:
     event_travel_request_declined:
       view: "Ansehen"
@@ -261,6 +277,7 @@ de:
       accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
       days: "Tag(e)"
+      reject_reason: "Ablehnungsgrund"
       status:
         saved: "Gespeichert am "
         accepted: "Akzeptiert am "
@@ -276,6 +293,7 @@ de:
   work_days:
     index:
       working_hours_for: "Arbeitsstunden im"
+      working_hours: "Arbeitsstunden"
       new: "hinzufügen"
       for: "für"
       by: "von"
@@ -399,4 +417,5 @@ de:
     admin_long: "Administrator"
     hiwi_long_plural: "Studentische Hilfskräfte"
     admin_long_plural: "Administratoren"
+  signature_warning: "Bevor Sie das Dokument akzeptieren, müssen Sie eine Unterschrift hochladen."
   no_entries_yet: "Es sind noch keine %{target} vorhanden."

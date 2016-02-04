@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = apply_scopes(Project.all)
+    @user = current_user
   end
 
   def show
@@ -30,7 +31,7 @@ class ProjectsController < ApplicationController
     @project.chair = current_user.chair
     if @project.save
       current_user.projects << @project
-      flash[:success] = 'Project was successfully created.'
+      flash[:success] = t '.success'
       unless params[:invitations].blank?
         params[:invitations].values.each do |email|
           user = User.find_by_email(email)
@@ -47,7 +48,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      flash[:success] = 'Project was successfully updated.'
+      flash[:success] = t '.success'
       redirect_to @project
     else
       render :edit
@@ -57,7 +58,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy_invitations
     @project.destroy
-    flash[:success] = 'Project was successfully destroyed.'
+    flash[:success] = t '.success'
     redirect_to projects_url
   end
 
@@ -101,16 +102,21 @@ class ProjectsController < ApplicationController
   def sign_user_out
     user = User.find(params[:user_id])
     @project = Project.find(params[:id])
-    if can?(:edit, @project) || current_user == user
-      @project.remove_user(user)
-      if user == current_user
-        redirect_to projects_path
-      else
-        redirect_to edit_project_path(@project)
-      end
-    else
+    if user.is_wimi? and @project.wimis.count <= 1
       redirect_to dashboard_path
-      flash[:error] = I18n.t('project.user.not_authorized')
+      flash[:error] = I18n.t('project.user.last_wimi')
+    else
+      if can?(:edit, @project) || current_user == user
+        @project.remove_user(user)
+        if user == current_user
+          redirect_to projects_path
+        else
+          redirect_to edit_project_path(@project)
+        end
+      else
+        redirect_to dashboard_path
+        flash[:error] = I18n.t('project.not_authorized')
+      end
     end
   end
 

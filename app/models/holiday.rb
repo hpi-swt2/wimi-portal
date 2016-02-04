@@ -2,20 +2,22 @@
 #
 # Table name: holidays
 #
-#  id                  :integer          not null, primary key
-#  user_id             :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  start               :date
-#  end                 :date
-#  status              :integer          default(0), not null
-#  replacement_user_id :integer
-#  length              :integer
-#  signature           :boolean
-#  last_modified       :date
-#  reason              :string
-#  annotation          :string
-#  length_last_year    :integer          default(0)
+#  id                       :integer          not null, primary key
+#  user_id                  :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  start                    :date
+#  end                      :date
+#  status                   :integer          default(0), not null
+#  replacement_user_id      :integer
+#  length                   :integer
+#  signature                :boolean
+#  last_modified            :date
+#  reason                   :string
+#  annotation               :string
+#  user_signature           :text
+#  representative_signature :text
+#  length_last_year         :integer          default(0)
 #
 
 class Holiday < ActiveRecord::Base
