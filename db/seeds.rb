@@ -26,9 +26,9 @@ ChairWimi.create(admin: false, representative: false, application: 'accepted', u
 ChairWimi.create(admin: false, representative: false, application: 'accepted', user_id: 7, chair_id: 1)
 ChairWimi.create(admin: false, representative: false, application: 'accepted', user_id: 8, chair_id: 1)
 
-Project.create(title: 'In-Memory Data Management for Enterprise Systems', chair_id: 1)
-Project.create(title: 'Tools & Methods for Enterprise Systems Design and Engineering', chair_id: 1)
-Project.create(title: 'In-Memory Data Management for Life Sciences', chair_id: 1)
+project1 = Project.create(title: 'In-Memory Data Management for Enterprise Systems', chair_id: 1)
+project2 = Project.create(title: 'Tools & Methods for Enterprise Systems Design and Engineering', chair_id: 1)
+project3 = Project.create(title: 'In-Memory Data Management for Life Sciences', chair_id: 1)
 project4 = Project.create(title: 'openHPI', chair_id: 1)
 
 ## Hiwis mit Stundenzetteln ##
@@ -62,3 +62,23 @@ ChairWimi.create(admin: false, representative: true, user_id: 12, chair_id: 1)
 
 project4.users << user11
 #project4.users << user13
+
+# more users for statistics
+user14 = User.create(first_name: 'Merle', last_name: 'Epic', email: 'merle.epic@student.hpi.uni-potsdam.de', password: 'test', password_confirmation: 'test')
+user15 = User.create(first_name: 'Manfred', last_name: 'Epic', email: 'manfred.epic@student.hpi.uni-potsdam.de', password: 'test', password_confirmation: 'test')
+user16 = User.create(first_name: 'Gustus', last_name: 'Epic', email: 'gustus.epic@student.hpi.uni-potsdam.de', password: 'test', password_confirmation: 'test')
+project2.users << user14
+project1.users << user15
+project3.users << user16
+
+TimeSheet.create(month: 2, year: 2016, salary: 200, salary_is_per_month: true, workload: 5, workload_is_per_month: true, user_id: 14, project_id: 2)
+WorkDay.create(date: '2016-02-01', start_time: '08:00:00', end_time: '12:00:00', break: 60, user_id: 14, project_id: 2)
+WorkDay.create(date: '2016-02-03', start_time: '10:00:00', end_time: '12:00:00', break: 60, user_id: 14, project_id: 2)
+
+TimeSheet.create(month: 2, year: 2016, salary: 250, salary_is_per_month: true, workload: 7, workload_is_per_month: true, user_id: 15, project_id: 1)
+WorkDay.create(date: '2016-02-01', start_time: '08:00:00', end_time: '11:00:00', break: 60, user_id: 15, project_id: 1)
+WorkDay.create(date: '2016-02-03', start_time: '10:00:00', end_time: '12:00:00', break: 60, user_id: 15, project_id: 1)
+
+TimeSheet.create(month: 2, year: 2016, salary: 450, salary_is_per_month: true, workload: 10, workload_is_per_month: true, user_id: 16, project_id: 3)
+WorkDay.create(date: '2016-02-01', start_time: '08:00:00', end_time: '10:00:00', break: 60, user_id: 16, project_id: 3)
+WorkDay.create(date: '2016-02-03', start_time: '10:00:00', end_time: '16:00:00', break: 60, user_id: 16, project_id: 3)
