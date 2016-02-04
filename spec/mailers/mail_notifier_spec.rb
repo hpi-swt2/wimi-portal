@@ -1,45 +1,21 @@
 require "rails_helper"
 
 RSpec.describe MailNotifier, type: :mailer do
-  describe "invited" do
-    let(:mail) { MailNotifier.invited }
+  describe "notification" do
+    before(:each) do
+      @event = FactoryGirl.create(:event_admin_right)
+      @user = FactoryGirl.create(:user)
+    end
+    let(:mail) { MailNotifier.notification(@event, @user) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Invited")
-      expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
+      expect(mail.subject).to eq("You received a new notification")
+      expect(mail.to).to eq([@user.email])
+      expect(mail.from).to eq(["hpi.wimiportal@gmail.com"])
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
-    end
-  end
-
-  describe "applied" do
-    let(:mail) { MailNotifier.applied }
-
-    it "renders the headers" do
-      expect(mail.subject).to eq("Applied")
-      expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
-    end
-
-    it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
-    end
-  end
-
-  describe "requested" do
-    let(:mail) { MailNotifier.requested }
-
-    it "renders the headers" do
-      expect(mail.subject).to eq("Requested")
-      expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
-    end
-
-    it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+      expect(mail.body.encoded).to match('Hello')
     end
   end
 
