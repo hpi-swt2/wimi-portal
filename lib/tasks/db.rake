@@ -29,7 +29,7 @@ namespace :db do
     ChairWimi.create!(chair_id: chair1.id, user_id: pending_wimi_appl.id, application: 'pending')
 
     # create some holidays, trips, expenses
-    Holiday.create!(start: Date.today, end: Date.today + 4, length: 5, user_id: epic_admin.id, status: 'applied', last_modified: Date.today)
+    Holiday.create!(start: Date.today, end: Date.today + 19, length: 5, user_id: epic_admin.id, status: 'applied', last_modified: Date.today)
 
     User.create!(email: 'test@test.de',
       first_name: 'Max',
