@@ -18,8 +18,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
+        <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
         <%= f.label :date, class: 'control-label' %><span style="color: red">*</span>
-        <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': "dd-mm-yyyy", 'data-date-autoclose': true, 'data-date-language': I18n.locale %>
+        <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @work_day.date ? l(@work_day.date) : nil , placeholder: t('trips.form.date') %>
       </div>
     </div>
   </div>
