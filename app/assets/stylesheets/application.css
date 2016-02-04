@@ -67,6 +67,20 @@ body {
     margin-bottom: 15px;
 }
 
+/* Styles for anchors without a link (href) */
+a:not([href]):hover {
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: black;
+}
+
+/* Add offset because the navbar covers the anchor element
+   (without adding a gap in the content) */
+a.anchor {
+    padding-top: 90px;
+    margin-top: -90px;
+}
+
 .projectCheckbox {
     margin-left: -30px;
 }

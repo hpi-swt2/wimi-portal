@@ -63,16 +63,17 @@ class WorkDay < ActiveRecord::Base
   end
 
   def self.all_for(year, month, project, user)
-    date = Date.new(year, month)
-    month_start = date.beginning_of_month
-    month_end = date.end_of_month
-    if project.nil?
-      return WorkDay.where(date: month_start..month_end, user: user)
+    # year and month are 0 when they are not passed to the controller (nil.to_i = 0)
+    if year == 0 || month == 0
+      return WorkDay.where(user: user, project_id: project)
     else
+      date = Date.new(year, month)
+      month_start = date.beginning_of_month
+      month_end = date.end_of_month
       return WorkDay.where(date: month_start..month_end, user: user, project_id: project)
     end
   end
-  
+
   def duration_hours_minutes
     work_time = duration_in_minutes
     minutes = work_time % 60

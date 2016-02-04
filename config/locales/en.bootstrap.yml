@@ -296,6 +296,7 @@ en:
   work_days:
     index:
       working_hours_for: "Working hours for"
+      working_hours: "Working hours"
       new: "add workday"
       for: "for"
       by: "by"
