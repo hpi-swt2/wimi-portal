@@ -20,6 +20,7 @@ class Ability
 
   def initialize_user(user)
     can :see, Project
+    can :apply, Project
     can :index, Chair
     can :apply, Chair
     can :read, Project do |project|
@@ -73,6 +74,7 @@ class Ability
     can :sign_user_out, Project do |project|
       project.users.include? user
     end
+    can :read,  TimeSheet.select { |t| t.user == user}
     can :add_working_hours, Project do |project|
       project.users.include? user
     end
@@ -179,6 +181,10 @@ class Ability
     can :requests_filtered, Chair do |chair|
       user.is_representative?(chair)
     end
+
+    cannot :reject, TimeSheet
+    cannot :accept, TimeSheet
+    cannot :see, TimeSheet
   end
 
   def initialize_admin(user)
@@ -200,6 +206,10 @@ class Ability
       user.is_admin?(chair)
     end
     can :see,               Chair
+
+    cannot :reject, TimeSheet
+    cannot :accept, TimeSheet
+    cannot :see, TimeSheet
     #can :manage, own chair
     #can accept application from wimi to project
     #can remove wimis from project

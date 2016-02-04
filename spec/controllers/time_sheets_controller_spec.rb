@@ -10,14 +10,20 @@ RSpec.describe TimeSheetsController, type: :controller do
 
   let(:valid_attributes) {
     {month: 1, year: 2015, salary: 100, salary_is_per_month: true,
-      workload: 100, workload_is_per_month: true, user: @user,
-      project: @project}
+     workload: 100, workload_is_per_month: true, user: @user,
+     project: @project}
+  }
+
+  let(:signature_valid_attributes) {
+    {month: 1, year: 2015, salary: 100, salary_is_per_month: true,
+     workload: 100, workload_is_per_month: true, user: @user,
+     project: @project, signed: 1}
   }
 
   let(:invalid_attributes) {
     {month: 1, year: 2015, salary: -100, salary_is_per_month: false,
-      workload: 100, workload_is_per_month: nil, user: @user,
-      project: @project}
+     workload: 100, workload_is_per_month: nil, user: @user,
+     project: @project}
   }
 
   let(:valid_session) { {} }
@@ -34,8 +40,8 @@ RSpec.describe TimeSheetsController, type: :controller do
     context 'with valid params' do
       let(:new_attributes) {
         {month: 1, year: 2015, salary: 100, salary_is_per_month: false,
-          workload: 200, workload_is_per_month: true, user: @user,
-          project: @project}
+         workload: 200, workload_is_per_month: true, user: @user,
+         project: @project}
       }
 
       it 'updates the requested time_sheet' do
@@ -69,6 +75,30 @@ RSpec.describe TimeSheetsController, type: :controller do
         time_sheet = TimeSheet.create! valid_attributes
         put :update, {id: time_sheet.to_param, time_sheet: invalid_attributes}, valid_session
         expect(response).to render_template('edit')
+      end
+    end
+  end
+
+  describe 'GET #hand_in' do
+    context 'with valid params' do
+      it 'should not hand in time sheet if signature is absent' do
+        request.env["HTTP_REFERER"] = ''
+        time_sheet = TimeSheet.create! valid_attributes
+        get :hand_in, {id: time_sheet.to_param, time_sheet: signature_valid_attributes}, valid_session
+
+        expect(response).to have_http_status(302)
+        expect(time_sheet.signed).to eq(false)
+        assert_equal 'The document was not handed in, because you have selected to sign the document, but there was no signature found', flash[:error]
+      end
+
+      it 'should hand in time sheet with signature if present' do
+        @user.update(signature: 'Signature')
+        time_sheet = TimeSheet.create! valid_attributes
+        get :hand_in, {id: time_sheet.to_param, time_sheet: signature_valid_attributes}, valid_session
+
+        expect(TimeSheet.find(time_sheet.id).user_signature).to_not eq(nil)
+        expect(TimeSheet.find(time_sheet.id).signed).to eq(true)
+        expect(TimeSheet.find(time_sheet.id).user_signed_at).to_not eq(nil)
       end
     end
   end

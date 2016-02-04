@@ -23,16 +23,10 @@
           <% end %>
           <%= t('.signed') %>
         </p>
-        </div>
+      </div>
     </div>
     <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
       <div class="row vertical-align">
-        <% unless @time_sheet.wimi_signed %>
-          <div class="col-md-6">
-            <%= f.check_box :wimi_signed , style: 'margin: 0px 10px;' %>
-            <%= f.label t('.add_signature'), style: 'margin: 0px;' %>
-          </div>
-        <% end %>
         <div class=<%= @time_sheet.wimi_signed ? 'col-md-6' : 'col-md-6 col-md-offset-6'%>>
           <div class="form-group">
             <%= f.label t('.reject_reason') %>
@@ -41,16 +35,29 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-          <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
-        </div>
-        <div class="col-md-6">
-          <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
+        <div class="col-md-12">
+          <% if current_user.signature.nil? %>
+            <%= t('signature_warning') %>
+            <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/><br/>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
+              </div>
+            </div>
+          <% else %>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
+              </div>
+            </div>
+          <% end %>
+          <div class="col-md-6">
+              <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
+          </div>
         </div>
       </div>
     <% end %>
   <% end %>
-
 <% else %>
   <%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet), method: :get do |f| %>
     <% if @time_sheet.handed_in? %>

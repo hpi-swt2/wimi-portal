@@ -37,6 +37,7 @@ RSpec.describe 'work_days/index.html.erb', type: :view do
   end
 
   it 'accepts a TimeSheet if accept button is pressed' do
+    @user.signature = 'Signature'
     timesheet = FactoryGirl.create(:time_sheet, user: @user, project: @project, handed_in: true)
     visit work_days_path(month: Date.today.month, year: Date.today.year, project: @project.id, user_id: @user.id)
     click_on('accept')

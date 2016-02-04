@@ -420,4 +420,5 @@ en:
     admin_long: "Administrator"
     admin_long_plural: "Administrators"
     hiwi_long_plural: "Student Assistants"
+  signature_warning: "You have to upload a signature before you can accept the request."
   no_entries_yet: "There are no %{target} yet."

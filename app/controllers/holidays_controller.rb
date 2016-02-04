@@ -32,7 +32,17 @@ class HolidaysController < ApplicationController
       #disregard errors here, they should be handled in model validation later
       params['holiday']['length'] = holiday_params['start'].to_date.business_days_until(holiday_params['end'].to_date + 1) rescue nil
     end
+
     @holiday = Holiday.new(holiday_params.merge(user: current_user, last_modified: Date.today))
+
+    if holiday_params[:signature] == '1' && current_user.signature.nil?
+      @holiday.signature = false
+      flash[:error] = t('signatures.signature_not_found')
+    elsif holiday_params[:signature] == '1' && !current_user.signature.nil?
+      @holiday.user_signature = current_user.signature
+      @holiday.user_signed_at = Date.today
+    end
+
     if @holiday.save
       flash[:success] = t('holiday.created')
       redirect_to @holiday
@@ -48,7 +58,22 @@ class HolidaysController < ApplicationController
       params['holiday']['length'] = lengths[:length_difference]
     end
 
-    if @holiday.update(holiday_params)
+    new_holiday_params = holiday_params
+
+    if new_holiday_params[:signature] == '1' && current_user.signature.nil?
+      new_holiday_params[:signature] = false
+      @holiday.user_signature = nil
+      @holiday.user_signed_at = nil
+      flash[:error] = t('signatures.signature_not_found')
+    elsif new_holiday_params[:signature] == '1' && !current_user.signature.nil?
+      @holiday.user_signature = current_user.signature
+      @holiday.user_signed_at = Date.today
+    else
+      @holiday.user_signature = nil
+      @holiday.user_signed_at = nil
+    end
+
+    if @holiday.update(new_holiday_params)
       flash[:success] = t('holiday.updated')
       @holiday.update(length: lengths[:new_length])
       redirect_to @holiday
@@ -103,9 +128,8 @@ class HolidaysController < ApplicationController
 
   def accept
     if (can? :read, @holiday) && @holiday.status == 'applied'
-      @holiday.update_attribute(:status, 'accepted')
-      @holiday.update_attribute(:last_modified, Date.today)
-      redirect_to @holiday.user
+        @holiday.update_attributes(status: 'accepted', last_modified: Date.today, representative_signature: current_user.signature, representative_signed_at: Date.today)
+        redirect_to @holiday.user
     else
       redirect_to root_path
       flash[:error] = t('holiday.not_authorized')
