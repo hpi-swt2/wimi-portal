@@ -64,7 +64,10 @@ class Ability
   def initialize_hiwi(user)
     initialize_user user
 
-    can :read, Project
+    can :read, Project do |project|
+      (project.public) ||
+      (project.users.include? user)
+    end
     cannot :create, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
@@ -84,7 +87,6 @@ class Ability
 
     alias_action :create, :read, :update, :destroy, to: :crud
 
-    can :read, Project
     can :create, Project
     can :manage, Project do |project|
       project.users.include?(user)
@@ -95,8 +97,8 @@ class Ability
     can :invite_user, Project do |project|
       project.users.include? user
     end
-    can :sign_user_out, Project do |project|
-      project.users.include? user
+    cannot :sign_user_out, Project do |project|
+      not project.users.include? user
     end
     cannot :add_working_hours, Project
     can :manage, ProjectApplication do |project_application|
@@ -134,6 +136,9 @@ class Ability
   def initialize_representative(user)
     initialize_wimi user
 
+    can :read, Project do |project|
+      user.chair == project.chair
+    end
     can :see_holidays, User do |chair_user|
       chair_user.chair == user.chair
     end
@@ -143,6 +148,7 @@ class Ability
 
     can :reject, Holiday.select {|h| h.user != user}
     can :accept, Holiday.select {|h| h.user != user}
+    can :accept_reject, Holiday.select {|h| h.user != user}
     can :read,   Holiday do |h|
       user.is_representative?(h.user.chair)
       h.status != 'saved' && h.status != 'declined'
@@ -151,6 +157,7 @@ class Ability
     can :read,      Trip.select { |t| user.is_representative?(t.user.chair) }
     can :reject,    Trip
     can :accept,    Trip
+    can :accept_reject, Trip
     can :edit_trip, Trip do |trip|
       trip.status != 'saved'
     end

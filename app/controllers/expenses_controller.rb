@@ -84,11 +84,13 @@ class ExpensesController < ApplicationController
   end
 
   def hand_in
-    if @expense.status == 'saved'
+    if @expense.status == 'saved' && @expense.trip.status != 'saved'
       if @expense.update(status: 'applied')
         ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @expense.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'expense'})
       end
-    end
+    else
+      flash[:error] = t('expense.no_trip')
+      end
     redirect_to trip_path(@expense.trip)
   end
 

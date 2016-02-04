@@ -18,6 +18,8 @@ en:
       login: "Login"
       logout: "Logout"
     actions: "Actions"
+    forms:
+      required_field: "required field"
     links:
       hand_in: "Hand in"
       show: "Show"
@@ -112,6 +114,12 @@ en:
       status_true: "Active"
       status_false: "Inactive"
       all_working_hours: "Overall Student Working Hours for"
+    create:
+      success: 'Project was successfully created.'
+    update:
+      success: 'Project was successfully updated.'
+    destroy:
+      success: 'Project was successfully destroyed.'
   users:
     does_not_exist: "This user does not exist."
     no_email: "is not a valid email address."
@@ -176,6 +184,7 @@ en:
       reject: "Reject Request"
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
+      reject_reason: "Rejection reason"
       status:
         saved: "Saved at "
         accepted: "Accepted at "
@@ -271,6 +280,7 @@ en:
       accept: "Accept Request"
       filed_request_cant_be_edited: "A filed request can't be edited"
       days: "Day(s)"
+      reject_reason: "Rejection reason"
       status:
         saved: "Saved at "
         accepted: "Accepted at "

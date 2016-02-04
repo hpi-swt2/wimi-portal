@@ -65,7 +65,7 @@
     </div>
 
     <% if (can? :accept, @trip) && @trip.status == 'applied' %>
-      <%= form_for @trip, url: reject_trip_path(@trip), method: :get do |b| %>
+      <%= form_for @trip, url: accept_reject_trip_path, method: :get do |b| %>
         <div class="row">
           <div class="col-sm-6 col-sm-offset-6">
             <div class="form-group">
@@ -75,48 +75,33 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-6">
-            <%= link_to t('trips.show.accept'), accept_trip_path,  class: 'btn btn-success btn-block' %>
-          </div>
-          <div class="col-sm-6">
-            <%= b.submit t('trips.show.reject'), class: 'btn btn-danger btn-block' %>
+          <div class="col-md-12">
+            <% if current_user.signature.nil? %>
+              <%= t('signature_warning') %>
+              <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br />
+              <div class="row">
+                <div class="col-md-6">
+                  <%= b.submit t('.reject'), class: 'btn btn-danger btn-block' %>
+                </div>
+                <div class="col-md-6">
+                  <%= b.submit t('.accept'), class: 'btn btn-success btn-block', disabled: "disabled" %>
+                </div>
+              </div>
+            <% else %>
+              <div class="row">
+                <div class="col-md-6">
+                  <%= f.submit t('.reject'), class: 'btn btn-danger btn-block' %>
+                </div>
+                <div class="col-md-6">
+                  <%= f.submit t('.accept'), class: 'btn btn-success btn-block' %>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>
     <% end %>
   </div>
-  <div class="panel panel-body">
-    <dl class="dl-horizontal">
-      <dt><strong><%= model_class.human_attribute_name(:destination) %>:</strong></dt>
-      <dd><%= @trip.destination %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:reason) %>:</strong></dt>
-      <dd><%= @trip.reason %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:date_start) %>:</strong></dt>
-      <dd><%=l @trip.date_start %><%=l @trip.date_start, format: ' (%A)' %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:date_end) %>:</strong></dt>
-      <dd><%=l @trip.date_end %><%=l @trip.date_end, format: ' (%A)' %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:days_abroad) %>:</strong></dt>
-      <dd><%= @trip.days_abroad %> <%= t('.days') %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:annotations) %>:</strong></dt>
-      <dd><%= @trip.annotation %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:signature) %>:</strong></dt>
-      <dd><%= t(@trip.signature.to_s) %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
-      <dd><%= t(".status.#{@trip.status}") + l(@trip.updated_at)%></dd>
-    </dl>
-  </div>
-</div>
-<% if (can? :accept, @trip) && @trip.status == 'applied' %>
-    <% if current_user.signature.nil? %>
-        <%= t('signature_warning') %>
-        <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/>
-        <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-danger btn-xs' %>
-        <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-success btn-xs', disabled: "disabled" %>
-    <% else %>
-        <%= link_to t('.reject'), reject_trip_path, class: 'btn btn-danger btn-xs' %>
-        <%= link_to t('.accept'), accept_trip_path, class: 'btn btn-success btn-xs' %>
-    <% end %>
-<% end %>
 </div>
 
 <div class="col-md-12">
@@ -156,7 +141,3 @@
     <% end %>
   </div>
 </div>
-
-
-
-

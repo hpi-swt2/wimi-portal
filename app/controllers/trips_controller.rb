@@ -127,6 +127,10 @@ class TripsController < ApplicationController
     end
   end
 
+  def accept_reject
+    params[:commit] == t('trips.show.reject') ? reject : accept
+  end
+
   private
 
   def set_trip

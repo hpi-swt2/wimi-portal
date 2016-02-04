@@ -231,6 +231,7 @@ RSpec.describe ExpensesController, type: :controller do
 
     it 'can not destroy applied expenses' do
       expense = Expense.create! valid_attributes
+      expense.trip.update(status: 'accepted')
       expense.user = @user
       login_with(@user)
       post :hand_in, {id: expense.id}
@@ -243,6 +244,7 @@ RSpec.describe ExpensesController, type: :controller do
   describe 'POST #hand_in' do
     it 'hands in a expense request' do
       expense = Expense.create! valid_attributes
+      expense.trip.update(status: 'accepted')
       expense.user = @user
       login_with(@user)
       post :hand_in, {id: expense.id}
