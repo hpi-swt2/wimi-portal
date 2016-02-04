@@ -143,6 +143,7 @@ de:
         street: "Straße"
         zip_code: "Postleitzahl"
         personnel_number: "Personalnummer"
+        email_notification : "Email Benachrichtigungen"
         chair: "Lehrstuhl"
         language: "Sprache"
         not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."

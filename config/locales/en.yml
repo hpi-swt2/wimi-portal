@@ -144,6 +144,7 @@ en:
         street: "Street"
         zip_code: "Zip Code"
         personnel_number: "Staff Number"
+        email_notification : "Email Notifications"
         chair: "Research Group"
         language: "Language"
         not_member_of_chair: "You are not a member of a Research Group."

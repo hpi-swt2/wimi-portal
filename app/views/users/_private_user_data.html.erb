@@ -18,5 +18,5 @@
 
 <p><strong><%= model_class.human_attribute_name(:language)%>: </strong><%= @user.language %></p>
 <p><strong><%= model_class.human_attribute_name(:email_notification)%>: </strong>
-  <% if @user.email_notification %><%= "on" %><% else %><%= "off" %><% end %>
+  <%= @user.email_notification ? t('.is_on') : t('.is_off') %>
 </p>

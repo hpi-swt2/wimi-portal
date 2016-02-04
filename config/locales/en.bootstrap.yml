@@ -168,6 +168,8 @@ en:
       user_status: "Status"
       wimi: "Research Assistant"
       hiwi: "Student Assistant"
+      is_on: "on"
+      is_off: "off"
     edit_leave:
       remaining_leave: "Remaining Leave"
       remaining_leave_fly: "Remaining Leave from last year"
