@@ -38,6 +38,9 @@ coverage
 *.bowerrc
 bower.json
 
+# debugger
+.byebug_history
+
 # Ignore pow environment settings
 .powenv
 /nbproject/private/

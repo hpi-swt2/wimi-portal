@@ -143,6 +143,7 @@ de:
         street: "Straße"
         zip_code: "Postleitzahl"
         personnel_number: "Personalnummer"
+        email_notification : "Email Benachrichtigungen"
         chair: "Lehrstuhl"
         language: "Sprache"
         not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
@@ -294,6 +295,12 @@ de:
       upload_error: "Bitte wählen Sie eine Datei aus"
     delete_signature:
       destroy_success: "Unterschrift erfolgreich gelöscht"
+  mail_notifier:
+    notification:
+      subject: "Sie haben eine neue Benachrichtigung erhalten"
+      hello: "Hallo "
+      text: "Sie haben eine neue Benachrichtigung. Besuchen Sie das Wimi-Portal Dashboard, um alle neuen Benachrichtigungen zu sehen."
+      your_wimi_portal: "Ihr Wimi-Portal"
   signatures:
     signature_not_found: "Sie haben ausgewählt, das Dokument zu unterschreiben, haben aber noch keine Unterschrift hinzugefügt"
     signature_not_found_time_sheet: "Das Dokument wurde nicht eingereicht, da Sie ausgewählt haben, das Dokument zu unterschreiben, aber noch keine Unterschrift hinzugefügt wurde"

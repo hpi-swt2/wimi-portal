@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203130657) do
+ActiveRecord::Schema.define(version: 20160204091724) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(version: 20160203130657) do
     t.string   "city"
     t.string   "zip_code"
     t.text     "signature"
+    t.boolean  "email_notification",        default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
