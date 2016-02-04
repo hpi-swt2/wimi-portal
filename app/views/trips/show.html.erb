@@ -10,11 +10,8 @@
           <div class="col-sm-3">
             <% if @trip.user == current_user %>
               <% if (@trip.status == 'saved') || (@trip.status == 'declined')  %>
-              <%= link_to t('.edit', default: t("helpers.links.edit")),
-              edit_trip_path(@trip), class: 'btn btn-warning btn-block', id: "edit_trip"%>
-              <% else %>
-              <%= link_to t('.edit', default: t("helpers.links.edit")),
-              '#', class: 'btn btn-warning btn-block', disabled: 'disabled', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
+                <%= link_to t('.edit', default: t("helpers.links.edit")),
+                edit_trip_path(@trip), class: 'btn btn-warning btn-block', id: "edit_trip"%>
               <% end %>
             <% end %>
           </div>

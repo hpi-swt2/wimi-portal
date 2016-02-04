@@ -8,13 +8,12 @@
             <%=t '.title', default: model_class.model_name.human.titleize %>
           </div>
           <div class="col-sm-3">
-              <% if (@holiday.status == 'saved') || (@holiday.status == 'declined')  %>
+            <% if @holiday.user == current_user %>
+              <% if (@holiday.status == 'saved') || (@holiday.status == 'declined') %>
                 <%= link_to t('.edit', default: t("helpers.links.edit")),
                               edit_holiday_path(@holiday), class: 'btn btn-warning btn-block' %>
-              <% else %>
-                <%= link_to t('.edit', default: t("helpers.links.edit")),
-                              '#', class: 'btn btn-warning btn-block', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>
               <% end %>
+            <% end %>
           </div>
         </div>
       </h1>
@@ -32,8 +31,8 @@
         </div>
       </div>
     <% end %>
-    
-    
+
+
 
     <% if(can? :accept, @holiday) && @holiday.status == 'applied' %>
       <%= form_for @holiday, url: accept_reject_holiday_path, method: :get do |f| %>
@@ -41,7 +40,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <%= label_tag nil, t('time_sheets.show_footer.reject_reason') %>
-              <%= f.text_field :annotation, {class: "form-control"} %>  
+              <%= f.text_field :annotation, {class: "form-control"} %>
             </div>
           </div>
         </div>
@@ -68,7 +67,7 @@
               </div>
             </div>
           <% end %>
-        </div> 
+        </div>
       <% end %>
     <% end %>
     <div class="row">
