@@ -10,7 +10,7 @@
           <div class="col-sm-3">
               <% if (@holiday.status == 'saved') || (@holiday.status == 'declined')  %>
                 <%= link_to t('.edit', default: t("helpers.links.edit")),
-                              edit_holiday_path(@holiday), class: 'btn btn-warning' %>
+                              edit_holiday_path(@holiday), class: 'btn btn-warning btn-block' %>
               <% else %>
                 <%= link_to t('.edit', default: t("helpers.links.edit")),
                               '#', class: 'btn btn-warning btn-block', rel: "tooltip", title: (t '.filed_request_cant_be_edited') %>

@@ -13,11 +13,11 @@
             <% unless @time_sheet.nil? %>
               <% if @time_sheet.user == current_user && !@time_sheet.handed_in? %>
                 <div align = "right">
-                  <%= link_to t('.new'), new_work_day_path, class: 'btn btn-success' %>
+                  <%= link_to t('.new'), new_work_day_path, class: 'btn btn-success btn-block' %>
                 </div>
               <% end %>
             <% else %>
-              <%= link_to t('.new'), new_work_day_path, class: 'btn btn-success' %>
+              <%= link_to t('.new'), new_work_day_path, class: 'btn btn-success btn-block' %>
             <% end %>
           </div>
         </div>
