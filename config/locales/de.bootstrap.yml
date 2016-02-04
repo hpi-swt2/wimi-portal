@@ -173,7 +173,7 @@ de:
   holidays:
     show:
       days: "Tag(e)"
-      file: "Antrag einreichen"
+      hand_in: "Antrag einreichen"
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
@@ -241,7 +241,7 @@ de:
   expenses:
     expense:
       inland: "Inlandsreise"
-      country: "Land"
+      country: "Reiseland"
       location_from: "Startort"
       location_via: "Zwischenhalt"
       location_to: "Zielort"
@@ -272,7 +272,7 @@ de:
       status: "Status"
       user_id: "Benutzer"
       created_at: "Erstellungsdatum"
-      file: "Antrag einreichen"
+      hand_in: "Antrag einreichen"
       reject: "Antrag ablehnen"
       accept: "Antrag annehmen"
       filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."

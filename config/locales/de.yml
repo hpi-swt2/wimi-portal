@@ -71,6 +71,7 @@ de:
         status: "Status"
         start: "Beginn"
         end: "Ende"
+        length: "Dauer"
         user_id: "Benutzer"
         created_at: "Erstellungsdatum"
         duration: "Dauer"
@@ -185,6 +186,7 @@ de:
             time_end:
               blank: "darf nicht leer sein."
         holiday:
+          duration_geq_length: " darf nicht größer als der angegebene Zeitraum sein."
           too_far_in_the_future: ' ist zu weit in der Zukunft.'
           attributes:
             start:
