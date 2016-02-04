@@ -74,7 +74,7 @@
       <div class="col-md-12">
         <div class="btn-group btn-group-justified">
           <% if @holiday.user == current_user && ((@holiday.status == 'saved') || (@holiday.status == 'declined')) %>
-            <%= link_to t('.file'), file_holiday_path, class: 'btn btn-success' %>
+            <%= link_to t('.hand_in'), file_holiday_path, class: 'btn btn-success' %>
             <%= link_to t('.destroy', default: t("helpers.links.destroy")), holiday_path(@holiday), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger' %>
           <% end %>
           <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Holiday_request', doc_id: @holiday), class: 'btn btn-info' %>
