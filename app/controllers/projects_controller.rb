@@ -101,7 +101,7 @@ class ProjectsController < ApplicationController
   def sign_user_out
     user = User.find(params[:user_id])
     @project = Project.find(params[:id])
-    if not (user.is_wimi? and @project.wimis.count <= 1)
+    unless user.is_wimi? and @project.wimis.count <= 1
       if can?(:edit, @project) || current_user == user
         @project.remove_user(user)
         if user == current_user
