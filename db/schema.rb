@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203130657) do
+ActiveRecord::Schema.define(version: 20160204091724) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -79,9 +79,9 @@ ActiveRecord::Schema.define(version: 20160203130657) do
     t.integer  "trip_id"
     t.string   "time_start"
     t.string   "time_end"
+    t.text     "rejection_message"
     t.text     "user_signature"
     t.date     "user_signed_at"
-    t.text     "rejection_message"
   end
 
   add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
@@ -187,11 +187,11 @@ ActiveRecord::Schema.define(version: 20160203130657) do
     t.date     "date_start"
     t.date     "date_end"
     t.integer  "days_abroad"
+    t.text     "rejection_message",        default: ""
     t.text     "user_signature"
     t.text     "representative_signature"
     t.date     "user_signed_at"
     t.date     "representative_signed_at"
-    t.text     "rejection_message",        default: ""
   end
 
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(version: 20160203130657) do
     t.string   "city"
     t.string   "zip_code"
     t.text     "signature"
+    t.boolean  "email_notification",        default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

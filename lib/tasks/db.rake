@@ -1,8 +1,8 @@
 namespace :db do
   task add_demo_data: :environment do
     # define users
-    epic_admin = User.create!(first_name: 'Admin', last_name: 'Epic', email: 'admin@epic.de')
-    epic_representative = User.create!(first_name: 'Representative', last_name: 'Epic', email: 'representative@epic.de')
+    epic_admin = User.create!(first_name: 'Admin', last_name: 'Epic', email: 'admin@epic.de', username: 'admin', password: '1234')
+    epic_representative = User.create!(first_name: 'Representative', last_name: 'Epic', email: 'representative@epic.de', username: 'representative', password: '1234')
     meinel_both = User.create!(first_name: 'Admin-Representative', last_name: 'Meinel', email: 'admin.representative@meinel.de')
     wimi_epic = User.create!(first_name: 'Wimi', last_name: 'Epic', email: 'wimi@epic.de')
     pending_wimi_appl = User.create!(first_name: 'Wimi-Pending', last_name: 'Epic', email: 'wimi.pending@epic.de')

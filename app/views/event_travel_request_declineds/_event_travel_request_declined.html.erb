@@ -1,4 +1,3 @@
-<p>
   <%=
     trip = Trip.find(event_travel_request_declined.trigger)
     person_in_power = trip.person_in_power
@@ -9,4 +8,3 @@
       person_in_power: link_to(person_in_power.name, person_in_power),
       link_to_view: link_to(t('.view'), trip))
   %>
-</p>
