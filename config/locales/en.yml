@@ -73,6 +73,7 @@ en:
         reason: "Reason for Special Leave"
         annotations: "Annotations"
         replacement: "Replacement"
+        signature: "Add signature"
       expense:
         id: "Id"
         amount: "Amount"
@@ -87,7 +88,7 @@ en:
         destination: "Destination"
         reason: "Reason"
         annotation: "Annotations"
-        signature: "Add signature?"
+        signature: "Add signature"
         status: "Status"
         user_id: "User"
         created_at: "Created at"
@@ -114,7 +115,7 @@ en:
         vehicle_advance: "Travel paid by HPI"
         hotel: "Hotel"
         general_advance: "Advance"
-        signature: "Add signature?"
+        signature: "Add signature"
       expense_item:
         date: "Date"
         breakfast: "Breakfast"
@@ -292,3 +293,6 @@ en:
       upload_error: "Please choose a file"
     delete_signature:
       destroy_success: "Signature successfully deleted"
+  signatures:
+    signature_not_found: "You have selected to sign the document, but there was no signature found"
+    signature_not_found_time_sheet: "The document was not handed in, because you have selected to sign the document, but there was no signature found"

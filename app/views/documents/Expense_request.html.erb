@@ -201,18 +201,23 @@ Nein <input type='checkbox' <%= report.general_advance <= 0 ? "checked" : "" %> 
 
 <b>Datum</b> &nbsp;
 <div class='input-block' style='margin-right: 35px; display: inline; border-bottom:solid 1.0pt'>
-  <span><%= Date.today.strftime("%d.%m.%Y") %></span>
+  <% if report.signature %>
+    <span><%= report.user_signed_at.strftime("%d.%m.%Y") %>&nbsp;</span>
+  <% else %>
+    <span style="padding-right:70px">&nbsp;</span>
+  <% end %>
 </div>
 <div style='text-align: right; display: inline'>
   <b>Unterschrift</b> &nbsp;
   <div class='input-block' style='display: inline; border-bottom:solid 1.0pt'>
-    <span style="padding-right:100px">&nbsp;</span>
+    <% if report.signature %>
+      <% path = 'data:image/png;base64,' << report.user_signature %>
+      <img src="<%= path %>" Zwidth="150" height="50"/>
+    <% else %>
+      <span style="padding-right:100px">&nbsp;</span>
+    <% end %>
   </div>
 </div>
-
-
-
-
 </div>
 
 </body>

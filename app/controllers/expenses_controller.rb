@@ -23,6 +23,14 @@ class ExpensesController < ApplicationController
     @expense.user = current_user
     fill_items
 
+    if expense_params[:signature] == '1' && current_user.signature.nil?
+      @expense.signature = false
+      flash[:error] = t('signatures.signature_not_found')
+    elsif expense_params[:signature] == '1' && !current_user.signature.nil?
+      @expense.user_signature = current_user.signature
+      @expense.user_signed_at = Date.today
+    end
+
     if @expense.save
       redirect_to trip_path(@expense.trip)
       flash[:success] = I18n.t('expense.save')
@@ -39,7 +47,23 @@ class ExpensesController < ApplicationController
   end
 
   def update
-    if @expense.update(expense_params)
+
+    new_expense_params = expense_params
+
+    if new_expense_params[:signature] == '1' && current_user.signature.nil?
+      new_expense_params[:signature] = false
+      @expense.user_signature = nil
+      @expense.user_signed_at = nil
+      flash[:error] = t('signatures.signature_not_found')
+    elsif new_expense_params[:signature] == '1' && !current_user.signature.nil?
+      @expense.user_signature = current_user.signature
+      @expense.user_signed_at = Date.today
+    else
+      @expense.user_signature = nil
+      @expense.user_signed_at = nil
+    end
+
+    if @expense.update(new_expense_params)
       redirect_to trip_path(@expense.trip)
       flash[:success] = I18n.t('expense.update')
     else
