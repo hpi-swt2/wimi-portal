@@ -101,7 +101,10 @@ class ProjectsController < ApplicationController
   def sign_user_out
     user = User.find(params[:user_id])
     @project = Project.find(params[:id])
-    unless user.is_wimi? and @project.wimis.count <= 1
+    if user.is_wimi? and @project.wimis.count <= 1
+      redirect_to dashboard_path
+      flash[:error] = I18n.t('project.user.last_wimi')
+    else
       if can?(:edit, @project) || current_user == user
         @project.remove_user(user)
         if user == current_user
@@ -113,9 +116,6 @@ class ProjectsController < ApplicationController
         redirect_to dashboard_path
         flash[:error] = I18n.t('project.not_authorized')
       end
-    else
-      redirect_to dashboard_path
-      flash[:error] = I18n.t('project.user.last_wimi')
     end
   end
 
