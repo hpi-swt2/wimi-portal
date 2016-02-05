@@ -31,7 +31,7 @@ project2 = Project.create(title: 'Tools & Methods for Enterprise Systems Design 
 project3 = Project.create(title: 'In-Memory Data Management for Life Sciences', chair_id: 1)
 project4 = Project.create(title: 'openHPI', chair_id: 1)
 
-## Hiwis mit Stundenzetteln ##
+## create student assistants with time sheets ##
 
 user9 = User.create(first_name: 'Peter', last_name: 'Hiwi', email: 'peter.hiwi@student.hpi.uni-potsdam.de', password: 'test', password_confirmation: 'test')
 user10 = User.create(first_name: 'Paul', last_name: 'Hiwi', email: 'paul.hiwi@student.hpi.uni-potsdam.de', password: 'test', password_confirmation: 'test')
@@ -50,20 +50,18 @@ WorkDay.create(date: '2016-02-02', start_time: '08:00:00', end_time: '17:00:00',
 
 TimeSheet.last.update(handed_in: true, hand_in_date: '2016-02-04')
 
-## Uns anlegen ##
+user11 = User.create(first_name: 'Mandy', last_name: 'SWT2', email: 'mandy.swt2@student.hpi.uni-potsdam.de')
+User.create(first_name: 'Fabian', last_name: 'SWT2', email: 'fabian.swt2@student.hpi.uni-potsdam.de')
+user13 = User.create(first_name: 'Julian', last_name: 'SWT2', email: 'julian.swt2@student.hpi.uni-potsdam.de')
 
-user11 = User.create(first_name: 'Mandy', last_name: 'Klingbeil', email: 'mandy.klingbeil@student.hpi.uni-potsdam.de', identity_url: 'https://openid.hpi.uni-potsdam.de/user/mandy.klingbeil')
-User.create(first_name: 'Fabian', last_name: 'Paul', email: 'fabian.paul@student.hpi.uni-potsdam.de', identity_url: 'https://openid.hpi.uni-potsdam.de/user/fabian.paul')
-user13 = User.create(first_name: 'Julian', last_name: 'Niedermeier', email: 'julian.niedermeier@student.hpi.uni-potsdam.de', identity_url: 'https://openid.hpi.uni-potsdam.de/user/julian.niedermeier')
-
-ChairWimi.create(admin: true, representative: false, user_id: 11, chair_id: 1)
-ChairWimi.create(admin: false, representative: true, user_id: 12, chair_id: 1)
+ChairWimi.create(admin: false, representative: true, user_id: 11, chair_id: 1)
+ChairWimi.create(admin: true, representative: false, user_id: 12, chair_id: 1)
 #ChairWimi.create(admin: false, representative: false, application: 'accepted', user_id: 13, chair_id: 1)
 
 project4.users << user11
 #project4.users << user13
 
-# more users for statistics
+## create more users for statistics ##
 user14 = User.create(first_name: 'Merle', last_name: 'Epic', email: 'merle.epic@student.hpi.uni-potsdam.de', password: 'test', password_confirmation: 'test')
 user15 = User.create(first_name: 'Manfred', last_name: 'Epic', email: 'manfred.epic@student.hpi.uni-potsdam.de', password: 'test', password_confirmation: 'test')
 user16 = User.create(first_name: 'Gustus', last_name: 'Epic', email: 'gustus.epic@student.hpi.uni-potsdam.de', password: 'test', password_confirmation: 'test')
