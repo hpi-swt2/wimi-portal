@@ -68,6 +68,7 @@ class ChairsController < ApplicationController
   # Admin / Representative tasks:
   def show
     @requests = @chair.chair_wimis.where(application: 'pending')
+    @user = current_user
   end
 
   # Show requests (Representative tasks):
