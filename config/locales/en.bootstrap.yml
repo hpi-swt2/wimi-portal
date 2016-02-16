@@ -113,7 +113,7 @@ en:
       status: "Status"
       status_true: "Active"
       status_false: "Inactive"
-      all_working_hours: "Overall Student Working Hours for"
+      all_working_hours: "Overall student working hours"
     create:
       success: 'Project was successfully created.'
     update:
@@ -141,8 +141,8 @@ en:
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
-      time_sheets_overview: "Time sheet overview"
-      hiwi: "research assistants"
+      time_sheets_overview: "Time sheets of your students"
+      hiwi: "students assistants"
       month: "month"
       number_of_hours: "number of hours"
       handed_in_at: "handed in at"

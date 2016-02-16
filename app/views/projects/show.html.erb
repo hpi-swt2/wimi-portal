@@ -95,7 +95,7 @@
                     </td>
                     <td>
                       <% if can? :edit, @project or user == current_user%>
-                        <%= link_to t('projects.form.show_working_hours', default:'Show working hours'), work_days_path(month: 1, year: 2016, project: @project.id), class: 'btn btn-default btn-xs' %>
+                      <%= link_to t('projects.form.show_working_hours', default:'Show working hours'), user_path(user), class: 'btn btn-default btn-xs' %>
                       <% end %>
                     </td>
                   </tr>
