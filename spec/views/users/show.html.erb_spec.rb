@@ -11,11 +11,14 @@ RSpec.describe 'users/show', type: :view do
     expect(page).to have_content(@user.name)
   end
 
-  it 'expects Handed in time sheets section for wimis' do
+  it 'expects handed in time sheets section for wimis' do
+    @wimi = assign(:user, FactoryGirl.create(:user))
     @chair = FactoryGirl.create(:chair)
-    ChairWimi.create(user: @user, chair: @chair, application: 'accepted')
-    login_as(@user, scope: :user)
+    ChairWimi.create(user: @wimi, chair: @chair, application: 'accepted')
+    
+    login_as(@wimi, scope: :user)
     visit user_path(@user)
+    
     expect(page).to have_content(t('users.show.handed_in_timesheets'))
   end
 
