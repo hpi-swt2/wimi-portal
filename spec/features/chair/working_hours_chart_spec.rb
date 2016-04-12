@@ -13,10 +13,9 @@ describe 'working hours chart' do
 
   it 'shows the working hours chart to the chair representative' do
     representative_user = FactoryGirl.create(:user)
-    representative = FactoryGirl.create(:chair_representative, user: representative_user, chair: @chair)
+    FactoryGirl.create(:chair_representative, user: representative_user, chair: @chair)
     
     login_as representative_user
-
     visit chair_path(@chair)
     
     expect(page).to have_css('div#hiwiWorkingHoursChart')
