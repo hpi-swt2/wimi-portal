@@ -44,7 +44,12 @@ bower.json
 # Ignore pow environment settings
 .powenv
 /nbproject/private/
+
+# Customized database config
 /config/database.yml
 
 # Ignore RubyMine IDE project files
 .idea/
+
+# compiled assets directory
+public/assets/
