@@ -159,6 +159,8 @@ en:
       upload: "Upload signature"
       information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
     edit:
+      password: "Change Password"
+      update_password: "Update Password"
       user_data: "User Data"
     public_user_data:
       public_data: "Public Data"
