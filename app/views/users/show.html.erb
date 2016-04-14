@@ -300,7 +300,7 @@
                 <tbody>
                   <% TimeSheet.where(handed_in: true).order("hand_in_date DESC").each do |sheet| %>
                     <tr>
-                      <td><%= User.find(sheet.user_id).name %></td>
+                      <td><%= sheet.user.name %></td>
                       <td><%= l(Date.new(sheet.year, sheet.month, 1), format: :without_day) %></td>
                       <td><%= sheet.sum_hours %></td>
                       <td><%= sheet.hand_in_date %></td>
