@@ -302,7 +302,7 @@
                     <tr>
                       <td><%= sheet.user.name %></td>
                       <td><%= l(Date.new(sheet.year, sheet.month, 1), format: :without_day) %></td>
-                      <td><%= sheet.sum_hours %></td>
+                      <td><%= number_to_human(sheet.sum_hours) %></td>
                       <td><%= sheet.hand_in_date %></td>
                       <td><%= t("time_sheets.show_footer.#{sheet.status}") %></td>
                       <td>
