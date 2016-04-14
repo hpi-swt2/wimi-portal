@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  get 'superadmin' => 'users#superadmin_index', as: 'superadmin'
+  get 'extern' => 'users#external_login', as: 'external_login'
 
   resources :chair_applications
   resources :chairs

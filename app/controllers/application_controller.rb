@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   def ensure_valid_email
     requested_path = request.env['PATH_INFO']
     if current_user.nil?
-      if requested_path != new_user_session_path && requested_path != superadmin_path
+      if requested_path != new_user_session_path && requested_path != external_login_path
         flash[:error] = 'Please login first'
         redirect_to new_user_session_path
       end

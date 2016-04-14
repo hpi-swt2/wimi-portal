@@ -11,11 +11,11 @@
 
       <div class="form-group">
         <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+        <%= f.password_field :password, class: "form-control" %>
       </div>
 
       <div class="actions">
-        <%= f.submit "Log in", class: 'btn btn-primary btn-block' %>
+        <%= f.submit t('.login'), class: 'btn btn-primary btn-block' %>
       </div>
     <% end %>
   </div>

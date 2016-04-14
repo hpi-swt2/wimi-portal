@@ -15,7 +15,7 @@ class Ability
       end
     end
 
-    can :superadmin_index, User
+    can :external_login, User
   end
 
   def initialize_user(user)
