@@ -76,7 +76,9 @@ class WorkDaysController < ApplicationController
   end
 
   def work_day_params
-    params.require(:work_day).permit(:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id, :project_id)
+    allowed_params = [:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id, :project_id]
+    delocalize_config = { :date => :date }
+    params.require(:work_day).permit(*allowed_params).delocalize(delocalize_config)
   end
 
   def work_days_month_project_path

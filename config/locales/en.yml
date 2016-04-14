@@ -226,6 +226,9 @@ en:
       last_wimi: 'You are the last research assistant. You can not leave the project.'
   date:
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    input:
+      formats: 
+        - :default
     formats:
       default: "%m/%d/%Y"
       short: "%b %d"
