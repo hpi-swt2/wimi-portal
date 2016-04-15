@@ -102,6 +102,11 @@ Please request a login from @chrisma or @derari
 http://newrelic.com/
 ```
 
-## Scrum Board
+## Deploy
 
-Feel free to use [Waffle.io](https://waffle.io/hpi-swt2/wimi-portal) as a digital Scrum board.
+The following environment variables should be set:
+
+* `HOST`
+* `SECRET_KEY_BASE`
+* `EMAIL_PW`
+* `EMAIL_USER`
