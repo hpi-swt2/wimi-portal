@@ -159,6 +159,8 @@ en:
       upload: "Upload signature"
       information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
     edit:
+      password: "Change Password"
+      update_password: "Update Password"
       user_data: "User Data"
     public_user_data:
       public_data: "Public Data"
@@ -177,8 +179,8 @@ en:
       title: "Edit Leave"
     form:
       user_data: "User Data"
-    superadmin_index:
-      logout_before_access_superadmin_page: "Log out first before accessing the superadmin login page."
+    external_login:
+      login: "Log in"
   holidays:
     show:
       days: "Day(s)"

@@ -1,9 +1,16 @@
 <%- model_class = User -%>
+
 <div class="col-md-12">
   <div class="display">
     <div class="page-header">
       <h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %></h1>
     </div>
+    <%- unless current_user.username.blank? -%>
+      <div class="page-header">
+        <h4><%= t('.password') %></h4>
+      </div>
+        <%= render partial: 'shared/passwords' %>
+    <%- end -%>
 
     <%= render 'form' %>
   </div>

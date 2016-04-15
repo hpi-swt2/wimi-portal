@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, except: :superadmin_index
-  before_action :user_exists, :set_user, except: [:superadmin_index, :language]
+  before_filter :authenticate_user!, except: :external_login
+  before_action :user_exists, :set_user, except: [:external_login, :language]
   load_and_authorize_resource
 
   rescue_from CanCan::AccessDenied do |_exception|
@@ -33,9 +33,8 @@ class UsersController < ApplicationController
       redirect_to current_user
   end
 
-  def superadmin_index
+  def external_login
     unless current_user.nil?
-      flash[:error] = t('.logout_before_access_superadmin_page')
       redirect_to root_path
     end
   end

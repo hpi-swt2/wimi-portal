@@ -73,6 +73,24 @@ describe WorkDaysController, type: :controller do
         post :create, {work_day: valid_attributes}, valid_session
         expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user_id: @user.id, project: @project.id))
       end
+      
+      it 'works with german locale' do
+        I18n.locale = 'de'
+        attr = valid_attributes
+        attr[:date] = I18n.l(Date.today)
+        expect {
+          post :create, {work_day: valid_attributes}, valid_session
+        }.to change(WorkDay, :count).by(1)
+      end
+      
+      it 'works with english locale' do
+        I18n.locale = 'en'
+        attr = valid_attributes
+        attr[:date] = I18n.l(Date.today)
+        expect {
+          post :create, {work_day: valid_attributes}, valid_session
+        }.to change(WorkDay, :count).by(1)
+      end
     end
 
     context 'with invalid params' do

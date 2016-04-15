@@ -150,7 +150,9 @@ de:
       upload: "Unterschrift hochladen"
       information: "Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus"
     edit:
-      user_data: "Profilbezogene Daten"
+      password: "Passwort ändern"
+      update_password: "Passwort ändern"
+      user_data: "Profil"
     public_user_data:
       public_data: "Öffentliche Daten"
       projects: "Projekte"
@@ -168,8 +170,8 @@ de:
       title: "Resturlaub bearbeiten"
     form:
       user_data: "Profilbezogene Daten"
-    superadmin_index:
-      logout_before_access_superadmin_page: "Du musst dich erst ausloggen, bevor Du auf den Superadmin-Login zugreifen kannst."
+    external_login:
+      login: "Anmelden"
   holidays:
     show:
       days: "Tag(e)"

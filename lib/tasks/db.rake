@@ -1,41 +1,43 @@
 namespace :db do
   task add_demo_data: :environment do
     # define users
-    epic_admin = User.create!(first_name: 'Admin', last_name: 'Epic', email: 'admin@epic.de', username: 'admin', password: '1234')
-    epic_representative = User.create!(first_name: 'Representative', last_name: 'Epic', email: 'representative@epic.de', username: 'representative', password: '1234')
-    meinel_both = User.create!(first_name: 'Admin-Representative', last_name: 'Meinel', email: 'admin.representative@meinel.de')
-    wimi_epic = User.create!(first_name: 'Wimi', last_name: 'Epic', email: 'wimi@epic.de')
-    pending_wimi_appl = User.create!(first_name: 'Wimi-Pending', last_name: 'Epic', email: 'wimi.pending@epic.de')
-    alice = User.create!(first_name: 'Alice', last_name: 'A', email: 'alice@user.de')
-    andre = User.create!(first_name: 'Andre', last_name: 'A', email: 'andre@user.de')
-    User.create!(first_name: 'Bob', last_name: 'B', email: 'bob@user.de')
+    epic_admin = User.create!(first_name: 'Admin', last_name: 'Epic', email: 'epic.admin@example.com', username: 'admin', password: '1234')
+    epic_representative = User.create!(first_name: 'Representative', last_name: 'Epic', email: 'rep@example.com', username: 'representative', password: '1234')
+    epic_wimi = User.create!(first_name: 'Wimi', last_name: 'Epic', email: 'wimi@example.com', username: 'wimi', password: '1234')
+
+    alice = User.create!(first_name: 'Alice', last_name: 'A', email: 'alice@example.com', username: 'alice', password: '1234')
+    bob = User.create!(first_name: 'Bob', last_name: 'B', email: 'bob@example.com', username: 'bob', password: '1234')
 
     # create! chairs
-    chair1 = Chair.create!(name: 'Epic', description: 'Enterprise Platform and Integration Concepts')
-    chair2 = Chair.create!(name: 'Meinel', description: 'Internet-Technologien und -Systeme')
-
-    swt2 = Project.create!(title: 'Softwaretechnik II', chair: chair1)
-    swt2.users << epic_admin
-    swt2.users << alice
-
-    hana_project = Project.create!(title: 'HANA Project', chair: chair1)
-    hana_project.users << andre
+    chair_epic = Chair.create!(name: 'EPIC', description: 'Enterprise Platform and Integration Concepts')
+    chair_www = Chair.create!(name: 'Internet', description: 'Internet-Technologien und -Systeme')
 
     # set user roles
-    ChairWimi.create!(chair_id: chair1.id, user_id: epic_admin.id, admin: true, application: 'accepted')
-    ChairWimi.create!(chair_id: chair1.id, user_id: epic_representative.id, representative: true, application: 'accepted')
-    ChairWimi.create!(chair_id: chair2.id, user_id: meinel_both.id, admin: true, representative: true, application: 'accepted')
-    ChairWimi.create!(chair_id: chair1.id, user_id: wimi_epic.id, application: 'accepted')
-    ChairWimi.create!(chair_id: chair1.id, user_id: pending_wimi_appl.id, application: 'pending')
+    ChairWimi.create!(chair_id: chair_epic.id, user_id: epic_admin.id, admin: true, application: 'accepted')
+    ChairWimi.create!(chair_id: chair_epic.id, user_id: epic_representative.id, representative: true, application: 'accepted')
+    ChairWimi.create!(chair_id: chair_epic.id, user_id: epic_wimi.id, application: 'accepted')
+
+    # projects
+    swt2 = Project.create!(title: 'Softwaretechnik II', chair: chair_epic)
+    swt2.users << epic_wimi
+    swt2.users << alice
+
+    hana_project = Project.create!(title: 'HANA Project', chair: chair_epic)
+    hana_project.users << bob
 
     # create some holidays, trips, expenses
+    if (Date.today.day > 2)
+      day1 = Date.today - 2
+      day2 = Date.today
+    else
+      day1 = Date.today
+      day2 = Date.today + 2
+    end
+  
     Holiday.create!(start: Date.today, end: Date.today + 19, length: 5, user_id: epic_admin.id, status: 'applied', last_modified: Date.today)
 
-    User.create!(email: 'test@test.de',
-      first_name: 'Max',
-      last_name: 'Mustermann')
-    Holiday.create!(start: Date.today - 1,
-      end: Date.today,
+    Holiday.create!(start: day2 - 1,
+      end: day2,
       length: 1,
       user_id: epic_admin.id)
     Holiday.create!(status: :declined,
@@ -44,29 +46,29 @@ namespace :db do
       length: 1,
       user_id: epic_representative.id)
     WorkDay.create!(
-      date: '2015-11-18',
-      start_time: '2015-11-18 15:11:53',
+      date: day1,
+      start_time: day1.to_s + ' 15:11:53',
       break: 30,
-      end_time: '2015-11-18 16:11:53',
+      end_time: day1.to_s + ' 16:11:53',
       user_id: alice.id,
       project_id: swt2.id)
     WorkDay.create!(
-      date: '2015-11-26',
-      start_time: '2015-11-26 10:00:00',
+      date: day2,
+      start_time: day2.to_s + ' 10:00:00',
       break: 0,
-      end_time: '2015-11-26 18:00:00',
+      end_time: day2.to_s + ' 18:00:00',
       user_id: alice.id,
       project_id: swt2.id)
     WorkDay.create!(
-      date: '2015-11-26',
-      start_time: '2015-11-26 10:00:00',
+      date: day2,
+      start_time: day2.to_s + ' 10:00:00',
       break: 0,
-      end_time: '2015-11-26 12:00:00',
-      user_id: andre.id,
+      end_time: day2.to_s + ' 12:00:00',
+      user_id: bob.id,
       project_id: hana_project.id)
     TimeSheet.create!(
-      month: 11,
-      year: 2015,
+      month: day2.month,
+      year: day2.year,
       salary: 9,
       salary_is_per_month: true,
       workload: 40,
@@ -91,7 +93,7 @@ namespace :db do
       date_end: Date.today + 10,
       days_abroad: 2,
       status: :declined,
-      user: meinel_both)
+      user: epic_wimi)
     Expense.create!(
       inland: true,
       country: 'Germany',

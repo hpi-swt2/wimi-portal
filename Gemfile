@@ -39,6 +39,8 @@ gem 'annotate'
 
 # Datetime validations
 gem 'validates_timeliness'
+# to parse date parameters from ui
+gem "delocalize"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
