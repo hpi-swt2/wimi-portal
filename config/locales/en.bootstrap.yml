@@ -14,7 +14,8 @@ en:
     application_tabs:
       home: "Home"
       profile: "Profile"
-      sign_in: "Sign in"
+      sign_in: "HPI Sign-In"
+      external_sign_in: "External Sign-In"
       login: "Login"
       logout: "Logout"
     actions: "Actions"

@@ -9,7 +9,8 @@ de:
     application_tabs:
       home: "Startseite"
       profile: "Profil"
-      sign_in: "Anmelden"
+      sign_in: "HPI Login"
+      external_sign_in: "Externer Login"
       login: "Anmelden"
       logout: "Abmelden"
     actions: "Aktionen"
