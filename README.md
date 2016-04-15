@@ -90,21 +90,14 @@ rails s -b 0 #starting rails server, the -b part is necessary since the app is r
 
 ## Debugging
 
-Bug analysis via Errbit:
-
+### Errbit
 ```
 http://swt2-2015-errbit.herokuapp.com/
 ```
 
-with
+Please request a login from @chrisma or @derari
 
-```
-username: blub@blah.de
-pw: 13371337
-```
-
-and
-
+### NewRelic
 ```
 http://newrelic.com/
 ```
