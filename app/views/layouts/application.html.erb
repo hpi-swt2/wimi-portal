@@ -23,12 +23,12 @@
             <%= menu_item t('helpers.application_tabs.profile'), url_for(current_user) %>
             <%= menu_item t('helpers.application_tabs.logout'), destroy_user_session_path %>
           <% else %>
-            <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "right-aligned"}) do |f| %>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "pull-right"}) do |f| %>
               <%= f.hidden_field :identity_url, value: 'https://openid.hpi.uni-potsdam.de/serve' %>
               <%= f.submit t('helpers.application_tabs.sign_in'), class: 'SignInButton btn btn-primary' %>
               <img src='<%=asset_path 'openid-logo.png' %>' class="openID" />
             <% end %>
-            <%= link_to t('helpers.application_tabs.external_sign_in'), external_login_path, class: 'btn btn-default navbar-btn right-aligned' %>
+            <%= link_to t('helpers.application_tabs.external_sign_in'), external_login_path, class: 'btn btn-default navbar-btn pull-right' %>
           <% end %>
         <% end %>
       <% end %>

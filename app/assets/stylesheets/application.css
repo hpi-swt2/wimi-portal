@@ -35,10 +35,6 @@ h1 span { font-size:20px; }
     margin-left: 5px;
 }
 
-.right-aligned {
-    float: right;
-}
-
 html, body {
     height: 100%; /*Fixes the height to 100% of the viewport*/
 }
