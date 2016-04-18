@@ -268,7 +268,6 @@ Devise.setup do |config|
 
   # Use custom Devise FailureApp that redirects to external login
   # when an invalid username / password is given.
-  # Defined in lib/redirect_failure.rb
   config.warden do |manager|
     manager.failure_app = RedirectFailure
   end
