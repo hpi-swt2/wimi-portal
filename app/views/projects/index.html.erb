@@ -39,7 +39,7 @@
                     <td><%= t('.status_' + project.status.to_s) %></td>
                     <td><%=l project.created_at %></td>
                     <td>
-                      <% if can? :create, ProjectApplication %>
+                      <% if can? :apply, project %>
                         <% if project.project_applications.exists?(user: current_user) %>
                           <% project_application = project.project_applications.find_by(user: current_user) %>
                           <% case project_application.status %>

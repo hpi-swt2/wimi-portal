@@ -20,13 +20,14 @@ class Ability
 
   def initialize_user(user)
     can :see, Project
-    can :apply, Project
     can :index, Chair
     can :apply, Chair
     can :read, Project do |project|
       project.public
     end
-    can :create, ProjectApplication
+    can :apply, Project do |project|
+      not (project.users.include? user)
+    end
     can :show, User
     can :read, User
     can :update, User do |_user|
@@ -68,9 +69,6 @@ class Ability
       (project.public) ||
       (project.users.include? user)
     end
-    cannot :create, ProjectApplication do |project_application|
-      user.projects.exists?(project_application.project_id)
-    end
     can :sign_user_out, Project do |project|
       project.users.include? user
     end
@@ -104,7 +102,6 @@ class Ability
     can :manage, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
-    cannot :create, ProjectApplication
     can :new, Holiday
     can :create, Holiday
     can :new, Expense

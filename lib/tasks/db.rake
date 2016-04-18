@@ -23,6 +23,7 @@ namespace :db do
     swt2.users << alice
 
     hana_project = Project.create!(title: 'HANA Project', chair: chair_epic)
+    hana_project.users << epic_representative
     hana_project.users << bob
 
     # create some holidays, trips, expenses
