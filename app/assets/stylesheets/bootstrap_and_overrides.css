@@ -1,25 +1,25 @@
 /*
-  =require twitter-bootstrap-static/bootstrap
+=require twitter-bootstrap-static/bootstrap
 
-  Use Font Awesome icons (default)
-  To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
-  =require twitter-bootstrap-static/fontawesome
-  */
+Use Font Awesome icons (default)
+To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
+=require twitter-bootstrap-static/fontawesome
+*/
 
- .page-header {
- 	margin-top: 20px;
- }
-
- .col-md-12 {
- 	padding-top: 15px;
- 	padding-bottom: 15px;
- }
-
-.col-md-12 > .btn-block {
-       white-space: normal;
+.page-header {
+  margin-top: 20px;
 }
 
- * {
+.col-md-12 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.col-md-12 > .btn-block {
+  white-space: normal;
+}
+
+* {
   -webkit-border-radius: 0 !important;
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
@@ -30,21 +30,21 @@
 }
 
 .panel {
-	margin-bottom: 0px;
-	border: 0px solid !important;
-	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0)
+  margin-bottom: 0px;
+  border: 0px solid !important;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0)
 }
 
 .panel-heading {
-	background-color: #FFFFFF !important;
+  background-color: #FFFFFF !important;
 }
 
 .page-header {
-	margin-top: 0px;
+  margin-top: 0px;
 }
 
 h1,h2,h3,h4 {
-	margin-top: 0px;
+  margin-top: 0px;
 }
 
 .vertical-align {
@@ -60,71 +60,70 @@ h1,h2,h3,h4 {
                               horizontally inside the column */
 }
 
-
 .navbar-default {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 .navbar-default .navbar-brand {
-    color: #767171;
+  color: #767171;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-    color: #040303;
+  color: #040303;
 }
 .navbar-default .navbar-text {
-    color: #767171;
+  color: #767171;
 }
 .navbar-default .navbar-nav > li > a {
-    color: #767171;
+  color: #767171;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #040303;
+  color: #040303;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    color: #040303;
-    background-color: rgba(221,97,8,0.3);
+  color: #040303;
+  background-color: rgba(221,97,8,0.3);
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-    color: #040303;
-    background-color: rgba(221,97,8,0.3);
+  color: #040303;
+  background-color: rgba(221,97,8,0.3);
 }
 .navbar-default .navbar-toggle {
-    border-color: rgba(221,97,8,0.3);
+  border-color: rgba(221,97,8,0.3);
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: rgba(221,97,8,0.3);
+  background-color: rgba(221,97,8,0.3);
 }
 .navbar-default .navbar-toggle .icon-bar {
-    background-color: #767171;
+  background-color: #767171;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
 }
 .navbar-default .navbar-link {
-    color: #767171;
+  color: #767171;
 }
 .navbar-default .navbar-link:hover {
-    color: #040303;
+  color: #040303;
 }
 
 @media (max-width: 767px) {
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #767171;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-        color: #040303;
-    }
-    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-        color: #040303;
-        background-color: rgba(221,97,8,0.3);
-    }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #767171;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #040303;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #040303;
+    background-color: rgba(221,97,8,0.3);
+  }
 }
