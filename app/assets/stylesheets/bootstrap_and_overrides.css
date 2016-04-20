@@ -60,6 +60,10 @@ h1,h2,h3,h4 {
                               horizontally inside the column */
 }
 
+.navbar-right {
+  margin-right: 0px;
+}
+
 .navbar-default {
   background-color: #ffffff;
 }
