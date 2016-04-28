@@ -23,6 +23,8 @@ class WorkDaysController < ApplicationController
         end
       end
       @work_days = WorkDay.all_for(@year, @month, @project, @user)
+      # Sort first by date, then by start time
+      @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
     else
       redirect_to user_path(current_user, anchor: 'timesheets')
     end

@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
 
+  # Override the path that is redirected to after user is signed out.
+  # This defaults to root_path.
+  # https://github.com/plataformatec/devise/blob/master/lib/devise/controllers/helpers.rb
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_path
+  end
+
   def ensure_valid_email
     requested_path = request.env['PATH_INFO']
     if current_user.nil?

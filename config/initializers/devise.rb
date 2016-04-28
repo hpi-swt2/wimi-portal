@@ -1,5 +1,25 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+
+# Custom Devise FailureApp that redirects to external login on invalid login attempts.
+# http://stackoverflow.com/questions/5832631/devise-redirect-after-login-fail
+class RedirectFailure < Devise::FailureApp
+  def redirect_url
+    external_login_path
+  end
+
+  def respond
+    if http_auth?
+      http_auth
+    else
+      # https://github.com/plataformatec/devise/blob/69bee06ceee6280b54304928bb6e55c5064abad8/config/locales/en.yml
+      # https://github.com/plataformatec/devise/wiki/I18n
+      flash[:error] = I18n.t(:invalid, :authentication_keys => 'username', :scope => [:devise, :failure])
+      redirect
+    end
+  end
+end
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -245,6 +265,12 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+
+  # Use custom Devise FailureApp that redirects to external login
+  # when an invalid username / password is given.
+  config.warden do |manager|
+    manager.failure_app = RedirectFailure
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
