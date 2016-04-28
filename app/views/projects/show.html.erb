@@ -13,10 +13,10 @@
         <dl class="">
           <dt><%= t('.chair', default:'Chair') %>:</dt>
           <dd><%= @project.chair.name %></dd>
-          <dt><%= t('.chair_representative', default:'Chair Representative')%></dt>
-          <dd><%= @project.chair.representative.user.name%></dd>
-          <dt><%= t('.project_visibility', default:'Visibility') %>:</dt>
-          <dd><%= @project.public ? t('.public', default:'Public') : t('.private', default:'private') %></dd>
+          <% unless @project.public %>
+            <dt><%= t('.project_visibility', default:'Visibility') %>:</dt>
+            <dd><%= @project.public ? t('.public', default:'Public') : t('.private', default:'private') %></dd>
+          <% end %>
         </dl>
       </div>
 

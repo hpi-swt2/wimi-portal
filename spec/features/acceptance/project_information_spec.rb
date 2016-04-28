@@ -13,7 +13,6 @@ feature 'Project information' do
   scenario 'Go on project site' do
     visit project_path(@project)
     expect(page).to have_content('Fachgebiet')
-    expect(page).to have_content('Beauftragter des Fachgebiets')
-    expect(page).to have_content('Sichtbarkeit')
+    # see view tests for more
   end
 end
