@@ -124,8 +124,8 @@
         <% else %>
           <%= link_to t('.apply', default: t('helpers.links.apply')),
             apply_project_applications_path(id: @project.id), method: :post, class: 'btn btn-primary' %>
-          <% end %>
         <% end %>
+      <% end %>
       <%= link_to t('.back', default: t('helpers.links.back')),
         projects_path, class: 'btn btn-default' %>
     </div>

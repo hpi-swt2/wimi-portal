@@ -102,6 +102,10 @@ class Ability
     can :manage, ProjectApplication do |project_application|
       user.projects.exists?(project_application.project_id)
     end
+    cannot :apply, Project do |project|
+      (project.users.include? user)
+    end
+
     can :new, Holiday
     can :create, Holiday
     can :new, Expense
@@ -145,7 +149,7 @@ class Ability
     can :see_trips,    User do |chair_user|
       chair_user.chair == user.chair
     end
-
+    
     can :reject, Holiday.select {|h| h.user != user}
     can :accept, Holiday.select {|h| h.user != user}
     can :accept_reject, Holiday.select {|h| h.user != user}
