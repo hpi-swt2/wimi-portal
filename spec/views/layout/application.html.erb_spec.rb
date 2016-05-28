@@ -33,10 +33,6 @@ RSpec.describe 'navigation bar', type: :view do
     it 'should link to projects' do
       expect(page).to have_link('Projects', href: projects_path)
     end
-
-    it 'should show 4 links' do
-      expect(page).to have_css('nav a', count: 4)
-    end
   end
 
   context 'for a superadmin' do
@@ -45,10 +41,6 @@ RSpec.describe 'navigation bar', type: :view do
       @user = FactoryGirl.create(:user, superadmin: true)
       login_as @user
       visit root_path
-    end
-
-    it 'should show 3 links' do
-      expect(page).to have_css('nav a', count: 3)
     end
   end
 
@@ -64,10 +56,6 @@ RSpec.describe 'navigation bar', type: :view do
 
     it 'should link to projects' do
       expect(page).to have_link('Projects', href: projects_path)
-    end
-
-    it 'should show 4 links' do
-      expect(page).to have_css('nav a', count: 4)
     end
   end
 
@@ -85,10 +73,6 @@ RSpec.describe 'navigation bar', type: :view do
     it 'should link to projects' do
       expect(page).to have_link('Projects', href: projects_path)
     end
-
-    it 'should show 4 links' do
-      expect(page).to have_css('nav a', count: 4)
-    end
   end
 
   context 'for a chair representative' do
@@ -96,21 +80,13 @@ RSpec.describe 'navigation bar', type: :view do
     before(:each) do
       chair = FactoryGirl.create(:chair)
       @user = FactoryGirl.create(:user)
-      FactoryGirl.create(:chair_representative, user: @user, chair: chair)
+      FactoryGirl.create(:wimi, user: @user, chair: chair, representative: true)
       login_as @user
       visit root_path
     end
 
     it 'should link to projects' do
       expect(page).to have_link('Projects', href: projects_path)
-    end
-
-    it 'should link to chairs' do
-      expect(page).to have_link('Research Groups', href: chairs_path)
-    end
-
-    it 'should show 5 links' do
-      expect(page).to have_css('nav a', count: 5)
     end
   end
 
@@ -126,14 +102,6 @@ RSpec.describe 'navigation bar', type: :view do
 
     it 'should link to projects' do
       expect(page).to have_link('Projects', href: projects_path)
-    end
-
-    it 'should link to chairs' do
-      expect(page).to have_link('Research Groups', href: chairs_path)
-    end
-
-    it 'should show 5 links' do
-      expect(page).to have_css('nav a', count: 5)
     end
   end
 end

@@ -15,11 +15,12 @@
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
-#  signature                 :text
 #  username                  :string
 #  encrypted_password        :string           default(""), not null
 #  city                      :string
 #  zip_code                  :string
+#  signature                 :text
+#  email_notification        :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
@@ -32,8 +33,8 @@ class User < ActiveRecord::Base
 
   devise :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
 
-  has_many :work_days
-  has_many :time_sheets
+  has_many :contracts, foreign_key: :hiwi_id
+  has_many :time_sheets, through: :contracts
   has_many :holidays
   has_many :expenses
   has_many :project_applications, dependent: :destroy
@@ -62,39 +63,6 @@ class User < ActiveRecord::Base
     self.last_name = last
   end
 
-  def projects_for_month(year, month)
-    projects = TimeSheet.where(
-      user: self, month: month, year: year).map(&:project)
-    (projects.compact + self.projects).uniq
-  end
-
-  def years_and_months_of_existence
-    year_months = []
-    creation_date = created_at
-    (creation_date.year..Date.today.year).each do |year|
-      start_month = (creation_date.year == year) ? creation_date.month : 1
-      end_month = (Date.today.year == year) ? Date.today.month : 12
-      (start_month..end_month).each do |month|
-        year_months.push([year, month])
-      end
-    end
-    year_months
-  end
-
-  def work_year_months_for_project(project)
-    year = -1
-    month = -1
-    year_months = []
-    work_days.where(project: project).order(date: :desc).map(&:date).each do |date|
-      unless year == date.year and month == date.month
-        year = date.year
-        month = date.month
-        year_months << [date.year, date.month]
-      end
-    end
-    year_months
-  end
-
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = remaining_leave
     self.remaining_leave = 28
@@ -102,6 +70,10 @@ class User < ActiveRecord::Base
 
   def is_user?
     !is_wimi? and !is_superadmin? and !is_hiwi?
+  end
+
+  def is_student?
+    !is_wimi? and !is_superadmin?
   end
 
   def is_wimi?
@@ -130,6 +102,23 @@ class User < ActiveRecord::Base
 
   def is_superadmin?
     superadmin
+  end
+  
+  def time_sheet(date_or_month, year = -1)
+    if year < 0
+      d_start = d_end = date_or_month
+      month = d_start.month
+      year = d_start.year
+    else
+      month = date_or_month
+      d_start = Date.new(year, month).at_beginning_of_month
+      d_end = d_start.at_end_of_month
+    end
+    c_start_date = Contract.arel_table[:start_date]
+    c_end_date = Contract.arel_table[:end_date]
+    contract = contracts.where(c_start_date.lteq(d_end), c_end_date.gteq(d_start)).first
+    return nil unless contract
+    contract.time_sheet(month, year)
   end
 
   def self.openid_required_fields
@@ -234,8 +223,8 @@ class User < ActiveRecord::Base
     # Time-Sheets
     act += Event.where(target_id: id).where(type: 'EventTimeSheetAccepted')
     act += Event.where(target_id: id).where(type: 'EventTimeSheetDeclined')
-    projects.each do |project|
-      noti += Event.where(target_id: project.id).where(type: 'EventTimeSheetSubmitted') if is_wimi?
+    Contract.all.where(responsible: self).each do |contract|
+      noti += Event.where(target_id: contract.id).where(type: 'EventTimeSheetSubmitted') if is_wimi?
     end
 
     noti.delete_if { |event| event.is_hidden_by(self) }

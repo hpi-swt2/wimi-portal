@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204091724) do
+ActiveRecord::Schema.define(version: 20160525115010) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -30,6 +30,18 @@ ActiveRecord::Schema.define(version: 20160204091724) do
     t.string   "description"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.date    "start_date"
+    t.date    "end_date"
+    t.integer "chair_id"
+    t.integer "user_id"
+    t.integer "hiwi_id"
+    t.integer "responsible_id"
+    t.boolean "flexible"
+    t.integer "hours_per_week"
+    t.decimal "wage_per_hour",  precision: 5, scale: 2
   end
 
   create_table "events", force: :cascade do |t|
@@ -151,12 +163,6 @@ ActiveRecord::Schema.define(version: 20160204091724) do
   create_table "time_sheets", force: :cascade do |t|
     t.integer  "month"
     t.integer  "year"
-    t.integer  "salary"
-    t.boolean  "salary_is_per_month"
-    t.integer  "workload"
-    t.boolean  "workload_is_per_month"
-    t.integer  "user_id"
-    t.integer  "project_id"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.boolean  "handed_in",                default: false
@@ -171,7 +177,10 @@ ActiveRecord::Schema.define(version: 20160204091724) do
     t.text     "representative_signature"
     t.date     "user_signed_at"
     t.date     "representative_signed_at"
+    t.integer  "contract_id",                              null: false
   end
+
+  add_index "time_sheets", ["contract_id"], name: "index_time_sheets_on_contract_id"
 
   create_table "trips", force: :cascade do |t|
     t.string   "destination"

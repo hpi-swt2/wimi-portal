@@ -5,16 +5,16 @@ describe 'project filtering and searching' do
     @user = FactoryGirl.create(:user)
     @chair1 = FactoryGirl.create(:chair, name: 'Chair1')
     @chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-    @project10 = FactoryGirl.create(:project, title: 'Project 1_0')
-    @project11 = FactoryGirl.create(:project, title: 'Project 1_1')
-    @project20 = FactoryGirl.create(:project, title: 'Project 2_0')
+    @project10 = FactoryGirl.create(:project, title: 'Project 1_0', chair: @chair1)
+    @project11 = FactoryGirl.create(:project, title: 'Project 1_1', chair: @chair1)
+    @project20 = FactoryGirl.create(:project, title: 'Project 2_0', chair: @chair2)
 
     @project10.users << @user
     @project11.users << @user
     @project20.users << @user
 
-    @chair1.projects = [@project10, @project11]
-    @chair2.projects = [@project20]
+#    @chair1.projects = [@project10, @project11]
+#    @chair2.projects = [@project20]
 
     login_as @user
     visit '/projects'

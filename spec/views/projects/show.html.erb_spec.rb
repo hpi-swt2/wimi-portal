@@ -4,11 +4,9 @@ RSpec.describe 'projects/show', type: :view do
   before(:each) do
     @user = FactoryGirl.create(:user)
     @chair = FactoryGirl.create(:chair)
-    @wimi = FactoryGirl.create(:chair_representative, user: FactoryGirl.create(:user), chair: @chair).user
-    @wimi2 = FactoryGirl.create(:chair_representative, user: FactoryGirl.create(:user), chair: @chair).user
+    @project = FactoryGirl.create(:project, chair: @chair)
 
     login_as @user
-    @project = FactoryGirl.create(:project, chair_id: @wimi.chair.id)
     allow(view).to receive(:current_user).and_return(@user)
   end
 
@@ -18,9 +16,9 @@ RSpec.describe 'projects/show', type: :view do
   end
 
   it 'has information about the project on page as a chair representative' do
-    representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
+    representative = @chair.representative.user
     login_as representative
-    project = FactoryGirl.create(:project, chair: representative.chair, status: true)
+    project = FactoryGirl.create(:project, chair: @chair, status: true)
     representative.projects << project
     visit project_path(project)
 
@@ -34,11 +32,10 @@ RSpec.describe 'projects/show', type: :view do
 
   context 'as hiwi' do
     before(:each) do
-      chair_representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
-      @hiwi = FactoryGirl.create(:user)
-
+      @hiwi = @user
       login_as @hiwi
-      @project = FactoryGirl.create(:project, chair: chair_representative.chair, status: true)
+      @hiwi.projects << @project
+      
       visit project_path(@project)
     end
 
@@ -50,14 +47,14 @@ RSpec.describe 'projects/show', type: :view do
     end
 
     it 'shows leave project button if part of project' do
-      @hiwi.projects << @project
       visit current_path
       expect(page).to have_content('Leave')
     end
 
-    it 'shows no leave project button if not part of project' do
-      expect(page).to_not have_content('Leave Project')
-    end
+    # hiwi can't see project if not a member
+#    it 'shows no leave project button if not part of project' do
+#      expect(page).to_not have_content('Leave Project')
+#    end
 
     it 'shows add working hours button' do
       @hiwi.projects << @project
@@ -65,25 +62,34 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_link('Add working hours')
     end
 
-    it 'shows no add working hours button if not part of project' do
-      expect(page).to_not have_link('Add working hours')
-    end
+    # hiwi can't see project if not a member
+#    it 'shows no add working hours button if not part of project' do
+#      expect(page).to_not have_link('Add working hours')
+#    end
 
     it 'shows working hours' do
       @hiwi.projects << @project
       visit current_path
       expect(page).to have_content('Working hours')
     end
+    
+    it 'is possible for a hiwi to sign himself out of the project' do
+      visit project_path @project
+      click_link 'Leave Project'
+      @project.reload
+      
+      expect(@project.users).not_to include(@hiwi)
+    end
   end
 
   context 'as wimi' do
     before(:each) do
-      representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
-      @wimi_user = FactoryGirl.create(:user)
-      @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
+      representative = @chair.representative.user
+      @wimi = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair: @chair).user
+      @wimi2 = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair: @chair).user
+      @project = FactoryGirl.create(:project, chair: @chair, status: true)
 
       login_as @wimi
-      @project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
       visit project_path(@project)
     end
 
@@ -133,12 +139,13 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content(I18n.t('projects.form.show_all_working_hours'), count: 1)
       expect(page).to have_selector(:link_or_button, 'Show all working hours')
     end
-  end
-
-  it 'denies the superadmin to see details of a project' do
-    superadmin = FactoryGirl.create(:user, superadmin: true)
-    login_as superadmin
-    visit project_path(@project)
-    expect(current_path).to eq(dashboard_path)
+    
+    it 'not possible for wimi to edit if not a member' do
+      visit current_path
+      expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
+      expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
+      expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
+#      expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
+    end
   end
 end

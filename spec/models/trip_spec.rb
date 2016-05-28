@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: trips
+#
+#  id                       :integer          not null, primary key
+#  destination              :string
+#  reason                   :text
+#  annotation               :text
+#  user_id                  :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  status                   :integer          default(0)
+#  signature                :boolean
+#  person_in_power_id       :integer
+#  last_modified            :date
+#  date_start               :date
+#  date_end                 :date
+#  days_abroad              :integer
+#  user_signature           :text
+#  representative_signature :text
+#  user_signed_at           :date
+#  representative_signed_at :date
+#  rejection_message        :text             default("")
+#
+
 require 'rails_helper'
 
 RSpec.describe Trip, type: :model do
@@ -10,7 +35,7 @@ RSpec.describe Trip, type: :model do
   end
 
   it 'returns user name' do
-    expect(@trip.name).to eq('Joe Doe')
+    expect(@trip.name).to eq(@trip.user.name)
   end
 
   context 'with valid input' do

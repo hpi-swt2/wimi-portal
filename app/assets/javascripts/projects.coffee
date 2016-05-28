@@ -28,20 +28,6 @@ sendLanguageWithButtonToCallback = (clickedButton, callbackWarning) ->
       callbackWarning 'en', clickedButton
       return
 
-typeahead = ->
-  engine = new Bloodhound(
-    datumTokenizer: (d) ->
-      console.log d
-      Bloodhound.tokenizers.whitespace d.title
-    queryTokenizer: Bloodhound.tokenizers.whitespace
-    remote: url: '../projects/typeahead/%QUERY')
-  promise = engine.initialize()
-  $('.typeahead').typeahead null,
-    name: 'engine'
-    displayKey: 'email'
-    source: engine.ttAdapter()
-  return
-
 inviteInitUser = (locale) ->
   count = 0
   $('body').on 'click', '#invite_user', ->
@@ -163,8 +149,6 @@ ready = ->
     sendLanguageWithButtonToCallback $('#setInactiveButton'), setInactiveWarning
   if $('#SignOutMyself').length
     sendLanguageWithButtonToCallback $('#SignOutMyself'), signOutMyselfWarning
-  if $('.typeahead').length
-    typeahead()
   if $('#invite_user').length
     sendLanguageWithButtonToCallback $('#invite_user'), inviteInitUser
   if $('#hiwiWorkingHoursChart').length

@@ -1,33 +1,49 @@
 class WorkDaysController < ApplicationController
-  before_action :set_work_day, only: [:show, :edit, :update, :destroy]
-
-  load_and_authorize_resource
+  
+  load_and_authorize_resource # only: [:index, :show, :edit, :update, :destroy]
+  
+#  has_scope :month
+#  has_scope :year
+  has_scope :user
+  has_scope :project
+  
   rescue_from CanCan::AccessDenied do |_exception|
+    p _exception
     flash[:error] = t('not_authorized')
     redirect_to dashboard_path
   end
 
   def index
-    if params.has_key?(:project)
-      @month = params[:month].to_i # equals 0 when no month passed
-      @year = params[:year].to_i # equals 0 when no month passed
-      @user = params.has_key?(:user_id) && User.find_by_id(params[:user_id]) != nil ? User.find(params[:user_id]) : current_user
-      @project = Project.find_by_id(params[:project].to_i)
-      if @user.projects.find_by_id(@project.id) == nil
-        redirect_to user_path(current_user, anchor: 'timesheets')
+    @month = params[:month].to_i # equals 0 when no month passed
+    @year = params[:year].to_i # equals 0 when no month passed
+    if @year != 0 && @month != 0
+      @contract = Contract.find_by(id: params[:contract])
+      @user = @contract ? @contract.hiwi : current_user
+      @time_sheet = @user.time_sheet(@month, @year)
+      if @time_sheet
+        authorize! :show, @time_sheet
+        @work_days = @time_sheet.work_days
+      else
+        flash[:error] = 'No timesheet'
+        @work_days = apply_scopes(@work_days)
       end
-      if @year != 0 && @month != 0
-        @time_sheet = TimeSheet.time_sheet_for(@year, @month, @project, @user)
-        if current_user != @user && !@time_sheet.handed_in?
-          redirect_to user_path(@user)
-        end
-      end
-      @work_days = WorkDay.all_for(@year, @month, @project, @user)
-      # Sort first by date, then by start time
-      @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
     else
-      redirect_to user_path(current_user, anchor: 'timesheets')
+      @work_days = apply_scopes(@work_days)
     end
+    @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
+    @project = Project.find_by(id: params[:project])
+#    @user = params.has_key?(:user_id) && User.find_by_id(params[:user_id]) != nil ? User.find(params[:user_id]) : current_user
+#    @month = params[:month].to_i # equals 0 when no month passed
+#    @year = params[:year].to_i # equals 0 when no month passed
+#    if @year != 0 && @month != 0
+#      @time_sheet = TimeSheet.time_sheet_for(@year, @month, @project, @user)
+#      if current_user != @user && !@time_sheet.handed_in?
+#        redirect_to user_path(@user)
+#      end
+#    end
+#    @work_days = WorkDay.all_for(@year, @month, @project, @user)
+#    # Sort first by date, then by start time
+#    @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
   end
 
   def show
@@ -35,7 +51,6 @@ class WorkDaysController < ApplicationController
   end
 
   def new
-    @work_day = WorkDay.new
     @work_day.date = Date.today
   end
 
@@ -72,13 +87,13 @@ class WorkDaysController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_work_day
-    @work_day = WorkDay.find(params[:id])
-  end
+#  # Use callbacks to share common setup or constraints between actions.
+#  def set_work_day
+#    @work_day = WorkDay.find(params[:id])
+#  end
 
   def work_day_params
-    allowed_params = [:date, :start_time, :break, :end_time, :duration, :attendance, :notes, :user_id, :project_id]
+    allowed_params = [:date, :start_time, :break, :end_time, :attendance, :notes, :user_id, :project_id]
     delocalize_config = { :date => :date }
     params.require(:work_day).permit(*allowed_params).delocalize(delocalize_config)
   end

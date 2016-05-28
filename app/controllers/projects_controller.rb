@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user, :accept_invitation, :decline_invitation]
+  #before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user, :accept_invitation, :decline_invitation]
 
   has_scope :title
   has_scope :chair
@@ -11,8 +11,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = apply_scopes(Project.all)
-    @user = current_user
+    @projects = apply_scopes(@projects)
   end
 
   def show
@@ -20,7 +19,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @project.invitations.build
   end
 
   def edit
@@ -76,7 +74,8 @@ class ProjectsController < ApplicationController
           flash[:error] = I18n.t('project.user.already_is_member')
           redirect_to @project
         else
-          if @project.invite_user user, current_user
+          @project.add_user user
+          if @project.save
             flash[:success] = I18n.t('project.user.was_successfully_invited')
             redirect_to @project
           else
@@ -98,10 +97,14 @@ class ProjectsController < ApplicationController
     @project.reload
     redirect_to project_path(@project)
   end
+  
+  def leave
+    @project.remove_user(current_user)
+    redirect_to dashboard_path
+  end
 
-  def sign_user_out
+  def remove_user
     user = User.find(params[:user_id])
-    @project = Project.find(params[:id])
     if user.is_wimi? and @project.wimis.count <= 1
       redirect_to dashboard_path
       flash[:error] = I18n.t('project.user.last_wimi')
@@ -120,35 +123,21 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def accept_invitation
-    if @project.add_user current_user
-      @project.destroy_invitation current_user
-      flash[:success] = I18n.t('project.user.invitation_accepted')
-      redirect_to dashboard_path
-    else
-      @project.destroy_invitation current_user
-      flash[:error] = I18n.t('project.user.cannot_be_invited')
-      redirect_to dashboard_path
-    end
-  end
-
-  def decline_invitation
-    @project.destroy_invitation current_user
-    flash[:success] = I18n.t('project.user.invitation_declined')
-    redirect_to root_path
-  end
-
-  def typeahead
-    @search = UserSearch.new(typeahead: params[:query])
-    render json: @search.results
-  end
-
   def hiwi_working_hours
-    month = params[:month_year].split('-')[0]
-    year = params[:month_year].split('-')[1]
-    month.to_i
-    year.to_i
-    render json: {msg: Project.working_hours_data(year, month)}
+    month = params[:month_year].split('-')[0].to_i
+    year = params[:month_year].split('-')[1].to_i
+    
+    map = {}
+    WorkDay.month(month, year).each do |wd|
+      map[wd.project] = wd.duration + (map[wd.project] || 0)
+    end
+    
+    data = []
+    map.each do |p, d|
+      data.push(name: p.title, y: d)
+    end
+    
+    render json: {msg: data}
     rescue
       render json: {msg: {y: 0, name: I18n.t('activerecord.errors.try_again_later')}}
   end

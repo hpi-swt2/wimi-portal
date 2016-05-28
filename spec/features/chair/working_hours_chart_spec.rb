@@ -13,7 +13,7 @@ describe 'working hours chart' do
 
   it 'shows the working hours chart to the chair representative' do
     representative_user = FactoryGirl.create(:user)
-    FactoryGirl.create(:chair_representative, user: representative_user, chair: @chair)
+    FactoryGirl.create(:wimi, user: representative_user, chair: @chair, representative: true)
     
     login_as representative_user
     visit chair_path(@chair)

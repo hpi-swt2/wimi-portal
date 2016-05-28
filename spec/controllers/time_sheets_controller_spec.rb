@@ -6,24 +6,22 @@ RSpec.describe TimeSheetsController, type: :controller do
     @user = FactoryGirl.create(:user)
     login_with @user
     @project = FactoryGirl.create(:project)
+    @contract = FactoryGirl.create(:contract, hiwi: @user, chair: @project.chair)
   end
 
   let(:valid_attributes) {
-    {month: 1, year: 2015, salary: 100, salary_is_per_month: true,
-     workload: 100, workload_is_per_month: true, user: @user,
-     project: @project}
+    {month: 1, year: 2015, 
+     user: @user, contract: @contract}
   }
 
   let(:signature_valid_attributes) {
-    {month: 1, year: 2015, salary: 100, salary_is_per_month: true,
-     workload: 100, workload_is_per_month: true, user: @user,
-     project: @project, signed: 1}
+    {month: 1, year: 2015, 
+     user: @user, contract: @contract, signed: 1}
   }
 
   let(:invalid_attributes) {
-    {month: 1, year: 2015, salary: -100, salary_is_per_month: false,
-     workload: 100, workload_is_per_month: nil, user: @user,
-     project: @project}
+    {month: -1, year: 2015, 
+      user: @user, contract: @contract}
   }
 
   let(:valid_session) { {} }
@@ -39,28 +37,21 @@ RSpec.describe TimeSheetsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) {
-        {month: 1, year: 2015, salary: 100, salary_is_per_month: false,
-         workload: 200, workload_is_per_month: true, user: @user,
-         project: @project}
+        {month: 2, year: 2015, 
+          user: @user, contract: @contract}
       }
 
       it 'updates the requested time_sheet' do
         time_sheet = TimeSheet.create! valid_attributes
-        put :update, {id: time_sheet.to_param, time_sheet: new_attributes}, valid_session
+        put :update, {id: time_sheet, time_sheet: new_attributes}, valid_session
         time_sheet.reload
-        expect(time_sheet.workload).to eq(200)
-      end
-
-      it 'assigns the requested time_sheet as @time_sheet' do
-        time_sheet = TimeSheet.create! valid_attributes
-        put :update, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
-        expect(assigns(:time_sheet)).to eq(time_sheet)
+        expect(time_sheet.month).to eq(2)
       end
 
       it 'redirects to the time_sheet' do
         time_sheet = TimeSheet.create! valid_attributes
         put :update, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: time_sheet.month, year: time_sheet.year, project: time_sheet.project))
+        expect(response).to redirect_to(work_days_path(month: time_sheet.month, year: time_sheet.year, contract: time_sheet.contract))
       end
     end
 

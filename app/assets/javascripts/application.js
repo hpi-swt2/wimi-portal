@@ -22,3 +22,45 @@
 
 $('.datepicker').datepicker();
 
+
+var typeahead = function() {
+  var engine, promise;
+  engine = new Bloodhound({
+    datumTokenizer: function(d) {
+      console.log(d);
+      return Bloodhound.tokenizers.whitespace(d.title);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '../users/autocomplete/%QUERY'
+    }
+  });
+  promise = engine.initialize();
+  $('.typeahead').typeahead(null, {
+    name: 'engine',
+    displayKey: 'email',
+    source: engine.ttAdapter()
+  });
+};
+
+$(document).ready(function() {
+  if ($('.typeahead').length) {
+    typeahead();
+  }
+});
+
+
+//typeahead = ->
+//  engine = new Bloodhound(
+//    datumTokenizer: (d) ->
+//      console.log d
+//      Bloodhound.tokenizers.whitespace d.title
+//    queryTokenizer: Bloodhound.tokenizers.whitespace
+//    remote: url: '../users/typeahead/%QUERY')
+//  promise = engine.initialize()
+//  $('.typeahead').typeahead null,
+//    name: 'engine'
+//    displayKey: 'email'
+//    source: engine.ttAdapter()
+//  return
+

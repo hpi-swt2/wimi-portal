@@ -16,6 +16,17 @@
 #
 
 class WorkDay < ActiveRecord::Base
+  
+  scope :user, -> user { where(user: user) }
+  scope :project, -> project { where(project: project) }
+  scope :date, -> date  { where(date: date) }
+  scope :month, -> month, year {
+    date = Date.new(year, month)
+    where(date: date.beginning_of_month..date.end_of_month)
+  }
+  scope :contract, -> contract { where(date: contract.start_date..contract.end_date).user(contract.hiwi) }
+  scope :time_sheet, -> time_sheet { contract(time_sheet.contract).month(time_sheet.month, time_sheet.year) }
+  
   belongs_to :user
   belongs_to :project
 
@@ -25,7 +36,6 @@ class WorkDay < ActiveRecord::Base
   validates :start_time, presence: true
   validates :break, presence: true, numericality: true
   validates :end_time, presence: true
-  validate :project_id_exists
   validate :no_overlap
   validates_time :end_time, after: :start_time
   validates :duration, numericality: {greater_than: 0}
@@ -58,26 +68,14 @@ class WorkDay < ActiveRecord::Base
     end
   end
 
-  def project_id_exists
-    return false if Project.find_by_id(project_id).nil?
-  end
-
-  def self.all_for(year, month, project, user)
-    # year and month are 0 when they are not passed to the controller (nil.to_i = 0)
-    if year == 0 || month == 0
-      return WorkDay.where(user: user, project_id: project)
-    else
-      date = Date.new(year, month)
-      month_start = date.beginning_of_month
-      month_end = date.end_of_month
-      return WorkDay.where(date: month_start..month_end, user: user, project_id: project)
-    end
-  end
-
   def duration_hours_minutes
     work_time = duration_in_minutes
     minutes = work_time % 60
     hours = (work_time - minutes) / 60
     format("%d:%02d", hours, minutes)
+  end
+  
+  def time_sheet
+    user.time_sheet(date)
   end
 end

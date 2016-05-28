@@ -22,9 +22,9 @@ RSpec.describe DashboardController, type: :controller do
     chair = FactoryGirl.create(:chair)
     project = FactoryGirl.create(:project, chair: chair)
     user = FactoryGirl.create(:hiwi)
-    time_sheet = FactoryGirl.create(:time_sheet, user_id: user.id, project_id: project.id)
+    time_sheet = FactoryGirl.create(:time_sheet, chair: chair, user: user)
 
-    wimi = User.find(FactoryGirl.create(:wimi, chair: chair).user_id)
+    wimi = FactoryGirl.create(:wimi, chair: chair).user
     wimi.projects = []
     wimi.projects << project
     project.users << wimi

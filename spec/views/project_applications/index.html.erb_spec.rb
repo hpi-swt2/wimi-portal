@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'rails_helper'
 
+# to be removed
 RSpec.describe 'project_applications/index', type: :view do
   before(:each) do
     @user = FactoryGirl.create(:user)

@@ -19,11 +19,11 @@ FactoryGirl.define do
   factory :work_day, class: 'WorkDay' do |f|
     f.date Date.today
     f.start_time Time.now.middle_of_day
-    f.break 30
+    f.break 0
     f.end_time Time.now.middle_of_day + 2.hours
     f.attendance ''
     f.notes 'some note'
-    f.user_id 1
-    f.project_id 1
+    f.user
+    f.project
   end
 end

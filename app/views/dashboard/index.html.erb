@@ -116,7 +116,7 @@
                 <td><%=l chair.created_at %></td>
                 <td>
                   <%= link_to I18n.t('helpers.titles.edit', model: Chair.model_name.human.titleize), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %><br />
-                  <%= link_to I18n.t('helpers.titles.delete', model: Chair.model_name.human.titleize), chair_path(id: chair), method: :delete, data: {confirm: t('.confirm', default: t('helpers.links.confirm'))}, class: 'btn btn-danger btn-xs' %>
+                  <%= link_to I18n.t('helpers.titles.destroy', model: Chair.model_name.human.titleize), chair_path(id: chair), method: :delete, data: {confirm: t('.confirm', default: t('helpers.links.confirm'))}, class: 'btn btn-danger btn-xs' %>
                 </td>
               </tr>
               <% end %>

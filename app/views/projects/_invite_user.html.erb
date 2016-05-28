@@ -12,10 +12,10 @@
               <%= t('project.send_invitation_to') %>
               <%= form_for :invite_user, url: invite_user_project_path(@project) do |f| %>
                 <div class="modal-body clearfix" >
-                  <%= f.text_field :email, { class: "typeahead form-control", size: 100, placeholder: "max.mustermann@student.hpi.uni-potsdam.de" } %>
+                  <%= f.text_field :email, { class: "typeahead form-control", size: 100, placeholder: "first.last@hpi.de" } %>
                 </div>
                 <%= f.submit t('links.submit'), class: "btn btn-primary" %>
-                <span class="btn btn-default", data-dismiss="modal"><%= t("helpers.links.back") %></span>
+                <span class="btn btn-default" data-dismiss="modal"><%= t("helpers.links.back") %></span>
               <% end %>
             </div>
           </div>

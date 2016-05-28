@@ -67,15 +67,20 @@ namespace :db do
       end_time: day2.to_s + ' 12:00:00',
       user_id: bob.id,
       project_id: hana_project.id)
+    contract_alice = Contract.create!(
+      start_date: day1.at_beginning_of_month,
+      end_date: day2.at_end_of_month,
+      hiwi: alice,
+      responsible: epic_wimi,
+      chair: chair_epic,
+      flexible: false,
+      hours_per_week: 10,
+      wage_per_hour: 10
+      )
     TimeSheet.create!(
       month: day2.month,
       year: day2.year,
-      salary: 9,
-      salary_is_per_month: true,
-      workload: 40,
-      workload_is_per_month: true,
-      user_id: alice.id,
-      project_id: swt2.id)
+      contract: contract_alice)
     trip = Trip.create!(
       destination: 'ME310 Kickoff USA',
       reason: 'ME310',

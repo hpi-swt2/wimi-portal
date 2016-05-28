@@ -71,13 +71,14 @@ class Chair < ActiveRecord::Base
     admin_array = []
     admins_param.try(:each) do |id|
       success = check_correct_user(id[1])
+      return false unless success
       admin_array << User.find_by(id: id[1])
     end
     success = check_correct_user(representative_param) if representative_param
 
     if success
       set_admins(admin_array)
-      set_representative(User.find_by(id: representative_param))
+      set_representative(User.find_by_id(representative_param)) if representative_param
       return true
     else
       return false
@@ -100,23 +101,24 @@ class Chair < ActiveRecord::Base
   end
 
   def set_representative(new_representative)
-    former = representative
-    if former
+    while representative
+      former = representative
       former.representative = false
-      former.save
+      former.save!
     end
 
     if new_representative
-      chair_wimi = ChairWimi.find_by(user: new_representative)
+      chair_wimi = ChairWimi.find_by(user: new_representative, chair: self)
       if chair_wimi
         if chair_wimi.application == 'pending'
-          chair_wimi.destroy
+          chair_wimi.destroy!
+          ChairWimi.create(chair: self, user: new_representative, representative: true, application: 'accepted')
         else
           chair_wimi.representative = true
-          chair_wimi.save
+          chair_wimi.save!
         end
       else
-        ChairWimi.create(chair: self, user: new_representative, representative: true, application: 'accepted')
+        ChairWimi.create!(chair: self, user: new_representative, representative: true, application: 'accepted')
       end
     end
   end

@@ -43,7 +43,7 @@ en:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
-      delete: "Delete %{model}"
+      destroy: "Delete %{model}"
     language:
       lang: "Language"
       english: "English"
@@ -142,7 +142,7 @@ en:
       work_times: "Work times"
       handed_in_timesheets: "Handed in time sheets:"
       by: "by"
-      time_sheets_overview: "Time sheets of your students"
+      time_sheets_overview: "Your time sheets"
       hiwi: "students assistants"
       month: "month"
       number_of_hours: "number of hours"
@@ -156,7 +156,7 @@ en:
         applied: "Applied"
         declined: "Rejected"
       signature: "Signature"
-      warning: "ATTENTION: Be aware, that your signature will be stored as an image and not be encrypted additionally!"
+      warning: "ATTENTION: Be aware that your signature will be stored as an image and not be encrypted additionally!"
       upload: "Upload signature"
       information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
     edit:
@@ -221,11 +221,11 @@ en:
   event_time_sheet_declineds:
     event_time_sheet_declined:
       view: "View"
-      full_html: "%{signer} from %{project} <b>declined</b> your time sheet for %{month}."
+      full_html: "%{signer} <b>declined</b> your time sheet for %{month}."
   event_time_sheet_accepteds:
     event_time_sheet_accepted:
       view: "View"
-      full_html: "%{signer} from %{project} <b>accepted</b> your time sheet for %{month}."
+      full_html: "%{signer} <b>accepted</b> your time sheet for %{month}."
   event_project_invitations:
     event_project_invitation:
       accept: "Accept"
@@ -400,7 +400,7 @@ en:
     navigation:
       not_authorized: "You are not allowed to do this action for this research group."
       apply_wimi: "Apply as Wimi"
-      manage: "Manage Research Group"
+      manage: "Manage"
       show_timesheets: "Show timesheets"
     requests:
       apply_filter: "Apply Filters"

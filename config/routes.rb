@@ -35,11 +35,12 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       get 'toggle_status'
-      delete 'sign_user_out/:user_id', action: 'sign_user_out', as: 'sign_user_out'
+      delete 'remove/:user_id', action: 'remove_user', as: 'remove_user'
+      post 'leave'
     end
   end
 
-  get 'projects/typeahead/:query', to: 'projects#typeahead', constraints: {query: /[^\/]+/}
+  #get 'projects/typeahead/:query', to: 'projects#typeahead', constraints: {query: /[^\/]+/}
   get 'projects/hiwi_working_hours/:month_year', to: 'projects#hiwi_working_hours'
 
   resources :holidays do
@@ -51,6 +52,7 @@ Rails.application.routes.draw do
     get 'holidays/accept_reject', to: 'holidays#accept_reject'
   end
 
+  resources :contracts
   resources :work_days
   resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
     member do
@@ -104,4 +106,5 @@ Rails.application.routes.draw do
 
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
+  get '/users/autocomplete/:query', to: 'users#autocomplete', as: 'autocomplete'
 end

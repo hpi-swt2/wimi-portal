@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, except: :external_login
-  before_action :user_exists, :set_user, except: [:external_login, :language]
+  #before_filter :authenticate_user!, except: :external_login
+#  before_action :user_exists, except: [:external_login, :language]
+  
   load_and_authorize_resource
+  skip_authorize_resource :only => [:external_login]
 
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
@@ -77,6 +79,11 @@ class UsersController < ApplicationController
     @user.update(signature: nil)
     flash[:success] = t('.destroy_success')
     redirect_to current_user
+  end
+  
+  def autocomplete
+    search = UserSearch.new(typeahead: params[:query])
+    render json: search.results
   end
 
   private

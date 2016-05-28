@@ -70,11 +70,8 @@
                     <td>
                       <% if @project.wimis.count > 1 %>
                         <% if can? :edit, @project%>
-                          <% if user == current_user %>
-                            <%= link_to t('projects.form.sign_out_of_project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOutMyself' %>
-                          <% else %>
-                            <%= link_to t('projects.form.sign_out_of_project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOut' %>
-                          <% end %>
+                          <% btnId = user == current_user ? 'SignOutMyself' : 'SignOut' %>
+                          <%= link_to t('projects.form.sign_out_of_project'), remove_user_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: btnId %>
                         <% end %>
                       <% end %>
                     </td>
@@ -105,12 +102,9 @@
                       <%= link_to user.name, user %>
                     </td>
                     <td>
-                      <% if can? :edit, @project%>
-                        <% if user == current_user %>
-                          <%= link_to t('projects.form.sign_out_of_project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOutMyself' %>
-                        <% else %>
-                          <%= link_to t('projects.form.sign_out_of_project'), sign_user_out_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: 'SignOut' %>
-                        <% end %>
+                      <% if can? :edit, @project %>
+                        <% btnId = user == current_user ? 'SignOutMyself' : 'SignOut' %>
+                        <%= link_to t('projects.form.sign_out_of_project'), remove_user_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: btnId %>
                       <% end %>
                     </td>
                   </tr>

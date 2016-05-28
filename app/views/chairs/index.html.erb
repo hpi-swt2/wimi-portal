@@ -11,42 +11,23 @@
         <thead>
           <tr>
             <th><%= model_class.human_attribute_name(:name) %></th>
-            <th><%= model_class.human_attribute_name(:status) %></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
         <% @chairs.each do |chair| %>
           <tr>
-            <% if current_user.is_admin?(chair) || current_user.is_representative?(chair) %>
+            <% if can?(:show, chair) %>
               <td><%= link_to chair.name, chair_path(chair) %></td>
             <% else %>
               <td><%= chair.name %></td>
             <% end %>
-            <td>
-              <% if current_user.chair_wimi.nil? && !current_user.superadmin %>
-                  <%= link_to I18n.t('chairs.navigation.apply_wimi'), chairs_apply_path(chair: chair), method: :post, class: 'btn btn-default btn-xs' %>
-                <% else %>
-                    <% if current_user.chair == chair %>
-                        <% if current_user.is_wimi? %>
-                            <span class="label label-success"><%= t('roles.wimi_long') %></span>
-                        <% else %>
-                            <span class="label label-warning"><%= t('chairs.requests.pending') %></span>
-                        <% end %>
-                    <% end %>
-                <% end %>
-              </td>
-              <% if can?(:edit, chair) && can?(:destroy, chair)%>
-                  <td>
-                    <%= link_to t('helpers.titles.edit', model: model_class.model_name.human.titleize), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
-                    <%= link_to t('helpers.titles.delete', model: model_class.model_name.human.titleize), chair_path(id: chair), method: :delete, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
-              <% else %>
-                  <td>
-                    <% unless current_user.chair_wimi.nil? %>
-                        <% if current_user.is_admin?(chair) || current_user.is_representative?(chair) %>
-                            <%= link_to t('chairs.navigation.manage'), chair_path(chair), class: 'btn btn-warning btn-xs' %>
-                        <% end %>
-                    <% end %>
+              <td> 
+              <% if can?(:edit, chair) %>
+                    <%= link_to t('helpers.links.edit'), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
+              <% end %>
+              <% if can?(:delete, chair) %>
+                    <%= link_to t('helpers.links.destroy'), chair_path(id: chair), method: :delete, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
               <% end %>
               </td>
             </tr>

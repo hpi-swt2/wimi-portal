@@ -18,11 +18,8 @@ class Project < ActiveRecord::Base
   scope :chair, -> name { joins(:chair).where('LOWER(name) LIKE ?', "%#{name.downcase}%") }
 
   has_and_belongs_to_many :users
-  has_many :project_applications, dependent: :destroy
-  has_many :invitations
   belongs_to :chair
-
-  accepts_nested_attributes_for :invitations, allow_destroy: true
+  has_many :work_days
 
   validates :title, presence: true
   validates :chair, presence: true
@@ -71,25 +68,9 @@ class Project < ActiveRecord::Base
 
   def remove_user(user)
     users.delete(user)
-    if project_applications.include?(ProjectApplication.find_by_user_id user.id)
-      project_applications.delete(ProjectApplication.find_by_user_id user.id)
-    end
   end
 
   def hiwi_working_hours_for(year, month)
-    sum_working_hours = 0
-    hiwis.each do |hiwi|
-      sum_working_hours += TimeSheet.time_sheet_for(year, month, self, hiwi).sum_hours
-    end
-    sum_working_hours
-  end
-
-  def self.working_hours_data(year, month)
-    data = []
-    Project.find_each do |project|
-      entry = {y: project.hiwi_working_hours_for(year, month), name: project.title}
-      data.push(entry)
-    end
-    data.to_json
+    work_days.month(month, year).to_a.sum(&:duration)
   end
 end

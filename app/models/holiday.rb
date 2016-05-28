@@ -15,9 +15,11 @@
 #  last_modified            :date
 #  reason                   :string
 #  annotation               :string
+#  length_last_year         :integer          default(0)
 #  user_signature           :text
 #  representative_signature :text
-#  length_last_year         :integer          default(0)
+#  user_signed_at           :date
+#  representative_signed_at :date
 #
 
 class Holiday < ActiveRecord::Base

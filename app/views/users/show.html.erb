@@ -79,7 +79,7 @@
               <% else %>
                 <% path = 'data:image/png;base64,' << current_user.signature %>
                 <p><img src="<%= path %>" width="150" height="50"/></p><br/>
-                <%= link_to I18n.t('helpers.titles.delete', model: t('.signature')), delete_signature_path(current_user), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
+                <%= link_to I18n.t('helpers.titles.destroy', model: t('.signature')), delete_signature_path(current_user), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
               <% end %>
             </div>
           </div>
@@ -98,19 +98,21 @@
           </div>
           <div class="panel-body">
             <div class="row">
-              <% @user.years_and_months_of_existence.each do |month| %>
-                <div class="col-md-6">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <%= l(Date.new(month.first, month.last, 1), format: :without_day) %>:
-                    </div>
-                    <div class="panel-body">
-                      <% current_user.projects_for_month(month.first, month.last).each do |project| %>
-                        <%= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user) , class: "btn btn-default btn-block"%>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
+              <% @user.time_sheets.order(year: :desc, month: :desc).each do |ts| %>
+                <%= link_to "#{ts.year}-#{ts.month}", work_days_path(month: ts.month, year: ts.year, contract: ts.contract) , class: "btn btn-default btn-block"%>
+                
+                <%#*<div class="col-md-6">%>
+                  <%#*<div class="panel panel-default">%>
+                    <%#*<div class="panel-heading">%>
+                      <%#= l(Date.new(month.first, month.last, 1), format: :without_day) %>
+                    <%#*</div>%>
+                    <%#*<div class="panel-body">%>
+                      <%# current_user.projects_for_month(month.first, month.last).each do |project| %>
+                        <%#= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user) , class: "btn btn-default btn-block"%>
+                      <%# end %>
+                    <%#*</div>%>
+                  <%#*</div>%>
+                <%#*</div>%>
               <% end %>
             </div>
           </div>
@@ -128,18 +130,18 @@
             <h4><%= t('.handed_in_timesheets') %></h4>
           </div>
           <div class="panel-body">
-            <% @user.years_and_months_of_existence.each do |month| %>
-              <p>
-                <%= l(Date.new(month.first, month.last, 1), format: :without_day) + ':' %>
-                <% current_user.projects_for_month(month.first, month.last).each do |project| %>
-                  <% TimeSheet.all.each do |timesheet| %>
-                    <% if timesheet.month == month.last && timesheet.year == month.first && timesheet.project == project && timesheet.handed_in == true && timesheet.user == @user %>
-                        <%= link_to project.title + ' ' + t('.by') + ' ' + timesheet.user.name, work_days_path(month: month.last, year: month.first, project: project.id, user_id: timesheet.user) %>
-                    <% end %>
-                <% end %>
-              <% end %>
-              </p>
-            <% end %>
+            <%# @user.years_and_months_of_existence.each do |month| %>
+              <%#*<p>%>
+                <%#= l(Date.new(month.first, month.last, 1), format: :without_day) + ':' %>
+                <%# current_user.projects_for_month(month.first, month.last).each do |project| %>
+                  <%# TimeSheet.all.each do |timesheet| %>
+                    <%# if timesheet.month == month.last && timesheet.year == month.first && timesheet.project == project && timesheet.handed_in == true && timesheet.user == @user %>
+                        <%#= link_to project.title + ' ' + t('.by') + ' ' + timesheet.user.name, work_days_path(month: month.last, year: month.first, project: project.id, user_id: timesheet.user) %>
+                    <%# end %>
+                <%# end %>
+              <%# end %>
+              <%#*</p>%>
+            <%# end %>
           </div>
         </div>
       </div>
@@ -306,7 +308,7 @@
                       <td><%= sheet.hand_in_date %></td>
                       <td><%= t("time_sheets.show_footer.#{sheet.status}") %></td>
                       <td>
-                        <%= link_to t('.inspect'), work_days_path(month: sheet.month, year: sheet.year, project: sheet.project_id, user_id: sheet.user_id), class: 'btn btn-default btn-xs' %>
+                        <%= link_to t('.inspect'), work_days_path(month: sheet.month, year: sheet.year, contract: sheet.contract), class: 'btn btn-default btn-xs' %>
                       </td>
                     </tr>
                   <% end %>

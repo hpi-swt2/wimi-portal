@@ -21,6 +21,8 @@
 #  trip_id           :integer
 #  time_start        :string
 #  time_end          :string
+#  user_signature    :text
+#  user_signed_at    :date
 #  rejection_message :text
 #
 

@@ -15,11 +15,12 @@
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
-#  signature                 :text
 #  username                  :string
 #  encrypted_password        :string           default(""), not null
 #  city                      :string
 #  zip_code                  :string
+#  signature                 :text
+#  email_notification        :boolean          default(FALSE)
 #
 
 require 'rails_helper'
@@ -30,7 +31,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'returns the full name of the user' do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user, first_name: 'Joe', last_name: 'Doe')
     expect(user.name).to eq('Joe Doe')
   end
 

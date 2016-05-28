@@ -6,6 +6,8 @@ describe WorkDaysController, type: :controller do
     @user = FactoryGirl.create(:user)
     sign_in @user
     @project = FactoryGirl.create(:project)
+    @project.add_user @user
+    FactoryGirl.create(:time_sheet, user: @user)
   end
 
   let(:valid_attributes) {
@@ -21,13 +23,13 @@ describe WorkDaysController, type: :controller do
   describe 'GET #index' do
     it 'assigns work_days for this month as @work_days' do
       work_day = WorkDay.create! valid_attributes
-      get :index, {month: Date.today.month, year: Date.today.year, user_id: @user.id}, valid_session
+      get :index, {month: Date.today.month, year: Date.today.year, user: @user, project: @project}, valid_session
       expect(assigns(:work_days)).to eq([work_day])
     end
 
     it 'shows work_days for month and project' do
       work_day = WorkDay.create! valid_attributes
-      get :index, {month: Date.today.month, year: Date.today.year, user_id: @user.id, project_id: @project.id}, valid_session
+      get :index, {month: Date.today.month, year: Date.today.year, user: @user, project: @project.id}, valid_session
       expect(assigns(:work_days)).to eq([work_day])
     end
   end
@@ -114,7 +116,11 @@ describe WorkDaysController, type: :controller do
 
       it 'updates the requested work_day' do
         work_day = WorkDay.create! valid_attributes
-        put :update, {id: work_day.to_param, work_day: new_attributes}, valid_session
+        a = Ability.new(@user)
+        p work_day.time_sheet
+        p a.can? :update, work_day
+        
+        put :update, {id: work_day.to_param, work_day: new_attributes} #, valid_session
         work_day.reload
         expect(work_day.start_time.hour).to equal((Time.now.middle_of_day - 1.hour).hour)
         expect(work_day.break).to equal(20)

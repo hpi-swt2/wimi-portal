@@ -15,9 +15,11 @@
 #  last_modified            :date
 #  reason                   :string
 #  annotation               :string
+#  length_last_year         :integer          default(0)
 #  user_signature           :text
 #  representative_signature :text
-#  length_last_year         :integer          default(0)
+#  user_signed_at           :date
+#  representative_signed_at :date
 #
 
 require 'rails_helper'
@@ -40,7 +42,7 @@ RSpec.describe Holiday, type: :model do
   end
 
   it 'is invalid when end is before start' do
-    expect(FactoryGirl.build(:holiday, user: @user, end: Date.yesterday)).to_not be_valid
+    expect(FactoryGirl.build(:holiday, user: @user, start: Date.today, end: Date.yesterday)).to_not be_valid
   end
 
   it 'is invalid when to far in the future' do

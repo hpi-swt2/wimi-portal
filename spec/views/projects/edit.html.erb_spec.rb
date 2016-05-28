@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe 'projects/edit', type: :view do
   before(:each) do
     @chair = FactoryGirl.create(:chair)
-    @user = FactoryGirl.create(:user)
-    @representative = FactoryGirl.create(:chair_representative, user: @user, chair: @chair).user
-    @wimi_user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:wimi, user: @wimi_user, chair: @chair).user
-    @wimi_user2 = FactoryGirl.create(:user)
-    @wimi2 = FactoryGirl.create(:wimi, user: @wimi_user2, chair: @chair).user
+    @representative = FactoryGirl.create(:user)
+    FactoryGirl.create(:wimi, user: @representative, chair: @chair, representative: true)
+    @wimi = FactoryGirl.create(:user)
+    FactoryGirl.create(:wimi, user: @wimi, chair: @chair)
+    @wimi2 = FactoryGirl.create(:user)
+    FactoryGirl.create(:wimi, user: @wimi2, chair: @chair)
   end
 
   it 'can be edited by a wimi' do
@@ -101,18 +101,6 @@ RSpec.describe 'projects/edit', type: :view do
     expect(page).not_to have_link('id="SignOutMyself"')
   end
 
-  it 'is possible for a hiwi to sign himself out of the project' do
-    user = FactoryGirl.create(:user)
-    login_as user
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
-    user.projects << project
-    visit project_path(project)
-    click_on(I18n.t('projects.show.leave_project'))
-    project.reload
-    expect(current_path).to eq(projects_path)
-    expect(project.users).not_to include(user)
-  end
-
   it 'is possible for a wimi to sign a hiwi out of the project' do
     user = FactoryGirl.create(:user)
     login_as @wimi
@@ -124,22 +112,6 @@ RSpec.describe 'projects/edit', type: :view do
     project.reload
     expect(current_path).to eq(edit_project_path(project))
     expect(project.users).not_to include(user)
-  end
-
-  it 'not possible for wimi to edit or delete a project he just signed out' do
-    login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair)
-    @wimi.projects << project
-    @wimi2.projects << project
-    visit edit_project_path(project)
-    find('a[id="SignOutMyself"]').click
-    project.reload
-    expect(current_path).to eq(projects_path)
-    visit project_path(project)
-    expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
-    expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
-    expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
-    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.back'))
   end
 
   it 'denies the superadmin to edit a project' do

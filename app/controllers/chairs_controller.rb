@@ -1,6 +1,7 @@
 class ChairsController < ApplicationController
+  
   load_and_authorize_resource
-  before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
+  #before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
 
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('chairs.navigation.not_authorized')
@@ -12,7 +13,6 @@ class ChairsController < ApplicationController
   end
 
   def index
-    @chairs = Chair.all
   end
 
   # Superadmin tasks:
@@ -79,7 +79,7 @@ class ChairsController < ApplicationController
     @allrequests = @chair.create_allrequests(@types, @statuses)
   end
 
-  def requests_filtered
+  def requests_filtered # TODO: merge with #requests action
     @types = %w[holidays expenses trips]
     @statuses = %w[applied accepted declined]
 
@@ -90,19 +90,19 @@ class ChairsController < ApplicationController
     render 'requests'
   end
 
-  # Admin tasks:
-  def accept_request
-    chair_wimi = ChairWimi.find(params[:request])
-    chair_wimi.application = 'accepted'
-
-    if chair_wimi.save
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: 'added'})
-      flash[:success] = I18n.t('chair.accept_request.success')
-    else
-      flash[:error] = I18n.t('chair.accept_request.error')
-    end
-    redirect_to chair_path(@chair)
-  end
+#  # Admin tasks:
+#  def accept_request # applying for chair is deprecated
+#    chair_wimi = ChairWimi.find(params[:request])
+#    chair_wimi.application = 'accepted'
+#
+#    if chair_wimi.save
+#      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: 'added'})
+#      flash[:success] = I18n.t('chair.accept_request.success')
+#    else
+#      flash[:error] = I18n.t('chair.accept_request.error')
+#    end
+#    redirect_to chair_path(@chair)
+#  end
 
   def remove_from_chair
     chair_wimi = ChairWimi.find(params[:request])
@@ -139,25 +139,6 @@ class ChairsController < ApplicationController
       flash[:error] = I18n.t('chair.withdraw.error')
     end
     redirect_to chair_path(@chair)
-  end
-
-  # User task:
-  def apply
-    wimi = ChairWimi.new(chair_id: params[:chair], user: current_user, application: 'pending')
-
-    success = false
-    unless ChairWimi.find_by(user: current_user)
-      EventChairApplication.where(trigger: current_user).destroy_all
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, chair: wimi.chair, type: 'EventChairApplication', seclevel: :admin})
-      success = wimi.save
-    end
-
-    if success
-      flash[:success] = I18n.t('chair.apply.success')
-    else
-      flash[:error] = I18n.t('chair.apply.error')
-    end
-    redirect_to chairs_path
   end
 
   private
