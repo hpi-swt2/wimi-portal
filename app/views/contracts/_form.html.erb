@@ -21,14 +21,14 @@
     </div>
     <div class="panel-body">
       <div class="form-group">
-        <%= f.label :start, class: 'control-label' %>
-        <%= f.text_field :start, value: @contract.start, class: 'form-control' %>
-        <%= error_span(@contract[:start]) %>
+        <%= f.label :start_date, class: 'control-label' %>
+        <%= f.text_field :start_date, value: @contract.start_date, class: 'form-control' %>
+        <%= error_span(@contract[:start_date]) %>
       </div>
       <div class="form-group">
-        <%= f.label :end, class: 'control-label' %>
-        <%= f.text_field :end, value: @contract.end, class: 'form-control' %>
-        <%= error_span(@contract[:end]) %>
+        <%= f.label :end_date, class: 'control-label' %>
+        <%= f.text_field :end_date, value: @contract.end_date, class: 'form-control' %>
+        <%= error_span(@contract[:end_date]) %>
       </div>
       <div class="form-group">
         <%= f.label :hiwi, class: 'control-label' %>
