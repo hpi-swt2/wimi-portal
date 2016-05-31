@@ -53,6 +53,9 @@ en:
       update: "Update %{model}"
       hide: "Hide"
     list_select: "Please select"
+  contracts:
+    form:
+      contract_data: "Contract Data"
   project_applications:
     states:
       pending: "Pending"
