@@ -18,17 +18,6 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(page).to_not have_content(project2.title)
   end
 
-  it 'shows content for users without any chair or project' do
-    login_as @user
-    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
-    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-    visit dashboard_path
-
-    expect(page).to have_content(chair1.name)
-    expect(page).to have_content(chair2.name)
-    expect(page).to have_content(I18n.t('activerecord.attributes.chair.apply'))
-  end
-
   # apply is deprecated
 #  it 'performs an application after click on Apply' do
 #    login_as @user
@@ -165,10 +154,10 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     login_as @user
     visit dashboard_path
 
-    expect(page).to have_link('Show holiday requests')
-    expect(page).to have_link('Show expense requests')
-    expect(page).to have_link('Show trip requests')
-    expect(page).to_not have_link('Apply as WiMi')
+    # currently out of order
+#    expect(page).to have_link('Show holiday requests')
+#    expect(page).to have_link('Show expense requests')
+#    expect(page).to have_link('Show trip requests')
   end
 
   # holidays are currently out of order

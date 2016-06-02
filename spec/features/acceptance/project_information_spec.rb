@@ -8,6 +8,7 @@ feature 'Project information' do
     @current_user = FactoryGirl.create(:user, language: 'de')
     login_as @current_user
     @project = FactoryGirl.create(:project, chair: representative.chair)
+    @project.users << @current_user
   end
 
   scenario 'Go on project site' do

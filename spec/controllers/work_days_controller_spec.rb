@@ -73,7 +73,7 @@ describe WorkDaysController, type: :controller do
 
       it 'redirects to the time_sheet for the work_days month and project' do
         post :create, {work_day: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user_id: @user.id, project: @project.id))
+        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user: @user.id))
       end
       
       it 'works with german locale' do
@@ -117,8 +117,6 @@ describe WorkDaysController, type: :controller do
       it 'updates the requested work_day' do
         work_day = WorkDay.create! valid_attributes
         a = Ability.new(@user)
-        p work_day.time_sheet
-        p a.can? :update, work_day
         
         put :update, {id: work_day.to_param, work_day: new_attributes} #, valid_session
         work_day.reload
@@ -135,7 +133,7 @@ describe WorkDaysController, type: :controller do
       it 'redirects to the time_sheet for the work_days month and project' do
         work_day = WorkDay.create! valid_attributes
         put :update, {id: work_day.to_param, work_day: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user_id: @user.id, project: @project.id))
+        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user: @user.id, project: @project.id))
       end
     end
 
@@ -165,7 +163,7 @@ describe WorkDaysController, type: :controller do
     it 'redirects to the work_days list for current month' do
       work_day = WorkDay.create! valid_attributes
       delete :destroy, {id: work_day.to_param}, valid_session
-      expect(response).to redirect_to(work_days_path(month: work_day.date.month, year: work_day.date.year, project: @project.id, user_id: @user.id))
+      expect(response).to redirect_to(work_days_path(month: work_day.date.month, year: work_day.date.year, user: @user.id, project: @project.id))
     end
   end
 end

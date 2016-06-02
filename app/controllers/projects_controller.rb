@@ -104,7 +104,7 @@ class ProjectsController < ApplicationController
   end
 
   def remove_user
-    user = User.find(params[:user_id])
+    user = User.find(params[:user])
     if user.is_wimi? and @project.wimis.count <= 1
       redirect_to dashboard_path
       flash[:error] = I18n.t('project.user.last_wimi')

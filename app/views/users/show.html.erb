@@ -125,7 +125,7 @@
     </div>
   <% end %>
 
-<% if can? :see_holidays, @user %>
+<% if can? :see_holidays, @user and false %>
   <%= form_for(@user) do |f| %>
     <div class="col-md-12">
       <div class="display">
@@ -201,7 +201,7 @@
   <% end %>
 <% end %>
 
-<% if can? :see_trips, @user %>
+<% if can? :see_trips, @user and false %>
   <%= form_for(@user) do |f| %>
     <div class="col-md-12">
       <div class="display">
@@ -256,7 +256,7 @@
   <% end %>
 <% end %>
 
-<% if @user == current_user and current_user.is_wimi? %>
+<% if @user == current_user and current_user.is_wimi? and false %>
     <div class="col-md-12">
       <div class="display">
         <div class="panel panel-default">

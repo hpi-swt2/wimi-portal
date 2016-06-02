@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       get 'toggle_status'
-      delete 'remove/:user_id', action: 'remove_user', as: 'remove_user'
+      delete 'remove/:user', action: 'remove_user', as: 'remove_user'
       post 'leave'
     end
   end
