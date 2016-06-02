@@ -20,7 +20,7 @@
           <tr>
             <td><%=l holiday.start %></td>
             <td><%=l holiday.end %></td>
-            <td><%= User.find(holiday.user_id).email %></td>
+            <td><%= holiday.user.email %></td>
             <td><%=l holiday.created_at %></td>
             <td><%= holiday.status %></td>
             <td>

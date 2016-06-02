@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
 
   has_many :contracts, foreign_key: :hiwi_id
   has_many :time_sheets, through: :contracts
+  has_many :responsible_contracts, foreign_key: :responsible_id, class_name: 'Contract'
+  has_many :responsible_time_sheets, through: :responsible_contracts, source: :time_sheets, class_name: 'TimeSheet'
   has_many :holidays
   has_many :expenses
   has_many :project_applications, dependent: :destroy
@@ -102,6 +104,15 @@ class User < ActiveRecord::Base
 
   def is_superadmin?
     superadmin
+  end
+  
+  def recent_contracts
+    unless @recent_contracts
+      c_end_date = Contract.arel_table[:end_date]
+      past_3_months = Date.today - 3.months
+      @recent_contracts = contracts.where(c_end_date.gteq(past_3_months))
+    end
+    @recent_contracts
   end
   
   def time_sheet(date_or_month, year = -1)

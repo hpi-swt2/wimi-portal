@@ -31,14 +31,19 @@
         <%= error_span(@contract[:end_date]) %>
       </div>
       <div class="form-group">
-        <%= f.label :hiwi, class: 'control-label' %>
-        <%= f.text_field :hiwi, value: @contract.hiwi.id, class: 'form-control' %>
-        <%= error_span(@contract[:hiwi]) %>
+        <%= f.label :hiwi_id, class: 'control-label' %>
+        <%= f.text_field :hiwi_id, value: (@contract.hiwi ? @contract.hiwi.id : ''), class: 'form-control' %>
+        <%= error_span(@contract[:hiwi_id]) %>
       </div>
       <div class="form-group">
-        <%= f.label :responsible, class: 'control-label' %>
-        <%= f.text_field :responsible, value: @contract.responsible.id, class: 'form-control' %>
-        <%= error_span(@contract[:responsible]) %>
+        <%= f.label :responsible_id, class: 'control-label' %>
+        <%= f.text_field :responsible_id, value: (@contract.responsible ? @contract.responsible.id : ''), class: 'form-control' %>
+        <%= error_span(@contract[:responsible_id]) %>
+      </div>
+      <div class="form-group">
+        <%= f.label :chair_id, class: 'control-label' %>
+        <%= f.text_field :chair_id, value: (@contract.chair ? @contract.chair.id : current_user.chair.id), class: 'form-control' %>
+        <%= error_span(@contract[:chair_id]) %>
       </div>
       <div class="form-group">
         <%= f.label :flexible, class: 'control-label' %>

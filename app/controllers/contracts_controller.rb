@@ -14,7 +14,6 @@ class ContractsController < ApplicationController
 
   def create
     @contract = Contract.new(contract_params)
-
     if @contract.save
       redirect_to contract_path(@contract)
       flash[:success] = I18n.t('contract.save')
@@ -51,9 +50,6 @@ class ContractsController < ApplicationController
   end
 
   def contract_params
-    p = params.require(:contract).permit(Contract.column_names.map(&:to_sym))
-    p[:hiwi] = User.find_by_id(p[:hiwi])
-    p[:responsible] = User.find_by_id(p[:responsible])
-    p
+    params.require(:contract).permit(Contract.column_names.map(&:to_sym))
   end
 end

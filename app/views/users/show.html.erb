@@ -1,125 +1,102 @@
 <%- model_class = User -%>
 
-<% if current_user.is_superadmin? %>
-  <div class="col-md-12">
-    <div class="display">
-        <div class="page-header">
-          <h4><%= t('.password') %></h4>
-        </div>
-          <%= render partial: 'shared/passwords' %>
+<div class="col-md-12">
+  <div class="display">
+    <div class="page-header">
+      <h1><%= @user.name %></h1>
     </div>
-  </div>
-<% else %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="page-header">
-        <h1><%= @user.name %></h1>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-md-6 col-sm-6">
-              <h3><%= t('.user_data') %></h3>
-            </div>
-            <div class="col-sm-3 col-sm-offset-3">
-              <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-warning btn-block' if @user == current_user %>
-            </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h3><%= t('.user_data') %></h3>
+          </div>
+          <div class="col-sm-3 col-sm-offset-3">
+            <%= link_to t('.edit', default: t('helpers.links.edit')), edit_user_path, class: 'btn btn-warning btn-block' if @user == current_user %>
           </div>
         </div>
-        <div class="panel panel-body">
-          <div class="row">
-            <div class="col-md-6">
-              <%= render 'public_user_data' %>
-            </div>
-            <div class="col-md-6">
-              <%= render 'private_user_data' if @user == current_user %>
-            </div>
+      </div>
+      <div class="panel panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <%= render 'public_user_data' %>
           </div>
+          <% if @user == current_user %>
+          <div class="col-md-6">
+            <%= render 'private_user_data' %>
+          </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <% if @user == current_user %>
-    <% content_for :sidebar do %>
-      <!--Actions-->
-      <div class="col-md-12">
-        <div class="display">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4><%=t('dashboard.index.actions')%></h4>
-            </div>
-            <div class="panel-body">
-              <% if current_user.is_wimi? %>
-              <%= render partial: 'dashboard/wimi_actions' %>
-              <% elsif current_user.is_hiwi? %>
-              <%= render partial: 'dashboard/hiwi_actions' %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Signature -->
-      <div class="col-md-12">
-        <div class="display">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4><%= t('.signature') %></h4>
-            </div>
-            <div class="panel-body">
-              <% if current_user.signature.nil? %>
-                <b><%= t('.warning') %></b><br/>
-                <%= t('.information') %>
-                <p>
-                  <%= form_tag({action: :upload_signature}, multipart: true) do %>
-                    <%= file_field 'upload', 'datafile' %><br/>
-                    <%= submit_tag t('.upload') %>
-                  <% end %>
-                </p>
-              <% else %>
-                <% path = 'data:image/png;base64,' << current_user.signature %>
-                <p><img src="<%= path %>" width="150" height="50"/></p><br/>
-                <%= link_to I18n.t('helpers.titles.destroy', model: t('.signature')), delete_signature_path(current_user), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-
-  <!-- time sheet overview for hiwi -->
-  <% if @user == current_user and not current_user.is_wimi? %>
+<% if @user == current_user %>
+  <% content_for :sidebar do %>
+    <!--Actions-->
     <div class="col-md-12">
       <div class="display">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4><a class="anchor" name="timesheets"><%= t('.time_sheets_overview')%></a></h4>
+            <h4><%=t('dashboard.index.actions')%></h4>
           </div>
           <div class="panel-body">
-            <div class="row">
-              <% @user.time_sheets.order(year: :desc, month: :desc).each do |ts| %>
-                <%= link_to "#{ts.year}-#{ts.month}", work_days_path(month: ts.month, year: ts.year, contract: ts.contract) , class: "btn btn-default btn-block"%>
-                
-                <%#*<div class="col-md-6">%>
-                  <%#*<div class="panel panel-default">%>
-                    <%#*<div class="panel-heading">%>
-                      <%#= l(Date.new(month.first, month.last, 1), format: :without_day) %>
-                    <%#*</div>%>
-                    <%#*<div class="panel-body">%>
-                      <%# current_user.projects_for_month(month.first, month.last).each do |project| %>
-                        <%#= link_to project.title + " ", work_days_path(month: month.last, year: month.first, project: project.id, user_id: current_user) , class: "btn btn-default btn-block"%>
-                      <%# end %>
-                    <%#*</div>%>
-                  <%#*</div>%>
-                <%#*</div>%>
-              <% end %>
-            </div>
+            <%= render partial: 'dashboard/actions' %>
           </div>
         </div>
       </div>
     </div>
+    <% if can? :upload_signature, @user %>
+    <!-- Signature -->
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4><%= t('.signature') %></h4>
+          </div>
+          <div class="panel-body">
+              <b><%= t('.warning') %></b><br/>
+            <% if current_user.signature.nil? %>
+              <%= t('.information') %>
+              <p>
+                <%= form_tag({action: :upload_signature}, multipart: true) do %>
+                  <%= file_field 'upload', 'datafile' %><br/>
+                  <%= submit_tag t('.upload') %>
+                <% end %>
+              </p>
+            <% else %>
+              <% path = 'data:image/png;base64,' << current_user.signature %>
+              <p><img src="<%= path %>" width="150" height="50"/></p><br/>
+              <%= link_to I18n.t('helpers.titles.destroy', model: t('.signature')), delete_signature_path(current_user), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
   <% end %>
+<% end %>
+
+<!-- time sheet overview for hiwi -->
+<% recent = @user.time_sheets.recent %>
+<% if @user == current_user and not recent.empty? %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><a class="anchor" name="timesheets"><%= t('.time_sheets_overview')%></a></h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <% recent.each do |ts| %>
+              <%= link_to "#{ts.year}-#{ts.month}", work_days_path(month: ts.month, year: ts.year, contract: ts.contract) , class: "btn btn-default btn-block"%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <% if not @user == current_user and current_user.is_wimi? %>

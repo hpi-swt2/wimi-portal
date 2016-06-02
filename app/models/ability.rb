@@ -31,7 +31,7 @@ class Ability
     can [:edit, :update, :hand_in], TimeSheet, handed_in: false, user: { id: user.id }
     
     
-    can [:new, :create], WorkDay
+    can [:new, :create], WorkDay unless user.recent_contracts.empty?
     can [:index, :show], WorkDay, user: { id: user.id }
     can [:edit, :update, :destroy], WorkDay do |wd|
       wd.user == user and can?(:edit, wd.time_sheet)
@@ -59,9 +59,10 @@ class Ability
       can? :show, ts.contract
     end
     
-    can [:new, :create], Holiday
-    can [:show, :edit, :update, :destroy, :file], Holiday, user_id: user.id
+#    can [:new, :create], Holiday
+#    can [:show, :edit, :update, :destroy, :file], Holiday, user_id: user.id
     
+    ## old stuff:
 #    can :new, Holiday
 #    can :create, Holiday
 #    can :new, Expense

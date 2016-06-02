@@ -5,7 +5,7 @@
         <h4>
           <div class="row vertical-align">
             <div class="col-md-9 col-sm-9">
-              <%=t ('.projects') %>
+              <%= t('.projects') %>
             </div>
             <div class="col-md-3 col-sm-3 text text-right">
               <% if can? :create, Project %>
@@ -16,7 +16,7 @@
         </h4>
       </div>
       <div class="panel-body">
-        <% unless current_user.projects.nil?%>
+        <% unless current_user.projects.blank?%>
           <div class="row">
             <% current_user.projects.each do |project|%>
               <div class="col-md-12 col-sm-12">

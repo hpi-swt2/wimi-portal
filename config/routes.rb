@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
   resources :contracts
   resources :work_days
+  get 'work_days/:year/:month', to: 'work_days#index'
   resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
     member do
       get 'hand_in'

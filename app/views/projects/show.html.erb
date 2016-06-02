@@ -122,7 +122,7 @@
             <p>
               <% if can?(:leave ,@project) %>
                 <%= link_to t('.leave_project', default:'Leave Project'),
-                              leave_project_path(user_id: current_user.id, id: @project), method: :post %>
+                              leave_project_path(user: current_user, id: @project), method: :post %>
               <% end %>
             </p>
             <p>

@@ -10,4 +10,4 @@
         project_url(time_sheet.project)),
       month: l(Date.new(1, time_sheet.month, 1), format: :without_day_year))
   %>
-  <%= link_to(t('.view'), work_days_url(month: time_sheet.month, year: time_sheet.year, project: time_sheet.project.id, user_id: time_sheet.user_id)) %>
+  <%= link_to(t('.view'), work_days_url(month: time_sheet.month, year: time_sheet.year, project: time_sheet.project, contract: time_sheet.contract)) %>

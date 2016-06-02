@@ -71,7 +71,7 @@
                       <% if @project.wimis.count > 1 %>
                         <% if can? :edit, @project%>
                           <% btnId = user == current_user ? 'SignOutMyself' : 'SignOut' %>
-                          <%= link_to t('projects.form.sign_out_of_project'), remove_user_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: btnId %>
+                          <%= link_to t('projects.form.sign_out_of_project'), remove_user_project_path(user: user, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: btnId %>
                         <% end %>
                       <% end %>
                     </td>
@@ -104,7 +104,7 @@
                     <td>
                       <% if can? :edit, @project %>
                         <% btnId = user == current_user ? 'SignOutMyself' : 'SignOut' %>
-                        <%= link_to t('projects.form.sign_out_of_project'), remove_user_project_path(user_id: user.id, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: btnId %>
+                        <%= link_to t('projects.form.sign_out_of_project'), remove_user_project_path(user: user, id: @project), method: :delete, class: 'btn btn-danger btn-xs', id: btnId %>
                       <% end %>
                     </td>
                   </tr>

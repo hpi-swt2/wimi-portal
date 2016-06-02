@@ -31,7 +31,7 @@ class WorkDay < ActiveRecord::Base
   belongs_to :project
 
   validates :user_id, presence: true, numericality: true
-  validates :project_id, presence: true, numericality: true
+#  validates :project_id, presence: true, numericality: true
   validates :date, presence: true
   validates :start_time, presence: true
   validates :break, presence: true, numericality: true

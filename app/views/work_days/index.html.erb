@@ -86,15 +86,11 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
-            <%= label_tag nil, t('.project') %>
-            <%= text_field_tag nil, !@project.nil? ? @project.title : "", {class: "form-control", readonly: "readonly"} %>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
             <%= label_tag nil, t('.user') %>
             <%= text_field_tag nil, !@time_sheet.nil? ? @time_sheet.user.name : "", {class: "form-control", readonly: "readonly"} %>
           </div>
+        </div>
+        <div class="col-sm-6">
         </div>
       </div>
     <% end %>

@@ -1,0 +1,47 @@
+<!-- hiwi actions -->
+<% if can? :create, WorkDay %>
+  <% current_user.projects.each do |project| %>
+  <p>
+    <%= link_to(
+      t('.enter_work_hours', project_name: project.title),
+      work_days_path(
+        month: Date.today.month,
+        year: Date.today.year,
+        project: project))
+    %>
+  </p>
+  <% end %>
+<% end %>
+
+  
+<!-- wimi actions -->
+<% if can? :create, Project %>
+<p>
+  <%= link_to t('.create_project'), new_project_path %>
+</p>
+<% end %>
+<% if can? :create, Holiday %>
+<p>
+  <%= link_to t('.request_holiday'), new_holiday_path %>
+</p>
+<% end %>
+<% if can? :create, Trip %>
+<p>
+  <%= link_to t('.request_business_trip'), new_trip_path %>
+</p>
+<% end %>
+
+  
+<!-- Chair representative actions -->
+<% if can? :index, Holiday %>
+<%# TODO: add proper ability checks %>
+  <p>
+    <%= link_to t('.show_holiday_requests'), requests_path(current_user.chair.id, holidays: true, applied: true, accepted: true, declined: true), method: :post %>
+  </p>
+  <p>
+    <%= link_to t('.show_expense_requests'), requests_path(current_user.chair.id, expenses: true, applied: true, accepted: true, declined: true), method: :post %>
+  </p>
+  <p>
+    <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
+  </p>
+<% end %>

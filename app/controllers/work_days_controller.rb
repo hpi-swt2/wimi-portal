@@ -17,15 +17,18 @@ class WorkDaysController < ApplicationController
     @month = params[:month].to_i # equals 0 when no month passed
     @year = params[:year].to_i # equals 0 when no month passed
     if @year != 0 && @month != 0
-      @contract = Contract.find_by(id: params[:contract])
-      @user = @contract ? @contract.hiwi : current_user
-      @time_sheet = @user.time_sheet(@month, @year)
+      user = User.find_by(id: params[:user])
+      unless user
+        contract = Contract.find_by(id: params[:contract])
+        user = contract ? contract.hiwi : current_user
+      end
+      @time_sheet = user.time_sheet(@month, @year)
       if @time_sheet
         authorize! :show, @time_sheet
         @work_days = @time_sheet.work_days
       else
-        flash[:error] = 'No timesheet'
-        @work_days = apply_scopes(@work_days)
+        flash[:error] = "No contract for #@year/#@month"
+        @work_days = apply_scopes(@work_days).month(@month, @year)
       end
     else
       @work_days = apply_scopes(@work_days)
@@ -93,12 +96,12 @@ class WorkDaysController < ApplicationController
 #  end
 
   def work_day_params
-    allowed_params = [:date, :start_time, :break, :end_time, :attendance, :notes, :user_id, :project_id]
+    allowed_params = [:date, :start_time, :break, :end_time, :attendance, :notes, :user, :project]
     delocalize_config = { :date => :date }
     params.require(:work_day).permit(*allowed_params).delocalize(delocalize_config)
   end
 
   def work_days_month_project_path
-    work_days_path(month: @work_day.date.month, year: @work_day.date.year, project: @work_day.project.id, user_id: @work_day.user.id)
+    work_days_path(month: @work_day.date.month, year: @work_day.date.year, project: @work_day.project, user: @work_day.user)
   end
 end
