@@ -17,36 +17,28 @@ class WorkDaysController < ApplicationController
     @month = params[:month].to_i # equals 0 when no month passed
     @year = params[:year].to_i # equals 0 when no month passed
     if @year != 0 && @month != 0
-      user = User.find_by(id: params[:user])
-      unless user
+      # with year and month given, show only work days of one user
+      @user = User.find_by(id: params[:user])
+      unless @user
         contract = Contract.find_by(id: params[:contract])
-        user = contract ? contract.hiwi : current_user
+        @user = contract ? contract.hiwi : current_user
       end
-      @time_sheet = user.time_sheet(@month, @year)
-      if @time_sheet
-        authorize! :show, @time_sheet
-        @work_days = @time_sheet.work_days
-      else
+      @time_sheets = @user.time_sheets_for(@month, @year)
+      if @time_sheets.empty?
         flash[:error] = "No contract for #@year/#@month"
         @work_days = apply_scopes(@work_days).month(@month, @year)
+      else
+        @work_days = []
+        @time_sheets.each do |ts|
+          @work_days += ts.work_days if can? :show, ts
+        end
       end
     else
+      # show all work days that CanCan allows
       @work_days = apply_scopes(@work_days)
     end
     @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
     @project = Project.find_by(id: params[:project])
-#    @user = params.has_key?(:user_id) && User.find_by_id(params[:user_id]) != nil ? User.find(params[:user_id]) : current_user
-#    @month = params[:month].to_i # equals 0 when no month passed
-#    @year = params[:year].to_i # equals 0 when no month passed
-#    if @year != 0 && @month != 0
-#      @time_sheet = TimeSheet.time_sheet_for(@year, @month, @project, @user)
-#      if current_user != @user && !@time_sheet.handed_in?
-#        redirect_to user_path(@user)
-#      end
-#    end
-#    @work_days = WorkDay.all_for(@year, @month, @project, @user)
-#    # Sort first by date, then by start time
-#    @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
   end
 
   def show
@@ -63,6 +55,9 @@ class WorkDaysController < ApplicationController
   def create
     @work_day = WorkDay.new(work_day_params)
     @work_day.user = current_user
+    
+    ts = @work_day.time_sheet
+    authorize! :edit, ts if ts
 
     if @work_day.save
       flash[:success] = 'Work Day was successfully created.'

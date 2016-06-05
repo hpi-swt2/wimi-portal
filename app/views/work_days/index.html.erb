@@ -16,14 +16,10 @@
           <div class="col-sm-3 col-sm-offset-3">
             <% wd_args = {} %>
             <% wd_args[:project] = @project if @project %>
-            <% unless @time_sheet.nil? %>
-              <% if can? :edit, @time_sheet %>
-                <div align = "right">
-                  <%= link_to t('.new'), new_work_day_path(wd_args), class: 'btn btn-success btn-block' %>
-                </div>
-              <% end %>
-            <% else %>
-              <%= link_to t('.new'), new_work_day_path(wd_args), class: 'btn btn-success btn-block' %>
+            <% if @time_sheets.blank? or @time_sheets.any? {|ts| can? :edit, ts} %>
+              <div align = "right">
+                <%= link_to t('.new'), new_work_day_path(wd_args), class: 'btn btn-success btn-block' %>
+              </div>
             <% end %>
           </div>
         </div>
@@ -77,7 +73,7 @@
       </div>
     </div>
 
-    <% unless @project.nil? && @time_sheet.nil? %>
+    <% if @user %>
       <div class="row">
         <div class="col-md-12">
           <div class="page-header"></div>
@@ -87,7 +83,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <%= label_tag nil, t('.user') %>
-            <%= text_field_tag nil, !@time_sheet.nil? ? @time_sheet.user.name : "", {class: "form-control", readonly: "readonly"} %>
+            <%= text_field_tag nil, @user.name, {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>
         <div class="col-sm-6">
@@ -95,7 +91,8 @@
       </div>
     <% end %>
 
-    <% unless @time_sheet.nil? %>
+    <% (@time_sheets || []).each do |ts| %>
+    <% @time_sheet = ts %>
       <div class="row">
         <div class="col-md-12">
           <div class="page-header"></div>

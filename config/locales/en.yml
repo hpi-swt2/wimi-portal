@@ -25,6 +25,9 @@ en:
       chair:
         one: "Research Group"
         other: "Research Groups"
+      contract:
+        one: "Contract"
+        other: "Contracts"
       expense:
         one: "Expense"
         other: "Expenses"

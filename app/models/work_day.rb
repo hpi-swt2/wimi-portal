@@ -76,6 +76,6 @@ class WorkDay < ActiveRecord::Base
   end
   
   def time_sheet
-    user.time_sheet(date)
+    user.time_sheets_for(date).first
   end
 end

@@ -63,11 +63,9 @@ feature 'research assistant profile' do
     FactoryGirl.create(:wimi, user_id: representative.id, chair_id: chair.id, representative: true)
 
     @current_user = FactoryGirl.create(:wimi, user: user, chair: chair, application: 'accepted').user
+    project = FactoryGirl.create(:project, title: 'MyProject', chair: chair)
+    project.users << @current_user
     login_as(@current_user, scope: :user)
-
-    visit('/projects/new')
-    fill_in('Title', with: 'MyProject')
-    click_on('Create Project')
   end
 
   it 'shows status, chair and projects' do

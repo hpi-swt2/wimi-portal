@@ -90,6 +90,8 @@ group :development, :test do
   gem 'capybara', '~> 2.5'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  
+  gem 'i18n-tasks', '~> 0.9.5'
 end
 
 group :development do

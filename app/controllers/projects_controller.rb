@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
-  #before_action :set_project, only: [:show, :edit, :update, :destroy, :invite_user, :remove_user, :accept_invitation, :decline_invitation]
+  skip_load_and_authorize_resource only: :create
 
   has_scope :title
   has_scope :chair
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.chair = current_user.chair
-    if @project.save
+    if can?(:create, @project) and @project.save
       current_user.projects << @project
       flash[:success] = t '.success'
       unless params[:invitations].blank?

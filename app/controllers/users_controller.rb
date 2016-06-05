@@ -88,16 +88,6 @@ class UsersController < ApplicationController
 
   private
 
-  def user_exists
-    unless User.find_by(id: params[:id])
-      redirect_to root_path
-    end
-  end
-
-  def set_user
-    @user = User.find(params[:id])
-  end
-
   def user_params
     params[:user].permit(User.column_names.map(&:to_sym))
   end

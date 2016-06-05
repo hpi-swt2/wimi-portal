@@ -1,8 +1,6 @@
 class ContractsController < ApplicationController
   load_and_authorize_resource
 
-  before_action :set_contract, only: [:show, :edit, :update, :destroy]
-
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
     redirect_to dashboard_path
@@ -44,10 +42,6 @@ class ContractsController < ApplicationController
   end
 
   private
-
-  def set_contract
-    @contract = Contract.find(params[:id])
-  end
 
   def contract_params
     params.require(:contract).permit(Contract.column_names.map(&:to_sym))

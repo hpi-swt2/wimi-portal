@@ -16,5 +16,13 @@
         <dt>Wage per hour</dt>
         <dd><%= @contract.wage_per_hour %> </dd>
     </dl>
+    <% if can? :edit, @contract %>
+    <%= link_to t('helpers.links.edit', model: model_class.model_name.human.titleize),
+                edit_contract_path(@contract),
+                class: 'btn btn-warning btn-xs' %>
+    <%= link_to t('helpers.links.destroy', model: model_class.model_name.human.titleize),
+                contract_path(@contract), method: :delete,
+                class: 'btn btn-danger btn-xs' %>
+    <% end %>
   </div>
 </div>

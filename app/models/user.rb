@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
     @recent_contracts
   end
   
-  def time_sheet(date_or_month, year = -1)
+  def time_sheets_for(date_or_month, year = -1)
     if year < 0
       d_start = d_end = date_or_month
       month = d_start.month
@@ -127,9 +127,11 @@ class User < ActiveRecord::Base
     end
     c_start_date = Contract.arel_table[:start_date]
     c_end_date = Contract.arel_table[:end_date]
-    contract = contracts.where(c_start_date.lteq(d_end), c_end_date.gteq(d_start)).first
-    return nil unless contract
-    contract.time_sheet(month, year)
+    sheets = contracts.where(c_start_date.lteq(d_end), c_end_date.gteq(d_start)).inject([]) do |list, contract|
+      ts = contract.time_sheet(month, year)
+      list << ts if ts
+    end
+    sheets.uniq
   end
 
   def self.openid_required_fields
@@ -148,7 +150,7 @@ class User < ActiveRecord::Base
       if value.is_a? Array
         value = value.first
       end
-
+      
       # if no email is saved yet and we receive no address, set INVALID_EMAIL as address, otherwise save the received value
       if key.to_s == 'http://axschema.org/contact/email'
         if email.blank?

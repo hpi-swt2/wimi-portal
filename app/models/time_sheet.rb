@@ -30,6 +30,7 @@ class TimeSheet < ActiveRecord::Base
   scope :month, -> month { where(month: month) }
   scope :year, -> year { where(year: year) }
   scope :recent, -> { where('12 * year + month > ?', 12*Date.today.year + Date.today.month - 3) }
+  scope :user, -> user { joins(:contract).where('contracts.hiwi_id' => user.id) }
 
   belongs_to :contract
   has_one :user, through: :contract, source: :hiwi

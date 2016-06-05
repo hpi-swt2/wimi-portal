@@ -142,7 +142,7 @@
             <p>
               <% if current_user.is_hiwi? %>
                 <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
-                            new_work_day_path %>
+                            new_work_day_path(project: @project) %>
               <% end %>
             </p>
           </div>

@@ -28,7 +28,8 @@ class Contract < ActiveRecord::Base
     d_start = Date.new(year, month).at_beginning_of_month
     d_end = d_start.at_end_of_month
     return nil unless start_date < d_end and end_date > d_start
-    ts = time_sheets.month(month).year(year).first
+    # if two contracts in one month, use existing contract's time sheet
+    ts = TimeSheet.user(hiwi).month(month).year(year).first
     ts || TimeSheet.create!(month: month, year: year, contract: self)
   end
   
