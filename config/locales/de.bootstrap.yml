@@ -119,8 +119,8 @@ de:
       user_updated: "Profil erfolgreich aktualisiert."
       user_updated_language: "Sprache erfolgreich aktualisiert."
     show:
-      business_trips: "Geschätsreisen"
-      request_trip: "Geschätsreise beantragen"
+      business_trips: "Geschäftsreisen"
+      request_trip: "Geschäftsreise beantragen"
       holiday_requests: "Urlaubsanfragen"
       request_holiday: "Urlaub anfragen"
       user_data: "Profilbezogene Daten"
