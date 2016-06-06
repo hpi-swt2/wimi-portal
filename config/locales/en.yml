@@ -50,6 +50,11 @@ en:
         one: "Timesheet"
         other: "Timesheets"
     attributes:
+      contract:
+        start_date: "Start date"
+        end_date: "End date"
+        hiwi: "Employee"
+        responsible: "Responsible"
       chair:
         id: "Id"
         name: "Name"

@@ -50,6 +50,11 @@ de:
         one: "Stundenzettel"
         other: "Stundenzettel"
     attributes:
+      contract:
+        start_date: "Anfangsdatum"
+        end_date: "Enddatum"
+        hiwi: "Angestellter"
+        responsible: "Verantwortlicher"
       chair:
         id: "Id"
         name: "Name"
