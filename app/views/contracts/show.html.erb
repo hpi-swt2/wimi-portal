@@ -2,19 +2,25 @@
 <div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="page-header">
-      <h1><%= @contract.hiwi.name %></h1>
+      <h1><%= t 'activerecord.models.contract.one' %></h1>
     </div>
     <dl>
-        <dt>Start</dt>
-        <dd><%= @contract.start_date %> </dd>
-        <dt>End</dt>
-        <dd><%= @contract.end_date %> </dd>
-        <dt>Flexible</dt>
-        <dd><%= @contract.flexible %> </dd>
-        <dt>Hours per week</dt>
-        <dd><%= @contract.hours_per_week %> </dd>
-        <dt>Wage per hour</dt>
-        <dd><%= @contract.wage_per_hour %> </dd>
+        <dt><%= model_class.human_attribute_name(:start_date) %></dt>
+        <dd><%= l @contract.start_date %></dd>
+        <dt><%= model_class.human_attribute_name(:end_date) %></dt>
+        <dd><%= l @contract.end_date %></dd>
+        <dt><%= model_class.human_attribute_name(:hiwi) %></dt>
+        <dd><%= @contract.hiwi.name %></dd>
+        <dt><%= model_class.human_attribute_name(:responsible) %></dt>
+        <dd><%= @contract.responsible.name %></dd>
+        <dt><%= model_class.human_attribute_name(:flexible) %></dt>
+        <dd><%= t @contract.flexible.to_s %></dd>
+        <dt><%= model_class.human_attribute_name(:hours_per_week) %></dt>
+        <dd><%= @contract.hours_per_week %></dd>
+        <dt><%= model_class.human_attribute_name(:wage_per_hour) %></dt>
+        <dd><%= @contract.wage_per_hour %> €</dd>
+        <dt><%= t 'activerecord.models.chair.one' %></dt>
+        <dd><%= @contract.chair.name %> (<%= @contract.chair.description %>)</dd>
     </dl>
     <% if can? :edit, @contract %>
     <%= link_to t('helpers.links.edit', model: model_class.model_name.human.titleize),

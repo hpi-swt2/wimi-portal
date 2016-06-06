@@ -55,6 +55,9 @@ en:
         end_date: "End date"
         hiwi: "Employee"
         responsible: "Responsible"
+        flexible: "Flexible contract"
+        hours_per_week: "Hours per week"
+        wage_per_hour: "Wage per hour"
       chair:
         id: "Id"
         name: "Name"
