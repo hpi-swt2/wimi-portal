@@ -10,7 +10,7 @@
 
     <div class="row">
       <div class="col-md-6 col-sm-6">
-        <dl class="">
+        <dl>
           <dt><%= t('.chair', default:'Chair') %>:</dt>
           <dd><%= @project.chair.name %></dd>
           <dt><%= model_class.human_attribute_name(:created_at) %>:</dt>
@@ -21,44 +21,25 @@
           <% end %>
         </dl>
       </div>
-
-      <div class="col-md-6 col-sm-6">
-        <dl class="">
-          <% if can? :add_working_hours, @project %>
-          <dt><strong><%= t('.working_hours') %>:</strong></dt>
-            <dd>
-              <div>
-                <%# current_user.work_year_months_for_project(@project).each do |month| %>
-                  <%#*<p>%>
-                    <%#= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
-                                work_days_path(month: month.last, year: month.first, project: @project)%>
-                  <%#*</p>%>
-                <%# end %>
-              </div>
-            </dd>
-          <% end %>
-        </dl>
-      </div>
     </div>
+
+    <!-- TODO: shouldn't this use CanCan?! -->
     <% if current_user.is_hiwi? %>
-      <dl class="dl-horizontal">
-        <dt><strong><%= t('.working_hours', default:'Working hours') %>:</strong></dt>
-        <dd><%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
-                        new_work_day_path, class: 'pull-right', style: 'margin-right: 15px' %>
-          <div>
-            <% current_user.time_sheets.each do |ts| %>
-              <p>
-                <%= link_to Date::MONTHNAMES[ts.month] + " " + ts.year.to_s,
-                            work_days_path(month: ts.month, year: ts.year, contract: ts.contract, project: @project)%>
-              </p>
-            <% end %>
-          </div>
+      <dl>
+        <dt><%= t('.working_hours', default:'Working hours') %>:</dt>
+        <dd>
+          <% current_user.time_sheets.each do |ts| %>
+            <span>
+              <%= link_to Date::MONTHNAMES[ts.month] + " " + ts.year.to_s,
+                          work_days_path(month: ts.month, year: ts.year, contract: ts.contract, project: @project)%>
+            </span>
+          <% end %>
         </dd>
       </dl>
     <% end %>
 
-    <dl class="">
-      <dt><strong><%= t('.project_team', default:'Project Team') %>:</strong> </dt>
+    <dl>
+      <dt><%= t('.project_team', default:'Project Team') %>:</dt>
       <dd>
         <div class="form-group">
           <table class='table table-striped' width="1000px">
