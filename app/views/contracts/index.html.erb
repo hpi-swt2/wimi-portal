@@ -20,8 +20,8 @@
         <tbody>
         <% @contracts.each do |contract| %>
           <tr>
-            <td><%= contract.start_date %></td>
-            <td><%= contract.end_date %></td>
+            <td><%= l contract.start_date %></td>
+            <td><%= l contract.end_date %></td>
             <td><%= contract.hiwi.name %></td>
             <td><%= contract.responsible.name %></td>
             <td>
