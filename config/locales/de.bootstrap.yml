@@ -203,7 +203,7 @@ de:
     projects:
       projects: "Meine Projekte"
     actions:
-      enter_work_hours: "Arbeitsstudenden für %{project_name} eintragen"
+      enter_work_hours: "Arbeitsstunden für %{project_name} eintragen"
       create_project: "Projekt erstellen"
       request_holiday: "Urlaub beantragen"
       request_business_trip: "Geschäftsreise beantragen"
