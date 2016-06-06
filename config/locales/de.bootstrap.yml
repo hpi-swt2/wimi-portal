@@ -202,13 +202,12 @@ de:
       actions: "Aktionen"
     projects:
       projects: "Meine Projekte"
-    hiwi_actions:
-      action: "Arbeitsstunden für das Projekt %{project_name} eintragen"
-    wimi_actions:
+    actions:
+      enter_work_hours: "Arbeitsstudenden für %{project_name} eintragen"
       create_project: "Projekt erstellen"
       request_holiday: "Urlaub beantragen"
-      request_business_trip: "Dienstreise beantragen"
-      file_travel_expenses: "Reisekosten abrechnen"
+      request_business_trip: "Geschäftsreise beantragen"
+      file_travel_expenses: "Reisekostenabrechnung einreichen"
   event_time_sheet_declineds:
     event_time_sheet_declined:
       view: "Ansehen"

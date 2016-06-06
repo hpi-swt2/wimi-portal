@@ -25,18 +25,18 @@ de:
       chair:
         one: "Lehrstuhl"
         other: "Lehrstühle"
+      contract:
+        one: "Vertrag"
+        other: "Verträge"
       expense:
-        one: "Kostenabrechnung"
-        other: "Kostenabrechnungen"
+        one: "Reisekostenabrechnung"
+        other: "Reisekostenabrechnungen"
       holiday:
         one: "Urlaubsantrag"
         other: "Urlaubsanträge"
       project:
         one: "Projekt"
         other: "Projekte"
-      expense:
-        one: "Reisekostenabrechnung"
-        other: "Reisekostenabrechnungen"
       trip:
         one: "Geschäftsreise"
         other: "Geschäftsreisen"
