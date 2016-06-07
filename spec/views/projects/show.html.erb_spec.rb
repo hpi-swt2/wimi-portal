@@ -12,7 +12,7 @@ RSpec.describe 'projects/show', type: :view do
 
   it 'renders attributes in <p>' do
     render
-    expect(rendered).to match(/Factory Project/)
+    expect(rendered).to match(@project.title)
   end
 
   it 'has information about the project on page as a chair representative' do
