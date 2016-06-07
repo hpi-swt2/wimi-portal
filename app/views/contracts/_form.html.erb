@@ -16,9 +16,7 @@
   <% end %>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><%= t('.contract_data') %></h4>
-    </div>
+    <!-- <div class="panel-heading"><h4></h4></div> -->
     <div class="panel-body">
       <div class="form-group">
         <%= f.label :start_date, class: 'control-label' %>
@@ -32,7 +30,7 @@
       </div>
       <div class="form-group">
         <%= f.label :hiwi_id, class: 'control-label' %>
-        <%= f.text_field :hiwi_id, value: (@contract.hiwi ? @contract.hiwi.id : ''), class: 'form-control' %>
+        <%= f.text_field :hiwi_id, value: (@contract.hiwi ? @contract.hiwi.id : ''), class: 'form-control typeahead' %>
         <%= error_span(@contract[:hiwi_id]) %>
       </div>
       <div class="form-group">
