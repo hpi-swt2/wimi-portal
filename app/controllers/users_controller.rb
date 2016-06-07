@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   
   def autocomplete
     search = UserSearch.new(typeahead: params[:query])
-    render json: search.results
+    render json: search.results.select('id', 'email', 'first_name', 'last_name', 'username')
   end
 
   private

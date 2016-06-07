@@ -32,7 +32,8 @@ var typeahead = function() {
     },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-      url: '../users/autocomplete/%QUERY'
+      url: '../users/autocomplete/%QUERY',
+      wildcard: '%QUERY'
     }
   });
   promise = engine.initialize();
