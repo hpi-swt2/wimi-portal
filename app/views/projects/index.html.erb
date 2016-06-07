@@ -24,7 +24,7 @@
                 <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
                 <th><%= t('.accessibility', default:'Accessibility') %></th>
                 <th><%= t('.status')%></th>
-                <% if can? :edit, @projects %>
+                <% if can? :edit, Project %>
                   <th><%= t '.actions', default: t("helpers.actions") %></th>
                 <% end %>
               </tr>
@@ -36,12 +36,12 @@
                     <td><%= can?(:show, project.chair) ? link_to(project.chair.name, project.chair) : project.chair.name %></td>
                     <td><%= project.public ? t('.public', default:'public') : t('.private', default:'private') %></td>
                     <td><%= t('.status_' + project.status.to_s) %></td>
-                    <td>
-                      <% if can? :edit, project %>
-                        <%= link_to t('helpers.links.edit'),
-                                    edit_project_path(project), class: 'btn btn-warning btn-xs' %>
-                      <% end %>
-                    </td>
+                    <% if can? :edit, project %>
+                      <td>
+                          <%= link_to t('helpers.links.edit'),
+                                      edit_project_path(project), class: 'btn btn-warning btn-xs' %>
+                      </td>
+                    <% end %>
                   </tr>
               <% end %>
             </tbody>

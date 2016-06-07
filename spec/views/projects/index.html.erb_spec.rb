@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'projects/index', type: :view do
   before(:each) do
-    @proj1 = FactoryGirl.create(:project, :title => 'Proj1')
+    @chair = FactoryGirl.create(:chair)
+    @proj1 = FactoryGirl.create(:project, :title => 'Proj1', :chair => @chair)
     @proj2 = FactoryGirl.create(:project, :title => 'Proj2')
     assign(:projects, [@proj1, @proj2])
-    @chair = FactoryGirl.create(:chair)
     @user = FactoryGirl.create(:user)
     login_as @user
     allow(view).to receive(:current_user).and_return(@user)
@@ -15,6 +15,18 @@ RSpec.describe 'projects/index', type: :view do
     render
     expect(rendered).to match @proj1.title
     expect(rendered).to match @proj2.title
+  end
+
+  it 'does not show the actions column if no actions are possible' do
+    render
+    expect(rendered).to_not match I18n.t("helpers.actions")
+  end
+
+  it 'shows the actions column if actions are possible' do
+    @user.update(chair: @chair)
+    FactoryGirl.create(:wimi, user: @user)
+    visit projects_path
+    expect(page).to have_content I18n.t("helpers.actions")
   end
 
   it 'does not show private projects that I do not belong to' do
