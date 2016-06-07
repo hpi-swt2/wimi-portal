@@ -22,25 +22,32 @@
 
 $('.datepicker').datepicker();
 
-
 var typeahead = function() {
-  var engine, promise;
-  engine = new Bloodhound({
+  var engine = new Bloodhound({
     datumTokenizer: function(d) {
-      console.log(d);
       return Bloodhound.tokenizers.whitespace(d.title);
+      console.log(d);
     },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-      url: '../users/autocomplete/%QUERY',
+      url: '/users/autocomplete/%QUERY',
       wildcard: '%QUERY'
     }
   });
-  promise = engine.initialize();
-  $('.typeahead').typeahead(null, {
+  engine.initialize();
+
+  var options = {'highlight': true,
+                  'hint': true};
+  $('.typeahead').typeahead(options, {
     name: 'engine',
-    displayKey: 'email',
-    source: engine.ttAdapter()
+    source: engine.ttAdapter(),
+    valueKey: function(data){return data.id},
+    display: function(data){return data.first_name + ' ' + data.last_name},
+    templates: {
+      suggestion: function (data) {
+        return '<p>' + data.first_name + ' ' + data.last_name + ' <span class="subtle">(' + data.email + ')</span></p>';
+      }
+    }
   });
 };
 
