@@ -130,6 +130,7 @@ class User < ActiveRecord::Base
     sheets = contracts.where(c_start_date.lteq(d_end), c_end_date.gteq(d_start)).inject([]) do |list, contract|
       ts = contract.time_sheet(month, year)
       list << ts if ts
+      return list
     end
     sheets.uniq
   end
