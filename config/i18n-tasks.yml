@@ -89,7 +89,12 @@ search:
 # - '{devise,simple_form}.*'
 
 ## Consider these keys used:
-# ignore_unused:
+ignore_unused:
+  - 'activerecord.attributes.user.*'
+  - 'activerecord.models.*.{one,other}'
+  - 'activerecord.errors.*'
+  - '{date,time}.*'
+  - '{true,false}'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
@@ -119,3 +124,11 @@ search:
 #
 # <%#= I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
 #        patterns: [['\bSpree\.t[( ]\s*%{key}', 'spree.%{key}']] %>
+
+<% require './config/i18n-tasks.rb' %>
+<% I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::ModelScanner' %>
+
+#<%# require 'i18n/tasks/scanners/pattern_mapper' %>
+#<%# I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
+#  only: %w(*/models/*.rb),
+#  patterns: [['\\#  (?<a>[\\w_]+)', 'activerecord.attributes.aaaaa.%{a}']] %>
