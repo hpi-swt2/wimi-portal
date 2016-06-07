@@ -59,7 +59,6 @@ RSpec.describe 'projects/index', type: :view do
     visit projects_path
 
     expect(page).to have_content(project.title)
-    expect(page).to have_content(l(project.created_at))
     expect(page).to have_content(chair.name)
 
     expect(page).to have_content(I18n.t('projects.index.public'))
