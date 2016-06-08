@@ -30,17 +30,17 @@
       </div>
       <div class="form-group">
         <%= f.label :hiwi_id, class: 'control-label' %>
-        <%= f.select :hiwi_id, [], {}, class: 'form-control user-auto-complete' %>
+        <%= f.collection_select :hiwi_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
         <%= error_span(@contract[:hiwi_id]) %>
       </div>
       <div class="form-group">
         <%= f.label :responsible_id, class: 'control-label' %>
-        <%= f.select :responsible_id, [], {}, class: 'form-control user-auto-complete' %>
+        <%= f.collection_select :responsible_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
         <%= error_span(@contract[:responsible_id]) %>
       </div>
       <div class="form-group">
         <%= f.label :chair_id, class: 'control-label' %>
-        <%= f.text_field :chair_id, value: (@contract.chair ? @contract.chair.id : current_user.chair.id), class: 'form-control' %>
+        <%= f.collection_select :chair_id, Chair.all, :id, :name, {:include_blank => true}, {:class=>'form-control'} %>
         <%= error_span(@contract[:chair_id]) %>
       </div>
       <div class="form-group">

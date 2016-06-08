@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
     self.last_name = last
   end
 
+  def name_with_email
+    "#{first_name} #{last_name} (#{email})"
+  end
+
   def prepare_leave_for_new_year
     self.remaining_leave_last_year = remaining_leave
     self.remaining_leave = 28
