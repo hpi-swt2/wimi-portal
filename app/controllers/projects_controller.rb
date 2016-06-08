@@ -60,30 +60,21 @@ class ProjectsController < ApplicationController
     redirect_to projects_url
   end
 
-  def invite_user
-    user = User.find_by_email params[:invite_user][:email]
+  def add_user
+    user = User.find_by_id params[:add_user_to_project][:id]
+    redirect_to @project
     if user.nil?
-      flash[:error] = I18n.t('users.does_not_exist')
-      redirect_to @project
+      flash[:error] = I18n.t('project.user.add_error')
+      return
+    elsif @project.users.include? user
+      flash[:error] = I18n.t('project.user.already_member', name: user.name)
+      return
+    end
+    @project.add_user user
+    if @project.save
+      flash[:success] = I18n.t('project.user.successfully_added', name: user.name)
     else
-      if Invitation.where(project: @project, user: user).size > 0
-        flash[:error] = I18n.t('project.user.already_invited')
-        redirect_to @project
-      else
-        if @project.users.include? user
-          flash[:error] = I18n.t('project.user.already_is_member')
-          redirect_to @project
-        else
-          @project.add_user user
-          if @project.save
-            flash[:success] = I18n.t('project.user.was_successfully_invited')
-            redirect_to @project
-          else
-            flash[:error] = I18n.t('project.user.cannot_be_invited')
-            redirect_to @project
-          end
-        end
-      end
+      flash[:error] = I18n.t('project.user.add_error')
     end
   end
 
