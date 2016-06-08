@@ -15,6 +15,8 @@
  *= require bootstrap/bootstrap-tooltip
  *= require devise_bootstrap_views
  *= require bootstrap-datepicker
+ *= require select2
+ *= require select2-bootstrap
  */
 
 

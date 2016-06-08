@@ -16,59 +16,33 @@
 //= require bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
-//= require bootstrap-typeahead-rails
+//= require select2
 //= require canvasjs.min
 //= require_tree .
 
-$('.datepicker').datepicker();
+$(document).ready(function() {
+  $('.datepicker').datepicker();
 
-var typeahead = function() {
-  var engine = new Bloodhound({
-    datumTokenizer: function(d) {
-      return Bloodhound.tokenizers.whitespace(d.title);
-      console.log(d);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: '/users/autocomplete/%QUERY',
-      wildcard: '%QUERY'
-    }
-  });
-  engine.initialize();
-
-  var options = {'highlight': true,
-                  'hint': true};
-  $('.typeahead').typeahead(options, {
-    name: 'engine',
-    source: engine.ttAdapter(),
-    valueKey: function(data){return data.id},
-    display: function(data){return data.first_name + ' ' + data.last_name},
-    templates: {
-      suggestion: function (data) {
-        return '<p>' + data.first_name + ' ' + data.last_name + ' <span class="subtle">(' + data.email + ')</span></p>';
+  $(".user-auto-complete").select2({
+    theme: 'bootstrap',
+    allowClear: true,
+    placeholder: '',
+    ajax: {
+      url: function (params) {
+        return '/users/autocomplete/' + params.term;
+      },
+      /* query is in the form /users/autocomplete/<query> */
+      data: function (params) {return ''},
+      dataType: 'json',
+      delay: 250,
+      processResults: function (data, params) {
+        return {
+          results: $.map(data, function(obj){
+            return { id: obj.id, text: obj.first_name + ' ' + obj.last_name + ' (' + obj.email + ')'};
+          }),
+          more: false
+        }
       }
     }
   });
-};
-
-$(document).ready(function() {
-  if ($('.typeahead').length) {
-    typeahead();
-  }
 });
-
-
-//typeahead = ->
-//  engine = new Bloodhound(
-//    datumTokenizer: (d) ->
-//      console.log d
-//      Bloodhound.tokenizers.whitespace d.title
-//    queryTokenizer: Bloodhound.tokenizers.whitespace
-//    remote: url: '../users/typeahead/%QUERY')
-//  promise = engine.initialize()
-//  $('.typeahead').typeahead null,
-//    name: 'engine'
-//    displayKey: 'email'
-//    source: engine.ttAdapter()
-//  return
-

@@ -63,8 +63,9 @@ gem 'jquery-ui-rails'
 # Continuation of CanCan (authoriation Gem for RoR)
 gem 'cancancan'
 
-# Typeahead gem
-gem 'bootstrap-typeahead-rails'
+# Select2 dropdown replacement featuring autocomplete
+gem 'select2-rails'
+
 # Search Gem
 gem 'searchlight'
 # for nested forms
