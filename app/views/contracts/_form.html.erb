@@ -51,12 +51,12 @@
       </div>
       <div class="form-group">
         <%= f.label :hours_per_week, class: 'control-label' %>
-        <%= f.text_field :hours_per_week, value: @contract.hours_per_week, class: 'form-control' %>
+        <%= f.number_field :hours_per_week, value: @contract.hours_per_week, step: 'any', class: 'form-control' %>
         <%= error_span(@contract[:hours_per_week]) %>
       </div>
       <div class="form-group">
         <%= f.label :wage_per_hour, class: 'control-label' %>
-        <%= f.text_field :wage_per_hour, value: @contract.wage_per_hour, class: 'form-control' %>
+        <%= f.number_field :wage_per_hour, value: @contract.wage_per_hour, step: 'any', class: 'form-control' %>
         <%= error_span(@contract[:wage_per_hour]) %>
       </div>
     </div>
