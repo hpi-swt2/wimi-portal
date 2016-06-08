@@ -177,3 +177,8 @@ a.anchor {
     width: inherit;
     height: inherit;
 }
+
+/* select2 */
+.select2-container--bootstrap {
+    width: inherit !important;
+}

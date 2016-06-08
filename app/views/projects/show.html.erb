@@ -110,10 +110,10 @@
             </p>
             <p>
               <% content_for :modals do %>
-                  <%= render 'invite_user' %>
+                  <%= render 'add_user_to_project' %>
               <% end %>
               <% if can?(:invite_user, @project) %>
-                <%= link_to t('project.invite_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }%>
+                <%= link_to t('project.add_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }%>
               <% end %>
             </p>
             <p>
