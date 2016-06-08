@@ -18,14 +18,15 @@
   <div class="panel panel-default">
     <!-- <div class="panel-heading"><h4></h4></div> -->
     <div class="panel-body panel-compact">
+      <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
       <div class="form-group">
         <%= f.label :start_date, class: 'control-label' %>
-        <%= f.text_field :start_date, value: @contract.start_date, class: 'form-control' %>
+        <%= f.text_field :start_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.start_date ? l(@contract.start_date) : nil , placeholder: format %>
         <%= error_span(@contract[:start_date]) %>
       </div>
       <div class="form-group">
         <%= f.label :end_date, class: 'control-label' %>
-        <%= f.text_field :end_date, value: @contract.end_date, class: 'form-control' %>
+        <%= f.text_field :end_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.end_date ? l(@contract.end_date) : nil , placeholder: format %>
         <%= error_span(@contract[:end_date]) %>
       </div>
       <div class="form-group">
