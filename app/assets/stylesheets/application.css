@@ -172,3 +172,8 @@ a.anchor {
 .btn-eq {
     width: auto;
 }
+
+.panel-compact > .form-group > .form-control {
+    width: inherit;
+    height: inherit;
+}
