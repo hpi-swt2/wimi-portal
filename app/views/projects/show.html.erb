@@ -4,7 +4,7 @@
     <div class="page-header">
       <h1><%= @project.title %> <span> <%= @project.status ? '' : t('.inactive', default:'(inactive)') %></span></h1>
       <% if can? :edit, @project%>
-          <%= link_to t('.edit', default: t('helpers.links.edit')), edit_project_path(@project), class: 'btn btn-warning btn-md pull-right', style:'margin-top: -50px' %>
+          <%= link_to t('helpers.links.edit'), edit_project_path(@project), class: 'btn btn-warning btn-md pull-right btn-header' %>
       <% end %>
     </div>
 

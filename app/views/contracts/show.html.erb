@@ -3,6 +3,9 @@
   <div class="display">
     <div class="page-header">
       <h1><%= t 'activerecord.models.contract.one' %></h1>
+        <% if can? :edit, @contract%>
+          <%= link_to t('helpers.links.edit'), edit_contract_path(@contract), class: 'btn btn-warning btn-md pull-right btn-header' %>
+        <% end %>
     </div>
     <dl>
         <dt><%= model_class.human_attribute_name(:start_date) %></dt>
@@ -23,9 +26,6 @@
         <dd><%= @contract.chair.name %> (<%= @contract.chair.description %>)</dd>
     </dl>
     <% if can? :edit, @contract %>
-    <%= link_to t('helpers.links.edit', model: model_class.model_name.human.titleize),
-                edit_contract_path(@contract),
-                class: 'btn btn-warning btn-xs' %>
     <%= link_to t('helpers.links.destroy', model: model_class.model_name.human.titleize),
                 contract_path(@contract), method: :delete,
                 class: 'btn btn-danger btn-xs' %>

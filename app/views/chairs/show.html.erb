@@ -3,6 +3,9 @@
   <div class="display">
     <div class="page-header">
       <h1><%= @chair.name %></h1>
+      <% if can? :edit, @chair%>
+        <%= link_to t('helpers.links.edit'), edit_chair_path(@chair), class: 'btn btn-warning btn-md pull-right btn-header' %>
+      <% end %>
     </div>
 
     <p><%= t('roles.chair_representative') %>: <%= @chair.representative.user.name if @chair.representative %></p>
