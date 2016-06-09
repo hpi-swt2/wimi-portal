@@ -64,7 +64,8 @@ class Ability
   def initialize_admin(user)
     initialize_wimi user
     
-    can [:edit, :requests, :requests_filtered, :remove_from_chair, :set_admin, :withdraw_admin], Chair, chair_wimis: {user_id: user.id}
+    can [:manage], Chair, chair_wimis: {user_id: user.id}
+    cannot [:destroy, :new, :create], Chair
     can :manage, Contract, chair_id: user.chair.id
     
     can :manage, Project, chair_id: user.chair.id
