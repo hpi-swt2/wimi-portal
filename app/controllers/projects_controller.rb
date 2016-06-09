@@ -67,10 +67,10 @@ class ProjectsController < ApplicationController
       flash[:error] = I18n.t('project.user.add_error')
       return
     elsif @project.users.include? user
-      flash[:error] = I18n.t('project.user.already_member', name: user.name)
+      flash[:notice] = I18n.t('project.user.already_member', name: user.name)
       return
     end
-    @project.add_user user
+    @project.users << user
     if @project.save
       flash[:success] = I18n.t('project.user.successfully_added', name: user.name)
     else
