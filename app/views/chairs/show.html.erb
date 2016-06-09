@@ -2,10 +2,12 @@
 <div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="page-header">
-      <h1><%= @chair.name %></h1>
-      <% if can? :edit, @chair%>
-        <%= link_to t('helpers.links.edit'), edit_chair_path(@chair), class: 'btn btn-warning btn-md pull-right btn-header' %>
-      <% end %>
+      <h1>
+        <%= @chair.name %>
+        <% if can? :edit, @chair%>
+          <%= link_to t('helpers.links.edit'), edit_chair_path(@chair), class: 'btn btn-warning btn-md pull-right' %>
+        <% end %>
+      </h1>
     </div>
     <dl>
         <dt><%= t('roles.chair_representative') %>:</dt>

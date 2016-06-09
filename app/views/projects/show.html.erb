@@ -2,10 +2,12 @@
 <div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="page-header">
-      <h1><%= @project.title %> <span> <%= @project.status ? '' : t('.inactive', default:'(inactive)') %></span></h1>
-      <% if can? :edit, @project%>
-          <%= link_to t('helpers.links.edit'), edit_project_path(@project), class: 'btn btn-warning btn-md pull-right btn-header' %>
-      <% end %>
+      <h1>
+        <%= @project.title %> <span> <%= @project.status ? '' : t('.inactive', default:'(inactive)') %></span>
+        <% if can? :edit, @project%>
+            <%= link_to t('helpers.links.edit'), edit_project_path(@project), class: 'btn btn-warning btn-md pull-right' %>
+        <% end %>
+      </h1>
     </div>
 
     <div class="row">
