@@ -243,6 +243,7 @@ de:
       default: "%d.%m.%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+      full: "%d.%m.%y %k:%M"
   chair:
     not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
     add_chair: "Lehrstuhl hinzufügen"

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  get 'users' => 'users#index'
 
   get 'extern' => 'users#external_login', as: 'external_login'
 

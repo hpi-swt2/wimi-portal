@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     redirect_to dashboard_path
   end
 
+  def index
+    @users = User.all
+    render :layout => 'no_sidebar'
+  end
+
   def show
     @trips = @user.get_desc_sorted_trips
   end

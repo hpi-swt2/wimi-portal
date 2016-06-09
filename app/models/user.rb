@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
-  devise :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
+  devise :trackable, :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
 
   has_many :contracts, foreign_key: :hiwi_id
   has_many :time_sheets, through: :contracts

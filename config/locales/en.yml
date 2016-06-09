@@ -243,6 +243,7 @@ en:
       default: "%m/%d/%Y"
       short: "%b %d"
       long: "%B %d, %Y"
+      full: "%m/%d/%y %k:%M"
   chair:
     not_authorized: "You're not authorized to do that for this Research Group."
     add_chair: "Add Research Group"
