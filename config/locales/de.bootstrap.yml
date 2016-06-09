@@ -22,6 +22,7 @@ de:
       back: "Zurück"
       cancel: "Abbrechen"
       confirm: "Sicher?"
+      confirm_delete: "Sind sie sicher, dass \"%{model}\" gelöscht werden soll?"
       destroy: "Löschen"
       new: "Neu"
       apply: "Bewerben"

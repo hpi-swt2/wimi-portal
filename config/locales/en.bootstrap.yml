@@ -27,6 +27,7 @@ en:
       back: "Back"
       cancel: "Cancel"
       confirm: "Are you sure?"
+      confirm_delete: "Are you sure that \"%{model}\" should be deleted?"
       destroy: "Delete"
       new: "New"
       edit: "Edit"

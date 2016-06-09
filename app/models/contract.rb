@@ -33,4 +33,8 @@ class Contract < ActiveRecord::Base
     ts || TimeSheet.create!(month: month, year: year, contract: self)
   end
   
+  def name
+    "#{I18n.t('activerecord.models.contract.one')} #{hiwi.name}"
+  end
+
 end

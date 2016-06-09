@@ -27,8 +27,5 @@
         <dt><%= t 'activerecord.models.chair.one' %></dt>
         <dd><%= @contract.chair.name %> (<%= @contract.chair.description %>)</dd>
     </dl>
-    <% if can? :destroy, @contract %>
-        <%= link_to t('helpers.links.destroy'), contract_path(@contract), method: :delete, class: 'btn btn-danger btn-xs' %>
-    <% end %>
   </div>
 </div>

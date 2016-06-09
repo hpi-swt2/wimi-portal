@@ -60,15 +60,26 @@
         <%= error_span(@contract[:wage_per_hour]) %>
       </div>
     </div>
-  </div><br/><br/>
-  <div class="actions">
-    <div class="row">
-      <div class="col-sm-9">
-        <%= f.submit t('helpers.links.save'), class: 'btn btn-success btn-block' %>
-      </div>
-      <div class="col-sm-3">
-        <%= link_to t('.cancel', default: t("helpers.links.cancel")), current_user, class: "btn btn-default btn-block"%>
-      </div>
-    </div>
   </div>
+
+  <div class="row edit-btns">
+    <div class="col-md-8 col-sm-8">
+      <%= f.submit nil, class: 'btn btn-success btn-block' %>
+    </div>
+    <% if (can? :destroy, @contract) && @contract.persisted? %>
+      <div class="col-md-2 col-sm-2">
+          <%= link_to t('helpers.links.destroy'),
+                        contract_path(@contract),
+                        method: 'delete',
+                        data: { confirm: t('helpers.links.confirm_delete', model: @contract.name) },
+                        class: 'btn btn-danger btn-block' %>
+      </div>
+      <div class="col-md-2 col-sm-2">
+    <% else %>
+      <div class="col-md-4 col-sm-4">
+    <% end %>
+        <%= link_to t("helpers.links.cancel"), @contract.persisted? ? contract_path(@contract) : contracts_path, class: 'btn btn-default btn-block' %>
+      </div>
+  </div>
+
 <% end %>
