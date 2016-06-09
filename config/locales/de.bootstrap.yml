@@ -65,7 +65,7 @@ de:
     form:
       wimi: "Wissenschaftliche Mitarbeiter"
       hiwi: "Studentische Hilfskräfte"
-      sign_out_of_project: "Aus dem Projekt austragen"
+      sign_out_of_project: "Entfernen"
       accessibility: "Sichtbarkeit"
       project_leader: "Teamleiter"
       title: "Titel"

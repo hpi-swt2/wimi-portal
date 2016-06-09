@@ -75,7 +75,7 @@ en:
     form:
       wimi: "Research Assistants"
       hiwi: "Student Assistants"
-      sign_out_of_project: "Sign out of project"
+      sign_out_of_project: "Remove"
       accessibility: "Accessibility"
       project_leader: "Project Leader"
       title: "Title"
