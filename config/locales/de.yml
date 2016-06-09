@@ -230,10 +230,10 @@ de:
     applied: "Urlaubsantrag bereits eingereicht"
   project:
     filter_chair: 'Filtern nach ...'
-    add_someone_to_project: "Jemanden zum Projekt hinzufügen"
-    add_someone_to_specific_project: "Jemanden zum Projekt \"%{title}\" hinzufügen"
     not_authorized: 'Du bist nicht befugt, diese Aktion für das Projekt durchzuführen.'
     user:
+      add_prompt: "Jemanden zum Projekt hinzufügen"
+      add_prompt_specific: "Jemanden zum Projekt \"%{title}\" hinzufügen"
       already_member: '%{name} ist bereits Mitglied dieses Projekts.'
       successfully_added: '%{name} wurde erfolgreich hinzugefügt.'
       add_error: 'Der Nutzer konnte nicht zum Projekt hinzugefügt werden.'

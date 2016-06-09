@@ -221,10 +221,10 @@ en:
     applied: "Holiday is already applied"
   project:
     filter_chair: 'Filter for ...'
-    add_someone_to_project: "Add someone to the project"
-    add_someone_to_specific_project: "Add someone to the project \"%{title}\""
     not_authorized: "You're not authorized to do that for this project."
     user:
+      add_prompt: "Add someone to the project"
+      add_prompt_specific: "Add someone to the project \"%{title}\""
       already_member: '%{name} is already a member of this project.'
       successfully_added: '%{name} has been added successfully.'
       add_error: 'The user could not be added to the project.'

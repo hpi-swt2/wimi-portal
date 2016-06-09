@@ -113,7 +113,7 @@
                   <%= render 'add_user_to_project' %>
               <% end %>
               <% if can?(:invite_user, @project) %>
-                <%= link_to t('project.add_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }%>
+                <%= link_to t('project.user.add_prompt'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }%>
               <% end %>
             </p>
             <p>
