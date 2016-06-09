@@ -95,7 +95,6 @@ de:
       edit_project: "Projekt bearbeiten"
       leave_p: "Verlassen"
     index:
-      new: "Projekt hinzufügen"
       title: "Titel"
       accessibility: "Verfügbarkeit"
       created_at: "Erstellt am"

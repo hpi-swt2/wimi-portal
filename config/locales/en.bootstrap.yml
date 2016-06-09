@@ -105,7 +105,6 @@ en:
       edit_project: "Edit Project"
       leave_p: "Leave"
     index:
-      new: "Add project"
       title: "Title"
       project_status: "Project Status"
       accessibility: "Accessibility"

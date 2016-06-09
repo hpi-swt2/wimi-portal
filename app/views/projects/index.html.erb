@@ -6,9 +6,7 @@
       <h1>
         <%=t '.projects' %>
         <% if can? :create, Project %>
-          <%= link_to t('.new', :default => t("helpers.links.new")),
-                      new_project_path,
-                      class: 'btn btn-success pull-right' %>
+          <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize), new_project_path, class: 'btn btn-success pull-right' %>
         <% end %>
       </h1>
     </div>
