@@ -1,4 +1,4 @@
-<!-- hiwi actions -->
+<%# hiwi actions %>
 <% if can? :create, WorkDay %>
   <% current_user.projects.each do |project| %>
   <p>
@@ -13,8 +13,7 @@
   <% end %>
 <% end %>
 
-  
-<!-- wimi actions -->
+<%# wimi actions %>
 <% if can? :create, Project %>
   <p>
     <%= link_to t('.create_project'), new_project_path %>
@@ -31,8 +30,7 @@
   </p>
 <% end %>
 
-  
-<!-- Chair representative actions -->
+<%# Chair representative actions %>
 <% if can? :index, Holiday %>
 <%# TODO: add proper ability checks %>
   <p>

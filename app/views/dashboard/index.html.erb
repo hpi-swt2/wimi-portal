@@ -95,17 +95,21 @@
   <!-- Projects -->
   <%= render partial: 'projects' %>
 
-  <!--Actions-->
-  <div class="col-md-12 col-sm-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4><%=t('.actions')%></h4>
-        </div>
-        <div class="panel-body">
-          <%= render partial: 'actions' %>
+  <% action_content = render partial: 'actions' %>
+  <% if action_content.present? %>
+    <!--Actions-->
+    <div class="col-md-12 col-sm-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4><%=t('.actions')%></h4>
+          </div>
+          <div class="panel-body">
+            <%= action_content %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
+
 <% end %>
