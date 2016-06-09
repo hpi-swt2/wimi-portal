@@ -42,7 +42,6 @@ RSpec.describe 'projects/show', type: :view do
     it 'has information about the project on page' do
       expect(page).to have_content(@project.title)
       expect(page).to have_content(@project.chair.name)
-      expect(page).to_not have_content(@project.chair.representative.user.name)
       expect(page).to_not have_content('public')
     end
 
@@ -97,7 +96,6 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content(@project.title)
       expect(page).to have_content(@project.chair.name)
       expect(page).to have_content(l(@project.created_at))
-      expect(page).to_not have_content(@project.chair.representative.user.name)
       expect(page).to_not have_content('public')
     end
 
