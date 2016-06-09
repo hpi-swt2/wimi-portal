@@ -105,12 +105,6 @@
           </div>
           <div class="panel-body">
             <p>
-              <% if can?(:leave ,@project) %>
-                <%= link_to t('.leave_project', default:'Leave Project'),
-                              leave_project_path(user: current_user, id: @project), method: :post %>
-              <% end %>
-            </p>
-            <p>
               <% content_for :modals do %>
                   <%= render 'add_user_to_project' %>
               <% end %>
