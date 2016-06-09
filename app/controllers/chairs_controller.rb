@@ -104,6 +104,24 @@ class ChairsController < ApplicationController
 #    redirect_to chair_path(@chair)
 #  end
 
+  def add_user
+    user = User.find_by_id params[:add_user_to_chair][:id]
+    redirect_to chair_path(@chair)
+    if user.nil?
+      flash[:error] = I18n.t('chair.user.add_error')
+      return
+    elsif @chair.users.include? user
+      flash[:notice] = I18n.t('chair.user.already_member', name: user.name)
+      return
+    end
+    chairwimi = ChairWimi.create(application: 'accepted', chair: @chair, user: user)
+    if chairwimi.save
+      flash[:success] = I18n.t('chair.user.successfully_added', name: user.name)
+    else
+      flash[:error] = I18n.t('chair.user.add_error')
+    end
+  end
+
   def remove_from_chair
     chair_wimi = ChairWimi.find(params[:request])
     status = ('removed' if chair_wimi.application == 'accepted') || ('declined' if chair_wimi.application == 'pending')

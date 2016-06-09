@@ -75,7 +75,11 @@ Rails.application.routes.draw do
     get 'trips/accept_reject', to: 'trips#accept_reject'
   end
 
-  resources :chairs
+  resources :chairs do
+    member do
+      post 'add_user'
+    end
+  end
 
   post 'chairs/apply', to: 'chairs#apply'
   post 'chairs/accept', to: 'chairs#accept_request'

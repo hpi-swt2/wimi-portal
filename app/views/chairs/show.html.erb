@@ -72,3 +72,27 @@
     <% end %>
   </div>
 </div>
+
+<% content_for :sidebar do %>
+  <!--Filter-->
+  <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4> <%= t 'helpers.actions'%> </h4>
+          </div>
+          <div class="panel-body">
+            <p>
+              <% content_for :modals do %>
+                  <%= render 'add_user_to_chair' %>
+              <% end %>
+              <% if can?(:add_user, @chair) %>
+                <%= link_to t('chair.user.add_prompt'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }%>
+              <% end %>
+            </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

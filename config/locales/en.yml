@@ -274,6 +274,13 @@ en:
       holiday_request: "Holiday request"
       expense_request: "Travel expense request"
       trip_request: "Trip request"
+    user:
+      add_prompt: "Add someone to the chair"
+      add_prompt_specific: "Add someone to %{chair}"
+      already_member: '%{name} is already a member of this chair.'
+      successfully_added: '%{name} has been added successfully.'
+      add_error: 'The user could not be added to the chair.'
+
   "true": "yes"
   "false": "no"
   not_enough_leave: 'Not enough leave left'

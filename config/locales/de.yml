@@ -274,6 +274,12 @@ de:
       holiday_request: "Urlaubsantrag"
       expense_request: "Reisekostenabrechnung"
       trip_request: "Dienstreiseantrag"
+    user:
+      add_prompt: "Jemanden zum Lehrstuhl hinzufügen"
+      add_prompt_specific: "Jemanden zum %{chair} Lehrstuhl hinzufügen"
+      already_member: '%{name} ist bereits Mitglied dieses Lehrstuhls.'
+      successfully_added: '%{name} wurde erfolgreich hinzugefügt.'
+      add_error: 'Der Nutzer konnte nicht zum Lehrstuhl hinzugefügt werden.'
 
   "true": "Ja"
   "false": "Nein"
