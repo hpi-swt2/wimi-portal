@@ -2,6 +2,9 @@
   <%= nav_bar fixed: :top, brand: 'Wimi Portal', responsive: true do %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
+        <% if can? :index, User %>
+          <%= menu_item t('activerecord.models.user.other'), users_path %>
+        <% end %>
         <% if can? :index, Project %>
           <%= menu_item t('activerecord.models.project.other'), projects_path %>
         <% end %>

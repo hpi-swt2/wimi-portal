@@ -20,6 +20,7 @@ class Ability
   def initialize_user(user)
     can :show, User
     can :manage, User, id: user.id
+    cannot :index, User
 
     can [:index, :show], Chair
 
@@ -78,5 +79,6 @@ class Ability
   def initialize_superadmin(user)
     initialize_user(user)
     can :manage, Chair
+    can :index, User
   end
 end
