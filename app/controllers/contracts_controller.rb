@@ -3,7 +3,7 @@ class ContractsController < ApplicationController
 
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
-    redirect_to contract_path
+    redirect_to contracts_path
   end
 
   def new
