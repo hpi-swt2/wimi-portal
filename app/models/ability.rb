@@ -56,7 +56,7 @@ class Ability
     end
     
         # [:index, :show]
-    can :manage, Contract, responsible_id: user.id
+    can [:index, :show], Contract, responsible_id: user.id
     can [:index, :show, :accept, :reject, :accept_reject], TimeSheet do |ts|
       can? :show, ts.contract
     end
