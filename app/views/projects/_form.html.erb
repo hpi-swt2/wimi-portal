@@ -1,24 +1,7 @@
 <%= form_for @project do |f| %>
-  <% if @project.errors.any? %>
-    <div class="row">
-      <div class="col-md-12 novertpadding col-sm-12">
-        <div id='error_explanation' class='panel panel-danger'>
-          <div class='panel-heading'>
-            <h3 class='panel-title'>
-              <%= pluralize(@project.errors.count, 'error') %> <%= t('.prohibited_this_project_from_being_saved') %>
-            </h3>
-          </div>
-          <div class='panel-body'>
-            <ul>
-              <% @project.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
+
+  <%= render partial: "shared/form_validation_errors", locals: {object: @project} %>
+
   <div class="row">
     <div class="col-md-12 novertpadding col-sm-12">
       <div class='form-group'>

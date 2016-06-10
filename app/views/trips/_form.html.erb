@@ -1,20 +1,7 @@
 <%- model_class = Trip -%>
 <%= form_for(@trip) do |f| %>
-<% if @trip.errors.any? %>
-<div class="row">
-  <div class="col-md-12">
-    <div id="error_explanation">
-      <h2><%= pluralize(@trip.errors.count, "error") %> prohibited this trip from being saved:</h2>
 
-      <ul>
-        <% @trip.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</div>
-<% end %>
+<%= render partial: "shared/form_validation_errors", locals: {object: @trip} %>
 
 <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
 <div class="row">

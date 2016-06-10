@@ -1,24 +1,6 @@
 <%= form_for @holiday do |f| %>
   
-  
-  <% if @holiday.errors.any? %>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="error_expl" class="panel panel-danger">
-          <div class="panel-heading">
-            <h3 class="panel-title"><%= pluralize(@holiday.errors.count, "error") %> prohibited this holiday from being saved:</h3>
-          </div>
-          <div class="panel-body">
-            <ul>
-            <% @holiday.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "shared/form_validation_errors", locals: {object: @holiday} %>
 
   <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
 
