@@ -34,7 +34,8 @@ class Contract < ActiveRecord::Base
   end
   
   def name
-    "#{I18n.t('activerecord.models.contract.one')} #{hiwi.name}"
+    model = I18n.t('activerecord.models.contract.one')
+    hiwi ? "#{model} #{hiwi.name}" : model
   end
 
 end
