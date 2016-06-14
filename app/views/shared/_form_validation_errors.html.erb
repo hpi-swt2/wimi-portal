@@ -1,11 +1,7 @@
 <% if object.errors.any? %>
   <div class="alert alert-danger alert-dismissable">
-  <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>
-    <h4><%= t 'activerecord.errors.template.header', model: object.model_name.human, count: object.errors.count %></h4>
-    <ul>
-      <% object.errors.full_messages.each do |msg| %>
-        <%= content_tag :li, msg, :class => "error-line" if msg.is_a?(String) %>
-      <% end %>
-    </ul>
+    <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>
+    <p><strong><%= t 'activerecord.errors.template.header', model: object.model_name.human, count: object.errors.count %></strong></p>
+    <!-- <p><%= object.errors.full_messages %></p> -->
   </div>
 <% end %>

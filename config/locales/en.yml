@@ -61,32 +61,32 @@ en:
   activerecord:
     models:
       chair:
-        one: "Research Group"
-        other: "Research Groups"
+        one: "research group"
+        other: "research groups"
       contract:
-        one: "Contract"
-        other: "Contracts"
+        one: "contract"
+        other: "contracts"
       expense:
-        one: "Expense"
-        other: "Expenses"
+        one: "expense"
+        other: "expenses"
       holiday:
-        one: "Holiday Request"
-        other: "Holiday Requests"
+        one: "holiday request"
+        other: "holiday requests"
       project:
-        one: "Project"
-        other: "Projects"
+        one: "project"
+        other: "projects"
       trip:
-        one: "Business Trip"
-        other: "Business Trips"
+        one: "business trip"
+        other: "business trips"
       user:
-        one: "User"
-        other: "Users"
+        one: "user"
+        other: "users"
       work_day:
-        one: "Workday"
-        other: "Workdays"
+        one: "work day"
+        other: "work days"
       time_sheet:
-        one: "Timesheet"
-        other: "Timesheets"
+        one: "timesheet"
+        other: "timesheets"
     attributes:
       contract:
         start_date: "Start date"
@@ -219,8 +219,8 @@ en:
     errors:
       template:
         header:
-          one: "An error prohibited this %{model} from being saved:"
-          other: "%{count} errors prohibited this %{model} from being saved:"
+          one: "An error prohibited this %{model} from being saved"
+          other: "%{count} errors prohibited this %{model} from being saved"
       try_again_later: "Error - Please try again later."
       models:
         expense:
@@ -249,6 +249,10 @@ en:
               blank: "cannot be blank."
             length:
               not_a_number: "has to be a whole number."
+        work_day:
+          attributes:
+            duration:
+              greater_than: 'work time must be greater than 0'
   links:
     search: 'Search'
     submit: 'Submit'

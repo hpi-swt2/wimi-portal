@@ -243,7 +243,7 @@ de:
         work_day:
           attributes:
             duration:
-              greater_than: 'Dauer muss größer 0 sein'
+              greater_than: 'Arbeitszeit muss größer 0 sein'
   date:
     day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
     input:

@@ -13,21 +13,25 @@
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <div class="form-group">
+      <div class="form-group <%= 'has-error' if @work_day.errors[:start_time].any? %>">
         <%= f.label :start_time, class: 'control-label' %><span style="color: red">*</span><br>
         <%= f.time_select :start_time, {}, class: "form-control time-select" %>
+        <%= content_tag :span, @work_day.errors[:start_time].join(', '), :class => "help-block" if @work_day.errors[:start_time].any? %>
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="form-group">
+      <div class="form-group <%= 'has-error' if @work_day.errors[:break].any? %>">
         <%= f.label :break, class: 'control-label'  %> (<%= t'.minutes' %>) <span style="color: red">*</span>
         <%= f.number_field :break, value: 0, class: "form-control"%>
+        <%= content_tag :span, @work_day.errors[:break].join(', '), :class => "help-block" if @work_day.errors[:break].any? %>
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="form-group">
+      <div class="form-group <%= 'has-error' if @work_day.errors[:end_time].any? %>">
         <%= f.label :end_time, class: 'control-label'  %><span style="color: red">*</span> <br>
         <%= f.time_select :end_time, {}, class: "form-control time-select" %>
+        <%= content_tag :span, @work_day.errors[:end_time].join(', '), :class => "help-block" if @work_day.errors[:end_time].any? %>
+        <%= content_tag :span, @work_day.errors[:duration].join(', '), :class => "help-block" if @work_day.errors[:duration].any? %>
       </div>
     </div>
   </div>

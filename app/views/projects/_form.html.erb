@@ -4,10 +4,10 @@
 
   <div class="row">
     <div class="col-md-12 novertpadding col-sm-12">
-      <div class='form-group'>
-        <%= f.label :title, t('projects.form.title') %>
+      <div class="form-group <%= 'has-error' if @project.errors[:title].any? %>">
+        <%= f.label :title, class: 'control-label' %>
         <%= f.text_field :title, class: 'form-control' %>
-        <%= error_span(@project[:title]) %>
+        <%= content_tag :span, @project.errors[:title].join(', '), :class => "help-block" if @project.errors[:title].any? %>
       </div>
     </div>
   </div>
