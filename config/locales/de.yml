@@ -91,6 +91,7 @@ de:
         flexible: "Flexibler Vertrag"
         hours_per_week: "Wöchentliche Arbeitsstunden"
         wage_per_hour: "Stundenlohn"
+        chair: "Lehrstuhl"
       chair:
         id: "Id"
         name: "Name"
