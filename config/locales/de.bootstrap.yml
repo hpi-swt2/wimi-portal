@@ -1,4 +1,4 @@
- # Sample localization file for English. Add more files in this directory for other locales.
+# Sample localization file for German. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 de:
@@ -6,6 +6,10 @@ de:
     index:
       welcome: "Willkommen"
   helpers:
+    flash:
+      created: "%{model} wurde erfolgreich erstellt"
+      destroyed: "%{model} wurde erfolgreich gelöscht"
+      updated: "%{model} wurde erfolgreich aktualisiert"
     application_tabs:
       home: "Startseite"
       profile: "Profil"

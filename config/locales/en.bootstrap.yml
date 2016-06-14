@@ -4,13 +4,12 @@
 en:
   home:
     index:
-      welcome: "welcome"
-  breadcrumbs:
-    application:
-      root: "Index"
-    pages:
-      pages: "Pages"
+      welcome: "Welcome"
   helpers:
+    flash:
+      created: "%{model} was successfully created"
+      destroyed: "%{model} was successfully deleted"
+      updated: "%{model} was successfully updated"
     application_tabs:
       home: "Home"
       profile: "Profile"
