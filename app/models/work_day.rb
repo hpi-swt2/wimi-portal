@@ -34,7 +34,7 @@ class WorkDay < ActiveRecord::Base
 #  validates :project_id, presence: true, numericality: true
   validates :date, presence: true
   validates :start_time, presence: true
-  validates :break, presence: true, numericality: true
+  validates :break, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :end_time, presence: true
   validate :no_overlap
   validates_time :end_time, after: :start_time
