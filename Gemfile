@@ -41,6 +41,9 @@ gem 'annotate'
 gem 'validates_timeliness'
 # to parse date parameters from ui
 gem "delocalize"
+# American style month/day/year parsing for ruby 1.9
+# https://github.com/jeremyevans/ruby-american_date
+gem "american_date"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -39,6 +39,7 @@ GEM
     airbrake (4.3.3)
       builder
       multi_json
+    american_date (1.1.1)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -297,6 +298,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
+  american_date
   annotate
   better_errors (~> 2.1.1)
   binding_of_caller (~> 0.7.2)
