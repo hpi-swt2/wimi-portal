@@ -6,42 +6,35 @@
     <!-- <div class="panel-heading"><h4></h4></div> -->
     <div class="panel-body panel-compact">
       <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
-      <div class="form-group">
+      <div class="form-group <%= 'has-error' if @contract.errors[:start_date].any? %>">
         <%= f.label :start_date, class: 'control-label' %>
         <%= f.text_field :start_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.start_date ? l(@contract.start_date) : nil , placeholder: format %>
-        <%= error_span(@contract[:start_date]) %>
       </div>
-      <div class="form-group">
+      <div class="form-group <%= 'has-error' if @contract.errors[:end_date].any? %>">
         <%= f.label :end_date, class: 'control-label' %>
         <%= f.text_field :end_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.end_date ? l(@contract.end_date) : nil , placeholder: format %>
-        <%= error_span(@contract[:end_date]) %>
       </div>
-      <div class="form-group">
-        <%= f.label :hiwi_id, class: 'control-label' %>
+      <div class="form-group <%= 'has-error' if @contract.errors[:hiwi].any? %>">
+        <%= f.label :hiwi, class: 'control-label' %>
         <%= f.collection_select :hiwi_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
-        <%= error_span(@contract[:hiwi_id]) %>
       </div>
-      <div class="form-group">
-        <%= f.label :responsible_id, class: 'control-label' %>
+      <div class="form-group <%= 'has-error' if @contract.errors[:responsible].any? %>">
+        <%= f.label :responsible, class: 'control-label' %>
         <%= f.collection_select :responsible_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
-        <%= error_span(@contract[:responsible_id]) %>
       </div>
-      <div class="form-group">
-        <%= f.label :chair_id, class: 'control-label' %>
+      <div class="form-group <%= 'has-error' if @contract.errors[:chair].any? %>">
+        <%= f.label :chair, class: 'control-label' %>
         <%= f.collection_select :chair_id, [current_user.chair], :id, :name, {}, {:class=>'form-control'} %>
-        <%= error_span(@contract[:chair_id]) %>
       </div>
-      <div class="form-group">
+      <div class="form-group <%= 'has-error' if @contract.errors[:flexible].any? %>">
         <%= f.label :flexible, class: 'control-label' %>
         <%= f.check_box :flexible, value: @contract.flexible, class: 'form-control' %>
-        <%= error_span(@contract[:flexible]) %>
       </div>
-      <div class="form-group">
+      <div class="form-group <%= 'has-error' if @contract.errors[:hours_per_week].any? %>">
         <%= f.label :hours_per_week, class: 'control-label' %>
         <%= f.number_field :hours_per_week, value: @contract.hours_per_week, step: 'any', class: 'form-control' %>
-        <%= error_span(@contract[:hours_per_week]) %>
       </div>
-      <div class="form-group">
+      <div class="form-group <%= 'has-error' if @contract.errors[:wage_per_hour].any? %>">
         <%= f.label :wage_per_hour, class: 'control-label' %>
         <%= f.number_field :wage_per_hour, value: @contract.wage_per_hour, step: 'any', class: 'form-control' %>
         <%= error_span(@contract[:wage_per_hour]) %>
