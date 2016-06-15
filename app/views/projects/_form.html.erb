@@ -98,28 +98,6 @@
     </div>
   <% end %>
 
-
-  <% unless @project.persisted? %>
-    <div class="row">
-      <div class="col-md-12 novertpadding col-sm-12">
-        <div class="row">
-          <div class="col-md-12 col-sm-12" style="padding-bottom: 0px;">
-            <strong> <%= t '.invite_init_user' %></strong> <br>
-          </div>
-        </div>
-        <span class="row" style="padding-top: 0px;">
-          <div class="col-md-9 col-sm-9">
-            <%= f.text_field :email, { id: 'invitation_mail', value: '', name:'invitationfield' ,class: 'typeahead form-control', size: 57, placeholder: 'max.mustermann@student.hpi.uni-potsdam.de' } %>
-          </div>
-          <div class="col-md-3 col-sm-3">
-            <input type="button" id='invite_user' class='btn btn-info btn-block' value="<%= t('projects.form.invite_init_user') %>">
-          </div>
-        </span>
-        <div id="invited_users" class="row"></div>
-      </div>
-    </div>
-  <% end %>
-
   <div align="right">
     <span>* <%= t'helpers.forms.required_field'%></span>
   </div>
