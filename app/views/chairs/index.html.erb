@@ -2,7 +2,7 @@
 <div class="col-md-12 col-sm-12">
   <div class="display">
   <div class="page-header">
-    <h1><%= t 'activerecord.models.chair.other', default: model_class.model_name.human.pluralize.titleize %></h1>
+    <h1><%= t('activerecord.models.chair.other', default: model_class.model_name.human.pluralize).titleize %></h1>
   </div>
   <% if @chairs.empty? %>
       <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.chair.other', default: model_class.model_name.human.pluralize) %> </p> <br>
