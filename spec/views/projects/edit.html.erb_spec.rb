@@ -19,7 +19,7 @@ RSpec.describe 'projects/edit', type: :view do
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
     click_on I18n.t('helpers.links.edit')
     fill_in 'project_title', with: 'My New Project'
-    click_on I18n.t('projects.form.update_project')
+    find('.btn[type="submit"]').click
     project.reload
     expect(project.title).to eq('My New Project')
   end
@@ -64,7 +64,7 @@ RSpec.describe 'projects/edit', type: :view do
     @wimi.projects << project
     visit edit_project_path(project)
     find(:css, '#project_public_false').set(true)
-    click_on I18n.t('projects.form.update_project')
+    find('.btn[type="submit"]').click
     project.reload
     expect(project.public).to be false
   end
@@ -75,7 +75,7 @@ RSpec.describe 'projects/edit', type: :view do
     @wimi.projects << project
     visit edit_project_path(project)
     find(:css, '#project_public_true').set(true)
-    click_on I18n.t('projects.form.update_project')
+    find('.btn[type="submit"]').click
     project.reload
     expect(project.public).to be true
   end
