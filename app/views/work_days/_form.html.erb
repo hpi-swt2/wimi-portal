@@ -59,7 +59,7 @@
       <%= f.submit nil, class: 'btn btn-success btn-block' %>
     </div>
     <div class="col-md-4 col-sm-4">
-      <%= link_to t("helpers.links.cancel"), work_days_path, class: 'btn btn-default btn-block' %>
+      <%= link_to t("helpers.links.cancel"), work_days_path(month: @work_day.date.month, year: @work_day.date.year, user: @work_day.user), class: 'btn btn-default btn-block' %>
       </div>
   </div>
 

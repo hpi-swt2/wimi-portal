@@ -3,14 +3,7 @@
   <div class="display">
     <div class="page-header">
       <h1>
-        <div class="row">
-          <div class="col-md-9">
-            <%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %>
-          </div>
-          <div class="col-md-3">
-            <%= link_to t('helpers.links.back'), work_days_path(month: @work_day.date.month, year: @work_day.date.year, user: @work_day.user), class: 'btn btn-default btn-block'%>
-          </div>
-        </div>
+        <%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %>
       </h1>
     </div>
     <%= render 'form' %>
