@@ -18,7 +18,7 @@
     </div>
     <div class="col-sm-4">
       <%= bootstrap_form_group(f, :break) do %>
-        <%= f.number_field :break, value: 0, class: "form-control"%>
+        <%= f.number_field :break, value: @work_day.break.nil? ? 0 : @work_day.break, class: "form-control"%>
       <% end %>
     </div>
     <div class="col-sm-4">
