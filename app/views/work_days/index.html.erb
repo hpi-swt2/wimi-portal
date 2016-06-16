@@ -47,10 +47,10 @@
             <tbody>
               <% @work_days.each do |work_day| %>
                 <tr>
-                  <td><%= l work_day.date %> <%= '(' + work_day.attendance + ')' if !work_day.attendance.blank? %></td>
+                  <td><%= l work_day.date %> <%= "(#{work_day.attendance})" if work_day.attendance.present? %></td>
                   <td><%= work_day.project.title if work_day.project %></td>
                   <td><%= work_day.start_time.strftime('%H:%M') %> &ndash; <%= work_day.end_time.strftime('%H:%M') %></td>
-                  <td><%= work_day.break != 0 ? work_day.break.to_s  + 'min' : '--' %> </td>
+                  <td><%= work_day.break.nonzero? ? "#{work_day.break} min" : "--" %> </td>
                   <td><%= work_day.duration_hours_minutes %></td>
                   <td><%= work_day.notes %></td>
                   <td>
