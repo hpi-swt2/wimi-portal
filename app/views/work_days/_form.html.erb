@@ -53,5 +53,14 @@
       </div>
     </div>
   </div>
-  <%= f.submit nil, class:"btn btn-success btn-block"%>
+
+  <div class="row edit-btns">
+    <div class="col-md-8 col-sm-8">
+      <%= f.submit nil, class: 'btn btn-success btn-block' %>
+    </div>
+    <div class="col-md-4 col-sm-4">
+      <%= link_to t("helpers.links.cancel"), work_days_path, class: 'btn btn-default btn-block' %>
+      </div>
+  </div>
+
 <% end %>
