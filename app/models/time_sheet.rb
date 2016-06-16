@@ -24,9 +24,6 @@
 
 class TimeSheet < ActiveRecord::Base
 
-  DEFAULT_SALARY = 10.00
-  DEFAULT_WORKLOAD = 9
-  
   scope :month, -> month { where(month: month) }
   scope :year, -> year { where(year: year) }
   scope :recent, -> { where('12 * year + month > ?', 12*Date.today.year + Date.today.month - 3) }
