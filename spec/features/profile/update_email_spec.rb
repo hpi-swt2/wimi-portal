@@ -18,13 +18,13 @@ describe 'updating email address' do
     former_mail = @user.email
     fill_in :user_email, with: 'invalid mail'
     click_button 'Save'
-    expect(page).to have_text('is not a valid email address.')
+    expect(page).to have_text(I18n.t('users.no_email'))
     fill_in :user_email, with: 'invalid.mail'
     click_button 'Save'
-    expect(page).to have_text('is not a valid email address.')
+    expect(page).to have_text(I18n.t('users.no_email'))
     fill_in :user_email, with: 'invalid@mail'
     click_button 'Save'
-    expect(page).to have_text('is not a valid email address.')
+    expect(page).to have_text(I18n.t('users.no_email'))
     expect(@user.reload.email).to eq(former_mail)
   end
 end
