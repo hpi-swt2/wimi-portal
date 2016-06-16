@@ -25,7 +25,7 @@ class WorkDaysController < ApplicationController
       end
       @time_sheets = @user.time_sheets_for(@month, @year)
       if @time_sheets.empty?
-        flash[:error] = "No contract for #@year/#@month"
+        flash[:error] = t('helpers.flash.no_contract', month: @month, year: @year)
         @work_days = apply_scopes(@work_days).month(@month, @year)
       else
         @work_days = []
@@ -60,7 +60,7 @@ class WorkDaysController < ApplicationController
     authorize! :edit, ts if ts
 
     if @work_day.save
-      flash[:success] = 'Work Day was successfully created.'
+      flash[:success] = t('helpers.flash.created', model: @work_day.model_name.human.titleize)
       redirect_to work_days_month_project_path
     else
       render :new
@@ -69,7 +69,7 @@ class WorkDaysController < ApplicationController
 
   def update
     if @work_day.update(work_day_params)
-      flash[:success] = 'Work Day was successfully updated.'
+      flash[:success] = t('helpers.flash.updated', model: @work_day.model_name.human.titleize)
       redirect_to work_days_month_project_path
     else
       render :edit
@@ -79,7 +79,7 @@ class WorkDaysController < ApplicationController
   def destroy
     date = @work_day.date
     @work_day.destroy
-    flash[:success] = 'Work Day was successfully destroyed.'
+    flash[:success] = t('helpers.flash.destroyed', model: @work_day.model_name.human.titleize)
     redirect_to work_days_month_project_path
   end
 
