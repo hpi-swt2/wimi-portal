@@ -73,7 +73,10 @@ describe WorkDaysController, type: :controller do
 
       it 'redirects to the time_sheet for the work_days month and project' do
         post :create, {work_day: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: Date.today.month, year: Date.today.year, user: @user.id))
+        expect(response).to redirect_to(work_days_path(month: Date.today.month,
+                                                      year: Date.today.year,
+                                                      user: @user.id,
+                                                      project: valid_attributes[:project_id]))
       end
       
       it 'works with german locale' do
