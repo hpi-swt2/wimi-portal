@@ -21,7 +21,6 @@
 //= require_tree .
 
 $(document).ready(function() {
-  $('.datepicker').datepicker();
 
   $(".user-auto-complete").select2({
     theme: 'bootstrap',
