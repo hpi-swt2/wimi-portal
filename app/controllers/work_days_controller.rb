@@ -47,11 +47,13 @@ class WorkDaysController < ApplicationController
 
   def new
     @work_day.date = Date.today
-    project = Project.find_by_id(params[:project])
-    if project.blank? or !project.users.include? current_user
-      flash[:notice] = t 'activerecord.errors.models.work_day.flash.not_member'
-    else
-      @work_day.project = project
+    if params[:project]
+      project = Project.find_by_id(params[:project])
+      if project.blank? or !project.users.include? current_user
+        flash[:notice] = t 'activerecord.errors.models.work_day.flash.not_member'
+      else
+        @work_day.project = project
+      end
     end
   end
 
