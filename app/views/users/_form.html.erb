@@ -7,41 +7,33 @@
       <h4><%= t('.user_data') %></h4>
     </div>
     <div class="panel-body">
-      <div class="form-group">
-        <%= f.label :first_name, class: 'control-label' %>
+      <%= bootstrap_form_group(f, :first_name) do %>
         <%= f.text_field :first_name, value: @user.first_name, class: 'form-control' %>
-        <%= error_span(@user[:first_name]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :last_name, class: 'control-label' %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :last_name) do %>
         <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
-        <%= error_span(@user[:last_name]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :email, class: 'control-label' %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :email) do %>
         <%= f.text_field :email, value: @user.email, class: 'form-control' %>
-        <%= error_span(@user[:email]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :city, class: 'control-label' %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :city) do %>
         <%= f.text_field :city, value: @user.city, class: 'form-control' %>
-        <%= error_span(@user[:city]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :zip_code, class: 'control-label' %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :zip_code) do %>
         <%= f.text_field :zip_code, value: @user.zip_code, class: 'form-control' %>
-        <%= error_span(@user[:zip_code]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :street, class: 'control-label' %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :street) do %>
         <%= f.text_field :street, value: @user.street, class: 'form-control' %>
-        <%= error_span(@user[:street]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :personnel_number, class: 'control-label' %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :personnel_number) do %>
         <%= f.text_field :personnel_number, value: @user.personnel_number, class: 'form-control' %>
-        <%= error_span(@user[:personnel_number]) %>
-      </div>
+      <% end %>
     </div>
     <div class="col-md-3">
       <%= f.label :email_notifications, class: 'control-label' %>
