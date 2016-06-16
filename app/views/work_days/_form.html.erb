@@ -3,10 +3,10 @@
   <%= render partial: "shared/form_validation_errors", locals: {object: @work_day} %>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
       <%= bootstrap_form_group(f, :date) do %>
         <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
-        <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @work_day.date ? l(@work_day.date) : nil , placeholder: t('trips.form.date') %>
+        <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-today-highlight': true, 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @work_day.date ? l(@work_day.date) : nil , placeholder: t('trips.form.date') %>
       <% end %>
     </div>
   </div>
