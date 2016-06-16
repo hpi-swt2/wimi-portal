@@ -45,11 +45,6 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to_not have_content('public')
     end
 
-    it 'shows leave project button if part of project' do
-      visit current_path
-      expect(page).to have_content('Leave')
-    end
-
     # hiwi can't see project if not a member
 #    it 'shows no leave project button if not part of project' do
 #      expect(page).to_not have_content('Leave Project')
@@ -71,14 +66,6 @@ RSpec.describe 'projects/show', type: :view do
       visit current_path
       expect(page).to have_content('Working hours')
     end
-    
-    it 'is possible for a hiwi to sign himself out of the project' do
-      visit project_path @project
-      click_link 'Leave Project'
-      @project.reload
-      
-      expect(@project.users).not_to include(@hiwi)
-    end
   end
 
   context 'as wimi' do
@@ -97,23 +84,6 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content(@project.chair.name)
       expect(page).to have_content(l(@project.created_at))
       expect(page).to_not have_content('public')
-    end
-
-    it 'shows leave project button if part of project' do
-      @wimi.projects << @project
-      @wimi2.projects << @project
-      visit current_path
-      expect(page).to have_content('Leave Project')
-    end
-
-    it 'does not show leave project button if he is the only wimi' do
-      @wimi.projects << @project
-      visit current_path
-      expect(page).not_to have_content('Leave Project')
-    end
-
-    it 'shows no leave project button if not part of project' do
-      expect(page).to_not have_content('Leave Project')
     end
 
     it 'shows no add working hours button' do
