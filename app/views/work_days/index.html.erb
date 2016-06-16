@@ -35,24 +35,21 @@
             <thead>
               <tr>
                 <th><%= model_class.human_attribute_name(:date) %></th>
-                <th><%= model_class.human_attribute_name(:start_time) %></th>
+                <th><%= model_class.human_attribute_name(:time) %></th>
                 <th><%= model_class.human_attribute_name(:break) %></th>
-                <th><%= model_class.human_attribute_name(:end_time) %></th>
                 <th><%= model_class.human_attribute_name(:duration) %></th>
-                <th>*</th>
                 <th><%= model_class.human_attribute_name(:notes) %></th>
+                <th><%= t '.actions', default: t("helpers.actions") %></th>
               </tr>
             </thead>
 
             <tbody>
               <% @work_days.each do |work_day| %>
                 <tr>
-                  <td><%=l work_day.date %></td>
-                  <td><%= work_day.start_time.strftime('%H:%M') %></td>
-                  <td><%= work_day.break %>min</td>
-                  <td><%= work_day.end_time.strftime('%H:%M') %></td>
+                  <td><%= l work_day.date %> <%= '(' + work_day.attendance + ')' if !work_day.attendance.blank? %></td>
+                  <td><%= work_day.start_time.strftime('%H:%M') %> &ndash; <%= work_day.end_time.strftime('%H:%M') %></td>
+                  <td><%= work_day.break != 0 ? work_day.break.to_s  + 'min' : '--' %> </td>
                   <td><%= work_day.duration_hours_minutes %></td>
-                  <td><%= work_day.attendance %></td>
                   <td><%= work_day.notes %></td>
                   <td>
                   <% if can? :edit, work_day %>

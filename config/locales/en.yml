@@ -214,6 +214,7 @@ en:
         notes: "Notes"
         attendance: "Attendance"
         project: "Project"
+        time: "Time"
       time_sheet:
         salary: "Salary"
         workload: "Workload"
