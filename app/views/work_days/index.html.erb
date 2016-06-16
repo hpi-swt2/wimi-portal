@@ -54,7 +54,7 @@
                   <td>
                   <% if can? :edit, work_day %>
                     <%= link_to t('.edit', default: t("helpers.links.edit")),
-                    edit_work_day_path(work_day), class: 'btn btn-default btn-xs' %>
+                    edit_work_day_path(work_day), class: 'btn btn-warning btn-xs' %>
                     <%= link_to t('.destroy', default: t("helpers.links.destroy")),
                     work_day_path(work_day),
                     method: :delete,
