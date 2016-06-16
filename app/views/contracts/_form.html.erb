@@ -4,15 +4,20 @@
 
   <div class="panel panel-default">
     <div class="panel-body panel-compact">
-      <%= bootstrap_form_group(f, :start_date) do %>
-        <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
-        <%= f.text_field :start_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.start_date ? l(@contract.start_date) : nil , placeholder: format %>
-      <% end %>
-
-      <%= bootstrap_form_group(f, :end_date) do %>
-        <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
-        <%= f.text_field :end_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.end_date ? l(@contract.end_date) : nil , placeholder: format %>
-      <% end %>
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <%= bootstrap_form_group(f, :start_date) do %>
+            <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
+            <%= f.text_field :start_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-today-highlight': true, 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.start_date ? l(@contract.start_date) : nil , placeholder: format %>
+          <% end %>
+        </div> <!-- col-md-6 col-sm-6 -->
+        <div class="col-md-6 col-sm-6">
+          <%= bootstrap_form_group(f, :end_date) do %>
+            <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
+            <%= f.text_field :end_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-today-highlight': true, 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.end_date ? l(@contract.end_date) : nil , placeholder: format %>
+          <% end %>
+        </div> <!-- col-md-6 col-sm-6 -->
+      </div> <!-- row -->
 
       <%= bootstrap_form_group(f, :hiwi) do %>
         <%= f.collection_select :hiwi_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
@@ -30,14 +35,19 @@
         <%= f.check_box :flexible, value: @contract.flexible, class: 'form-control' %>
       <% end %>
 
-      <%= bootstrap_form_group(f, :hours_per_week) do %>
-        <%= f.number_field :hours_per_week, value: @contract.hours_per_week, step: 'any', class: 'form-control' %>
-      <% end %>
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <%= bootstrap_form_group(f, :hours_per_week) do %>
+            <%= f.number_field :hours_per_week, value: @contract.hours_per_week, step: 'any', class: 'form-control' %>
+          <% end %>
+        </div> <!-- col-md-6 col-sm-6 -->
+        <div class="col-md-6 col-sm-6">
+          <%= bootstrap_form_group(f, :wage_per_hour) do %>
+            <%= f.number_field :wage_per_hour, value: @contract.wage_per_hour, step: 'any', class: 'form-control' %>
+          <% end %>
+        </div> <!-- col-md-6 col-sm-6 -->
+      <div> <!-- row -->
 
-      <%= bootstrap_form_group(f, :wage_per_hour) do %>
-        <%= f.number_field :wage_per_hour, value: @contract.wage_per_hour, step: 'any', class: 'form-control' %>
-      <% end %>
-      
       <div align="right">
         <span>* <%= t'helpers.forms.required_field'%></span>
       </div>
