@@ -252,6 +252,8 @@ en:
             length:
               not_a_number: "has to be a whole number."
         work_day:
+          flash:
+            not_member: 'You cannot add work days for projects you are not part of.'
           attributes:
             duration:
               greater_than: 'work time must be greater than 0'
