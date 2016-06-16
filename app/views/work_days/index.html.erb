@@ -35,6 +35,7 @@
             <thead>
               <tr>
                 <th><%= model_class.human_attribute_name(:date) %></th>
+                <th><%= model_class.human_attribute_name(:project) %></th>
                 <th><%= model_class.human_attribute_name(:time) %></th>
                 <th><%= model_class.human_attribute_name(:break) %></th>
                 <th><%= model_class.human_attribute_name(:duration) %></th>
@@ -47,6 +48,7 @@
               <% @work_days.each do |work_day| %>
                 <tr>
                   <td><%= l work_day.date %> <%= '(' + work_day.attendance + ')' if !work_day.attendance.blank? %></td>
+                  <td><%= work_day.project.title if work_day.project %></td>
                   <td><%= work_day.start_time.strftime('%H:%M') %> &ndash; <%= work_day.end_time.strftime('%H:%M') %></td>
                   <td><%= work_day.break != 0 ? work_day.break.to_s  + 'min' : '--' %> </td>
                   <td><%= work_day.duration_hours_minutes %></td>
