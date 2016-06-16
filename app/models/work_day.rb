@@ -40,6 +40,11 @@ class WorkDay < ActiveRecord::Base
   validates_time :end_time, after: :start_time
   validates :duration, numericality: {greater_than: 0}
 
+  def to_s
+    model = I18n.t('activerecord.models.work_day.one', default: WorkDay.to_s)
+    "#{model}: #{I18n.l(date)}"
+  end
+
   def overlaps(other)
     other_date = other.end_time
     start_time_same_date = Time.new(other_date.year, other_date.month, other_date.day, start_time.hour, start_time.min, start_time.sec)
