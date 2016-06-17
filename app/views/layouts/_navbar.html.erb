@@ -2,24 +2,53 @@
   <%= nav_bar fixed: :top, brand: 'Wimi Portal', responsive: true do %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
+
+        <%# User overview for admins %>
         <% if can? :index, User %>
           <%= menu_item t('activerecord.models.user.other').titleize, users_path %>
         <% end %>
+
+        <%# Project overview %>
         <% if can? :index, Project %>
           <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>
         <% end %>
-        <% if current_user.is_superadmin? %>
+
+        <%# Chair links %>
+        <% unless current_user.is_superadmin? %>
+          <% chairs = current_user.all_chairs %>
+          <% if chairs.count == 1 %>
+            <%# Single link if there is only one chair %>
+            <%= menu_item t('activerecord.models.chair.one').titleize, chair_path(chairs.first) %>
+          <% else %>
+            <%# Drop-down menu otherwise %>
+            <%= drop_down t('activerecord.models.chair.other').titleize do %>
+              <% chairs.each do |chair| %>
+                <%= menu_item chair.name, chair_path(chair) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%# Superadmins aren't part of chairs, but get to see them all anyway %>
           <%= menu_item t('activerecord.models.chair.other').titleize, chairs_path %>
         <% end %>
+
+        <%# Contract overview %>
         <% unless Contract.accessible_by(current_ability).empty? %>
           <%= menu_item t('activerecord.models.contract.other').titleize, contracts_path %>
         <% end %>
+
+        <%# Language switcher %>
         <%= form_for current_user, html: {class: 'navbar-form pull-left', id: 'languageForm'} do |f| -%>
           <%= f.select :language, User::LANGUAGES, {selected: current_user.language}, {class: 'form-control', id: 'languageSelect', onchange: "$('#languageForm').submit();"} %>
         <% end -%>
+
+        <%# Profile link %>
         <%= menu_item t('helpers.application_tabs.profile'), url_for(current_user) %>
+
+        <%# Logout link %>
         <%= menu_item t('helpers.application_tabs.logout'), destroy_user_session_path %>
       <% else %>
+        <%# Login links for not signed in users%>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "pull-right"}) do |f| %>
           <%= f.hidden_field :identity_url, value: 'https://openid.hpi.uni-potsdam.de/serve' %>
           <%= f.submit t('helpers.application_tabs.sign_in'), class: 'SignInButton btn btn-primary' %>

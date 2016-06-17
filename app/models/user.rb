@@ -59,6 +59,22 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  # Return all chairs that the user is connected with,
+  # either because he is a WiMi or a HiWi.
+  # :chair returns only those chairs that the user is a _WiMi_ in
+  def all_chairs
+    if chair.nil?
+      chair_hiwi
+    else
+      ([chair] + chair_hiwi).uniq
+    end
+  end
+
+  # Return all chairs that the user is a HiWi in
+  def chair_hiwi
+    projects.collect(&:chair).uniq
+  end
+
   def name=(fullname)
     first, last = fullname.split(' ')
     self.first_name = first
