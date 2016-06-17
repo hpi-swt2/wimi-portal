@@ -215,6 +215,11 @@ en:
         attendance: "Attendance"
         project: "Project"
         time: "Time"
+        attendance_enum:
+          normal: "Normal"
+          sick: "Sick leave"
+          public_holiday: "Public holiday"
+          vacation: "Vacation"
       time_sheet:
         salary: "Salary"
         workload: "Workload"

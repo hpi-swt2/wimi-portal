@@ -32,7 +32,11 @@
     <div class="col-sm-6">
       <div class="form-group">
         <%= f.label :attendance, class: 'control-label'  %>
-        <%= f.select :attendance, [['Normal', ''], ['Ill', 'K'], ['Holiday', 'F'], ['Leave Day', 'U']], {}, {class: "form-control"} %>
+        <% options = [ [t('activerecord.attributes.work_day.attendance_enum.normal'), ''],
+                       [t('activerecord.attributes.work_day.attendance_enum.sick'), 'K'],
+                       [t('activerecord.attributes.work_day.attendance_enum.public_holiday'), 'F'],
+                       [t('activerecord.attributes.work_day.attendance_enum.vacation'), 'U'] ] %>
+        <%= f.select :attendance, options, {}, {class: "form-control"} %>
       </div>
     </div>
     <div class="col-sm-6">

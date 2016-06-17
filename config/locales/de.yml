@@ -206,6 +206,11 @@ de:
         attendance: "Anwesenheit"
         project: "Projekt"
         time: "Zeit"
+        attendance_enum:
+          normal: "Normal"
+          sick: "Krank"
+          public_holiday: "Feiertag"
+          vacation: "Urlaub"
       time_sheet:
         salary: "Bezahlung"
         workload: "Arbeitszeit"
