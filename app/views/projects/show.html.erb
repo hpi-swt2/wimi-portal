@@ -44,47 +44,44 @@
       <dt><%= t('.project_team', default:'Project Team') %>:</dt>
       <dd>
         <div class="form-group">
-          <table class='table table-striped' width="1000px">
+          <table class='table table-striped'>
             <thead>
               <tr>
-                <th width="600px"><%= t('projects.form.wimi', default: 'Research Assistants:') %></th>
+                <th><%= t('projects.form.wimi', default: 'Research Assistants:') %></th>
               </tr>
             </thead>
             <tbody>
-              <% @project.users.order('last_name').each do |user| %>
-                <% if user.is_wimi?%>
-                  <tr>
-                    <td>
-                      <%= link_to user.name, user  %>
-                    </td>
-                  </tr>
-                <% end %>
+              <% @project.wimis.sort_by {|u| u[:last_name]}.each do |user| %>
+                <tr>
+                  <td class="col-md-8">
+                    <%= link_to user.name, user  %>
+                  </td>
+                </tr>
               <% end %>
             </tbody>
           </table>
         </div>
         <div class="form-group">
-          <table class='table table-striped' width="1000px">
+          <table class='table table-striped'>
             <thead>
               <tr>
-                <th width="600px"> <%= t('projects.form.hiwi', default:'Student Assistants:') %></th>
-                <th width="600px"><%= t '.actions', default: t('helpers.actions') %></th>
+                <th><%= t('projects.form.hiwi', default:'Student Assistants:') %></th>
+                <th><%= t '.actions', default: t('helpers.actions') %></th>
               </tr>
             </thead>
             <tbody>
-              <% @project.users.order('last_name').each do |user| %>
-                <% if user.is_hiwi?%>
-                  <tr>
-                    <td>
-                      <%= link_to user.name, user  %>
-                    </td>
-                    <td>
-                      <% if can? :edit, @project or user == current_user%>
+              <% @project.hiwis.sort_by {|u| u[:last_name]}.each do |user| %>
+                <tr>
+                  <td class="col-md-8">
+                    <%= link_to user.name, user  %>
+                  </td>
+                  <td>
+                    <% if can? :edit, @project or user == current_user%>
+                      <% today = Date.today %>
                       <%= link_to t('projects.form.show_working_hours', default:'Show working hours'), user_path(user), class: 'btn btn-default btn-xs' %>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
+                    <% end %>
+                  </td>
+                </tr>
               <% end %>
             </tbody>
           </table>
