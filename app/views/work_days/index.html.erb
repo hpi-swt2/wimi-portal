@@ -6,18 +6,18 @@
     <div class="page-header">
       <h1>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-9">
             <% if @year == 0 || @month == 0 %>
               <%= t('.working_hours') %>
             <% else %>
               <%= t('.working_hours_for') %> <%=l Date.new(@year, @month, 1), format: :without_day %>
             <% end %>
           </div>
-          <div class="col-sm-3 col-sm-offset-3">
+          <div class="col-sm-3">
             <% wd_args = {} %>
             <% wd_args[:project] = @project if @project %>
             <% if @time_sheets.blank? or @time_sheets.any? {|ts| can? :edit, ts} %>
-              <div align = "right">
+              <div>
                 <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize), new_work_day_path(wd_args), class: 'btn btn-success pull-right' %>
               </div>
             <% end %>
