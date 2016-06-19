@@ -46,7 +46,7 @@
 
             <tbody>
               <% @work_days.each do |work_day| %>
-                <tr>
+                <%= content_tag :tr, class: ("highlight" if work_day.project == @project) do %>
                   <td><%= l work_day.date %> <%= "(#{work_day.attendance})" if work_day.attendance.present? %></td>
                   <td><%= work_day.project.title if work_day.project %></td>
                   <td><%= work_day.start_time.strftime('%H:%M') %> &ndash; <%= work_day.end_time.strftime('%H:%M') %></td>
@@ -63,7 +63,7 @@
                         class: 'btn btn-xs btn-danger' %>
                     <% end %>
                   </td>
-                </tr>
+                <% end -%> <%# </tr> %>
               <% end %>
             </tbody>
           </table>

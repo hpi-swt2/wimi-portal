@@ -186,3 +186,8 @@ a.anchor {
 .select2-container--bootstrap {
     width: inherit !important;
 }
+
+/* Highlight table rows */
+tr.highlight {
+    background-color: rgb(255, 245, 195) !important
+}
