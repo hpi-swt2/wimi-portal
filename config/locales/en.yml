@@ -97,6 +97,7 @@ en:
         hours_per_week: "Hours per week"
         wage_per_hour: "Wage per hour"
         chair: "Chair"
+        date: "Contract Term"
       chair:
         id: "Id"
         name: "Name"

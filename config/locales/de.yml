@@ -92,6 +92,7 @@ de:
         hours_per_week: "Wöchentliche Arbeitsstunden"
         wage_per_hour: "Stundenlohn"
         chair: "Lehrstuhl"
+        date: "Vertragslaufzeit"
       chair:
         id: "Id"
         name: "Name"

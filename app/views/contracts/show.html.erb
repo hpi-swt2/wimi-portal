@@ -3,29 +3,47 @@
   <div class="display">
     <div class="page-header">
       <h1>
-        <%= t 'activerecord.models.contract.one' %>
+        <%= t('activerecord.models.contract.one').titleize %>
         <% if can? :edit, @contract%>
           <%= link_to t('helpers.links.edit'), edit_contract_path(@contract), class: 'btn btn-warning btn-md pull-right' %>
         <% end %>
       </h1>
     </div>
-    <dl>
-        <dt><%= model_class.human_attribute_name(:start_date) %></dt>
-        <dd><%= l @contract.start_date %></dd>
-        <dt><%= model_class.human_attribute_name(:end_date) %></dt>
-        <dd><%= l @contract.end_date %></dd>
-        <dt><%= model_class.human_attribute_name(:hiwi) %></dt>
-        <dd><%= @contract.hiwi.name %></dd>
-        <dt><%= model_class.human_attribute_name(:responsible) %></dt>
-        <dd><%= @contract.responsible.name %></dd>
-        <dt><%= model_class.human_attribute_name(:flexible) %></dt>
-        <dd><%= t @contract.flexible.to_s %></dd>
-        <dt><%= model_class.human_attribute_name(:hours_per_week) %></dt>
-        <dd><%= @contract.hours_per_week %></dd>
-        <dt><%= model_class.human_attribute_name(:wage_per_hour) %></dt>
-        <dd><%= @contract.wage_per_hour %> €</dd>
-        <dt><%= t 'activerecord.models.chair.one' %></dt>
-        <dd><%= @contract.chair.name %> (<%= @contract.chair.description %>)</dd>
-    </dl>
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <dl>
+          <dt><%= t('activerecord.attributes.contract.date') %></dt>
+          <dd><%= l @contract.start_date %> &ndash; <%= l @contract.end_date %></dd>
+          <dt><%= model_class.human_attribute_name(:hiwi) %></dt>
+          <% if can? :show, @contract.hiwi %>
+              <dd><%= link_to @contract.hiwi.name, user_path(@contract.hiwi) %></dd>
+          <% else %>
+              <dd><%= @contract.hiwi.name %></dd>
+          <% end %>
+          <dt><%= model_class.human_attribute_name(:hours_per_week) %></dt>
+          <dd><%= @contract.hours_per_week %></dd>
+          <dt><%= t('activerecord.models.chair.one').titleize %></dt>
+          <% if can? :show, @contract.chair %>
+              <dd><%= link_to @contract.chair.name, chair_path(@contract.chair) %></dd>
+          <% else %>
+              <dd><%= @contract.chair.name %></dd>
+          <% end %>
+        </dl>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <dl>
+          <dt><%= model_class.human_attribute_name(:flexible) %></dt>
+          <dd><%= t @contract.flexible.to_s %></dd>
+          <dt><%= model_class.human_attribute_name(:responsible) %></dt>
+          <% if can? :show, @contract.responsible %>
+              <dd><%= link_to @contract.responsible.name, user_path(@contract.responsible) %></dd>
+          <% else %>
+              <dd><%= @contract.responsible.name %></dd>
+          <% end %>
+          <dt><%= model_class.human_attribute_name(:wage_per_hour) %></dt>
+          <dd><%= @contract.wage_per_hour %> €</dd>
+        </dl>
+      </div>
+    </div>
   </div>
 </div>
