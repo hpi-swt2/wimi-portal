@@ -68,8 +68,8 @@ class WorkDaysController < ApplicationController
     authorize! :edit, ts if ts
 
     if @work_day.save
-      flash[:success] = t('helpers.flash.created', model: @work_day.model_name.human.titleize)
-      redirect_to work_days_month_project_path
+      flash[:success] = t('helpers.flash.created', model: @work_day.to_s.titleize)
+      redirect_to work_days_month_path
     else
       render :new
     end
@@ -77,8 +77,8 @@ class WorkDaysController < ApplicationController
 
   def update
     if @work_day.update(work_day_params)
-      flash[:success] = t('helpers.flash.updated', model: @work_day.model_name.human.titleize)
-      redirect_to work_days_month_project_path
+      flash[:success] = t('helpers.flash.updated', model: @work_day.to_s.titleize)
+      redirect_to work_days_month_path
     else
       render :edit
     end
@@ -87,8 +87,8 @@ class WorkDaysController < ApplicationController
   def destroy
     date = @work_day.date
     @work_day.destroy
-    flash[:success] = t('helpers.flash.destroyed', model: @work_day.model_name.human.titleize)
-    redirect_to work_days_month_project_path
+    flash[:success] = t('helpers.flash.destroyed', model: @work_day.to_s.titleize)
+    redirect_to work_days_month_path
   end
 
   private
@@ -106,5 +106,9 @@ class WorkDaysController < ApplicationController
 
   def work_days_month_project_path
     work_days_path(month: @work_day.date.month, year: @work_day.date.year, project: @work_day.project, user: @work_day.user)
+  end
+
+  def work_days_month_path
+    work_days_path(month: @work_day.date.month, year: @work_day.date.year, user: @work_day.user)
   end
 end
