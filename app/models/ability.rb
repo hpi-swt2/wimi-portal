@@ -70,6 +70,7 @@ class Ability
     can :manage, Contract, chair_id: user.chair.id
     
     can :manage, Project, chair_id: user.chair.id
+    can :index_all, WorkDay
   end
 
   def initialize_representative(user)

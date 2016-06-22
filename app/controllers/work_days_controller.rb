@@ -14,31 +14,19 @@ class WorkDaysController < ApplicationController
   end
 
   def index
-    @month = params[:month].to_i # equals 0 when no month passed
-    @year = params[:year].to_i # equals 0 when no month passed
-    if @year != 0 && @month != 0
-      # with year and month given, show only work days of one user
-      @user = User.find_by(id: params[:user])
-      unless @user
-        contract = Contract.find_by(id: params[:contract])
-        @user = contract ? contract.hiwi : current_user
-      end
-      @time_sheets = @user.time_sheets_for(@month, @year)
-      if @time_sheets.empty?
-        flash[:error] = t('helpers.flash.no_contract', month: @month, year: @year)
-        @work_days = apply_scopes(@work_days).month(@month, @year)
-      else
-        @work_days = []
-        @time_sheets.each do |ts|
-          @work_days += ts.work_days if can? :show, ts
-        end
-      end
-    else
-      # show all work days that CanCan allows
-      @work_days = apply_scopes(@work_days)
+    # raises ActiveRecord::RecordNotFound
+    @user = params[:user] ? User.find(params[:user]) : current_user
+    # If month and year are not passed as URL params, use current date
+    @month = params[:month] ? params[:month].to_i : Date.today.month
+    @year = params[:year] ? params[:year].to_i : Date.today.year
+    if not Ability.new(current_user).can? :index_all, WorkDay and @user != current_user
+      raise CanCan::AccessDenied
     end
+    @work_days = WorkDay.month(@month, @year).user(@user)
     @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
     @project = Project.find_by(id: params[:project])
+    @time_sheets = @user.time_sheets_for(@month, @year)
+    # flash[:error] = t('helpers.flash.no_contract', month: @month, year: @year)
   end
 
   def show
