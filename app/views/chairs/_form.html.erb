@@ -1,17 +1,19 @@
-<%= form_for @chair, html: {class: "form-horizontal project"} do |f| %>
+<%= form_for @chair, html: {class: "project"} do |f| %>
 
   <%= render partial: "shared/form_validation_errors", locals: {object: @chair} %>
 
   <div class="row">
     <div class="col-md-12 col-sm-12">
       <input type="hidden" name="chair_search_id" value="<%= @chair.id %>" />
-      <div class="control-group">
-        <%= f.label :name, class: 'control-label' %>
-        <div class="controls">
+      <%= bootstrap_form_group(f, :name) do %>
           <%= f.text_field :name, class: 'form-control' %>
-        </div>
-        <%= error_span(@chair[:title]) %>
-      </div>
+      <% end %>
+      <%= bootstrap_form_group(f, :abbreviation) do %>
+          <%= f.text_field :abbreviation, class: 'form-control' %>
+      <% end %>
+      <%= bootstrap_form_group(f, :description) do %>
+          <%= f.text_field :description, class: 'form-control' %>
+      <% end %>
     </div>
   </div>
   <div class="row">

@@ -36,7 +36,6 @@ class ChairsController < ApplicationController
       flash[:success] = I18n.t('chair.create.success')
       redirect_to chairs_path
     else
-      flash[:error] = I18n.t('chair.create.error')
       render :new
     end
   end
@@ -48,9 +47,8 @@ class ChairsController < ApplicationController
   def update
     if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.update(chair_params)
       flash[:success] = I18n.t('chair.update.success')
-      redirect_to chairs_path
+      redirect_to chair_path(@chair)
     else
-      flash[:error] = I18n.t('chair.update.error')
       render :new
     end
   end
@@ -166,6 +164,6 @@ class ChairsController < ApplicationController
   end
 
   def chair_params
-    params.require(:chair).permit(:name)
+    params.require(:chair).permit(:name, :abbreviation, :description)
   end
 end
