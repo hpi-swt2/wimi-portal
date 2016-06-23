@@ -18,7 +18,7 @@ class ChairsController < ApplicationController
   # Superadmin tasks:
   def destroy
     if @chair.destroy
-      flash[:success] = I18n.t('chair.destroy.success')
+      flash[:success] = t('helpers.flash.destroyed', model: @chair.model_name.human.capitalize)
     else
       flash[:error] = I18n.t('chair.destroy.error')
     end
@@ -33,7 +33,7 @@ class ChairsController < ApplicationController
     @chair = Chair.new(chair_params)
 
     if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.save
-      flash[:success] = I18n.t('chair.create.success')
+      flash[:success] = t('helpers.flash.created', model: @chair.model_name.human.capitalize)
       redirect_to chairs_path
     else
       render :new
@@ -46,7 +46,7 @@ class ChairsController < ApplicationController
 
   def update
     if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.update(chair_params)
-      flash[:success] = I18n.t('chair.update.success')
+      flash[:success] = t('helpers.flash.updated', model: @chair.model_name.human.capitalize)
       redirect_to chair_path(@chair)
     else
       render :new
