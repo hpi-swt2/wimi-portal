@@ -73,42 +73,6 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(page.body).to have_content(@user.name)
   end
 
-  it 'hides the content for chairless and projectless users for all other users' do
-    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
-    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-    chairwimi = ChairWimi.create(user_id: @user.id, chair_id: chair1.id, application: 'accepted')
-    login_as @user
-    visit dashboard_path
-
-    expect(page).to_not have_content(chair1.name)
-    expect(page).to_not have_content(chair2.name)
-    expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.apply'))
-  end
-
-  it 'displays all chairs if user is superadmin' do
-    superadmin = FactoryGirl.create(:user, superadmin: true)
-    login_as superadmin
-
-    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
-    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-
-    visit dashboard_path
-    expect(page).to have_content(I18n.t('activerecord.models.chair.other'))
-    expect(page).to have_content(chair1.name)
-    expect(page).to have_content(chair2.name)
-    expect(page).to have_link(I18n.t('chair.add_chair'))
-  end
-
-  it 'does not display the chair overview for users without superadmin privileges' do
-    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
-    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-    visit dashboard_path
-
-    expect(page).to_not have_content(chair1.name)
-    expect(page).to_not have_content(chair2.name)
-    expect(page).to_not have_link(I18n.t('chair.add_chair'))
-  end
-
   # applications are deprecated
 #  it 'shows notifications for the chairs admin' do
 #    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
