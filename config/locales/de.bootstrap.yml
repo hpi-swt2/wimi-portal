@@ -42,7 +42,7 @@ de:
       edit: "%{model} bearbeiten"
       save: "%{model} speichern"
       new: "%{model} erstellen"
-      delete: "%{model} löschen"
+      destroy: "%{model} löschen"
     language:
       lang: "Sprache"
       english: "Englisch"
