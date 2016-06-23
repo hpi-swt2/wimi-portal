@@ -87,12 +87,12 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to_not have_link(I18n.t('projects.show.add_working_hours'))
     end
 
-    it "shows a button to inspect a user's working hour report for this month and project" do
+    it "doesn't show a button to inspect a user's working hour report for all wimis" do
       user = FactoryGirl.create(:user)
       @wimi.projects << @project
       user.projects << @project
       visit current_path
-      expect(page).to have_selector(:link_or_button, I18n.t('projects.form.show_current_working_hours'))
+      expect(page).to_not have_selector(:link_or_button, I18n.t('projects.form.show_current_working_hours'))
     end
 
     it 'shows one button to inspect all working hour report for this project' do
