@@ -19,7 +19,7 @@
           <% if chairs.count == 1 %>
             <%# Single link if there is only one chair %>
             <%= menu_item t('activerecord.models.chair.one').titleize, chair_path(chairs.first) %>
-          <% else %>
+          <% elsif chairs.count > 1 %>
             <%# Drop-down menu otherwise %>
             <%= drop_down t('activerecord.models.chair.other').titleize do %>
               <% chairs.each do |chair| %>
