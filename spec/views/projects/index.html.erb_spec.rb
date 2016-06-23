@@ -62,24 +62,16 @@ RSpec.describe 'projects/index', type: :view do
   it 'shows all details about a project' do
     project = FactoryGirl.create(:project, chair: @chair)
     project.users << @user
-
-    project.update(status: true)
-    project.update(public: true)
-
     visit projects_path
 
     expect(page).to have_content(project.title)
     expect(page).to have_content(@chair.name)
-
-    expect(page).to have_content(I18n.t('projects.index.public'))
     expect(page).to have_content(I18n.t('projects.index.status_true'))
 
     project.update(status: false)
-    project.update(public: false)
 
     visit projects_path
 
     expect(page).to have_content(I18n.t('projects.index.status_false'))
-    expect(page).to have_content(I18n.t('projects.index.private'))
   end
 end
