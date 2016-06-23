@@ -26,6 +26,10 @@ class WorkDaysController < ApplicationController
     @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
     @project = Project.find_by(id: params[:project])
     @time_sheets = @user.time_sheets_for(@month, @year)
+    # Include prev and next month for building links
+    @selected_date = Date.new(@year, @month)
+    @prev_month = @selected_date - 1.month
+    @next_month = @selected_date + 1.month
     # flash[:error] = t('helpers.flash.no_contract', month: @month, year: @year)
   end
 

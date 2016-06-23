@@ -313,6 +313,9 @@ en:
       by: "by"
       project: "Project"
       user: "Benutzer"
+      prev_month_link: "Show next month (%{month_name})"
+      next_month_link: "Show previous month (%{month_name})"
+      current_month_link: "Show current month (%{month_name})"
     new:
       back: "Back"
       title: "New Workday"

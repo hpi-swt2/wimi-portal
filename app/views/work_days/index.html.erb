@@ -1,6 +1,5 @@
 <%- model_class = WorkDay -%>
 
-<p id="notice"><%= notice %></p>
 <div class="col-md-12">
   <div class="display">
     <div class="page-header">
@@ -91,3 +90,33 @@
 
   </div>
 </div>
+
+<% content_for :sidebar do %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t 'helpers.actions'%> </h4>
+        </div>
+        <div class="panel-body">
+          <p>
+            <%# Link to next month %>
+            <%= link_to t('work_days.index.prev_month_link', month_name: l(@next_month, format: :without_day_year)), work_days_path(month: @next_month.month, year: @next_month.year, user: @user) %>
+          <p>
+          </p>
+            <%# Link to previous month %>
+            <%= link_to t('work_days.index.next_month_link', month_name: l(@prev_month, format: :without_day_year)), work_days_path(month: @prev_month.month, year: @prev_month.year, user: @user) %>
+          </p>
+          <%# If the displayed month is neither the current, the previous or the next month, render a link to the current month %>
+          <% current_month = Date.today.month %>
+          <% if current_month != @selected_date.month and current_month != @prev_month.month and current_month != @next_month.month %>
+            <hr>
+            <p>
+              <%= link_to t('work_days.index.current_month_link', month_name: l(Date.today, format: :without_day_year)), work_days_path(month: Date.today.month, year: Date.today.year, user: @user) %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

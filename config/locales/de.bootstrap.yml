@@ -306,6 +306,9 @@ de:
       by: "von"
       project: "Projekt"
       user: "Benutzer"
+      prev_month_link: "Nächsten Monat anzeigen (%{month_name})"
+      next_month_link: "Vorherigen Monat anzeigen (%{month_name})"
+      current_month_link: "Aktuellen Monat anzeigen (%{month_name})"
     new:
       back: "Zurück"
       title: "Arbeitsstundeneintrag erstellen"
