@@ -25,7 +25,7 @@
           <% projects = Project.accessible_by(current_ability) %>
           <% if projects.count == 1 %>
             <%= menu_item t('activerecord.models.project.one').titleize, project_path(projects.first) %>
-          <% else %>
+          <% elsif projects.count > 1 %>
             <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>
           <% end %>
         <% end %>
