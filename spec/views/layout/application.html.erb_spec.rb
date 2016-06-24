@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'navigation bar', type: :view do
   shared_examples 'a registered User' do
     it 'should link to home' do
-      expect(page).to have_link('Wimi Portal', href: current_url)
+      expect(page).to have_link('HPI WiMi-Portal')
     end
 
     it 'should link to profile' do

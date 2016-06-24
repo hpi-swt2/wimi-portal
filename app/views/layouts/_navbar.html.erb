@@ -1,5 +1,12 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-offset navbar-shadow">
-  <%= nav_bar fixed: :top, brand: 'Wimi Portal', responsive: true do %>
+  <%= nav_bar fixed: :top, brand: 'HPI WiMi-Portal', responsive: true do %>
+    <%# pull left %>
+    <%= menu_group pull: :left do %>
+      <% if user_signed_in? %>
+        <%= menu_item 'Dashboard', dashboard_path %>
+      <% end %>
+    <% end %>
+    <%# pull right %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
 

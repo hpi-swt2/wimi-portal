@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   get 'documents/generate_pdf' => 'documents#generate_pdf', as: 'generate_pdf'
 
-  root 'dashboard#index'
+  # root 'dashboard#index'
+  root :to => redirect('/dashboard')
   get 'dashboard', to: 'dashboard#index'
   get 'users/edit_leave', to: 'users#edit_leave'
   get 'users/language', to: 'users#language'
