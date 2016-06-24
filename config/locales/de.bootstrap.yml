@@ -359,6 +359,8 @@ de:
       default: "%d.%m.%Y"
       without_day: "%B %Y"
       without_day_year: "%B"
+      short_month_year: "%b %y"
+      short_month: "%b"
     order:
       - :day
       - :month
@@ -377,6 +379,20 @@ de:
       - Oktober
       - November
       - Dezember
+    abbr_month_names:
+      -
+      - Jan
+      - Feb
+      - Mär
+      - Apr
+      - Mai
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Okt
+      - Nov
+      - Dez
   events:
     event_admin_right:
       added: "%{trigger} hat %{target} Admin-Rechte verliehen."

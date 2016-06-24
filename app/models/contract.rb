@@ -29,13 +29,19 @@ class Contract < ActiveRecord::Base
     d_end = d_start.at_end_of_month
     return nil unless start_date < d_end and end_date > d_start
     # if two contracts in one month, use existing contract's time sheet
-    ts = TimeSheet.user(hiwi).month(month).year(year).first
+    ts = TimeSheet.user(hiwi).month(month).year(year).where(contract: self).first
     ts || TimeSheet.create!(month: month, year: year, contract: self)
   end
   
   def name
+    if start_date.year == end_date.year
+      formatted_start = I18n.l(start_date, format: :short_month)
+    else
+      formatted_start = I18n.l(start_date, format: :short_month_year)
+    end
+    date = "#{formatted_start} - #{I18n.l(end_date, format: :short_month_year)}"
     model = I18n.t('activerecord.models.contract.one')
-    hiwi ? "#{model} #{hiwi.name}" : model
+    hiwi ? "#{hiwi.last_name} (#{date})" : "#{model} (#{date})"
   end
 
 end

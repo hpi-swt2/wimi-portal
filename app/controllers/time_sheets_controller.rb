@@ -8,6 +8,10 @@ class TimeSheetsController < ApplicationController
     redirect_to dashboard_path
   end
 
+  def index
+    @contracts = Contract.accessible_by(current_ability, :index).order(end_date: :desc)
+  end
+
   def show
   end
 

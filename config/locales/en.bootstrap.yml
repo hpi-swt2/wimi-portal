@@ -363,9 +363,11 @@ en:
       rejected: "rejected"
   date:
     formats:
+      default: "%m/%d/%Y"
       without_day: "%B %Y"
       without_day_year: "%B"
-      default: "%m/%d/%Y"
+      short_month_year: "%b %y"
+      short_month: "%b"
     order:
       - :month
       - :day
@@ -384,6 +386,20 @@ en:
       - October
       - November
       - December
+    abbr_month_names:
+      -
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
   events:
     event_admin_right:
       added: "%{trigger} has set %{target} as assistant."

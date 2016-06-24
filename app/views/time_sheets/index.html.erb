@@ -1,0 +1,58 @@
+<%- model_class = TimeSheet -%>
+<div class="col-md-12">
+  <div class="display">
+    <div class="page-header">
+      <h1><%= t('activerecord.models.time_sheet.other', default: model_class.model_name.human.pluralize).titleize %></h1>
+    </div>
+    <% if @contracts.empty? %>
+      <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.contract.other', default: model_class.model_name.human.pluralize) %> </p>
+    <% else %>
+      <% @contracts.each do |contract| %>
+        <h4><%= t('activerecord.models.contract.one').titleize %>: <%= link_to contract.name, contract %> </h4>
+        <% if contract.time_sheets.empty? %>
+          <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.time_sheet.other', default: TimeSheet.model_name.human.pluralize) %> </p>
+        <% else %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= model_class.human_attribute_name(:month) %></th>
+                <th><%= model_class.human_attribute_name(:handed_in) %></th>
+                <th><%= model_class.human_attribute_name(:status) %></th>
+                <th><%= t('time_sheets.show.total_work_time') %></th>
+                <th><%= t '.actions', default: t("helpers.actions") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% contract.time_sheets.each do |time_sheet| %>
+                <% if time_sheet.work_days.count > 0 %>
+                  <tr>
+                    <td><%= "#{time_sheet.month}/#{time_sheet.year}" %></td>
+                    <td><%= t time_sheet.handed_in.to_s %> <%= "(#{l time_sheet.hand_in_date})" if time_sheet.hand_in_date %></td>
+                    <td>
+                      <% if time_sheet.handed_in %>
+                        <% label_type = {"pending" => "default", "accepted" => "success", "rejected" => "danger"}[time_sheet.status] %>
+                        <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{time_sheet.status}") %></span>
+                      <% else %>
+                        --
+                      <% end %>
+                    </td>
+                    <td><%= time_sheet.sum_minutes_formatted %></td>
+                    <td>
+                      <% if time_sheet.work_days.all? { |ts| can? :show, ts }  %>
+                        <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
+                                    work_days_path(month: time_sheet.month, year: time_sheet.year, user: time_sheet.user),
+                                    class: 'btn btn-default btn-xs' %>
+                      <% end %>
+                      <%# PDF links for all work_sheets, no matter their status %>
+                      <%= link_to 'PDF', generate_pdf_path(doc_type: 'Timesheet', doc_id: time_sheet), class: 'btn btn-info btn-xs' %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
+    <% end %> <%# if/else @contracts.empty? %>
+  </div>
+</div>

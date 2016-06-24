@@ -71,6 +71,7 @@ class Ability
     
     can :manage, Project, chair_id: user.chair.id
     can :index_all, WorkDay
+    can [:index, :show], WorkDay
   end
 
   def initialize_representative(user)

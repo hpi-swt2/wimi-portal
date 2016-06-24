@@ -213,8 +213,13 @@ de:
           public_holiday: "Feiertag"
           vacation: "Urlaub"
       time_sheet:
-        salary: "Bezahlung"
-        workload: "Arbeitszeit"
+        month: "Monat"
+        handed_in: "Eingereicht"
+        status: "Status"
+        status_enum:
+          pending: "warten"
+          accepted: "angenommen"
+          rejected: "angelehnt"
     errors:
       template:
         header:

@@ -8,6 +8,11 @@
           <%= menu_item t('activerecord.models.user.other').titleize, users_path %>
         <% end %>
 
+        <%# TimeSheet overview %>
+        <% if can? :index, TimeSheet %>
+          <%= menu_item t('activerecord.models.time_sheet.other').titleize, time_sheets_path %>
+        <% end %>
+
         <%# Project overview %>
         <% if can? :index, Project %>
           <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>

@@ -222,8 +222,13 @@ en:
           public_holiday: "Public holiday"
           vacation: "Vacation"
       time_sheet:
-        salary: "Salary"
-        workload: "Workload"
+        month: "Month"
+        handed_in: "Handed in"
+        status: "Status"
+        status_enum:
+          pending: "pending"
+          accepted: "accepted"
+          rejected: "rejected"
     errors:
       template:
         header:
