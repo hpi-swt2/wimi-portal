@@ -30,7 +30,7 @@ RSpec.describe 'projects/show', type: :view do
     expect(page).to have_content(project.chair.representative.user.name)
   end
 
-  context 'as hiwi' do
+  context 'as hiwi without a valid contract' do
     before(:each) do
       @hiwi = @user
       login_as @hiwi
@@ -50,10 +50,10 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to_not have_content(I18n.t('projects.show.leave_project'))
     end
 
-    it 'shows add working hours button' do
+    it 'does not show an add working hours button' do
       @hiwi.projects << @project
       visit current_path
-      expect(page).to have_link(I18n.t('projects.show.add_working_hours'))
+      expect(page).to_not have_link(I18n.t('projects.show.add_working_hours'))
     end
 
     it 'shows working hours' do

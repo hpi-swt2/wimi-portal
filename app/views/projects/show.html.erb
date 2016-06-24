@@ -110,7 +110,7 @@
               <% end %>
             </p>
             <p>
-              <% if current_user.is_hiwi? %>
+              <% if can? :new, WorkDay %>
                 <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
                             new_work_day_path(project: @project) %>
               <% end %>
