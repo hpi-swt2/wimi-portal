@@ -22,9 +22,9 @@
 
         <%# Project overview %>
         <% if can? :index, Project %>
-          <% project = current_user.projects %>
-          <% if project.count == 1 %>
-            <%= menu_item t('activerecord.models.project.one').titleize, project_path(project.first) %>
+          <% projects = Project.accessible_by(current_ability) %>
+          <% if projects.count == 1 %>
+            <%= menu_item t('activerecord.models.project.one').titleize, project_path(projects.first) %>
           <% else %>
             <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>
           <% end %>
