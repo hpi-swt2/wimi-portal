@@ -4,7 +4,8 @@
 de:
   home:
     index:
-      welcome: "Willkommen"
+      welcome: "Willkommen beim HPI WiMi-Portal!"
+      user_html: "Sie sind angemeldet als: %{user}."
   helpers:
     flash:
       created: "%{model} wurde erfolgreich erstellt"

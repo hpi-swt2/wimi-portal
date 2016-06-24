@@ -4,7 +4,8 @@
 en:
   home:
     index:
-      welcome: "Welcome"
+      welcome: "Welcome to the HPI HiWi Portal!"
+      user_html: "You are logged in as: %{user}."
   helpers:
     flash:
       created: "%{model} was successfully created"
