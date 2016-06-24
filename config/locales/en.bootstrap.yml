@@ -10,7 +10,7 @@ en:
       created: "%{model} was successfully created"
       destroyed: "%{model} was successfully deleted"
       updated: "%{model} was successfully updated"
-      no_contract: "Warning! You have no contract for %{month} / %{year}"
+      no_contract: "Warning! No contract available for %{user} for %{month} / %{year}."
     application_tabs:
       home: "Home"
       profile: "Profile"

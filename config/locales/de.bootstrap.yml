@@ -10,7 +10,7 @@ de:
       created: "%{model} wurde erfolgreich erstellt"
       destroyed: "%{model} wurde erfolgreich gelöscht"
       updated: "%{model} wurde erfolgreich aktualisiert"
-      no_contract: "Achtung! Sie haben keinen Vertrag für %{month} / %{year}"
+      no_contract: "Achtung! Es liegt kein Vertrag für %{user} für %{month} / %{year} vor."
     application_tabs:
       home: "Startseite"
       profile: "Profil"
