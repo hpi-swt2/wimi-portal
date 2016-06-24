@@ -22,6 +22,6 @@ RSpec.describe 'holidays/index', type: :view do
     superadmin = FactoryGirl.create(:user, superadmin: true)
     login_as superadmin
     visit holidays_path
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(dashboard_path)
   end
 end
