@@ -8,7 +8,12 @@
       <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.contract.other', default: model_class.model_name.human.pluralize) %> </p>
     <% else %>
       <% @contracts.each do |contract| %>
-        <h4><%= t('activerecord.models.contract.one').titleize %>: <%= link_to contract.name, contract %> </h4>
+        <h4>
+          <%= t('activerecord.models.contract.one').titleize %>: <%= link_to contract.name, contract %>
+          <% if can? :new, WorkDay %>
+            <%= link_to t('helpers.titles.new', model: WorkDay.model_name.human.titleize), new_work_day_path(contract: contract), class: 'btn btn-success btn-sm pull-right' %>
+          <% end %>
+        </h4>
         <% if contract.time_sheets.empty? %>
           <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.time_sheet.other', default: TimeSheet.model_name.human.pluralize) %> </p>
         <% else %>
