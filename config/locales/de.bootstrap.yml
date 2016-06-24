@@ -89,7 +89,7 @@ de:
       set_inactive: "inaktiv schalten "
       set_active: "aktiv schalten"
       chair: "Fachgebiet"
-      chair_representative: "Beauftragter des Fachgebiets"
+      chair_representative: "Fachgebietsleiter"
       project_visibility: "Sichtbarkeit"
       project_leader: "Teamleiter"
       public: "öffentlich"
@@ -198,7 +198,7 @@ de:
     index:
       notifications: "Benachrichtigungen"
       dashboard_title: "Dashboard"
-      representative_actions: "LS-Beauftragter - Aktionen"
+      representative_actions: "Fachgebietsleiter - Aktionen"
       show_holiday_requests: "Urlaubsanträge anzeigen"
       show_expense_requests: "Reisekostenabrechnung anzeigen"
       show_trip_requests: "Dienstreiseanträge anzeigen"
@@ -409,7 +409,7 @@ de:
       expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
   chairs:
     form:
-      no_representative: "Kein FG-Beauftragter ausgewählt"
+      no_representative: "Kein Fachgebietsleiter ausgewählt"
       no_results: "Keine Ergebnisse"
     navigation:
       not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
@@ -440,7 +440,7 @@ de:
   roles:
     wimi_long: "Wissenschaftlicher Mitarbeiter"
     wimi_long_plural: "Wissenschaftliche Mitarbeiter"
-    chair_representative: "Fachgebietsbeauftragter"
+    chair_representative: "Fachgebietsleiter"
     admin_long: "Administrator"
     hiwi_long_plural: "Studentische Hilfskräfte"
     admin_long_plural: "Administratoren"

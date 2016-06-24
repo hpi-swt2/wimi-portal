@@ -94,6 +94,7 @@ en:
       set_inactive: "set inactive"
       set_active: "set active"
       chair: "Research Group"
+      chair_representative: "Head of department"
       project_visibility: "Visibility"
       project_leader: "Project Leader"
       public: "public"
@@ -204,7 +205,7 @@ en:
     index:
       notifications: "Notifications"
       dashboard_title: "Dashboard"
-      representative_actions: "Representative - Actions"
+      representative_actions: "Head of department - Actions"
       show_holiday_requests: "Show holiday requests"
       show_expense_requests: "Show expense requests"
       show_trip_requests: "Show trip requests"
@@ -414,7 +415,7 @@ en:
       expense: "%{trigger} created a travel expense request."
   chairs:
     form:
-      no_representative: "No representative selected"
+      no_representative: "No head of department selected"
       no_results: "No results"
     navigation:
       not_authorized: "You are not allowed to do this action for this research group."
