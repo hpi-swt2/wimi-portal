@@ -15,7 +15,7 @@
           <div class="col-sm-3">
             <% wd_args = {} %>
             <% wd_args[:project] = @project if @project %>
-            <% if @time_sheets.blank? or @time_sheets.any? {|ts| can? :edit, ts} %>
+            <% if can? :new, WorkDay %>
               <div>
                 <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize), new_work_day_path(wd_args), class: 'btn btn-success pull-right' %>
               </div>
