@@ -94,15 +94,6 @@ RSpec.describe 'projects/show', type: :view do
       visit current_path
       expect(page).to_not have_selector(:link_or_button, I18n.t('projects.form.show_current_working_hours'))
     end
-
-    it 'shows one button to inspect all working hour report for this project' do
-      user = FactoryGirl.create(:user)
-      @wimi.projects << @project
-      user.projects << @project
-      visit current_path
-      expect(page).to have_content(I18n.t('projects.form.show_all_working_hours'), count: 1)
-      expect(page).to have_selector(:link_or_button, I18n.t('projects.form.show_all_working_hours'))
-    end
     
     it 'not possible for wimi to edit if not a member' do
       visit current_path
