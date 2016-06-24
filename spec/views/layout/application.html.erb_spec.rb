@@ -7,11 +7,11 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to profile' do
-      expect(page).to have_link('Profile', href: user_path(@user))
+      expect(page).to have_link(I18n.t('helpers.application_tabs.profile').titleize, href: user_path(@user))
     end
 
     it 'should link to logout' do
-      expect(page).to have_link('Logout', href: destroy_user_session_path)
+      expect(page).to have_link(I18n.t('helpers.application_tabs.logout').titleize, href: destroy_user_session_path)
     end
 
     #     Test for the language select, doesn't work at the moment. When javascript tests are fully funtional, it may work.
@@ -31,7 +31,7 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to projects' do
-      expect(page).to have_link('Projects', href: projects_path)
+      expect(page).to have_link(I18n.t('activerecord.models.project.other').titleize, href: projects_path)
     end
   end
 
@@ -55,7 +55,7 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to projects' do
-      expect(page).to have_link('Projects', href: projects_path)
+      expect(page).to have_link(I18n.t('activerecord.models.project.other').titleize, href: projects_path)
     end
   end
 
@@ -64,14 +64,22 @@ RSpec.describe 'navigation bar', type: :view do
     before(:each) do
       @user = FactoryGirl.create(:user)
       chair = FactoryGirl.create(:chair)
-      project = FactoryGirl.create(:project, chair: chair, status: true)
-      @user.projects << project
+      @project = FactoryGirl.create(:project, chair: chair, status: true)
+      @project2 = FactoryGirl.create(:project, chair: chair, status: true)
+      @user.projects << @project
       login_as @user
       visit root_path
     end
 
-    it 'should link to projects' do
-      expect(page).to have_link('Projects', href: projects_path)
+    it 'should link to a project#show page if the user is part of only one project' do
+      expect(page).to have_link(I18n.t('activerecord.models.project.one').titleize, href: project_path(@project))
+    end
+
+    it 'should link to project#indexif the user is part of multiple projects' do
+      @user.projects << @project
+      login_as @user
+      visit root_path
+      expect(page).to have_link(I18n.t('activerecord.models.project.other').titleize, href: projects_path)
     end
   end
 
@@ -86,7 +94,7 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to projects' do
-      expect(page).to have_link('Projects', href: projects_path)
+      expect(page).to have_link(I18n.t('activerecord.models.project.other').titleize, href: projects_path)
     end
   end
 
@@ -101,7 +109,7 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to projects' do
-      expect(page).to have_link('Projects', href: projects_path)
+      expect(page).to have_link(I18n.t('activerecord.models.project.other').titleize, href: projects_path)
     end
   end
 end

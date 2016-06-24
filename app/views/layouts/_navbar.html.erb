@@ -15,7 +15,12 @@
 
         <%# Project overview %>
         <% if can? :index, Project %>
-          <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>
+          <% project = current_user.projects %>
+          <% if project.count == 1 %>
+            <%= menu_item t('activerecord.models.project.one').titleize, project_path(project.first) %>
+          <% else %>
+            <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>
+          <% end %>
         <% end %>
 
         <%# Chair links %>
