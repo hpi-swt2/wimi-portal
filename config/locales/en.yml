@@ -96,7 +96,7 @@ en:
         flexible: "Flexible contract"
         hours_per_week: "Hours per week"
         wage_per_hour: "Wage per hour"
-        chair: "Chair"
+        chair: "Reserach Group"
         date: "Contract Term"
       chair:
         id: "Id"
@@ -337,11 +337,11 @@ en:
       expense_request: "Travel expense request"
       trip_request: "Trip request"
     user:
-      add_prompt: "Add someone to the chair"
+      add_prompt: "Add someone to the Research Group"
       add_prompt_specific: "Add someone to %{chair}"
-      already_member: '%{name} is already a member of this chair.'
+      already_member: '%{name} is already a member of this Research Group.'
       successfully_added: '%{name} has been added successfully.'
-      add_error: 'The user could not be added to the chair.'
+      add_error: 'The user could not be added to the Research Group.'
 
   "true": "yes"
   "false": "no"
