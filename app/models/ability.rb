@@ -31,7 +31,7 @@ class Ability
     can [:index, :show], TimeSheet, user: { id: user.id }
     can [:edit, :update, :hand_in], TimeSheet, handed_in: false, user: { id: user.id }
     
-    
+    can :my_new, WorkDay unless user.recent_contracts.empty?
     can :new, WorkDay unless user.recent_contracts.empty?
     can [:index, :show], WorkDay, user: { id: user.id }
     can [:create, :edit, :update, :destroy], WorkDay do |wd|

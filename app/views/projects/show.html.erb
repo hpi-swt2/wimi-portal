@@ -98,7 +98,7 @@
       <div class="display">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4> <%= t 'helpers.actions'%> </h4>
+            <h4><%= t 'helpers.actions'%></h4>
           </div>
           <div class="panel-body">
             <p>
@@ -110,7 +110,7 @@
               <% end %>
             </p>
             <p>
-              <% if can? :new, WorkDay %>
+              <% if can?(:my_new, WorkDay) %>
                 <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
                             new_work_day_path(project: @project) %>
               <% end %>
