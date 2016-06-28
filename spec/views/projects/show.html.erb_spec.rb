@@ -55,7 +55,7 @@ RSpec.describe 'projects/show', type: :view do
     end
 
     it 'shows working hours' do
-      expect(page).to have_content(I18n.t('projects.show.working_hours'))
+      expect(page).to_not have_content(I18n.t('projects.show.working_hours'))
     end
   end
 

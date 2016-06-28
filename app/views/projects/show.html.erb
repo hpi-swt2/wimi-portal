@@ -25,21 +25,6 @@
       </div>
     </div>
 
-    <!-- TODO: shouldn't this use CanCan?! -->
-    <% if current_user.is_hiwi? %>
-      <dl>
-        <dt><%= t('.working_hours', default:'Working hours') %>:</dt>
-        <dd>
-          <% current_user.time_sheets.each do |ts| %>
-            <span>
-              <%= link_to Date::MONTHNAMES[ts.month] + " " + ts.year.to_s,
-                          work_days_path(month: ts.month, year: ts.year, contract: ts.contract, project: @project)%>
-            </span>
-          <% end %>
-        </dd>
-      </dl>
-    <% end %>
-
     <dl>
       <dt><%= t('.project_team', default:'Project Team') %>:</dt>
       <dd>
