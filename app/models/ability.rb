@@ -32,9 +32,9 @@ class Ability
     can [:edit, :update, :hand_in], TimeSheet, handed_in: false, user: { id: user.id }
     
     
-    can [:new, :create], WorkDay unless user.recent_contracts.empty?
+    can :new, WorkDay unless user.recent_contracts.empty?
     can [:index, :show], WorkDay, user: { id: user.id }
-    can [:edit, :update, :destroy], WorkDay do |wd|
+    can [:create, :edit, :update, :destroy], WorkDay do |wd|
       wd.user == user and can?(:edit, wd.time_sheet)
     end
   end
@@ -71,7 +71,7 @@ class Ability
     
     can :manage, Project, chair_id: user.chair.id
     can :index_all, WorkDay
-    can [:index, :show], WorkDay
+    can [:index, :show], WorkDay, project: { chair_id: user.chair.id }
   end
 
   def initialize_representative(user)

@@ -15,6 +15,8 @@
 #
 
 class Contract < ActiveRecord::Base
+  scope :at_date, -> date { where('start_date <= ? AND end_date >= ?', date, date ) }
+
   belongs_to :chair
   belongs_to :hiwi, class_name: 'User'
   belongs_to :responsible, class_name: 'User'
@@ -42,6 +44,10 @@ class Contract < ActiveRecord::Base
     date = "#{formatted_start} - #{I18n.l(end_date, format: :short_month_year)}"
     model = I18n.t('activerecord.models.contract.one')
     hiwi ? "#{hiwi.last_name} (#{date})" : "#{model} (#{date})"
+  end
+
+  def to_s
+    name
   end
 
 end

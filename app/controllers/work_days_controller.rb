@@ -1,6 +1,7 @@
 class WorkDaysController < ApplicationController
   
   load_and_authorize_resource # only: [:index, :show, :edit, :update, :destroy]
+  skip_authorize_resource :only => [:create, :update]
   
 #  has_scope :month
 #  has_scope :year
@@ -19,7 +20,7 @@ class WorkDaysController < ApplicationController
     # If month and year are not passed as URL params, use current date
     @month = params[:month] ? params[:month].to_i : Date.today.month
     @year = params[:year] ? params[:year].to_i : Date.today.year
-    if not Ability.new(current_user).can? :index_all, WorkDay and @user != current_user
+    if not can? :index_all, WorkDay and @user != current_user
       raise CanCan::AccessDenied
     end
     @work_days = WorkDay.month(@month, @year).user(@user)
@@ -59,7 +60,9 @@ class WorkDaysController < ApplicationController
     @work_day.user = current_user
     
     ts = @work_day.time_sheet
-    authorize! :edit, ts if ts
+
+    return render :new unless @work_day.validate
+    authorize! :create, @work_day
 
     if @work_day.save
       flash[:success] = t('helpers.flash.created', model: @work_day.to_s.titleize)
@@ -70,6 +73,9 @@ class WorkDaysController < ApplicationController
   end
 
   def update
+    return render :new unless @work_day.validate
+    authorize! :update, @work_day
+
     if @work_day.update(work_day_params)
       flash[:success] = t('helpers.flash.updated', model: @work_day.to_s.titleize)
       redirect_to work_days_month_path
