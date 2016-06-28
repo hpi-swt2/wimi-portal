@@ -125,14 +125,13 @@ class User < ActiveRecord::Base
   def is_superadmin?
     superadmin
   end
+
+  def current_contracts
+    contracts.where(["end_date >= ?", Date.today])
+  end
   
   def recent_contracts
-    unless @recent_contracts
-      c_end_date = Contract.arel_table[:end_date]
-      past_3_months = Date.today - 3.months
-      @recent_contracts = contracts.where(c_end_date.gteq(past_3_months))
-    end
-    @recent_contracts
+    contracts.where(["end_date >= ?", 3.months.ago])
   end
   
   def time_sheets_for(date_or_month, year = -1)
