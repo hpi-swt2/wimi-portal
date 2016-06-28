@@ -31,7 +31,8 @@ class WorkDaysController < ApplicationController
     @selected_date = Date.new(@year, @month)
     @prev_month = @selected_date - 1.month
     @next_month = @selected_date + 1.month
-    if @time_sheets.blank? and not @work_days.blank?
+    @user_contract = @user.contracts.at_date(@selected_date)
+    if @user_contract.empty?
       flash[:error] = t('helpers.flash.no_contract', user: @user.name, month: @month, year: @year)
     end
   end

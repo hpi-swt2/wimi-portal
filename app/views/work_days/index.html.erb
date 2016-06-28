@@ -9,13 +9,13 @@
             <% if @year == 0 || @month == 0 %>
               <%= t('.working_hours') %>
             <% else %>
-              <%= t('.working_hours_for') %> <%=l Date.new(@year, @month, 1), format: :without_day %>
+              <%= t('.working_hours_for') %> <%=l @selected_date, format: :without_day %>
             <% end %>
           </div>
           <div class="col-sm-3">
             <% wd_args = {} %>
             <% wd_args[:project] = @project if @project %>
-            <% if can? :new, WorkDay %>
+            <% if can? :new, WorkDay and not @user_contract.empty? %>
               <div>
                 <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize), new_work_day_path(wd_args), class: 'btn btn-success pull-right' %>
               </div>
