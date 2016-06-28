@@ -6,6 +6,8 @@ de:
     index:
       welcome: "Willkommen beim HPI WiMi-Portal!"
       user_html: "Sie sind angemeldet als: %{user}."
+      member_status_html: "Sie sind momentan für <strong>%{project_count} %{project}</strong> als HiWi oder WiMi registriert und haben <strong>%{contract_count} %{contract}</strong>."
+      new_member: "Sie können deshalb noch keine Arbeitsstunden eintragen."
   helpers:
     flash:
       created: "%{model} wurde erfolgreich erstellt"
@@ -208,6 +210,8 @@ de:
       actions: "Aktionen"
     projects:
       projects: "Meine Projekte"
+    contracts:
+      contracts: "Meine Verträge"
     actions:
       enter_work_hours: "Arbeitsstunden für %{project_name} eintragen"
       create_project: "Projekt erstellen"

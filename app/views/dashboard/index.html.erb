@@ -10,6 +10,15 @@
         <%= t 'home.index.welcome' %> <%= t 'home.index.user_html', user: (link_to current_user.name, user_path(current_user)) %>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <% project_count, contract_count = current_user.projects.count, current_user.contracts.count %>
+        <p><%= t 'home.index.member_status_html', project_count: project_count, project: t('activerecord.models.project', count: project_count),  contract_count: contract_count, contract: t('activerecord.models.contract', count: contract_count) %></p>
+        <% if project_count == 0 or contract_count == 0 %>
+          <p><%= t 'home.index.new_member' %></p>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -58,9 +67,6 @@
 <% end %>
 
 <% content_for :sidebar do %>
-  <!-- Projects -->
-  <%= render partial: 'projects' %>
-
   <% action_content = render partial: 'actions' %>
   <% if action_content.present? %>
     <!--Actions-->
@@ -78,4 +84,14 @@
     </div>
   <% end %>
 
+  <%# My Projects %>
+  <% unless current_user.contracts.blank? %>
+    <%= render partial: 'projects' %>
+  <% end %>
+
+  <%# My Contracts %>
+  <%# could use "Contract.accessible_by(current_ability)", but  %>
+  <% unless current_user.contracts.blank? %>
+    <%= render partial: 'contracts' %>
+  <% end %>
 <% end %>

@@ -254,6 +254,7 @@ de:
             length:
               not_a_number: 'muss eine ganze Zahl sein.'
         work_day:
+          no_valid_contract: "kein Vertrag für diesen Tag."
           flash:
             not_member: 'Es können keine Arbeitstage zu Projekten hinzugefügt werden, denen man nicht angehört.'
           attributes:

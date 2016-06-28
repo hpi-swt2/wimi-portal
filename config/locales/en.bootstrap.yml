@@ -6,6 +6,8 @@ en:
     index:
       welcome: "Welcome to the HPI HiWi Portal!"
       user_html: "You are logged in as: %{user}."
+      member_status_html: "You are currently a member of <strong>%{project_count} %{project}</strong> as HiWi or WiMi and have <strong>%{contract_count} %{contract}</strong>."
+      new_member: "You therefore cannot yet enter working hours."
   helpers:
     flash:
       created: "%{model} was successfully created"
@@ -215,6 +217,8 @@ en:
       actions: "Actions"
     projects:
       projects: "My Projects"
+    contracts:
+      contracts: "My Contracts"
     actions:
       enter_work_hours: "Enter working hours for %{project_name}"
       create_project: "Create Project"
