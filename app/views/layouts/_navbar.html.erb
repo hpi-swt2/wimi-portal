@@ -21,37 +21,27 @@
         <% end %>
 
         <%# Project overview %>
-        <% if can? :index, Project %>
-          <% projects = Project.accessible_by(current_ability) %>
-          <% if projects.count == 1 %>
-            <%= menu_item t('activerecord.models.project.one').titleize, project_path(projects.first) %>
-          <% elsif projects.count > 1 %>
-            <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>
-          <% end %>
+        <% projects = Project.accessible_by(current_ability) %>
+        <% if projects.count > 1 or can? :new, Project %>
+          <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>
+        <% elsif projects.count == 1 %>
+          <%= menu_item t('activerecord.models.project.one').titleize, project_path(projects.first) %>
         <% end %>
 
         <%# Chair links %>
-        <% unless current_user.is_superadmin? %>
-          <% chairs = current_user.all_chairs %>
-          <% if chairs.count == 1 %>
-            <%# Single link if there is only one chair %>
-            <%= menu_item t('activerecord.models.chair.one').titleize, chair_path(chairs.first) %>
-          <% elsif chairs.count > 1 %>
-            <%# Drop-down menu otherwise %>
-            <%= drop_down t('activerecord.models.chair.other').titleize do %>
-              <% chairs.each do |chair| %>
-                <%= menu_item chair.name, chair_path(chair) %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% else %>
-          <%# Superadmins aren't part of chairs, but get to see them all anyway %>
+        <% chairs = Chair.accessible_by(current_ability) %>
+        <% if chairs.count > 1 or can? :new Chair %>
           <%= menu_item t('activerecord.models.chair.other').titleize, chairs_path %>
+        <% elsif chairs.count == 1 %>
+          <%= menu_item t('activerecord.models.chair.one').titleize, chair_path(chairs.first) %>
         <% end %>
 
         <%# Contract overview %>
-        <% unless Contract.accessible_by(current_ability).empty? %>
+        <% contracts = Contract.accessible_by(current_ability) %>
+        <% if contracts.count > 1 or can? :new, Contract %>
           <%= menu_item t('activerecord.models.contract.other').titleize, contracts_path %>
+        <% elsif contracts.count == 1 %>
+          <%= menu_item t('activerecord.models.contract.one').titleize, contract_path(contracts.first) %>
         <% end %>
 
         <%# Language switcher %>
