@@ -51,14 +51,10 @@ RSpec.describe 'projects/show', type: :view do
     end
 
     it 'does not show an add working hours button' do
-      @hiwi.projects << @project
-      visit current_path
       expect(page).to_not have_link(I18n.t('projects.show.add_working_hours'))
     end
 
     it 'shows working hours' do
-      @hiwi.projects << @project
-      visit current_path
       expect(page).to have_content(I18n.t('projects.show.working_hours'))
     end
   end

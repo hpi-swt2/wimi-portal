@@ -55,16 +55,36 @@ RSpec.describe Project, type: :model do
     chair = FactoryGirl.create(:chair)
     project = FactoryGirl.create(:project)
     user1 = FactoryGirl.create(:user)
+    FactoryGirl.create(:contract, hiwi: user1, end_date: Date.today.beginning_of_month + 2.months)
     user2 = FactoryGirl.create(:user)
+    FactoryGirl.create(:contract, hiwi: user2)
     project.users << user1
     project.users << user2
 
-    FactoryGirl.create(:work_day, date: '2015-11-18', start_time: '2015-11-18 15:11:53', break: 30, end_time: '2015-11-18 16:11:53', user: user1, project: project)
-    FactoryGirl.create(:work_day, date: '2015-11-26', start_time: '2015-11-26 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user2, project: project)
-    FactoryGirl.create(:work_day, date: '2015-12-25', start_time: '2015-12-25 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user1, project: project)
+    FactoryGirl.create(:work_day,
+      date: Date.today.beginning_of_month + 2.days,
+      start_time: '2000-01-01 15:00:00',
+      break: 30,
+      end_time: '2000-01-01 16:00:00',
+      user: user1,
+      project: project)
+    FactoryGirl.create(:work_day,
+      date: Date.today.beginning_of_month + 1.week,
+      start_time: '2000-01-01 10:00:00',
+      break: 0,
+      end_time: '2000-01-01 18:00:00',
+      user: user2,
+      project: project)
+    FactoryGirl.create(:work_day,
+      date: Date.today.beginning_of_month.next_month,
+      start_time: '2015-12-25 10:00:00',
+      break: 0,
+      end_time: '2015-11-26 18:00:00',
+      user: user1,
+      project: project)
 
-    expect(project.hiwi_working_hours_for(2015, 11)).to eq 8.5
-    expect(project.hiwi_working_hours_for(2015, 12)).to eq 8
+    expect(project.hiwi_working_hours_for(Date.today.year, Date.today.month)).to eq 8.5
+    expect(project.hiwi_working_hours_for(Date.today.year, Date.today.next_month.month)).to eq 8
   end
 
   # TODO: move to projects controller

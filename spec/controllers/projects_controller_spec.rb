@@ -299,14 +299,28 @@ RSpec.describe ProjectsController, type: :controller do
     it 'returns the sum of all hiwi working hours as JSON' do
       project = Project.create! valid_attributes
       user1 = FactoryGirl.create(:user)
+      FactoryGirl.create(:contract, hiwi: user1)
       user2 = FactoryGirl.create(:user)
+      FactoryGirl.create(:contract, hiwi: user2)
       project.users << user1
       project.users << user2
 
-      FactoryGirl.create(:work_day, date: '2015-11-18', start_time: '2015-11-18 15:11:53', break: 30, end_time: '2015-11-18 16:11:53', user: user1, project: project)
-      FactoryGirl.create(:work_day, date: '2015-11-26', start_time: '2015-11-26 10:00:00', break: 0, end_time: '2015-11-26 18:00:00', user: user2, project: project)
+      FactoryGirl.create(:work_day,
+        date: Date.today.beginning_of_month + 2.days,
+        start_time: '2000-01-01 15:00:00',
+        break: 30,
+        end_time: '2000-01-01 16:00:00',
+        user: user1,
+        project: project)
+      FactoryGirl.create(:work_day,
+        date: Date.today.beginning_of_month + 1.week,
+        start_time: '2000-01-01 10:00:00',
+        break: 0,
+        end_time: '2000-01-01 18:00:00',
+        user: user2,
+        project: project)
 
-      get :hiwi_working_hours, {month_year: '11-2015'}
+      get :hiwi_working_hours, {month_year: Date.today.strftime('%-m-%Y')}
       expect(response.body).to eq("{\"msg\":[{\"name\":\"My Project\",\"y\":8.5}]}")
     end
   end
