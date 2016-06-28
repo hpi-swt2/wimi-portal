@@ -85,7 +85,7 @@
   <% end %>
 
   <%# My Projects %>
-  <% unless current_user.contracts.blank? %>
+  <% unless current_user.projects.blank? %>
     <%= render partial: 'projects' %>
   <% end %>
 
