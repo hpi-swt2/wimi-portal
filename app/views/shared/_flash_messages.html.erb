@@ -1,4 +1,4 @@
-<% if flash[:error] || flash[:success] || flash[:notice] %>
+<% if not flash.empty? %>
   <div class="row">
     <div class="col-md-12 novertpadding">
       <div class="col-md-8 flash-message">
@@ -20,4 +20,6 @@
       </div>
     </div>
   </div>
+  <%# http://stackoverflow.com/questions/4613952/why-flash-message-wont-disappear %>
+  <% flash.clear %>
 <% end %>
