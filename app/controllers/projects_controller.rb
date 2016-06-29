@@ -124,8 +124,8 @@ class ProjectsController < ApplicationController
     end
     
     data = []
-    map.each do |p, d|
-      data.push(name: p.title, y: d)
+    map.each do |project, total_work_time|
+      data.push(name: project.title, y: total_work_time.round)
     end
     
     render json: {msg: data}
