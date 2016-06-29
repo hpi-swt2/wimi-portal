@@ -1,7 +1,7 @@
 class WorkDaysController < ApplicationController
   
   load_and_authorize_resource # only: [:index, :show, :edit, :update, :destroy]
-  skip_authorize_resource :only => [:create, :update]
+  skip_authorize_resource :only => [:new, :create, :update]
   
 #  has_scope :month
 #  has_scope :year
@@ -43,6 +43,8 @@ class WorkDaysController < ApplicationController
 
   def new
     @work_day.date = Date.today
+    @work_day.user = current_user
+    authorize! :new, @work_day
     if params[:project]
       project = Project.find_by_id(params[:project])
       if project.blank? or !project.users.include? current_user
