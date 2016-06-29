@@ -321,7 +321,7 @@ RSpec.describe ProjectsController, type: :controller do
         project: project)
 
       get :hiwi_working_hours, {month_year: Date.today.strftime('%-m-%Y')}
-      expect(response.body).to eq("{\"msg\":[{\"name\":\"My Project\",\"y\":8.5}]}")
+      expect(response.body).to eq("{\"msg\":[{\"name\":\"My Project\",\"y\":9}]}")
     end
   end
 end
