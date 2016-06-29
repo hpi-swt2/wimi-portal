@@ -18,7 +18,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
   end
 
   def edit
@@ -54,10 +53,12 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy_invitations
-    @project.destroy
-    flash[:success] = t '.success'
-    redirect_to projects_url
+    if @project.destroy
+      flash[:success] = t '.success'
+      redirect_to projects_url
+    else
+      render :edit
+    end
   end
 
   def add_user

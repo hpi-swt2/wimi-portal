@@ -262,6 +262,8 @@ en:
               blank: "cannot be blank."
             length:
               not_a_number: "has to be a whole number."
+        project:
+          cannot_delete: "cannot delete, working hours were already entered"
         work_day:
           no_valid_contract: "no contract at this date."
           flash:

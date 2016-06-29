@@ -24,6 +24,8 @@ class Project < ActiveRecord::Base
   validates :title, presence: true
   validates :chair, presence: true
 
+  before_destroy :check_for_workdays
+
   def invite_user(user, sender)
     if user && !user.is_superadmin?
       inv = Invitation.create(user: user, project: self, sender: sender)
@@ -72,5 +74,15 @@ class Project < ActiveRecord::Base
 
   def hiwi_working_hours_for(year, month)
     work_days.month(month, year).to_a.sum(&:duration)
+  end
+
+  private
+
+  # a project can only be deleted when noone has entered any workdays for it yet.
+  def check_for_workdays
+    if not work_days.empty?
+      errors.add(:base, :cannot_delete)
+      return false
+    end
   end
 end

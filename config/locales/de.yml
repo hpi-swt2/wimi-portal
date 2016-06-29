@@ -253,6 +253,8 @@ de:
               blank: 'darf nicht leer sein.'
             length:
               not_a_number: 'muss eine ganze Zahl sein.'
+        project:
+          cannot_delete: "löschen fehlgeschlagen, es gibt bereits Arbeitsstunden"
         work_day:
           no_valid_contract: "kein Vertrag für diesen Tag."
           flash:
