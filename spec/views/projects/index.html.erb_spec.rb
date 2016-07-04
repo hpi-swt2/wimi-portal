@@ -24,7 +24,7 @@ RSpec.describe 'projects/index', type: :view do
 
   it 'shows the actions column if actions are possible' do
     @user.update(chair: @chair)
-    FactoryGirl.create(:wimi, user: @user)
+    FactoryGirl.create(:wimi, chair: @chair, user: @user, representative: true)
     visit projects_path
     expect(page).to have_content I18n.t("helpers.actions")
   end
