@@ -21,7 +21,7 @@
                 <th><%= t('.title', default: model_class.human_attribute_name(:title)) %></th>
                 <th><%= t('projects.show.chair', default: model_class.human_attribute_name(:chair)) %></th>
                 <th><%= t('.status')%></th>
-                <% if @projects.all? { |p| can? :edit, p } %>
+                <% if @projects.any? { |p| can? :edit, p } %>
                   <th><%= t '.actions', default: t("helpers.actions") %></th>
                 <% end %>
               </tr>
@@ -32,11 +32,11 @@
                     <td><%= link_to project.title, project %></td>
                     <td><%= can?(:show, project.chair) ? link_to(project.chair.name, project.chair) : project.chair.name %></td>
                     <td><%= t('.status_' + project.status.to_s) %></td>
-                    <% if can? :edit, project %>
-                      <td>
+                    <td>
+                      <% if can? :edit, project %>
                         <%= link_to t('helpers.links.edit'), edit_project_path(project), class: 'btn btn-warning btn-xs' %>
-                      </td>
-                    <% end %>
+                      <% end %>
+                    </td>
                   </tr>
               <% end %>
             </tbody>

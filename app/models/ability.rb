@@ -47,8 +47,8 @@ class Ability
   def initialize_wimi(user)
     initialize_user user
     
-#    can [:new, :create], Project
-    can [:new, :create, :index, :show], Project, chair: { chair_wimis: {user_id: user.id} }
+    can [:new, :create], Project
+    can [:index, :show], Project, chair: { chair_wimis: {user_id: user.id} }
     can :manage, Project, users: { id: user.id }
     cannot :leave, Project do |project|
       project.wimis.size == 1
