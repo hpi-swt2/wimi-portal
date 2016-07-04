@@ -14,7 +14,7 @@
             <%= link_to t('helpers.titles.new', model: WorkDay.model_name.human.titleize), new_work_day_path(contract: contract), class: 'btn btn-success btn-sm pull-right' %>
           <% end %>
         </h4>
-        <% if contract.time_sheets.empty? %>
+        <% if contract.time_sheets.empty? or contract.time_sheets.all? { |ts| ts.work_days.empty? } %>
           <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.time_sheet.other', default: TimeSheet.model_name.human.pluralize) %> </p>
         <% else %>
           <table class="table table-striped">
