@@ -32,12 +32,11 @@
                     <td><%= link_to project.title, project %></td>
                     <td><%= can?(:show, project.chair) ? link_to(project.chair.name, project.chair) : project.chair.name %></td>
                     <td><%= t('.status_' + project.status.to_s) %></td>
-                    <% if can? :edit, project %>
-                      <td>
-                          <%= link_to t('helpers.links.edit'),
-                                      edit_project_path(project), class: 'btn btn-warning btn-xs' %>
-                      </td>
-                    <% end %>
+                    <td>
+                      <% if can? :edit, project %>
+                        <%= link_to t('helpers.links.edit'), edit_project_path(project), class: 'btn btn-warning btn-xs' %>
+                      <% end %>
+                    </td>
                   </tr>
               <% end %>
             </tbody>
