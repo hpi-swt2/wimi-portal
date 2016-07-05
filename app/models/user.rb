@@ -256,8 +256,9 @@ class User < ActiveRecord::Base
     # Time-Sheets
     act += Event.where(target_id: id).where(type: 'EventTimeSheetAccepted')
     act += Event.where(target_id: id).where(type: 'EventTimeSheetDeclined')
+
     Contract.all.where(responsible: self).each do |contract|
-      noti += Event.where(target_id: contract.id).where(type: 'EventTimeSheetSubmitted') if is_wimi?
+      noti += Event.where(target_id: self.id).where(type: 'EventTimeSheetSubmitted') if is_wimi?
     end
 
     noti.delete_if { |event| event.is_hidden_by(self) }

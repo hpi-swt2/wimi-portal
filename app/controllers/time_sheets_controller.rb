@@ -32,7 +32,7 @@ class TimeSheetsController < ApplicationController
         @time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
       end
       @time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
-      ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
+      ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
       redirect_to user_path(current_user, anchor: 'timesheets')
     end
   end

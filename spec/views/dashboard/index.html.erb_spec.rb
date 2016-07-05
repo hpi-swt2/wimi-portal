@@ -65,7 +65,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     wimi = FactoryGirl.create(:wimi, chair: chair).user
     contract = FactoryGirl.create(:contract, chair: chair, hiwi: @user, responsible: wimi)
     time_sheet = FactoryGirl.create(:time_sheet, contract: contract)
-    ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: contract.id, seclevel: :wimi, type: 'EventTimeSheetSubmitted'})
+    ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: wimi.id, seclevel: :wimi, type: 'EventTimeSheetSubmitted'})
 
     login_as wimi
     visit dashboard_path
