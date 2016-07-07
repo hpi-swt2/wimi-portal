@@ -29,6 +29,12 @@ RSpec.describe EventTimeSheetSubmitted, type: :model do
       ActionMailer::Base.deliveries.clear
     end
 
+    it 'creates a new EventTimeSheetSubmitted instance, when calling "instrument" with correct type' do
+      expect {
+        ActiveSupport::Notifications.instrument('event', trigger: @timesheet.id, target: @responsible.id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
+      }.to change { EventTimeSheetSubmitted.count }.by(1)
+    end
+
     it 'sends email if notifications are turned on' do
       event = EventTimeSheetSubmitted.new(trigger_id: @timesheet.id, target_id: @responsible.id, chair_id: @chair.id, seclevel: :wimi)
       expect(event).to be_valid
