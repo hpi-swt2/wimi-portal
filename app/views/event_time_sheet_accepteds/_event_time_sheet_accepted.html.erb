@@ -1,10 +1,9 @@
-  <%=
-    time_sheet = TimeSheet.find(event_time_sheet_accepted.trigger.id)
-    t(
-      '.full_html',
-      signer: link_to(
-        User.find(time_sheet.signer).name,
-        user_url(time_sheet.signer)),
-      month: l(Date.new(1, time_sheet.month, 1), format: :without_day_year))
+<% time_sheet = TimeSheet.find_by_id(event_time_sheet_accepted.trigger.id) %>
+<% if time_sheet %>
+  <%= t('.full_html',
+      signer: link_to(User.find(time_sheet.signer).name, user_url(time_sheet.signer)),
+      month: l(Date.new(1, time_sheet.month, 1),
+      format: :without_day_year))
   %>
   <%= link_to(t('.view'), work_days_url(month: time_sheet.month, year: time_sheet.year, contract: time_sheet.contract)) %>
+<% end %>
