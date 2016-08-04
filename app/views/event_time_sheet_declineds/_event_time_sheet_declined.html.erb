@@ -1,13 +1,10 @@
-  <%=
-    time_sheet = TimeSheet.find(event_time_sheet_declined.trigger.id)
-    t(
-      '.full_html',
-      signer: link_to(
-        User.find(time_sheet.signer).name,
-        user_url(time_sheet.signer)),
-      project: link_to(
-        time_sheet.project.title,
-        project_url(time_sheet.project)),
+<% trigger = event_time_sheet_declined.trigger %>
+<% if trigger %>
+  <% time_sheet = TimeSheet.find(trigger.id) %>
+  <%= t('.full_html',
+      signer: link_to(User.find(time_sheet.signer).name, user_url(time_sheet.signer)),
+      project: link_to(time_sheet.project.title, project_url(time_sheet.project)),
       month: l(Date.new(1, time_sheet.month, 1), format: :without_day_year))
   %>
   <%= link_to(t('.view'), work_days_url(month: time_sheet.month, year: time_sheet.year, project: time_sheet.project, contract: time_sheet.contract)) %>
+<% end %>
