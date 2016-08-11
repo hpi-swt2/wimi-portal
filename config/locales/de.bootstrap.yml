@@ -126,14 +126,12 @@ de:
     event_admin_right:
       added: "%{trigger} hat %{target} Admin-Rechte verliehen."
       removed: "%{trigger} hat %{target} Admin-Rechte entzogen."
-    event_chair_application: "%{trigger} hat einen Mitgliedsantrag für ihren Lehrstuhl erstellt."
     event_request:
       expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
       holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
       trip: "%{trigger} hat einen Reiseantrag gestellt."
     event_user_chair:
       added: "%{trigger} hat %{target} in den Lehrstuhl aufgenommen."
-      declined: "%{trigger} hat die Bewerbung von %{target} für den Lehrstuhl abgelehnt"
       removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."
   expenses:
     expense:

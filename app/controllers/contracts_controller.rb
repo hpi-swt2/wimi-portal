@@ -14,11 +14,7 @@ class ContractsController < ApplicationController
     @contract = Contract.new(contract_params)
     if @contract.save
       redirect_to contract_path(@contract)
-<<<<<<< .mine
-      flash[:success] = I18n.t('contracts.save')
-=======
       flash[:success] = t('helpers.flash.created', model: @contract.model_name.human.titleize)
->>>>>>> .theirs
     else
       render :new
     end

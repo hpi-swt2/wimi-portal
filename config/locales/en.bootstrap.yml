@@ -30,6 +30,9 @@ en:
       status_filter: Filters by status
       trip_request: Trip request
       type_filter: Filters by type
+    show:
+      a: Abbreviation
+      b: Description
   contracts:
     form:
       contract_data: Contract Data
@@ -40,6 +43,9 @@ en:
       file_travel_expenses: File Travel Expenses
       request_business_trip: Request Business Trip
       request_holiday: Request Holiday
+      show_expense_requests: Show Expense Requests
+      show_holiday_requests: Show Holiday Requests
+      show_trip_requests: Show Trip Requests
     contracts:
       contracts: My Contracts
     index:
@@ -54,6 +60,10 @@ en:
       show_trip_requests: Show trip requests
     projects:
       projects: My Projects
+    wimi_actions:
+      create_project: Create Project
+      request_business_trip: Request Business Trip
+      request_holiday: Request Holiday
   date:
     abbr_month_names:
     - 
@@ -199,6 +209,7 @@ en:
       save: Save
       show: Show
       show_details: Show Details
+      upload: Upload
     list_select: Please select
     submit:
       create: Create %{model}

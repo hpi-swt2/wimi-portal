@@ -85,7 +85,7 @@ search:
 
 ## Do not consider these keys missing:
 ignore_missing:
-  - 'activerecord.attributes.*'
+#  - 'activerecord.attributes.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
@@ -96,6 +96,8 @@ ignore_unused:
   - 'activerecord.errors.*'
   - '{date,time}.*'
   - '{true,false}'
+  - '{expenses, trips}.*'
+  - '{errors}.*'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

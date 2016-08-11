@@ -285,6 +285,11 @@ de:
       wrong_length:
         one: hat die falsche Länge (muss genau 1 Zeichen haben)
         other: hat die falsche Länge (muss genau %{count} Zeichen haben)
+    template:
+      body: 'Es gab Probleme mit folgenden Feldern:'
+      header:
+        one: "%{model} konnte wegen einem Fehler nicht gespeichert werden"
+        other: "%{model} konnte wegen %{count} Fehlern nicht gespeichert werden"
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     apply: Reisekostenabrechnung wurde erfolgreich eingereicht

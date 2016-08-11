@@ -10,9 +10,9 @@
       </h1>
     </div>
     <dl>
-        <dt><%= t('a', default: 'Abbreviation') %>:</dt>
+        <dt><%= t('.a') %>:</dt>
         <dd><%= @chair.abbreviation %></dd>
-        <dt><%= t('b', default: 'Description') %>:</dt>
+        <dt><%= t('.b') %>:</dt>
         <dd><%= @chair.description %></dd>
         <dt><%= t('roles.chair_representative') %>:</dt>
         <dd><%= @chair.representative.user.name if @chair.representative %></dd>
