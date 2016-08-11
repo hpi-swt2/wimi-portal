@@ -1,0 +1,18 @@
+<div class="col-md-12 col-sm-12">
+  <div class="display">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%=t('.contracts')%></h4>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <% current_user.contracts.each do |contract|%>
+            <div class="col-md-12 col-sm-12">
+              <%= link_to contract, contract, class: "btn btn-default btn-block" %>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -53,7 +53,7 @@ class DocumentsController < ApplicationController
             day[:end] = workday.end_time.strftime('%H:%M')
             day[:duration] = workday.duration_hours_minutes
             day[:attendance] = workday.attendance[0..0]
-            day[:notes] = workday.notes[0..25]
+            day[:notes] = workday.notes
           end
         end
       end

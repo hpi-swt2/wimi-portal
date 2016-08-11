@@ -78,18 +78,26 @@ RSpec.describe TimeSheetsController, type: :controller do
         get :hand_in, {id: time_sheet.to_param, time_sheet: signature_valid_attributes}, valid_session
 
         expect(response).to have_http_status(302)
-        expect(time_sheet.signed).to eq(false)
-        assert_equal 'The document was not handed in, because you have selected to sign the document, but there was no signature found', flash[:error]
+        expect(time_sheet.signed).to be false
+        expect(flash.count).to eq(1)
       end
 
       it 'should hand in time sheet with signature if present' do
         @user.update(signature: 'Signature')
         time_sheet = TimeSheet.create! valid_attributes
         get :hand_in, {id: time_sheet.to_param, time_sheet: signature_valid_attributes}, valid_session
+        # the controller action modifies the time_sheet
+        time_sheet.reload
+        expect(time_sheet.user_signature).to_not be_nil
+        expect(time_sheet.signed).to be true
+        expect(time_sheet.user_signed_at).to_not be_nil
+      end
 
-        expect(TimeSheet.find(time_sheet.id).user_signature).to_not eq(nil)
-        expect(TimeSheet.find(time_sheet.id).signed).to eq(true)
-        expect(TimeSheet.find(time_sheet.id).user_signed_at).to_not eq(nil)
+      it 'should trigger a notification on successful submission' do
+        time_sheet = TimeSheet.create! valid_attributes
+        expect {
+          get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
+        }.to change { EventTimeSheetSubmitted.count }.by(1)
       end
     end
   end

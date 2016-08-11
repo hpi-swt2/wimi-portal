@@ -3,7 +3,7 @@ class UserSearch < Searchlight::Search
     User.all
   end
 
-  def search_typeahead
-    query.where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ?', "%#{typeahead}%", "%#{typeahead}%", "%#{typeahead}%")
+  def search_user
+    query.where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ?', "%#{user}%", "%#{user}%", "%#{user}%")
   end
 end

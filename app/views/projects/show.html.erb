@@ -2,104 +2,71 @@
 <div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="page-header">
-      <h1><%= @project.title %> <span> <%= @project.status ? '' : t('.inactive', default:'(inactive)') %></span></h1>
-      <% if can? :edit, @project%>
-          <%= link_to t('.edit', default: t('helpers.links.edit')), edit_project_path(@project), class: 'btn btn-warning btn-md pull-right', style:'margin-top: -50px' %>
-      <% end %>
+      <h1>
+        <%= @project.title %> <span> <%= @project.status ? '' : t('.inactive', default:'(inactive)') %></span>
+        <% if can? :edit, @project%>
+            <%= link_to t('helpers.links.edit'), edit_project_path(@project), class: 'btn btn-warning btn-md pull-right' %>
+        <% end %>
+      </h1>
     </div>
 
     <div class="row">
       <div class="col-md-6 col-sm-6">
-        <dl class="">
+        <dl>
           <dt><%= t('.chair', default:'Chair') %>:</dt>
           <dd><%= @project.chair.name %></dd>
+          <dt><%= model_class.human_attribute_name(:created_at) %>:</dt>
+          <dd><%= l @project.created_at %></dd>
           <% unless @project.public %>
             <dt><%= t('.project_visibility', default:'Visibility') %>:</dt>
             <dd><%= @project.public ? t('.public', default:'Public') : t('.private', default:'private') %></dd>
           <% end %>
         </dl>
       </div>
-
-      <div class="col-md-6 col-sm-6">
-        <dl class="">
-          <% if can? :add_working_hours, @project %>
-          <dt><strong><%= t('.working_hours') %>:</strong></dt>
-            <dd>
-              <div>
-                <%# current_user.work_year_months_for_project(@project).each do |month| %>
-                  <%#*<p>%>
-                    <%#= link_to Date::MONTHNAMES[month.last] + " " + month.first.to_s,
-                                work_days_path(month: month.last, year: month.first, project: @project)%>
-                  <%#*</p>%>
-                <%# end %>
-              </div>
-            </dd>
-          <% end %>
-        </dl>
-      </div>
     </div>
-    <% if current_user.is_hiwi? %>
-      <dl class="dl-horizontal">
-        <dt><strong><%= t('.working_hours', default:'Working hours') %>:</strong></dt>
-        <dd><%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
-                        new_work_day_path, class: 'pull-right', style: 'margin-right: 15px' %>
-          <div>
-            <% current_user.time_sheets.each do |ts| %>
-              <p>
-                <%= link_to Date::MONTHNAMES[ts.month] + " " + ts.year.to_s,
-                            work_days_path(month: ts.month, year: ts.year, contract: ts.contract, project: @project)%>
-              </p>
-            <% end %>
-          </div>
-        </dd>
-      </dl>
-    <% end %>
 
-    <dl class="">
-      <dt><strong><%= t('.project_team', default:'Project Team') %>:</strong> </dt>
+    <dl>
+      <dt><%= t('.project_team', default:'Project Team') %>:</dt>
       <dd>
         <div class="form-group">
-          <table class='table table-striped' width="1000px">
+          <table class='table table-striped'>
             <thead>
               <tr>
-                <th width="600px"><%= t('projects.form.wimi', default: 'Research Assistants:') %></th>
+                <th><%= t('projects.form.wimi', default: 'Research Assistants:') %></th>
               </tr>
             </thead>
             <tbody>
-              <% @project.users.order('last_name').each do |user| %>
-                <% if user.is_wimi?%>
-                  <tr>
-                    <td>
-                      <%= link_to user.name, user  %>
-                    </td>
-                  </tr>
-                <% end %>
+              <% @project.wimis.sort_by {|u| u[:last_name]}.each do |user| %>
+                <tr>
+                  <td class="col-md-8">
+                    <%= link_to user.name, user  %>
+                  </td>
+                </tr>
               <% end %>
             </tbody>
           </table>
         </div>
         <div class="form-group">
-          <table class='table table-striped' width="1000px">
+          <table class='table table-striped'>
             <thead>
               <tr>
-                <th width="600px"> <%= t('projects.form.hiwi', default:'Student Assistants:') %></th>
-                <th width="600px"><%= t '.actions', default: t('helpers.actions') %></th>
+                <th><%= t('projects.form.hiwi', default:'Student Assistants:') %></th>
+                <th><%= t '.actions', default: t('helpers.actions') %></th>
               </tr>
             </thead>
             <tbody>
-              <% @project.users.order('last_name').each do |user| %>
-                <% if user.is_hiwi?%>
-                  <tr>
-                    <td>
-                      <%= link_to user.name, user  %>
-                    </td>
-                    <td>
-                      <% if can? :edit, @project or user == current_user%>
-                      <%= link_to t('projects.form.show_working_hours', default:'Show working hours'), user_path(user), class: 'btn btn-default btn-xs' %>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
+              <% @project.hiwis.sort_by {|u| u[:last_name]}.each do |user| %>
+                <tr>
+                  <td class="col-md-8">
+                    <%= link_to user.name, user  %>
+                  </td>
+                  <td>
+                    <% if can? :index_all, WorkDay or user == current_user %>
+                      <% today = Date.today %>
+                      <%= link_to t('projects.form.show_current_working_hours'), work_days_path(project: @project, month: today.month, year: today.year, user: user), class: 'btn btn-default btn-xs' %>
+                    <% end %>
+                  </td>
+                </tr>
               <% end %>
             </tbody>
           </table>
@@ -116,31 +83,19 @@
       <div class="display">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4> <%= t 'helpers.actions'%> </h4>
+            <h4><%= t 'helpers.actions'%></h4>
           </div>
           <div class="panel-body">
             <p>
-              <% if can?(:leave ,@project) %>
-                <%= link_to t('.leave_project', default:'Leave Project'),
-                              leave_project_path(user: current_user, id: @project), method: :post %>
-              <% end %>
-            </p>
-            <p>
               <% content_for :modals do %>
-                  <%= render 'invite_user' %>
+                  <%= render 'add_user_to_project' %>
               <% end %>
               <% if can?(:invite_user, @project) %>
-                <%= link_to t('project.invite_someone_to_project'), "", id: "open-popup", data: { toggle: "modal", target: "#invite-colleagues-modal" }%>
+                <%= link_to t('project.user.add_prompt'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }%>
               <% end %>
             </p>
             <p>
-              <% if can? :edit, @project %>
-                <%= link_to t('projects.form.show_all_working_hours', default:'Show all working hours'),
-                              work_days_path(project: @project)%>
-              <% end %>
-            </p>
-            <p>
-              <% if current_user.is_hiwi? %>
+              <% if can?(:new, WorkDay) %>
                 <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
                             new_work_day_path(project: @project) %>
               <% end %>

@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   INVALID_EMAIL = 'invalid_email'
 
-  devise :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
+  devise :trackable, :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
 
   has_many :contracts, foreign_key: :hiwi_id
   has_many :time_sheets, through: :contracts
@@ -59,10 +59,30 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  # Return all chairs that the user is connected with,
+  # either because he is a WiMi or a HiWi.
+  # :chair returns only those chairs that the user is a _WiMi_ in
+  def all_chairs
+    if chair.nil?
+      chair_hiwi
+    else
+      ([chair] + chair_hiwi).uniq
+    end
+  end
+
+  # Return all chairs that the user is a HiWi in
+  def chair_hiwi
+    projects.collect(&:chair).uniq
+  end
+
   def name=(fullname)
     first, last = fullname.split(' ')
     self.first_name = first
     self.last_name = last
+  end
+
+  def name_with_email
+    "#{first_name} #{last_name} (#{email})"
   end
 
   def prepare_leave_for_new_year
@@ -105,14 +125,13 @@ class User < ActiveRecord::Base
   def is_superadmin?
     superadmin
   end
+
+  def current_contracts
+    contracts.where(["end_date >= ?", Date.today])
+  end
   
   def recent_contracts
-    unless @recent_contracts
-      c_end_date = Contract.arel_table[:end_date]
-      past_3_months = Date.today - 3.months
-      @recent_contracts = contracts.where(c_end_date.gteq(past_3_months))
-    end
-    @recent_contracts
+    contracts.where(["end_date >= ?", 3.months.ago])
   end
   
   def time_sheets_for(date_or_month, year = -1)
@@ -130,6 +149,7 @@ class User < ActiveRecord::Base
     sheets = contracts.where(c_start_date.lteq(d_end), c_end_date.gteq(d_start)).inject([]) do |list, contract|
       ts = contract.time_sheet(month, year)
       list << ts if ts
+      return list
     end
     sheets.uniq
   end
@@ -236,8 +256,9 @@ class User < ActiveRecord::Base
     # Time-Sheets
     act += Event.where(target_id: id).where(type: 'EventTimeSheetAccepted')
     act += Event.where(target_id: id).where(type: 'EventTimeSheetDeclined')
+
     Contract.all.where(responsible: self).each do |contract|
-      noti += Event.where(target_id: contract.id).where(type: 'EventTimeSheetSubmitted') if is_wimi?
+      noti += Event.where(target_id: self.id).where(type: 'EventTimeSheetSubmitted') if is_wimi?
     end
 
     noti.delete_if { |event| event.is_hidden_by(self) }

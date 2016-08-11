@@ -1,6 +1,7 @@
 class WorkDaysController < ApplicationController
   
   load_and_authorize_resource # only: [:index, :show, :edit, :update, :destroy]
+  skip_authorize_resource :only => [:new, :create, :update]
   
 #  has_scope :month
 #  has_scope :year
@@ -14,31 +15,26 @@ class WorkDaysController < ApplicationController
   end
 
   def index
-    @month = params[:month].to_i # equals 0 when no month passed
-    @year = params[:year].to_i # equals 0 when no month passed
-    if @year != 0 && @month != 0
-      # with year and month given, show only work days of one user
-      @user = User.find_by(id: params[:user])
-      unless @user
-        contract = Contract.find_by(id: params[:contract])
-        @user = contract ? contract.hiwi : current_user
-      end
-      @time_sheets = @user.time_sheets_for(@month, @year)
-      if @time_sheets.empty?
-        flash[:error] = "No contract for #@year/#@month"
-        @work_days = apply_scopes(@work_days).month(@month, @year)
-      else
-        @work_days = []
-        @time_sheets.each do |ts|
-          @work_days += ts.work_days if can? :show, ts
-        end
-      end
-    else
-      # show all work days that CanCan allows
-      @work_days = apply_scopes(@work_days)
+    # raises ActiveRecord::RecordNotFound
+    @user = params[:user] ? User.find(params[:user]) : current_user
+    # If month and year are not passed as URL params, use current date
+    @month = params[:month] ? params[:month].to_i : Date.today.month
+    @year = params[:year] ? params[:year].to_i : Date.today.year
+    if not can? :index_all, WorkDay and @user != current_user
+      raise CanCan::AccessDenied
     end
+    @work_days = WorkDay.month(@month, @year).user(@user)
     @work_days = @work_days.sort_by {|w| [w.date, w.start_time] }
     @project = Project.find_by(id: params[:project])
+    @time_sheets = @user.time_sheets_for(@month, @year)
+    # Include prev and next month for building links
+    @selected_date = Date.new(@year, @month)
+    @prev_month = @selected_date - 1.month
+    @next_month = @selected_date + 1.month
+    @user_contract = @user.contracts.at_date(@selected_date)
+    if @user_contract.empty?
+      flash[:error] = t('helpers.flash.no_contract', user: @user.name, month: @month, year: @year)
+    end
   end
 
   def show
@@ -47,6 +43,16 @@ class WorkDaysController < ApplicationController
 
   def new
     @work_day.date = Date.today
+    @work_day.user = current_user
+    authorize! :new, @work_day
+    if params[:project]
+      project = Project.find_by_id(params[:project])
+      if project.blank? or !project.users.include? current_user
+        flash[:notice] = t 'activerecord.errors.models.work_day.flash.not_member'
+      else
+        @work_day.project = project
+      end
+    end
   end
 
   def edit
@@ -57,20 +63,25 @@ class WorkDaysController < ApplicationController
     @work_day.user = current_user
     
     ts = @work_day.time_sheet
-    authorize! :edit, ts if ts
+
+    return render :new unless @work_day.validate
+    authorize! :create, @work_day
 
     if @work_day.save
-      flash[:success] = 'Work Day was successfully created.'
-      redirect_to work_days_month_project_path
+      flash[:success] = t('helpers.flash.created', model: @work_day.to_s.titleize)
+      redirect_to work_days_month_path
     else
       render :new
     end
   end
 
   def update
+    return render :new unless @work_day.validate
+    authorize! :update, @work_day
+
     if @work_day.update(work_day_params)
-      flash[:success] = 'Work Day was successfully updated.'
-      redirect_to work_days_month_project_path
+      flash[:success] = t('helpers.flash.updated', model: @work_day.to_s.titleize)
+      redirect_to work_days_month_path
     else
       render :edit
     end
@@ -79,8 +90,8 @@ class WorkDaysController < ApplicationController
   def destroy
     date = @work_day.date
     @work_day.destroy
-    flash[:success] = 'Work Day was successfully destroyed.'
-    redirect_to work_days_month_project_path
+    flash[:success] = t('helpers.flash.destroyed', model: @work_day.to_s.titleize)
+    redirect_to work_days_month_path
   end
 
   private
@@ -91,12 +102,16 @@ class WorkDaysController < ApplicationController
 #  end
 
   def work_day_params
-    allowed_params = [:date, :start_time, :break, :end_time, :attendance, :notes, :user, :project]
+    allowed_params = [:date, :start_time, :break, :end_time, :attendance, :notes, :user, :project_id]
     delocalize_config = { :date => :date }
     params.require(:work_day).permit(*allowed_params).delocalize(delocalize_config)
   end
 
   def work_days_month_project_path
     work_days_path(month: @work_day.date.month, year: @work_day.date.year, project: @work_day.project, user: @work_day.user)
+  end
+
+  def work_days_month_path
+    work_days_path(month: @work_day.date.month, year: @work_day.date.year, user: @work_day.user)
   end
 end

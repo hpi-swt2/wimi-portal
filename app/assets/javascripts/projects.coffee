@@ -124,7 +124,7 @@ renderHiwiWorkingHoursCharts = (data) ->
 sendWorkingHoursForMonthYearToRenderer = (monthYear, callback) ->
   $.ajax '/projects/hiwi_working_hours/' + monthYear,
     success: (res, status, xhr) ->
-      callback JSON.parse res["msg"]
+      callback res["msg"]
       return
     error: (xhr, status, err) ->
       callback JSON.parse "{ \"y\": 0, \"name\": \"Error - Try again later | Fehler - Bitte versuchen Sie es später nochmal\"}"

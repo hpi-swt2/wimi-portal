@@ -34,11 +34,23 @@ class WorkDay < ActiveRecord::Base
 #  validates :project_id, presence: true, numericality: true
   validates :date, presence: true
   validates :start_time, presence: true
-  validates :break, presence: true, numericality: true
+  validates :break, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :end_time, presence: true
   validate :no_overlap
   validates_time :end_time, after: :start_time
   validates :duration, numericality: {greater_than: 0}
+  validate :user_has_current_contract
+
+  def user_has_current_contract
+    if user.contracts.at_date(date).empty?
+      errors.add(:date, :no_valid_contract)
+    end
+  end
+
+  def to_s
+    model = I18n.t('activerecord.models.work_day.one', default: WorkDay.to_s)
+    "#{model}: #{I18n.l(date)}"
+  end
 
   def overlaps(other)
     other_date = other.end_time

@@ -16,51 +16,33 @@
 //= require bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
-//= require bootstrap-typeahead-rails
+//= require select2
 //= require canvasjs.min
 //= require_tree .
 
-$('.datepicker').datepicker();
+$(document).ready(function() {
 
-
-var typeahead = function() {
-  var engine, promise;
-  engine = new Bloodhound({
-    datumTokenizer: function(d) {
-      console.log(d);
-      return Bloodhound.tokenizers.whitespace(d.title);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: '../users/autocomplete/%QUERY'
+  $(".user-auto-complete").select2({
+    theme: 'bootstrap',
+    allowClear: true,
+    placeholder: '',
+    ajax: {
+      url: function (params) {
+        return '/users/autocomplete/' + params.term;
+      },
+      /* query is in the form /users/autocomplete/<query> */
+      data: function (params) {return ''},
+      dataType: 'json',
+      delay: 250,
+      processResults: function (data, params) {
+        return {
+          results: $.map(data, function(obj){
+            return { id: obj.id, text: obj.first_name + ' ' + obj.last_name + ' (' + obj.email + ')'};
+          }),
+          more: false
+        }
+      }
     }
   });
-  promise = engine.initialize();
-  $('.typeahead').typeahead(null, {
-    name: 'engine',
-    displayKey: 'email',
-    source: engine.ttAdapter()
-  });
-};
 
-$(document).ready(function() {
-  if ($('.typeahead').length) {
-    typeahead();
-  }
 });
-
-
-//typeahead = ->
-//  engine = new Bloodhound(
-//    datumTokenizer: (d) ->
-//      console.log d
-//      Bloodhound.tokenizers.whitespace d.title
-//    queryTokenizer: Bloodhound.tokenizers.whitespace
-//    remote: url: '../users/typeahead/%QUERY')
-//  promise = engine.initialize()
-//  $('.typeahead').typeahead null,
-//    name: 'engine'
-//    displayKey: 'email'
-//    source: engine.ttAdapter()
-//  return
-

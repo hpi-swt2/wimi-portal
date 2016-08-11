@@ -18,7 +18,7 @@ class ChairsController < ApplicationController
   # Superadmin tasks:
   def destroy
     if @chair.destroy
-      flash[:success] = I18n.t('chair.destroy.success')
+      flash[:success] = t('helpers.flash.destroyed', model: @chair.model_name.human.capitalize)
     else
       flash[:error] = I18n.t('chair.destroy.error')
     end
@@ -33,10 +33,9 @@ class ChairsController < ApplicationController
     @chair = Chair.new(chair_params)
 
     if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.save
-      flash[:success] = I18n.t('chair.create.success')
+      flash[:success] = t('helpers.flash.created', model: @chair.model_name.human.capitalize)
       redirect_to chairs_path
     else
-      flash[:error] = I18n.t('chair.create.error')
       render :new
     end
   end
@@ -47,10 +46,9 @@ class ChairsController < ApplicationController
 
   def update
     if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.update(chair_params)
-      flash[:success] = I18n.t('chair.update.success')
-      redirect_to chairs_path
+      flash[:success] = t('helpers.flash.updated', model: @chair.model_name.human.capitalize)
+      redirect_to chair_path(@chair)
     else
-      flash[:error] = I18n.t('chair.update.error')
       render :new
     end
   end
@@ -104,6 +102,24 @@ class ChairsController < ApplicationController
 #    redirect_to chair_path(@chair)
 #  end
 
+  def add_user
+    user = User.find_by_id params[:add_user_to_chair][:id]
+    redirect_to chair_path(@chair)
+    if user.nil?
+      flash[:error] = I18n.t('chair.user.add_error')
+      return
+    elsif @chair.users.include? user
+      flash[:notice] = I18n.t('chair.user.already_member', name: user.name)
+      return
+    end
+    chairwimi = ChairWimi.create(application: 'accepted', chair: @chair, user: user)
+    if chairwimi.save
+      flash[:success] = I18n.t('chair.user.successfully_added', name: user.name)
+    else
+      flash[:error] = I18n.t('chair.user.add_error')
+    end
+  end
+
   def remove_from_chair
     chair_wimi = ChairWimi.find(params[:request])
     status = ('removed' if chair_wimi.application == 'accepted') || ('declined' if chair_wimi.application == 'pending')
@@ -148,6 +164,6 @@ class ChairsController < ApplicationController
   end
 
   def chair_params
-    params.require(:chair).permit(:name)
+    params.require(:chair).permit(:name, :abbreviation, :description)
   end
 end

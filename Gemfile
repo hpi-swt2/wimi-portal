@@ -41,6 +41,9 @@ gem 'annotate'
 gem 'validates_timeliness'
 # to parse date parameters from ui
 gem "delocalize"
+# American style month/day/year parsing for ruby 1.9
+# https://github.com/jeremyevans/ruby-american_date
+gem "american_date"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -63,8 +66,9 @@ gem 'jquery-ui-rails'
 # Continuation of CanCan (authoriation Gem for RoR)
 gem 'cancancan'
 
-# Typeahead gem
-gem 'bootstrap-typeahead-rails'
+# Select2 dropdown replacement featuring autocomplete
+gem 'select2-rails'
+
 # Search Gem
 gem 'searchlight'
 # for nested forms

@@ -9,22 +9,12 @@ feature 'profile' do
     login_as(@current_user, scope: :user)
   end
 
-  it 'shows only given details' do
+  it 'shows at least minimal details' do
     visit user_path(@current_user)
     within('body/div.container') do
       expect(page).to have_content 'First Name'
       expect(page).to have_content 'Last Name'
       expect(page).to have_content 'Email'
-      expect(page).to_not have_content 'Research Assistant'
-      expect(page).to_not have_content 'Student Assistant'
-      expect(page).to_not have_content 'Division'
-      expect(page).to_not have_content 'Research Group'
-      expect(page).to_not have_content 'Projects'
-      expect(page).to_not have_content 'Street'
-      expect(page).to_not have_content 'Residence'
-      expect(page).to_not have_content 'Zip Code'
-      expect(page).to_not have_content 'City'
-      expect(page).to_not have_content 'Staff Number'
     end
   end
 

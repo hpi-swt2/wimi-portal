@@ -1,0 +1,6 @@
+<% errors = form.object.errors[attribute] %>
+<div class="form-group <%= 'has-error' if errors.any? %>">
+  <%= form.label attribute, class: 'control-label' %>
+  <%= capture(&block) %>
+  <%= content_tag :span, errors.join(', '), :class => "help-block" if errors.any? %>
+</div>

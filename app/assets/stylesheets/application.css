@@ -15,6 +15,8 @@
  *= require bootstrap/bootstrap-tooltip
  *= require devise_bootstrap_views
  *= require bootstrap-datepicker
+ *= require select2
+ *= require select2-bootstrap
  */
 
 
@@ -108,7 +110,11 @@ a.anchor {
 
 .time-select {
     display: inline-block;
-    width: 45%;
+    width: 47%;
+}
+
+.col-sm-4 > .form-group > label.control-label {
+    display: block;
 }
 
 .email-invite {
@@ -169,4 +175,19 @@ a.anchor {
 
 .btn-eq {
     width: auto;
+}
+
+.panel-compact > .form-group > .form-control {
+    width: inherit;
+    height: inherit;
+}
+
+/* select2 */
+.select2-container--bootstrap {
+    width: inherit !important;
+}
+
+/* Highlight table rows */
+tr.highlight {
+    background-color: rgb(255, 245, 195) !important
 }

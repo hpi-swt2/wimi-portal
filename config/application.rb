@@ -22,5 +22,8 @@ module WimiPortal
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    # Do not wrap form inputs in divs with 'field_with_errors' class when validations fail.
+    # We handle this ourselves, if need be
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag.html_safe }
   end
 end

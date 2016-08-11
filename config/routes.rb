@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  get 'users' => 'users#index'
 
   get 'extern' => 'users#external_login', as: 'external_login'
 
@@ -19,14 +20,15 @@ Rails.application.routes.draw do
 
   get 'documents/generate_pdf' => 'documents#generate_pdf', as: 'generate_pdf'
 
-  root 'dashboard#index'
+  # root 'dashboard#index'
+  root :to => redirect('/dashboard')
   get 'dashboard', to: 'dashboard#index'
   get 'users/edit_leave', to: 'users#edit_leave'
   get 'users/language', to: 'users#language'
 
   resources :projects do
     member do
-      post 'invite_user'
+      post 'add_user'
       get 'accept_invitation'
       get 'decline_invitation'
     end
@@ -55,7 +57,7 @@ Rails.application.routes.draw do
   resources :contracts
   resources :work_days
   get 'work_days/:year/:month', to: 'work_days#index'
-  resources :time_sheets, only: [:edit, :update, :delete, :reject, :hand_in, :accept] do
+  resources :time_sheets, only: [:index, :edit, :update, :delete, :reject, :hand_in, :accept] do
     member do
       get 'hand_in'
       get 'accept_reject'
@@ -75,7 +77,11 @@ Rails.application.routes.draw do
     get 'trips/accept_reject', to: 'trips#accept_reject'
   end
 
-  resources :chairs
+  resources :chairs do
+    member do
+      post 'add_user'
+    end
+  end
 
   post 'chairs/apply', to: 'chairs#apply'
   post 'chairs/accept', to: 'chairs#accept_request'

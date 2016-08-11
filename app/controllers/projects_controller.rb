@@ -18,7 +18,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
   end
 
   def edit
@@ -54,36 +53,29 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy_invitations
-    @project.destroy
-    flash[:success] = t '.success'
-    redirect_to projects_url
+    if @project.destroy
+      flash[:success] = t '.success'
+      redirect_to projects_url
+    else
+      render :edit
+    end
   end
 
-  def invite_user
-    user = User.find_by_email params[:invite_user][:email]
+  def add_user
+    user = User.find_by_id params[:add_user_to_project][:id]
+    redirect_to @project
     if user.nil?
-      flash[:error] = I18n.t('users.does_not_exist')
-      redirect_to @project
+      flash[:error] = I18n.t('project.user.add_error')
+      return
+    elsif @project.users.include? user
+      flash[:notice] = I18n.t('project.user.already_member', name: user.name)
+      return
+    end
+    @project.users << user
+    if @project.save
+      flash[:success] = I18n.t('project.user.successfully_added', name: user.name)
     else
-      if Invitation.where(project: @project, user: user).size > 0
-        flash[:error] = I18n.t('project.user.already_invited')
-        redirect_to @project
-      else
-        if @project.users.include? user
-          flash[:error] = I18n.t('project.user.already_is_member')
-          redirect_to @project
-        else
-          @project.add_user user
-          if @project.save
-            flash[:success] = I18n.t('project.user.was_successfully_invited')
-            redirect_to @project
-          else
-            flash[:error] = I18n.t('project.user.cannot_be_invited')
-            redirect_to @project
-          end
-        end
-      end
+      flash[:error] = I18n.t('project.user.add_error')
     end
   end
 
@@ -133,8 +125,8 @@ class ProjectsController < ApplicationController
     end
     
     data = []
-    map.each do |p, d|
-      data.push(name: p.title, y: d)
+    map.each do |project, total_work_time|
+      data.push(name: project.title, y: total_work_time.round)
     end
     
     render json: {msg: data}

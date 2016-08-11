@@ -20,6 +20,7 @@ class Ability
   def initialize_user(user)
     can :show, User
     can :manage, User, id: user.id
+    cannot :index, User
 
     can [:index, :show], Chair
 
@@ -30,12 +31,11 @@ class Ability
     can [:index, :show], TimeSheet, user: { id: user.id }
     can [:edit, :update, :hand_in], TimeSheet, handed_in: false, user: { id: user.id }
     
-    
-    can [:new, :create], WorkDay unless user.recent_contracts.empty?
     can [:index, :show], WorkDay, user: { id: user.id }
-    can [:edit, :update, :destroy], WorkDay do |wd|
+    can [:create, :edit, :update, :destroy], WorkDay do |wd|
       wd.user == user and can?(:edit, wd.time_sheet)
     end
+    cannot [:new, :create], WorkDay if user.recent_contracts.empty?
   end
 
   def initialize_hiwi(user)
@@ -47,15 +47,15 @@ class Ability
   def initialize_wimi(user)
     initialize_user user
     
-#    can [:new, :create], Project
-    can [:new, :create, :index, :show], Project, chair: { chair_wimis: {user_id: user.id} }
+    can [:new, :create], Project
+    can [:index, :show], Project, chair: { chair_wimis: {user_id: user.id} }
     can :manage, Project, users: { id: user.id }
     cannot :leave, Project do |project|
       project.wimis.size == 1
     end
     
         # [:index, :show]
-    can :manage, Contract, responsible_id: user.id
+    can [:index, :show], Contract, responsible_id: user.id
     can [:index, :show, :accept, :reject, :accept_reject], TimeSheet do |ts|
       can? :show, ts.contract
     end
@@ -64,10 +64,13 @@ class Ability
   def initialize_admin(user)
     initialize_wimi user
     
-    can [:edit, :requests, :requests_filtered, :remove_from_chair, :set_admin, :withdraw_admin], Chair, chair_wimis: {user_id: user.id}
+    can [:manage], Chair, chair_wimis: {user_id: user.id}
+    cannot [:destroy, :new, :create], Chair
     can :manage, Contract, chair_id: user.chair.id
     
     can :manage, Project, chair_id: user.chair.id
+    can :index_all, WorkDay
+    can [:index, :show], WorkDay, project: { chair_id: user.chair.id }
   end
 
   def initialize_representative(user)
@@ -77,5 +80,6 @@ class Ability
   def initialize_superadmin(user)
     initialize_user(user)
     can :manage, Chair
+    can :index, User
   end
 end

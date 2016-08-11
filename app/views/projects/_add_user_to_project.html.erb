@@ -1,18 +1,17 @@
-<div class="modal fade" id="invite-colleagues-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="add-users-modal" role="dialog" aria-labelledby="add-user-label" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"><%= t('project.invite_someone_to_the_project', title: @project.title) %></h4>
+        <h4 class="modal-title" id="add-user-label"><%= t('project.user.add_prompt_specific', title: @project.title) %></h4>
       </div>
       <div class="modal-body" >
-        <div class="row invite-colleague">
+        <div class="row add-user">
           <div class="col-sm-12">
             <div class="description-text">
-              <%= t('project.send_invitation_to') %>
-              <%= form_for :invite_user, url: invite_user_project_path(@project) do |f| %>
+              <%= form_for :add_user_to_project, url: add_user_project_path(@project) do |f| %>
                 <div class="modal-body clearfix" >
-                  <%= f.text_field :email, { class: "typeahead form-control", size: 100, placeholder: "first.last@hpi.de" } %>
+                  <%= f.collection_select :id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
                 </div>
                 <%= f.submit t('links.submit'), class: "btn btn-primary" %>
                 <span class="btn btn-default" data-dismiss="modal"><%= t("helpers.links.back") %></span>

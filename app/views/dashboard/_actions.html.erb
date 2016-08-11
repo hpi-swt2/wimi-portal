@@ -1,10 +1,10 @@
-<!-- hiwi actions -->
+<%# hiwi actions %>
 <% if can? :create, WorkDay %>
   <% current_user.projects.each do |project| %>
   <p>
     <%= link_to(
       t('.enter_work_hours', project_name: project.title),
-      work_days_path(
+      new_work_day_path(
         month: Date.today.month,
         year: Date.today.year,
         project: project))
@@ -13,26 +13,24 @@
   <% end %>
 <% end %>
 
-  
-<!-- wimi actions -->
+<%# wimi actions %>
 <% if can? :create, Project %>
-<p>
-  <%= link_to t('.create_project'), new_project_path %>
-</p>
+  <p>
+    <%= link_to t('.create_project'), new_project_path %>
+  </p>
 <% end %>
 <% if can? :create, Holiday %>
-<p>
-  <%= link_to t('.request_holiday'), new_holiday_path %>
-</p>
+  <p>
+    <%= link_to t('.request_holiday'), new_holiday_path %>
+  </p>
 <% end %>
 <% if can? :create, Trip %>
-<p>
-  <%= link_to t('.request_business_trip'), new_trip_path %>
-</p>
+  <p>
+    <%= link_to t('.request_business_trip'), new_trip_path %>
+  </p>
 <% end %>
 
-  
-<!-- Chair representative actions -->
+<%# Chair representative actions %>
 <% if can? :index, Holiday %>
 <%# TODO: add proper ability checks %>
   <p>

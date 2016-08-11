@@ -1,54 +1,42 @@
 <%= form_for(@work_day) do |f| %>
 
-  <% if @work_day.errors.any? %>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="error_explanation">
-          <h2><%= pluralize(@work_day.errors.count, "error") %> prohibited this work_day from being saved:</h2>
-          <ul>
-            <% @work_day.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "shared/form_validation_errors", locals: {object: @work_day} %>
 
   <div class="row">
-    <div class="col-md-12">
-      <div class="form-group">
+    <div class="col-md-4">
+      <%= bootstrap_form_group(f, :date) do %>
         <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
-        <%= f.label :date, class: 'control-label' %><span style="color: red">*</span>
-        <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @work_day.date ? l(@work_day.date) : nil , placeholder: t('trips.form.date') %>
-      </div>
+        <%= f.text_field :date, required: true, class: 'form-control', 'data-provide': "datepicker", 'data-date-today-highlight': true, 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @work_day.date ? l(@work_day.date) : nil , placeholder: t('trips.form.date') %>
+      <% end %>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <div class="form-group">
-        <%= f.label :start_time, class: 'control-label' %><span style="color: red">*</span><br>
+      <%= bootstrap_form_group(f, :start_time) do %>
         <%= f.time_select :start_time, {}, class: "form-control time-select" %>
-      </div>
+      <% end %>
     </div>
     <div class="col-sm-4">
-      <div class="form-group">
-        <%= f.label :break, class: 'control-label'  %> (<%= t'.minutes' %>) <span style="color: red">*</span>
-        <%= f.number_field :break, value: 0, class: "form-control"%>
-      </div>
+      <%= bootstrap_form_group(f, :break) do %>
+        <%= f.number_field :break, value: @work_day.break.nil? ? 0 : @work_day.break, class: "form-control"%>
+      <% end %>
     </div>
     <div class="col-sm-4">
-      <div class="form-group">
-        <%= f.label :end_time, class: 'control-label'  %><span style="color: red">*</span> <br>
+      <%= bootstrap_form_group(f, :end_time) do %>
         <%= f.time_select :end_time, {}, class: "form-control time-select" %>
-      </div>
+        <%= content_tag :span, f.object.errors[:duration].join(', '), :class => "help-block" if f.object.errors[:duration].any? %>
+      <% end %>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
         <%= f.label :attendance, class: 'control-label'  %>
-        <%= f.select :attendance, [['Normal', ''], ['Ill', 'K'], ['Holiday', 'F'], ['Leave Day', 'U']], {}, {class: "form-control"} %>
+        <% options = [ [t('activerecord.attributes.work_day.attendance_enum.normal'), ''],
+                       [t('activerecord.attributes.work_day.attendance_enum.sick'), 'K'],
+                       [t('activerecord.attributes.work_day.attendance_enum.public_holiday'), 'F'],
+                       [t('activerecord.attributes.work_day.attendance_enum.vacation'), 'U'] ] %>
+        <%= f.select :attendance, options, {}, {class: "form-control"} %>
       </div>
     </div>
     <div class="col-sm-6">
@@ -64,10 +52,19 @@
         <%= f.label :notes, class: 'control-label'  %>
         <%= f.text_field :notes, class: "form-control" %>
       </div>
-        <div align="right">
-          <span style="color: red">* <%= t'helpers.forms.required_field'%></span>
-        </div>
+      <div align="right">
+        <span>* <%= t'helpers.forms.required_field'%></span>
+      </div>
     </div>
   </div>
-  <%= f.submit nil, class:"btn btn-success btn-block"%>
+
+  <div class="row edit-btns">
+    <div class="col-md-8 col-sm-8">
+      <%= f.submit nil, class: 'btn btn-success btn-block' %>
+    </div>
+    <div class="col-md-4 col-sm-4">
+      <%= link_to t("helpers.links.cancel"), work_days_path(month: @work_day.date.month, year: @work_day.date.year, user: @work_day.user), class: 'btn btn-default btn-block' %>
+      </div>
+  </div>
+
 <% end %>

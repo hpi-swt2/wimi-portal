@@ -2,34 +2,21 @@
 <div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="page-header">
-      <h1><%= @chair.name %></h1>
-    </div>
-
-    <p><%= t('roles.chair_representative') %>: <%= @chair.representative.user.name if @chair.representative %></p>
-
-    <strong><%= t('chairs.applications.long_plural') %>:</strong>
-    <br>
-    <% if @requests.empty? %>
-      <p>
-        <%= t('chairs.applications.no_applications') %>
-      </p>
-    <% else %>
-      <table class="table table-striped">
-        <% @requests.each do |request| %>
-          <tr>
-            <td><%= request.user.name %></td>
-            <td>
-              <% if current_user.is_admin? %>
-                <div class="btn-group">
-                  <%= link_to t('chairs.applications.accept'), chairs_accept_path(id: @chair, request: request), method: :post, class: 'btn btn-success btn-xs' %>
-                  <%= link_to t('chairs.applications.decline'), chairs_remove_user_path(id: @chair, request: request), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
-                </div>
-              <% end %>
-            </td>
-          </tr>
+      <h1>
+        <%= @chair.name %>
+        <% if can? :edit, @chair%>
+          <%= link_to t('helpers.links.edit'), edit_chair_path(@chair), class: 'btn btn-warning btn-md pull-right' %>
         <% end %>
-      </table>
-    <% end %>
+      </h1>
+    </div>
+    <dl>
+        <dt><%= t('a', default: 'Abbreviation') %>:</dt>
+        <dd><%= @chair.abbreviation %></dd>
+        <dt><%= t('b', default: 'Description') %>:</dt>
+        <dd><%= @chair.description %></dd>
+        <dt><%= t('roles.chair_representative') %>:</dt>
+        <dd><%= @chair.representative.user.name if @chair.representative %></dd>
+    </dl>
     <% unless @chair.wimis.blank? %>
       <strong><%= I18n.t('roles.wimi_long_plural') %>:</strong>
       <br>
@@ -91,3 +78,24 @@
     <% end %>
   </div>
 </div>
+
+<% content_for :sidebar do %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t 'helpers.actions'%> </h4>
+        </div>
+        <div class="panel-body">
+          <p>
+            <% content_for :modals do %>
+                <%= render 'add_user_to_chair' %>
+            <% end %>
+            <% if can?(:add_user, @chair) %>
+              <%= link_to t('chair.user.add_prompt'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }%>
+            <% end %>
+          </p>
+      </div>
+    </div>
+  </div>
+<% end %>

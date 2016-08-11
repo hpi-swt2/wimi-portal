@@ -2,7 +2,12 @@
 <div class="col-md-12 col-sm-12">
   <div class="display">
   <div class="page-header">
-    <h1><%= t 'activerecord.models.contract.other', default: model_class.model_name.human.pluralize.titleize %></h1>
+    <h1>
+      <%= t('activerecord.models.contract.other', default: model_class.model_name.human.pluralize).titleize %>
+      <% if can? :create, Contract %>
+        <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize), new_contract_path, class: 'btn btn-success pull-right' %>
+      <% end %>
+    </h1>
   </div>
   <% if @contracts.empty? %>
       <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.contract.other', default: model_class.model_name.human.pluralize) %> </p> <br>
@@ -14,14 +19,14 @@
             <th><%= model_class.human_attribute_name(:end_date) %></th>
             <th><%= model_class.human_attribute_name(:hiwi) %></th>
             <th><%= model_class.human_attribute_name(:responsible) %></th>
-            <th></th>
+            <th><%= t '.actions', default: t("helpers.actions") %></th>
           </tr>
         </thead>
         <tbody>
         <% @contracts.each do |contract| %>
           <tr>
-            <td><%= contract.start_date %></td>
-            <td><%= contract.end_date %></td>
+            <td><%= l contract.start_date %></td>
+            <td><%= l contract.end_date %></td>
             <td><%= contract.hiwi.name %></td>
             <td><%= contract.responsible.name %></td>
             <td>
@@ -40,11 +45,6 @@
           <% end %>
         </tbody>
       </table>
-    <% end %>
-    <% if can? :create, Contract %>
-      <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize),
-                  new_contract_path,
-                  class: 'btn btn-success btn-block' %>
     <% end %>
   </div>
 </div>

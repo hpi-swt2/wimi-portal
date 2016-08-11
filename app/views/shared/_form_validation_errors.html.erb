@@ -1,0 +1,16 @@
+<% if object.errors.any? %>
+  <div class="alert alert-danger alert-dismissable">
+    <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>
+    <p><strong><%= t 'activerecord.errors.template.header', model: object.model_name.human, count: object.errors.count %></strong></p>
+    <% base_error_messages = object.errors.messages[:base] %>
+    <% unless base_error_messages.blank? %>
+      <p>
+        <ul>
+          <% base_error_messages.each do |m| %>
+            <li><%= m %></li>
+          <% end %>
+        </ul>
+      </p>
+    <% end %>
+  </div>
+<% end %>

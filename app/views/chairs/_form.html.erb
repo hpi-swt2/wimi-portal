@@ -1,34 +1,19 @@
-<%= form_for @chair, html: {class: "form-horizontal project"} do |f| %>
-  <% if @chair.errors.any? %>
-    <div class="row">
-      <div class="col-md-12 col-sm-12">
+<%= form_for @chair, html: {class: "project"} do |f| %>
 
-          <div id="error_expl" class="panel panel-danger">
-            <div class="panel-heading">
-              <h3 class="panel-title"><%= pluralize(@chair.errors.count, "error") %> prohibited this chair from being
-                saved:</h3>
-            </div>
-            <div class="panel-body">
-              <ul>
-                <% @chair.errors.full_messages.each do |msg| %>
-                    <li><%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "shared/form_validation_errors", locals: {object: @chair} %>
+
   <div class="row">
     <div class="col-md-12 col-sm-12">
       <input type="hidden" name="chair_search_id" value="<%= @chair.id %>" />
-      <div class="control-group">
-        <%= f.label :name, class: 'control-label' %>
-        <div class="controls">
+      <%= bootstrap_form_group(f, :name) do %>
           <%= f.text_field :name, class: 'form-control' %>
-        </div>
-        <%= error_span(@chair[:title]) %>
-      </div>
+      <% end %>
+      <%= bootstrap_form_group(f, :abbreviation) do %>
+          <%= f.text_field :abbreviation, class: 'form-control' %>
+      <% end %>
+      <%= bootstrap_form_group(f, :description) do %>
+          <%= f.text_field :description, class: 'form-control' %>
+      <% end %>
     </div>
   </div>
   <div class="row">
@@ -78,7 +63,7 @@
       <%= f.submit nil, class: 'btn btn-success btn-block' %>
     </div>
     <div class="col-md-3 col-sm-3">
-      <%= link_to t("helpers.links.cancel"), chairs_path, class: 'btn btn-default btn-block' %>
+      <%= link_to t("helpers.links.cancel"), @chair.persisted? ? chair_path(@chair) : chairs_path, class: 'btn btn-default btn-block' %>
     </div>
   </div>
 <% end %>

@@ -46,7 +46,7 @@ RSpec.describe 'work_days/index.html.erb', type: :view do
     d1 = Date.today.at_beginning_of_month
     @hiwi1 = FactoryGirl.create(:contract, chair: @chair, start_date: d1, end_date: d1.at_end_of_month).hiwi
     ws = FactoryGirl.create(:work_day, user: @hiwi1, date: d1)
-    ws.time_sheet.update!(handed_in: true)
+    ws.time_sheet.update!(handed_in: true, hand_in_date: Date.today)
 
     login_as @hiwi1
     visit work_days_path

@@ -1,75 +1,78 @@
 <%= form_for @contract do |f| %>
 
-  <% if @contract.errors.any? %>
-  <div id="error_expl" class="panel panel-danger">
-    <div class="panel-heading">
-      <h3 class="panel-title"><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h3>
-    </div>
-    <div class="panel-body">
-      <ul>
-      <% @contract.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  </div>
-  <% end %>
+  <%= render partial: "shared/form_validation_errors", locals: {object: @contract} %>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><%= t('.contract_data') %></h4>
-    </div>
-    <div class="panel-body">
-      <div class="form-group">
-        <%= f.label :start_date, class: 'control-label' %>
-        <%= f.text_field :start_date, value: @contract.start_date, class: 'form-control' %>
-        <%= error_span(@contract[:start_date]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :end_date, class: 'control-label' %>
-        <%= f.text_field :end_date, value: @contract.end_date, class: 'form-control' %>
-        <%= error_span(@contract[:end_date]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :hiwi_id, class: 'control-label' %>
-        <%= f.text_field :hiwi_id, value: (@contract.hiwi ? @contract.hiwi.id : ''), class: 'form-control' %>
-        <%= error_span(@contract[:hiwi_id]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :responsible_id, class: 'control-label' %>
-        <%= f.text_field :responsible_id, value: (@contract.responsible ? @contract.responsible.id : ''), class: 'form-control' %>
-        <%= error_span(@contract[:responsible_id]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :chair_id, class: 'control-label' %>
-        <%= f.text_field :chair_id, value: (@contract.chair ? @contract.chair.id : current_user.chair.id), class: 'form-control' %>
-        <%= error_span(@contract[:chair_id]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :flexible, class: 'control-label' %>
+    <div class="panel-body panel-compact">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <%= bootstrap_form_group(f, :start_date) do %>
+            <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
+            <%= f.text_field :start_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-today-highlight': true, 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.start_date ? l(@contract.start_date) : nil , placeholder: format %>
+          <% end %>
+        </div> <!-- col-md-6 col-sm-6 -->
+        <div class="col-md-6 col-sm-6">
+          <%= bootstrap_form_group(f, :end_date) do %>
+            <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
+            <%= f.text_field :end_date, class: 'form-control', 'data-provide': "datepicker", 'data-date-today-highlight': true, 'data-date-orientation': "bottom auto", 'data-date-format': format, 'data-date-autoclose': true, 'data-date-language': I18n.locale, value: @contract.end_date ? l(@contract.end_date) : nil , placeholder: format %>
+          <% end %>
+        </div> <!-- col-md-6 col-sm-6 -->
+      </div> <!-- row -->
+
+      <%= bootstrap_form_group(f, :hiwi) do %>
+        <%= f.collection_select :hiwi_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :responsible) do %>
+        <%= f.collection_select :responsible_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :chair) do %>
+        <%= f.collection_select :chair_id, [current_user.chair], :id, :name, {}, {:class=>'form-control'} %>
+      <% end %>
+
+      <%= bootstrap_form_group(f, :flexible) do %>
         <%= f.check_box :flexible, value: @contract.flexible, class: 'form-control' %>
-        <%= error_span(@contract[:flexible]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :hours_per_week, class: 'control-label' %>
-        <%= f.text_field :hours_per_week, value: @contract.hours_per_week, class: 'form-control' %>
-        <%= error_span(@contract[:hours_per_week]) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :wage_per_hour, class: 'control-label' %>
-        <%= f.text_field :wage_per_hour, value: @contract.wage_per_hour, class: 'form-control' %>
-        <%= error_span(@contract[:wage_per_hour]) %>
-      </div>
-    </div>
-  </div><br/><br/>
-  <div class="actions">
-    <div class="row">
-      <div class="col-sm-9">
-        <%= f.submit t('helpers.links.save'), class: 'btn btn-success btn-block' %>
-      </div>
-      <div class="col-sm-3">
-        <%= link_to t('.cancel', default: t("helpers.links.cancel")), current_user, class: "btn btn-default btn-block"%>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <%= bootstrap_form_group(f, :hours_per_week) do %>
+            <%= f.number_field :hours_per_week, value: @contract.hours_per_week, step: 'any', class: 'form-control' %>
+          <% end %>
+        </div> <!-- col-md-6 col-sm-6 -->
+        <div class="col-md-6 col-sm-6">
+          <%= bootstrap_form_group(f, :wage_per_hour) do %>
+            <%= f.number_field :wage_per_hour, value: @contract.wage_per_hour, step: 'any', class: 'form-control' %>
+          <% end %>
+        </div> <!-- col-md-6 col-sm-6 -->
+      <div> <!-- row -->
+
+      <div align="right">
+        <span>* <%= t'helpers.forms.required_field'%></span>
       </div>
     </div>
   </div>
+
+
+  <div class="row edit-btns">
+    <div class="col-md-8 col-sm-8">
+      <%= f.submit nil, class: 'btn btn-success btn-block' %>
+    </div>
+    <% if (can? :destroy, @contract) && @contract.persisted? %>
+      <div class="col-md-2 col-sm-2">
+          <%= link_to t('helpers.links.destroy'),
+                        contract_path(@contract),
+                        method: 'delete',
+                        data: { confirm: t('helpers.links.confirm_delete', model: @contract.name) },
+                        class: 'btn btn-danger btn-block' %>
+      </div>
+      <div class="col-md-2 col-sm-2">
+    <% else %>
+      <div class="col-md-4 col-sm-4">
+    <% end %>
+        <%= link_to t("helpers.links.cancel"), @contract.persisted? ? contract_path(@contract) : contracts_path, class: 'btn btn-default btn-block' %>
+      </div>
+  </div>
+
 <% end %>

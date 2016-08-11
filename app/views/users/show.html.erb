@@ -35,18 +35,22 @@
 <% if @user == current_user %>
   <% content_for :sidebar do %>
     <!--Actions-->
-    <div class="col-md-12">
-      <div class="display">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4><%=t('dashboard.index.actions')%></h4>
-          </div>
-          <div class="panel-body">
-            <%= render partial: 'dashboard/actions' %>
+    <% dashboard_actions_content = render partial: 'dashboard/actions' %>
+    <% if dashboard_actions_content.present? %>
+      <div class="col-md-12">
+        <div class="display">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><%=t('dashboard.index.actions')%></h4>
+            </div>
+            <div class="panel-body">
+              <%= dashboard_actions_content %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
+    
     <% if can? :upload_signature, @user %>
     <!-- Signature -->
     <div class="col-md-12">
@@ -76,27 +80,6 @@
     </div>
     <% end %>
   <% end %>
-<% end %>
-
-<!-- time sheet overview for hiwi -->
-<% recent = @user.time_sheets.recent %>
-<% if @user == current_user and not recent.empty? %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4><a class="anchor" name="timesheets"><%= t('.time_sheets_overview')%></a></h4>
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <% recent.each do |ts| %>
-              <%= link_to "#{ts.year}-#{ts.month}", work_days_path(month: ts.month, year: ts.year, contract: ts.contract) , class: "btn btn-default btn-block"%>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 <% end %>
 
 <% if not @user == current_user and current_user.is_wimi? %>

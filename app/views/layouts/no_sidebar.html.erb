@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WimiPortal</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render 'layouts/navbar' %>
+
+    <div class="container">
+      <div class="content" style="background-color: rgba(221,97,8,0.6);padding-top: 30px;">
+        <%= render 'shared/flash_messages' %>
+        <div class="row">
+          <div class="col-md-12 novertpadding">
+            <div class="col-md-12 wrapper-large">
+              <div class="row">
+                <%= yield %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= yield :modals %>
+
+  </body>
+</html>
