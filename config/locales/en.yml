@@ -1,387 +1,362 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+---
 en:
-  errors:
-    format: "%{attribute} %{message}"
-    messages:
-      accepted: "must be accepted"
-      blank: "can't be blank"
-      present: "must be blank"
-      confirmation: "doesn't match %{attribute}"
-      empty: "can't be empty"
-      equal_to: "must be equal to %{count}"
-      even: "must be even"
-      exclusion: "is reserved"
-      greater_than: "must be greater than %{count}"
-      greater_than_or_equal_to: "must be greater than or equal to %{count}"
-      inclusion: "is not included in the list"
-      invalid: "is invalid"
-      less_than: "must be less than %{count}"
-      less_than_or_equal_to: "must be less than or equal to %{count}"
-      model_invalid: "Validation failed: %{errors}"
-      not_a_number: "is not a number"
-      not_an_integer: "must be an integer"
-      odd: "must be odd"
-      required: "must exist"
-      taken: "has already been taken"
-      too_long:
-        one: "is too long (maximum is 1 character)"
-        other: "is too long (maximum is %{count} characters)"
-      too_short:
-        one: "is too short (minimum is 1 character)"
-        other: "is too short (minimum is %{count} characters)"
-      wrong_length:
-        one: "is the wrong length (should be 1 character)"
-        other: "is the wrong length (should be %{count} characters)"
-      other_than: "must be other than %{count}"
-    template:
-      body: "There were problems with the following fields:"
-      header:
-        one: "1 error prohibited this %{model} from being saved"
-        other: "%{count} errors prohibited this %{model} from being saved"
   activerecord:
-    models:
-      chair:
-        one: "research group"
-        other: "research groups"
-      contract:
-        one: "contract"
-        other: "contracts"
-      expense:
-        one: "expense"
-        other: "expenses"
-      holiday:
-        one: "holiday request"
-        other: "holiday requests"
-      project:
-        one: "project"
-        other: "projects"
-      trip:
-        one: "business trip"
-        other: "business trips"
-      user:
-        one: "user"
-        other: "users"
-      work_day:
-        one: "work day"
-        other: "work days"
-      time_sheet:
-        one: "timesheet"
-        other: "timesheets"
     attributes:
-      contract:
-        start_date: "Start date"
-        end_date: "End date"
-        hiwi: "Employee"
-        responsible: "Responsible"
-        flexible: "Flexible contract"
-        hours_per_week: "Hours per week"
-        wage_per_hour: "Wage per hour"
-        chair: "Reserach Group"
-        date: "Contract Term"
       chair:
-        id: "Id"
-        name: "Name"
-        created_at: "Created at"
-        status: "Status"
-        apply: "Apply as WiMi"
         application:
           status:
-            pending: "pending"
-            accepted: "accepted"
-            declined: "declined"
-      project:
-        title: "Title"
-        created_at: "Created at"
-        users: "Users"
-      holiday:
-        id: "Id"
-        status: "Status"
-        start: "Start"
-        end: "End"
-        user_id: "User"
-        created_at: "Created at"
-        length: "Duration"
-        duration: "Duration"
-        reason: "Reason for Special Leave"
-        annotations: "Annotations"
-        replacement: "Replacement"
-        signature: "Add signature"
+            accepted: accepted
+            declined: declined
+            pending: pending
+        apply: Apply as WiMi
+        created_at: Created at
+        id: Id
+        name: Name
+        status: Status
+      contract:
+        chair: Reserach Group
+        date: Contract Term
+        end_date: End date
+        flexible: Flexible contract
+        hiwi: Employee
+        hours_per_week: Hours per week
+        responsible: Responsible
+        start_date: Start date
+        wage_per_hour: Wage per hour
       expense:
-        id: "Id"
-        amount: "Amount"
-        purpose: "Purpose"
-        comment: "Comment"
-        user_id: "User"
-        project_id: "Project"
-        trip_id: "Business Trip"
-        created_at: "Created at"
-      trip:
-        id: "Id"
-        destination: "Destination"
-        reason: "Reason"
-        annotation: "Annotations"
-        signature: "Add signature"
-        status: "Status"
-        user_id: "User"
-        created_at: "Created at"
-        date_end: "End at"
-        date_start: "Start at"
-        days_abroad: "Days abroad"
-      trip_datespan:
-        start_date: "Start at"
-        end_date: "End at"
-        days_abroad: "Days abroad"
-      expense:
-        inland: "Inland Travel"
-        country: "Country"
-        location_from: "Starting in"
-        location_via: "Via"
-        location_to: "To"
-        reason: "Reason"
-        date_start: "Start at"
-        vehicle: "Vehicle"
-        time_start: "Depart by"
-        time_end: "Arrive by"
-        car: "Car"
-        public_transport: "Bus/Train/Plane"
-        vehicle_advance: "Travel paid by HPI"
-        hotel: "Hotel"
-        general_advance: "Advance"
-        signature: "Add signature"
+        car: Car
+        country: Country
+        date_start: Start at
+        general_advance: Advance
+        hotel: Hotel
+        inland: Inland Travel
+        location_from: Starting in
+        location_to: To
+        location_via: Via
+        public_transport: Bus/Train/Plane
+        reason: Reason
+        signature: Add signature
+        time_end: Arrive by
+        time_start: Depart by
+        vehicle: Vehicle
+        vehicle_advance: Travel paid by HPI
       expense_item:
-        date: "Date"
-        breakfast: "Breakfast"
-        lunch: "Lunch"
-        dinner: "Dinner"
-        annotation: "What I did that day"
-      user:
-        id: "Id"
-        email: "Email"
-        reset_password_token: "Reset Password Token"
-        reset_password_sent_at: "Reset Password sent at"
-        remember_created_at: "Remember Created at"
-        current_sign_in_at: "Current Sign In at"
-        last_sign_in_at: "Last Sign In at"
-        current_sign_in_ip: "Current Sign In IP"
-        last_sign_in_ip: "Last Sign In IP"
-        first_name: "First Name"
-        last_name: "Last Name"
-        created_at: "Created at"
-        current_password: "Current Password"
-        password_confirmation: "Password Confirmation"
-        password: "Password"
-        remember_me: "Remember me"
-        personal_data: "User Data"
-        city: "City"
-        street: "Street"
-        zip_code: "Zip Code"
-        personnel_number: "Staff Number"
-        email_notification : "Email Notifications"
-        chair: "Research Group"
-        language: "Language"
-        not_member_of_chair: "You are not a member of a Research Group."
+        annotation: What I did that day
+        breakfast: Breakfast
+        date: Date
+        dinner: Dinner
+        lunch: Lunch
+      holiday:
+        annotations: Annotations
+        created_at: Created at
+        duration: Duration
+        end: End
+        id: Id
+        length: Duration
+        reason: Reason for Special Leave
+        replacement: Replacement
+        signature: Add signature
+        start: Start
+        status: Status
+        user_id: User
+      project:
+        created_at: Created at
+        title: Title
+        users: Users
       request:
-        name: "Name"
-        type: "Type"
-        handed_in: "Handed in"
-        status: "Status"
-        not_member_of_chair: "You are not a member of a Research Group."
-      work_day:
-        date: "Date"
-        start_time: "Start time"
-        break: "Break"
-        end_time: "End time"
-        duration: "Duration"
-        notes: "Notes"
-        attendance: "Attendance"
-        project: "Project"
-        time: "Time"
-        attendance_enum:
-          normal: "Normal"
-          sick: "Sick leave"
-          public_holiday: "Public holiday"
-          vacation: "Vacation"
+        handed_in: Handed in
+        name: Name
+        not_member_of_chair: You are not a member of a Research Group.
+        status: Status
+        type: Type
       time_sheet:
-        month: "Month"
-        handed_in: "Handed in"
-        status: "Status"
+        handed_in: Handed in
+        month: Month
+        status: Status
         status_enum:
-          pending: "pending"
-          accepted: "accepted"
-          rejected: "rejected"
+          accepted: accepted
+          pending: pending
+          rejected: rejected
+      trip:
+        annotation: Annotations
+        created_at: Created at
+        date_end: End at
+        date_start: Start at
+        days_abroad: Days abroad
+        destination: Destination
+        id: Id
+        reason: Reason
+        signature: Add signature
+        status: Status
+        user_id: User
+      trip_datespan:
+        days_abroad: Days abroad
+        end_date: End at
+        start_date: Start at
+      user:
+        chair: Research Group
+        city: City
+        created_at: Created at
+        current_password: Current Password
+        current_sign_in_at: Current Sign In at
+        current_sign_in_ip: Current Sign In IP
+        email: Email
+        email_notification: Email Notifications
+        first_name: First Name
+        id: Id
+        language: Language
+        last_name: Last Name
+        last_sign_in_at: Last Sign In at
+        last_sign_in_ip: Last Sign In IP
+        not_member_of_chair: You are not a member of a Research Group.
+        password: Password
+        password_confirmation: Password Confirmation
+        personal_data: User Data
+        personnel_number: Staff Number
+        remember_created_at: Remember Created at
+        remember_me: Remember me
+        reset_password_sent_at: Reset Password sent at
+        reset_password_token: Reset Password Token
+        street: Street
+        zip_code: Zip Code
+      work_day:
+        attendance: Attendance
+        attendance_enum:
+          normal: Normal
+          public_holiday: Public holiday
+          sick: Sick leave
+          vacation: Vacation
+        break: Break
+        date: Date
+        duration: Duration
+        end_time: End time
+        notes: Notes
+        project: Project
+        start_time: Start time
+        time: Time
     errors:
-      template:
-        header:
-          one: "An error prohibited this %{model} from being saved"
-          other: "%{count} errors prohibited this %{model} from being saved"
-      try_again_later: "Error - Please try again later."
       models:
         expense:
           attributes:
-            location_from:
-              blank: "cannot be blank."
-            location_to:
-              blank: "cannot be blank."
             general_advance:
-              blank: "cannot be blank."
-              not_a_number: "has to be a whole number."
-              greater_than_or_equal_to: "must not be negative."
+              blank: cannot be blank.
+              greater_than_or_equal_to: must not be negative.
+              not_a_number: has to be a whole number.
+            location_from:
+              blank: cannot be blank.
+            location_to:
+              blank: cannot be blank.
             time:
-              format: "must be of format HH:MM."
-            time_start:
-              blank: "cannot be blank."
+              format: must be of format HH:MM.
             time_end:
-              blank: "cannot be blank."
+              blank: cannot be blank.
+            time_start:
+              blank: cannot be blank.
         holiday:
-          duration_geq_length: ' must not be greater than the actual timespan.'
-          too_far_in_the_future: ' is too far in the future.'
           attributes:
-            start:
-              blank: "cannot be blank."
             end:
-              blank: "cannot be blank."
+              blank: cannot be blank.
             length:
-              not_a_number: "has to be a whole number."
+              not_a_number: has to be a whole number.
+            start:
+              blank: cannot be blank.
+          duration_geq_length: " must not be greater than the actual timespan."
+          too_far_in_the_future: " is too far in the future."
         project:
-          cannot_delete: "cannot delete, working hours were already entered"
+          cannot_delete: cannot delete, working hours were already entered
         work_day:
-          no_valid_contract: "no contract at this date."
-          flash:
-            not_member: 'You cannot add work days for projects you are not part of.'
           attributes:
             duration:
-              greater_than: 'work time must be greater than 0'
-  links:
-    search: 'Search'
-    submit: 'Submit'
-    filter: 'Filter'
-  holiday:
-    not_authorized: "You are not authorized to see this holiday request."
-    not_enough_leave: 'Not enough leave left!'
-    destroyed: 'Holiday was successfully destroyed.'
-    updated: 'Holiday was successfully updated.'
-    created: 'Holiday was successfully created.'
-    something_wrong: 'Something went wrong.'
-    applied: "Holiday is already applied"
-  project:
-    filter_chair: 'Filter for ...'
-    not_authorized: "You're not authorized to do that for this project."
+              greater_than: work time must be greater than 0
+          flash:
+            not_member: You cannot add work days for projects you are not part of.
+          no_valid_contract: no contract at this date.
+      template:
+        header:
+          one: An error prohibited this %{model} from being saved
+          other: "%{count} errors prohibited this %{model} from being saved"
+      try_again_later: Error - Please try again later.
+    models:
+      chair:
+        one: research group
+        other: research groups
+      contract:
+        one: contract
+        other: contracts
+      expense:
+        one: expense
+        other: expenses
+      holiday:
+        one: holiday request
+        other: holiday requests
+      project:
+        one: project
+        other: projects
+      time_sheet:
+        one: timesheet
+        other: timesheets
+      trip:
+        one: business trip
+        other: business trips
+      user:
+        one: user
+        other: users
+      work_day:
+        one: work day
+        other: work days
+  chair:
+    accept_request:
+      error: Accepting application failed
+      success: Application was successfully accepted
+    add_chair: Add Research Group
+    apply:
+      error: Saving wimi application failed
+      success: Wimi application was successfully created.
+    create:
+      error: The form is not filled completely!
+      success: Research Group successfully created
+    destroy:
+      error: Research Group could not be destroyed
+      success: Research Group was successfully destroyed
+    not_authorized: You're not authorized to do that for this Research Group.
+    remove_from_chair:
+      error: Failed to remove the user
+      success: User was successfully removed
+    requests:
+      expense_request: Travel expense request
+      holiday_request: Holiday request
+      trip_request: Trip request
+    set_admin:
+      error: Admin setting failed
+      success: Admin was successfully set
+    update:
+      error: The form is not filled completely!
+      success: Research Group successfully updated
     user:
-      add_prompt: "Add someone to the project"
-      add_prompt_specific: "Add someone to the project \"%{title}\""
-      already_member: '%{name} is already a member of this project.'
-      successfully_added: '%{name} has been added successfully.'
-      add_error: 'The user could not be added to the project.'
-      last_wimi: 'You are the last research assistant. You can not leave the project.'
+      add_error: The user could not be added to the Research Group.
+      add_prompt: Add someone to the Research Group
+      add_prompt_specific: Add someone to %{chair}
+      already_member: "%{name} is already a member of this Research Group."
+      successfully_added: "%{name} has been added successfully."
+    withdraw:
+      error: Failed to remove admin rights
+      success: Admin rights were successfully removed
   date:
-    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-    input:
-      formats: 
-        - :default
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
     formats:
-      default: "%m/%d/%Y"
-      short: "%b %d"
       long: "%B %d, %Y"
+      short: "%b %d"
+    input:
+      formats:
+      - :default
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      confirmation: doesn't match %{attribute}
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      model_invalid: 'Validation failed: %{errors}'
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      other_than: must be other than %{count}
+      present: must be blank
+      required: must exist
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+    template:
+      body: 'There were problems with the following fields:'
+      header:
+        one: 1 error prohibited this %{model} from being saved
+        other: "%{count} errors prohibited this %{model} from being saved"
+  expense:
+    applied: Expense is already applied
+    apply: Expense was successfully applied
+    destroyed: Expense was successfully destroyed
+    no_trip: You can not hand in an expense unless you have applied the business trip
+    save: Expense was successfully created
+    update: Expense was successfully updated
+  'false': 'no'
+  holiday:
+    applied: Holiday is already applied
+    created: Holiday was successfully created.
+    destroyed: Holiday was successfully destroyed.
+    not_authorized: You are not authorized to see this holiday request.
+    not_enough_leave: Not enough leave left!
+    something_wrong: Something went wrong.
+    updated: Holiday was successfully updated.
+  links:
+    filter: Filter
+    search: Search
+    submit: Submit
+  mail_notifier:
+    notification:
+      hello: 'Hello '
+      subject: You received a new notification
+      text: you got a new notification. Check your Wimi-Portal Dashboard to see all the recent notifications.
+      your_wimi_portal: Your Wimi-Portal
+  not_authorized: You are not authorized to do that action.
+  not_enough_leave: Not enough leave left
+  project:
+    filter_chair: Filter for ...
+    not_authorized: You're not authorized to do that for this project.
+    user:
+      add_error: The user could not be added to the project.
+      add_prompt: Add someone to the project
+      add_prompt_specific: Add someone to the project "%{title}"
+      already_member: "%{name} is already a member of this project."
+      last_wimi: You are the last research assistant. You can not leave the project.
+      successfully_added: "%{name} has been added successfully."
+  signatures:
+    signature_not_found: You have selected to sign the document, but there was no signature found
+    signature_not_found_time_sheet: The document was not handed in, because you have selected to sign the document, but there was no signature found
+  status:
+    accepted: accepted
+    applied: applied
+    declined: declined
+    saved: saved
   time:
     formats:
       default: "%m/%d/%Y"
-      short: "%b %d"
-      long: "%B %d, %Y"
       full: "%m/%d/%y %k:%M"
-  chair:
-    not_authorized: "You're not authorized to do that for this Research Group."
-    add_chair: "Add Research Group"
-    destroy:
-      error: "Research Group could not be destroyed"
-      success: "Research Group was successfully destroyed"
-    create:
-      success: "Research Group successfully created"
-      error: "The form is not filled completely!"
-    update:
-      success: "Research Group successfully updated"
-      error: "The form is not filled completely!"
-    accept_request:
-      success: "Application was successfully accepted"
-      error: "Accepting application failed"
-    remove_from_chair:
-      success: "User was successfully removed"
-      error: "Failed to remove the user"
-    set_admin:
-      success: "Admin was successfully set"
-      error: "Admin setting failed"
-    withdraw:
-      success: "Admin rights were successfully removed"
-      error: "Failed to remove admin rights"
-    apply:
-      success: "Wimi application was successfully created."
-      error: "Saving wimi application failed"
-    requests:
-      holiday_request: "Holiday request"
-      expense_request: "Travel expense request"
-      trip_request: "Trip request"
-    user:
-      add_prompt: "Add someone to the Research Group"
-      add_prompt_specific: "Add someone to %{chair}"
-      already_member: '%{name} is already a member of this Research Group.'
-      successfully_added: '%{name} has been added successfully.'
-      add_error: 'The user could not be added to the Research Group.'
-
-  "true": "yes"
-  "false": "no"
-  not_enough_leave: 'Not enough leave left'
-  status:
-    saved: "saved"
-    applied: "applied"
-    accepted: "accepted"
-    declined: "declined"
+      long: "%B %d, %Y"
+      short: "%b %d"
   trip:
-    update: "Trip was successfully updated"
-    save: "Trip was successfully created"
-    applied: "Trip is already applied"
-    destroyed: "Trip was successfully destroyed"
-    apply: "Trip was successfully applied"
-  not_authorized: "You are not authorized to do that action."
-  not_enough_leave: "Not enough leave left"
-  expense:
-    update: "Expense was successfully updated"
-    save: "Expense was successfully created"
-    applied: "Expense is already applied"
-    destroyed: "Expense was successfully destroyed"
-    apply: "Expense was successfully applied"
-    no_trip: "You can not hand in an expense unless you have applied the business trip"
+    applied: Trip is already applied
+    apply: Trip was successfully applied
+    destroyed: Trip was successfully destroyed
+    save: Trip was successfully created
+    update: Trip was successfully updated
+  'true': 'yes'
   users:
-    upload_signature:
-      upload_success: "Signature was successfully uploaded"
-      invalid_file_extension: "Please choose a file with a correct extension"
-      upload_error: "Please choose a file"
     delete_signature:
-      destroy_success: "Signature successfully deleted"
-  mail_notifier:
-    notification:
-      subject: "You received a new notification"
-      hello: "Hello "
-      text: "you got a new notification. Check your Wimi-Portal Dashboard to see all the recent notifications."
-      your_wimi_portal: "Your Wimi-Portal"
-  signatures:
-    signature_not_found: "You have selected to sign the document, but there was no signature found"
-    signature_not_found_time_sheet: "The document was not handed in, because you have selected to sign the document, but there was no signature found"
+      destroy_success: Signature successfully deleted
+    upload_signature:
+      invalid_file_extension: Please choose a file with a correct extension
+      upload_error: Please choose a file
+      upload_success: Signature was successfully uploaded

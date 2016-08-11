@@ -1,452 +1,447 @@
-# Sample localization file for German. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
+---
 de:
-  home:
-    index:
-      welcome: "Willkommen beim HPI WiMi-Portal!"
-      user_html: "Sie sind angemeldet als: %{user}."
-      member_status_html: "Sie sind momentan für <strong>%{project_count} %{project}</strong> als HiWi oder WiMi registriert und haben <strong>%{contract_count} %{contract}</strong>."
-      new_member: "Sie können deshalb noch keine Arbeitsstunden eintragen."
-  helpers:
-    flash:
-      created: "%{model} wurde erfolgreich erstellt"
-      destroyed: "%{model} wurde erfolgreich gelöscht"
-      updated: "%{model} wurde erfolgreich aktualisiert"
-      no_contract: "Achtung! Es liegt kein Vertrag für %{user} für %{month} / %{year} vor."
-    application_tabs:
-      home: "Startseite"
-      profile: "Profil"
-      sign_in: "HPI Login"
-      external_sign_in: "Externer Login"
-      login: "Anmelden"
-      logout: "Abmelden"
-    actions: "Aktionen"
-    forms:
-      required_field: "Pflichtfeld"
-    links:
-      hand_in: "Einreichen"
-      show: "Anzeigen"
-      back: "Zurück"
-      cancel: "Abbrechen"
-      confirm: "Sicher?"
-      confirm_delete: "Sind sie sicher, dass \"%{model}\" gelöscht werden soll?"
-      destroy: "Löschen"
-      new: "Neu"
-      apply: "Bewerben"
-      edit: "Bearbeiten"
-      leave: "Verlassen"
-      edit_leave: "Resturlaub bearbeiten"
-      show_details: "Details anzeigen"
-      download_pdf: "Als PDF herunterladen"
-      apply_trip: "Antrag stellen"
-      save: "Speichern"
-    titles:
-      edit: "%{model} bearbeiten"
-      save: "%{model} speichern"
-      new: "%{model} erstellen"
-      destroy: "%{model} löschen"
-    language:
-      lang: "Sprache"
-      english: "Englisch"
-      german: "Deutsch"
-    submit:
-      create: "Erstelle %{model}"
-      update: "Aktualisiere %{model}"
-      hide: "Ausblenden"
-    list_select: "Bitte auswählen"
-  project_applications:
-    states:
-      pending: "Ausstehend"
-      declined: "Abgelehnt"
-      accepted: "Akzeptiert"
-    created: "Bewerbung wurde erfolgreich erstellt"
-    not_created: "Bewerbung konnte nicht erstellt werden"
-    destroy: "Bewerbung wurde zurückgezogen"
-    index:
-      cancel: "Bewerbung zurückziehen"
-    reapply: "Erneut bewerben"
-    refused_reapply: "Bewerbung abgelehnt - Erneut bewerben"
-    pending_cancel: "Bewerbung ausstehend - Zurückziehen"
-    accept_application: "Bewerbung akzeptieren"
-    decline_application: "Bewerbung ablehnen"
-  projects:
+  chairs:
+    applications:
+      accept: Annehmen
+      decline: Ablehnen
+      grant_rights: Als Admin ernennen
+      long_plural: Anfragen
+      no_applications: Keine Anfragen
+      remove_from_chair: Vom Lehrstuhl entfernen
+      withdraw_rights: Rechte entziehen
     form:
-      wimi: "Wissenschaftliche Mitarbeiter"
-      hiwi: "Studentische Hilfskräfte"
-      sign_out_of_project: "Entfernen"
-      accessibility: "Sichtbarkeit"
-      project_leader: "Teamleiter"
-      title: "Titel"
-      prohibited_this_project_from_being_saved: "verbietet das Projekt zu speichern"
-      show_current_working_hours: "Aktuellen Stundenzettel anzeigen"
-      show_all_working_hours: "Alle Stundenzettel anzeigen"
-      create_project: "Erstelle Projekt"
-      update_project: "Aktualisiere Project"
-      invite_init_user: "Benutzer Einladen"
-    show:
-      working_hours: "Stundenzettel"
-      add_working_hours: "Stundenzettel hinzufügen"
-      inactive: "(inaktiv)"
-      set_inactive: "inaktiv schalten "
-      set_active: "aktiv schalten"
-      chair: "Fachgebiet"
-      chair_representative: "Fachgebietsleiter"
-      project_visibility: "Sichtbarkeit"
-      project_leader: "Teamleiter"
-      public: "öffentlich"
-      private: "privat"
-      not_defined: "nicht festgelegt"
-      research_assistants: "Wisenschaftliche Mitarbeiter"
-      student_assistants: "Studentische Hilfskräfte"
-      project_team: "Projekt Team"
-      leave_project: "Projekt verlassen"
-      edit_project: "Projekt bearbeiten"
-      leave_p: "Verlassen"
-    index:
-      title: "Titel"
-      accessibility: "Verfügbarkeit"
-      created_at: "Erstellt am"
-      private: "privat"
-      public: "öffentlich"
-      projects: "Projekte"
-      status: "Status"
-      status_true: "Aktiv"
-      status_false: "Inaktiv"
-      all_working_hours: "Gesamtstunden aller Hiwis für das Fachgebiet"
-    create:
-      success: 'Projekt wurde erfolgreich erstellt.'
-    update:
-      success: 'Projekt wurde erfolgreich bearbeitet.'
-    destroy:
-      success: 'Projekt wurde erfolgreich gelöscht.'
-  users:
-    no_email: "ist keine gültige Email-Adresse."
-    does_not_exist: "Dieser Benutzer existiert nicht."
-    update:
-      user_updated: "Profil erfolgreich aktualisiert."
-      user_updated_language: "Sprache erfolgreich aktualisiert."
-    show:
-      business_trips: "Geschäftsreisen"
-      request_trip: "Geschäftsreise beantragen"
-      holiday_requests: "Urlaubsanfragen"
-      request_holiday: "Urlaub anfragen"
-      user_data: "Profilbezogene Daten"
-      remaining_leave: "Verbleibender Resturlaub: %{leave} Tag(e)"
-      remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
-      days: "Tag(e)"
-      warning_label: "Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!"
-      password: "Passwort ändern"
-      update_password: "Passwort aktualisieren"
-      work_times: "Arbeitszeit"
-      handed_in_timesheets: "Eingereichte Stundenzettel:"
-      by: "von"
-      time_sheets_overview: "Stundenzettel Ihrer Studenten"
-      hiwi: "HiWi"
-      month: "Monat"
-      number_of_hours: "Anzahl Std."
-      handed_in_at: "eingereicht am"
-      status_timesheet: "Status"
-      action: "Aktion"
-      inspect: "Ansehen"
-      status:
-        saved: "Gespeichert"
-        accepted: "Akzeptiert"
-        applied: "Eingereicht"
-        declined: "Abgelehnt"
-      signature: "Unterschrift"
-      warning: "ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt!"
-      upload: "Unterschrift hochladen"
-      information: "Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus"
-    edit:
-      password: "Passwort ändern"
-      update_password: "Passwort ändern"
-      user_data: "Profil"
-    public_user_data:
-      public_data: "Öffentliche Daten"
-      projects: "Projekte"
-    private_user_data:
-      private_data: "Persönliche Daten"
-      user_status: "Status"
-      wimi: "WiMi"
-      hiwi: "HiWi"
-      is_on: "an"
-      is_off: "aus"
-    edit_leave:
-      remaining_leave: "Verbleibender Resturlaub"
-      remaining_leave_fly: "Verbleibender Resturlaub vom letzten Jahr"
-      save: "Resturlaub Speichern"
-      title: "Resturlaub bearbeiten"
-    form:
-      user_data: "Profilbezogene Daten"
-    external_login:
-      login: "Anmelden"
-  holidays:
-    show:
-      days: "Tag(e)"
-      hand_in: "Antrag einreichen"
-      reject: "Antrag ablehnen"
-      accept: "Antrag annehmen"
-      filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
-      reject_reason: "Ablehnungsgrund"
-      status:
-        saved: "Gespeichert am "
-        accepted: "Akzeptiert am "
-        applied: "Eingereicht am "
-        declined: "Abgelehnt am "
-    form:
-      auto_calculation: "Für automatische Berechnung leer lassen."
+      no_representative: Kein Fachgebietsleiter ausgewählt
+      no_results: Keine Ergebnisse
+    navigation:
+      apply_wimi: Als Wimi bewerben
+      manage: Lehrstuhl verwalten
+      not_authorized: Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen.
+      show_timesheets: Stundenzettel anzeigen
+    requests:
+      accepted: Angenommen
+      applied: Offene Anfrage
+      applied_plural: Offene Anfragen
+      apply_filter: Filter anwenden
+      declined: Abgelehnt
+      expense_request: Reisekostenabrechnung
+      holiday_request: Urlaubsantrag
+      pending: Ausstehend
+      requests: Anfragen
+      status_filter: Filtern nach Status
+      trip_request: Dienstreiseantrag
+      type_filter: Filtern nach Art
   dashboard:
-    index:
-      notifications: "Benachrichtigungen"
-      dashboard_title: "Dashboard"
-      representative_actions: "Fachgebietsleiter - Aktionen"
-      show_holiday_requests: "Urlaubsanträge anzeigen"
-      show_expense_requests: "Reisekostenabrechnung anzeigen"
-      show_trip_requests: "Dienstreiseanträge anzeigen"
-      activities: "Aktivitäten"
-      activities_empty: "Noch keine Aktivitäten verfügbar."
-      notifications: "Wichtige Benachrichtigungen"
-      actions: "Aktionen"
-    projects:
-      projects: "Meine Projekte"
-    contracts:
-      contracts: "Meine Verträge"
     actions:
-      enter_work_hours: "Arbeitsstunden für %{project_name} eintragen"
-      create_project: "Projekt erstellen"
-      request_holiday: "Urlaub beantragen"
-      request_business_trip: "Geschäftsreise beantragen"
-      file_travel_expenses: "Reisekostenabrechnung einreichen"
-  event_time_sheet_declineds:
-    event_time_sheet_declined:
-      view: "Ansehen"
-      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>abgelehnt</b>."
-  event_time_sheet_accepteds:
-    event_time_sheet_accepted:
-      view: "Ansehen"
-      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>bestätigt</b>."
-  event_project_invitations:
-    event_project_invitation:
-      accept: "Annehmen"
-      decline: "Ablehnen"
-      full_html: "%{trigger_name} hat Sie in das Projekt %{project_name} eingeladen."
-  event_travel_request_accepteds:
-    event_travel_request_accepted:
-      view: "Ansehen"
-      request: "Dienstreiseantrag"
-      full_html: "Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>angenommen</b>. %{link_to_view}"
-  event_holiday_requests:
-    event_holiday_request:
-      accepted: "akzeptiert"
-      rejected: "abgelehnt"
-      full_html: "%{person_in_power} hat den Urlaubsantrag von %{user} <b>%{status}</b>."
-  event_travel_request_declineds:
-    event_travel_request_declined:
-      view: "Ansehen"
-      request: "Dienstreiseantrag"
-      full_html: "Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>abgelehnt</b>. %{link_to_view}"
-  event_time_sheet_submitteds:
-    event_time_sheet_submitted:
-      view: "Ansehen"
-      full_html: "%{link_to_user} hat einen Stundenzettel zur Unterschrift vorgelegt. %{link_to_view}"
-  expenses:
-    expense:
-      inland: "Inlandsreise"
-      country: "Reiseland"
-      location_from: "Startort"
-      location_via: "Zwischenhalt"
-      location_to: "Zielort"
-      reason: "Grund"
-      time_start: "Abfahrtszeit"
-      time_end: "Ankunftszeit"
-      vehicle: "Fahrzeug"
-      car: "PKW"
-      public_transport: "Bus/Bahn/Flug"
-      vehicle_advance: "vom HPI im Voraus bezahlt"
-      hotel: "Hotel?"
-      general_advance: "Vorschuss"
-      signature: "Unterschreiben"
-    form:
-      hotel_true: "Hotel"
-      hotel_false: "Privat"
-      accommodation: "Unterkunft"
-      travel_by: "Reise mit"
-      catering: "Geben Sie hier für jeden Tag an, welche Mahlzeiten nicht aus privaten Mitteln bezahlt wurden. (z.B. Frühstück im Hotel)"
-  trips:
-    show:
-      id: "Id"
-      destination: "Ziel"
-      duration: "Dauer: %{days} Tag(e)"
-      reason: "Grund"
-      annotation: "Bemerkungen"
-      signature: "Unterschreiben"
-      status: "Status"
-      user_id: "Benutzer"
-      created_at: "Erstellungsdatum"
-      hand_in: "Antrag einreichen"
-      reject: "Antrag ablehnen"
-      accept: "Antrag annehmen"
-      filed_request_cant_be_edited: "Ein eingereichter Antrag kann nicht bearbeitet werden."
-      days: "Tag(e)"
-      reject_reason: "Ablehnungsgrund"
-      status:
-        saved: "Gespeichert am "
-        accepted: "Akzeptiert am "
-        applied: "Eingereicht am "
-        declined: "Abgelehnt am "
-      expense: "Reisekostenabrechnung"
-      create_expense: "Reisekosten eintragen"
-    form:
-      destination: "Zielort der Geschätsreise"
-      reason: "Kurze Begründung"
-      annotation: "Sonstige Bemerkungen"
-      date: "TT.MM.JJJJ"
-  work_days:
+      create_project: Projekt erstellen
+      enter_work_hours: Arbeitsstunden für %{project_name} eintragen
+      file_travel_expenses: Reisekostenabrechnung einreichen
+      request_business_trip: Geschäftsreise beantragen
+      request_holiday: Urlaub beantragen
+    contracts:
+      contracts: Meine Verträge
     index:
-      working_hours_for: "Arbeitsstunden im"
-      working_hours: "Arbeitsstunden"
-      new: "hinzufügen"
-      for: "für"
-      by: "von"
-      project: "Projekt"
-      user: "Benutzer"
-      prev_month_link: "Nächsten Monat anzeigen (%{month_name})"
-      next_month_link: "Vorherigen Monat anzeigen (%{month_name})"
-      current_month_link: "Aktuellen Monat anzeigen (%{month_name})"
-    new:
-      back: "Zurück"
-      title: "Arbeitsstundeneintrag erstellen"
-    edit:
-      title: "Arbeitsstundeneintrag bearbeiten"
-    form:
-      minutes: "Zeit in Minuten"
-  time_sheets:
-    form:
-      monthly: "monatlich"
-      weekly: "wöchentlich"
-      hourly: "stündlich"
-      time_sheet: "Stundenzettel"
-    edit:
-      title: "Stundenzettel bearbeiten"
-    show:
-      salary: "Bezahlung:"
-      salary_per_month: "Euro / Monat"
-      salary_per_hour: "Euro / Stunde"
-      workload: "Arbeitszeit"
-      workload_per_month: "Stunden / Monat"
-      workload_per_week: "Stunden / Woche"
-      total_work_time: "Gesamtarbeitszeit"
-    show_footer:
-      new: "neu"
-      in: "im"
-      by: "von"
-      hand_in: "Einreichen"
-      accept: "Annehmen"
-      handed_in_at: "Eingereicht am"
-      reject: "Ablehnen"
-      reject_reason: "Ablehnungsgrund"
-      rejected_by: "Abgelehnt von"
-      accepted_by: "Angenommen von"
-      at: "Am"
-      handed_in_at: "Eingereicht am:"
-      add_signature: "Unterschrift hinzufügen"
-      document_was: "Das Dokument wurde"
-      not: "nicht"
-      signed: "unterschrieben"
-      status: "Status: "
-      acceptence_requested_at: "Genehmigung erfragt am: "
-      pending: "ausstehend"
-      accepted: "bestätigt"
-      rejected: "abgelehnt"
+      actions: Aktionen
+      activities: Aktivitäten
+      activities_empty: Noch keine Aktivitäten verfügbar.
+      dashboard_title: Dashboard
+      notifications: Wichtige Benachrichtigungen
+      representative_actions: Fachgebietsleiter - Aktionen
+      show_expense_requests: Reisekostenabrechnung anzeigen
+      show_holiday_requests: Urlaubsanträge anzeigen
+      show_trip_requests: Dienstreiseanträge anzeigen
+    projects:
+      projects: Meine Projekte
   date:
+    abbr_month_names:
+    - 
+    - Jan
+    - Feb
+    - Mär
+    - Apr
+    - Mai
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Okt
+    - Nov
+    - Dez
     formats:
       default: "%d.%m.%Y"
+      short_month: "%b"
+      short_month_year: "%b %y"
       without_day: "%B %Y"
       without_day_year: "%B"
-      short_month_year: "%b %y"
-      short_month: "%b"
-    order:
-      - :day
-      - :month
-      - :year
     month_names:
-      -
-      - Januar
-      - Februar
-      - März
-      - April
-      - Mai
-      - Juni
-      - Juli
-      - August
-      - September
-      - Oktober
-      - November
-      - Dezember
-    abbr_month_names:
-      -
-      - Jan
-      - Feb
-      - Mär
-      - Apr
-      - Mai
-      - Jun
-      - Jul
-      - Aug
-      - Sep
-      - Okt
-      - Nov
-      - Dez
+    - 
+    - Januar
+    - Februar
+    - März
+    - April
+    - Mai
+    - Juni
+    - Juli
+    - August
+    - September
+    - Oktober
+    - November
+    - Dezember
+    order:
+    - :day
+    - :month
+    - :year
+  event_holiday_requests:
+    event_holiday_request:
+      accepted: akzeptiert
+      full_html: "%{person_in_power} hat den Urlaubsantrag von %{user} <b>%{status}</b>."
+      rejected: abgelehnt
+  event_project_invitations:
+    event_project_invitation:
+      accept: Annehmen
+      decline: Ablehnen
+      full_html: "%{trigger_name} hat Sie in das Projekt %{project_name} eingeladen."
+  event_time_sheet_accepteds:
+    event_time_sheet_accepted:
+      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>bestätigt</b>."
+      view: Ansehen
+  event_time_sheet_declineds:
+    event_time_sheet_declined:
+      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>abgelehnt</b>."
+      view: Ansehen
+  event_time_sheet_submitteds:
+    event_time_sheet_submitted:
+      full_html: "%{link_to_user} hat einen Stundenzettel zur Unterschrift vorgelegt. %{link_to_view}"
+      view: Ansehen
+  event_travel_request_accepteds:
+    event_travel_request_accepted:
+      full_html: Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>angenommen</b>. %{link_to_view}
+      request: Dienstreiseantrag
+      view: Ansehen
+  event_travel_request_declineds:
+    event_travel_request_declined:
+      full_html: Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>abgelehnt</b>. %{link_to_view}
+      request: Dienstreiseantrag
+      view: Ansehen
   events:
     event_admin_right:
       added: "%{trigger} hat %{target} Admin-Rechte verliehen."
       removed: "%{trigger} hat %{target} Admin-Rechte entzogen."
-    event_user_chair:
-      added: "%{trigger} hat %{target} in den Lehrstuhl aufgenommen."
-      removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."
-      declined: "%{trigger} hat die Bewerbung von %{target} für den Lehrstuhl abgelehnt"
     event_chair_application: "%{trigger} hat einen Mitgliedsantrag für ihren Lehrstuhl erstellt."
     event_request:
+      expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
       holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
       trip: "%{trigger} hat einen Reiseantrag gestellt."
-      expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
-  chairs:
+    event_user_chair:
+      added: "%{trigger} hat %{target} in den Lehrstuhl aufgenommen."
+      declined: "%{trigger} hat die Bewerbung von %{target} für den Lehrstuhl abgelehnt"
+      removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."
+  expenses:
+    expense:
+      car: PKW
+      country: Reiseland
+      general_advance: Vorschuss
+      hotel: Hotel?
+      inland: Inlandsreise
+      location_from: Startort
+      location_to: Zielort
+      location_via: Zwischenhalt
+      public_transport: Bus/Bahn/Flug
+      reason: Grund
+      signature: Unterschreiben
+      time_end: Ankunftszeit
+      time_start: Abfahrtszeit
+      vehicle: Fahrzeug
+      vehicle_advance: vom HPI im Voraus bezahlt
     form:
-      no_representative: "Kein Fachgebietsleiter ausgewählt"
-      no_results: "Keine Ergebnisse"
-    navigation:
-      not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
-      apply_wimi: "Als Wimi bewerben"
-      manage: "Lehrstuhl verwalten"
-      show_timesheets: "Stundenzettel anzeigen"
-    requests:
-      apply_filter: "Filter anwenden"
-      requests: "Anfragen"
-      type_filter: "Filtern nach Art"
-      status_filter: "Filtern nach Status"
-      holiday_request: "Urlaubsantrag"
-      trip_request: "Dienstreiseantrag"
-      expense_request: "Reisekostenabrechnung"
-      applied_plural: "Offene Anfragen"
-      applied: "Offene Anfrage"
-      accepted: "Angenommen"
-      declined: "Abgelehnt"
-      pending: "Ausstehend"
-    applications:
-      long_plural: "Anfragen"
-      no_applications: "Keine Anfragen"
-      accept: "Annehmen"
-      decline: "Ablehnen"
-      remove_from_chair: "Vom Lehrstuhl entfernen"
-      withdraw_rights: "Rechte entziehen"
-      grant_rights: "Als Admin ernennen"
+      accommodation: Unterkunft
+      catering: Geben Sie hier für jeden Tag an, welche Mahlzeiten nicht aus privaten Mitteln bezahlt wurden. (z.B. Frühstück im Hotel)
+      hotel_false: Privat
+      hotel_true: Hotel
+      travel_by: Reise mit
+  helpers:
+    actions: Aktionen
+    application_tabs:
+      external_sign_in: Externer Login
+      home: Startseite
+      login: Anmelden
+      logout: Abmelden
+      profile: Profil
+      sign_in: HPI Login
+    flash:
+      created: "%{model} wurde erfolgreich erstellt"
+      destroyed: "%{model} wurde erfolgreich gelöscht"
+      no_contract: Achtung! Es liegt kein Vertrag für %{user} für %{month} / %{year} vor.
+      updated: "%{model} wurde erfolgreich aktualisiert"
+    forms:
+      required_field: Pflichtfeld
+    language:
+      english: Englisch
+      german: Deutsch
+      lang: Sprache
+    links:
+      apply: Bewerben
+      apply_trip: Antrag stellen
+      back: Zurück
+      cancel: Abbrechen
+      confirm: Sicher?
+      confirm_delete: Sind sie sicher, dass "%{model}" gelöscht werden soll?
+      destroy: Löschen
+      download_pdf: Als PDF herunterladen
+      edit: Bearbeiten
+      edit_leave: Resturlaub bearbeiten
+      hand_in: Einreichen
+      leave: Verlassen
+      new: Neu
+      save: Speichern
+      show: Anzeigen
+      show_details: Details anzeigen
+    list_select: Bitte auswählen
+    submit:
+      create: Erstelle %{model}
+      hide: Ausblenden
+      update: Aktualisiere %{model}
+    titles:
+      destroy: "%{model} löschen"
+      edit: "%{model} bearbeiten"
+      new: "%{model} erstellen"
+      save: "%{model} speichern"
+  holidays:
+    form:
+      auto_calculation: Für automatische Berechnung leer lassen.
+    show:
+      accept: Antrag annehmen
+      days: Tag(e)
+      filed_request_cant_be_edited: Ein eingereichter Antrag kann nicht bearbeitet werden.
+      hand_in: Antrag einreichen
+      reject: Antrag ablehnen
+      reject_reason: Ablehnungsgrund
+      status:
+        accepted: 'Akzeptiert am '
+        applied: 'Eingereicht am '
+        declined: 'Abgelehnt am '
+        saved: 'Gespeichert am '
+  home:
+    index:
+      member_status_html: Sie sind momentan für <strong>%{project_count} %{project}</strong> als HiWi oder WiMi registriert und haben <strong>%{contract_count} %{contract}</strong>.
+      new_member: Sie können deshalb noch keine Arbeitsstunden eintragen.
+      user_html: 'Sie sind angemeldet als: %{user}.'
+      welcome: Willkommen beim HPI WiMi-Portal!
+  no_entries_yet: Es sind noch keine %{target} vorhanden.
+  project_applications:
+    accept_application: Bewerbung akzeptieren
+    created: Bewerbung wurde erfolgreich erstellt
+    decline_application: Bewerbung ablehnen
+    destroy: Bewerbung wurde zurückgezogen
+    index:
+      cancel: Bewerbung zurückziehen
+    not_created: Bewerbung konnte nicht erstellt werden
+    pending_cancel: Bewerbung ausstehend - Zurückziehen
+    reapply: Erneut bewerben
+    refused_reapply: Bewerbung abgelehnt - Erneut bewerben
+    states:
+      accepted: Akzeptiert
+      declined: Abgelehnt
+      pending: Ausstehend
+  projects:
+    create:
+      success: Projekt wurde erfolgreich erstellt.
+    destroy:
+      success: Projekt wurde erfolgreich gelöscht.
+    form:
+      accessibility: Sichtbarkeit
+      create_project: Erstelle Projekt
+      hiwi: Studentische Hilfskräfte
+      invite_init_user: Benutzer Einladen
+      prohibited_this_project_from_being_saved: verbietet das Projekt zu speichern
+      project_leader: Teamleiter
+      show_all_working_hours: Alle Stundenzettel anzeigen
+      show_current_working_hours: Aktuellen Stundenzettel anzeigen
+      sign_out_of_project: Entfernen
+      title: Titel
+      update_project: Aktualisiere Project
+      wimi: Wissenschaftliche Mitarbeiter
+    index:
+      accessibility: Verfügbarkeit
+      all_working_hours: Gesamtstunden aller Hiwis für das Fachgebiet
+      created_at: Erstellt am
+      private: privat
+      projects: Projekte
+      public: "öffentlich"
+      status: Status
+      status_false: Inaktiv
+      status_true: Aktiv
+      title: Titel
+    show:
+      add_working_hours: Stundenzettel hinzufügen
+      chair: Fachgebiet
+      chair_representative: Fachgebietsleiter
+      edit_project: Projekt bearbeiten
+      inactive: "(inaktiv)"
+      leave_p: Verlassen
+      leave_project: Projekt verlassen
+      not_defined: nicht festgelegt
+      private: privat
+      project_leader: Teamleiter
+      project_team: Projekt Team
+      project_visibility: Sichtbarkeit
+      public: "öffentlich"
+      research_assistants: Wisenschaftliche Mitarbeiter
+      set_active: aktiv schalten
+      set_inactive: 'inaktiv schalten '
+      student_assistants: Studentische Hilfskräfte
+      working_hours: Stundenzettel
+    update:
+      success: Projekt wurde erfolgreich bearbeitet.
   roles:
-    wimi_long: "Wissenschaftlicher Mitarbeiter"
-    wimi_long_plural: "Wissenschaftliche Mitarbeiter"
-    chair_representative: "Fachgebietsleiter"
-    admin_long: "Administrator"
-    hiwi_long_plural: "Studentische Hilfskräfte"
-    admin_long_plural: "Administratoren"
-  signature_warning: "Bevor Sie das Dokument akzeptieren, müssen Sie eine Unterschrift hochladen."
-  no_entries_yet: "Es sind noch keine %{target} vorhanden."
+    admin_long: Administrator
+    admin_long_plural: Administratoren
+    chair_representative: Fachgebietsleiter
+    hiwi_long_plural: Studentische Hilfskräfte
+    wimi_long: Wissenschaftlicher Mitarbeiter
+    wimi_long_plural: Wissenschaftliche Mitarbeiter
+  signature_warning: Bevor Sie das Dokument akzeptieren, müssen Sie eine Unterschrift hochladen.
+  time_sheets:
+    edit:
+      title: Stundenzettel bearbeiten
+    form:
+      hourly: stündlich
+      monthly: monatlich
+      time_sheet: Stundenzettel
+      weekly: wöchentlich
+    show:
+      salary: 'Bezahlung:'
+      salary_per_hour: Euro / Stunde
+      salary_per_month: Euro / Monat
+      total_work_time: Gesamtarbeitszeit
+      workload: Arbeitszeit
+      workload_per_month: Stunden / Monat
+      workload_per_week: Stunden / Woche
+    show_footer:
+      accept: Annehmen
+      accepted: bestätigt
+      accepted_by: Angenommen von
+      acceptence_requested_at: 'Genehmigung erfragt am: '
+      add_signature: Unterschrift hinzufügen
+      at: Am
+      by: von
+      document_was: Das Dokument wurde
+      hand_in: Einreichen
+      handed_in_at: 'Eingereicht am:'
+      in: im
+      new: neu
+      not: nicht
+      pending: ausstehend
+      reject: Ablehnen
+      reject_reason: Ablehnungsgrund
+      rejected: abgelehnt
+      rejected_by: Abgelehnt von
+      signed: unterschrieben
+      status: 'Status: '
+  trips:
+    form:
+      annotation: Sonstige Bemerkungen
+      date: TT.MM.JJJJ
+      destination: Zielort der Geschätsreise
+      reason: Kurze Begründung
+    show:
+      accept: Antrag annehmen
+      annotation: Bemerkungen
+      create_expense: Reisekosten eintragen
+      created_at: Erstellungsdatum
+      days: Tag(e)
+      destination: Ziel
+      duration: 'Dauer: %{days} Tag(e)'
+      expense: Reisekostenabrechnung
+      filed_request_cant_be_edited: Ein eingereichter Antrag kann nicht bearbeitet werden.
+      hand_in: Antrag einreichen
+      id: Id
+      reason: Grund
+      reject: Antrag ablehnen
+      reject_reason: Ablehnungsgrund
+      signature: Unterschreiben
+      status:
+        accepted: 'Akzeptiert am '
+        applied: 'Eingereicht am '
+        declined: 'Abgelehnt am '
+        saved: 'Gespeichert am '
+      user_id: Benutzer
+  users:
+    does_not_exist: Dieser Benutzer existiert nicht.
+    edit:
+      password: Passwort ändern
+      update_password: Passwort ändern
+      user_data: Profil
+    edit_leave:
+      remaining_leave: Verbleibender Resturlaub
+      remaining_leave_fly: Verbleibender Resturlaub vom letzten Jahr
+      save: Resturlaub Speichern
+      title: Resturlaub bearbeiten
+    external_login:
+      login: Anmelden
+    form:
+      user_data: Profilbezogene Daten
+    no_email: ist keine gültige Email-Adresse.
+    private_user_data:
+      hiwi: HiWi
+      is_off: aus
+      is_on: an
+      private_data: Persönliche Daten
+      user_status: Status
+      wimi: WiMi
+    public_user_data:
+      projects: Projekte
+      public_data: "Öffentliche Daten"
+    show:
+      action: Aktion
+      business_trips: Geschäftsreisen
+      by: von
+      days: Tag(e)
+      handed_in_at: eingereicht am
+      handed_in_timesheets: 'Eingereichte Stundenzettel:'
+      hiwi: HiWi
+      holiday_requests: Urlaubsanfragen
+      information: Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus
+      inspect: Ansehen
+      month: Monat
+      number_of_hours: Anzahl Std.
+      password: Passwort ändern
+      remaining_leave: 'Verbleibender Resturlaub: %{leave} Tag(e)'
+      remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
+      request_holiday: Urlaub anfragen
+      request_trip: Geschäftsreise beantragen
+      signature: Unterschrift
+      status:
+        accepted: Akzeptiert
+        applied: Eingereicht
+        declined: Abgelehnt
+        saved: Gespeichert
+      status_timesheet: Status
+      time_sheets_overview: Stundenzettel Ihrer Studenten
+      update_password: Passwort aktualisieren
+      upload: Unterschrift hochladen
+      user_data: Profilbezogene Daten
+      warning: 'ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt!'
+      warning_label: Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!
+      work_times: Arbeitszeit
+    update:
+      user_updated: Profil erfolgreich aktualisiert.
+      user_updated_language: Sprache erfolgreich aktualisiert.
+  work_days:
+    edit:
+      title: Arbeitsstundeneintrag bearbeiten
+    form:
+      minutes: Zeit in Minuten
+    index:
+      by: von
+      current_month_link: Aktuellen Monat anzeigen (%{month_name})
+      for: für
+      new: hinzufügen
+      next_month_link: Vorherigen Monat anzeigen (%{month_name})
+      prev_month_link: Nächsten Monat anzeigen (%{month_name})
+      project: Projekt
+      user: Benutzer
+      working_hours: Arbeitsstunden
+      working_hours_for: Arbeitsstunden im
+    new:
+      back: Zurück
+      title: Arbeitsstundeneintrag erstellen
