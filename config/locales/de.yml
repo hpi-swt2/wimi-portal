@@ -3,29 +3,20 @@ de:
   activerecord:
     attributes:
       chair:
-        application:
-          status:
-            accepted: angenommen
-            declined: abgelehnt
-            pending: gestellt
-        apply: Als WiMi bewerben
         created_at: Erstellungsdatum
         id: Id
         name: Name
-        status: Status
       contract:
-        chair: Lehrstuhl
         date: Vertragslaufzeit
         end_date: Enddatum
         flexible: Flexibler Vertrag
-        hiwi: Angestellter
         hours_per_week: Wöchentliche Arbeitsstunden
-        responsible: Verantwortlicher
         start_date: Anfangsdatum
         wage_per_hour: Stundenlohn
       expense:
         car: PKW
         country: Land
+        date_start: Startdatum
         general_advance: Vorschuss
         hotel: Hotel
         inland: Inlandsreise
@@ -62,11 +53,9 @@ de:
         created_at: Erstellungsdatum
         id: Id
         title: Titel
-        users: Benutzer
       request:
         handed_in: Eingereicht am
         name: Name
-        not_member_of_chair: Sie sind kein Mitglied eines Lehrstuhls.
         status: Status
         type: Art
       time_sheet:
@@ -124,12 +113,9 @@ de:
           vacation: Urlaub
         break: Pause
         date: Datum
-        duration: Dauer
         end_time: Endzeit
         notes: Anmerkung
-        project: Projekt
         start_time: Startzeit
-        time: Zeit
     errors:
       models:
         expense:
@@ -169,8 +155,8 @@ de:
           no_valid_contract: kein Vertrag für diesen Tag.
       template:
         header:
-          one: 'Konnte %{model} nicht speichern: ein Fehler.'
-          other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+          one: "%{model} konnte wegen eines Fehlers nicht gespeichert werden"
+          other: "%{model} konnte wegen %{count} Fehlern nicht gespeichert werden"
       try_again_later: Fehler - Bitte versuchen Sie es später nochmal.
     models:
       chair:
@@ -201,20 +187,8 @@ de:
         one: Arbeitstag
         other: Arbeitstage
   chair:
-    accept_request:
-      error: Fehler beim Annehmen der Anfrage
-      success: Anfrage erfolgreich angenommen
-    add_chair: Lehrstuhl hinzufügen
-    apply:
-      error: Wimi-Anfrage konnte nicht erstellt werden
-      success: Wimi-Anfrage erfolgreich erstellt
-    create:
-      error: Das Formular wurde nicht vollständig ausgefüllt!
-      success: Lehrstuhl wurde erfolgreich erstellt
     destroy:
       error: Lehrstuhl konnte nicht gelöscht werden
-      success: Lehrstuhl wurde erfolgreich gelöscht
-    not_authorized: Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen.
     remove_from_chair:
       error: Nutzer konnte nicht entfernt werden
       success: Benutzer erfolgreich entfernt
@@ -225,9 +199,6 @@ de:
     set_admin:
       error: User konnte nicht zum Admin ernannt werden
       success: User wurde erfolgreich zum Admin ernannt
-    update:
-      error: Das Formular wurde nicht vollständig ausgefüllt!
-      success: Lehrstuhl erfolgreich aktualisiert
     user:
       add_error: Der Nutzer konnte nicht zum Lehrstuhl hinzugefügt werden.
       add_prompt: Jemanden zum Lehrstuhl hinzufügen
@@ -285,14 +256,8 @@ de:
       wrong_length:
         one: hat die falsche Länge (muss genau 1 Zeichen haben)
         other: hat die falsche Länge (muss genau %{count} Zeichen haben)
-    template:
-      body: 'Es gab Probleme mit folgenden Feldern:'
-      header:
-        one: "%{model} konnte wegen einem Fehler nicht gespeichert werden"
-        other: "%{model} konnte wegen %{count} Fehlern nicht gespeichert werden"
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
-    apply: Reisekostenabrechnung wurde erfolgreich eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
     no_trip: Bevor die Reisekostenabrechnung eingereicht werden kann, müssen Sie den Dienstreiseantrag einreichen
     save: Reisekostenabrechnung wurde erfolgreich erstellt
@@ -304,16 +269,13 @@ de:
     destroyed: Urlaub wurde erfolreich gelöscht.
     not_authorized: Sie sind nicht befugt, diesen Urlaubsantrag einzusehen.
     not_enough_leave: Nicht genug Resturlaub übrig!
-    something_wrong: Es gab einen unbekannten Fehler.
     updated: Urlaub wurde erfolgreich bearbeitet.
   links:
-    filter: Filtern
     search: Suchen
     submit: Abschicken
   mail_notifier:
     notification:
       hello: 'Hallo '
-      subject: Sie haben eine neue Benachrichtigung erhalten
       text: Sie haben eine neue Benachrichtigung. Besuchen Sie das Wimi-Portal Dashboard, um alle neuen Benachrichtigungen zu sehen.
       your_wimi_portal: Ihr Wimi-Portal
   not_authorized: Du bist nicht befugt, diese Aktion durchzuführen.
@@ -330,11 +292,6 @@ de:
   signatures:
     signature_not_found: Sie haben ausgewählt, das Dokument zu unterschreiben, haben aber noch keine Unterschrift hinzugefügt
     signature_not_found_time_sheet: Das Dokument wurde nicht eingereicht, da Sie ausgewählt haben, das Dokument zu unterschreiben, aber noch keine Unterschrift hinzugefügt wurde
-  status:
-    accepted: genehmigt
-    applied: beantragt
-    declined: abgelehnt
-    saved: gespeichert
   time:
     formats:
       default: "%d.%m.%Y"
@@ -343,7 +300,6 @@ de:
       short: "%b %d"
   trip:
     applied: Dienstreiseantrag bereits eingereicht
-    apply: Dienstreiseantrag wurde erfolgreich eingereicht
     destroyed: Dienstreiseantrag wurde erfolgreich gelöscht
     save: Dienstreiseantrag wurde erfolgreich erstellt
     update: Dienstreiseantrag wurde erfolgreich aktualisiert

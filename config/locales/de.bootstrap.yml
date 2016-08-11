@@ -5,38 +5,36 @@ de:
       accept: Annehmen
       decline: Ablehnen
       grant_rights: Als Admin ernennen
-      long_plural: Anfragen
-      no_applications: Keine Anfragen
       remove_from_chair: Vom Lehrstuhl entfernen
       withdraw_rights: Rechte entziehen
     form:
       no_representative: Kein Fachgebietsleiter ausgewählt
       no_results: Keine Ergebnisse
     navigation:
-      apply_wimi: Als Wimi bewerben
-      manage: Lehrstuhl verwalten
       not_authorized: Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen.
-      show_timesheets: Stundenzettel anzeigen
     requests:
       accepted: Angenommen
-      applied: Offene Anfrage
       applied_plural: Offene Anfragen
       apply_filter: Filter anwenden
       declined: Abgelehnt
       expense_request: Reisekostenabrechnung
       holiday_request: Urlaubsantrag
-      pending: Ausstehend
       requests: Anfragen
       status_filter: Filtern nach Status
       trip_request: Dienstreiseantrag
       type_filter: Filtern nach Art
+    show:
+      a: Abkürzung
+      b: Beschreibung
   dashboard:
     actions:
       create_project: Projekt erstellen
       enter_work_hours: Arbeitsstunden für %{project_name} eintragen
-      file_travel_expenses: Reisekostenabrechnung einreichen
       request_business_trip: Geschäftsreise beantragen
       request_holiday: Urlaub beantragen
+      show_expense_requests: Ausgabenanträge anzeigen
+      show_holiday_requests: Urlaubsanträge anzeigen
+      show_trip_requests: Dienstreiseanträge anzeigen
     contracts:
       contracts: Meine Verträge
     index:
@@ -45,12 +43,12 @@ de:
       activities_empty: Noch keine Aktivitäten verfügbar.
       dashboard_title: Dashboard
       notifications: Wichtige Benachrichtigungen
-      representative_actions: Fachgebietsleiter - Aktionen
-      show_expense_requests: Reisekostenabrechnung anzeigen
-      show_holiday_requests: Urlaubsanträge anzeigen
-      show_trip_requests: Dienstreiseanträge anzeigen
     projects:
       projects: Meine Projekte
+    wimi_actions:
+      create_project: Projekt anlegen
+      request_business_trip: Dienstreise beantragen
+      request_holiday: Urlaub beantragen
   date:
     abbr_month_names:
     - 
@@ -92,9 +90,7 @@ de:
     - :year
   event_holiday_requests:
     event_holiday_request:
-      accepted: akzeptiert
       full_html: "%{person_in_power} hat den Urlaubsantrag von %{user} <b>%{status}</b>."
-      rejected: abgelehnt
   event_project_invitations:
     event_project_invitation:
       accept: Annehmen
@@ -137,6 +133,7 @@ de:
     expense:
       car: PKW
       country: Reiseland
+      date_end: Enddatum
       general_advance: Vorschuss
       hotel: Hotel?
       inland: Inlandsreise
@@ -160,8 +157,6 @@ de:
     actions: Aktionen
     application_tabs:
       external_sign_in: Externer Login
-      home: Startseite
-      login: Anmelden
       logout: Abmelden
       profile: Profil
       sign_in: HPI Login
@@ -172,13 +167,7 @@ de:
       updated: "%{model} wurde erfolgreich aktualisiert"
     forms:
       required_field: Pflichtfeld
-    language:
-      english: Englisch
-      german: Deutsch
-      lang: Sprache
     links:
-      apply: Bewerben
-      apply_trip: Antrag stellen
       back: Zurück
       cancel: Abbrechen
       confirm: Sicher?
@@ -188,21 +177,17 @@ de:
       edit: Bearbeiten
       edit_leave: Resturlaub bearbeiten
       hand_in: Einreichen
-      leave: Verlassen
       new: Neu
       save: Speichern
       show: Anzeigen
       show_details: Details anzeigen
-    list_select: Bitte auswählen
+      upload: Hochladen
     submit:
-      create: Erstelle %{model}
       hide: Ausblenden
-      update: Aktualisiere %{model}
     titles:
       destroy: "%{model} löschen"
       edit: "%{model} bearbeiten"
       new: "%{model} erstellen"
-      save: "%{model} speichern"
   holidays:
     form:
       auto_calculation: Für automatische Berechnung leer lassen.
@@ -226,16 +211,12 @@ de:
       welcome: Willkommen beim HPI WiMi-Portal!
   no_entries_yet: Es sind noch keine %{target} vorhanden.
   project_applications:
-    accept_application: Bewerbung akzeptieren
     created: Bewerbung wurde erfolgreich erstellt
-    decline_application: Bewerbung ablehnen
     destroy: Bewerbung wurde zurückgezogen
     index:
       cancel: Bewerbung zurückziehen
     not_created: Bewerbung konnte nicht erstellt werden
-    pending_cancel: Bewerbung ausstehend - Zurückziehen
     reapply: Erneut bewerben
-    refused_reapply: Bewerbung abgelehnt - Erneut bewerben
     states:
       accepted: Akzeptiert
       declined: Abgelehnt
@@ -247,24 +228,13 @@ de:
       success: Projekt wurde erfolgreich gelöscht.
     form:
       accessibility: Sichtbarkeit
-      create_project: Erstelle Projekt
       hiwi: Studentische Hilfskräfte
-      invite_init_user: Benutzer Einladen
-      prohibited_this_project_from_being_saved: verbietet das Projekt zu speichern
-      project_leader: Teamleiter
-      show_all_working_hours: Alle Stundenzettel anzeigen
       show_current_working_hours: Aktuellen Stundenzettel anzeigen
       sign_out_of_project: Entfernen
-      title: Titel
-      update_project: Aktualisiere Project
       wimi: Wissenschaftliche Mitarbeiter
     index:
-      accessibility: Verfügbarkeit
       all_working_hours: Gesamtstunden aller Hiwis für das Fachgebiet
-      created_at: Erstellt am
-      private: privat
       projects: Projekte
-      public: "öffentlich"
       status: Status
       status_false: Inaktiv
       status_true: Aktiv
@@ -272,22 +242,13 @@ de:
     show:
       add_working_hours: Stundenzettel hinzufügen
       chair: Fachgebiet
-      chair_representative: Fachgebietsleiter
-      edit_project: Projekt bearbeiten
       inactive: "(inaktiv)"
-      leave_p: Verlassen
-      leave_project: Projekt verlassen
-      not_defined: nicht festgelegt
       private: privat
-      project_leader: Teamleiter
       project_team: Projekt Team
       project_visibility: Sichtbarkeit
       public: "öffentlich"
-      research_assistants: Wisenschaftliche Mitarbeiter
       set_active: aktiv schalten
       set_inactive: 'inaktiv schalten '
-      student_assistants: Studentische Hilfskräfte
-      working_hours: Stundenzettel
     update:
       success: Projekt wurde erfolgreich bearbeitet.
   roles:
@@ -295,25 +256,13 @@ de:
     admin_long_plural: Administratoren
     chair_representative: Fachgebietsleiter
     hiwi_long_plural: Studentische Hilfskräfte
-    wimi_long: Wissenschaftlicher Mitarbeiter
     wimi_long_plural: Wissenschaftliche Mitarbeiter
   signature_warning: Bevor Sie das Dokument akzeptieren, müssen Sie eine Unterschrift hochladen.
   time_sheets:
     edit:
       title: Stundenzettel bearbeiten
-    form:
-      hourly: stündlich
-      monthly: monatlich
-      time_sheet: Stundenzettel
-      weekly: wöchentlich
     show:
-      salary: 'Bezahlung:'
-      salary_per_hour: Euro / Stunde
-      salary_per_month: Euro / Monat
       total_work_time: Gesamtarbeitszeit
-      workload: Arbeitszeit
-      workload_per_month: Stunden / Monat
-      workload_per_week: Stunden / Woche
     show_footer:
       accept: Annehmen
       accepted: bestätigt
@@ -364,11 +313,8 @@ de:
         saved: 'Gespeichert am '
       user_id: Benutzer
   users:
-    does_not_exist: Dieser Benutzer existiert nicht.
     edit:
       password: Passwort ändern
-      update_password: Passwort ändern
-      user_data: Profil
     edit_leave:
       remaining_leave: Verbleibender Resturlaub
       remaining_leave_fly: Verbleibender Resturlaub vom letzten Jahr
@@ -392,7 +338,6 @@ de:
     show:
       action: Aktion
       business_trips: Geschäftsreisen
-      by: von
       days: Tag(e)
       handed_in_at: eingereicht am
       handed_in_timesheets: 'Eingereichte Stundenzettel:'
@@ -416,30 +361,21 @@ de:
       status_timesheet: Status
       time_sheets_overview: Stundenzettel Ihrer Studenten
       update_password: Passwort aktualisieren
-      upload: Unterschrift hochladen
       user_data: Profilbezogene Daten
       warning: 'ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt!'
       warning_label: Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!
-      work_times: Arbeitszeit
     update:
       user_updated: Profil erfolgreich aktualisiert.
       user_updated_language: Sprache erfolgreich aktualisiert.
   work_days:
     edit:
       title: Arbeitsstundeneintrag bearbeiten
-    form:
-      minutes: Zeit in Minuten
     index:
-      by: von
       current_month_link: Aktuellen Monat anzeigen (%{month_name})
-      for: für
-      new: hinzufügen
       next_month_link: Vorherigen Monat anzeigen (%{month_name})
       prev_month_link: Nächsten Monat anzeigen (%{month_name})
-      project: Projekt
       user: Benutzer
       working_hours: Arbeitsstunden
       working_hours_for: Arbeitsstunden im
     new:
-      back: Zurück
       title: Arbeitsstundeneintrag erstellen

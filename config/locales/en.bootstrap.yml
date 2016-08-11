@@ -5,27 +5,20 @@ en:
       accept: Accept
       decline: Decline
       grant_rights: Set as assistant
-      long_plural: Applications
-      no_applications: No applications
       remove_from_chair: Remove from research group
       withdraw_rights: Set as employee
     form:
       no_representative: No head of department selected
       no_results: No results
     navigation:
-      apply_wimi: Apply as Wimi
-      manage: Manage
       not_authorized: You are not allowed to do this action for this research group.
-      show_timesheets: Show timesheets
     requests:
       accepted: Accepted
-      applied: Open request
       applied_plural: Open requests
       apply_filter: Apply Filters
       declined: Declined
       expense_request: Expense request
       holiday_request: Holiday request
-      pending: Pending
       requests: Requests
       status_filter: Filters by status
       trip_request: Trip request
@@ -33,14 +26,10 @@ en:
     show:
       a: Abbreviation
       b: Description
-  contracts:
-    form:
-      contract_data: Contract Data
   dashboard:
     actions:
       create_project: Create Project
       enter_work_hours: Enter working hours for %{project_name}
-      file_travel_expenses: File Travel Expenses
       request_business_trip: Request Business Trip
       request_holiday: Request Holiday
       show_expense_requests: Show Expense Requests
@@ -54,10 +43,6 @@ en:
       activities_empty: No activities yet.
       dashboard_title: Dashboard
       notifications: Important Notifications
-      representative_actions: Head of department - Actions
-      show_expense_requests: Show expense requests
-      show_holiday_requests: Show holiday requests
-      show_trip_requests: Show trip requests
     projects:
       projects: My Projects
     wimi_actions:
@@ -105,9 +90,7 @@ en:
     - :year
   event_holiday_requests:
     event_holiday_request:
-      accepted: accepted
       full_html: "%{person_in_power} <b>%{status}</b> the holiday request of %{user}."
-      rejected: rejected
   event_project_invitations:
     event_project_invitation:
       accept: Accept
@@ -174,8 +157,6 @@ en:
     actions: Actions
     application_tabs:
       external_sign_in: External Sign-In
-      home: Home
-      login: Login
       logout: Logout
       profile: Profile
       sign_in: HPI Sign-In
@@ -185,41 +166,28 @@ en:
       no_contract: Warning! No contract available for %{user} for %{month} / %{year}.
       updated: "%{model} was successfully updated"
     forms:
-      required_field: required field
-    language:
-      english: English
-      german: German
-      lang: Language
+      required_field: Required field
     links:
-      accept: Accept
-      apply: Apply
-      apply_trip: Apply Trip
       back: Back
       cancel: Cancel
       confirm: Are you sure?
       confirm_delete: Are you sure that "%{model}" should be deleted?
-      decline: Decline
       destroy: Delete
       download_pdf: Download as PDF
       edit: Edit
       edit_leave: Edit Leave
       hand_in: Hand in
-      leave: Leave
       new: New
       save: Save
       show: Show
       show_details: Show Details
       upload: Upload
-    list_select: Please select
     submit:
-      create: Create %{model}
       hide: Hide
-      update: Update %{model}
     titles:
       destroy: Delete %{model}
       edit: Edit %{model}
       new: New %{model}
-      save: Save %{model}
   holidays:
     form:
       auto_calculation: Leave blank for automatic calculation.
@@ -243,16 +211,12 @@ en:
       welcome: Welcome to the HPI HiWi Portal!
   no_entries_yet: There are no %{target} yet.
   project_applications:
-    accept_application: Accept Application
     created: Application was successfully created
-    decline_application: Decline Application
     destroy: Application was deleted
     index:
       cancel: Cancel Application
     not_created: Application was not created
-    pending_cancel: Application Pending - Cancel
     reapply: Reapply
-    refused_reapply: Application Refused - Reapply
     states:
       accepted: Accepted
       declined: Declined
@@ -264,49 +228,27 @@ en:
       success: Project was successfully destroyed.
     form:
       accessibility: Accessibility
-      create_project: Create Project
       hiwi: Student Assistants
-      invite_init_user: Invite User
-      prohibited_this_project_from_being_saved: prohibited this project from being saved
-      project_leader: Project Leader
-      show_all_working_hours: Show all working hours
       show_current_working_hours: Show current working hours
       sign_out_of_project: Remove
-      title: Title
-      update_project: Update Project
       wimi: Research Assistants
     index:
-      accessibility: Accessibility
       all_working_hours: Overall student working hours
-      created_at: Created at
-      private: private
-      project_status: Project Status
       projects: Projects
-      public: public
       status: Status
       status_false: Inactive
       status_true: Active
       title: Title
     show:
-      active: aktiv
       add_working_hours: Add working hours
       chair: Research Group
-      chair_representative: Head of department
-      edit_project: Edit Project
       inactive: "(inactive)"
-      leave_p: Leave
-      leave_project: Leave Project
-      not_defined: not defined
       private: private
-      project_leader: Project Leader
       project_team: Project Team
       project_visibility: Visibility
       public: public
-      research_assistants: Employees
       set_active: set active
       set_inactive: set inactive
-      student_assistants: Students
-      working_hours: Working hours
     update:
       success: Project was successfully updated.
   roles:
@@ -314,25 +256,13 @@ en:
     admin_long_plural: Assistants
     chair_representative: Head of department
     hiwi_long_plural: Students
-    wimi_long: Employee
     wimi_long_plural: Employees
   signature_warning: You have to upload a signature before you can accept the request.
   time_sheets:
     edit:
       title: Edit Time Sheet
-    form:
-      hourly: hourly
-      monthly: monthly
-      time_sheet: Time sheet
-      weekly: weekly
     show:
-      salary: 'Salary:'
-      salary_per_hour: Euro / Hour
-      salary_per_month: Euro / Month
       total_work_time: Total time worked
-      workload: 'Workload:'
-      workload_per_month: Hours / Month
-      workload_per_week: Hours / Week
     show_footer:
       accept: accept
       accepted: accepted
@@ -383,11 +313,8 @@ en:
         saved: 'Saved at '
       user_id: User
   users:
-    does_not_exist: This user does not exist.
     edit:
       password: Change Password
-      update_password: Update Password
-      user_data: User Data
     edit_leave:
       remaining_leave: Remaining Leave
       remaining_leave_fly: Remaining Leave from last year
@@ -411,7 +338,6 @@ en:
     show:
       action: action
       business_trips: Business Trips
-      by: by
       days: Day(s)
       handed_in_at: handed in at
       handed_in_timesheets: 'Handed in time sheets:'
@@ -435,30 +361,21 @@ en:
       status_timesheet: status
       time_sheets_overview: Your time sheets
       update_password: Update Password
-      upload: Upload signature
       user_data: User Data
       warning: 'ATTENTION: Be aware that your signature will be stored as an image and not be encrypted additionally!'
       warning_label: Warning! Your remaining leave from %{last_year} expires March 31, %{year}!
-      work_times: Work times
     update:
       user_updated: Profile was updated successfully
       user_updated_language: Language was updated successfully
   work_days:
     edit:
       title: Edit Workday
-    form:
-      minutes: Time in minutes
     index:
-      by: by
       current_month_link: Show current month (%{month_name})
-      for: for
-      new: add workday
       next_month_link: Show previous month (%{month_name})
       prev_month_link: Show next month (%{month_name})
-      project: Project
       user: Benutzer
       working_hours: Working hours
       working_hours_for: Working hours for
     new:
-      back: Back
       title: New Workday

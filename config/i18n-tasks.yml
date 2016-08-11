@@ -66,6 +66,7 @@ search:
   exclude:
     - app/assets/images
     - app/assets/fonts
+    - app/assets/javascripts
 
   ## Alternatively, the only files or `File.fnmatch patterns` to search in `paths`:
   ## If specified, this settings takes priority over `exclude`, but `exclude` still applies.
@@ -96,7 +97,11 @@ ignore_unused:
   - 'activerecord.errors.*'
   - '{date,time}.*'
   - '{true,false}'
-  - '{expenses, trips}.*'
+# remove these once features are re-enabled
+  - '{expenses, holidays, trips}.*'
+  - '*.{expense, holiday, trip}.*'
+  - '*.{event_travel_request_accepted, event_travel_request_declined}.*'
+# fix this at some point
   - '{errors}.*'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'

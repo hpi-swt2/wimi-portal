@@ -31,8 +31,8 @@
                   <tr>
                     <td><%= link_to project.title, project %></td>
                     <td><%= can?(:show, project.chair) ? link_to(project.chair.name, project.chair) : project.chair.name %></td>
-                    <%# i18n-tasks-use t('.status_false') t('.status_true') %>
-                    <td><%= t('.status_#{project.status.to_s}') %></td>
+                    <%# i18n-tasks-use t'.status_false' t'.status_true' %>
+                    <td><%= t(".status_#{project.status.to_s}") %></td>
                     <td>
                       <% if can? :edit, project %>
                         <%= link_to t('helpers.links.edit'), edit_project_path(project), class: 'btn btn-warning btn-xs' %>
