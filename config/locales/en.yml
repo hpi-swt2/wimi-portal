@@ -1,293 +1,231 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+---
 en:
   activerecord:
-    models:
-      chair:
-        one: "Research Group"
-        other: "Research Groups"
-      contract:
-        one: "Contract"
-        other: "Contracts"
-      expense:
-        one: "Expense"
-        other: "Expenses"
-      holiday:
-        one: "Holiday Request"
-        other: "Holiday Requests"
-      project:
-        one: "Project"
-        other: "Projects"
-      trip:
-        one: "Business Trip"
-        other: "Business Trips"
-      user:
-        one: "User"
-        other: "Users"
-      work_day:
-        one: "Workday"
-        other: "Workdays"
-      time_sheet:
-        one: "Timesheet"
-        other: "Timesheets"
     attributes:
       chair:
-        id: "Id"
-        name: "Name"
-        created_at: "Created at"
+        created_at: Created at
+        id: Id
+        name: Name
       expense:
-        id: "Id"
-#        amount: "Amount"
-#        purpose: "Purpose"
-#        comment: "Comment"
-        user_id: "User"
-#        project_id: "Project"
-        trip_id: "Business Trip"
-        created_at: "Created at"
-        inland: "Inland Travel"
-        country: "Country"
-        location_from: "Starting in"
-        location_via: "Via"
-#        location_to: "To"
-        reason: "Reason"
-#        date_start: "Start at"
-#        vehicle: "Vehicle"
-        time_start: "Depart by"
-        time_end: "Arrive by"
-        car: "Car"
-        public_transport: "Bus/Train/Plane"
-        vehicle_advance: "Travel paid by HPI"
-        hotel: "Hotel"
-        general_advance: "Advance"
-        signature: "Add signature"
+        car: Car
+        country: Country
+        created_at: Created at
+        general_advance: Advance
+        hotel: Hotel
+        id: Id
+        inland: Inland Travel
+        location_from: Starting in
+        location_via: Via
+        public_transport: Bus/Train/Plane
+        reason: Reason
+        signature: Add signature
+        time_end: Arrive by
+        time_start: Depart by
+        trip_id: Business Trip
+        user_id: User
+        vehicle_advance: Travel paid by HPI
       expense_item:
-        date: "Date"
-        breakfast: "Breakfast"
-        lunch: "Lunch"
-        dinner: "Dinner"
-        annotation: "What I did that day"
+        annotation: What I did that day
+        breakfast: Breakfast
+        date: Date
+        dinner: Dinner
+        lunch: Lunch
       holiday:
-        id: "Id"
-        status: "Status"
-        start: "Start"
-        end: "End"
-        user_id: "User"
-        created_at: "Created at"
-        length: "Duration"
-        duration: "Duration"
-        reason: "Reason for Special Leave"
-#        annotations: "Annotations"
-#        replacement: "Replacement"
-        signature: "Add signature"
+        created_at: Created at
+        duration: Duration
+        end: End
+        id: Id
+        length: Duration
+        reason: Reason for Special Leave
+        signature: Add signature
+        start: Start
+        status: Status
+        user_id: User
       project:
-        title: "Title"
-#        created_at: "Created at"
-#        users: "Users"
+        title: Title
       request:
-        name: "Name"
-        type: "Type"
-        handed_in: "Handed in"
-        status: "Status"
+        handed_in: Handed in
+        name: Name
+        status: Status
+        type: Type
       trip:
-        id: "Id"
-        destination: "Destination"
-        reason: "Reason"
-        annotation: "Annotations"
-        signature: "Add signature"
-        status: "Status"
-        user_id: "User"
-        created_at: "Created at"
-        date_end: "End at"
-        date_start: "Start at"
-        days_abroad: "Days abroad"
-#      trip_datespan:
-#        start_date: "Start at"
-#        end_date: "End at"
-#        days_abroad: "Days abroad"
+        annotation: Annotations
+        created_at: Created at
+        date_end: End at
+        date_start: Start at
+        days_abroad: Days abroad
+        destination: Destination
+        id: Id
+        reason: Reason
+        signature: Add signature
+        status: Status
+        user_id: User
       user:
-        id: "Id"
-        email: "Email"
-        reset_password_token: "Reset Password Token"
-        reset_password_sent_at: "Reset Password sent at"
-        remember_created_at: "Remember Created at"
-        current_sign_in_at: "Current Sign In at"
-        last_sign_in_at: "Last Sign In at"
-        current_sign_in_ip: "Current Sign In IP"
-        last_sign_in_ip: "Last Sign In IP"
-        first_name: "First Name"
-        last_name: "Last Name"
-        created_at: "Created at"
-        current_password: "Current Password"
-        password_confirmation: "Password Confirmation"
-        password: "Password"
-        remember_me: "Remember me"
-        personal_data: "User Data"
-        city: "City"
-        street: "Street"
-        zip_code: "Zip Code"
-        personnel_number: "Staff Number"
-        email_notification : "Email Notifications"
-        chair: "Research Group"
-        language: "Language"
-        not_member_of_chair: "You are not a member of a Research Group."
+        chair: Research Group
+        city: City
+        created_at: Created at
+        current_password: Current Password
+        current_sign_in_at: Current Sign In at
+        current_sign_in_ip: Current Sign In IP
+        email: Email
+        email_notification: Email Notifications
+        first_name: First Name
+        id: Id
+        language: Language
+        last_name: Last Name
+        last_sign_in_at: Last Sign In at
+        last_sign_in_ip: Last Sign In IP
+        not_member_of_chair: You are not a member of a Research Group.
+        password: Password
+        password_confirmation: Password Confirmation
+        personal_data: User Data
+        personnel_number: Staff Number
+        remember_created_at: Remember Created at
+        remember_me: Remember me
+        reset_password_sent_at: Reset Password sent at
+        reset_password_token: Reset Password Token
+        street: Street
+        zip_code: Zip Code
       work_day:
-        date: "Date"
-        start_time: "Start time"
-        break: "Break"
-        end_time: "End time"
-#        duration: "Duration"
-        notes: "Notes"
-        attendance: "Attendance"
-#        project: "Project"
+        attendance: Attendance
+        break: Break
+        date: Date
+        end_time: End time
+        notes: Notes
+        start_time: Start time
     errors:
-      try_again_later: "Error - Please try again later."
       models:
         expense:
           attributes:
-#            location_from:
-#              blank: "cannot be blank."
-#            location_to:
-#              blank: "cannot be blank."
-#            general_advance:
-#              blank: "cannot be blank."
-#              not_a_number: "has to be a whole number."
-#              greater_than_or_equal_to: "must not be negative."
-#            time:
-#              format: "must be of format HH:MM."
-#            time_start:
-#              blank: "cannot be blank."
-#            time_end:
-#              blank: "cannot be blank."
+            time:
+              format: "%H:%M"
         holiday:
-          duration_geq_length: ' must not be greater than the actual timespan.'
-          too_far_in_the_future: ' is too far in the future.'
-          attributes:
-#            start:
-#              blank: "cannot be blank."
-#            end:
-#              blank: "cannot be blank."
-#            length:
-#              not_a_number: "has to be a whole number."
-  links:
-    search: 'Search'
-    submit: 'Submit'
-#    filter: 'Filter'
-  holiday:
-    not_authorized: "You are not authorized to see this holiday request."
-#    not_enough_leave: 'Not enough leave left!'
-    destroyed: 'Holiday was successfully destroyed.'
-    updated: 'Holiday was successfully updated.'
-    created: 'Holiday was successfully created.'
-    applied: "Holiday is already applied"
-  project:
-    filter_chair: 'Filter for ...'
-    invite_someone_to_project: 'Invite someone to the project'
-    invite_someone_to_the_project: "Invite someone to the project \"%{title}\""
-    send_invitation_to: 'Send invitation to:'
-    not_authorized: "You're not authorized to do that for this project."
-    user:
-#      does_not_exist: 'This user does not exist.'
-      already_invited: 'This user is already invited to the project.'
-      already_is_member: 'This user is already a member of this project.'
-      was_successfully_invited: 'The user has been invited successfully.'
-#      invitation_accepted: 'You are now a member of this project.'
-#      invitation_declined: 'You declined the invitation.'
-      cannot_be_invited: 'This user cannot be invited.'
-#      cannot_accept_invitations: 'You cannot accept project invitations.'
-      last_wimi: 'You are the last research assistant. You can not leave the project.'
-  date:
-#    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-    input:
-      formats: 
-        - :default
-    formats:
-      default: "%m/%d/%Y"
-      short: "%b %d"
-      long: "%B %d, %Y"
-  time:
-    formats:
-      default: "%m/%d/%Y"
-      short: "%b %d"
-      long: "%B %d, %Y"
+          attributes: 
+            start:
+              blank: "cannot be blank."
+            end:
+              blank: "cannot be blank."
+            length:
+              not_a_number: "has to be a whole number."
+          duration_geq_length: " must not be greater than the actual timespan."
+          too_far_in_the_future: " is too far in the future."
+      try_again_later: Error - Please try again later.
+    models:
+      chair:
+        one: Research Group
+        other: Research Groups
+      contract:
+        one: Contract
+        other: Contracts
+      expense:
+        one: Expense
+        other: Expenses
+      holiday:
+        one: Holiday Request
+        other: Holiday Requests
+      project:
+        one: Project
+        other: Projects
+      time_sheet:
+        one: Timesheet
+        other: Timesheets
+      trip:
+        one: Business Trip
+        other: Business Trips
+      user:
+        one: User
+        other: Users
+      work_day:
+        one: Workday
+        other: Workdayzzzzzz
   chair:
-#    not_authorized: "You're not authorized to do that for this Research Group."
-    add_chair: "Add Research Group"
-    destroy:
-      error: "Research Group could not be destroyed"
-      success: "Research Group was successfully destroyed"
+    add_chair: Add Research Group
     create:
-      success: "Research Group successfully created"
-      error: "The form is not filled completely!"
-    update:
-      success: "Research Group successfully updated"
-      error: "The form is not filled completely!"
+      error: The form is not filled completely!
+      success: Research Group successfully created
+    destroy:
+      error: Research Group could not be destroyed
+      success: Research Group was successfully destroyed
     remove_from_chair:
-      success: "User was successfully removed"
-      error: "Failed to remove the user"
-    set_admin:
-      success: "Admin was successfully set"
-      error: "Admin setting failed"
-    withdraw:
-      success: "Admin rights were successfully removed"
-      error: "Failed to remove admin rights"
+      error: Failed to remove the user
+      success: User was successfully removed
     requests:
-      holiday_request: "Holiday request"
-      expense_request: "Travel expense request"
-      trip_request: "Trip request"
-  "true": "yes"
-  "false": "no"
-#  not_enough_leave: 'Not enough leave left'
-#  status:
-#    saved: "saved"
-#    applied: "applied"
-#    accepted: "accepted"
-#    declined: "declined"
-  trip:
-    update: "Trip was successfully updated"
-    save: "Trip was successfully created"
-    applied: "Trip is already applied"
-    destroyed: "Trip was successfully destroyed"
-#    apply: "Trip was successfully applied"
-  not_authorized: "You are not authorized to do that action."
+      expense_request: Travel expense request
+      holiday_request: Holiday request
+      trip_request: Trip request
+    set_admin:
+      error: Admin setting failed
+      success: Admin was successfully set
+    update:
+      error: The form is not filled completely!
+      success: Research Group successfully updated
+    withdraw:
+      error: Failed to remove admin rights
+      success: Admin rights were successfully removed
+  contracts:
+    destroyed: Contract was deleted.
+    save: Contract was saved.
+    update: Contract was updated.
+#  time:
+#    formats:
+#      default: "%m/%d/%Y"
+#      long: "%B %d, %Y"
+#      short: "%b %d"
+  date:
+    formats:
+      default: "%m/%d/%Y"
+      long: "%B %d, %Y"
+      short: "%b %d"
+    input:
+      formats:
+      - :default
   expense:
-    update: "Expense was successfully updated"
-    save: "Expense was successfully created"
-    applied: "Expense is already applied"
-    destroyed: "Expense was successfully destroyed"
-#    apply: "Expense was successfully applied"
-    no_trip: "You can not hand in an expense unless you have applied the business trip"
-  users:
-    upload_signature:
-      upload_success: "Signature was successfully uploaded"
-      invalid_file_extension: "Please choose a file with a correct extension"
-      upload_error: "Please choose a file"
-    delete_signature:
-      destroy_success: "Signature successfully deleted"
+    applied: Expense is already applied
+    destroyed: Expense was successfully destroyed
+    no_trip: You can not hand in an expense unless you have applied the business trip
+    save: Expense was successfully created
+    update: Expense was successfully updated
+  'false': 'no'
+  holiday:
+    applied: Holiday is already applied
+    created: Holiday was successfully created.
+    destroyed: Holiday was successfully destroyed.
+    not_authorized: You are not authorized to see this holiday request.
+    updated: Holiday was successfully updated.
+  links:
+    search: Search
+    submit: Submit
   mail_notifier:
     notification:
-#      subject: "You received a new notification"
-      hello: "Hello "
-      text: "you got a new notification. Check your Wimi-Portal Dashboard to see all the recent notifications."
-      your_wimi_portal: "Your Wimi-Portal"
+      hello: 'Hello '
+      text: you got a new notification. Check your Wimi-Portal Dashboard to see all the recent notifications.
+      your_wimi_portal: Your Wimi-Portal
+  not_authorized: You are not authorized to do that action.
+  project:
+    filter_chair: Filter for ...
+    invite_someone_to_project: Invite someone to the project
+    invite_someone_to_the_project: Invite someone to the project "%{title}"
+    not_authorized: You're not authorized to do that for this project.
+    send_invitation_to: 'Send invitation to:'
+    user:
+      already_invited: This user is already invited to the project.
+      already_is_member: This user is already a member of this project.
+      cannot_be_invited: This user cannot be invited.
+      last_wimi: You are the last research assistant. You can not leave the project.
+      was_successfully_invited: The user has been invited successfully.
   signatures:
-    signature_not_found: "You have selected to sign the document, but there was no signature found"
-    signature_not_found_time_sheet: "The document was not handed in, because you have selected to sign the document, but there was no signature found"
+    signature_not_found: You have selected to sign the document, but there was no signature found
+    signature_not_found_time_sheet: The document was not handed in, because you have selected to sign the document, but there was no signature found
+  trip:
+    applied: Trip is already applied
+    destroyed: Trip was successfully destroyed
+    save: Trip was successfully created
+    update: Trip was successfully updated
+  'true': 'yes'
+  users:
+    delete_signature:
+      destroy_success: Signature successfully deleted
+    upload_signature:
+      invalid_file_extension: Please choose a file with a correct extension
+      upload_error: Please choose a file
+      upload_success: Signature was successfully uploaded

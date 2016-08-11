@@ -14,7 +14,7 @@ class ContractsController < ApplicationController
     @contract = Contract.new(contract_params)
     if @contract.save
       redirect_to contract_path(@contract)
-      flash[:success] = I18n.t('contract.save')
+      flash[:success] = I18n.t('contracts.save')
     else
       render :new
     end
@@ -29,7 +29,7 @@ class ContractsController < ApplicationController
 
     if @contract.update(new_contract_params)
       redirect_to contract_path(@contract)
-      flash[:success] = I18n.t('contract.update')
+      flash[:success] = I18n.t('contracts.update')
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class ContractsController < ApplicationController
   def destroy
     @contract.destroy
     redirect_to dashboard_path
-    flash[:success] = I18n.t('contract.destroyed')
+    flash[:success] = I18n.t('contracts.destroyed')
   end
 
   private

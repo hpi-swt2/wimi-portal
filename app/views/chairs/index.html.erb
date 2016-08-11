@@ -27,7 +27,7 @@
                     <%= link_to t('helpers.links.edit'), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
               <% end %>
               <% if can?(:delete, chair) %>
-                    <%= link_to t('helpers.links.destroy'), chair_path(id: chair), method: :delete, data: {confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
+                    <%= link_to t('helpers.links.destroy'), chair_path(id: chair), method: :delete, data: {confirm: t('helpers.links.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
               <% end %>
               </td>
             </tr>

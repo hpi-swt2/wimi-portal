@@ -1,402 +1,307 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
+---
 en:
-#  home:
-#    index:
-#      welcome: "welcome"
-#  breadcrumbs:
-#    application:
-#      root: "Index"
-#    pages:
-#      pages: "Pages"
-  helpers:
-    application_tabs:
-#      home: "Home"
-      profile: "Profile"
-      sign_in: "HPI Sign-In"
-      external_sign_in: "External Sign-In"
-#      login: "Login"
-      logout: "Logout"
-    actions: "Actions"
-#    forms:
-#      required_field: "required field"
-    links:
-      hand_in: "Hand in"
-      show: "Show"
-      back: "Back"
-      cancel: "Cancel"
-      confirm: "Are you sure?"
-      destroy: "Delete"
-      new: "New"
-      edit: "Edit"
-#      leave: "Leave"
-      edit_leave: "Edit Leave"
-      show_details: "Show Details"
-#      apply: "Apply"
-#      accept: "Accept"
-#      decline: "Decline"
-      download_pdf: "Download as PDF"
-#      apply_trip: "Apply Trip"
-      save: "Save"
-    titles:
-      edit: "Edit %{model}"
-#      save: "Save %{model}"
-      new: "New %{model}"
-      destroy: "Delete %{model}"
-#    language:
-#      lang: "Language"
-#      english: "English"
-#      german: "German"
-    submit:
-#      create: "Create %{model}"
-#      update: "Update %{model}"
-      hide: "Hide"
-#    list_select: "Please select"
-
   chairs:
-    form:
-      no_representative: "No representative selected"
-      no_results: "No results"
-    navigation:
-      not_authorized: "You are not allowed to do this action for this research group."
-    requests:
-      apply_filter: "Apply Filters"
-      requests: "Requests"
-      type_filter: "Filters by type"
-      status_filter: "Filters by status"
-      holiday_request: "Holiday request"
-      trip_request: "Trip request"
-      expense_request: "Expense request"
-      applied_plural: "Open requests"
-      accepted: "Accepted"
-      declined: "Declined"
     applications:
-      long_plural: "Applications"
-      no_applications: "No applications"
-      accept: "Accept"
-      decline: "Decline"
-      remove_from_chair: "Remove from research group"
-      withdraw_rights: "Set as employee"
-      grant_rights: "Set as assistant"
+      accept: Accept
+      decline: Decline
+      grant_rights: Set as assistant
+      long_plural: Applications
+      no_applications: No applications
+      remove_from_chair: Remove from research group
+      withdraw_rights: Set as employee
+    form:
+      no_representative: No representative selected
+      no_results: No results
+    navigation:
+      not_authorized: You are not allowed to do this action for this research group.
+    requests:
+      accepted: Accepted
+      applied_plural: Open requests
+      apply_filter: Apply Filters
+      declined: Declined
+      expense_request: Expense request
+      holiday_request: Holiday request
+      requests: Requests
+      status_filter: Filters by status
+      trip_request: Trip request
+      type_filter: Filters by type
   contracts:
     form:
-      contract_data: "Contract Data"
-
-  project_applications:
-    states:
-      pending: "Pending"
-      declined: "Declined"
-      accepted: "Accepted"
-    created: "Application was successfully created"
-    not_created: "Application was not created"
-    destroy: "Application was deleted"
-    index:
-      cancel: "Cancel Application"
-    reapply: "Reapply"
-#    refused_reapply: "Application Refused - Reapply"
-#    pending_cancel: "Application Pending - Cancel"
-#    accept_application: "Accept Application"
-#    decline_application: "Decline Application"
-  projects:
-    form:
-      wimi: "Research Assistants"
-      hiwi: "Student Assistants"
-      sign_out_of_project: "Sign out of project"
-      accessibility: "Accessibility"
-      title: "Title"
-      prohibited_this_project_from_being_saved: "prohibited this project from being saved"
-      show_working_hours: "Show working hours"
-      show_all_working_hours: "Show all working hours"
-      invite_init_user: "Invite User"
-    show:
-      working_hours: "Working hours"
-      add_working_hours: "Add working hours"
-      inactive: "(inactive)"
-      set_inactive: "set inactive"
-      set_active: "set active"
-      chair: "Research Group"
-      project_visibility: "Visibility"
-      public: "public"
-      private: "private"
-      project_team: "Project Team"
-      leave_project: "Leave Project"
-    index:
-      new: "Add project"
-      title: "Title"
-      accessibility: "Accessibility"
-      created_at: "Created at"
-      private: "private"
-      public: "public"
-      projects: "Projects"
-      all_working_hours: "Overall student working hours"
-    create:
-      success: 'Project was successfully created.'
-    update:
-      success: 'Project was successfully updated.'
-    destroy:
-      success: 'Project was successfully destroyed.'
-  users:
-    does_not_exist: "This user does not exist."
-    no_email: "is not a valid email address."
-    update:
-      user_updated: "Profile was updated successfully"
-      user_updated_language: "Language was updated successfully"
-    show:
-      business_trips: "Business Trips"
-      request_trip: "Request Business Trip"
-      holiday_requests: "Holiday Requests"
-      request_holiday: "Request Holiday"
-      user_data: "User Data"
-      remaining_leave: "Remaining Leave: %{leave} Day(s)"
-      remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
-      days: "Day(s)"
-      warning_label: "Warning! Your remaining leave from %{last_year} expires March 31, %{year}!"
-      password: "Change Password"
-      update_password: "Update Password"
-      handed_in_timesheets: "Handed in time sheets:"
-      time_sheets_overview: "Your time sheets"
-      hiwi: "students assistants"
-      month: "month"
-      number_of_hours: "number of hours"
-      handed_in_at: "handed in at"
-      status_timesheet: "status"
-      action: "action"
-      inspect: "inspect"
-      status:
-        saved: "Saved"
-        accepted: "Accepted"
-        applied: "Applied"
-        declined: "Rejected"
-      signature: "Signature"
-      warning: "ATTENTION: Be aware that your signature will be stored as an image and not be encrypted additionally!"
-      upload: "Upload signature"
-      information: "Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer"
-    edit:
-      password: "Change Password"
-#      update_password: "Update Password"
-#      user_data: "User Data"
-    public_user_data:
-      public_data: "Public Data"
-      projects: "Projects"
-    private_user_data:
-      private_data: "Private Data"
-      user_status: "Status"
-      wimi: "Research Assistant"
-      hiwi: "Student Assistant"
-      is_on: "on"
-      is_off: "off"
-    edit_leave:
-      remaining_leave: "Remaining Leave"
-      remaining_leave_fly: "Remaining Leave from last year"
-      save: "Save Leave"
-      title: "Edit Leave"
-    form:
-      user_data: "User Data"
-    external_login:
-      login: "Log in"
-  holidays:
-    show:
-#      days: "Day(s)"
-      hand_in: "Hand in"
-      reject: "Reject Request"
-      accept: "Accept Request"
-#      filed_request_cant_be_edited: "A filed request can't be edited"
-#      reject_reason: "Rejection reason"
-#      status:
-#        saved: "Saved at "
-#        accepted: "Accepted at "
-#        applied: "Applied at "
-#        declined: "Rejected at "
-    form:
-      auto_calculation: "Leave blank for automatic calculation."
+      contract_data: Contract Data
   dashboard:
-    index:
-      notifications: "Notifications"
-      dashboard_title: "Dashboard"
-#      show_holiday_requests: "Show holiday requests"
-#      show_expense_requests: "Show expense requests"
-#      show_trip_requests: "Show trip requests"
-      notifications: "Important Notifications"
-      activities: "Activities"
-      activities_empty: "No activities yet."
-      actions: "Actions"
-    projects:
-      projects: "My Projects"
     actions:
-      enter_work_hours: "Enter working hours for %{project_name}"
-      create_project: "Create Project"
-      request_holiday: "Request Holiday"
-      request_business_trip: "Request Business Trip"
-#      file_travel_expenses: "File Travel Expenses"
-  event_time_sheet_declineds:
-    event_time_sheet_declined:
-      view: "View"
-      full_html: "%{signer} <b>declined</b> your time sheet for %{month}."
-  event_time_sheet_accepteds:
-    event_time_sheet_accepted:
-      view: "View"
-      full_html: "%{signer} <b>accepted</b> your time sheet for %{month}."
-  event_project_invitations:
-    event_project_invitation:
-      accept: "Accept"
-      decline: "Decline"
-      full_html: "%{trigger_name} invites you to join the project %{project_name}."
-  event_travel_request_accepteds:
-    event_travel_request_accepted:
-      view: "View"
-      request: "travel request"
-      full_html: "The %{link_to_request} you filed on the %{date} was <b>accepted</b> by %{person_in_power}. %{link_to_view}"
-  event_travel_request_declineds:
-    event_travel_request_declined:
-      view: "View"
-      request: "travel request"
-      full_html: "The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}"
-  event_holiday_requests:
-    event_holiday_request:
-#      accepted: "accepted"
-#      rejected: "rejected"
-      full_html: "%{person_in_power} <b>%{status}</b> the holiday request of %{user}."
-  event_time_sheet_submitteds:
-    event_time_sheet_submitted:
-      view: "View"
-      full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
-  expenses:
-#    expense:
-#      inland: "Inland Travel"
-#      country: "Destination country"
-#      location_from: "Starting in"
-#      location_via: "Via"
-#      location_to: "To"
-#      reason: "Reason"
-#      time_start: "Departure time"
-#      time_end: "Arrival time"
-#      vehicle: "Vehicle"
-#      date_end: "End at:"
-#      car: "Travel by car"
-#      public_transport: "Travel by Bus/Train/Plane"
-#      vehicle_advance: "Travel paid by HPI"
-#      hotel: "Hotel?"
-#      general_advance: "Advance"
-#      signature: "Add signature"
-    form:
-      hotel_true: "Hotel"
-      hotel_false: "Private"
-      accommodation: "Accommodation"
-      travel_by: "Travel by"
-      catering: "Mark every meal that has not been paid by private means"
-  trips:
-    show:
-#      id: "Id"
-#      destination: "Destination"
-#      duration: "Duration: %{days} day(s)"
-#      reason: "Reason"
-#      annotation: "Annotations"
-#      signature: "Add signature"
-#      status: "Status"
-#      user_id: "User"
-#      created_at: "Created at"
-      hand_in: "Hand in"
-#      reject: "Reject Request"
-      accept: "Accept Request"
-#      filed_request_cant_be_edited: "A filed request can't be edited"
-#      days: "Day(s)"
-#      reject_reason: "Rejection reason"
-#      status:
-#        saved: "Saved at "
-#        accepted: "Accepted at "
-#        applied: "Applied at "
-#        declined: "Rejected at "
-      expense: "Trip expenses report"
-      create_expense: "Create trip expense"
-    form:
-      destination: "Destination of the Business Trip"
-      reason: "Short explanation"
-      annotation: "Other remarks"
-      date: "MM/DD/YYYY"
-  work_days:
+      create_project: Create Project
+      enter_work_hours: Enter working hours for %{project_name}
+      request_business_trip: Request Business Trip
+      request_holiday: Request Holiday
     index:
-      working_hours_for: "Working hours for"
-      working_hours: "Working hours"
-      new: "add workday"
-#      for: "for"
-#      by: "by"
-#      project: "Project"
-      user: "Benutzer"
-    new:
-#      back: "Back"
-      title: "New Workday"
-    edit:
-      title: "Edit Workday"
-#    form:
-#      minutes: "Time in minutes"
-  time_sheets:
-    edit:
-      title: "Edit Time Sheet"
-#    show:
-#      total_work_time: "Total time worked"
-    show_footer:
-      new: "new"
-      in: "in"
-      by: "by"
-      hand_in: "hand in"
-      accept: "accept"
-      handed_in_at: "handed in at"
-      reject: "reject"
-      reject_reason: "Rejection reason"
-      rejected_by: "Rejected by"
-      accepted_by: "Accepted by"
-      at: "At"
-      handed_in_at: "handed in at"
-      add_signature: "Add signature"
-      document_was: "Document was"
-      not: "not"
-      signed: "signed"
-      status: "status: "
-      acceptence_requested_at: "acceptence requested at: "
-      pending: "pending"
-      accepted: "accepted"
-      rejected: "rejected"
+      actions: Actions
+      activities: Activities
+      activities_empty: No activities yet.
+      dashboard_title: Dashboard
+      notifications: Important Notifications
+    projects:
+      projects: My Projects
   date:
     formats:
+      default: "%m/%d/%Y"
       without_day: "%B %Y"
       without_day_year: "%B"
-      default: "%m/%d/%Y"
-    order:
-      - :month
-      - :day
-      - :year
     month_names:
-      -
-      - January
-      - February
-      - March
-      - April
-      - May
-      - June
-      - July
-      - August
-      - September
-      - October
-      - November
-      - December
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :month
+    - :day
+    - :year
+  event_holiday_requests:
+    event_holiday_request:
+      full_html: "%{person_in_power} <b>%{status}</b> the holiday request of %{user}."
+  event_project_invitations:
+    event_project_invitation:
+      accept: Accept
+      decline: Decline
+      full_html: "%{trigger_name} invites you to join the project %{project_name}."
+  event_time_sheet_accepteds:
+    event_time_sheet_accepted:
+      full_html: "%{signer} <b>accepted</b> your time sheet for %{month}."
+      view: View
+  event_time_sheet_declineds:
+    event_time_sheet_declined:
+      full_html: "%{signer} <b>declined</b> your time sheet for %{month}."
+      view: View
+  event_time_sheet_submitteds:
+    event_time_sheet_submitted:
+      full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
+      view: View
+  event_travel_request_accepteds:
+    event_travel_request_accepted:
+      full_html: The %{link_to_request} you filed on the %{date} was <b>accepted</b> by %{person_in_power}. %{link_to_view}
+      request: travel request
+      view: View
+  event_travel_request_declineds:
+    event_travel_request_declined:
+      full_html: The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}
+      request: travel request
+      view: View
   events:
     event_admin_right:
       added: "%{trigger} has set %{target} as assistant."
       removed: "%{trigger} has removed %{target} as assistant."
+    event_request:
+      expense: "%{trigger} created a travel expense request."
+      holiday: "%{trigger} created a holiday request."
+      trip: "%{trigger} created a trip request."
     event_user_chair:
       added: "%{trigger} has added %{target} to the research group."
       removed: "%{trigger} has removed %{target} from the research group."
-    event_request:
-      holiday: "%{trigger} created a holiday request."
-      trip: "%{trigger} created a trip request."
-      expense: "%{trigger} created a travel expense request."
+  expenses:
+    form:
+      accommodation: Accommodation
+      catering: Mark every meal that has not been paid by private means
+      hotel_false: Private
+      hotel_true: Hotel
+      travel_by: Travel by
+  helpers:
+    actions: Actions
+    application_tabs:
+      external_sign_in: External Sign-In
+      logout: Logout
+      profile: Profile
+      sign_in: HPI Sign-In
+    links:
+      back: Back
+      cancel: Cancel
+      confirm: Are you sure?
+      destroy: Delete
+      download_pdf: Download as PDF
+      edit: Edit
+      edit_leave: Edit Leave
+      hand_in: Hand in
+      new: New
+      save: Save
+      show: Show
+      show_details: Show Details
+    submit:
+      hide: Hide
+    titles:
+      destroy: Delete %{model}
+      edit: Edit %{model}
+      new: New %{model}
+  holidays:
+    form:
+      auto_calculation: Leave blank for automatic calculation.
+    show:
+      accept: Accept Request
+      hand_in: Hand in
+      reject: Reject Request
+  no_entries_yet: There are no %{target} yet.
+  project_applications:
+    created: Application was successfully created
+    destroy: Application was deleted
+    index:
+      cancel: Cancel Application
+    not_created: Application was not created
+    reapply: Reapply
+    states:
+      accepted: Accepted
+      declined: Declined
+      pending: Pending
+  projects:
+    create:
+      success: Project was successfully created.
+    destroy:
+      success: Project was successfully destroyed.
+    form:
+      accessibility: Accessibility
+      hiwi: Student Assistants
+      invite_init_user: Invite User
+      prohibited_this_project_from_being_saved: prohibited this project from being saved
+      show_all_working_hours: Show all working hours
+      show_working_hours: Show working hours
+      sign_out_of_project: Sign out of project
+      title: Title
+      wimi: Research Assistants
+    index:
+      accessibility: Accessibility
+      all_working_hours: Overall student working hours
+      created_at: Created at
+      new: Add project
+      private: private
+      projects: Projects
+      public: public
+      title: Title
+    show:
+      add_working_hours: Add working hours
+      chair: Research Group
+      inactive: "(inactive)"
+      leave_project: Leave Project
+      private: private
+      project_team: Project Team
+      project_visibility: Visibility
+      public: public
+      set_active: set active
+      set_inactive: set inactive
+      working_hours: Working hours
+    update:
+      success: Project was successfully updated.
   roles:
-#    wimi_long: "Employee"
-    wimi_long_plural: "Employees"
-    chair_representative: "Head of department"
-    admin_long: "Assistant"
-    admin_long_plural: "Assistants"
-    hiwi_long_plural: "Students"
-  signature_warning: "You have to upload a signature before you can accept the request."
-  no_entries_yet: "There are no %{target} yet."
+    admin_long: Assistant
+    admin_long_plural: Assistants
+    chair_representative: Head of department
+    hiwi_long_plural: Students
+    wimi_long_plural: Employees
+  signature_warning: You have to upload a signature before you can accept the request.
+  time_sheets:
+    edit:
+      title: Edit Time Sheet
+    show_footer:
+      accept: accept
+      accepted: accepted
+      accepted_by: Accepted by
+      acceptence_requested_at: 'acceptence requested at: '
+      add_signature: Add signature
+      at: At
+      by: by
+      document_was: Document was
+      hand_in: hand in
+      handed_in_at: handed in at
+      in: in
+      new: new
+      not: not
+      pending: pending
+      reject: reject
+      reject_reason: Rejection reason
+      rejected: rejected
+      rejected_by: Rejected by
+      signed: signed
+      status: 'status: '
+  trips:
+    form:
+      annotation: Other remarks
+      date: MM/DD/YYYY
+      destination: Destination of the Business Trip
+      reason: Short explanation
+    show:
+      accept: Accept Request
+      create_expense: Create trip expense
+      expense: Trip expenses report
+      hand_in: Hand in
+  users:
+    does_not_exist: This user does not exist.
+    edit:
+      password: Change Password
+    edit_leave:
+      remaining_leave: Remaining Leave
+      remaining_leave_fly: Remaining Leave from last year
+      save: Save Leave
+      title: Edit Leave
+    external_login:
+      login: Log in
+    form:
+      user_data: User Data
+    no_email: is not a valid email address.
+    private_user_data:
+      hiwi: Student Assistant
+      is_off: 'off'
+      is_on: 'on'
+      private_data: Private Data
+      user_status: Status
+      wimi: Research Assistant
+    public_user_data:
+      projects: Projects
+      public_data: Public Data
+    show:
+      action: action
+      business_trips: Business Trips
+      days: Day(s)
+      handed_in_at: handed in at
+      handed_in_timesheets: 'Handed in time sheets:'
+      hiwi: students assistants
+      holiday_requests: Holiday Requests
+      information: Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer
+      inspect: inspect
+      month: month
+      number_of_hours: number of hours
+      password: Change Password
+      remaining_leave: 'Remaining Leave: %{leave} Day(s)'
+      remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
+      request_holiday: Request Holiday
+      request_trip: Request Business Trip
+      signature: Signature
+      status:
+        accepted: Accepted
+        applied: Applied
+        declined: Rejected
+        saved: Saved
+      status_timesheet: status
+      time_sheets_overview: Your time sheets
+      update_password: Update Password
+      upload: Upload signature
+      user_data: User Data
+      warning: 'ATTENTION: Be aware that your signature will be stored as an image and not be encrypted additionally!'
+      warning_label: Warning! Your remaining leave from %{last_year} expires March 31, %{year}!
+    update:
+      user_updated: Profile was updated successfully
+      user_updated_language: Language was updated successfully
+  work_days:
+    edit:
+      title: Edit Workday
+    index:
+      new: add workday
+      user: Benutzer
+      working_hours: Working hours
+      working_hours_for: Working hours for
+    new:
+      title: New Workday

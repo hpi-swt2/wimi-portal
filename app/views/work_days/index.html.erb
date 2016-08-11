@@ -18,7 +18,7 @@
             <% wd_args[:project] = @project if @project %>
             <% if @time_sheets.blank? or @time_sheets.any? {|ts| can? :edit, ts} %>
               <div align = "right">
-                <%= link_to t('.new'), new_work_day_path(wd_args), class: 'btn btn-success btn-block' %>
+                <%= link_to t('helpers.links.new'), new_work_day_path(wd_args), class: 'btn btn-success btn-block' %>
               </div>
             <% end %>
           </div>
@@ -29,7 +29,7 @@
     <div class="row">
       <div class="col-md-12">
         <% if @work_days.empty? %>
-          <p> <%= t 'no_entries_yet', target: (t 'activerecord.view.work_days.other', default: model_class.model_name.human.pluralize) %> </p>
+          <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.work_days.other') %> </p>
         <% else %>
           <table  class="table table-striped">
             <thead>
@@ -56,12 +56,12 @@
                   <td><%= work_day.notes %></td>
                   <td>
                   <% if can? :edit, work_day %>
-                    <%= link_to t('.edit', default: t("helpers.links.edit")),
+                    <%= link_to t('helpers.links.edit', default: t("helpers.links.edit")),
                     edit_work_day_path(work_day), class: 'btn btn-default btn-xs' %>
-                    <%= link_to t('.destroy', default: t("helpers.links.destroy")),
+                    <%= link_to t('helpers.links.destroy', default: t("helpers.links.destroy")),
                     work_day_path(work_day),
                     method: :delete,
-                    data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
+                    data: { confirm: t('helpers.links.confirm', default: t("helpers.links.confirm")) },
                     class: 'btn btn-xs btn-danger' %>
                   <% end %>
                   </td>

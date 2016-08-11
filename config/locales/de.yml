@@ -1,308 +1,159 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+---
 de:
   activerecord:
-    models:
-      chair:
-        one: "Lehrstuhl"
-        other: "Lehrstühle"
-      expense:
-        one: "Kostenabrechnung"
-        other: "Kostenabrechnungen"
-      holiday:
-        one: "Urlaubsantrag"
-        other: "Urlaubsanträge"
-      project:
-        one: "Projekt"
-        other: "Projekte"
-      expense:
-        one: "Reisekostenabrechnung"
-        other: "Reisekostenabrechnungen"
-      trip:
-        one: "Geschäftsreise"
-        other: "Geschäftsreisen"
-      user:
-        one: "Benutzer"
-        other: "Benutzer"
-      work_day:
-        one: "Arbeitstag"
-        other: "Arbeitstage"
-      time_sheet:
-        one: "Stundenzettel"
-        other: "Stundenzettel"
     attributes:
       chair:
-        id: "Id"
-        name: "Name"
-        created_at: "Erstellungsdatum"
-#      expense:
-#        id: "Id"
-#        amount: "Betrag"
-#        purpose: "Verwendungszweck"
-#        comment: "Kommentar"
-#        user_id: "Benutzer"
-#        project_id: "Projekt"
-#        trip_id: "Geschäftsreise"
-#        created_at: "Erstellungsdatum"
-#        inland: "Inlandsreise"
-#        country: "Land"
-#        location_from: "Startort"
-#        location_via: "Zwischenhalt"
-#        location_to: "Zielort"
-#        reason: "Grund"
-#        time_start: "Abfahrtszeit"
-#        time_end: "Ankunftszeit"
-#        date_start: "Abfahrtstag"
-#        vehicle: "Fahrzeug"
-#        car: "PKW"
-#        public_transport: "Bus/Bahn/Flug"
-#        vehicle_advance: "vom HPI im Voraus bezahlt"
-#        hotel: "Hotel"
-#        general_advance: "Vorschuss"
-#        signature: "Unterschreiben"
+        created_at: Erstellungsdatum
+        id: Id
+        name: Name
       expense_item:
-        date: "Datum"
-        breakfast: "Frühstück"
-        lunch: "Mittagessen"
-        dinner: "Abendessen"
-        annotation: "Tätigkeit"
-#      holiday:
-#        id: "Id"
-#        status: "Status"
-#        start: "Beginn"
-#        end: "Ende"
-#        length: "Dauer"
-#        user_id: "Benutzer"
-#        created_at: "Erstellungsdatum"
-#        duration: "Dauer"
-#        reason: "Grund für Sonderurlaub"
-#        annotations: "Anmerkungen"
-#        replacement: "Vertretung"
-#        signature: "Unterschreiben"
+        annotation: Tätigkeit
+        breakfast: Frühstück
+        date: Datum
+        dinner: Abendessen
+        lunch: Mittagessen
       project:
-#        id: "Id"
-        title: "Titel"
-#        created_at: "Erstellungsdatum"
-#        users: "Benutzer"
+        title: Titel
       request:
-        name: "Name"
-        type: "Art"
-        handed_in: "Eingereicht am"
-        status: "Status"
-#        not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
-      time_sheet:
-#        salary: "Bezahlung"
-#        workload: "Arbeitszeit"
-      trip:
-#        id: "Id"
-#        destination: "Ziel"
-#        reason: "Grund"
-#        annotation: "Bemerkungen"
-#        signature: "Unterschreiben"
-#        status: "Status"
-#        user_id: "Benutzer"
-#        created_at: "Erstellungsdatum"
-#        date_start: "Start"
-#        date_end: "Ende"
-#        days_abroad: "Auslandstage"
-      trip_datespan:
-        date_start: "Start"
-        date_end: "Ende"
-        days_abroad: "Auslandstage"
-      user:
-#        id: "Id"
-#        email: "E-Mail"
-#        reset_password_token: "Kennwort zurücksetzen"
-#        reset_password_sent_at: "Kennwort zurücksetzen versendet an"
-#        remember_created_at: "Erstellungsdatum speichern"
-#        current_sign_in_at: "Aktuelle Anmeldung am"
-#        last_sign_in_at: "Letzte Anmeldung am"
-#        current_sign_in_ip: "IP für aktuelle Anmeldung"
-#        last_sign_in_ip: "IP der letzten Anmeldung"
-#        first_name: "Vorname"
-#        last_name: "Nachname"
-#        created_at: "Erstellungsdatum"
-#        current_password: "Aktuelles Passwort"
-#        password_confirmation: "Passwort Bestätigen"
-#        password: "Passwort"
-#        remember_me: "Angemeldet bleiben"
-#        personal_data: "Benutzerdaten"
-#        city: "Wohnort"
-#        street: "Straße"
-#        zip_code: "Postleitzahl"
-#        personnel_number: "Personalnummer"
-#        email_notification : "Email Benachrichtigungen"
-#        chair: "Lehrstuhl"
-#        language: "Sprache"
-#        not_member_of_chair: "Sie sind kein Mitglied eines Lehrstuhls."
-      work_day:
-#        date: "Datum"
-#        start_time: "Startzeit"
-#        break: "Pause"
-#        end_time: "Endzeit"
-#        duration: "Dauer"
-#        notes: "Anmerkung"
-#        attendance: "Anwesenheit"
-#        project: "Projekt"
+        handed_in: Eingereicht am
+        name: Name
+        status: Status
+        type: Art
     errors:
-      try_again_later: "Fehler - Bitte versuchen Sie es später nochmal."
       models:
-        expense:
-#          attributes:
-#            location_from:
-#              blank: "darf nicht leer sein."
-#            location_to:
-#              blank: "darf nicht leer sein."
-#            general_advance:
-#              blank: "darf nicht leer sein."
-#              not_a_number: "muss eine ganze Zahl sein."
-#              greater_than_or_equal_to: "darf nicht negativ sein."
-#            time:
-#              format: "muss im Format HH:MM sein."
-#            time_start:
-#              blank: "darf nicht leer sein."
-#            time_end:
-#              blank: "darf nicht leer sein."
+        expense: 
         holiday:
-          duration_geq_length: " darf nicht größer als der angegebene Zeitraum sein."
-          too_far_in_the_future: ' ist zu weit in der Zukunft.'
           attributes:
-            start:
-              blank: 'darf nicht leer sein.'
             end:
-              blank: 'darf nicht leer sein.'
+              blank: darf nicht leer sein.
             length:
-              not_a_number: 'muss eine ganze Zahl sein.'
+              not_a_number: muss eine ganze Zahl sein.
+            start:
+              blank: darf nicht leer sein.
+          duration_geq_length: " darf nicht größer als der angegebene Zeitraum sein."
+          too_far_in_the_future: " ist zu weit in der Zukunft."
         work_day:
           attributes:
             duration:
-              greater_than: 'Dauer muss größer 0 sein'
+              greater_than: Dauer muss größer 0 sein
+      try_again_later: Fehler - Bitte versuchen Sie es später nochmal.
+    models:
+      chair:
+        one: Lehrstuhl
+        other: Lehrstühle
+      expense:
+        one: Reisekostenabrechnung
+        other: Reisekostenabrechnungen
+      holiday:
+        one: Urlaubsantrag
+        other: Urlaubsanträge
+      project:
+        one: Projekt
+        other: Projekte
+      time_sheet:
+        one: Stundenzettel
+        other: Stundenzettel
+      trip:
+        one: Geschäftsreise
+        other: Geschäftsreisen
+      user:
+        one: Benutzer
+        other: Benutzer
+      work_day:
+        one: Arbeitstag
+        other: Arbeitstage
+  chair:
+    add_chair: Lehrstuhl hinzufügen
+    create:
+      error: Das Formular wurde nicht vollständig ausgefüllt!
+      success: Lehrstuhl wurde erfolgreich erstellt
+    destroy:
+      error: Lehrstuhl konnte nicht gelöscht werden
+      success: Lehrstuhl wurde erfolgreich gelöscht
+    remove_from_chair:
+      error: Nutzer konnte nicht entfernt werden
+      success: Benutzer erfolgreich entfernt
+    requests:
+      expense_request: Reisekostenabrechnung
+      holiday_request: Urlaubsantrag
+      trip_request: Dienstreiseantrag
+    set_admin:
+      error: User konnte nicht zum Admin ernannt werden
+      success: User wurde erfolgreich zum Admin ernannt
+    update:
+      error: Das Formular wurde nicht vollständig ausgefüllt!
+      success: Lehrstuhl erfolgreich aktualisiert
+    withdraw:
+      error: Adminrechte konnten nicht entzogen werden
+      success: Adminrechte wurden erfolgreich entzogen
   date:
-    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+    day_names:
+    - Sonntag
+    - Montag
+    - Dienstag
+    - Mittwoch
+    - Donnerstag
+    - Freitag
+    - Samstag
+    formats:
+      long: "%B %d, %Y"
+      short: "%b %d"
     input:
       formats:
-        - :default
-    formats:
-      default: "%d.%m.%Y"
-      short: "%b %d"
-      long: "%B %d, %Y"
-  links:
-    search: 'Suchen'
-    submit: 'Abschicken'
-    filter: 'Filtern'
+      - :default
+  expense:
+    applied: Reisekostenabrechnung bereits eingereicht
+    destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
+    no_trip: Bevor die Reisekostenabrechnung eingereicht werden kann, müssen Sie den Dienstreiseantrag einreichen
+    save: Reisekostenabrechnung wurde erfolgreich erstellt
+    update: Reisekostenabrechnung wurde erfolgreich aktualisiert
+  'false': Nein
   holiday:
-    not_authorized: 'Sie sind nicht befugt, diesen Urlaubsantrag einzusehen.'
-    not_enough_leave: 'Nicht genug Resturlaub übrig!'
-    destroyed: 'Urlaub wurde erfolreich gelöscht.'
-    updated: 'Urlaub wurde erfolgreich bearbeitet.'
-    created: 'Urlaub wurde erfolgreich erstellt.'
-    something_wrong: 'Es gab einen unbekannten Fehler.'
-    applied: "Urlaubsantrag bereits eingereicht"
+    applied: Urlaubsantrag bereits eingereicht
+    created: Urlaub wurde erfolgreich erstellt.
+    destroyed: Urlaub wurde erfolreich gelöscht.
+    not_authorized: Sie sind nicht befugt, diesen Urlaubsantrag einzusehen.
+    not_enough_leave: Nicht genug Resturlaub übrig!
+    updated: Urlaub wurde erfolgreich bearbeitet.
+  links:
+    search: Suchen
+    submit: Abschicken
+  mail_notifier:
+    notification:
+      hello: 'Hallo '
+      text: Sie haben eine neue Benachrichtigung. Besuchen Sie das Wimi-Portal Dashboard, um alle neuen Benachrichtigungen zu sehen.
+      your_wimi_portal: Ihr Wimi-Portal
+  not_authorized: Du bist nicht befugt, diese Aktion durchzuführen.
   project:
-    filter_chair: 'Filtern nach ...'
-    invite_someone_to_project: 'Jemanden zum Projekt einladen'
-    invite_someone_to_the_project: "Jemanden zum Projekt \"%{title}\" einladen"
+    filter_chair: Filtern nach ...
+    invite_someone_to_project: Jemanden zum Projekt einladen
+    invite_someone_to_the_project: Jemanden zum Projekt "%{title}" einladen
+    not_authorized: Du bist nicht befugt, diese Aktion für das Projekt durchzuführen.
     send_invitation_to: 'Einladung senden an:'
-    not_authorized: 'Du bist nicht befugt, diese Aktion für das Projekt durchzuführen.'
     user:
-      does_not_exist: 'Dieser Benutzer existiert nicht.'
-      already_invited: 'Dieser Benutzer wurde bereits eingeladen.'
-      already_is_member: 'Dieser Benutzer ist bereits Mitglied des Projekts.'
-      was_successfully_invited: 'Der Benutzer wurde erfolgreich eingeladen.'
-      invitation_accepted: 'Du bist nun Mitglied dieses Projekts.'
-      cannot_be_invited: 'Dieser Benutzer kann nicht eingeladen werden.'
-      cannot_accept_invitations: 'Du kannst keine Projekteinladungen akzeptieren.'
-      last_wimi: 'Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.'
+      already_invited: Dieser Benutzer wurde bereits eingeladen.
+      already_is_member: Dieser Benutzer ist bereits Mitglied des Projekts.
+      cannot_be_invited: Dieser Benutzer kann nicht eingeladen werden.
+      last_wimi: Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.
+      was_successfully_invited: Der Benutzer wurde erfolgreich eingeladen.
+  signatures:
+    signature_not_found: Sie haben ausgewählt, das Dokument zu unterschreiben, haben aber noch keine Unterschrift hinzugefügt
+    signature_not_found_time_sheet: Das Dokument wurde nicht eingereicht, da Sie ausgewählt haben, das Dokument zu unterschreiben, aber noch keine Unterschrift hinzugefügt wurde
   time:
     formats:
       default: "%d.%m.%Y"
-      short: "%b %d"
       long: "%B %d, %Y"
-  chair:
-    not_authorized: "Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen."
-    add_chair: "Lehrstuhl hinzufügen"
-    destroy:
-      error: "Lehrstuhl konnte nicht gelöscht werden"
-      success: "Lehrstuhl wurde erfolgreich gelöscht"
-    create:
-      success: "Lehrstuhl wurde erfolgreich erstellt"
-      error: "Das Formular wurde nicht vollständig ausgefüllt!"
-    update:
-      success: "Lehrstuhl erfolgreich aktualisiert"
-      error: "Das Formular wurde nicht vollständig ausgefüllt!"
-    accept_request:
-      success: "Anfrage erfolgreich angenommen"
-      error: "Fehler beim Annehmen der Anfrage"
-    remove_from_chair:
-      success: "Benutzer erfolgreich entfernt"
-      error: "Nutzer konnte nicht entfernt werden"
-    set_admin:
-      success: "User wurde erfolgreich zum Admin ernannt"
-      error: "User konnte nicht zum Admin ernannt werden"
-    withdraw:
-      success: "Adminrechte wurden erfolgreich entzogen"
-      error: "Adminrechte konnten nicht entzogen werden"
-    apply:
-      success: "Wimi-Anfrage erfolgreich erstellt"
-      error: "Wimi-Anfrage konnte nicht erstellt werden"
-    requests:
-      holiday_request: "Urlaubsantrag"
-      expense_request: "Reisekostenabrechnung"
-      trip_request: "Dienstreiseantrag"
-
-  "true": "Ja"
-  "false": "Nein"
-  status:
-    saved: "gespeichert"
-    applied: "beantragt"
-    accepted: "genehmigt"
-    declined: "abgelehnt"
+      short: "%b %d"
   trip:
-    update: "Dienstreiseantrag wurde erfolgreich aktualisiert"
-    save: "Dienstreiseantrag wurde erfolgreich erstellt"
-    applied: "Dienstreiseantrag bereits eingereicht"
-    destroyed: "Dienstreiseantrag wurde erfolgreich gelöscht"
-    apply: "Dienstreiseantrag wurde erfolgreich eingereicht"
-  not_authorized: "Du bist nicht befugt, diese Aktion durchzuführen."
-  expense:
-    update: "Reisekostenabrechnung wurde erfolgreich aktualisiert"
-    save: "Reisekostenabrechnung wurde erfolgreich erstellt"
-    applied: "Reisekostenabrechnung bereits eingereicht"
-    destroyed: "Reisekostenabrechnung wurde erfolgreich gelöscht"
-    apply: "Reisekostenabrechnung wurde erfolgreich eingereicht"
-    no_trip: "Bevor die Reisekostenabrechnung eingereicht werden kann, müssen Sie den Dienstreiseantrag einreichen"
+    applied: Dienstreiseantrag bereits eingereicht
+    destroyed: Dienstreiseantrag wurde erfolgreich gelöscht
+    save: Dienstreiseantrag wurde erfolgreich erstellt
+    update: Dienstreiseantrag wurde erfolgreich aktualisiert
+  'true': Ja
   users:
-    upload_signature:
-      upload_success: "Unterschrift wurde erfolgreich hochgeladen"
-      invalid_file_extension: "Bitte wählen Sie eine Datei mit einer gültigen Endung"
-      upload_error: "Bitte wählen Sie eine Datei aus"
     delete_signature:
-      destroy_success: "Unterschrift erfolgreich gelöscht"
-  mail_notifier:
-    notification:
-      subject: "Sie haben eine neue Benachrichtigung erhalten"
-      hello: "Hallo "
-      text: "Sie haben eine neue Benachrichtigung. Besuchen Sie das Wimi-Portal Dashboard, um alle neuen Benachrichtigungen zu sehen."
-      your_wimi_portal: "Ihr Wimi-Portal"
-  signatures:
-    signature_not_found: "Sie haben ausgewählt, das Dokument zu unterschreiben, haben aber noch keine Unterschrift hinzugefügt"
-    signature_not_found_time_sheet: "Das Dokument wurde nicht eingereicht, da Sie ausgewählt haben, das Dokument zu unterschreiben, aber noch keine Unterschrift hinzugefügt wurde"
+      destroy_success: Unterschrift erfolgreich gelöscht
+    upload_signature:
+      invalid_file_extension: Bitte wählen Sie eine Datei mit einer gültigen Endung
+      upload_error: Bitte wählen Sie eine Datei aus
+      upload_success: Unterschrift wurde erfolgreich hochgeladen
