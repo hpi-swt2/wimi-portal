@@ -12,6 +12,7 @@ class MailNotifier < ApplicationMailer
 
     @greeting = t('mail_notifier.notification.hello') + user.name
     @event = event
+    # i18n-tasks-use t'mail_notifier.notification.subject'
 
     mail to: user.email
     I18n.locale = l
