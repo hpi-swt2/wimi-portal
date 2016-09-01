@@ -32,29 +32,29 @@ class TimeSheet < ActiveRecord::Base
   belongs_to :contract
   has_one :user, through: :contract, source: :hiwi
   enum status: [:pending, :accepted, :rejected]
+  has_many :work_days
   
   validates :month, numericality: {greater_than: 0}
-  
-  def work_days
-    @work_days ||= WorkDay.time_sheet(self)
-  end
+  validates :year, numericality: {greater_than: 0}
+
+  after_create :create_workdays
 
   def sum_hours
-    sum = 0
-    work_days.each do |w|
-      sum += w.duration
-    end
-    sum
+    #sum = 0
+    #work_days.each do |w|
+    #  sum += w.duration
+    #end
+    #sum
   end
 
   def sum_minutes
-    sum_hours * 60
+    #sum_hours * 60
   end
 
   def sum_minutes_formatted
-    work_time = sum_minutes
-    minutes = work_time % 60
-    hours = (work_time - minutes) / 60
-    format("%d:%02d", hours, minutes)
+    #work_time = sum_minutes
+    #minutes = work_time % 60
+    #hours = (work_time - minutes) / 60
+    #format("%d:%02d", hours, minutes)
   end
 end
