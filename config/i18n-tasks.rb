@@ -69,15 +69,10 @@ module I18n::Tasks::Scanners
 #    end
 
     protected
-    
-    def exclude_line?(line, path)
-      re = @ignore_lines_res[File.extname(path)[1..-1]]
-      re && re =~ line
-    end
 
     def default_pattern
       # capture the first argument and scope argument if present
-      /#{translate_call_re} [\( ]? \s* (?# fn call begin )
+      /#{translate_call_re} (?:[\( ] \s*|(?=['"])) (?# fn call begin )
       (#{literal_re})                (?# capture the first argument)
       (?: \s*,\s* #{scope_arg_re} )? (?# capture scope in second argument )
       (?: \s*,\s* (default:|:default) )?
