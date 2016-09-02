@@ -36,6 +36,7 @@ class Ability
       wd.user == user and can?(:edit, wd.time_sheet)
     end
     cannot [:new, :create], WorkDay if user.recent_contracts.empty?
+    can [:create, :new, :edit, :update, :destroy], TimeSheet
   end
 
   def initialize_hiwi(user)

@@ -1,14 +1,42 @@
-<%= form_for(@time_sheet) do |f| %>
+<%= form_for [@time_sheet.contract,@time_sheet] do |f| %>
 
   <%= render partial: "shared/form_validation_errors", locals: {object: @time_sheet} %>
+  <% @time_sheet.work_days.each do |work_day| %>
+    <%= render partial: "shared/form_validation_errors", locals: {object: work_day} %>
+  <% end %>
 
   <div class="row">
     <div class="col-md-6">
-      <div class="form-group">
-        <%#= f.label :salary, class: 'control-label' %><br>
-        <%#= f.number_field :salary, class: "form-control" %>
-        <%#= f.select :salary_is_per_month, [[t('.monthly'), true], [t('.hourly'), false]], {}, {class: "form-control"} %>
-      </div>
+      <%= bootstrap_form_group(f, :month) do %>
+        <%= f.number_field :month, class: "form-control" %>
+      <% end %>
+      <%= bootstrap_form_group(f, :year) do %>
+        <%= f.number_field :year, class: "form-control" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <tr>
+          <th><%= t('activerecord.attributes.work_day.date') %></th>
+          <th><%= t('activerecord.attributes.work_day.start_time') %></th>
+          <th><%= t('activerecord.attributes.work_day.break') %></th>
+          <th><%= t('activerecord.attributes.work_day.end_time') %></th>
+          <th><%= t('activerecord.attributes.work_day.notes') %></th>
+        </tr>
+        <% index = 0 %>
+        <%= f.fields_for :work_days do |t| %>
+          <tr>
+            <td><%= t.date_field :date %></td>
+            <td><%= t.time_field :start_time %></td>
+            <td><%= t.number_field :break %></td>
+            <td><%= t.time_field :end_time %></td>
+            <td><%= t.text_field :notes , class: 'form-control' %></td>
+          </tr>
+          <% index += 1 %>
+        <% end %>
+      </table>
     </div>
   </div>
   <%= f.submit nil, class:"btn btn-success btn-block" %>

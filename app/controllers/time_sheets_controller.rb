@@ -13,13 +13,31 @@ class TimeSheetsController < ApplicationController
   end
 
   def show
+    set_time_sheet
   end
 
   def new
-#    @time_sheet = TimeSheet.new
+    @time_sheet = TimeSheet.new
+    @time_sheet.contract = Contract.find(params['contract_id'])
+    @time_sheet.year = Date.today.year
+    @time_sheet.month = Date.today.month
+    @time_sheet.generate_work_days
+  end
+
+  def create
+    @time_sheet = TimeSheet.new(time_sheet_params)
+    @time_sheet.contract = Contract.find(params['contract_id'])
+
+    if @time_sheet.save
+      redirect_to edit_time_sheet_path(@time_sheet)
+      flash[:success] = I18n.t('time_sheet.save')
+    else
+      render :new
+    end
   end
 
   def edit
+    set_time_sheet
   end
 
   def hand_in
@@ -54,7 +72,7 @@ class TimeSheetsController < ApplicationController
   def update
     if @time_sheet.update(time_sheet_params)
       flash[:success] = 'Time Sheet was successfully updated.'
-      redirect_to work_days_path(month: @time_sheet.month, year: @time_sheet.year, contract: @time_sheet.contract)
+      redirect_to time_sheets_path(month: @time_sheet.month, year: @time_sheet.year, contract: @time_sheet.contract)
     else
       render :edit
     end
@@ -71,12 +89,12 @@ class TimeSheetsController < ApplicationController
   end
 
   private
-#
-#  def set_time_sheet
-#    @time_sheet = TimeSheet.find(params[:id])
-#  end
+
+  def set_time_sheet
+    @time_sheet = TimeSheet.find(params[:id])
+  end
 
   def time_sheet_params
-    params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym))
+    params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym), work_days_attributes: WorkDay.column_names.map(&:to_sym))
   end
 end

@@ -32,12 +32,12 @@ class TimeSheet < ActiveRecord::Base
   belongs_to :contract
   has_one :user, through: :contract, source: :hiwi
   enum status: [:pending, :accepted, :rejected]
-  has_many :work_days
+  has_many :work_days, :inverse_of => :time_sheet
   
   validates :month, numericality: {greater_than: 0}
   validates :year, numericality: {greater_than: 0}
 
-  after_create :create_workdays
+  accepts_nested_attributes_for :work_days
 
   def sum_hours
     #sum = 0
@@ -56,5 +56,13 @@ class TimeSheet < ActiveRecord::Base
     #minutes = work_time % 60
     #hours = (work_time - minutes) / 60
     #format("%d:%02d", hours, minutes)
+  end
+
+  def generate_work_days
+    first_day = Date.new(year,month,1)
+    last_day = first_day.end_of_month
+    (first_day..last_day).each do |day|
+      work_days.new(date: day)
+    end
   end
 end

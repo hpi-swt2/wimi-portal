@@ -54,10 +54,12 @@ Rails.application.routes.draw do
     get 'holidays/accept_reject', to: 'holidays#accept_reject'
   end
 
-  resources :contracts
+  resources :contracts do
+    resources :time_sheets, only: [:new, :create, :update, :destroy]
+  end
   resources :work_days
   get 'work_days/:year/:month', to: 'work_days#index'
-  resources :time_sheets, only: [:index, :edit, :update, :delete, :reject, :hand_in, :accept] do
+  resources :time_sheets, except: [:new, :create] do
     member do
       get 'hand_in'
       get 'accept_reject'
