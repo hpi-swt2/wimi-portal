@@ -48,11 +48,6 @@ RSpec.describe 'projects/show', type: :view do
     it 'does not show an add working hours button' do
       expect(page).to_not have_link(I18n.t('projects.show.add_working_hours'))
     end
-
-    # TODO: is this a bug or a feature?
-#    it 'does not show working hours' do
-#      expect(page).to_not have_content(I18n.t('projects.form.show_current_working_hours'))
-#    end
   end
 
   context 'as wimi' do
