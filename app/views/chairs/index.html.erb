@@ -17,28 +17,16 @@
         <tbody>
         <% @chairs.each do |chair| %>
           <tr>
-            <% if can?(:show, chair) %>
-              <td><%= link_to chair.name, chair_path(chair) %></td>
-            <% else %>
-              <td><%= chair.name %></td>
-            <% end %>
+              <td><%= linked_name chair %></td>
               <td> 
-              <% if can?(:edit, chair) %>
-                    <%= link_to t('helpers.links.edit'), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
-              <% end %>
-              <% if can?(:destroy, chair) %>
-                    <%= link_to t('helpers.links.destroy'), chair_path(id: chair), method: :delete, data: {confirm: t('helpers.links.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
-              <% end %>
+                  <%= edit_button chair, class: 'btn-xs' %>
+                  <%= delete_button chair, class: 'btn-xs' %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
     <% end %>
-    <% if can? :create, Chair %>
-      <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize),
-                  new_chair_path,
-                  class: 'btn btn-success btn-block' %>
-    <% end %>
+    <%= create_button Chair, class: 'btn-block' %>
   </div>
 </div>

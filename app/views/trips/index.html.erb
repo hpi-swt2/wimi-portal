@@ -9,9 +9,7 @@
             <%=t '.title', default: model_class.model_name.human(count: 2).titleize %>
           </div>
           <div class="col-sm-3">
-            <%if can? :create, Trip %>
-            <%= link_to t('.new', default: t("helpers.links.new")), new_trip_path, class: "btn btn-success btn-block"%>
-            <% end %>
+            <%= create_button Trip, class: 'btn-block' %>
           </div>
         </div>
       </h1>

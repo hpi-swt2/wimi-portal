@@ -49,13 +49,8 @@
       <div class="col-md-12">
         <div class="btn-group btn-group-justified">
           <% unless @trip.status == 'applied' || @trip.status == 'accepted' %>
-            <% if can? :hand_in, @trip %>
-              <%= link_to t('.hand_in', default: t("helpers.links.hand_in")),
-              hand_in_trip_path(@trip), method: :post, class: 'btn btn-success' %>
-            <% end %>
-            <% if can? :destroy, @trip %>
-                <%= link_to t('.destroy', default: t("helpers.links.destroy")), trip_path(@trip), method: :delete, data: { confirm: t('.confirm', default: t("helpers.links.confirm")) }, class: 'btn btn-danger btn-primary' %>
-            <% end %>
+            <%= action_button :hand_in, @trip, method: :post, class: 'btn_success' %>
+            <%= delete_button @trip, class: 'btn-primary' %>
           <% end %>
           <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Trip_request', doc_id: @trip), class: 'btn btn-info' %>
           <%= link_to t('.back', default: t("helpers.links.back")), :back, class: 'btn btn-default'  %>
@@ -130,17 +125,14 @@
       <%= render @trip.expense %>
       <div class="btn-group btn-group-justified">
         <% unless @trip.expense.status == 'applied' || @trip.expense.status == 'accepted' %>
-          <% if can? :hand_in, @trip.expense %>
-            <%= link_to t('.hand_in'), hand_in_expense_path(@trip.expense), method: :post, class: 'btn btn-success' %>
-          <% end %>
-          <% if can? :destroy, @trip.expense %>
-            <%= link_to t('helpers.links.destroy'), trip_expense_path(@trip,@trip.expense), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %>
-          <% end %>
+          <%= action_button :hand_in, @trip.expense, method: :post, class: 'btn-success' %>
+          <%= delete_button @trip.expense %>
         <% end %>
         <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Expense_request', doc_id: @trip.expense) , class: "btn btn-info"%>
       </div>
     <% else %>
       <% if can? :create_expense, @trip %>
+        <%# TODO: check if action_button can be used here %>
         <%= link_to t('.create_expense'), new_trip_expense_path(@trip), class: "btn btn-success btn-block" %>
       <% end %>
     <% end %>

@@ -4,9 +4,7 @@
     <div class="page-header">
       <h1>
         <%= @chair.name %>
-        <% if can? :edit, @chair%>
-          <%= link_to t('helpers.links.edit'), edit_chair_path(@chair), class: 'btn btn-warning btn-md pull-right' %>
-        <% end %>
+        <%= edit_button @chair, class: 'btn-md pull-right' %>
       </h1>
     </div>
     <dl>
