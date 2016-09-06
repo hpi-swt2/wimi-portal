@@ -32,6 +32,17 @@ describe WorkDaysController, type: :controller do
       get :index, {month: Date.today.month, year: Date.today.year, user: @user, project: @project.id}, valid_session
       expect(assigns(:work_days)).to eq([work_day])
     end
+    
+    it 'includes workdays on first of month' do
+      work_day1 = WorkDay.new valid_attributes
+      work_day1.date = Date.today.beginning_of_month
+      work_day2 = WorkDay.new valid_attributes
+      work_day2.date = Date.today.beginning_of_month + 1.day
+      work_day1.save!
+      work_day2.save!
+      get :index, {month: Date.today.month, year: Date.today.year, user: @user, project: @project}, valid_session
+      expect(assigns(:work_days)).to eq([work_day1, work_day2])
+    end
   end
 
   describe 'GET #show' do
