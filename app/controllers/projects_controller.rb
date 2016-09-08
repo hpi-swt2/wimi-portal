@@ -126,12 +126,13 @@ class ProjectsController < ApplicationController
     
     data = []
     map.each do |project, total_work_time|
-      data.push(name: project.title, y: total_work_time.round)
+      t = project ? project.title : 'Other'
+      data.push(name: t, y: total_work_time.round)
     end
     
     render json: {msg: data}
     rescue
-      render json: {msg: {y: 0, name: I18n.t('activerecord.errors.try_again_later')}}
+      render json: {msg: {y: 42, name: I18n.t('activerecord.errors.try_again_later')}}
   end
 
   private
