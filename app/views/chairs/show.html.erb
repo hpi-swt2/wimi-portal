@@ -56,7 +56,7 @@
         <% end %>
       </table>
     <% end %>
-    <% if @user.is_representative? %>
+    <% if can? :reporting, @chair %>
       <div class="page-header">
         <h3><%= t('projects.index.all_working_hours') %></h3>
       </div>
