@@ -21,6 +21,16 @@ describe 'working hours chart' do
     expect(page).to have_css('div#hiwiWorkingHoursChart')
   end
 
+  it 'shows the working hours chart to the chair assistant' do
+    assistant = FactoryGirl.create(:user)
+    FactoryGirl.create(:wimi, user: assistant, chair: @chair, admin: true)
+    
+    login_as assistant
+    visit chair_path(@chair)
+    
+    expect(page).to have_css('div#hiwiWorkingHoursChart')
+  end
+
   it 'does not show the working hours chart to a hiwi' do
     login_as @hiwi1
     visit projects_path

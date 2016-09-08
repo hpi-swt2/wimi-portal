@@ -12,6 +12,6 @@ describe 'the project button on the project index page' do
   it 'is not available for hiwis' do
     login_as FactoryGirl.create(:hiwi)
     visit projects_path
-    expect(page).to_not have_text I18n.t('projects.index.new')
+    expect(page).to_not have_text I18n.t('helpers.links.new')
   end
 end

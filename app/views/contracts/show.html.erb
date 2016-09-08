@@ -4,9 +4,7 @@
     <div class="page-header">
       <h1>
         <%= t('activerecord.models.contract.one').titleize %>
-        <% if can? :edit, @contract%>
-          <%= link_to t('helpers.links.edit'), edit_contract_path(@contract), class: 'btn btn-warning btn-md pull-right' %>
-        <% end %>
+        <%= edit_button @contract, class: 'btn-md pull-right' %>
       </h1>
     </div>
     <div class="row">
@@ -15,19 +13,11 @@
           <dt><%= t('activerecord.attributes.contract.date') %></dt>
           <dd><%= l @contract.start_date %> &ndash; <%= l @contract.end_date %></dd>
           <dt><%= model_class.human_attribute_name(:hiwi) %></dt>
-          <% if can? :show, @contract.hiwi %>
-              <dd><%= link_to @contract.hiwi.name, user_path(@contract.hiwi) %></dd>
-          <% else %>
-              <dd><%= @contract.hiwi.name %></dd>
-          <% end %>
+          <dd><%= linked_name @contract.hiwi %> </dd>
           <dt><%= model_class.human_attribute_name(:hours_per_week) %></dt>
           <dd><%= @contract.hours_per_week %></dd>
           <dt><%= t('activerecord.models.chair.one').titleize %></dt>
-          <% if can? :show, @contract.chair %>
-              <dd><%= link_to @contract.chair.name, chair_path(@contract.chair) %></dd>
-          <% else %>
-              <dd><%= @contract.chair.name %></dd>
-          <% end %>
+          <dd><%= linked_name @contract.chair %> </dd>
         </dl>
       </div>
       <div class="col-md-6 col-sm-6">
@@ -35,11 +25,7 @@
           <dt><%= model_class.human_attribute_name(:flexible) %></dt>
           <dd><%= t @contract.flexible.to_s %></dd>
           <dt><%= model_class.human_attribute_name(:responsible) %></dt>
-          <% if can? :show, @contract.responsible %>
-              <dd><%= link_to @contract.responsible.name, user_path(@contract.responsible) %></dd>
-          <% else %>
-              <dd><%= @contract.responsible.name %></dd>
-          <% end %>
+          <dd><%= linked_name @contract.responsible %> </dd>
           <dt><%= model_class.human_attribute_name(:wage_per_hour) %></dt>
           <dd><%= @contract.wage_per_hour %> €</dd>
         </dl>
