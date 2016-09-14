@@ -220,6 +220,7 @@ de:
     formats:
       long: "%B %d, %Y"
       short: "%b %d"
+      weekday: "%A, %d.%m"
     input:
       formats:
       - :default
@@ -299,6 +300,7 @@ de:
       full: "%d.%m.%y %k:%M"
       long: "%B %d, %Y"
       short: "%b %d"
+      hours_minutes: "%H:%M"
   trip:
     applied: Dienstreiseantrag bereits eingereicht
     destroyed: Dienstreiseantrag wurde erfolgreich gelöscht

@@ -1,3 +1,16 @@
+<style>
+  /* disable number field arrows*/
+  input[type=number] {
+      -moz-appearance:textfield;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+</style>
+
 <%= form_for [@time_sheet.contract,@time_sheet] do |f| %>
 
   <%= render partial: "shared/form_validation_errors", locals: {object: @time_sheet} %>
@@ -10,6 +23,8 @@
       <%= bootstrap_form_group(f, :month) do %>
         <%= f.number_field :month, class: "form-control" %>
       <% end %>
+    </div>
+    <div class="col-md-6">
       <%= bootstrap_form_group(f, :year) do %>
         <%= f.number_field :year, class: "form-control" %>
       <% end %>
@@ -17,7 +32,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-striped">
+      <table class="table table-condensed table-bordered">
         <tr>
           <th><%= t('activerecord.attributes.work_day.date') %></th>
           <th><%= t('activerecord.attributes.work_day.start_time') %></th>
@@ -27,12 +42,12 @@
         </tr>
         <% index = 0 %>
         <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
-          <tr>
-            <td><%= t.date_field :date %></td>
-            <td><%= t.time_field :start_time %></td>
-            <td><%= t.number_field :break %></td>
-            <td><%= t.time_field :end_time %></td>
-            <td><%= t.text_field :notes , class: 'form-control' %></td>
+          <tr class="work_day_tr">
+            <td><%= t.date_field :date , value: l(t.object.date, format: :weekday), size: 20, disabled: true, style: "background-color: transparent;"%></td>
+            <td><%= t.time_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5%></td>
+            <td><%= t.number_field :break , in:0..2400, size: 4, maxlength: 4, style: "width: 50px;"%></td>
+            <td><%= t.time_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5%></td>
+            <td><%= t.text_field :notes , size: 50, class: 'form-control' %></td>
           </tr>
           <% index += 1 %>
         <% end %>

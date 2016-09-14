@@ -220,6 +220,7 @@ en:
     formats:
       long: "%B %d, %Y"
       short: "%b %d"
+      weekday: "%A, %d.%m"
     input:
       formats:
       - :default
@@ -299,6 +300,7 @@ en:
       full: "%m/%d/%y %k:%M"
       long: "%B %d, %Y"
       short: "%b %d"
+      hours_minutes: "%H:%M"
   trip:
     applied: Trip is already applied
     destroyed: Trip was successfully destroyed
