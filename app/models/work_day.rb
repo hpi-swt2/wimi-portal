@@ -2,17 +2,15 @@
 #
 # Table name: work_days
 #
-#  id         :integer          not null, primary key
-#  date       :date
-#  start_time :time
-#  break      :integer
-#  end_time   :time
-#  attendance :string
-#  notes      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
-#  project_id :integer
+#  id            :integer          not null, primary key
+#  date          :date
+#  start_time    :time
+#  break         :integer
+#  end_time      :time
+#  notes         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  time_sheet_id :integer
 #
 
 class WorkDay < ActiveRecord::Base

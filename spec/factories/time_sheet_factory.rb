@@ -34,7 +34,7 @@ FactoryGirl.define do
     month Date.today.month
     year Date.today.year
     last_modified Date.today
-    hand_in_date Date.today
+    hand_in_date nil
     rejection_message ''
     after(:build) do |ts, evaluator|
       if ts.contract.blank?

@@ -40,11 +40,11 @@ class TimeSheet < ActiveRecord::Base
   accepts_nested_attributes_for :work_days, reject_if: lambda { |attributes| attributes['start_time'].blank? || attributes['end_time'].blank? }
 
   def sum_hours
-    #sum = 0
-    #work_days.each do |w|
-    #  sum += w.duration
-    #end
-    #sum
+    sum = 0
+    work_days.each do |w|
+      sum += w.duration
+    end
+    sum
   end
 
   def sum_minutes
