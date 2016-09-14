@@ -26,7 +26,7 @@
           <th><%= t('activerecord.attributes.work_day.notes') %></th>
         </tr>
         <% index = 0 %>
-        <%= f.fields_for :work_days do |t| %>
+        <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
           <tr>
             <td><%= t.date_field :date %></td>
             <td><%= t.time_field :start_time %></td>

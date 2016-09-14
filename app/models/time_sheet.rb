@@ -37,7 +37,7 @@ class TimeSheet < ActiveRecord::Base
   validates :month, numericality: {greater_than: 0}
   validates :year, numericality: {greater_than: 0}
 
-  accepts_nested_attributes_for :work_days
+  accepts_nested_attributes_for :work_days, reject_if: lambda { |attributes| attributes['start_time'].blank? || attributes['end_time'].blank? }
 
   def sum_hours
     #sum = 0
@@ -58,11 +58,33 @@ class TimeSheet < ActiveRecord::Base
     #format("%d:%02d", hours, minutes)
   end
 
+  def first_day
+    Date.new(year,month,1)
+  end
+
+  def last_day
+    first_day.end_of_month
+  end
+
   def generate_work_days
-    first_day = Date.new(year,month,1)
-    last_day = first_day.end_of_month
     (first_day..last_day).each do |day|
       work_days.new(date: day)
     end
   end
+
+  def generate_missing_work_days
+    (first_day..last_day).each do |day|
+      exists = false
+      self.work_days.each do |work_day|
+        if work_day.date == day
+          exists = true
+        end
+      end
+      if !exists
+        self.work_days.build(date: day)
+      end
+    end
+   # self.work_days.sort! { |a,b| a.date <=> b.date }
+  end
+
 end

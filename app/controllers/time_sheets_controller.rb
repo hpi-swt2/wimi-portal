@@ -32,12 +32,14 @@ class TimeSheetsController < ApplicationController
       redirect_to edit_time_sheet_path(@time_sheet)
       flash[:success] = I18n.t('time_sheet.save')
     else
+      @time_sheet.generate_missing_work_days
       render :new
     end
   end
 
   def edit
     set_time_sheet
+    @time_sheet.generate_missing_work_days
   end
 
   def hand_in

@@ -22,13 +22,13 @@ class WorkDay < ActiveRecord::Base
 
   validates :time_sheet, presence: true
   validates :date, presence: true
-  #validates :break, numericality: {greater_than_or_equal_to: 0}
-  #validates :start_time, presence: true
-  #validates :end_time, presence: true
-  #validates_time :end_time, after: :start_time
-  #validates :duration, numericality: {greater_than_or_equal_to: 0}
+  validates :break, numericality: {greater_than_or_equal_to: 0}
+  validates :start_time, presence: true
+  validates :end_time, presence: true
+  validates_time :end_time, after: :start_time
+  validates :duration, numericality: {greater_than: 0}
 
-  #before_validation :default_values
+  before_validation :default_values
 
   def to_s
     model = I18n.t('activerecord.models.work_day.one', default: WorkDay.to_s)
@@ -52,5 +52,11 @@ class WorkDay < ActiveRecord::Base
     minutes = work_time % 60
     hours = (work_time - minutes) / 60
     format("%d:%02d", hours, minutes)
+  end
+
+  private
+
+  def default_values
+    self.break ||= 0
   end
 end
