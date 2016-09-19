@@ -99,6 +99,12 @@ RSpec.describe TimeSheetsController, type: :controller do
           get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
         }.to change { EventTimeSheetSubmitted.count }.by(1)
       end
+
+      it 'should redirect to time_sheet#index' do
+        time_sheet = TimeSheet.create! valid_attributes
+        get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
+        expect(response).to redirect_to(time_sheets_path)
+      end
     end
   end
 end
