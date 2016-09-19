@@ -15,9 +15,15 @@
 
 class WorkDay < ActiveRecord::Base
 
+  scope :date, -> date  { where(date: date) }
+  scope :month, -> month, year {
+    date = Date.new(year, month)
+    where(date: date.beginning_of_month..date.end_of_month)
+  }
   
   belongs_to :time_sheet
   belongs_to :project
+  has_one :contract, through: :time_sheet
 
   validates :time_sheet, presence: true
   validates :project, presence: true

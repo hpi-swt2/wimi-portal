@@ -43,10 +43,8 @@ RSpec.describe DocumentsController, type: :controller do
     end
 
     it 'should generate a PDF file for a time sheet' do
-      chair = FactoryGirl.create(:chair)
-      project = FactoryGirl.create(:project, chair: chair)
-      time_sheet = FactoryGirl.create(:time_sheet, user: @user, chair: chair)
-      FactoryGirl.create(:work_day, user: @user, project: project)
+      time_sheet = FactoryGirl.create(:time_sheet)
+      FactoryGirl.create(:work_day, time_sheet: time_sheet)
       params = {doc_type: 'Timesheet', doc_id: time_sheet.id}
       get :generate_pdf, params
       expect(response.headers['Content-Type']).to eq('application/pdf')

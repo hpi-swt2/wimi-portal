@@ -39,7 +39,7 @@ class DocumentsController < ApplicationController
       while day.month == @tmp_vars[:timesheet].month
         @tmp_vars[:days_in_month].push({
           date: day, start: ' ', break: ' ', end: ' ',
-          duration: '0:00', attendance: ' ', notes: ' '
+          duration: '0:00', notes: ' '
         })
         day += 1 # Select following day
       end
@@ -52,7 +52,6 @@ class DocumentsController < ApplicationController
             day[:break] = format("%d:%02d", break_hours, break_minutes)
             day[:end] = workday.end_time.strftime('%H:%M')
             day[:duration] = workday.duration_hours_minutes
-            day[:attendance] = workday.attendance[0..0]
             day[:notes] = workday.notes
           end
         end

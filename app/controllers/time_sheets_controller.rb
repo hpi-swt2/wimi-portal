@@ -79,7 +79,7 @@ class TimeSheetsController < ApplicationController
   def update
     if @time_sheet.update(time_sheet_params)
       flash[:success] = 'Time Sheet was successfully updated.'
-      redirect_to time_sheets_path(month: @time_sheet.month, year: @time_sheet.year, contract: @time_sheet.contract)
+      redirect_to edit_time_sheet_path(@time_sheet)
     else
       @time_sheet.generate_missing_work_days
       set_projects

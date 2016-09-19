@@ -48,10 +48,10 @@ RSpec.describe TimeSheetsController, type: :controller do
         expect(time_sheet.month).to eq(2)
       end
 
-      it 'redirects to the time_sheet' do
+      it 'redirects to the time sheet edit path' do
         time_sheet = TimeSheet.create! valid_attributes
         put :update, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: time_sheet.month, year: time_sheet.year, contract: time_sheet.contract))
+        expect(response).to redirect_to(edit_time_sheet_path(time_sheet))
       end
     end
 
