@@ -312,3 +312,5 @@ de:
       invalid_file_extension: Bitte wählen Sie eine Datei mit einer gültigen Endung
       upload_error: Bitte wählen Sie eine Datei aus
       upload_success: Unterschrift wurde erfolgreich hochgeladen
+  time_sheet:
+    include_comments: Anmerkungen mit drucken

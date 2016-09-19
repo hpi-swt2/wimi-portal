@@ -70,11 +70,16 @@ class TimeSheetsController < ApplicationController
     end
   end
 
+  def download
+    set_time_sheet
+    redirect_to generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet, include_comments: params[:include_comments])
+  end
+
   private
-#
-#  def set_time_sheet
-#    @time_sheet = TimeSheet.find(params[:id])
-#  end
+
+ def set_time_sheet
+   @time_sheet = TimeSheet.find(params[:id])
+ end
 
   def time_sheet_params
     params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym))

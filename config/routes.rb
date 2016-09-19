@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     member do
       get 'hand_in'
       get 'accept_reject'
+      get 'download'
     end
     get 'time_sheets/hand_in', to: 'time_sheets#hand_in'
     get 'time_sheets/accept_reject', to: 'time_sheets#accept_reject'

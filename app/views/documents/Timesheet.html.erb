@@ -71,7 +71,11 @@
       <td><%= day[:end] %></td>
       <td><b><%= day[:duration] %></b></td>
       <td><%= day[:attendance] %></td>
-      <td style='font-size:10pt'><%= day[:notes] %></td>
+      <td style='font-size:10pt'>
+        <% if include_comments %>
+          <%= day[:notes] %>
+        <% end %>
+      </td>
       </tr>
   <% end %>
   <tr class='footer'>
