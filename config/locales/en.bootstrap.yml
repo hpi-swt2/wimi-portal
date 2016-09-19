@@ -203,7 +203,7 @@ en:
   home:
     index:
       member_status_html: You are currently a member of <strong>%{project_count} %{project}</strong> as HiWi or WiMi and have <strong>%{contract_count} %{contract}</strong>.
-      new_member: You therefore cannot yet enter working hours.
+      new_member: You therefore cannot yet enter working hours. To enter a project or set up a contract, please contact your supervisor via E-Mail.
       user_html: 'You are logged in as: %{user}.'
       welcome: Welcome to the HPI HiWi Portal!
   no_entries_yet: There are no %{target} yet.

@@ -203,7 +203,7 @@ de:
   home:
     index:
       member_status_html: Sie sind momentan für <strong>%{project_count} %{project}</strong> als HiWi oder WiMi registriert und haben <strong>%{contract_count} %{contract}</strong>.
-      new_member: Sie können deshalb noch keine Arbeitsstunden eintragen.
+      new_member: Sie können deshalb noch keine Arbeitsstunden eintragen. Um einem Projekt beizutreten oder einen Vetrag zu registrieren kontaktieren Sie bitte ihren zuständigen Betreuer per E-Mail.
       user_html: 'Sie sind angemeldet als: %{user}.'
       welcome: Willkommen beim HPI WiMi-Portal!
   no_entries_yet: Es sind noch keine %{target} vorhanden.
