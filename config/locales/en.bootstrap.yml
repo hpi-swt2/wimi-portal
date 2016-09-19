@@ -32,10 +32,7 @@ en:
       b: Description
   dashboard:
     actions:
-      create_project: Create Project
       enter_work_hours: Enter working hours for %{project_name}
-      request_business_trip: Request Business Trip
-      request_holiday: Request Holiday
       show_expense_requests: Show Expense Requests
       show_holiday_requests: Show Holiday Requests
       show_trip_requests: Show Trip Requests
@@ -49,10 +46,6 @@ en:
       notifications: Important Notifications
     projects:
       projects: My Projects
-    wimi_actions:
-      create_project: Create Project
-      request_business_trip: Request Business Trip
-      request_holiday: Request Holiday
   date:
     abbr_month_names:
     - 
