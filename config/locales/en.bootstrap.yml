@@ -9,6 +9,7 @@ en:
       withdraw_rights: Set as employee
     contracts:
       none: No contracts
+      one: "Show contract"
       several: "%{count} contracts"
     form:
       no_representative: No head of department selected
@@ -29,7 +30,6 @@ en:
     show:
       a: Abbreviation
       b: Description
-      show: "Show contract"
   dashboard:
     actions:
       create_project: Create Project

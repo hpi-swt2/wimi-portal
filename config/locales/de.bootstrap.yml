@@ -9,6 +9,7 @@ de:
       withdraw_rights: Rechte entziehen
     contracts:
       none: Keine Verträge
+      one: "Vertrag anzeigen"
       several: "%{count} Verträge"
     form:
       no_representative: Kein Fachgebietsleiter ausgewählt
@@ -29,7 +30,6 @@ de:
     show:
       a: Abkürzung
       b: Beschreibung
-      show: "Vertrag anzeigen"
   dashboard:
     actions:
       create_project: Projekt erstellen

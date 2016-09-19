@@ -57,7 +57,7 @@
               <td><%= t('chairs.contracts.none') %></td>
             <% else%>
               <% if contracts.size == 1 %>
-                <td><%= show_button contracts[0], class: "btn-xs" %></td>
+                <td><%= can_link t('chairs.contracts.one'), :show, contracts[0], class: "btn btn-default btn-xs" %></td>
               <%else%>
               <td><%= can_link t('chairs.contracts.several', count: contracts.size), :index, Contract, class: 'btn btn-default btn-xs' %></td>
               <% end %>
