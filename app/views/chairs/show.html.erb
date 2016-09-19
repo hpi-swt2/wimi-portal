@@ -52,6 +52,16 @@
         <% @chair.hiwis.each do |hiwi| %>
           <tr>
             <td><%= hiwi.name %></td>
+            <% contracts = hiwi.contract_with(@chair).to_a %>
+            <% if contracts.size == 0 %>
+              <td><%= t('chairs.contracts.none') %></td>
+            <% else%>
+              <% if contracts.size == 1 %>
+                <td><%= show_button contracts[0], class: "btn-xs" %></td>
+              <%else%>
+              <td><%= can_link t('chairs.contracts.several', count: contracts.size), :index, Contract, class: 'btn btn-default btn-xs' %></td>
+              <% end %>
+            <% end %>
           </tr>
         <% end %>
       </table>

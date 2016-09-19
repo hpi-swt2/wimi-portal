@@ -7,6 +7,9 @@ en:
       grant_rights: Set as assistant
       remove_from_chair: Remove from research group
       withdraw_rights: Set as employee
+    contracts:
+      none: No contracts
+      several: "%{count} contracts"
     form:
       no_representative: No head of department selected
       no_results: No results
@@ -26,6 +29,7 @@ en:
     show:
       a: Abbreviation
       b: Description
+      show: "Show contract"
   dashboard:
     actions:
       create_project: Create Project
