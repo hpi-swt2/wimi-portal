@@ -116,6 +116,7 @@ de:
         end_time: Endzeit
         notes: Anmerkung
         start_time: Startzeit
+        project: Projekt
     errors:
       models:
         expense:

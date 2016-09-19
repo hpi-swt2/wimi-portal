@@ -12,4 +12,11 @@ RSpec.describe 'time_sheets/edit', type: :view do
 
     end
   end
+
+  it 'has input fields for work day projects' do
+  	render
+
+  	assert_select 'form[action=?][method=?]', time_sheet_path(@time_sheet), 'post' do
+
+    end
 end

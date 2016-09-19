@@ -14,6 +14,7 @@ class TimeSheetsController < ApplicationController
 
   def show
     set_time_sheet
+    set_projects
   end
 
   def new
@@ -22,6 +23,7 @@ class TimeSheetsController < ApplicationController
     @time_sheet.year = Date.today.year
     @time_sheet.month = Date.today.month
     @time_sheet.generate_work_days
+    set_projects
   end
 
   def create
@@ -32,13 +34,16 @@ class TimeSheetsController < ApplicationController
       redirect_to edit_time_sheet_path(@time_sheet)
       flash[:success] = I18n.t('time_sheet.save')
     else
+      byebug
       @time_sheet.generate_missing_work_days
+      set_projects
       render :new
     end
   end
 
   def edit
     set_time_sheet
+    set_projects
     @time_sheet.generate_missing_work_days
   end
 
@@ -76,6 +81,8 @@ class TimeSheetsController < ApplicationController
       flash[:success] = 'Time Sheet was successfully updated.'
       redirect_to time_sheets_path(month: @time_sheet.month, year: @time_sheet.year, contract: @time_sheet.contract)
     else
+      @time_sheet.generate_missing_work_days
+      set_projects
       render :edit
     end
   end
@@ -94,6 +101,14 @@ class TimeSheetsController < ApplicationController
 
   def set_time_sheet
     @time_sheet = TimeSheet.find(params[:id])
+  end
+
+  def set_projects
+    if @time_sheet && @time_sheet.user
+      @projects = @time_sheet.user.projects
+    else
+      @projects = current_user.projects
+    end
   end
 
   def time_sheet_params

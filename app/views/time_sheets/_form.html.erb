@@ -13,11 +13,6 @@
 
 <%= form_for [@time_sheet.contract,@time_sheet] do |f| %>
 
-  <%= render partial: "shared/form_validation_errors", locals: {object: @time_sheet} %>
-  <% @time_sheet.work_days.each do |work_day| %>
-    <%= render partial: "shared/form_validation_errors", locals: {object: work_day} %>
-  <% end %>
-
   <div class="row">
     <div class="col-md-6">
       <%= bootstrap_form_group(f, :month) do %>
@@ -39,15 +34,17 @@
           <th><%= t('activerecord.attributes.work_day.break') %></th>
           <th><%= t('activerecord.attributes.work_day.end_time') %></th>
           <th><%= t('activerecord.attributes.work_day.notes') %></th>
+          <th><%= t('activerecord.attributes.work_day.project') %></th>
         </tr>
         <% index = 0 %>
         <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
           <tr class="work_day_tr">
-            <td><%= t.date_field :date , value: l(t.object.date, format: :weekday), size: 20, disabled: true, style: "background-color: transparent;"%></td>
-            <td><%= t.time_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5%></td>
-            <td><%= t.number_field :break , in:0..2400, size: 4, maxlength: 4, style: "width: 50px;"%></td>
-            <td><%= t.time_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5%></td>
-            <td><%= t.text_field :notes , size: 50, class: 'form-control' %></td>
+            <td><%= t.date_field :date , size: 20, readonly: true, style: "background-color: transparent;"%></td>
+            <td class=<%=error_class(t.object, :start_time)%>><%= t.time_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5%></td>
+            <td class=<%=error_class(t.object, :break)%>><%= t.number_field :break , in:0..2400, size: 4, maxlength: 4, style: "width: 50px;"%></td>
+            <td class=<%=error_class(t.object, :end_time)%>><%= t.time_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5%></td>
+            <td><%= t.text_field :notes , size: 50, class: 'form-control'%></td>
+            <td class=<%=error_class(t.object, :project_id)%>><%= t.select :project_id, @projects.collect {|p| [p.title,p.id]}%></td>
           </tr>
           <% index += 1 %>
         <% end %>

@@ -201,4 +201,11 @@ tr.highlight {
 .work_day_tr>td>input {
     border: none;
     box-shadow: none;
+    background-color: inherit;
+    color: inherit;
+}
+
+.form-error {
+    background-color: red;
+    color: white;
 }

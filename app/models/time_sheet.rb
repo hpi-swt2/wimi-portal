@@ -37,7 +37,7 @@ class TimeSheet < ActiveRecord::Base
   validates :month, numericality: {greater_than: 0}
   validates :year, numericality: {greater_than: 0}
 
-  accepts_nested_attributes_for :work_days, reject_if: lambda { |attributes| attributes['start_time'].blank? || attributes['end_time'].blank? }
+  accepts_nested_attributes_for :work_days, reject_if: lambda { |attributes| attributes['start_time'].blank? && attributes['end_time'].blank? }
 
   def sum_hours
     sum = 0
