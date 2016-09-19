@@ -37,7 +37,7 @@
               <% @project.wimis.sort_by {|u| u[:last_name]}.each do |user| %>
                 <tr>
                   <td class="col-md-8">
-                    <%= link_to user.name, user  %>
+                    <%= linked_name(user)  %>
                   </td>
                 </tr>
               <% end %>
@@ -56,7 +56,7 @@
               <% @project.hiwis.sort_by {|u| u[:last_name]}.each do |user| %>
                 <tr>
                   <td class="col-md-8">
-                    <%= link_to user.name, user  %>
+                    <%= linked_name(user)  %>
                   </td>
                   <td>
                     <% if can? :index_all, WorkDay or user == current_user %>
