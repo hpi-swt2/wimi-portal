@@ -21,5 +21,6 @@ FactoryGirl.define do
     f.end_time Time.now.middle_of_day + 2.hours
     f.notes 'some note'
     f.time_sheet
+    f.project
   end
 end

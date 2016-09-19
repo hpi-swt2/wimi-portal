@@ -17,8 +17,10 @@ class WorkDay < ActiveRecord::Base
 
   
   belongs_to :time_sheet
+  belongs_to :project
 
   validates :time_sheet, presence: true
+  validates :project, presence: true
   validates :date, presence: true
   validates :break, numericality: {greater_than_or_equal_to: 0}
   validates :start_time, presence: true

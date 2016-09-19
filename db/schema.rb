@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902113200) do
+ActiveRecord::Schema.define(version: 20160919104931) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -253,8 +253,10 @@ ActiveRecord::Schema.define(version: 20160902113200) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "time_sheet_id"
+    t.integer  "project_id"
   end
 
+  add_index "work_days", ["project_id"], name: "index_work_days_on_project_id"
   add_index "work_days", ["time_sheet_id"], name: "index_work_days_on_time_sheet_id"
 
 end
