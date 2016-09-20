@@ -61,9 +61,9 @@
                     <%= link_to user.name, user  %>
                   </td>
                   <td>
-                    <% if can? :index_all, WorkDay or user == current_user %>
-                      <% today = Date.today %>
-                      <%= link_to t('projects.form.show_current_working_hours'), work_days_path(project: @project, month: today.month, year: today.year, user: user), class: 'btn btn-default btn-xs' %>
+                    <% time_sheets = user.time_sheets.select {|sheet| sheet.containsDate(Date.today) && sheet.contract.chair == @project.chair} %>
+                    <% if time_sheets.any? %>
+                        <%= can_link t('projects.form.show_current_working_hours'), :show, time_sheets[0], class: 'btn btn-default btn-xs' %>
                     <% end %>
                   </td>
                 </tr>
