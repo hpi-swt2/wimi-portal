@@ -5,6 +5,14 @@ module ApplicationHelper
       locals: { form: form, attribute: attribute, block: block }
     )
   end
+
+  def error_class(resource, field_name)
+    if resource.errors[field_name].any?
+      return "form-error".html_safe
+    else
+      return "".html_safe
+    end
+  end
   
   def can_link_or_else(title, action, model, link_args = {})
     if can? action, model
