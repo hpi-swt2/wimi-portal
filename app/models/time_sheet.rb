@@ -66,6 +66,13 @@ class TimeSheet < ActiveRecord::Base
     first_day.end_of_month
   end
 
+  def containsDate(date)
+    if first_day <= date && last_day >= date
+      return true
+    end
+    return false
+  end
+
   def generate_work_days
     (first_day..last_day).each do |day|
       work_days.new(date: day)

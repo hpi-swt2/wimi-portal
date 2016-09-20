@@ -79,4 +79,21 @@ RSpec.describe TimeSheet, type: :model do
     end
     expect(num_eq).to eq(@sheet.work_days.size)
   end
+
+  context 'containsDate' do
+    it 'returns true if the date lies within the month/year' do
+      date = Date.today
+      expect(@sheet.containsDate(date)).to be true
+    end
+
+    it 'returns false if the date lies outside the month/year' do
+      date = Date.today >> 1 # 1 month after the current Date
+      expect(@sheet.containsDate(date)).to be false
+    end
+
+    it 'takes the year into account' do
+      date = Date.today >> 12 # 1 year after the current date
+      expect(@sheet.containsDate(date)).to be false
+    end
+  end
 end
