@@ -14,4 +14,11 @@ describe 'adding work days to a project' do
     click_on I18n.t('projects.show.add_working_hours')
     expect(current_path).to eq(new_work_day_path)
   end
+
+  it 'is possible from the dashboard' do
+    visit dashboard_path
+    click_on I18n.t('dashboard.actions.enter_work_hours', project_name: @project.title)
+    expect(current_path).to eq(new_work_day_path)
+  end
+
 end
