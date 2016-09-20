@@ -26,5 +26,42 @@ namespace :db do
     hana_project.users << epic_representative
     hana_project.users << bob
 
+    #contracts
+
+    contract_bob = Contract.create(
+        hiwi: bob, 
+        chair: chair_epic, 
+        start_date: Date.today, 
+        end_date: Date.today >> 6, 
+        responsible: epic_wimi,
+        flexible: false, 
+        hours_per_week: 10,
+        wage_per_hour: 12.5)
+
+    contract_alice = Contract.create(
+        hiwi: alice, 
+        chair: chair_www, 
+        start_date: Date.today, 
+        end_date: Date.today >> 6, 
+        responsible: epic_wimi,
+        flexible: false, 
+        hours_per_week: 10,
+        wage_per_hour: 12.5)
+
+    #time_sheets
+
+    time_sheet_bob = TimeSheet.create(
+        contract: contract_bob,
+        month: Date.today.month,
+        year: Date.today.year)
+
+    time_sheet_bob.work_days.create(
+        date: time_sheet_bob.first_day, 
+        start_time: "12:00", 
+        break: 60,
+        end_time: "15:00",
+        notes: "Lorem ipsum dolor sit amet",
+        project: hana_project)
+
   end
 end
