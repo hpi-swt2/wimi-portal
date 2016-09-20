@@ -7,6 +7,10 @@ en:
       grant_rights: Set as assistant
       remove_from_chair: Remove from research group
       withdraw_rights: Set as employee
+    contracts:
+      none: No contracts
+      one: "Show contract"
+      several: "%{count} contracts"
     form:
       no_representative: No head of department selected
       no_results: No results
@@ -28,10 +32,7 @@ en:
       b: Description
   dashboard:
     actions:
-      create_project: Create Project
       enter_work_hours: Enter working hours for %{project_name}
-      request_business_trip: Request Business Trip
-      request_holiday: Request Holiday
       show_expense_requests: Show Expense Requests
       show_holiday_requests: Show Holiday Requests
       show_trip_requests: Show Trip Requests
@@ -45,10 +46,6 @@ en:
       notifications: Important Notifications
     projects:
       projects: My Projects
-    wimi_actions:
-      create_project: Create Project
-      request_business_trip: Request Business Trip
-      request_holiday: Request Holiday
   date:
     abbr_month_names:
     - 
@@ -206,7 +203,7 @@ en:
   home:
     index:
       member_status_html: You are currently a member of <strong>%{project_count} %{project}</strong> as HiWi or WiMi and have <strong>%{contract_count} %{contract}</strong>.
-      new_member: You therefore cannot yet enter working hours.
+      new_member: You therefore cannot yet enter working hours. To enter a project or set up a contract, please contact your supervisor via E-Mail.
       user_html: 'You are logged in as: %{user}.'
       welcome: Welcome to the HPI HiWi Portal!
   no_entries_yet: There are no %{target} yet.

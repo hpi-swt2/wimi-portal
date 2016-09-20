@@ -14,21 +14,9 @@
 <% end %>
 
 <%# wimi actions %>
-<% if can? :create, Project %>
-  <p>
-    <%= link_to t('.create_project'), new_project_path %>
-  </p>
-<% end %>
-<% if can? :create, Holiday %>
-  <p>
-    <%= link_to t('.request_holiday'), new_holiday_path %>
-  </p>
-<% end %>
-<% if can? :create, Trip %>
-  <p>
-    <%= link_to t('.request_business_trip'), new_trip_path %>
-  </p>
-<% end %>
+<%= create_button Project , class: "btn-block"%>
+<%= create_button Holiday , class: "btn-block"%>
+<%= create_button Trip , class: "btn-block"%>
 
 <%# Chair representative actions %>
 <% if can? :index, Holiday %>

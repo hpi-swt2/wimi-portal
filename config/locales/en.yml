@@ -312,3 +312,5 @@ en:
       invalid_file_extension: Please choose a file with a correct extension
       upload_error: Please choose a file
       upload_success: Signature was successfully uploaded
+  time_sheet:
+    include_comments: Include comments

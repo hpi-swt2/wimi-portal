@@ -28,7 +28,7 @@ class Ability
     
     can [:index, :show, :leave], Project, users: { id: user.id }
     
-    can [:index, :show], TimeSheet, user: { id: user.id }
+    can [:index, :show, :download], TimeSheet, user: { id: user.id }
     can [:edit, :update, :hand_in], TimeSheet, handed_in: false, user: { id: user.id }
     
     can [:index, :show], WorkDay, user: { id: user.id }

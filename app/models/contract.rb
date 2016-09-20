@@ -16,6 +16,7 @@
 
 class Contract < ActiveRecord::Base
   scope :at_date, -> date { where('start_date <= ? AND end_date >= ?', date, date ) }
+  scope :contract_with, -> user, chair { where(hiwi: user, chair: chair)}
 
   belongs_to :chair
   belongs_to :hiwi, class_name: 'User'

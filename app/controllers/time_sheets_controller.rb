@@ -33,7 +33,7 @@ class TimeSheetsController < ApplicationController
       end
       @time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
       ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
-      redirect_to user_path(current_user, anchor: 'timesheets')
+      redirect_to time_sheets_path
     end
   end
 
@@ -70,11 +70,16 @@ class TimeSheetsController < ApplicationController
     end
   end
 
+  def download
+    set_time_sheet
+    redirect_to generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet, include_comments: params[:include_comments])
+  end
+
   private
-#
-#  def set_time_sheet
-#    @time_sheet = TimeSheet.find(params[:id])
-#  end
+
+ def set_time_sheet
+   @time_sheet = TimeSheet.find(params[:id])
+ end
 
   def time_sheet_params
     params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym))
