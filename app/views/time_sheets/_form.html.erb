@@ -34,7 +34,7 @@
           <th><%= t('activerecord.attributes.work_day.break') %></th>
           <th><%= t('activerecord.attributes.work_day.end_time') %></th>
           <th><%= t('activerecord.attributes.work_day.notes') %></th>
-          <th><%= t('activerecord.attributes.work_day.project') %></th>
+          <th style="width:200px;"><%= t('activerecord.attributes.work_day.project') %></th>
         </tr>
         <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
           <tr class="work_day_tr">
@@ -58,7 +58,7 @@
               <%= t.text_field :notes , size: 50, class: 'form-control'%>
             </td>
             <td class=<%=error_class(t.object, :project_id)%>>
-              <%= t.select :project_id, @projects.collect {|p| [p.title,p.id]} %>
+              <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control' }) %>
             </td>
           </tr>
         <% end %>
