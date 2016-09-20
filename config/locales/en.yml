@@ -210,6 +210,14 @@ en:
       error: Failed to remove admin rights
       success: Admin rights were successfully removed
   date:
+    abbr_day_names:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
     day_names:
     - Sunday
     - Monday
@@ -222,6 +230,8 @@ en:
       long: "%B %d, %Y"
       short: "%b %d"
       weekday: "%A, %d.%m"
+      weekday_short: "%a"
+      day_month: "%d/%m"
     input:
       formats:
       - :default
