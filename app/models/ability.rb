@@ -30,6 +30,7 @@ class Ability
     
     can [:index, :show], TimeSheet, user: { id: user.id }
     can [:edit, :update, :hand_in], TimeSheet, handed_in: false, user: { id: user.id }
+    can :see_hiwi_actions, TimeSheet, user: { id: user.id }
     
     can [:index, :show], WorkDay, user: { id: user.id }
     can [:create, :edit, :update, :destroy], WorkDay do |wd|
@@ -59,6 +60,10 @@ class Ability
     can [:index, :show], Contract, responsible_id: user.id
     can [:index, :show, :accept, :reject, :accept_reject], TimeSheet do |ts|
       can? :show, ts.contract
+    end
+
+    can :see_wimi_actions , TimeSheet do |ts|
+      can?(:show, ts.contract) and ts.handed_in?
     end
   end
 
