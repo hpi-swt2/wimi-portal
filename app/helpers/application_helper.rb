@@ -6,6 +6,13 @@ module ApplicationHelper
     )
   end
 
+  def sidebar_actions(&block)
+    render(
+      partial: 'shared/sidebar_actions_template',
+      locals: { block: block }
+    )
+  end
+
   def error_class(resource, field_name)
     if resource.errors[field_name].any?
       return "form-error".html_safe
