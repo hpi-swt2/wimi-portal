@@ -1,4 +1,28 @@
-<div class="col-md-12">
+<script>
+  $(document).ready(function() {
+    var s = $("#sticker");
+    var pos = s.position();
+    var width = s.css("width");                    
+    $(window).scroll(function() {
+        var windowpos = $(window).scrollTop();
+        if (windowpos >= pos.top) {
+            s.addClass("stick");
+            s.css("width",width);
+        } else {
+            s.removeClass("stick");
+            s.css("width","");
+        }
+    });
+});
+</script>
+
+<style>
+  .stick {
+    position:fixed;
+  }
+</style>
+
+<div id="sticker" class="col-md-12">
   <div class="display">
     <div class="panel panel-default">
       <div class="panel-heading">
