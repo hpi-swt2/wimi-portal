@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <%= render 'form', locals: {readonly: true} %>
+    <%= render partial: 'form', locals: {readonly: true, disable_date: true} %>
     <%= render 'show_footer' %>
   </div>
 </div>
