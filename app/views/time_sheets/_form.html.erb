@@ -11,6 +11,7 @@
   }
 </style>
 
+<% readonly ||= false %>
 <%= form_for [@time_sheet.contract,@time_sheet] do |f| %>
 
   <div class="row">
@@ -46,28 +47,32 @@
               <%= l t.object.date, format: :day_month %>
             </td>
             <td class=<%=error_class(t.object, :start_time)%>>
-              <%= t.time_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5%>
+              <%= t.time_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly%>
             </td>
             <td class=<%=error_class(t.object, :break)%>>
-              <%= t.number_field :break , in:0..2400, size: 4, maxlength: 4 %>
+              <%= t.number_field :break , in:0..2400, size: 4, maxlength: 4 , readonly: readonly %>
             </td>
             <td class=<%=error_class(t.object, :end_time)%>>
-              <%= t.time_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5%>
+              <%= t.time_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly %>
             </td>
             <td>
-              <%= t.text_field :notes , size: 50, class: 'form-control'%>
+              <%= t.text_field :notes , size: 50, class: 'form-control', readonly: readonly %>
             </td>
             <td class=<%=error_class(t.object, :project_id)%>>
-              <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control' }) %>
+              <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control', :readonly => readonly }) %>
             </td>
           </tr>
         <% end %>
       </table>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <%= f.submit nil, class:"btn btn-success btn-block" %>
+
+  <% content_for :actions do %>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= f.submit nil, class:"btn btn-success btn-block" %>
+      </div>
     </div>
-  </div>
+  <% end %>
+
 <% end %>

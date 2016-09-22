@@ -263,6 +263,7 @@ de:
       title: Stundenzettel bearbeiten
     show:
       total_work_time: Gesamtarbeitszeit
+      title: Stundenzettel ansehen
     show_footer:
       accept: Annehmen
       accepted: bestätigt

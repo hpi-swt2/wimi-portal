@@ -1,6 +1,8 @@
 class TimeSheetsController < ApplicationController
 #  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject, :hand_in]
 
+  layout "action_sidebar", only: [:new, :edit, :create, :update, :show]
+
   load_and_authorize_resource
   
   rescue_from CanCan::AccessDenied do |_exception|
@@ -31,10 +33,9 @@ class TimeSheetsController < ApplicationController
     @time_sheet.contract = Contract.find(params['contract_id'])
 
     if @time_sheet.save
-      redirect_to edit_time_sheet_path(@time_sheet)
+      redirect_to time_sheet_path(@time_sheet)
       flash[:success] = I18n.t('time_sheet.save')
     else
-      byebug
       @time_sheet.generate_missing_work_days
       set_projects
       render :new
@@ -44,7 +45,6 @@ class TimeSheetsController < ApplicationController
   def edit
     set_time_sheet
     set_projects
-    @time_sheet.generate_missing_work_days
   end
 
   def hand_in
@@ -79,7 +79,7 @@ class TimeSheetsController < ApplicationController
   def update
     if @time_sheet.update(time_sheet_params)
       flash[:success] = 'Time Sheet was successfully updated.'
-      redirect_to edit_time_sheet_path(@time_sheet)
+      redirect_to time_sheet_path(@time_sheet)
     else
       @time_sheet.generate_missing_work_days
       set_projects
@@ -101,6 +101,7 @@ class TimeSheetsController < ApplicationController
 
   def set_time_sheet
     @time_sheet = TimeSheet.find(params[:id])
+    @time_sheet.generate_missing_work_days
   end
 
   def set_projects

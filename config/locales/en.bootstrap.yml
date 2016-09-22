@@ -263,6 +263,7 @@ en:
       title: Edit Time Sheet
     show:
       total_work_time: Total time worked
+      title: View Time Sheet
     show_footer:
       accept: accept
       accepted: accepted

@@ -42,8 +42,9 @@
                   </td>
                   <td>todo: time sheet work time</td>
                   <td>
+                    <%= edit_button time_sheet, class: 'btn-xs' %>
                     <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
-                                edit_time_sheet_path(time_sheet),
+                                time_sheet_path(time_sheet),
                                 class: 'btn btn-default btn-xs' %>
                     <%# PDF links for all work_sheets, no matter their status %>
                     <%= link_to 'PDF', generate_pdf_path(doc_type: 'Timesheet', doc_id: time_sheet), class: 'btn btn-info btn-xs' %>
