@@ -108,11 +108,7 @@
     </div>
     <% if (can? :destroy, @project) && @project.persisted? %>
       <div class="col-md-2 col-sm-2">
-          <%= link_to t('helpers.links.destroy'),
-                        project_path(@project),
-                        method: 'delete',
-                        data: { confirm: t('helpers.links.confirm_delete', model: @project.title) },
-                        class: 'btn btn-danger btn-block' %>
+          <%= delete_button @project, class: 'btn-block' %>
       </div>
       <div class="col-md-2 col-sm-2">
     <% else %>

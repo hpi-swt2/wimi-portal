@@ -16,7 +16,6 @@
         </div>
       </div>
     </div>
-    <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
   <% end %>
   <% if @time_sheet.status.include? 'accepted' %>
     <div class="row">
@@ -33,7 +32,6 @@
         </div>
       </div>
     </div>
-    <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
   <% end %>
 <% else %>
   <% if @time_sheet.status == 'rejected' %>

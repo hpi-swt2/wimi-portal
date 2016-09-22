@@ -7,6 +7,10 @@ de:
       grant_rights: Als Admin ernennen
       remove_from_chair: Vom Lehrstuhl entfernen
       withdraw_rights: Rechte entziehen
+    contracts:
+      none: Keine Verträge
+      one: "Vertrag anzeigen"
+      several: "%{count} Verträge"
     form:
       no_representative: Kein Fachgebietsleiter ausgewählt
       no_results: Keine Ergebnisse
@@ -28,10 +32,7 @@ de:
       b: Beschreibung
   dashboard:
     actions:
-      create_project: Projekt erstellen
       enter_work_hours: Arbeitsstunden für %{project_name} eintragen
-      request_business_trip: Geschäftsreise beantragen
-      request_holiday: Urlaub beantragen
       show_expense_requests: Ausgabenanträge anzeigen
       show_holiday_requests: Urlaubsanträge anzeigen
       show_trip_requests: Dienstreiseanträge anzeigen
@@ -45,10 +46,6 @@ de:
       notifications: Wichtige Benachrichtigungen
     projects:
       projects: Meine Projekte
-    wimi_actions:
-      create_project: Projekt anlegen
-      request_business_trip: Dienstreise beantragen
-      request_holiday: Urlaub beantragen
   date:
     abbr_month_names:
     - 
@@ -206,7 +203,7 @@ de:
   home:
     index:
       member_status_html: Sie sind momentan für <strong>%{project_count} %{project}</strong> als HiWi oder WiMi registriert und haben <strong>%{contract_count} %{contract}</strong>.
-      new_member: Sie können deshalb noch keine Arbeitsstunden eintragen.
+      new_member: Sie können deshalb noch keine Arbeitsstunden eintragen. Um einem Projekt beizutreten oder einen Vertrag zu registrieren kontaktieren Sie bitte ihren zuständigen Betreuer per E-Mail.
       user_html: 'Sie sind angemeldet als: %{user}.'
       welcome: Willkommen beim HPI WiMi-Portal!
   no_entries_yet: Es sind noch keine %{target} vorhanden.

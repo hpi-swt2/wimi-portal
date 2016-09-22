@@ -138,6 +138,10 @@ class User < ActiveRecord::Base
   def recent_contracts
     contracts.where(["end_date >= ?", 3.months.ago])
   end
+
+  def contract_with(chair)
+    Contract.contract_with(self,chair)
+  end
   
   def time_sheets_for(date_or_month, year = -1)
     if year < 0

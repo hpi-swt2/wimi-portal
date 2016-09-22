@@ -64,14 +64,8 @@
                   <td><%= work_day.duration_hours_minutes %></td>
                   <td><%= work_day.notes %></td>
                   <td>
-                    <% if can? :edit, work_day %>
-                      <%= link_to t('.edit', default: t("helpers.links.edit")), edit_work_day_path(work_day), class: 'btn btn-warning btn-xs' %>
-                      <%= link_to t('.destroy', default: t("helpers.links.destroy")),
-                        work_day_path(work_day),
-                        method: :delete,
-                        data: { confirm: t('helpers.links.confirm_delete', model: work_day) },
-                        class: 'btn btn-xs btn-danger' %>
-                    <% end %>
+                    <%= edit_button work_day, class: 'btn-xs' %>
+                    <%= delete_button work_day, class: 'btn-xs' %>
                   </td>
                 <% end -%> <%# </tr> %>
               <% end %>

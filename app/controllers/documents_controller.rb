@@ -33,6 +33,7 @@ class DocumentsController < ApplicationController
       @tmp_vars[:timesheet] = TimeSheet.find(params[:doc_id])
       @tmp_vars[:days_in_month] = []
       @tmp_vars[:work_days] = @tmp_vars[:timesheet].work_days
+      @tmp_vars[:include_comments] = params[:include_comments] == '1'
       # First day of month
       day = Date.new(@tmp_vars[:timesheet].year, @tmp_vars[:timesheet].month)
       # Iterate over all days for this month

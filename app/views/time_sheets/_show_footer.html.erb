@@ -5,4 +5,19 @@
   <% if can? :see_hiwi_actions, @time_sheet %>
     <%= render 'hiwi_actions' %>
   <% end %>
-<% end %>
+  <% if can? :download,@time_sheet %>
+    <%= form_tag(download_time_sheet_path(@time_sheet), method: 'get') do %>
+    <div class="row vertical-align">
+      <div class="col-md-6">
+        <div class="control-group">
+          <%= check_box_tag :include_comments , 1 , style: 'margin: 0px 10px;' %>
+          <%= label_tag :include_comments, t('time_sheet.include_comments') , style: 'margin: 0px;'%>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <%= submit_tag t('helpers.links.download_pdf'), class: "btn btn-block btn-info" %>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+<% end -%>

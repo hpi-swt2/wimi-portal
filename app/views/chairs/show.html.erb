@@ -4,9 +4,7 @@
     <div class="page-header">
       <h1>
         <%= @chair.name %>
-        <% if can? :edit, @chair%>
-          <%= link_to t('helpers.links.edit'), edit_chair_path(@chair), class: 'btn btn-warning btn-md pull-right' %>
-        <% end %>
+        <%= edit_button @chair, class: 'btn-md pull-right' %>
       </h1>
     </div>
     <dl>
@@ -54,11 +52,21 @@
         <% @chair.hiwis.each do |hiwi| %>
           <tr>
             <td><%= hiwi.name %></td>
+            <% contracts = hiwi.contract_with(@chair).to_a %>
+            <% if contracts.size == 0 %>
+              <td><%= t('chairs.contracts.none') %></td>
+            <% else%>
+              <% if contracts.size == 1 %>
+                <td><%= can_link t('chairs.contracts.one'), :show, contracts[0], class: "btn btn-default btn-xs" %></td>
+              <%else%>
+              <td><%= can_link t('chairs.contracts.several', count: contracts.size), :index, Contract, class: 'btn btn-default btn-xs' %></td>
+              <% end %>
+            <% end %>
           </tr>
         <% end %>
       </table>
     <% end %>
-    <% if @user.is_representative? %>
+    <% if can? :reporting, @chair %>
       <div class="page-header">
         <h3><%= t('projects.index.all_working_hours') %></h3>
       </div>

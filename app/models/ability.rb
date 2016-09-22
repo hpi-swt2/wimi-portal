@@ -28,7 +28,7 @@ class Ability
     
     can [:index, :show, :leave], Project, users: { id: user.id }
     
-    can [:index, :show], TimeSheet, user: { id: user.id }
+    can [:index, :show, :download], TimeSheet, user: { id: user.id }
     can [:edit, :update, :hand_in], TimeSheet, handed_in: false, user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
     
@@ -57,7 +57,7 @@ class Ability
     end
     
         # [:index, :show]
-    can [:index, :show], Contract, responsible_id: user.id
+    can [:index, :show, :create, :update], Contract, responsible_id: user.id
     can [:index, :show, :accept, :reject, :accept_reject], TimeSheet do |ts|
       can? :show, ts.contract
     end

@@ -5,9 +5,7 @@
     <div class="page-header">
       <h1>
         <%=t '.projects' %>
-        <% if can? :create, Project %>
-          <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize), new_project_path, class: 'btn btn-success pull-right' %>
-        <% end %>
+        <%= create_button Project, class: 'pull-right' %>
       </h1>
     </div>
     <div class="panel panel-default">
@@ -30,13 +28,11 @@
               <% @projects.each do |project| %>
                   <tr>
                     <td><%= link_to project.title, project %></td>
-                    <td><%= can?(:show, project.chair) ? link_to(project.chair.name, project.chair) : project.chair.name %></td>
+                    <td><%= linked_name project.chair  %></td>
                     <%# i18n-tasks-use t'.status_false' t'.status_true' %>
                     <td><%= t(".status_#{project.status.to_s}") %></td>
                     <td>
-                      <% if can? :edit, project %>
-                        <%= link_to t('helpers.links.edit'), edit_project_path(project), class: 'btn btn-warning btn-xs' %>
-                      <% end %>
+                      <%= edit_button project, class: 'btn-xs' %>
                     </td>
                   </tr>
               <% end %>
