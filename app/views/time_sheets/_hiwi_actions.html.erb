@@ -1,0 +1,66 @@
+<% i18nscope = 'time_sheets.show_footer' %>
+
+<% if @time_sheet.handed_in? %>
+  <% if @time_sheet.status.include? 'pending' %>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= label_tag nil, t('handed_in_at', scope: i18nscope) %>
+          <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: 'form-control', readonly: 'readonly'} %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= label_tag nil, t('status', scope: i18nscope) %>
+          <%= text_field_tag nil, @time_sheet.status, {class: 'form-control', readonly: 'readonly'} %>
+        </div>
+      </div>
+    </div>
+    <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
+  <% end %>
+  <% if @time_sheet.status.include? 'accepted' %>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= label_tag nil, t('accepted_by', scope: i18nscope) %>
+          <%= text_field_tag nil, User.find(@time_sheet.signer).name, {class: 'form-control', readonly: 'readonly'} %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= label_tag nil, t('at', scope: i18nscope) %>
+          <%= text_field_tag nil, l(@time_sheet.last_modified), {class: 'form-control', readonly: 'readonly'} %>
+        </div>
+      </div>
+    </div>
+    <%= link_to t('helpers.links.download_pdf'), generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet), class: 'btn btn-info btn-block' %>
+  <% end %>
+<% else %>
+  <% if @time_sheet.status == 'rejected' %>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= label_tag nil, t('rejected_by', scope: i18nscope) %>
+          <%= text_field_tag nil, User.find(@time_sheet.signer).name, {class: 'form-control', readonly: 'readonly'} %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= label_tag nil, t('at', scope: i18nscope) %>
+          <%= text_field_tag nil ,l(@time_sheet.last_modified), {class: 'form-control', readonly: 'readonly'} %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <%= label_tag nil, t('reject_reason', scope: i18nscope) %>
+          <%= text_field_tag nil, @time_sheet.rejection_message, {class: 'form-control', readonly: 'readonly'} %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% if @time_sheet.user == current_user %>
+      <%= render 'hand_in' %>
+  <% end %>
+<% end %>

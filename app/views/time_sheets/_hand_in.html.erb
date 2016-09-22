@@ -1,0 +1,17 @@
+<% i18nscope = 'time_sheets.show_footer' %>
+
+<%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet), method: :get do |f| %>
+  <div class="row vertical-align">
+    <div class="col-sm-6">
+      <% unless @time_sheet.signed %>
+        <div class="control-group">
+          <%= f.check_box :signed , style: 'margin: 0px 10px;' %>
+          <%= f.label t('add_signature', scope: i18nscope) , style: 'margin: 0px;' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-sm-6">
+      <%= f.submit t('hand_in', scope: i18nscope), class: 'btn btn-success btn-block' %>
+    </div>
+  </div>
+<% end %>
