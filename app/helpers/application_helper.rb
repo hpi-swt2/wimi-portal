@@ -8,7 +8,7 @@ module ApplicationHelper
 
   def sidebar_actions(&block)
     render(
-      partial: 'shared/sidebar_actions_template',f
+      partial: 'shared/sidebar_actions_template',
       locals: { block: block }
     )
   end
