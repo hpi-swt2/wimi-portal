@@ -42,7 +42,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-bordered">
+      <table class="table">
         <tr>
           <th colspan="2"><%= t('activerecord.attributes.work_day.date') %></th>
           <th><%= t('activerecord.attributes.work_day.start_time') %></th>
@@ -53,10 +53,10 @@
         </tr>
         <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
           <tr class="work_day_tr">
-            <td style="border-right: none;">
+            <td>
               <%= l t.object.date, format: :weekday_short %>
             </td>
-            <td style="border-left: none;">
+            <td>
               <%= t.date_field :date, readonly: true, class: 'hidden'%>
               <%= l t.object.date, format: :day_month %>
             </td>
