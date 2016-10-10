@@ -1,9 +1,10 @@
 class TimeSheetsController < ApplicationController
 #  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject, :hand_in]
 
-  layout "action_sidebar", only: [:new, :edit, :create, :update, :show]
+  layout "action_sidebar"
 
   load_and_authorize_resource
+  skip_authorize_resource only: :download
   
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')

@@ -73,6 +73,15 @@ class TimeSheet < ActiveRecord::Base
     return false
   end
 
+  def has_comments?
+    work_days.each do |w|
+      if w.notes != nil && !w.notes.empty?
+        return true
+      end
+    end
+    return false
+  end
+
   def generate_work_days
     (first_day..last_day).each do |day|
       work_days.new(date: day)

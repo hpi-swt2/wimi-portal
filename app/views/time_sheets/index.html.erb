@@ -47,7 +47,11 @@
                                 time_sheet_path(time_sheet),
                                 class: 'btn btn-default btn-xs' %>
                     <%# PDF links for all work_sheets, no matter their status %>
-                    <%= link_to 'PDF', generate_pdf_path(doc_type: 'Timesheet', doc_id: time_sheet), class: 'btn btn-info btn-xs' %>
+                    <% if time_sheet.has_comments? %>
+                      <%= link_to 'PDF', "", id: "open-popup", data: { toggle: "modal", target: "#download-pdf-modal", timesheet: time_sheet.id}, class: 'btn btn-xs btn-info'%>
+                    <% else %>
+                      <%= link_to 'PDF', download_time_sheet_path(time_sheet), class: 'btn btn-xs btn-info' %>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>
@@ -58,3 +62,21 @@
     <% end %> <%# if/else @contracts.empty? %>
   </div>
 </div>
+
+<% content_for :modals do %>
+    <%= render 'download_promt' %>
+<% end %>
+
+<script>
+  $(function() {
+    $('#download-pdf-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var timesheetId = button.data('timesheet') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.dl-with-comments').attr('href', '/time_sheets/' + timesheetId + '/download?include_comments=1')
+      modal.find('.dl-without-comments').attr('href', '/time_sheets/' + timesheetId + '/download?include_comments=0')
+    });
+  });
+</script>

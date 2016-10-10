@@ -80,6 +80,13 @@ RSpec.describe TimeSheet, type: :model do
     expect(num_eq).to eq(@sheet.work_days.size)
   end
 
+  it 'determines if a work day has comments' do
+    workday1 = FactoryGirl.create(:work_day, time_sheet: @sheet, notes: '')
+    workday2 = FactoryGirl.create(:work_day, time_sheet: @sheet, notes: 'Lorem')
+
+    expect(@sheet).to have_comments
+  end
+
   context 'containsDate' do
     it 'returns true if the date lies within the month/year' do
       date = Date.today

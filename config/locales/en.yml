@@ -331,4 +331,7 @@ en:
       upload_success: Signature was successfully uploaded
   time_sheet:
     include_comments: Include comments
-
+    download:
+      has_comments: This timesheet has comments. Include them in the download?
+      with_comments: 'Yes'
+      without_comments: 'No'
