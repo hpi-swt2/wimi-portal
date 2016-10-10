@@ -56,7 +56,11 @@ module ApplicationHelper
   def delete_button(model, link_args = {})
     # <%= link_to t('helpers.links.destroy'), chair_path(id: chair), method: :delete, data: {confirm: t('helpers.links.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
     link_args[:method] = :delete
-    link_args[:data] = {confirm: t("helpers.links.confirm_delete", default: 'Are you sure?')}
+    if(!link_args[:confirm])
+      link_args[:data] = {confirm: t("helpers.links.confirm_delete",default: 'Are you sure?')}
+    else
+      link_args[:data] = {confirm: link_args[:confirm]}
+    end
     link_args[:class] = 'btn-danger ' + (link_args[:class] || '')
     action_button :destroy, model, link_args
   end

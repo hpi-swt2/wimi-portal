@@ -12,3 +12,7 @@
     <%= render partial: 'form', locals: {readonly: false, disable_date: true} %>
   </div>
 </div>
+
+<% content_for :actions do %>
+  <%= delete_button @time_sheet, class: 'btn-block', confirm: t('time_sheet.delete') %>
+<% end %>

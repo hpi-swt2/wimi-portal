@@ -105,6 +105,14 @@ class TimeSheetsController < ApplicationController
     redirect_to generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet, include_comments: params[:include_comments])
   end
 
+  def destroy
+    set_time_sheet
+    @time_sheet.destroy
+    #struggling with i18n, im sure this could be improved somehow
+    flash[:success] = t('helpers.flash.destroyed', model: t('activerecord.models.time_sheet.one'))
+    redirect_to time_sheets_path
+  end
+
   private
 
   def set_time_sheet

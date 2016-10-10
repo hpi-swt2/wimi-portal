@@ -331,6 +331,7 @@ de:
       upload_success: Unterschrift wurde erfolgreich hochgeladen
   time_sheet:
     include_comments: Anmerkungen mit drucken
+    delete: Wollen Sie diesen Stundenzettel wirklich löschen?
     download:
       has_comments: Dieser Stundenzettel hat Kommentare. Sollen sie mitgedruckt werden?
       with_comments: 'Ja'

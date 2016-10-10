@@ -331,6 +331,7 @@ en:
       upload_success: Signature was successfully uploaded
   time_sheet:
     include_comments: Include comments
+    delete: Are you sure that this timesheet should be deleted?
     download:
       has_comments: This timesheet has comments. Include them in the download?
       with_comments: 'Yes'

@@ -39,4 +39,5 @@
 
 <% content_for :actions do %>
   <%= edit_button @time_sheet, class: 'btn-block' %>
+  <%= delete_button @time_sheet, class: 'btn-block', confirm: t('time_sheet.delete') %>
 <% end %>
