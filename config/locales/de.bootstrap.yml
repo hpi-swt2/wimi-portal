@@ -257,6 +257,8 @@ de:
     wimi_long_plural: Wissenschaftliche Mitarbeiter
   signature_warning: Bevor Sie das Dokument akzeptieren, müssen Sie eine Unterschrift hochladen.
   time_sheets:
+    form:
+      create: Stundenzettel erstellen
     edit:
       title: Stundenzettel bearbeiten
     show:

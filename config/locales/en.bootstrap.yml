@@ -257,6 +257,8 @@ en:
     wimi_long_plural: Employees
   signature_warning: You have to upload a signature before you can accept the request.
   time_sheets:
+    form:
+      create: Create Time Sheet
     edit:
       title: Edit Time Sheet
     show:
