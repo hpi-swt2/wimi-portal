@@ -5,7 +5,7 @@
     <div class="col-sm-6">
       <% unless @time_sheet.signed %>
         <div class="control-group">
-          <%= f.check_box :signed , style: 'margin: 0px 10px;' %>
+          <%= f.check_box :signed %>
           <%= f.label t('add_signature', scope: i18nscope) , style: 'margin: 0px;' %>
         </div>
       <% end %>

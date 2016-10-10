@@ -5,7 +5,7 @@
   <% if can? :see_hiwi_actions, @time_sheet %>
     <%= render 'hiwi_actions' %>
   <% end %>
-  <% if can? :download,@time_sheet %>
+  <% if can? :show,@time_sheet %>
     <%= form_tag(download_time_sheet_path(@time_sheet), method: 'get') do %>
     <div class="row vertical-align">
       <div class="col-md-6">
