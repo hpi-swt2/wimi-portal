@@ -48,4 +48,19 @@ describe WorkDay, type: :model do
     workday = FactoryGirl.build(:work_day, project: nil)
     expect(workday).to be_invalid
   end
+
+  it 'only accepts certain values for status' do
+    workday = FactoryGirl.build(:work_day)
+    workday.status = "blabla"
+    expect(workday).to be_invalid
+
+    workday.status = ''
+    expect(workday).to be_valid
+
+    workday.status = 'K'
+    expect(workday).to be_valid
+
+    workday.status = 'F'
+    expect(workday).to be_valid
+  end
 end

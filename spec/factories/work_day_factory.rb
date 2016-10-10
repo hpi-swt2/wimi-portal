@@ -22,5 +22,6 @@ FactoryGirl.define do
     f.notes 'some note'
     f.time_sheet
     f.project
+    f.status ''
   end
 end

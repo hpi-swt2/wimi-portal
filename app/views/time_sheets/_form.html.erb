@@ -50,6 +50,7 @@
           <th><%= t('activerecord.attributes.work_day.end_time') %></th>
           <th><%= t('activerecord.attributes.work_day.notes') %></th>
           <th style="width:200px;"><%= t('activerecord.attributes.work_day.project') %></th>
+          <th><%= t('activerecord.attributes.work_day.attendance') %></th>
         </tr>
         <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
           <tr class="work_day_tr">
@@ -74,6 +75,9 @@
             </td>
             <td class=<%=error_class(t.object, :project_id)%>>
               <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control', :readonly => readonly }) %>
+            </td>
+            <td>
+              <%= t.text_field :status, size: 1, class: 'form-control', readonly: readonly %>
             </td>
           </tr>
         <% end %>

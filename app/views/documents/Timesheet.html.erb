@@ -60,6 +60,7 @@
     <th><b>Pause</b> (Dauer)</th>
     <th><b>Ende</b> (Uhrzeit)</th>
     <th><b>Dauer</b> (Summe)</th>
+    <th><b>*</b></th>
     <th style='padding: 3 50'><b>Bemerkungen</b></th>
   </tr>
   <% days_in_month.each do |day| %>
@@ -69,6 +70,7 @@
       <td><%= day[:break] %></td>
       <td><%= day[:end] %></td>
       <td><b><%= day[:duration] %></b></td>
+      <td><%= day[:status] %></td>
       <td style='font-size:10pt'>
         <% if include_comments %>
           <%= day[:notes] %>

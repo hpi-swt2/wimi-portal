@@ -54,6 +54,7 @@ class DocumentsController < ApplicationController
             day[:end] = workday.end_time.strftime('%H:%M')
             day[:duration] = workday.duration_hours_minutes
             day[:notes] = workday.notes
+            day[:status] = workday.status
           end
         end
       end

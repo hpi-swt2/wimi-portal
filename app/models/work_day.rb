@@ -33,6 +33,7 @@ class WorkDay < ActiveRecord::Base
   validates :end_time, presence: true
   validates_time :end_time, after: :start_time
   validates :duration, numericality: {greater_than: 0}
+  validates :status, format: { with: /\A[KF]?\z/ }
 
   before_validation :default_values
 
