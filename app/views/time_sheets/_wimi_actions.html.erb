@@ -1,20 +1,5 @@
 <% i18nscope = 'time_sheets.show_footer' %>
 
-<!-- Hand in status --> 
-<div class="row">
-  <div class="col-sm-6">
-    <div class="form-group">
-      <%= label_tag t('acceptence_requested_at', scope: i18nscope) %>
-      <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: 'form-control', readonly: true} %>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="form-group">
-      <%= label_tag t('status', scope: i18nscope) %>
-      <%= text_field_tag nil, t("#{@time_sheet.status}", scope: i18nscope), {class: 'form-control', readonly: true} %>
-    </div>
-  </div>
-</div>
 <!-- wimi can accept time sheet here -->
 <% if @time_sheet.status.include? 'pending' %>
   <!-- signed by hiwi status -->
@@ -31,44 +16,40 @@
   </div>
   <!-- form for accepting time sheet -->
   <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
-    <!-- reject message -->
-    <div class="row vertical-align">
-      <div class=<%= @time_sheet.wimi_signed ? 'col-sm-6' : 'col-sm-6 col-md-offset-6'%>>
-        <div class="form-group">
-          <%= f.label t('reject_reason', scope: i18nscope) %>
-          <%= f.text_field :rejection_message, id: 'message', size: 50 , class: "form-control"%>
-        </div>
-      </div>
-    </div>
-    <!-- sign check box -->
-    <div class="row">
-        <div class="col-md-12">
-          <div class="control-group">
-            <%= f.check_box :wimi_signed , style: "margin: 0px 10px;"%>
-            <%= f.label t('add_signature', scope: i18nscope) , style: "margin: 0px;"%>
-          </div>
-        </div>
-      </div>
-    <!-- accept/decline buttons -->
+
+    <!-- accept button -->
     <div class="row">
       <div class="col-md-12">
         <!-- if user has not set a signature: promt him here and disable button -->
         <% if current_user.signature.nil? %>
           <%= t('signature_warning') %>
           <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/><br/>
-          <div class="col-sm-6">
-            <%= f.submit t('accept', scope: i18nscope), class: 'btn btn-success btn-block', disabled: "disabled" %>
-          </div>
+          <%= f.submit t('accept', scope: i18nscope), class: 'btn btn-success btn-block', disabled: "disabled" %>
         <!-- else render buttons normally -->
         <% else %>
-          <div class="col-sm-6">
-            <%= f.submit t('accept', scope: i18nscope), class: 'btn btn-success btn-block' %>
+          <!-- sign check box -->
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              <div class="control-group">
+                <%= f.check_box :wimi_signed , style: "margin: 0px 10px;"%>
+                <%= f.label t('add_signature', scope: i18nscope) , style: "margin: 0px;"%>
+              </div>
+            </div>
           </div>
+          <%= f.submit t('accept', scope: i18nscope), class: 'btn btn-success btn-block' %>
         <% end %>
-        <div class="col-sm-6">
-            <%= f.submit t('reject', scope: i18nscope), class: 'btn btn-danger btn-block' %>
+      </div>
+    </div>
+
+    <!-- reject message and button-->
+    <div class="row vertical-align">
+      <div class='col-sm-12'>
+        <div class="form-group">
+          <%= f.label t('reject_reason', scope: i18nscope) %>
+          <%= f.text_field :rejection_message, id: 'message', size: 50 , class: "form-control"%>
         </div>
       </div>
     </div>
+    <%= f.submit t('reject', scope: i18nscope), class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
   <% end %>
 <% end %>

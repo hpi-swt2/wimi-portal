@@ -1,22 +1,6 @@
 <% i18nscope = 'time_sheets.show_footer' %>
 
 <% if @time_sheet.handed_in? %>
-  <% if @time_sheet.status.include? 'pending' %>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <%= label_tag nil, t('handed_in_at', scope: i18nscope) %>
-          <%= text_field_tag nil, (l @time_sheet.hand_in_date), {class: 'form-control', readonly: 'readonly'} %>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <%= label_tag nil, t('status', scope: i18nscope) %>
-          <%= text_field_tag nil, @time_sheet.status, {class: 'form-control', readonly: 'readonly'} %>
-        </div>
-      </div>
-    </div>
-  <% end %>
   <% if @time_sheet.status.include? 'accepted' %>
     <div class="row">
       <div class="col-sm-6">

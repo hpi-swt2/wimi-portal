@@ -5,19 +5,13 @@
   <% if can? :see_hiwi_actions, @time_sheet %>
     <%= render 'hiwi_actions' %>
   <% end %>
-  <% if can? :show,@time_sheet %>
-    <%= form_tag(download_time_sheet_path(@time_sheet), method: 'get') do %>
-    <div class="row vertical-align">
-      <div class="col-md-6">
-        <div class="control-group">
-          <%= check_box_tag :include_comments , 1 , style: 'margin: 0px 10px;' %>
-          <%= label_tag :include_comments, t('time_sheet.include_comments') , style: 'margin: 0px;'%>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <%= submit_tag t('helpers.links.download_pdf'), class: "btn btn-block btn-info" %>
-      </div>
-    </div>
-    <% end %>
+  <% if @time_sheet.has_comments? %>
+    <%= link_to t('helpers.links.download_pdf'), "", id: "open-popup", data: { toggle: "modal", target: "#download-pdf-modal", timesheet: @time_sheet.id}, class: 'btn btn-block btn-info'%>
+  <% else %>
+    <%= link_to t('helpers.links.download_pdf'), download_time_sheet_path(@time_sheet), class: 'btn btn-block btn-info' %>
   <% end %>
 <% end -%>
+
+<% content_for :modals do %>
+  <%= render partial: 'download_prompt', locals: {url: download_time_sheet_path(@time_sheet)} %>
+<% end %>
