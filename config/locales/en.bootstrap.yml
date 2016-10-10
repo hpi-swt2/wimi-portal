@@ -261,6 +261,7 @@ en:
     show:
       total_work_time: Total time worked
       title: View Time Sheet
+      time_format: "%{hours} hours %{minutes} minutes"
     show_footer:
       accept: accept
       accepted: accepted

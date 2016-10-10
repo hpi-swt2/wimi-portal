@@ -63,6 +63,7 @@ en:
         month: Month
         status: Status
         status_enum:
+          created: created
           accepted: accepted
           pending: pending
           rejected: rejected

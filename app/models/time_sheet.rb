@@ -40,22 +40,22 @@ class TimeSheet < ActiveRecord::Base
   accepts_nested_attributes_for :work_days, reject_if: lambda { |attributes| attributes['start_time'].blank? && attributes['end_time'].blank? }
 
   def sum_hours
+    sum_minutes / 60
+  end
+
+  def sum_minutes
     sum = 0
     work_days.each do |w|
-      sum += w.duration
+      sum += w.duration_in_minutes
     end
     sum
   end
 
-  def sum_minutes
-    #sum_hours * 60
-  end
-
   def sum_minutes_formatted
-    #work_time = sum_minutes
-    #minutes = work_time % 60
-    #hours = (work_time - minutes) / 60
-    #format("%d:%02d", hours, minutes)
+    work_time = sum_minutes
+    minutes = work_time % 60
+    hours = (work_time - minutes) / 60
+    format("%d:%02d", hours, minutes)
   end
 
   def first_day

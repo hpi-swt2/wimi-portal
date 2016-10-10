@@ -261,6 +261,7 @@ de:
     show:
       total_work_time: Gesamtarbeitszeit
       title: Stundenzettel ansehen
+      time_format: "%{hours} Stunden %{minutes} Minuten"
     show_footer:
       accept: Annehmen
       accepted: bestätigt

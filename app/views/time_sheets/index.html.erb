@@ -37,10 +37,10 @@
                       <% label_type = {"pending" => "default", "accepted" => "success", "rejected" => "danger"}[time_sheet.status] %>
                       <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{time_sheet.status}") %></span>
                     <% else %>
-                      --
+                      <%= t("activerecord.attributes.time_sheet.status_enum.created") %>
                     <% end %>
                   </td>
-                  <td>todo: time sheet work time</td>
+                  <td><%= time_sheet.sum_minutes_formatted %></td>
                   <td>
                     <%= edit_button time_sheet, class: 'btn-xs' %>
                     <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
