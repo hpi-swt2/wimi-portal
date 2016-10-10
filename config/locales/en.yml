@@ -330,7 +330,7 @@ en:
       upload_error: Please choose a file
       upload_success: Signature was successfully uploaded
   time_sheet:
-    include_comments: Include comments
+    save: Time Sheet saved successfully.
     delete: Are you sure that this timesheet should be deleted?
     month_year: Month/Year
     download:

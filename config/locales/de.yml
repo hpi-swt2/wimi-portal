@@ -330,7 +330,7 @@ de:
       upload_error: Bitte wählen Sie eine Datei aus
       upload_success: Unterschrift wurde erfolgreich hochgeladen
   time_sheet:
-    include_comments: Anmerkungen mit drucken
+    save: Stundenzettel erfolgreich gespeichert.
     delete: Wollen Sie diesen Stundenzettel wirklich löschen?
     month_year: Monat/Jahr
     download:

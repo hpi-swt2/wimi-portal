@@ -93,9 +93,9 @@
               <% end %>
             </p>
             <p>
-              <% if can?(:new, WorkDay) %>
+              <% if can?(:new, TimeSheet) && current_user.contracts.any?%>
                 <%= link_to t('projects.show.add_working_hours', default:'Add working hours'),
-                            new_work_day_path(project: @project), class: 'btn btn-block btn-success' %>
+                            new_contract_time_sheet_path(current_user.contracts.first), class: 'btn btn-block btn-success' %>
               <% end %>
             </p>
           </div>
