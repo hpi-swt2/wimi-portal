@@ -332,6 +332,7 @@ de:
   time_sheet:
     include_comments: Anmerkungen mit drucken
     delete: Wollen Sie diesen Stundenzettel wirklich löschen?
+    month_year: Monat/Jahr
     download:
       has_comments: Dieser Stundenzettel hat Kommentare. Sollen sie mitgedruckt werden?
       with_comments: 'Ja'

@@ -15,4 +15,5 @@
 
 <% content_for :actions do %>
   <%= delete_button @time_sheet, class: 'btn-block', confirm: t('time_sheet.delete') %>
+  <%= link_to t('helpers.links.cancel'), time_sheet_path(@time_sheet), class: 'btn btn-block btn-default' %>
 <% end %>

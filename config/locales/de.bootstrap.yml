@@ -67,6 +67,7 @@ de:
       short_month_year: "%b %y"
       without_day: "%B %Y"
       without_day_year: "%B"
+      without_day_month: "%Y"
     month_names:
     - 
     - Januar
