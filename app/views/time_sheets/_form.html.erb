@@ -14,6 +14,17 @@
     cursor: auto !important;
     background-color: inherit !important;
   }
+
+  td {
+    text-align: center;
+  }
+  th {
+    text-align: center;
+  }
+
+  td.notes {
+    text-align: left !important; 
+  }
 </style>
 
 <script>
@@ -61,24 +72,45 @@
               <%= t.date_field :date, readonly: true, class: 'hidden'%>
               <%= l t.object.date, format: :day_month %>
             </td>
-            <td class=<%=error_class(t.object, :start_time)%>>
-              <%= t.time_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly%>
-            </td>
-            <td class=<%=error_class(t.object, :break)%>>
-              <%= t.number_field :break , in:0..2400, size: 4, maxlength: 4 , readonly: readonly %>
-            </td>
-            <td class=<%=error_class(t.object, :end_time)%>>
-              <%= t.time_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly %>
-            </td>
-            <td>
-              <%= t.text_field :notes , size: 50, class: 'form-control', readonly: readonly %>
-            </td>
-            <td class=<%=error_class(t.object, :project_id)%>>
-              <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control', :readonly => readonly }) %>
-            </td>
-            <td>
-              <%= t.text_field :status, size: 1, class: 'form-control', readonly: readonly %>
-            </td>
+            <% if readonly %>
+              <td>
+                <%= l t.object.start_time, format: :hours_minutes %>
+              </td>
+              <td>
+                <%= t.object.break %>
+              </td>
+              <td>
+                <%= l t.object.end_time, format: :hours_minutes %>
+              </td>
+              <td class="notes">
+                <%= t.object.notes %>
+              </td>
+              <td>
+                <%= t.object.project.title %>
+              </td>
+              <td>
+                <%= t.object.status %>
+              </td>
+            <% else %>
+              <td class=<%=error_class(t.object, :start_time)%>>
+                <%= t.time_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly%>
+              </td>
+              <td class=<%=error_class(t.object, :break)%>>
+                <%= t.number_field :break , in:0..2400, size: 4, maxlength: 4 , readonly: readonly %>
+              </td>
+              <td class=<%=error_class(t.object, :end_time)%>>
+                <%= t.time_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly %>
+              </td>
+              <td>
+                <%= t.text_field :notes , size: 50, class: 'form-control', readonly: readonly %>
+              </td>
+              <td class=<%=error_class(t.object, :project_id)%>>
+                <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control', :readonly => readonly }) %>
+              </td>
+              <td>
+                <%= t.text_field :status, size: 1, class: 'form-control', readonly: readonly %>
+              </td>
+            <% end %>
           </tr>
         <% end %>
       </table>

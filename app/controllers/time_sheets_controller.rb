@@ -44,6 +44,7 @@ class TimeSheetsController < ApplicationController
 
   def edit
     set_time_sheet
+    @time_sheet.generate_missing_work_days
     set_projects
   end
 
@@ -99,6 +100,7 @@ class TimeSheetsController < ApplicationController
 
   def download
     set_time_sheet
+    @time_sheet.generate_missing_work_days
     redirect_to generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet, include_comments: params[:include_comments])
   end
 
@@ -106,7 +108,6 @@ class TimeSheetsController < ApplicationController
 
   def set_time_sheet
     @time_sheet = TimeSheet.find(params[:id])
-    @time_sheet.generate_missing_work_days
   end
 
   def set_projects
