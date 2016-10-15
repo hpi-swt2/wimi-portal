@@ -66,6 +66,22 @@ class TimeSheet < ActiveRecord::Base
     first_day.end_of_month
   end
 
+  def next_month
+    if month == 12
+      return 1
+    else
+      return month + 1
+    end
+  end
+
+  def previous_month
+    if month == 1
+      return 12
+    else
+      return month - 1
+    end
+  end
+
   def containsDate(date)
     if first_day <= date && last_day >= date
       return true

@@ -18,6 +18,9 @@ class TimeSheetsController < ApplicationController
   def show
     set_time_sheet
     set_projects
+
+    @next_month = TimeSheet.user(@time_sheet.user).month(@time_sheet.next_month).first
+    @previous_month = TimeSheet.user(@time_sheet.user).month(@time_sheet.previous_month).first
   end
 
   def new
@@ -27,6 +30,10 @@ class TimeSheetsController < ApplicationController
     @time_sheet.month = Date.today.month
     @time_sheet.generate_work_days
     set_projects
+
+    if params[:month]
+      @time_sheet.month = params[:month]
+    end
   end
 
   def create

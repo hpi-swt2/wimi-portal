@@ -266,6 +266,9 @@ de:
       total_work_time: Gesamtarbeitszeit
       title: Stundenzettel ansehen
       time_format: "%{hours} Stunden %{minutes} Minuten"
+      next_month: Nächsten Monat anzeigen
+      create_next_month: Nächsten Monat erstellen
+      previous_month: Vorherigen Monat anzeigen
     show_footer:
       accept: Annehmen
       accepted: bestätigt

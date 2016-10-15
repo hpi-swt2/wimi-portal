@@ -266,6 +266,9 @@ en:
       total_work_time: Total time worked
       title: View Time Sheet
       time_format: "%{hours} hours %{minutes} minutes"
+      next_month: Show next month
+      create_next_month: Create sheet for next month
+      previous_month: Show previous month
     show_footer:
       accept: accept
       accepted: accepted
