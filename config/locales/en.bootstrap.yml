@@ -38,6 +38,8 @@ en:
       without_day: "%B %Y"
       without_day_month: "%Y"
       without_day_year: "%B"
+      weekday_short: "%a"
+      day_month: "%d/%-m"
     input:
       formats:
       - :default
