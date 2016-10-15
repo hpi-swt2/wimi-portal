@@ -68,8 +68,12 @@ module ApplicationHelper
   def create_button(model, link_args = {})
 #      <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize),
 #                  new_chair_path,
-#                  class: 'btn btn-success btn-block' %>    
-    title = t('helpers.titles.new', model: model.model_name.human.titleize)
+#                  class: 'btn btn-success btn-block' %>
+    if link_args[:title]
+      title = link_args[:title]
+    else
+      title = t('helpers.titles.new', model: model.model_name.human.titleize)
+    end
     link_args[:class] = 'btn btn-success ' + (link_args[:class] || '')
     can_link title, :new, model, link_args
   end
