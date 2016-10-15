@@ -128,6 +128,8 @@ class TimeSheetsController < ApplicationController
   end
 
   def time_sheet_params
-    params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym), work_days_attributes: WorkDay.column_names.map(&:to_sym))
+    delocalize_config = {:start_time => :time, :end_time => :time}
+
+    params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym), work_days_attributes: WorkDay.column_names.map(&:to_sym)).delocalize(delocalize_config)
   end
 end

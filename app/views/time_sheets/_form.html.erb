@@ -103,13 +103,13 @@
               </td>
             <% else %>
               <td class=<%=error_class(t.object, :start_time)%>>
-                <%= t.time_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly%>
+                <%= t.text_field :start_time , value: t.object.start_time ? l(t.object.start_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly%>
               </td>
               <td class=<%=error_class(t.object, :break)%>>
                 <%= t.number_field :break , in:0..2400, size: 4, maxlength: 4 , readonly: readonly %>
               </td>
               <td class=<%=error_class(t.object, :end_time)%>>
-                <%= t.time_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly %>
+                <%= t.text_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5, readonly: readonly %>
               </td>
               <td>
                 <%= t.text_field :notes , size: 50, class: 'form-control', readonly: readonly %>
