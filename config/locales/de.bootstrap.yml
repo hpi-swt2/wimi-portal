@@ -182,6 +182,9 @@ de:
       upload: Hochladen
     submit:
       hide: Ausblenden
+      update: "%{model} aktualisieren"
+      submit: "%{model} speichern"
+      create: "%{model} erstellen"
     titles:
       destroy: "%{model} löschen"
       edit: "%{model} bearbeiten"

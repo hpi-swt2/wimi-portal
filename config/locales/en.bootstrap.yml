@@ -181,6 +181,9 @@ en:
       show_details: Show Details
       upload: Upload
     submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+      submit: "Save %{model}"
       hide: Hide
     titles:
       destroy: Delete %{model}
