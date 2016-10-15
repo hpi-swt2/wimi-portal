@@ -99,6 +99,7 @@ ignore_unused:
   - 'activerecord.errors.*'
   - '{date,time}.*'
   - '{true,false}'
+  - 'helpers.submit.{create, submit, update}'
 # remove these once features are re-enabled
   - '{expenses, holidays, trips}.*'
   - '*.{expense, holiday, trip}.*'
