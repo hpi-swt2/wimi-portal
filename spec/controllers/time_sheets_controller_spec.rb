@@ -117,4 +117,23 @@ RSpec.describe TimeSheetsController, type: :controller do
       end
     end
   end
+
+  describe 'download' do
+    it 'is allowed when the user can show the timesheet' do
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      user_ability = Ability.new(@user)
+      expect(user_ability.can? :show, @time_sheet).to be true
+      get :download, {id: @time_sheet}
+      expect(response).to redirect_to(generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet))
+    end
+
+    it 'is not allowed when the user cannot show the timesheet' do
+      @other_contract = FactoryGirl.create(:contract)
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @other_contract)
+      user_ability = Ability.new(@user)
+      expect(user_ability.can? :show, @time_sheet).to be false
+      get :download, {id: @time_sheet}
+      expect(flash.count).to eq(1)
+    end
+  end
 end

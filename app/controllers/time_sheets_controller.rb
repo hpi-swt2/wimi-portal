@@ -108,6 +108,7 @@ class TimeSheetsController < ApplicationController
 
   def download
     set_time_sheet
+    authorize! :show, @time_sheet
     @time_sheet.generate_missing_work_days
     redirect_to generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet, include_comments: params[:include_comments])
   end
