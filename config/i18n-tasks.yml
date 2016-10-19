@@ -106,6 +106,8 @@ ignore_unused:
   - '*.{event_travel_request_accepted, event_travel_request_declined}.*'
 # TODO: fix this at some point
   - '{errors}.*'
+# TODO: use this in create timesheet for next month button
+  - '{helpers.flash.no_contract}'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

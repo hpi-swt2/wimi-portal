@@ -107,11 +107,6 @@ de:
         zip_code: Postleitzahl
       work_day:
         attendance: Anwesenheit
-        attendance_enum:
-          normal: Normal
-          public_holiday: Feiertag
-          sick: Krank
-          vacation: Urlaub
         break: Pause
         date: Datum
         end_time: Endzeit
@@ -633,15 +628,3 @@ de:
       invalid_file_extension: Bitte wählen Sie eine Datei mit einer gültigen Endung
       upload_error: Bitte wählen Sie eine Datei aus
       upload_success: Unterschrift wurde erfolgreich hochgeladen
-  work_days:
-    edit:
-      title: Arbeitsstundeneintrag bearbeiten
-    index:
-      current_month_link: Aktuellen Monat anzeigen (%{month_name})
-      next_month_link: Vorherigen Monat anzeigen (%{month_name})
-      prev_month_link: Nächsten Monat anzeigen (%{month_name})
-      user: Benutzer
-      working_hours: Arbeitsstunden
-      working_hours_for: Arbeitsstunden im
-    new:
-      title: Arbeitsstundeneintrag erstellen

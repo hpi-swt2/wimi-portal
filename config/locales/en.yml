@@ -107,11 +107,6 @@ en:
         zip_code: Zip Code
       work_day:
         attendance: Attendance
-        attendance_enum:
-          normal: Normal
-          public_holiday: Public holiday
-          sick: Sick leave
-          vacation: Vacation
         break: Break
         date: Date
         end_time: End time
@@ -633,15 +628,3 @@ en:
       invalid_file_extension: Please choose a file with a correct extension
       upload_error: Please choose a file
       upload_success: Signature was successfully uploaded
-  work_days:
-    edit:
-      title: Edit Workday
-    index:
-      current_month_link: Show current month (%{month_name})
-      next_month_link: Show previous month (%{month_name})
-      prev_month_link: Show next month (%{month_name})
-      user: Benutzer
-      working_hours: Working hours
-      working_hours_for: Working hours for
-    new:
-      title: New Workday
