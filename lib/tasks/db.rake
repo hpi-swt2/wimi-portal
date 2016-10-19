@@ -26,92 +26,42 @@ namespace :db do
     hana_project.users << epic_representative
     hana_project.users << bob
 
-    # create some holidays, trips, expenses
-    if (Date.today.day > 2)
-      day1 = Date.today - 2
-      day2 = Date.today
-    else
-      day1 = Date.today
-      day2 = Date.today + 2
-    end
-  
-    Holiday.create!(start: Date.today, end: Date.today + 19, length: 5, user_id: epic_admin.id, status: 'applied', last_modified: Date.today)
+    #contracts
 
-    Holiday.create!(start: day2 - 1,
-      end: day2,
-      length: 1,
-      user_id: epic_admin.id)
-    Holiday.create!(status: :declined,
-      start: Date.today - 7,
-      end: Date.today - 6,
-      length: 1,
-      user_id: epic_representative.id)
-    WorkDay.create!(
-      date: day1,
-      start_time: day1.to_s + ' 15:11:53',
-      break: 30,
-      end_time: day1.to_s + ' 16:11:53',
-      user_id: alice.id,
-      project_id: swt2.id)
-    WorkDay.create!(
-      date: day2,
-      start_time: day2.to_s + ' 10:00:00',
-      break: 0,
-      end_time: day2.to_s + ' 18:00:00',
-      user_id: alice.id,
-      project_id: swt2.id)
-    WorkDay.create!(
-      date: day2,
-      start_time: day2.to_s + ' 10:00:00',
-      break: 0,
-      end_time: day2.to_s + ' 12:00:00',
-      user_id: bob.id,
-      project_id: hana_project.id)
-    contract_alice = Contract.create!(
-      start_date: day1.at_beginning_of_month,
-      end_date: day2.at_end_of_month,
-      hiwi: alice,
-      responsible: epic_wimi,
-      chair: chair_epic,
-      flexible: false,
-      hours_per_week: 10,
-      wage_per_hour: 10
-      )
-    TimeSheet.create!(
-      month: day2.month,
-      year: day2.year,
-      contract: contract_alice)
-    trip = Trip.create!(
-      destination: 'ME310 Kickoff USA',
-      reason: 'ME310',
-      annotation: 'Sample Trip',
-      signature: true,
-      date_start: Date.today,
-      date_end: Date.today + 10,
-      days_abroad: 5,
-      user: epic_representative)
-    Trip.create!(
-      destination: 'Ridiculous Meeting',
-      reason: 'Party',
-      annotation: 'Sample declined Trip',
-      signature: true,
-      date_start: Date.today + 7,
-      date_end: Date.today + 10,
-      days_abroad: 2,
-      status: :declined,
-      user: epic_wimi)
-    Expense.create!(
-      inland: true,
-      country: 'Germany',
-      location_from: 'Potsdam',
-      reason: 'Hana Things',
-      time_start: "12:00",
-      time_end: "14:00",
-      public_transport: true,
-      hotel: true,
-      general_advance: 2000,
-      user: epic_representative,
-      trip: trip)
-    trip.update(date_start: Date.today)
+    contract_bob = Contract.create(
+        hiwi: bob, 
+        chair: chair_epic, 
+        start_date: Date.today, 
+        end_date: Date.today >> 6, 
+        responsible: epic_wimi,
+        flexible: false, 
+        hours_per_week: 10,
+        wage_per_hour: 12.5)
+
+    contract_alice = Contract.create(
+        hiwi: alice, 
+        chair: chair_www, 
+        start_date: Date.today, 
+        end_date: Date.today >> 6, 
+        responsible: epic_wimi,
+        flexible: false, 
+        hours_per_week: 10,
+        wage_per_hour: 12.5)
+
+    #time_sheets
+
+    time_sheet_bob = TimeSheet.create(
+        contract: contract_bob,
+        month: Date.today.month,
+        year: Date.today.year)
+
+    time_sheet_bob.work_days.create(
+        date: time_sheet_bob.first_day, 
+        start_time: "12:00", 
+        break: 60,
+        end_time: "15:00",
+        notes: "Lorem ipsum dolor sit amet",
+        project: hana_project)
+
   end
 end

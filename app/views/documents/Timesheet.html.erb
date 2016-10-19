@@ -70,7 +70,7 @@
       <td><%= day[:break] %></td>
       <td><%= day[:end] %></td>
       <td><b><%= day[:duration] %></b></td>
-      <td><%= day[:attendance] %></td>
+      <td><%= day[:status] %></td>
       <td style='font-size:10pt'>
         <% if include_comments %>
           <%= day[:notes] %>
@@ -102,8 +102,6 @@
         <span>Unterschrift des Arbeitsnehmers</span>
       </p>
     </td>
-
-
     <td>&nbsp;</td>
     <td colspan=4>
       <div class='signature'>
@@ -121,13 +119,6 @@
   </tr>
 </table>
 <div style="font-size:10pt; margin-top: -5px">
-  <b style="font-size:10pt">* Tragen Sie in diese Spalte eines der folgenden Kürzel ein, wenn es für diesen Kalendertag
-    zutrifft:</b>
-  <br/>
-  <b style="margin: 0px 30px">K</b> Krank
-  <br/>
-  <b style="margin: 0px 30px">F</b> Feiertag
-  <br/>
   Der Zeitnachweis ist bis zum 10.Tag des Folgemonats über das FG oder Postfach Buchhaltung einzureichen!
 </div>
 </body>

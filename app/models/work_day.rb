@@ -2,70 +2,44 @@
 #
 # Table name: work_days
 #
-#  id         :integer          not null, primary key
-#  date       :date
-#  start_time :time
-#  break      :integer
-#  end_time   :time
-#  attendance :string
-#  notes      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
-#  project_id :integer
+#  id            :integer          not null, primary key
+#  date          :date
+#  start_time    :time
+#  break         :integer
+#  end_time      :time
+#  notes         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  time_sheet_id :integer
 #
 
 class WorkDay < ActiveRecord::Base
-  
-  scope :user, -> user { where(user: user) }
-  scope :project, -> project { where(project: project) }
+
   scope :date, -> date  { where(date: date) }
   scope :month, -> month, year {
     date = Date.new(year, month)
     where(date: date.beginning_of_month..date.end_of_month)
   }
-  scope :contract, -> contract { where(date: contract.start_date..contract.end_date).user(contract.hiwi) }
-  scope :time_sheet, -> time_sheet { contract(time_sheet.contract).month(time_sheet.month, time_sheet.year) }
   
-  belongs_to :user
+  belongs_to :time_sheet
   belongs_to :project
+  has_one :contract, through: :time_sheet
 
-  validates :user_id, presence: true, numericality: true
-#  validates :project_id, presence: true, numericality: true
+  validates :time_sheet, presence: true
+  validates :project, presence: true
   validates :date, presence: true
+  validates :break, numericality: {greater_than_or_equal_to: 0}
   validates :start_time, presence: true
-  validates :break, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :end_time, presence: true
-  validate :no_overlap
   validates_time :end_time, after: :start_time
   validates :duration, numericality: {greater_than: 0}
-  validate :user_has_current_contract
+  validates :status, format: { with: /\A[KF]?\z/ }
 
-  def user_has_current_contract
-    if user.contracts.at_date(date).empty?
-      errors.add(:date, :no_valid_contract)
-    end
-  end
+  before_validation :default_values
 
   def to_s
     model = I18n.t('activerecord.models.work_day.one', default: WorkDay.to_s)
     "#{model}: #{I18n.l(date)}"
-  end
-
-  def overlaps(other)
-    other_date = other.end_time
-    start_time_same_date = Time.new(other_date.year, other_date.month, other_date.day, start_time.hour, start_time.min, start_time.sec)
-    end_time_same_date = Time.new(other_date.year, other_date.month, other_date.day, end_time.hour, end_time.min, end_time.sec)
-    return other.id != id && (not (start_time_same_date >= other.end_time || end_time_same_date <= other.start_time))
-  end
-
-  def no_overlap
-    if start_time.present? && end_time.present? && date.present? && user_id.present?
-      other_work_days = WorkDay.where(date: date, user_id: user_id)
-      if other_work_days.any? {|day| self.overlaps(day)}
-        errors.add(:end_time, 'overlaps with another work day')
-      end
-    end
   end
 
   def duration
@@ -86,8 +60,10 @@ class WorkDay < ActiveRecord::Base
     hours = (work_time - minutes) / 60
     format("%d:%02d", hours, minutes)
   end
-  
-  def time_sheet
-    user.time_sheets_for(date).first
+
+  private
+
+  def default_values
+    self.break ||= 0
   end
 end

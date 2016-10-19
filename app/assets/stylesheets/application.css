@@ -191,3 +191,21 @@ a.anchor {
 tr.highlight {
     background-color: rgb(255, 245, 195) !important
 }
+
+.work_day_tr>td {
+    padding: 0px !important;
+    padding-left: 2px !important;
+    vertical-align: middle !important;
+}
+
+.work_day_tr>td>input {
+    border: none;
+    box-shadow: none;
+    background-color: inherit;
+    color: inherit;
+}
+
+.form-error {
+    background-color: red;
+    color: white;
+}

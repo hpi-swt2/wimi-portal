@@ -42,10 +42,6 @@
       </tbody>
     </table>
 
-    <% if can? :create, Holiday %>
-        <%= link_to t('users.show.request_holiday'),
-                    new_holiday_path,
-                    class: 'btn btn-primary' %>
-    <% end %>
+    <%= create_button Holiday, title: t('users.show.request_holiday')%>
   </div>
 </div>

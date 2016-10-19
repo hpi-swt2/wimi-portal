@@ -48,10 +48,10 @@ RSpec.describe TimeSheetsController, type: :controller do
         expect(time_sheet.month).to eq(2)
       end
 
-      it 'redirects to the time_sheet' do
+      it 'redirects to the time sheet show path' do
         time_sheet = TimeSheet.create! valid_attributes
         put :update, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
-        expect(response).to redirect_to(work_days_path(month: time_sheet.month, year: time_sheet.year, contract: time_sheet.contract))
+        expect(response).to redirect_to(time_sheet_path(time_sheet))
       end
     end
 
@@ -115,6 +115,25 @@ RSpec.describe TimeSheetsController, type: :controller do
         get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
         expect(response).to redirect_to(time_sheets_path)
       end
+    end
+  end
+
+  describe 'download' do
+    it 'is allowed when the user can show the timesheet' do
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      user_ability = Ability.new(@user)
+      expect(user_ability.can? :show, @time_sheet).to be true
+      get :download, {id: @time_sheet}
+      expect(response).to redirect_to(generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet))
+    end
+
+    it 'is not allowed when the user cannot show the timesheet' do
+      @other_contract = FactoryGirl.create(:contract)
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @other_contract)
+      user_ability = Ability.new(@user)
+      expect(user_ability.can? :show, @time_sheet).to be false
+      get :download, {id: @time_sheet}
+      expect(flash.count).to eq(1)
     end
   end
 end

@@ -6,12 +6,14 @@
           <div class="col-sm-9">
             <%= t('.title') %>
           </div>
-          <div class="col-sm-3">
-            <%= link_to t('helpers.links.back'), work_days_path(month: @time_sheet.month, year: @time_sheet.year, contract: @time_sheet.contract), class: 'btn btn-default btn-block'%>
-          </div>
         </div>
       </div>
     </div>
-    <%= render 'form' %>
+    <%= render partial: 'form', locals: {readonly: false, disable_date: true} %>
   </div>
 </div>
+
+<% content_for :actions do %>
+  <%= delete_button @time_sheet, class: 'btn-block', confirm: t('time_sheet.delete') %>
+  <%= link_to t('helpers.links.cancel'), time_sheet_path(@time_sheet), class: 'btn btn-block btn-default' %>
+<% end %>

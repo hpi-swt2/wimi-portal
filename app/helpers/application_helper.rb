@@ -5,6 +5,21 @@ module ApplicationHelper
       locals: { form: form, attribute: attribute, block: block }
     )
   end
+
+  def sidebar_actions(&block)
+    render(
+      partial: 'shared/sidebar_actions_template',
+      locals: { block: block }
+    )
+  end
+
+  def error_class(resource, field_name)
+    if resource.errors[field_name].any?
+      return "form-error".html_safe
+    else
+      return "".html_safe
+    end
+  end
   
   def can_link_or_else(title, action, model, link_args = {})
     if can? action, model
@@ -41,7 +56,11 @@ module ApplicationHelper
   def delete_button(model, link_args = {})
     # <%= link_to t('helpers.links.destroy'), chair_path(id: chair), method: :delete, data: {confirm: t('helpers.links.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
     link_args[:method] = :delete
-    link_args[:data] = {confirm: t("helpers.links.confirm_delete", default: 'Are you sure?')}
+    if(link_args[:confirm].nil?)
+      link_args[:data] = {confirm: t("helpers.links.confirm_delete",default: 'Are you sure?')}
+    else
+      link_args[:data] = {confirm: link_args[:confirm]}
+    end
     link_args[:class] = 'btn-danger ' + (link_args[:class] || '')
     action_button :destroy, model, link_args
   end
@@ -49,8 +68,12 @@ module ApplicationHelper
   def create_button(model, link_args = {})
 #      <%= link_to t('helpers.titles.new', model: model_class.model_name.human.titleize),
 #                  new_chair_path,
-#                  class: 'btn btn-success btn-block' %>    
-    title = t('helpers.titles.new', model: model.model_name.human.titleize)
+#                  class: 'btn btn-success btn-block' %>
+    if link_args[:title]
+      title = link_args[:title]
+    else
+      title = t('helpers.titles.new', model: model.model_name.human.titleize)
+    end
     link_args[:class] = 'btn btn-success ' + (link_args[:class] || '')
     can_link title, :new, model, link_args
   end

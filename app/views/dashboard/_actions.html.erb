@@ -4,10 +4,7 @@
   <p>
     <%= link_to(
       t('.enter_work_hours', project_name: project.title),
-      new_work_day_path(
-        month: Date.today.month,
-        year: Date.today.year,
-        project: project))
+      time_sheets_path)
     %>
   </p>
   <% end %>

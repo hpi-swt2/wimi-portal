@@ -1,7 +1,10 @@
 class TimeSheetsController < ApplicationController
 #  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject, :hand_in]
 
+  layout "action_sidebar"
+
   load_and_authorize_resource
+  skip_authorize_resource only: :download
   
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
@@ -13,13 +16,44 @@ class TimeSheetsController < ApplicationController
   end
 
   def show
+    set_time_sheet
+    set_projects
+
+    @next_month = TimeSheet.user(@time_sheet.user).month(@time_sheet.next_month).first
+    @previous_month = TimeSheet.user(@time_sheet.user).month(@time_sheet.previous_month).first
   end
 
   def new
-#    @time_sheet = TimeSheet.new
+    @time_sheet = TimeSheet.new
+    @time_sheet.contract = Contract.find(params['contract_id'])
+    @time_sheet.year = Date.today.year
+    @time_sheet.month = Date.today.month
+    @time_sheet.generate_work_days
+    set_projects
+
+    if params[:month]
+      @time_sheet.month = params[:month]
+    end
+  end
+
+  def create
+    @time_sheet = TimeSheet.new(time_sheet_params)
+    @time_sheet.contract = Contract.find(params['contract_id'])
+
+    if @time_sheet.save
+      redirect_to time_sheet_path(@time_sheet)
+      flash[:success] = I18n.t('time_sheet.save')
+    else
+      @time_sheet.generate_missing_work_days
+      set_projects
+      render :new
+    end
   end
 
   def edit
+    set_time_sheet
+    @time_sheet.generate_missing_work_days
+    set_projects
   end
 
   def hand_in
@@ -54,8 +88,10 @@ class TimeSheetsController < ApplicationController
   def update
     if @time_sheet.update(time_sheet_params)
       flash[:success] = 'Time Sheet was successfully updated.'
-      redirect_to work_days_path(month: @time_sheet.month, year: @time_sheet.year, contract: @time_sheet.contract)
+      redirect_to time_sheet_path(@time_sheet)
     else
+      @time_sheet.generate_missing_work_days
+      set_projects
       render :edit
     end
   end
@@ -72,16 +108,36 @@ class TimeSheetsController < ApplicationController
 
   def download
     set_time_sheet
+    authorize! :show, @time_sheet
+    @time_sheet.generate_missing_work_days
     redirect_to generate_pdf_path(doc_type: 'Timesheet', doc_id: @time_sheet, include_comments: params[:include_comments])
+  end
+
+  def destroy
+    set_time_sheet
+    @time_sheet.destroy
+    #struggling with i18n, im sure this could be improved somehow
+    flash[:success] = t('helpers.flash.destroyed', model: t('activerecord.models.time_sheet.one'))
+    redirect_to time_sheets_path
   end
 
   private
 
- def set_time_sheet
-   @time_sheet = TimeSheet.find(params[:id])
- end
+  def set_time_sheet
+    @time_sheet = TimeSheet.find(params[:id])
+  end
+
+  def set_projects
+    if @time_sheet && @time_sheet.user
+      @projects = @time_sheet.user.projects
+    else
+      @projects = current_user.projects
+    end
+  end
 
   def time_sheet_params
-    params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym))
+    delocalize_config = {:start_time => :time, :end_time => :time}
+
+    params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym), work_days_attributes: WorkDay.column_names.map(&:to_sym)).delocalize(delocalize_config)
   end
 end
