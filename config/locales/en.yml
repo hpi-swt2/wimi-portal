@@ -107,6 +107,9 @@ en:
         zip_code: Zip Code
       work_day:
         attendance: Attendance
+        attendance_options:
+          sick: Sick
+          holiday: Holiday
         break: Break
         date: Date
         end_time: End time

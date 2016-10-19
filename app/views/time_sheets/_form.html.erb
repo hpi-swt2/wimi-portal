@@ -118,7 +118,7 @@
                 <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control', :readonly => readonly }) %>
               </td>
               <td>
-                <%= t.text_field :status, size: 1, class: 'form-control', readonly: readonly %>
+                <%= t.select(:status, [["",""], [t('activerecord.attributes.work_day.attendance_options.sick'), 'K'], [t('activerecord.attributes.work_day.attendance_options.holiday'), 'F']], {}, {class: 'form-control', readonly: readonly }) %>
               </td>
             <% end %>
           </tr>

@@ -107,6 +107,9 @@ de:
         zip_code: Postleitzahl
       work_day:
         attendance: Anwesenheit
+        attendance_options:
+          sick: Krank
+          holiday: Feiertag
         break: Pause
         date: Datum
         end_time: Endzeit
