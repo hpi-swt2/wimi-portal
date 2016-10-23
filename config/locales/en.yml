@@ -506,6 +506,8 @@ en:
     month_year: Month/Year
     save: Time Sheet saved successfully.
   time_sheets:
+    form:
+      note_placeholder: Add a note
     edit:
       title: Edit Time Sheet
     show:

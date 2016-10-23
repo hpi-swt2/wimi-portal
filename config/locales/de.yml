@@ -506,6 +506,8 @@ de:
     month_year: Monat/Jahr
     save: Stundenzettel erfolgreich gespeichert.
   time_sheets:
+    form:
+      note_placeholder: Notiz hinzufügen
     edit:
       title: Stundenzettel bearbeiten
     show:
