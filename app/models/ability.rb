@@ -31,6 +31,9 @@ class Ability
     can [:index, :show], TimeSheet, user: { id: user.id }
     can [:edit, :update, :hand_in, :destroy, :update], TimeSheet, handed_in: false, user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
+    can :create_next_month, TimeSheet do |ts|
+      ts.user == user and user.has_contract_for(ts.month, ts.year)
+    end
     
     can [:index, :show], WorkDay, user: { id: user.id }
     can [:create, :edit, :update, :destroy], WorkDay do |wd|

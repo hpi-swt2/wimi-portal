@@ -28,6 +28,7 @@ RSpec.describe TimeSheet, type: :model do
   before(:each) do
     @sheet = FactoryGirl.create(:time_sheet)
     @user = @sheet.user
+    @contract = @sheet.contract
     @project = FactoryGirl.create(:project)
     @user.projects << @project
     @time1 = Time.parse('10:00:00')

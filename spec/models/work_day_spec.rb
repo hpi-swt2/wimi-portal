@@ -11,6 +11,8 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  time_sheet_id :integer
+#  project_id    :integer
+#  status        :string
 #
 
 require 'rails_helper'

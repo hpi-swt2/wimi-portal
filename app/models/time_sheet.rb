@@ -66,19 +66,19 @@ class TimeSheet < ActiveRecord::Base
     first_day.end_of_month
   end
 
-  def next_month
+  def next_date
     if month == 12
-      return 1
+      return {month: 1, year: year + 1}
     else
-      return month + 1
+      return {month: month + 1, year: year}
     end
   end
 
-  def previous_month
+  def previous_date
     if month == 1
-      return 12
+      return {month: 12, year: year - 1}
     else
-      return month - 1
+      return {month: month - 1, year: year}
     end
   end
 

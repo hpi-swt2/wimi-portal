@@ -142,6 +142,10 @@ class User < ActiveRecord::Base
   def contract_with(chair)
     Contract.contract_with(self,chair)
   end
+
+  def has_contract_for(month, year)
+    return Contract.for_user_in_month(self, month, year).size > 0
+  end
   
   def time_sheets_for(date_or_month, year = -1)
     if year < 0
