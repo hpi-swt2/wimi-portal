@@ -29,7 +29,7 @@ class Ability
     can [:index, :show, :leave], Project, users: { id: user.id }
     
     can [:index, :show], TimeSheet, user: { id: user.id }
-    can [:edit, :update, :hand_in, :destroy], TimeSheet, handed_in: false, user: { id: user.id }
+    can [:edit, :update, :hand_in, :destroy, :update], TimeSheet, handed_in: false, user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
     
     can [:index, :show], WorkDay, user: { id: user.id }
@@ -37,7 +37,7 @@ class Ability
       wd.user == user and can?(:edit, wd.time_sheet)
     end
     cannot [:new, :create], WorkDay if user.recent_contracts.empty?
-    can [:create, :new, :edit, :update], TimeSheet
+    can [:create, :new], TimeSheet
   end
 
   def initialize_hiwi(user)
