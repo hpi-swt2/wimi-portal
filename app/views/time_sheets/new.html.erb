@@ -6,6 +6,6 @@
         <%=t '.title', default: [:'helpers.titles.new', 'Edit %{model}'], model: model_class.model_name.human.titleize %>
       </h1>
     </div>
-    <%= render 'form' %>
+    <%= render partial: 'form', locals: {hide_work_days: true} %>
   </div>
 </div>

@@ -37,6 +37,7 @@
 
 <% readonly ||= false %>
 <% disable_date ||= false %>
+<% hide_work_days ||= false %>
 <%= form_for [@time_sheet.contract,@time_sheet], html: {class: 'time_sheet_form'} do |f| %>
 
   <% if disable_date %>
@@ -61,6 +62,7 @@
       </div>
     </div>
   <% end %>
+  <% unless hide_work_days %>
   <div class="row">
     <div class="col-md-12">
       <table class="table">
@@ -126,6 +128,7 @@
       </table>
     </div>
   </div>
+  <% end %>
 
   <% content_for :actions do %>
     <div class="row">

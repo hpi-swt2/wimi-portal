@@ -41,7 +41,7 @@ class TimeSheetsController < ApplicationController
     @time_sheet.contract = Contract.find(params['contract_id'])
 
     if @time_sheet.save
-      redirect_to time_sheet_path(@time_sheet)
+      redirect_to edit_time_sheet_path(@time_sheet)
       flash[:success] = I18n.t('time_sheet.save')
     else
       @time_sheet.generate_missing_work_days
