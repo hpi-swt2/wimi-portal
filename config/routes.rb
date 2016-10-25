@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   get 'work_days/:year/:month', to: 'work_days#index'
   resources :time_sheets, except: [:new, :create] do
     member do
+      get 'withdraw'
       get 'hand_in'
       get 'accept_reject'
       get 'download'

@@ -34,6 +34,7 @@ class Ability
     can :create_next_month, TimeSheet do |ts|
       ts.user == user and user.has_contract_for(ts.month, ts.year)
     end
+    can :withdraw, TimeSheet, user: {id: user.id}, handed_in: true, status: 'pending'
     
     can [:index, :show], WorkDay, user: { id: user.id }
     can [:create, :edit, :update, :destroy], WorkDay do |wd|

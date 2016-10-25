@@ -53,4 +53,6 @@
   <% if @previous_month %>
     <%= link_to t('.previous_month'), time_sheet_path(@previous_month), class: 'btn btn-block btn-default' %>
   <% end %>
+
+  <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
 <% end %>

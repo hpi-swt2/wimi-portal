@@ -374,6 +374,7 @@ de:
     forms:
       required_field: Pflichtfeld
     links:
+      withdraw: Zurücknehmen
       back: Zurück
       cancel: Abbrechen
       confirm: Sicher?

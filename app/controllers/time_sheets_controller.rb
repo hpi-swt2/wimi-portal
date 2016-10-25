@@ -72,6 +72,11 @@ class TimeSheetsController < ApplicationController
     end
   end
 
+  def withdraw
+    @time_sheet.update(status: 'created', handed_in: false)
+    redirect_to time_sheet_path(@time_sheet)
+  end
+
   def accept
 #    time_sheet = TimeSheet.find(params[:id])
     @time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id, representative_signature: current_user.signature, representative_signed_at: Date.today)

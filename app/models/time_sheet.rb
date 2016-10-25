@@ -31,7 +31,7 @@ class TimeSheet < ActiveRecord::Base
 
   belongs_to :contract
   has_one :user, through: :contract, source: :hiwi
-  enum status: [:pending, :accepted, :rejected]
+  enum status: [:pending, :accepted, :rejected, :created]
   has_many :work_days, :inverse_of => :time_sheet
   
   validates :month, numericality: {greater_than: 0}
