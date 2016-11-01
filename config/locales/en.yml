@@ -516,7 +516,6 @@ en:
       next_month: Show next month
       previous_month: Show previous month
       time_format: "%{hours} hours %{minutes} minutes"
-      title: View Time Sheet
       total_work_time: Total time worked
     show_footer:
       accept: accept

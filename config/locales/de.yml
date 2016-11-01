@@ -501,7 +501,7 @@ de:
   time_sheet:
     delete: Wollen Sie diesen Stundenzettel wirklich löschen?
     download:
-      has_comments: Dieser Stundenzettel hat Kommentare. Sollen sie mitgedruckt werden?
+      has_comments: Dieser Stundenzettel hat Kommentare. Beim Export beibehalten?
       with_comments: Ja
       without_comments: Nein
     month_year: Monat/Jahr
@@ -516,7 +516,6 @@ de:
       next_month: Nächsten Monat anzeigen
       previous_month: Vorherigen Monat anzeigen
       time_format: "%{hours} Stunden %{minutes} Minuten"
-      title: Stundenzettel ansehen
       total_work_time: Gesamtarbeitszeit
     show_footer:
       accept: Annehmen
