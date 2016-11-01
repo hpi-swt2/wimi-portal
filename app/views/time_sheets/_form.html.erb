@@ -43,9 +43,8 @@
   <% if disable_date %>
     <p>
       <strong><%= t('time_sheet.month_year')%>:</strong>
-      <%= l Date.new(2000, f.object.month), format: :without_day_year %>
+      <%= l f.object.first_day , format: :without_day %>
       <%= f.number_field :month, class: 'hidden'%>
-      <%= l Date.new(f.object.year), format: :without_day_month %>
       <%= f.number_field :year, class: 'hidden'%>
     </p>
   <% else %>
