@@ -1,6 +1,10 @@
 class Ability
   include CanCan::Ability
 
+  # alias_action :index, :show, :to => :read
+  # alias_action :new, :to => :create
+  # alias_action :edit, :to => :update
+
   def initialize(user)
     unless user.nil?
       check_functions = [:is_superadmin?, :is_admin?, :is_representative?,
@@ -29,7 +33,7 @@ class Ability
     can [:index, :show, :leave], Project, users: { id: user.id }
     
     can [:index, :show], TimeSheet, user: { id: user.id }
-    can [:edit, :update, :hand_in, :destroy, :update], TimeSheet, handed_in: false, user: { id: user.id }
+    can [:update, :hand_in, :destroy, :create], TimeSheet, handed_in: false, user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
     can :create_next_month, TimeSheet do |ts|
       ts.user == user and user.has_contract_for(ts.month, ts.year)
@@ -41,7 +45,6 @@ class Ability
       wd.user == user and can?(:edit, wd.time_sheet)
     end
     cannot [:new, :create], WorkDay if user.recent_contracts.empty?
-    can [:create, :new], TimeSheet
   end
 
   def initialize_hiwi(user)

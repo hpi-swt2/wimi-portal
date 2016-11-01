@@ -9,8 +9,8 @@
     <% else %>
       <% @contracts.each do |contract| %>
         <h4>
-          <%= t('activerecord.models.contract.one').titleize %>: <%= link_to contract.name, contract %>
-          <% if can? :new, TimeSheet %>
+          <%= t('activerecord.models.contract.one').titleize %>: <%= linked_name contract %>
+          <% if can? :new, TimeSheet.new(contract: contract) %>
             <%= link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(contract), class: 'btn btn-success btn-sm pull-right' %>
           <% end %>
         </h4>

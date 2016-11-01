@@ -4,7 +4,7 @@ class TimeSheetsController < ApplicationController
   layout "action_sidebar"
 
   load_and_authorize_resource
-  skip_authorize_resource only: :download
+  skip_authorize_resource only: [:download, :create, :new]
   
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
@@ -40,6 +40,7 @@ class TimeSheetsController < ApplicationController
   def create
     @time_sheet = TimeSheet.new(time_sheet_params)
     @time_sheet.contract = Contract.find(params['contract_id'])
+    authorize! :create, @time_sheet
 
     if @time_sheet.save
       redirect_to edit_time_sheet_path(@time_sheet)
