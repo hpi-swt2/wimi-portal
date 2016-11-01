@@ -23,7 +23,7 @@
         </p>
         <p>
           <strong><%= model_class.human_attribute_name(:status) %>:</strong>
-          <% label_type = {"created" => "default", "pending" => "default", "accepted" => "success", "rejected" => "danger"}[@time_sheet.status] %>
+          <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger"}[@time_sheet.status] %>
           <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{@time_sheet.status}") %></span>
         </p>
       </div>
