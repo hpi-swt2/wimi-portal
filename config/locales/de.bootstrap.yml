@@ -33,6 +33,7 @@ de:
     - Samstag
     formats:
       default: "%d.%m.%Y"
+      short_year: "%-d.%m.%y"
       short_month: "%b"
       short_month_year: "%b %y"
       without_day: "%B %Y"
