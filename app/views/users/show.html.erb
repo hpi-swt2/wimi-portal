@@ -34,23 +34,6 @@
 
 <% if @user == current_user %>
   <% content_for :sidebar do %>
-    <!--Actions-->
-    <% dashboard_actions_content = render partial: 'dashboard/actions' %>
-    <% if dashboard_actions_content.present? %>
-      <div class="col-md-12">
-        <div class="display">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4><%=t('dashboard.index.actions')%></h4>
-            </div>
-            <div class="panel-body">
-              <%= dashboard_actions_content %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    
     <% if can? :upload_signature, @user %>
     <!-- Signature -->
     <div class="col-md-12">
