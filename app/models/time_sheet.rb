@@ -39,6 +39,8 @@ class TimeSheet < ActiveRecord::Base
 
   accepts_nested_attributes_for :work_days, reject_if: lambda { |attributes| attributes['start_time'].blank? && attributes['end_time'].blank? }
 
+  after_initialize :set_default_status, :if => :new_record?
+
   def sum_hours
     sum_minutes / 60
   end
@@ -117,6 +119,14 @@ class TimeSheet < ActiveRecord::Base
       end
     end
    # self.work_days.sort! { |a,b| a.date <=> b.date }
+  end
+
+  private
+
+  # Initialize the TimeSheet to status "created".
+  # As "pending" is first in the enum definition, it is the standard
+  def set_default_status
+    self.status = "created"
   end
 
 end

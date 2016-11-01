@@ -37,7 +37,7 @@
         <% end %>
 
         <%# Contract overview %>
-        <% contracts = Contract.accessible_by(current_ability) %>
+        <% contracts = Contract.accessible_by(current_ability, :show) %>
         <% if contracts.count > 1 or can? :new, Contract %>
           <%= menu_item t('activerecord.models.contract.other').titleize, contracts_path %>
         <% elsif contracts.count == 1 %>

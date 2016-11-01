@@ -12,7 +12,7 @@ class TimeSheetsController < ApplicationController
   end
 
   def index
-    @contracts = Contract.accessible_by(current_ability, :index).order(end_date: :desc)
+    @contracts = Contract.all.order(end_date: :desc).select {|c| can? :index, c}
   end
 
   def show

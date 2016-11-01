@@ -62,12 +62,18 @@ class Ability
     
         # [:index, :show]
     can [:index, :show, :create, :update], Contract, responsible_id: user.id
+    can [:index], Contract do |con|
+      con.time_sheets.any? {|ts| can? :show, ts }
+    end
     can [:index, :show, :accept, :reject, :accept_reject], TimeSheet do |ts|
-      can? :show, ts.contract
+      # For HiWis that they are not responsible for, WiMis can only view those
+      # time sheets that were handed in by HiWis of their chair.
+      # If a WiMi can show the contract, i.e. is responsible for it, all time sheets can be viewed.
+      can?(:show, ts.contract) or (ts.status=="pending" and ts.contract.chair == user.chair)
     end
 
     can :see_wimi_actions , TimeSheet do |ts|
-      can?(:show, ts.contract) and ts.handed_in?
+      can?(:show, ts) and ts.handed_in?
     end
   end
 
