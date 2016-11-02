@@ -61,7 +61,7 @@
                   <td>
                     <% time_sheets = user.time_sheets.select {|sheet| sheet.containsDate(Date.today) && sheet.contract.chair == @project.chair} %>
                     <% if time_sheets.any? %>
-                        <%= can_link t('projects.form.show_current_working_hours'), :show, time_sheets[0], class: 'btn btn-default btn-xs' %>
+                        <%= can_link t('projects.form.show_current_timesheet'), :show, time_sheets[0], class: 'btn btn-default btn-xs' %>
                     <% end %>
                   </td>
                 </tr>

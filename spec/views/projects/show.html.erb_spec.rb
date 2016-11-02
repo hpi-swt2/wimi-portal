@@ -79,7 +79,7 @@ RSpec.describe 'projects/show', type: :view do
       @wimi.projects << @project
       user.projects << @project
       visit current_path
-      expect(page).to_not have_selector(:link_or_button, I18n.t('projects.form.show_current_working_hours'))
+      expect(page).to_not have_selector(:link_or_button, I18n.t('projects.form.show_current_timesheet'))
     end
     
     it 'not possible for wimi to edit if not a member' do

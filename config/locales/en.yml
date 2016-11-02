@@ -466,7 +466,7 @@ en:
     form:
       accessibility: Accessibility
       hiwi: Student Assistants
-      show_current_working_hours: Show current working hours
+      show_current_timesheet: Show current time sheet
       sign_out_of_project: Remove
       wimi: Research Assistants
     index:

@@ -466,7 +466,7 @@ de:
     form:
       accessibility: Sichtbarkeit
       hiwi: Studentische Hilfskräfte
-      show_current_working_hours: Aktuellen Stundenzettel anzeigen
+      show_current_timesheet: Aktuellen Stundenzettel anzeigen
       sign_out_of_project: Entfernen
       wimi: Wissenschaftliche Mitarbeiter
     index:
