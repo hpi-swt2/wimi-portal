@@ -30,21 +30,19 @@
 </div>
 
 <% content_for :actions do %>
+  <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
   <%= edit_button @time_sheet, class: 'btn-block' %>
-  <%= delete_button @time_sheet, class: 'btn-block', confirm: t('time_sheet.delete') %>
-
+  <hr>
   <% if @next_month %>
     <%= link_to t('.next_month'), time_sheet_path(@next_month), class: 'btn btn-block btn-default' %>
   <% else %>
     <% if can? :create_next_month, @time_sheet %>
       <% date = @time_sheet.next_date %>
-      <%= link_to t('.create_next_month'), new_contract_time_sheet_path(@time_sheet.contract, month: date[:month], year: date[:year]), class: 'btn btn-block btn-default' %>
+      <%= link_to t('.create_next_month'), new_contract_time_sheet_path(@time_sheet.contract, month: date[:month], year: date[:year]), class: 'btn btn-block btn-success' %>
     <% end %>
   <% end %>
 
   <% if @previous_month %>
     <%= link_to t('.previous_month'), time_sheet_path(@previous_month), class: 'btn btn-block btn-default' %>
   <% end %>
-
-  <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
 <% end %>
