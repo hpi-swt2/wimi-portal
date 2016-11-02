@@ -4,6 +4,7 @@ addons:
 language: ruby
 rvm:
 - 2.2.2
+cache: bundler
 sudo: false
 before_script:
 - cp config/database.travis.yml config/database.yml
