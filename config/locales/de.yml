@@ -509,8 +509,6 @@ de:
   time_sheets:
     form:
       note_placeholder: Notiz hinzufügen
-    edit:
-      title: Stundenzettel bearbeiten
     show:
       create_next_month: Nächsten Monat erstellen
       next_month: Nächsten Monat anzeigen
