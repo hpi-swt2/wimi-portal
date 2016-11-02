@@ -130,13 +130,9 @@
   <% end %>
 
   <% content_for :actions do %>
-    <div class="row">
-      <div class="col-sm-12">
-        <% unless readonly %>
-          <%= f.submit nil, class:"btn btn-success btn-block", id: "submit" %>
-        <% end %>
-      </div>
-    </div>
+    <% unless readonly %>
+      <%= f.submit nil, class:"btn btn-success btn-block", id: "submit" %>
+    <% end %>
   <% end %>
 
 <% end %>
