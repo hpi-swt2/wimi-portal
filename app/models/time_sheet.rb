@@ -37,9 +37,16 @@ class TimeSheet < ActiveRecord::Base
   validates :month, numericality: {greater_than: 0}
   validates :year, numericality: {greater_than: 0}
 
-  accepts_nested_attributes_for :work_days, reject_if: lambda { |attributes| attributes['start_time'].blank? && attributes['end_time'].blank? }
+  accepts_nested_attributes_for :work_days, reject_if: :reject_work_day, :allow_destroy => true
 
   after_initialize :set_default_status, :if => :new_record?
+
+  def reject_work_day(attributes)
+    exists = attributes['id'].present?
+    empty = attributes.slice(:start_time, :end_time).values.all?(&:blank?)
+    attributes.merge!({:_destroy => 1}) if exists and empty # destroy empty tour
+    return (!exists and empty) # reject empty attributes
+  end
 
   def sum_hours
     sum_minutes / 60
