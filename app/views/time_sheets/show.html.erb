@@ -9,18 +9,34 @@
     <div class="row">
       <div class="col-md-12">
         <p>
-          <% total_time = @time_sheet.sum_minutes %>
-          <strong><%= t('.total_work_time')%>:</strong>
-          <%= t('.time_format', hours: total_time / 60, minutes: total_time % 60) %>
+          <strong><%= model_class.human_attribute_name(:status) %>:</strong>
+          <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger"}[@time_sheet.status] %>
+          <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{@time_sheet.status}") %></span>
         </p>
+        <% if @time_sheet.status.in?(['accepted', 'rejected']) %>
+          <p>
+            <strong><%= t("time_sheets.show_footer.#{@time_sheet.status}_by") %>:</strong>
+            <%# TimeSheet#signer is simple integer, no belongs_to %>
+            <%= linked_name User.find(@time_sheet.signer) %>
+            <%= t('time_sheets.show_footer.at').downcase %>
+            <%= content_tag :span, l(@time_sheet.last_modified) %>
+          </p>
+          <% if @time_sheet.status == 'rejected' %>
+            <p>
+              <strong><%= t('time_sheets.show_footer.reject_reason') %>:</strong>
+              <%= content_tag :span, @time_sheet.rejection_message %>
+            </p>
+          <% end %>
+        <% end %>
+        <hr>
         <p>
           <strong><%= model_class.human_attribute_name(:handed_in) %>:</strong>
           <%= t @time_sheet.handed_in.to_s %> <%= "(#{l @time_sheet.hand_in_date})" if @time_sheet.hand_in_date %>
         </p>
         <p>
-          <strong><%= model_class.human_attribute_name(:status) %>:</strong>
-          <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger"}[@time_sheet.status] %>
-          <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{@time_sheet.status}") %></span>
+          <% total_time = @time_sheet.sum_minutes %>
+          <strong><%= t('.total_work_time')%>:</strong>
+          <%= t('.time_format', hours: total_time / 60, minutes: total_time % 60) %>
         </p>
       </div>
     </div>

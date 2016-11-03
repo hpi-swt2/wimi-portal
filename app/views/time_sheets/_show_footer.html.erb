@@ -2,8 +2,8 @@
   <% if can? :see_wimi_actions, @time_sheet %>
     <%= render 'wimi_actions' %>
   <% end %>
-  <% if can? :see_hiwi_actions, @time_sheet %>
-    <%= render 'hiwi_actions' %>
+  <% if (can? :see_hiwi_actions, @time_sheet) and (not @time_sheet.handed_in?) and (@time_sheet.user == current_user) %>
+    <%= render 'hand_in' %>
   <% end %>
   <% if @time_sheet.has_comments? %>
     <%= link_to t('helpers.links.download_pdf'), "", id: "open-popup", data: { toggle: "modal", target: "#download-pdf-modal", timesheet: @time_sheet.id}, class: 'btn btn-block btn-info'%>
