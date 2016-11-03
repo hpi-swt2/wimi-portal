@@ -14,7 +14,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe EventTimeSheetSubmitted, type: :feature do
+RSpec.describe EventTimeSheetSubmitted, type: :model do
   describe 'sending an email to the responsible wimi after timesheet submission.' do
     before(:each) do
       @chair = FactoryGirl.create(:chair)
@@ -69,7 +69,7 @@ RSpec.describe EventTimeSheetSubmitted, type: :feature do
 
     it 'includes a link to the timesheet' do
       event = EventTimeSheetSubmitted.create(trigger_id: @timesheet.id, target_id: @responsible.id, chair_id: @chair.id, seclevel: :wimi)
-      work_day_index_path = time_sheet_path(@timesheet)
+      work_day_index_path = Rails.application.routes.url_helpers.url_for(action: 'index', controller: 'work_days', only_path:true)
       expect(ActionMailer::Base.deliveries.first.body.encoded).to match(work_day_index_path)
     end
   end
