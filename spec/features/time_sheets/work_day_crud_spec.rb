@@ -46,8 +46,12 @@ describe 'time_sheets#edit' do
       fill_in "time_sheet_work_days_attributes_0_notes", with: ''
 
       find('#hiddensubmit').click
-      expect(page).to have_current_path(time_sheet_path(@time_sheet_new))
-      expect(page).to_not have_content(@work_day.notes)
+      # No flash error
+      expect(page).to_not have_css('div.alert-danger')
+      # On successful update the overview is rendered
+      # and doesn't list the removed work day
+      expect(page).to_not have_content(I18n.l(@work_day.date, format: :day_month))
+      expect(page).to_not have_content(I18n.l(@work_day.date, format: :weekday_short))
     end
 
     it 'is possible to clear a work day by clearing all inputs' do
@@ -108,8 +112,8 @@ describe 'time_sheets#edit' do
       find('#hiddensubmit').click
       # flash error
       expect(page).to have_css('div.alert-danger')
-      # redirect to timesheet#edit
-      expect(page).to have_current_path(edit_time_sheet_path(@time_sheet_new))
+      # redirect to timesheet#update
+      expect(page).to have_current_path(time_sheet_path(@time_sheet_new))
     end
   end
 
