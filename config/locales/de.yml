@@ -240,7 +240,7 @@ de:
       b: Beschreibung
   dashboard:
     actions:
-      enter_work_hours: Arbeitsstunden für %{project_name} eintragen
+      goto_current_time_sheet: Aktuellen Stundenzettel anzeigen
       show_expense_requests: Ausgabenanträge anzeigen
       show_holiday_requests: Urlaubsanträge anzeigen
       show_trip_requests: Dienstreiseanträge anzeigen
@@ -506,6 +506,7 @@ de:
       without_comments: Nein
     month_year: Monat/Jahr
     save: Stundenzettel erfolgreich gespeichert.
+    no_contract: Kein Vertrag für heute gefunden
   time_sheets:
     form:
       note_placeholder: Notiz hinzufügen

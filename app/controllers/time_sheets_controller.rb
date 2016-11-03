@@ -4,7 +4,7 @@ class TimeSheetsController < ApplicationController
   layout "action_sidebar"
 
   load_and_authorize_resource
-  skip_authorize_resource only: [:download, :create, :new]
+  skip_authorize_resource only: [:download, :create, :new, :current]
   
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
@@ -30,7 +30,6 @@ class TimeSheetsController < ApplicationController
     @time_sheet.year = Date.today.year
     @time_sheet.month = Date.today.month
     @time_sheet.generate_work_days
-    set_projects
 
     if params[:month]
       @time_sheet.month = params[:month]
@@ -46,8 +45,6 @@ class TimeSheetsController < ApplicationController
       redirect_to edit_time_sheet_path(@time_sheet)
       flash[:success] = I18n.t('time_sheet.save')
     else
-      @time_sheet.generate_missing_work_days
-      set_projects
       render :new
     end
   end
@@ -126,6 +123,33 @@ class TimeSheetsController < ApplicationController
     #struggling with i18n, im sure this could be improved somehow
     flash[:success] = t('helpers.flash.destroyed', model: t('activerecord.models.time_sheet.one'))
     redirect_to time_sheets_path
+  end
+
+  # Route that redirects to the current_user's first time sheet of this month
+  # Creates that timesheet if it's not there yet and a contract for today's date exists
+  def current
+    today = Date.today
+    current_time_sheet = current_user.time_sheets.year(today.year).month(today.month)
+    if current_time_sheet.any?
+      if can? :edit, current_time_sheet.first
+        redirect_to edit_time_sheet_path(current_time_sheet.first)
+      else
+        redirect_to time_sheet_path(current_time_sheet.first)
+      end
+    else
+      contracts = current_user.contracts.at_date(today)
+      if contracts.any?
+        time_sheet = TimeSheet.new(contract: contracts.first, year: today.year, month: today.month)
+        if time_sheet.save
+          redirect_to edit_time_sheet_path(time_sheet)
+        else
+          render :new
+        end
+      else
+        flash[:error] = I18n.t('time_sheet.no_contract')
+        redirect_to time_sheets_path
+      end
+    end
   end
 
   private

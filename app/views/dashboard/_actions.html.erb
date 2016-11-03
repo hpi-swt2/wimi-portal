@@ -1,13 +1,8 @@
 <%# hiwi actions %>
 <% if can? :create, WorkDay %>
-  <% current_user.projects.each do |project| %>
   <p>
-    <%= link_to(
-      t('.enter_work_hours', project_name: project.title),
-      time_sheets_path)
-    %>
+    <%= link_to( t('.goto_current_time_sheet'), current_time_sheets_path, class: 'btn btn-warning btn-block') %>
   </p>
-  <% end %>
 <% end %>
 
 <%# wimi actions %>

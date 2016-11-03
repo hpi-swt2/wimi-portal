@@ -65,9 +65,12 @@ Rails.application.routes.draw do
       get 'accept_reject'
       get 'download'
     end
-    get 'time_sheets/hand_in', to: 'time_sheets#hand_in'
-    get 'time_sheets/accept_reject', to: 'time_sheets#accept_reject'
+
+    collection do
+      get 'current'
+    end
   end
+
 
   resources :trips do
     resources :expenses, except: [:show, :index]

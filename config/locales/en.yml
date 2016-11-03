@@ -240,7 +240,7 @@ en:
       b: Description
   dashboard:
     actions:
-      enter_work_hours: Enter working hours for %{project_name}
+      goto_current_time_sheet: Go to current time sheet
       show_expense_requests: Show Expense Requests
       show_holiday_requests: Show Holiday Requests
       show_trip_requests: Show Trip Requests
@@ -506,6 +506,7 @@ en:
       without_comments: 'No'
     month_year: Month/Year
     save: Time Sheet saved successfully.
+    no_contract: No contract found for today.
   time_sheets:
     form:
       note_placeholder: Add a note
