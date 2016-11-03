@@ -28,11 +28,20 @@
 </style>
 
 <script>
+$( document ).ready(function() {
   $(function () {
     $('#submit').click(function (event) {
       $('.time_sheet_form')[0].submit();
     })
   })
+
+  // Update hiden month and year fields when the timepicker values change
+  $('#month-input').datepicker()
+      .on('changeDate', function(e) {
+          $('#time_sheet_month').val(e.date.getMonth()+1);
+          $('#time_sheet_year').val(e.date.getFullYear());
+      });
+});
 </script>
 
 <% readonly ||= false %>
@@ -61,20 +70,17 @@
         </dl>
       </div>
     </div>
-
     <div class="row">
-      <div class="col-md-6">
-        <%= bootstrap_form_group(f, :month) do %>
-            <%= f.number_field :month, class: "form-control" , readonly: disable_date%>
-        <% end %>
-      </div>
-      <div class="col-md-6">
-        <%= bootstrap_form_group(f, :year) do %>
-            <%= f.number_field :year, class: "form-control" , readonly: disable_date%>
-        <% end %>
+      <div class="col-md-6 col-sm-6">
+        <%# text field augmented with datepicker %>
+        <%= text_field_tag 'month-input', nil, class: "form-control", 'data-provide': "datepicker", 'data-date-min-view-mode': "months", 'data-date-format': "mm/yyyy", 'data-date-language': I18n.locale, value: "#{Date.today.month}/#{Date.today.year}"%>
       </div>
     </div>
+    <%# Hidden fields updated by JS when the datepicker selection changes %>
+    <%= f.number_field :month, class: "hidden" %>
+    <%= f.number_field :year, class: "hidden" %>
   <% end %>
+
   <% unless hide_work_days %>
   <div class="row">
     <div class="col-md-12">
