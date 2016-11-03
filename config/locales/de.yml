@@ -66,7 +66,7 @@ de:
           accepted: angenommen
           created: erstellt
           pending: warten
-          rejected: angelehnt
+          rejected: abgelehnt
       trip:
         annotation: Bemerkungen
         created_at: Erstellungsdatum
