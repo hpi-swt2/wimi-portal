@@ -9,7 +9,7 @@ RSpec.describe 'time_sheets/new', type: :view do
   it 'renders the edit time_sheet form' do
     render
 
-    assert_select 'form[action=?][method=?]', time_sheet_path(@time_sheet), 'post' do
+    assert_select 'form[action=?][method=?]', contract_time_sheet_path(@time_sheet.contract, @time_sheet), 'post' do
 
     end
   end

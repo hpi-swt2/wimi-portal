@@ -28,17 +28,26 @@
 </style>
 
 <script>
+$( document ).ready(function() {
   $(function () {
     $('#submit').click(function (event) {
       $('.time_sheet_form')[0].submit();
     })
   })
+
+  // Update hiden month and year fields when the timepicker values change
+  $('#month-input').datepicker()
+      .on('changeDate', function(e) {
+          $('#time_sheet_month').val(e.date.getMonth()+1);
+          $('#time_sheet_year').val(e.date.getFullYear());
+      });
+});
 </script>
 
 <% readonly ||= false %>
 <% disable_date ||= false %>
 <% hide_work_days ||= false %>
-<%= form_for @time_sheet, html: {class: 'time_sheet_form'} do |f| %>
+<%= form_for [@time_sheet.contract,@time_sheet], html: {class: 'time_sheet_form'} do |f| %>
 
   <%# Allow to submit the form without JS for testing %>
   <%= f.submit nil, id: "hiddensubmit", class:'hidden' %>
@@ -54,27 +63,27 @@
     </p>
   <% else %>
     <div class="row">
-      <div class="col-md-12 col-sm-12">
+      <div class="col-md-4 col-sm-4">
+        <% month_errors = f.object.errors[:month].concat(f.object.errors[:year]) %>
+        <div class="form-group <%= 'has-error' if month_errors.any? %>">
+          <%= f.label :month, class: 'control-label' %>
+          <%# text field augmented with datepicker %>
+          <%= text_field_tag 'month-input', nil, class: "form-control", 'data-provide': "datepicker", 'data-date-min-view-mode': "months", 'data-date-orientation': "bottom auto", 'data-date-format': "mm/yyyy", 'data-date-language': I18n.locale, value: "#{Date.today.month}/#{Date.today.year}"%>
+          <%= content_tag :span, month_errors.join(', '), :class => "help-block" if month_errors.any? %>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8">
         <dl>
           <dt><%= t('activerecord.models.contract.one').capitalize %></dt>
           <dd><%= f.object.contract %></dd>
         </dl>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <%= bootstrap_form_group(f, :month) do %>
-            <%= f.number_field :month, class: "form-control" , readonly: disable_date%>
-        <% end %>
-      </div>
-      <div class="col-md-6">
-        <%= bootstrap_form_group(f, :year) do %>
-            <%= f.number_field :year, class: "form-control" , readonly: disable_date%>
-        <% end %>
-      </div>
-    </div>
+    <%# Hidden fields updated by JS when the datepicker selection changes %>
+    <%= f.number_field :month, class: "hidden" %>
+    <%= f.number_field :year, class: "hidden" %>
   <% end %>
+
   <% unless hide_work_days %>
   <div class="row">
     <div class="col-md-12">
