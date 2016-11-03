@@ -1,14 +1,12 @@
 require 'rails_helper'
 
-#this should work but it doesnt. feature works but test is broken. help please.
-
 describe 'time_sheets#show' do
   before :each do
     @hiwi = FactoryGirl.create(:hiwi)
     @wimi = FactoryGirl.create(:wimi).user
     @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
     @time_sheet_new = FactoryGirl.create(:time_sheet, contract: @contract)
-    @time_sheet_handed_in = FactoryGirl.create(:time_sheet, contract: @contract, handed_in: true)
+    @time_sheet_handed_in = FactoryGirl.create(:time_sheet, contract: @contract, handed_in: true, status: 'pending')
     login_as @hiwi
   end
 

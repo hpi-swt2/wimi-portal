@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-#this should work but it doesnt. feature works but test is broken. help please.
-
-describe 'time_sheets#show' do
+describe 'time_sheets#edit' do
   before :each do
     @hiwi = FactoryGirl.create(:hiwi)
     @wimi = FactoryGirl.create(:wimi).user
@@ -14,17 +12,17 @@ describe 'time_sheets#show' do
 
   context 'with a new time sheet' do
     it 'has a delete button' do
-      visit time_sheet_path(@time_sheet_new)
+      visit edit_time_sheet_path(@time_sheet_new)
       
-      expect(page).to have_content('Delete')
+      expect(page).to have_content(I18n.t('helpers.links.destroy'))
     end
   end
 
   context 'with a handed in time sheet' do
     it 'does not have a delete button' do
-      visit time_sheet_path(@time_sheet_handed_in)
+      visit edit_time_sheet_path(@time_sheet_handed_in)
 
-      expect(page).to_not have_content('Delete')
+      expect(page).to_not have_content(I18n.t('helpers.links.destroy'))
     end
   end
 end

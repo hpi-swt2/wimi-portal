@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-#this should work but it doesnt. feature works but test is broken. help please.
-
 describe 'time sheets' do
   before :each do
     @hiwi = FactoryGirl.create(:hiwi)
