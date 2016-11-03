@@ -54,6 +54,15 @@
     </p>
   <% else %>
     <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <dl>
+          <dt><%= t('activerecord.models.contract.one').capitalize %></dt>
+          <dd><%= f.object.contract %></dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-6">
         <%= bootstrap_form_group(f, :month) do %>
             <%= f.number_field :month, class: "form-control" , readonly: disable_date%>
