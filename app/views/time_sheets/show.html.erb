@@ -41,13 +41,30 @@
       </div>
     </div>
     <%= render partial: 'form', locals: {readonly: true, disable_date: true} %>
-    <%= render 'show_footer' %>
   </div>
 </div>
 
 <% content_for :actions do %>
-  <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
+  <%# Accept and reject timesheet, sign checkbox %>
+  <% if can? :see_wimi_actions, @time_sheet %>
+    <%= render 'wimi_actions' %>
+  <% end %>
+  <%# hand in button, sign checkbox %>
+  <% if (can? :see_hiwi_actions, @time_sheet) and (not @time_sheet.handed_in?) and (@time_sheet.user == current_user) %>
+    <%= render 'hand_in' %>
+    <hr>
+  <% end %>
+  <%# Edit %>
   <%= edit_button @time_sheet, class: 'btn-block' %>
+  <%# Download PDF %>
+  <% if @time_sheet.has_comments? %>
+    <%= link_to t('helpers.links.download_pdf'), "", id: "open-popup", data: { toggle: "modal", target: "#download-pdf-modal", timesheet: @time_sheet.id}, class: 'btn btn-block btn-info'%>
+  <% else %>
+    <%= link_to t('helpers.links.download_pdf'), download_time_sheet_path(@time_sheet), class: 'btn btn-block btn-info' %>
+  <% end %>
+  <%# Withdraw timesheet %>
+  <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
+  <%# Month switch buttons %>
   <hr>
   <% if @next_month %>
     <%= link_to t('.next_month'), time_sheet_path(@next_month), class: 'btn btn-block btn-default' %>
@@ -57,8 +74,11 @@
       <%= link_to t('.create_next_month'), new_contract_time_sheet_path(@time_sheet.contract, month: date[:month], year: date[:year]), class: 'btn btn-block btn-success' %>
     <% end %>
   <% end %>
-
   <% if @previous_month %>
     <%= link_to t('.previous_month'), time_sheet_path(@previous_month), class: 'btn btn-block btn-default' %>
   <% end %>
+<% end %><%# content_for :actions do %>
+
+<% content_for :modals do %>
+  <%= render partial: 'download_prompt', locals: {url: download_time_sheet_path(@time_sheet)} %>
 <% end %>
