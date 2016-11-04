@@ -1,5 +1,5 @@
 <% time_sheet = TimeSheet.find(event_time_sheet_submitted.trigger_id) %>
 <%= t('.full_html',
     link_to_user: link_to(time_sheet.user.name, time_sheet.user),
-    link_to_view: link_to(t('.view'), work_days_url(month: time_sheet.month, year: time_sheet.year, user: time_sheet.user, contract: time_sheet.contract))
+    link_to_view: link_to(t('.view'), time_sheet_url(time_sheet))
 ) %>

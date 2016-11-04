@@ -55,10 +55,9 @@ Rails.application.routes.draw do
   end
 
   resources :contracts do
-    resources :time_sheets, only: [:new, :create, :update, :destroy]
+    resources :time_sheets, only: [:new, :create]
   end
-  resources :work_days
-  get 'work_days/:year/:month', to: 'work_days#index'
+
   resources :time_sheets, except: [:new, :create] do
     member do
       get 'withdraw'
@@ -117,7 +116,6 @@ Rails.application.routes.draw do
 
   get '/admin_search', to: 'chairs#admin_search', as: 'admin_search'
   get '/representative_search', to: 'chairs#representative_search', as: 'representative_search'
-
 
   resources :users, only: [:show, :edit, :edit_leave, :update]
   get '/users/autocomplete/:query', to: 'users#autocomplete', as: 'autocomplete'
