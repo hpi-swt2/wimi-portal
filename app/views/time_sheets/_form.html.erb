@@ -47,7 +47,9 @@ $( document ).ready(function() {
 <% readonly ||= false %>
 <% disable_date ||= false %>
 <% hide_work_days ||= false %>
-<%= form_for @time_sheet, html: {class: 'time_sheet_form'} do |f| %>
+
+<% form_object = @time_sheet.new_record? ? [@time_sheet.contract,@time_sheet] : @time_sheet %>
+<%= form_for form_object, html: {class: 'time_sheet_form'} do |f| %>
 
   <%# Allow to submit the form without JS for testing %>
   <%= f.submit nil, id: "hiddensubmit", class:'hidden' %>
