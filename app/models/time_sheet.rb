@@ -44,7 +44,8 @@ class TimeSheet < ActiveRecord::Base
   def reject_work_day(attributes)
     exists = attributes['id'].present?
     empty = attributes.slice(:start_time, :end_time).values.all?(&:blank?)
-    attributes.merge!({:_destroy => 1}) if exists and empty # destroy empty tour
+    zero_values = attributes.slice(:start_time, :end_time).values.all? {|time| time == '0'}
+    attributes.merge!({:_destroy => 1}) if exists and (empty or zero_values) # destroy empty work day
     return (!exists and empty) # reject empty attributes
   end
 
