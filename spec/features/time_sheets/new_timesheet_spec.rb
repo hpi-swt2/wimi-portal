@@ -16,10 +16,8 @@ describe 'Using time_sheets#new' do
 
     ts_count_before = TimeSheet.count
     find('#hiddensubmit').click
-    expect(TimeSheet.count).to eq(ts_count_before+1)    
+    expect(TimeSheet.count).to eq(ts_count_before+1)
     # No flash error
     expect(page).to_not have_css('div.alert-danger')
-
-
   end
 end
