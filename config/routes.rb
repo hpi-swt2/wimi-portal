@@ -65,7 +65,6 @@ Rails.application.routes.draw do
       get 'accept_reject'
       get 'download'
     end
-
     collection do
       get 'current'
     end

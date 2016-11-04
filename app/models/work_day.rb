@@ -26,6 +26,7 @@ class WorkDay < ActiveRecord::Base
   belongs_to :time_sheet
   belongs_to :project
   has_one :contract, through: :time_sheet
+  has_one :user, through: :time_sheet
 
   validates :time_sheet, presence: true
   validates :project, presence: true
