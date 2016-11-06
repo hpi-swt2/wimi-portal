@@ -17,7 +17,9 @@
 
   td {
     text-align: center;
+    position: relative;
   }
+
   th {
     text-align: center;
   }
@@ -25,9 +27,44 @@
   td.notes {
     text-align: left !important; 
   }
+
+  span.helper-btns {
+    display:none;
+    width: 75px;
+    position: absolute;
+    left: -75px;
+    height: 35px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    top: 0px;
+    background-color: #f5f5f5;
+    padding-right: 5px;
+  }
+
+  span.helper-btns > .btn-xs {
+    margin-top: 5px;
+    /*line-height: 1.2;*/
+    /*font-size: 16px;*/
+  }
+
+  tr:hover span.helper-btns {
+    display:block;
+  }
+
+  tr.work_day_tr select {
+    height: 28px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 1px solid #ccc;
+  }
 </style>
 
 <script>
+var d;
+
 $( document ).ready(function() {
   $(function () {
     $('#submit').click(function (event) {
@@ -41,6 +78,46 @@ $( document ).ready(function() {
           $('#time_sheet_month').val(e.date.getMonth()+1);
           $('#time_sheet_year').val(e.date.getFullYear());
       });
+
+  function getRowInputs($row) {
+    return $row.find('input:not([type=hidden])').not('.hidden');
+  }
+
+  function getRowSelects($row) {
+    return $row.find('select');
+  }
+
+  function clearRow($row) {
+    var inputs = getRowInputs($row);
+    var selects = getRowSelects($row);
+    inputs.val('');
+    selects.prop('selectedIndex', 0);
+  }
+
+  $('.clear').click(function(){
+    var tr = $(this).closest('tr');
+    clearRow(tr);
+  });
+
+  $('.duplicate').click(function(){
+    var current_tr = $(this).closest('tr');
+    var current_inputs = getRowInputs(current_tr);
+    var current_selects = getRowSelects(current_tr);
+    // .next() returns a hidden input (of the nested form)
+    var next_tr = current_tr.nextAll('tr').first();
+    var next_inputs = getRowInputs(next_tr);
+    var next_selects = getRowSelects(next_tr);
+
+    current_inputs.each(function(i) {
+      next_inputs.eq(i).val($(this).val());
+    });
+    current_selects.each(function(i) {
+      // var current_option = $(this).find('option:selected').index();
+      var current_opt = $(this).prop('selectedIndex');
+      next_selects.eq(i).prop('selectedIndex', current_opt);
+    });
+  });
+
 });
 </script>
 
@@ -102,6 +179,16 @@ $( document ).ready(function() {
         <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
           <tr class="work_day_tr">
             <td>
+              <% if not readonly %>
+                <span class="helper-btns hidden-xs">
+                  <button type="button" class="btn btn-danger btn-xs clear" title="Clear work day">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" class="btn btn-warning btn-xs duplicate" title="Copy entry to next work day">
+                    <i class="fa fa-files-o" aria-hidden="true"></i>
+                  </button>
+                </span>
+              <% end %>
               <%= l t.object.date, format: :weekday_short %>
             </td>
             <td>
