@@ -1,37 +1,49 @@
 require 'rails_helper'
 
-describe 'Using time_sheets#edit' do
+describe 'time_sheets#edit' do
   before :each do
     @hiwi = FactoryGirl.create(:hiwi)
     @wimi = FactoryGirl.create(:wimi).user
     @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
-    @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
     login_as @hiwi
   end
 
-  it 'is possible to delete an empty time sheet' do
-    visit edit_time_sheet_path(@time_sheet)
-    expect(@time_sheet.work_days.count).to eq(0)
+  context 'with a new (not handed in) time sheet' do
+    before :each do
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      visit edit_time_sheet_path(@time_sheet)
+    end
 
-    ts_count_before = TimeSheet.count
-    # find('a[data-method=delete]').click
-    find('#delete').click
-    # No flash error
-    expect(page).to_not have_css('div.alert-danger')
-    expect(TimeSheet.count).to eq(ts_count_before-1)
+    it 'has a delete button' do
+      expect(page).to have_content(I18n.t('helpers.links.destroy'))
+    end
+
+    it 'is possible to delete an empty time sheet' do
+      expect(@time_sheet.work_days.count).to eq(0)
+      expect { find('#delete').click }.to change { TimeSheet.count }.from(1).to(0)
+      # No flash error
+      expect(page).to_not have_css('div.alert-danger')
+    end
+
+    it 'is possible to delete a time sheet with work days' do
+      FactoryGirl.create(:work_day, time_sheet: @time_sheet, date: Date.today.beginning_of_month)
+      FactoryGirl.create(:work_day, time_sheet: @time_sheet, date: Date.today.beginning_of_month + 1.day)
+      expect(@time_sheet.work_days.count).to eq(2)
+
+      expect { find('#delete').click }.to change { TimeSheet.count }.from(1).to(0)
+      # No flash error
+      expect(page).to_not have_css('div.alert-danger')
+    end
   end
 
-  it 'is possible to delete a time sheet with work days' do
-    FactoryGirl.create(:work_day, time_sheet: @time_sheet, date: Date.today.beginning_of_month)
-    FactoryGirl.create(:work_day, time_sheet: @time_sheet, date: Date.today.beginning_of_month + 1.day)
-    expect(@time_sheet.work_days.count).to eq(2)
-    visit edit_time_sheet_path(@time_sheet)
+  context 'with a handed in time sheet' do
+    before :each do
+      @time_sheet_handed_in = FactoryGirl.create(:time_sheet, contract: @contract, handed_in: true)
+      visit edit_time_sheet_path(@time_sheet_handed_in)
+    end
 
-    ts_count_before = TimeSheet.count
-    # find('a[data-method=delete]').click
-    find('#delete').click
-    # No flash error
-    expect(page).to_not have_css('div.alert-danger')
-    expect(TimeSheet.count).to eq(ts_count_before-1)
+    it 'does not have a delete button' do
+      expect(page).to_not have_content(I18n.t('helpers.links.destroy'))
+    end
   end
 end
