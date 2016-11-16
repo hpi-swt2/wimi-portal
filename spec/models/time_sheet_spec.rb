@@ -27,13 +27,40 @@ require 'rails_helper'
 RSpec.describe TimeSheet, type: :model do
   before(:each) do
     @sheet = FactoryGirl.create(:time_sheet)
-    @contract = @sheet.contract
+    @user = @sheet.user
     @sheet.user.projects << FactoryGirl.create(:project)
     @time1 = Time.parse('10:00:00')
     @time2 = @time1 + 1.hour
     @time3 = @time1 + 2.hours
     @date1 = Date.new(@sheet.year, @sheet.month, 1)
     @date2 = Date.new(@sheet.year, @sheet.month, 10)
+  end
+
+  it 'doesn\'t allow creation for months before beginning of contract' do
+    # user has a single current contract
+    current_contract = @user.current_contracts
+    expect(current_contract.length).to eq(1)
+    current_contract = current_contract.first
+    no_contract_date = (current_contract.start_date + 1.month).end_of_month
+
+    time_sheet = FactoryGirl.build(:time_sheet,
+      contract: current_contract,
+      month: no_contract_date.month,
+      year: no_contract_date.year)
+
+    expect(time_sheet).to_not be_valid
+  end
+
+  it 'doesn\'t allow creation for months after end of contract' do
+    current_contract = @user.current_contracts.first
+    no_contract_date = (current_contract.start_date - 1.month).beginning_of_month
+
+    time_sheet = FactoryGirl.build(:time_sheet,
+      contract: current_contract,
+      month: no_contract_date.month,
+      year: no_contract_date.year)
+
+    expect(time_sheet).to_not be_valid
   end
 
   it 'sums up the right ammount of working minutes' do
