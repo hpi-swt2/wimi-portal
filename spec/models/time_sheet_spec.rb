@@ -27,22 +27,26 @@ require 'rails_helper'
 RSpec.describe TimeSheet, type: :model do
   before(:each) do
     @sheet = FactoryGirl.create(:time_sheet)
-    @user = @sheet.user
     @contract = @sheet.contract
-    @project = FactoryGirl.create(:project)
-    @user.projects << @project
+    @sheet.user.projects << FactoryGirl.create(:project)
     @time1 = Time.parse('10:00:00')
-    @time2 = Time.parse('11:00:00')
-    @time3 = Time.parse('12:00:00')
+    @time2 = @time1 + 1.hour
+    @time3 = @time1 + 2.hours
     @date1 = Date.new(@sheet.year, @sheet.month, 1)
     @date2 = Date.new(@sheet.year, @sheet.month, 10)
+  end
+
+  it 'sums up the right ammount of working minutes' do
+    FactoryGirl.create(:work_day, date: @date1, start_time: @time1, end_time: @time2, time_sheet: @sheet)
+    FactoryGirl.create(:work_day, date: @date2, start_time: @time2, end_time: @time3, time_sheet: @sheet)
+    # Using '-' on Time  objects results in the difference in seconds
+    expect(@sheet.sum_minutes).to eq((@time3-@time1)/1.minute)
   end
 
   it 'sums up the right ammount of working hours' do
     FactoryGirl.create(:work_day, date: @date1, start_time: @time1, end_time: @time2, time_sheet: @sheet)
     FactoryGirl.create(:work_day, date: @date2, start_time: @time2, end_time: @time3, time_sheet: @sheet)
-    
-    expect(@sheet.sum_hours).to eq(2)
+    expect(@sheet.sum_hours).to eq((@time3-@time1)/1.hour)
   end
 
   it 'generates the right amount of work days' do
