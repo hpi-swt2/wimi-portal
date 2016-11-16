@@ -14,7 +14,7 @@ describe 'time_sheets#show' do
     it 'does not have a withdraw button' do
       visit time_sheet_path(@time_sheet_new)
       
-      expect(page).to_not have_content('Withdraw')
+      expect(page).to_not have_content(I18n.t('helpers.links.withdraw'))
       expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.created"))
     end
   end
