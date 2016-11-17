@@ -10,7 +10,7 @@ before_script:
 - cp config/database.travis.yml config/database.yml
 - psql -c 'create database hpi_swt2_test;' -U postgres
 script:
-- bundle exec rake db:test:prepare
+- bundle exec rake db:create db:migrate
 - xvfb-run bundle exec rspec spec/
 notifications:
   email: false
