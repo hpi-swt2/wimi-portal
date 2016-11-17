@@ -29,8 +29,10 @@ describe 'time_sheets#edit' do
       FactoryGirl.create(:work_day, time_sheet: @time_sheet, date: Date.today.beginning_of_month)
       FactoryGirl.create(:work_day, time_sheet: @time_sheet, date: Date.today.beginning_of_month + 1.day)
       expect(@time_sheet.work_days.count).to eq(2)
+      expect(WorkDay.count).to eq(2)
 
       expect { find('#delete').click }.to change { TimeSheet.count }.from(1).to(0)
+      expect(WorkDay.count).to eq(0)
       # No flash error
       expect(page).to_not have_css('div.alert-danger')
     end
