@@ -175,8 +175,8 @@ en:
         one: project
         other: projects
       time_sheet:
-        one: timesheet
-        other: timesheets
+        one: time sheet
+        other: time sheets
       trip:
         one: business trip
         other: business trips
