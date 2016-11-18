@@ -23,7 +23,8 @@ class Contract < ActiveRecord::Base
   belongs_to :chair
   belongs_to :hiwi, class_name: 'User'
   belongs_to :responsible, class_name: 'User'
-  has_many :time_sheets, -> { order(year: :desc, month: :desc) }
+  # If a contract is deleted, delete all of its dependent time sheets
+  has_many :time_sheets, -> { order(year: :desc, month: :desc) }, dependent: :destroy
 
   validates_presence_of :start_date, :end_date, :chair, :hiwi, :responsible, :hours_per_week, :wage_per_hour
   validates :hours_per_week, numericality: {greater_than: 0}

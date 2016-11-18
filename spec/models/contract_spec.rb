@@ -17,19 +17,40 @@
 require 'rails_helper'
 
 RSpec.describe Contract, type: :model do
-  before(:each) do
-    @sheet = FactoryGirl.create(:time_sheet)
-    @user = @sheet.user
-    @contract = @sheet.contract
-  end
 
-  context("scope for_user_in_month") do
+  context "scope for_user_in_month" do
+    before(:each) do
+      @sheet = FactoryGirl.create(:time_sheet)
+      @user = @sheet.user
+      @contract = @sheet.contract
+    end
+
     it 'returns all contracts of a user in a given month and year' do
       contract1 = FactoryGirl.create(:contract, start_date: Date.new(2016,1), end_date: Date.new(2016,3,15), hiwi: @user)
       contract1 = FactoryGirl.create(:contract, start_date: Date.new(2016,3, 15), end_date: Date.new(2016,4), hiwi: @user)
 
       query = Contract.for_user_in_month(@user, 3, 2016)
       expect(query.size).to eq(2)
+    end
+  end
+
+  context "deleting" do
+    before(:each) do
+      @hiwi = FactoryGirl.create(:hiwi)
+      start_date = Date.today << 1
+      end_date = Date.today >> 5
+      @contract = FactoryGirl.create(:contract, hiwi: @hiwi, start_date: start_date, end_date: end_date)
+    end
+
+    it 'is possible to delete a contract without time_sheets' do
+      expect { @contract.destroy }.to change { Contract.count }.from(1).to(0)
+    end
+
+    it 'deleting a contract also deletes all of its time sheets' do
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, month: @contract.start_date.month)
+      expect(@contract.time_sheets.count).to eq(1)
+      expect { @contract.destroy }.to change { TimeSheet.count }.from(1).to(0)
+      expect(Contract.count).to eq(0)
     end
   end
 end
