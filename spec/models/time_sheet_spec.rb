@@ -63,17 +63,35 @@ RSpec.describe TimeSheet, type: :model do
     expect(time_sheet).to_not be_valid
   end
 
-  it 'sums up the right ammount of working minutes' do
-    FactoryGirl.create(:work_day, date: @date1, start_time: @time1, end_time: @time2, time_sheet: @sheet)
-    FactoryGirl.create(:work_day, date: @date2, start_time: @time2, end_time: @time3, time_sheet: @sheet)
-    # Using '-' on Time  objects results in the difference in seconds
-    expect(@sheet.sum_minutes).to eq((@time3-@time1)/1.minute)
+  it 'is possible to delete a time sheet without work days' do
+    expect { @sheet.destroy }.to change { TimeSheet.count }.from(1).to(0)
   end
 
-  it 'sums up the right ammount of working hours' do
-    FactoryGirl.create(:work_day, date: @date1, start_time: @time1, end_time: @time2, time_sheet: @sheet)
-    FactoryGirl.create(:work_day, date: @date2, start_time: @time2, end_time: @time3, time_sheet: @sheet)
-    expect(@sheet.sum_hours).to eq((@time3-@time1)/1.hour)
+  context "with connected work days" do
+    before(:each) do
+      FactoryGirl.create(:work_day, date: @date1, start_time: @time1, end_time: @time2, time_sheet: @sheet)
+      FactoryGirl.create(:work_day, date: @date2, start_time: @time2, end_time: @time3, time_sheet: @sheet)
+    end
+
+    it 'deleting a time sheet also deletes all of its work days' do
+      expect(@sheet.work_days.count).to eq(2)
+      expect { @sheet.destroy }.to change { WorkDay.count }.from(2).to(0)
+    end
+
+    it 'sums up the right ammount of working minutes' do
+      # Using '-' on Time  objects results in the difference in seconds
+      expect(@sheet.sum_minutes).to eq((@time3-@time1)/1.minute)
+    end
+
+    it 'sums up the right ammount of working hours' do
+      expect(@sheet.sum_hours).to eq((@time3-@time1)/1.hour)
+    end
+
+    it 'determines if a work day has comments' do
+      FactoryGirl.create(:work_day, time_sheet: @sheet, notes: '')
+      FactoryGirl.create(:work_day, time_sheet: @sheet, notes: 'Lorem')
+      expect(@sheet).to have_comments
+    end
   end
 
   it 'generates the right amount of work days' do
@@ -112,13 +130,6 @@ RSpec.describe TimeSheet, type: :model do
     expect(num_eq).to eq(@sheet.work_days.size)
   end
 
-  it 'determines if a work day has comments' do
-    workday1 = FactoryGirl.create(:work_day, time_sheet: @sheet, notes: '')
-    workday2 = FactoryGirl.create(:work_day, time_sheet: @sheet, notes: 'Lorem')
-
-    expect(@sheet).to have_comments
-  end
-
   context 'containsDate' do
     it 'returns true if the date lies within the month/year' do
       date = Date.today
@@ -126,13 +137,14 @@ RSpec.describe TimeSheet, type: :model do
     end
 
     it 'returns false if the date lies outside the month/year' do
-      date = Date.today >> 1 # 1 month after the current Date
+      date = Date.today + 1.month # 1 month after the current Date
       expect(@sheet.containsDate(date)).to be false
     end
 
     it 'takes the year into account' do
-      date = Date.today >> 12 # 1 year after the current date
+      date = Date.today + 1.year # 1 year after the current date
       expect(@sheet.containsDate(date)).to be false
     end
   end
+
 end
