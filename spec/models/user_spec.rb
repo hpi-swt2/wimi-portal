@@ -79,4 +79,16 @@ RSpec.describe User, type: :model do
   it 'is valid with no personnel_number' do
     expect(FactoryGirl.build(:user, personnel_number: nil)).to be_valid
   end
+
+  it 'returns whether a user has a contract for a given month' do
+    user = FactoryGirl.create(:user)
+    today = Date.today
+    start_date = today.beginning_of_month
+    end_date = today.end_of_month
+    contract = FactoryGirl.create(:contract, hiwi: user, start_date: start_date, end_date: end_date)
+    time_sheet = FactoryGirl.create(:time_sheet, contract: contract, month: today.month)
+
+    expect(user.has_contract_for(today.month, today.year)).to be true
+    expect(user.has_contract_for((today + 1.month).month, (today + 1.month).year)).to be false
+  end
 end
