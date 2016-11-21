@@ -14,6 +14,8 @@ RSpec.describe ChairsController, type: :controller do
   
   describe 'GET #index' do
     it 'shows index of all chairs' do
+      # If there is only a single chair, there is a redirect to the show page
+      FactoryGirl.create(:chair, description: 'A different chair')
       login_with @user
       get :index
 

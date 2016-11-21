@@ -11,7 +11,14 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = apply_scopes(@projects)
+    # If there is only one project available to view to a user and
+    # no permissions are available to create one (which is possible on the index page)
+    # then redirect directly to the show page of the only project.
+    if @projects.count == 1 and current_ability.cannot?(:new, Project)
+      redirect_to project_path(@projects.first)
+    else
+      @projects = apply_scopes(@projects)
+    end
   end
 
   def show
