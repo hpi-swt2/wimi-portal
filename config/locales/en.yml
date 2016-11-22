@@ -398,6 +398,9 @@ en:
       destroy: Delete %{model}
       edit: Edit %{model}
       new: New %{model}
+    timespan:
+      hours: "%{hours} hours"
+      hours_minutes: "%{hours} hours %{minutes} min"
   holiday:
     applied: Holiday is already applied
     created: Holiday was successfully created.
@@ -514,7 +517,6 @@ en:
       create_next_month: Create sheet for next month
       next_month: Show next month
       previous_month: Show previous month
-      time_format: "%{hours} hours %{minutes} minutes"
       total_work_time: Total time worked
     show_footer:
       accept: accept

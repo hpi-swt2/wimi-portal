@@ -398,6 +398,9 @@ de:
       destroy: "%{model} löschen"
       edit: "%{model} bearbeiten"
       new: "%{model} erstellen"
+    timespan:
+      hours: "%{hours} Std."
+      hours_minutes: "%{hours} Std. %{minutes} Min."
   holiday:
     applied: Urlaubsantrag bereits eingereicht
     created: Urlaub wurde erfolgreich erstellt.
@@ -514,7 +517,6 @@ de:
       create_next_month: Nächsten Monat erstellen
       next_month: Nächsten Monat anzeigen
       previous_month: Vorherigen Monat anzeigen
-      time_format: "%{hours} Stunden %{minutes} Minuten"
       total_work_time: Gesamtarbeitszeit
     show_footer:
       accept: Annehmen

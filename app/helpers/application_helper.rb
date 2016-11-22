@@ -85,4 +85,13 @@ module ApplicationHelper
   def linked_name(model)
     entity_link(model.name, model)
   end
+
+  def timespan_human(total_minutes)
+    h, m = total_minutes.divmod(60)
+    if m.zero?
+      I18n.t('helpers.timespan.hours', hours: h.to_i)
+    else
+      I18n.t('helpers.timespan.hours_minutes', hours: h.to_i, minutes: m.to_i)
+    end
+  end
 end

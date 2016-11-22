@@ -28,15 +28,15 @@
             </p>
           <% end %>
         <% end %>
-        <hr>
         <p>
           <strong><%= model_class.human_attribute_name(:handed_in) %>:</strong>
           <%= t @time_sheet.handed_in.to_s %> <%= "(#{l @time_sheet.hand_in_date})" if @time_sheet.hand_in_date %>
         </p>
+        <hr>
         <p>
-          <% total_time = @time_sheet.sum_minutes %>
+          <%# Amount of hours worked this month %>
           <strong><%= t('.total_work_time')%>:</strong>
-          <%= t('.time_format', hours: total_time / 60, minutes: total_time % 60) %>
+          <%= timespan_human(@time_sheet.sum_minutes) %>
         </p>
       </div>
     </div>
