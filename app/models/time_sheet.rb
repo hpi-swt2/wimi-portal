@@ -69,6 +69,18 @@ class TimeSheet < ActiveRecord::Base
     format("%d:%02d", hours, minutes)
   end
 
+  def monthly_work_minutes
+    self.contract.monthly_work_minutes
+  end
+
+  def percentage_hours_worked
+    if self.monthly_work_minutes
+      (self.sum_minutes / self.monthly_work_minutes)*100
+    else
+      self.monthly_work_minutes
+    end
+  end
+
   def first_day
     Date.new(year,month,1)
   end

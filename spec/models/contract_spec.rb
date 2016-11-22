@@ -53,4 +53,24 @@ RSpec.describe Contract, type: :model do
       expect(Contract.count).to eq(0)
     end
   end
+
+  context "calculating the amount of hours that need to be worked to fulfill the contract" do
+    before(:each) do
+      @contract = FactoryGirl.build(:contract, flexible: false, hours_per_week: 9)
+      @flexible_contract = FactoryGirl.build(:contract, flexible: true)
+    end
+
+    it "returns monthly hours for normal contracts" do
+      expect(@contract.monthly_work_hours).to eq(@contract.hours_per_week * Contract::WEEKS_PER_MONTH)
+    end
+
+    it "returns monthly minutes for normal contracts" do
+      expect(@contract.monthly_work_minutes).to eq(@contract.monthly_work_hours*60)
+    end
+
+    it "returns nil for flexible contracts" do
+      expect(@flexible_contract.monthly_work_hours).to be nil
+      expect(@flexible_contract.monthly_work_minutes).to be nil
+    end
+  end
 end

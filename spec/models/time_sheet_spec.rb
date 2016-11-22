@@ -63,6 +63,14 @@ RSpec.describe TimeSheet, type: :model do
     expect(time_sheet).to_not be_valid
   end
 
+  it 'allows calling #monthly_work_minutes on time sheets, delegating to contract' do
+    expect(@sheet.monthly_work_minutes).to eq(@sheet.contract.monthly_work_minutes)
+  end
+
+  it 'returns the percentage (range 0-100) of hours required by the contract' do
+    expect(@sheet.percentage_hours_worked).to eq(0)
+  end
+
   it 'is possible to delete a time sheet without work days' do
     expect { @sheet.destroy }.to change { TimeSheet.count }.from(1).to(0)
   end
@@ -78,7 +86,7 @@ RSpec.describe TimeSheet, type: :model do
       expect { @sheet.destroy }.to change { WorkDay.count }.from(2).to(0)
     end
 
-    it 'sums up the right ammount of working minutes' do
+    it 'sums up the right amount of working minutes' do
       # Using '-' on Time  objects results in the difference in seconds
       expect(@sheet.sum_minutes).to eq((@time3-@time1)/1.minute)
     end

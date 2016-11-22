@@ -38,6 +38,21 @@
           <strong><%= t('.total_work_time')%>:</strong>
           <%= timespan_human(@time_sheet.sum_minutes) %>
         </p>
+        <% monthly_minutes = @time_sheet.monthly_work_minutes %>
+        <% if monthly_minutes %>
+          <p>
+            <%# Amount of hours required by the contract per month %>
+            <strong><%= t('.expected_work_time') %>:</strong>
+            <%= timespan_human(monthly_minutes) %>
+            (<%= number_to_percentage(@time_sheet.percentage_hours_worked, precision: 0) %>
+            <%= t('.achieved') %>)
+          </p>
+          <p>
+            <%# Amount of hours that still need to be worked this month %>
+            <strong><%= t('.open_work_time') %>:</strong>
+            <%= timespan_human(monthly_minutes - @time_sheet.sum_minutes) %>
+          </p>
+        <% end %>
       </div>
     </div>
     <%= render partial: 'form', locals: {readonly: true, disable_date: true} %>

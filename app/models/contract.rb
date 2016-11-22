@@ -30,6 +30,10 @@ class Contract < ActiveRecord::Base
   validates :hours_per_week, numericality: {greater_than: 0}
   validates :wage_per_hour, numericality: {greater_than: 0}
 
+  # For the purpose of calculating the monthly amount
+  # of hours in a contract, the month has 4.5 weeks
+  WEEKS_PER_MONTH = 4.5
+
   def time_sheet(month, year)
     d_start = Date.new(year, month).at_beginning_of_month
     d_end = d_start.at_end_of_month
@@ -54,4 +58,11 @@ class Contract < ActiveRecord::Base
     name
   end
 
+  def monthly_work_hours
+    self.flexible ? nil : self.hours_per_week * WEEKS_PER_MONTH
+  end
+
+  def monthly_work_minutes
+    self.monthly_work_hours ? self.monthly_work_hours * 60 : self.monthly_work_hours
+  end
 end
