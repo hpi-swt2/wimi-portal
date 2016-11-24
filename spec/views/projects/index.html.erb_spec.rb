@@ -60,10 +60,15 @@ RSpec.describe 'projects/index', type: :view do
   end
 
   it 'shows all details about a project' do
+    # In case of only a single project, projects_path redirects to
+    # that project's project#show page.
     project = FactoryGirl.create(:project, chair: @chair)
     project.users << @user
+    another_project = FactoryGirl.create(:project, chair: @chair)
+    another_project.users << @user
     visit projects_path
 
+    expect(page).to have_current_path(projects_path)
     expect(page).to have_content(project.title)
     expect(page).to have_content(@chair.name)
     expect(page).to have_content(I18n.t('projects.index.status_true'))

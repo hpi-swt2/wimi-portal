@@ -21,27 +21,18 @@
         <% end %>
 
         <%# Project overview %>
-        <% projects = Project.accessible_by(current_ability) %>
-        <% if projects.count > 1 or can? :new, Project %>
+        <% if can? :index, Project %>
           <%= menu_item t('activerecord.models.project.other').titleize, projects_path %>
-        <% elsif projects.count == 1 %>
-          <%= menu_item t('activerecord.models.project.one').titleize, project_path(projects.first) %>
         <% end %>
 
         <%# Chair links %>
-        <% chairs = Chair.accessible_by(current_ability) %>
-        <% if chairs.count > 1 or can? :new, Chair %>
+        <% if can? :index, Chair %>
           <%= menu_item t('activerecord.models.chair.other').titleize, chairs_path %>
-        <% elsif chairs.count == 1 %>
-          <%= menu_item t('activerecord.models.chair.one').titleize, chair_path(chairs.first) %>
         <% end %>
 
         <%# Contract overview %>
-        <% contracts = Contract.accessible_by(current_ability, :show) %>
-        <% if contracts.count > 1 or can? :new, Contract %>
+        <% if can? :index, Contract %>
           <%= menu_item t('activerecord.models.contract.other').titleize, contracts_path %>
-        <% elsif contracts.count == 1 %>
-          <%= menu_item t('activerecord.models.contract.one').titleize, contract_path(contracts.first) %>
         <% end %>
 
         <%# Language switcher %>

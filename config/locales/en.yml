@@ -522,11 +522,11 @@ en:
       achieved: achieved
       open_work_time: Open hours
     show_footer:
-      accept: accept
+      accept: Accept
       accepted: accepted
       accepted_by: Accepted by
       acceptence_requested_at: 'acceptence requested at: '
-      add_signature: Add signature
+      add_signature: Add Signature
       at: At
       by: by
       document_was: Document was
@@ -536,7 +536,7 @@ en:
       new: new
       not: not
       pending: pending
-      reject: reject
+      reject: Reject
       reject_reason: Rejection reason
       rejected: rejected
       rejected_by: Rejected by

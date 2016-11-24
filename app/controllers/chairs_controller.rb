@@ -13,6 +13,12 @@ class ChairsController < ApplicationController
   end
 
   def index
+    # If there is only one chair available to view to a user and
+    # no permissions are available to create one (which is possible on the index page)
+    # then redirect directly to the show page of the only chair.
+    if @chairs.count == 1 and current_ability.cannot?(:new, Chair)
+      redirect_to chair_path(@chairs.first)
+    end
   end
 
   # Superadmin tasks:

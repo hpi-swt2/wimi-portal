@@ -6,6 +6,17 @@ class ContractsController < ApplicationController
     redirect_to contracts_path
   end
 
+  def index
+    # @contracts = Contract.accessible_by(current_ability, :index)
+    @contracts = Contract.all.order(end_date: :desc).select {|c| can? :index, c}
+    # If there is only one contract available to view to a user and
+    # no permissions are available to create one (which is possible on the index page)
+    # then redirect directly to the show page of the only contract.
+    if @contracts.count == 1 and current_ability.cannot?(:new, Contract)
+      redirect_to contract_path(@contracts.first)
+    end
+  end
+
   def new
     @contract = Contract.new
   end
