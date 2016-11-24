@@ -517,7 +517,7 @@ en:
       time_format: "%{hours} hours %{minutes} minutes"
       total_work_time: Total time worked
     show_footer:
-      accept: accept
+      accept: Accept
       accepted: accepted
       accepted_by: Accepted by
       acceptence_requested_at: 'acceptence requested at: '
@@ -531,7 +531,7 @@ en:
       new: new
       not: not
       pending: pending
-      reject: reject
+      reject: Reject
       reject_reason: Rejection reason
       rejected: rejected
       rejected_by: Rejected by
