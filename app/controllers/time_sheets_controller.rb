@@ -66,32 +66,32 @@ class TimeSheetsController < ApplicationController
       end
       @time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
       ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
-      redirect_to time_sheets_path
+      flash[:success] = t('.flash')
+      redirect_to time_sheet_path(@time_sheet)
     end
   end
 
   def withdraw
     @time_sheet.update(status: 'created', handed_in: false)
+    flash[:success] = t('.flash')
     redirect_to time_sheet_path(@time_sheet)
   end
 
   def accept
-#    time_sheet = TimeSheet.find(params[:id])
     @time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id, representative_signature: current_user.signature, representative_signed_at: Date.today)
     ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
-    redirect_to dashboard_path
+    redirect_to time_sheet_path(@time_sheet)
   end
 
   def reject
-#    time_sheet = TimeSheet.find(params[:id])
     @time_sheet.update(status: 'rejected', handed_in: false, last_modified: Date.today, signer: current_user.id)
     ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetDeclined')
-    redirect_to dashboard_path
+    redirect_to time_sheet_path(@time_sheet)
   end
 
   def update
     if @time_sheet.update(time_sheet_params)
-      flash[:success] = 'Time Sheet was successfully updated.'
+      flash[:success] = t('helpers.flash.updated', model: @time_sheet.model_name.human.capitalize)
       redirect_to time_sheet_path(@time_sheet)
     else
       @time_sheet.generate_missing_work_days
@@ -101,12 +101,17 @@ class TimeSheetsController < ApplicationController
   end
 
   def accept_reject
-    if params[:commit] == I18n.t('time_sheets.show_footer.reject')
-      @time_sheet.update(time_sheet_params)
-      reject
-    else
-      @time_sheet.update(wimi_signed: time_sheet_params[:wimi_signed])
-      accept
+    case params[:time_sheet_action]
+      when 'reject'
+        @time_sheet.update(time_sheet_params)
+        flash[:success] = t('.flash.rejected')
+        reject
+      when 'accept'
+        @time_sheet.update(wimi_signed: time_sheet_params[:wimi_signed])
+        flash[:success] = t('.flash.accepted')
+        accept
+      else
+        raise CanCan::AccessDenied
     end
   end
 

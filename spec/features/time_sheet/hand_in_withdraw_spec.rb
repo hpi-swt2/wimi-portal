@@ -11,12 +11,11 @@ describe 'time_sheet#show' do
   end
 
   it 'is possible to hand in an (empty) time sheet as a HiWi' do
-    pending "Skipped until #502 is implemented"
-
     visit time_sheet_path(@time_sheet)
+    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.hand_in'))
     click_on I18n.t('helpers.links.hand_in')
     expect(page).to have_current_path(time_sheet_path(@time_sheet))
-    expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.accepted"))
+    expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.pending"))
     expect(page).to have_success_flash_message
     expect(page).to_not have_danger_flash_message
   end
@@ -28,9 +27,8 @@ describe 'time_sheet#show' do
   end
 
   it 'is possible to withdraw a handed in time sheet' do
-    pending "Skipped until #502 is implemented"
-
     visit time_sheet_path(@time_sheet_handed_in)
+    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.withdraw'))
     click_on I18n.t('helpers.links.withdraw')
     expect(page).to have_current_path(time_sheet_path(@time_sheet_handed_in))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.created"))

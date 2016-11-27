@@ -542,6 +542,14 @@ en:
       rejected_by: Rejected by
       signed: signed
       status: 'status: '
+    accept_reject:
+      flash:
+        rejected: Time sheet was successfully rejected
+        accepted: Time sheet was successfully accepted
+    hand_in:
+      flash: Time sheet was successfully handed in
+    withdraw:
+      flash: Time sheet was successfully withdrawn
   trip:
     applied: Trip is already applied
     destroyed: Trip was successfully destroyed

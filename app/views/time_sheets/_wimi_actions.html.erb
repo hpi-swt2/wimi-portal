@@ -22,7 +22,7 @@
         <% if current_user.signature.nil? %>
           <%= t('signature_warning') %>
           <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/><br/>
-          <%= f.submit t('accept', scope: i18nscope), class: 'btn btn-success btn-block', disabled: "disabled" %>
+          <%= f.button t('accept', scope: i18nscope), name: 'time_sheet_action', value: 'accept', class: 'btn btn-success btn-block', disabled: "disabled" %>
         <%# else render buttons normally %>
         <% else %>
           <%# sign check box %>
@@ -30,7 +30,7 @@
             <%= f.check_box :wimi_signed %>
             <%= f.label t('add_signature', scope: i18nscope) %>
           </div>
-          <%= f.submit t('accept', scope: i18nscope), class: 'btn btn-success btn-block' %>
+          <%= f.button t('accept', scope: i18nscope), name: 'time_sheet_action', value: 'accept', class: 'btn btn-success btn-block' %>
         <% end %>
       </div>
     </div>
@@ -44,6 +44,6 @@
         </div>
       </div>
     </div>
-    <%= f.submit t('reject', scope: i18nscope), class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
+    <%= f.button t('reject', scope: i18nscope), name: 'time_sheet_action', value: 'reject', class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
   <% end %>
 <% end %>

@@ -542,6 +542,14 @@ de:
       rejected_by: Abgelehnt von
       signed: unterschrieben
       status: 'Status: '
+    accept_reject:
+      flash:
+        rejected: Stundenzettel wurde erfolgreich abgelehnt
+        accepted: Stundenzettel wurde erfolgreich angenommen
+    hand_in:
+      flash: Stundenzettel wurde erfolgreich eingereicht
+    withdraw:
+      flash: Stundenzettel wurde erfolgreich zurückgenommen
   trip:
     applied: Dienstreiseantrag bereits eingereicht
     destroyed: Dienstreiseantrag wurde erfolgreich gelöscht

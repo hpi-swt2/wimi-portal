@@ -4,17 +4,16 @@ describe 'time_sheet#show' do
   before :each do
     @hiwi = FactoryGirl.create(:hiwi)
     @wimi = FactoryGirl.create(:wimi).user
+    @wimi.update_attribute(:signature, 'wimi_signature')
     @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
     @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, handed_in: true, status: 'pending')
     login_as @wimi
   end
 
   it 'is possible to accept a time sheet' do
-    pending "Skipped until #502 is implemented"
-
     visit time_sheet_path(@time_sheet)
-    expect(page).to have_content(I18n.t('time_sheets.show_footer.accept'))
-    find('input[value="accept"]').click
+    expect(page).to have_selector(:link_or_button, I18n.t('time_sheets.show_footer.accept'))
+    click_on I18n.t('time_sheets.show_footer.accept')
     expect(page).to have_current_path(time_sheet_path(@time_sheet))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.accepted"))
     expect(page).to have_success_flash_message
@@ -34,10 +33,9 @@ describe 'time_sheet#show' do
   end
 
   it 'is possible to reject a time sheet' do
-    pending "Skipped until #502 is implemented"
-
     visit time_sheet_path(@time_sheet)
-    find('input[value="reject"]').click
+    expect(page).to have_selector(:link_or_button, I18n.t('time_sheets.show_footer.reject'))
+    click_on I18n.t('time_sheets.show_footer.reject')
     expect(page).to have_current_path(time_sheet_path(@time_sheet))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.rejected"))
     expect(page).to have_success_flash_message
