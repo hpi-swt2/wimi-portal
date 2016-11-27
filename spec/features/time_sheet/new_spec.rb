@@ -25,7 +25,7 @@ describe 'Using time_sheets#new' do
     fill_in "time_sheet_year", with: after_contract_end.year
     find('#hiddensubmit').click
 
-    expect(page).to have_css('div.alert-danger')
+    expect(page).to have_danger_flash_message
     expect(page).to have_current_path(new_contract_time_sheet_path(@contract))
   end
 
@@ -36,7 +36,7 @@ describe 'Using time_sheets#new' do
     fill_in "time_sheet_year", with: before_contract_start.year
     find('#hiddensubmit').click
 
-    expect(page).to have_css('div.alert-danger')
+    expect(page).to have_danger_flash_message
     expect(page).to have_current_path(new_contract_time_sheet_path(@contract))
   end
 end

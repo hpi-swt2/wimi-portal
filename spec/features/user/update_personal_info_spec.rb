@@ -15,7 +15,7 @@ feature 'user#edit' do
     fill_in('Zip Code', with: new_zip)
     fill_in('City', with: new_city)
     find('input[type="submit"]').click
-    expect(page).to have_css('div.alert-success')
+    expect(page).to have_success_flash_message
     expect(page).to have_content new_street
     expect(page).to have_content new_zip
     expect(page).to have_content new_street
