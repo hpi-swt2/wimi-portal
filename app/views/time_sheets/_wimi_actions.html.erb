@@ -1,8 +1,8 @@
 <% i18nscope = 'time_sheets.show_footer' %>
 
-<!-- wimi can accept time sheet here -->
+<%# wimi can accept time sheet here %>
 <% if @time_sheet.status.include? 'pending' %>
-  <!-- signed by hiwi status -->
+  <%# signed by hiwi status %>
   <div class="row">
     <div class="col-md-12">
       <%= t('document_was', scope: i18nscope) %>
@@ -12,20 +12,20 @@
       <%= t('signed', scope: i18nscope) %>
     </div>
   </div>
-  <!-- form for accepting time sheet -->
+  <%# form for accepting time sheet %>
   <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
 
-    <!-- accept button -->
+    <%# accept button %>
     <div class="row">
       <div class="col-md-12">
-        <!-- if user has not set a signature: promt him here and disable button -->
+        <%# if user has not set a signature: prompt him here and disable button %>
         <% if current_user.signature.nil? %>
           <%= t('signature_warning') %>
           <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/><br/>
           <%= f.submit t('accept', scope: i18nscope), class: 'btn btn-success btn-block', disabled: "disabled" %>
-        <!-- else render buttons normally -->
+        <%# else render buttons normally %>
         <% else %>
-          <!-- sign check box -->
+          <%# sign check box %>
           <div class="control-group" style="text-align: center;">
             <%= f.check_box :wimi_signed %>
             <%= f.label t('add_signature', scope: i18nscope) %>
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <!-- reject message and button-->
+    <%# reject message and button %>
     <div class="row vertical-align">
       <div class='col-sm-12'>
         <div class="form-group">
