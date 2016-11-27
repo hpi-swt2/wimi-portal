@@ -1,22 +1,9 @@
 <% if not flash.empty? %>
   <div class="row">
     <div class="col-md-12 novertpadding">
-      <div class="col-md-8 flash-message">
-        <% if flash[:error] %>
-          <div class="alert alert-danger" style="<%= style if defined? style %>">
-            <%= raw flash[:error] %>
-          </div>
-        <% end %>
-        <% if flash[:success] %>
-          <div class="alert alert-success" style="<%= style if defined? style %>">
-            <%= flash[:success] %>
-          </div>
-        <% end %>
-        <% if flash[:notice] %>
-          <div class="alert alert-warning" style="<%= style if defined? style %>">
-            <%= flash[:notice] %>
-          </div>
-        <% end %>
+      <div class="col-md-8">
+        <%# https://github.com/seyhunak/twitter-bootstrap-rails#flash-helper %>
+        <%= bootstrap_flash %>
       </div>
     </div>
   </div>
