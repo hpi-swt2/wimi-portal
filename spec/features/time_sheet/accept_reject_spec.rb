@@ -17,8 +17,8 @@ describe 'time_sheet#show' do
     find('input[value="accept"]').click
     expect(page).to have_current_path(time_sheet_path(@time_sheet))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.accepted"))
-    expect(page).to have_css('div.alert-success')
-    expect(page).to_not have_css('div.alert-danger')
+    expect(page).to have_success_flash_message
+    expect(page).to_not have_danger_flash_message
   end
 
   it 'there are no accept / reject buttons for an accepted time sheet' do
@@ -40,8 +40,8 @@ describe 'time_sheet#show' do
     find('input[value="reject"]').click
     expect(page).to have_current_path(time_sheet_path(@time_sheet))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.rejected"))
-    expect(page).to have_css('div.alert-success')
-    expect(page).to_not have_css('div.alert-danger')
+    expect(page).to have_success_flash_message
+    expect(page).to_not have_danger_flash_message
   end
 
   it 'there are no accept / reject buttons for a rejected time sheet' do

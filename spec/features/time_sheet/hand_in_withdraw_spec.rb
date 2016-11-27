@@ -17,8 +17,8 @@ describe 'time_sheet#show' do
     click_on I18n.t('helpers.links.hand_in')
     expect(page).to have_current_path(time_sheet_path(@time_sheet))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.accepted"))
-    expect(page).to have_css('div.alert-success')
-    expect(page).to_not have_css('div.alert-danger')
+    expect(page).to have_success_flash_message
+    expect(page).to_not have_danger_flash_message
   end
 
   it 'there is no button to hand in an already handed in time sheet' do
@@ -34,8 +34,8 @@ describe 'time_sheet#show' do
     click_on I18n.t('helpers.links.withdraw')
     expect(page).to have_current_path(time_sheet_path(@time_sheet_handed_in))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.created"))
-    expect(page).to have_css('div.alert-success')
-    expect(page).to_not have_css('div.alert-danger')
+    expect(page).to have_success_flash_message
+    expect(page).to_not have_danger_flash_message
   end
 
   it 'a not handed in time sheet does not have a withdraw button' do
