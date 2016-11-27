@@ -2,6 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require 'codeclimate-test-reporter'
 require_relative 'support/controller_helpers'
+require_relative 'support/feature_helpers'
 require 'devise'
 require 'database_cleaner'
 # require 'factory_girl_rails'

@@ -9,7 +9,7 @@ feature 'Login' do
     @routes.each do |route|
       visit route
       expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_css('div.alert-danger')
+      expect(page).to have_danger_flash_message
     end
   end
 
@@ -20,7 +20,7 @@ feature 'Login' do
       current_user.update_attribute(:email, 'invalid_email')
       @routes.each do |route|
         visit route
-        expect(page).to have_css('div.alert-danger')
+        expect(page).to have_danger_flash_message
         expect(page).to have_content 'Please set a valid email address first'
       end
     end
@@ -37,7 +37,7 @@ feature 'Login' do
       fill_in 'user_password', with: @user.password
       click_on I18n.t('users.external_login.login')
 
-      expect(page).to_not have_css('div.alert-danger')
+      expect(page).to_not have_danger_flash_message
       @routes.each do |route|
         visit route
         expect(page).to have_content I18n.t('helpers.application_tabs.logout')
@@ -48,7 +48,7 @@ feature 'Login' do
       fill_in 'user_username', with: @user.username
       fill_in 'user_password', with: @user.password + '_wrong'
       click_on I18n.t('users.external_login.login')
-      expect(page).to have_css('div.alert-danger')
+      expect(page).to have_danger_flash_message
       expect(page).to have_current_path(external_login_path)
     end
   end

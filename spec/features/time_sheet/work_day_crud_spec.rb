@@ -23,7 +23,7 @@ describe 'time_sheets#edit' do
 
     find('#hiddensubmit').click
     # No flash error
-    expect(page).to_not have_css('div.alert-danger')
+    expect(page).to_not have_danger_flash_message
     expect(page).to have_content(start_time)
     expect(page).to have_content(break_duration)
     expect(page).to have_content(end_time)
@@ -64,7 +64,7 @@ describe 'time_sheets#edit' do
 
       find('#hiddensubmit').click
       # No flash error
-      expect(page).to_not have_css('div.alert-danger')
+      expect(page).to_not have_danger_flash_message
       expect(page).to have_current_path(time_sheet_path(@time_sheet_new))
       expect(page).to_not have_content(@work_day.notes)
     end
@@ -90,7 +90,7 @@ describe 'time_sheets#edit' do
 
       find('#hiddensubmit').click
       # No flash error
-      expect(page).to_not have_css('div.alert-danger')
+      expect(page).to_not have_danger_flash_message
       expect(page).to have_content(start_time)
       expect(page).to have_content(break_duration)
       expect(page).to have_content(end_time)
@@ -111,7 +111,7 @@ describe 'time_sheets#edit' do
 
       find('#hiddensubmit').click
       # flash error
-      expect(page).to have_css('div.alert-danger')
+      expect(page).to have_danger_flash_message
       # redirect to timesheet#update
       expect(page).to have_current_path(time_sheet_path(@time_sheet_new))
     end

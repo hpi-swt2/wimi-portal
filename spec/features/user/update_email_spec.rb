@@ -19,6 +19,6 @@ describe 'updating email address' do
     fill_in :user_email, with: 'invalid mail'
     click_button 'Save'
     expect(page).to have_content(I18n.t('users.no_email'))
-    expect(page).to have_css('div.alert-danger')
+    expect(page).to have_danger_flash_message
   end
 end
