@@ -32,36 +32,40 @@
   </div>
 </div>
 
-<% if @user == current_user %>
-  <% content_for :sidebar do %>
-    <% if can? :upload_signature, @user %>
-    <!-- Signature -->
-    <div class="col-md-12">
-      <div class="display">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4><%= t('.signature') %></h4>
-          </div>
-          <div class="panel-body">
-              <b><%= t('.warning') %></b><br/>
-            <% if current_user.signature.nil? %>
-              <%= t('.information') %>
-              <p>
-                <%= form_tag({action: :upload_signature}, multipart: true) do %>
-                  <%= file_field 'upload', 'datafile' %><br/>
-                  <%= submit_tag t('helpers.links.upload') %>
-                <% end %>
-              </p>
-            <% else %>
+<% content_for :sidebar do %>
+  <% if can? :edit, @user %>
+  <!-- Signature -->
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><%= t('.signature') %></h4>
+        </div>
+        <div class="panel-body">
+          <%= content_tag :p, t('.warning') %>
+          <% if current_user.signature.nil? %>
+            <%= t('.information') %>
+            <p>
+              <%= form_tag({action: :upload_signature}, multipart: true) do %>
+                <%= file_field 'upload', 'datafile', class: 'btn btn-block btn-default' %><br/>
+                <%= submit_tag t('helpers.links.upload'), class: 'btn btn-block btn-primary' %>
+              <% end %>
+            </p>
+          <% else %>
+            <p class="text-center">
               <% path = 'data:image/png;base64,' << current_user.signature %>
-              <p><img src="<%= path %>" width="150" height="50"/></p><br/>
-              <%= link_to I18n.t('helpers.titles.destroy', model: t('.signature')), delete_signature_path(current_user), method: :post, data: {confirm: t('helpers.links.confirm')}, class: 'btn btn-danger btn-xs' %>
-            <% end %>
-          </div>
+              <img src="<%= path %>" width="50%"/>
+            </p>
+            <%= link_to I18n.t('helpers.titles.destroy', model: model_class.human_attribute_name(:signature)),
+                  delete_signature_path(current_user),
+                  method: :post,
+                  data: {confirm: t('helpers.links.confirm_delete', model: model_class.human_attribute_name(:signature))},
+                  class: 'btn btn-block btn-danger' %>
+          <% end %>
         </div>
       </div>
     </div>
-    <% end %>
+  </div>
   <% end %>
 <% end %>
 

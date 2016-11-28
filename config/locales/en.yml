@@ -105,6 +105,7 @@ en:
         reset_password_token: Reset Password Token
         street: Street
         zip_code: Zip Code
+        signature: Signature
       work_day:
         attendance: Attendance
         attendance_options:
@@ -609,7 +610,7 @@ en:
       business_trips: Business Trips
       days: Day(s)
       holiday_requests: Holiday Requests
-      information: Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer
+      information: Please choose a *.bmp, *.jpeg, *.jpg or *.png file
       password: Change Password
       remaining_leave: 'Remaining Leave: %{leave} Day(s)'
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
@@ -623,7 +624,7 @@ en:
         saved: Saved
       update_password: Update Password
       user_data: User Data
-      warning: 'ATTENTION: Be aware that your signature will be stored as an image and not be encrypted additionally!'
+      warning: 'ATTENTION: Your signature will be stored as an image and not be encrypted additionally.'
       warning_label: Warning! Your remaining leave from %{last_year} expires March 31, %{year}!
     update:
       user_updated: Profile was updated successfully
