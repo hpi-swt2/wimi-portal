@@ -41,4 +41,29 @@ describe 'time_sheet#show' do
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.created"))
     expect(page).to_not have_selector(:link_or_button, I18n.t('helpers.links.withdraw'))
   end
+
+  it 'renders information on HiWi signature in the main panel for handed in sheets' do
+    visit time_sheet_path(@time_sheet_handed_in)
+    within '#main-content' do
+      html = I18n.t('time_sheets.show.hiwi_signed_false_html')
+      expect(page.body).to include(html)
+    end
+    @time_sheet_handed_in.update_attributes(user_signature: 'sig', signed: true, user_signed_at: Date.today)
+    visit time_sheet_path(@time_sheet_handed_in)
+    within '#main-content' do
+      html = I18n.t('time_sheets.show.hiwi_signed_true_html')
+      expect(page.body).to include(html)
+    end
+  end
+
+  it 'does not render information on HiWi signature in the main panel for not handed in sheets' do
+    visit time_sheet_path(@time_sheet)
+    within '#main-content' do
+      false_html = I18n.t('time_sheets.show.hiwi_signed_false_html')
+      expect(page.body).to_not include(false_html)
+      true_html = I18n.t('time_sheets.show.hiwi_signed_true_html')
+      expect(page.body).to_not include(true_html)
+    end
+  end
+
 end
