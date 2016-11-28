@@ -45,8 +45,6 @@ feature 'Login' do
     end
       
     it 'should not login a user with wrong credentials' do
-      pending "skipped until double display of flash message is fixed in devise views"
-
       fill_in 'user_username', with: @user.username
       fill_in 'user_password', with: @user.password + '_wrong'
       click_on I18n.t('users.external_login.login')
