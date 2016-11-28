@@ -65,8 +65,6 @@ describe 'time_sheets#show' do
     end
 
     it 'does not display a table of work_days if none are available' do
-      pending "Skipped until #513 is implemented"
-
       within('#main-content') do
         expect(page).to_not have_css('table')
         expect(page).to_not have_css('tr')
@@ -74,10 +72,8 @@ describe 'time_sheets#show' do
     end
 
     it 'displays a message that no work_days have been entered yet' do
-      pending "Skipped until #513 is implemented"
-
       within('#main-content') do
-        expect(page).to have_content('No work days were entered yet.')
+        expect(page).to have_content(I18n.t('time_sheets.form.empty_work_days'))
       end
     end
   end

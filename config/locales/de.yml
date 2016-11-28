@@ -513,6 +513,7 @@ de:
   time_sheets:
     form:
       note_placeholder: Notiz hinzufügen
+      empty_work_days: Keine Arbeitsstunden vorhanden
     show:
       create_next_month: Nächsten Monat erstellen
       next_month: Nächsten Monat anzeigen

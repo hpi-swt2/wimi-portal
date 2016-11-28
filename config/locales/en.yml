@@ -513,6 +513,7 @@ en:
   time_sheets:
     form:
       note_placeholder: Add a note
+      empty_work_days: No work days present
     show:
       create_next_month: Create sheet for next month
       next_month: Show next month
