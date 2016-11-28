@@ -37,4 +37,15 @@ describe 'time_sheets#show' do
     expect(page).to have_content(I18n.t('helpers.timespan.hours',
       hours: @expected_monthly_work_time - @work_hours))
   end
+
+  it 'displays a table of work_days if work_days are available' do
+    within('#main-content') do
+      expect(page).to have_css('table', count: 1)
+      # table header is als a <tr> element
+      expect(page).to have_css('table tr', count: WorkDay.count + 1)
+      expect(page).to have_css('table tr th', minimum: 1)
+      expect(page).to have_css('table tr td', minimum: 1)
+    end
+  end
+
 end
