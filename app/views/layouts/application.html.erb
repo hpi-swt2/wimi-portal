@@ -14,12 +14,12 @@
         <%= render 'shared/flash_messages' %>
         <div class="row">
           <div class="col-md-12 novertpadding">
-            <div class="col-md-8 wrapper-large">
+            <div class="col-md-8" id="main-content">
               <div class="row">
                 <%= yield %>
               </div>
             </div>
-            <div class="col-md-4 wrapper-small">
+            <div class="col-md-4" id="sidebar-content">
               <div class="row">
                 <%= yield :sidebar%>
               </div>
