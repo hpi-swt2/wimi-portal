@@ -172,13 +172,13 @@ $( document ).ready(function() {
       <% else %>
       <table class="table table-hover">
         <tr>
-          <th colspan="2"><%= t('activerecord.attributes.work_day.date') %></th>
-          <th><%= t('activerecord.attributes.work_day.start_time') %></th>
-          <th><%= t('activerecord.attributes.work_day.break') %></th>
-          <th><%= t('activerecord.attributes.work_day.end_time') %></th>
-          <th><%= t('activerecord.attributes.work_day.notes') %></th>
-          <th style="width:200px;"><%= t('activerecord.attributes.work_day.project') %></th>
-          <th><%= t('activerecord.attributes.work_day.attendance') %></th>
+          <%= content_tag :th, WorkDay.human_attribute_name(:date), colspan: 2 %>
+          <%= content_tag :th, WorkDay.human_attribute_name(:start_time) %>
+          <%= content_tag :th, WorkDay.human_attribute_name(:break) %>
+          <%= content_tag :th, WorkDay.human_attribute_name(:end_time) %>
+          <%= content_tag :th, WorkDay.human_attribute_name(:notes) %>
+          <%= content_tag :th, WorkDay.human_attribute_name(:project), style: 'width:200px;' %>
+          <%= content_tag :th, WorkDay.human_attribute_name(:attendance) %>
         </tr>
         <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
           <tr class="work_day_tr">
