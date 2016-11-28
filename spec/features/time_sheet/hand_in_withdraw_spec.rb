@@ -42,6 +42,25 @@ describe 'time_sheet#show' do
     expect(page).to_not have_selector(:link_or_button, I18n.t('helpers.links.withdraw'))
   end
 
+  # https://github.com/hpi-swt2/wimi-portal/issues/511
+  it 'is possible to sign the sheet as a HiWi when handing in' do
+    @hiwi.update_attribute(:signature, 'hiwi_signature')
+    visit time_sheet_path(@time_sheet)
+    expect(page).to have_selector(:checkbox, I18n.t('time_sheets.hand_in.add_signature'))
+    check I18n.t('time_sheets.hand_in.add_signature')
+    click_on I18n.t('helpers.links.hand_in')
+    expect(page).to have_content(I18n.t('time_sheets.show.hiwi_signed_true_html'))
+  end
+
+  # https://github.com/hpi-swt2/wimi-portal/issues/511
+  it 'is not possible to sign a sheet as a HiWi if no signature is present' do
+    @hiwi.update_attribute(:signature, nil)
+    visit time_sheet_path(@time_sheet)
+    expect(page).to have_selector(:checkbox, I18n.t('time_sheets.hand_in.add_signature'), disabled: true)
+    click_on I18n.t('helpers.links.hand_in')
+    expect(page.body).to include(I18n.t('time_sheets.show.hiwi_signed_false_html'))
+  end
+
   it 'renders information on HiWi signature in the main panel for handed in sheets' do
     visit time_sheet_path(@time_sheet_handed_in)
     within '#main-content' do

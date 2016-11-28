@@ -61,15 +61,19 @@ describe 'time_sheet#show' do
       @time_sheet.update_attributes(signed: true)
       visit time_sheet_path(@time_sheet)
       click_on I18n.t('time_sheets.show_footer.reject')
-      login_as @hiwi
-      visit time_sheet_path(@time_sheet)
     end
 
     it 'is possible without adding a signature ' do
+      login_as @hiwi
+      visit time_sheet_path(@time_sheet)
       click_on I18n.t('helpers.links.hand_in')
     end
 
     it 'is possible to re-add the signature ' do
+      # can only add signature if a signature is set
+      @hiwi.update_attribute(:signature, 'hiwi_signature')
+      login_as @hiwi
+      visit time_sheet_path(@time_sheet)
       check(I18n.t('time_sheets.show_footer.add_signature'))
       click_on I18n.t('helpers.links.hand_in')
     end
