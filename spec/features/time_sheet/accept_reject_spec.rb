@@ -53,4 +53,29 @@ describe 'time_sheet#show' do
     expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.show_footer.reject'))
     expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.show_footer.accept'))
   end
+
+  # Regression tests for https://github.com/hpi-swt2/wimi-portal/issues/515
+  context "handing in a previously signed sheet again after it was rejected" do
+
+    before :each do
+      @time_sheet.update_attributes(signed: true)
+      visit time_sheet_path(@time_sheet)
+      click_on I18n.t('time_sheets.show_footer.reject')
+      login_as @hiwi
+      visit time_sheet_path(@time_sheet)
+    end
+
+    it 'is possible without adding a signature ' do
+      pending "Skipped until #515 is fixed"
+
+      click_on I18n.t('helpers.links.hand_in')
+    end
+
+    it 'is possible to re-add the signature ' do
+      pending "Skipped until #515 is fixed"
+
+      check(I18n.t('time_sheets.show_footer.add_signature'))
+      click_on I18n.t('helpers.links.hand_in')
+    end
+  end
 end
