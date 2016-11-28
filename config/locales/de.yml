@@ -65,7 +65,7 @@ de:
         status_enum:
           accepted: angenommen
           created: erstellt
-          pending: warten
+          pending: eingereicht
           rejected: abgelehnt
       trip:
         annotation: Bemerkungen
