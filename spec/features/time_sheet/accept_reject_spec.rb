@@ -66,14 +66,10 @@ describe 'time_sheet#show' do
     end
 
     it 'is possible without adding a signature ' do
-      pending "Skipped until #515 is fixed"
-
       click_on I18n.t('helpers.links.hand_in')
     end
 
     it 'is possible to re-add the signature ' do
-      pending "Skipped until #515 is fixed"
-
       check(I18n.t('time_sheets.show_footer.add_signature'))
       click_on I18n.t('helpers.links.hand_in')
     end

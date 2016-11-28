@@ -85,6 +85,7 @@ class TimeSheetsController < ApplicationController
 
   def reject
     @time_sheet.update(status: 'rejected', handed_in: false, last_modified: Date.today, signer: current_user.id)
+    @time_sheet.update(user_signature: nil, signed: false, user_signed_at: nil)
     ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetDeclined')
     redirect_to time_sheet_path(@time_sheet)
   end
