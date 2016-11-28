@@ -142,6 +142,15 @@ class TimeSheet < ActiveRecord::Base
    # self.work_days.sort! { |a,b| a.date <=> b.date }
   end
 
+  # Used by controllers/documents_controller.rb to
+  # set the name of exported PDFs of time sheets.
+  # Is always in German, as is the exported document
+  def pdf_export_name
+    last_name = self.user.last_name
+    date = I18n.l(self.first_day, format: "%m %Y")
+    return "Arbeitszeitnachweis #{last_name} #{date}"
+  end
+
   private
 
   # Initialize the TimeSheet to status "created".

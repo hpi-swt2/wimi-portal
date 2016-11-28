@@ -12,7 +12,15 @@ class DocumentsController < ApplicationController
                                             'documents/' << @doc_type << '.html.erb',
         layout: false,
         locals: @tmp_vars))
-      send_data(pdf, filename: @doc_type << '.pdf',  type: 'application/pdf')
+      send_data(pdf, filename: build_file_name << '.pdf',  type: 'application/pdf')
+    end
+  end
+
+  def build_file_name
+    if @doc_type == 'Timesheet'
+      @tmp_vars[:timesheet].pdf_export_name
+    else
+      @doc_type
     end
   end
 
