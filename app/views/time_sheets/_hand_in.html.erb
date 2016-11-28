@@ -2,9 +2,9 @@
 
 <%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet), method: :get do |f| %>
   <% unless @time_sheet.signed %>
-    <div style="text-align: center;">
+    <div class="text-center">
       <%= f.check_box :signed %>
-      <%= f.label t('add_signature', scope: i18nscope) , style: 'margin: 0px;' %>
+      <%= f.label :signed, t('add_signature', scope: i18nscope) %>
     </div>
   <% end %>
   <%= f.submit t('hand_in', scope: i18nscope), class: 'btn btn-success btn-block' %>
