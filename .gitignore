@@ -13,6 +13,8 @@ config/database.yml
 rerun.txt
 pickle-email-*.html
 
+custom_scripts/
+
 .vagrant/
 
 # ignore simplecov results
