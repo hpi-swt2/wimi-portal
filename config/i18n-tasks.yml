@@ -94,7 +94,7 @@ ignore_missing:
 
 ## Consider these keys used:
 ignore_unused:
-  - 'activerecord.attributes.user.*'
+  - 'activerecord.attributes.*'
   - 'activerecord.models.*.{one,other}'
   - 'activerecord.errors.*'
   - '{date,time}.*'
@@ -108,7 +108,6 @@ ignore_unused:
   - '{errors}.*'
 # TODO: use this in create timesheet for next month button
   - '{helpers.flash.no_contract}'
-# - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
