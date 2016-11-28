@@ -548,6 +548,8 @@ en:
         accepted: Time sheet was successfully accepted
     hand_in:
       flash: Time sheet was successfully handed in
+      add_signature: Add Signature
+      signature_info: In order to sign, a signature must be available.
     withdraw:
       flash: Time sheet was successfully withdrawn
   trip:

@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   resources :time_sheets, except: [:new, :create] do
     member do
       get 'withdraw'
-      get 'hand_in'
+      patch 'hand_in'
       get 'accept_reject'
       get 'download'
     end

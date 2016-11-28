@@ -1,11 +1,15 @@
-<% i18nscope = 'time_sheets.show_footer' %>
-
-<%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet), method: :get do |f| %>
-  <% unless @time_sheet.signed %>
-    <div class="text-center">
-      <%= f.check_box :signed %>
-      <%= f.label :signed, t('add_signature', scope: i18nscope) %>
-    </div>
+<% unless @time_sheet.signed %>
+  <%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet) do |f| %>
+      <% if current_user.signature.nil? %>
+        <%= t('.signature_info') %>
+        <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %>
+        <% check_box_disable = 'disabled' %>
+        <% label_classes = 'text-muted' %>
+      <% end %>
+      <div class="text-center">
+        <%= f.check_box :signed, disabled: check_box_disable or nil %>
+        <%= f.label :signed, t('.add_signature'), class: label_classes %>
+      </div>
+    <%= f.submit t('helpers.links.hand_in'), class: 'btn btn-success btn-block' %>
   <% end %>
-  <%= f.submit t('hand_in', scope: i18nscope), class: 'btn btn-success btn-block' %>
 <% end %>

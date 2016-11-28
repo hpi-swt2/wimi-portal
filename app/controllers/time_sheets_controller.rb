@@ -56,19 +56,17 @@ class TimeSheetsController < ApplicationController
   end
 
   def hand_in
-    if time_sheet_params[:signed] == '1' && current_user.signature.nil?
-      @time_sheet.signed = false
-      redirect_to :back
+    signed = params[:time_sheet] ? time_sheet_params[:signed] == '1' : false
+    if signed && current_user.signature.nil?
       flash[:error] = t('signatures.signature_not_found_time_sheet')
-    else
-      if time_sheet_params[:signed] == '1' && !current_user.signature.nil?
-        @time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
-      end
-      @time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
-      ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
-      flash[:success] = t('.flash')
-      redirect_to time_sheet_path(@time_sheet)
+      redirect_to :back and return
+    elsif signed && !current_user.signature.nil?
+      @time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
     end
+    @time_sheet.update(status: 'pending', handed_in: true, hand_in_date: Date.today)
+    ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
+    flash[:success] = t('.flash')
+    redirect_to time_sheet_path(@time_sheet)
   end
 
   def withdraw

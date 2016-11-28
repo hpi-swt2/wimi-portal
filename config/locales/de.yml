@@ -548,6 +548,8 @@ de:
         accepted: Stundenzettel wurde erfolgreich angenommen
     hand_in:
       flash: Stundenzettel wurde erfolgreich eingereicht
+      add_signature: Unterschrift hinzufügen
+      signature_info: Zum Unterschreiben muss eine Unterschrift vorhanden sein.
     withdraw:
       flash: Stundenzettel wurde erfolgreich zurückgenommen
   trip:
