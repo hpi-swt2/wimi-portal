@@ -608,7 +608,6 @@ de:
     show:
       business_trips: Geschäftsreisen
       days: Tag(e)
-      handed_in_timesheets: 'Eingereichte Stundenzettel:'
       holiday_requests: Urlaubsanfragen
       information: Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus
       password: Passwort ändern
