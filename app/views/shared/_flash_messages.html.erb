@@ -3,7 +3,7 @@
     <div class="col-md-12 novertpadding">
       <div class="col-md-8">
         <%# The devise gem uses flash[:alert] for wrong password messages, leading to double display %>
-        <%= flash.delete(:alert) %>
+        <% flash.delete(:alert) %>
         <%# https://github.com/seyhunak/twitter-bootstrap-rails#flash-helper %>
         <%= bootstrap_flash %>
       </div>
