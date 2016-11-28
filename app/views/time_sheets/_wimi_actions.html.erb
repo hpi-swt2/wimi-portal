@@ -2,17 +2,7 @@
 
 <%# wimi can accept time sheet here %>
 <% if @time_sheet.status.include? 'pending' %>
-  <%# signed by hiwi status %>
-  <div class="row">
-    <div class="col-md-12">
-      <%= t('document_was', scope: i18nscope) %>
-      <% unless @time_sheet.signed %>
-        <b><%= t('not', scope: i18nscope) %></b>
-      <% end %>
-      <%= t('signed', scope: i18nscope) %>
-    </div>
-  </div>
-  <%# form for accepting time sheet %>
+  <%# form for accepting / rejecting time sheet %>
   <%= form_for @time_sheet, url: accept_reject_time_sheet_path(@time_sheet), method: :get do |f| %>
 
     <%# accept button %>
@@ -26,7 +16,7 @@
         <%# else render buttons normally %>
         <% else %>
           <%# sign check box %>
-          <div class="control-group" style="text-align: center;">
+          <div class="control-group text-center">
             <%= f.check_box :wimi_signed %>
             <%= f.label t('add_signature', scope: i18nscope) %>
           </div>
@@ -45,5 +35,5 @@
       </div>
     </div>
     <%= f.button t('reject', scope: i18nscope), name: 'time_sheet_action', value: 'reject', class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
-  <% end %>
-<% end %>
+  <% end %> <%# form_for @time_sheets %>
+<% end %> <%# if @time_sheet.status.include? 'pending' %>

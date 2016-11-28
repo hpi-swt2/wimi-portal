@@ -32,6 +32,12 @@
           <strong><%= model_class.human_attribute_name(:handed_in) %>:</strong>
           <%= t @time_sheet.handed_in.to_s %> <%= "(#{l @time_sheet.hand_in_date})" if @time_sheet.hand_in_date %>
         </p>
+        <% if @time_sheet.status.in? ['pending', 'accepted'] %>
+          <p>
+            <%# signed by hiwi status %>
+            <%= t(".hiwi_signed_#{@time_sheet.signed}_html") %>
+          </p>
+        <% end %>
         <hr>
         <p>
           <%# Amount of hours worked this month %>

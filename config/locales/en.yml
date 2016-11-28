@@ -522,6 +522,8 @@ en:
       expected_work_time: Contract hours
       achieved: achieved
       open_work_time: Open hours
+      hiwi_signed_true_html: The document was signed by the employee
+      hiwi_signed_false_html: The document was <strong>not</strong> signed by the employee
     show_footer:
       accept: Accept
       accepted: accepted
@@ -530,18 +532,15 @@ en:
       add_signature: Add Signature
       at: At
       by: by
-      document_was: Document was
       hand_in: Hand in
       handed_in_at: handed in at
       in: in
       new: new
-      not: not
       pending: pending
       reject: Reject
       reject_reason: Rejection reason
       rejected: rejected
       rejected_by: Rejected by
-      signed: signed
       status: 'status: '
     accept_reject:
       flash:

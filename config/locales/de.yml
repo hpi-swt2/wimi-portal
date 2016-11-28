@@ -522,6 +522,8 @@ de:
       expected_work_time: Arbeitszeit Vertrag
       achieved: erfüllt
       open_work_time: Offene Arbeitszeit
+      hiwi_signed_true_html: Das Dokument wurde vom Arbeitnehmer unterschrieben
+      hiwi_signed_false_html: Das Dokument wurde vom Arbeitnehmer <strong>nicht</strong> unterschrieben
     show_footer:
       accept: Annehmen
       accepted: bestätigt
@@ -530,18 +532,15 @@ de:
       add_signature: Unterschrift hinzufügen
       at: Am
       by: von
-      document_was: Das Dokument wurde
       hand_in: Einreichen
       handed_in_at: 'Eingereicht am:'
       in: im
       new: neu
-      not: nicht
       pending: ausstehend
       reject: Ablehnen
       reject_reason: Ablehnungsgrund
       rejected: abgelehnt
       rejected_by: Abgelehnt von
-      signed: unterschrieben
       status: 'Status: '
     accept_reject:
       flash:
