@@ -24,13 +24,13 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
-            <%= label_tag nil, t('time_sheets.show_footer.rejected_by') %>
+            <%= label_tag nil, t('.rejected_by') %>
             <%= text_field_tag nil, @trip.person_in_power.name , {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <%= label_tag nil, t('time_sheets.show_footer.at') %>
+            <%= label_tag nil, t('.at') %>
             <%= text_field_tag nil ,l(@trip.last_modified), {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>
@@ -38,7 +38,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <%= label_tag nil, t('time_sheets.show_footer.reject_reason') %>
+            <%= label_tag nil, t('.reject_reason') %>
             <%= text_field_tag nil, @trip.rejection_message, {class: "form-control", readonly: "readonly"} %>
           </div>
         </div>

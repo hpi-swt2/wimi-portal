@@ -423,6 +423,7 @@ en:
         applied: 'Applied at '
         declined: 'Rejected at '
         saved: 'Saved at '
+      reject_reason: Rejection reason
   home:
     index:
       member_status_html: You are currently a member of <strong>%{project_count} %{project}</strong> as HiWi or WiMi and have <strong>%{contract_count} %{contract}</strong>.
@@ -524,24 +525,14 @@ en:
       open_work_time: Open hours
       hiwi_signed_true_html: The document was signed by the employee
       hiwi_signed_false_html: The document was <strong>not</strong> signed by the employee
-    show_footer:
-      accept: Accept
-      accepted: accepted
       accepted_by: Accepted by
-      acceptence_requested_at: 'acceptence requested at: '
-      add_signature: Add Signature
-      at: At
-      by: by
-      hand_in: Hand in
-      handed_in_at: handed in at
-      in: in
-      new: new
-      pending: pending
-      reject: Reject
-      reject_reason: Rejection reason
-      rejected: rejected
       rejected_by: Rejected by
-      status: 'status: '
+      at: At
+      reject_reason: Rejection reason
+    wimi_actions:
+      accept: Accept
+      reject: Reject
+      add_signature: Add Signature
     accept_reject:
       flash:
         rejected: Time sheet was successfully rejected
@@ -585,6 +576,9 @@ en:
         declined: 'Rejected at '
         saved: 'Saved at '
       user_id: User
+      rejected_by: Rejected by
+      at: At
+      reject_reason: Rejection reason
   'true': 'yes'
   users:
     delete_signature:
@@ -612,17 +606,11 @@ en:
       projects: Projects
       public_data: Public Data
     show:
-      action: action
       business_trips: Business Trips
       days: Day(s)
-      handed_in_at: handed in at
       handed_in_timesheets: 'Handed in time sheets:'
-      hiwi: students assistants
       holiday_requests: Holiday Requests
       information: Please choose a *.bmp, *.jpeg, *.jpg or *.png file from your Computer
-      inspect: inspect
-      month: month
-      number_of_hours: number of hours
       password: Change Password
       remaining_leave: 'Remaining Leave: %{leave} Day(s)'
       remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
@@ -634,8 +622,6 @@ en:
         applied: Applied
         declined: Rejected
         saved: Saved
-      status_timesheet: status
-      time_sheets_overview: Your time sheets
       update_password: Update Password
       user_data: User Data
       warning: 'ATTENTION: Be aware that your signature will be stored as an image and not be encrypted additionally!'

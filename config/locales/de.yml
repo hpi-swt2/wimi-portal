@@ -423,6 +423,7 @@ de:
         applied: 'Eingereicht am '
         declined: 'Abgelehnt am '
         saved: 'Gespeichert am '
+      reject_reason: Ablehnungsgrund
   home:
     index:
       member_status_html: Sie sind momentan für <strong>%{project_count} %{project}</strong> als HiWi oder WiMi registriert und haben <strong>%{contract_count} %{contract}</strong>.
@@ -524,24 +525,14 @@ de:
       open_work_time: Offene Arbeitszeit
       hiwi_signed_true_html: Das Dokument wurde vom Arbeitnehmer unterschrieben
       hiwi_signed_false_html: Das Dokument wurde vom Arbeitnehmer <strong>nicht</strong> unterschrieben
-    show_footer:
-      accept: Annehmen
-      accepted: bestätigt
       accepted_by: Angenommen von
-      acceptence_requested_at: 'Genehmigung erfragt am: '
-      add_signature: Unterschrift hinzufügen
-      at: Am
-      by: von
-      hand_in: Einreichen
-      handed_in_at: 'Eingereicht am:'
-      in: im
-      new: neu
-      pending: ausstehend
-      reject: Ablehnen
-      reject_reason: Ablehnungsgrund
-      rejected: abgelehnt
       rejected_by: Abgelehnt von
-      status: 'Status: '
+      at: Am
+      reject_reason: Ablehnungsgrund
+    wimi_actions:
+      accept: Annehmen
+      reject: Ablehnen
+      add_signature: Unterschrift hinzufügen
     accept_reject:
       flash:
         rejected: Stundenzettel wurde erfolgreich abgelehnt
@@ -585,6 +576,9 @@ de:
         declined: 'Abgelehnt am '
         saved: 'Gespeichert am '
       user_id: Benutzer
+      rejected_by: Abgelehnt von
+      at: Am
+      reject_reason: Ablehnungsgrund
   'true': Ja
   users:
     delete_signature:
@@ -612,17 +606,11 @@ de:
       projects: Projekte
       public_data: "Öffentliche Daten"
     show:
-      action: Aktion
       business_trips: Geschäftsreisen
       days: Tag(e)
-      handed_in_at: eingereicht am
       handed_in_timesheets: 'Eingereichte Stundenzettel:'
-      hiwi: HiWi
       holiday_requests: Urlaubsanfragen
       information: Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei von Ihrem Rechner aus
-      inspect: Ansehen
-      month: Monat
-      number_of_hours: Anzahl Std.
       password: Passwort ändern
       remaining_leave: 'Verbleibender Resturlaub: %{leave} Tag(e)'
       remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
@@ -634,8 +622,6 @@ de:
         applied: Eingereicht
         declined: Abgelehnt
         saved: Gespeichert
-      status_timesheet: Status
-      time_sheets_overview: Stundenzettel Ihrer Studenten
       update_password: Passwort aktualisieren
       user_data: Profilbezogene Daten
       warning: 'ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt!'

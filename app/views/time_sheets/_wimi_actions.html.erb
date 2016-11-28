@@ -1,5 +1,3 @@
-<% i18nscope = 'time_sheets.show_footer' %>
-
 <%# wimi can accept time sheet here %>
 <% if @time_sheet.status.include? 'pending' %>
   <%# form for accepting / rejecting time sheet %>
@@ -12,15 +10,15 @@
         <% if current_user.signature.nil? %>
           <%= t('signature_warning') %>
           <%= link_to t('helpers.application_tabs.profile'), user_path(current_user), class: 'btn btn-default btn-xs' %><br/><br/>
-          <%= f.button t('accept', scope: i18nscope), name: 'time_sheet_action', value: 'accept', class: 'btn btn-success btn-block', disabled: "disabled" %>
+          <%= f.button t('.accept'), name: 'time_sheet_action', value: 'accept', class: 'btn btn-success btn-block', disabled: "disabled" %>
         <%# else render buttons normally %>
         <% else %>
           <%# sign check box %>
           <div class="control-group text-center">
             <%= f.check_box :wimi_signed %>
-            <%= f.label t('add_signature', scope: i18nscope) %>
+            <%= f.label t('.add_signature') %>
           </div>
-          <%= f.button t('accept', scope: i18nscope), name: 'time_sheet_action', value: 'accept', class: 'btn btn-success btn-block' %>
+          <%= f.button t('.accept'), name: 'time_sheet_action', value: 'accept', class: 'btn btn-success btn-block' %>
         <% end %>
       </div>
     </div>
@@ -29,11 +27,11 @@
     <div class="row vertical-align">
       <div class='col-sm-12'>
         <div class="form-group">
-          <%= f.label t('reject_reason', scope: i18nscope) %>
+          <%= f.label t('time_sheets.show.reject_reason') %>
           <%= f.text_area :rejection_message, id: 'message', size: "50x2" , class: "form-control", style: 'resize: vertical;'%>
         </div>
       </div>
     </div>
-    <%= f.button t('reject', scope: i18nscope), name: 'time_sheet_action', value: 'reject', class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
+    <%= f.button t('.reject'), name: 'time_sheet_action', value: 'reject', class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
   <% end %> <%# form_for @time_sheets %>
 <% end %> <%# if @time_sheet.status.include? 'pending' %>

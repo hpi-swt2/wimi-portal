@@ -12,8 +12,8 @@ describe 'time_sheet#show' do
 
   it 'is possible to accept a time sheet' do
     visit time_sheet_path(@time_sheet)
-    expect(page).to have_selector(:link_or_button, I18n.t('time_sheets.show_footer.accept'))
-    click_on I18n.t('time_sheets.show_footer.accept')
+    expect(page).to have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.accept'))
+    click_on I18n.t('time_sheets.wimi_actions.accept')
     expect(page).to have_current_path(time_sheet_path(@time_sheet))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.accepted"))
     expect(page).to have_success_flash_message
@@ -28,14 +28,14 @@ describe 'time_sheet#show' do
       status: 'accepted')
     visit time_sheet_path(@ts_accepted)
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.accepted"))
-    expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.show_footer.accept'))
-    expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.show_footer.reject'))
+    expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.accept'))
+    expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.reject'))
   end
 
   it 'is possible to reject a time sheet' do
     visit time_sheet_path(@time_sheet)
-    expect(page).to have_selector(:link_or_button, I18n.t('time_sheets.show_footer.reject'))
-    click_on I18n.t('time_sheets.show_footer.reject')
+    expect(page).to have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.reject'))
+    click_on I18n.t('time_sheets.wimi_actions.reject')
     expect(page).to have_current_path(time_sheet_path(@time_sheet))
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.rejected"))
     expect(page).to have_success_flash_message
@@ -50,8 +50,8 @@ describe 'time_sheet#show' do
       status: 'rejected')
     visit time_sheet_path(@ts_rejected)
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.rejected"))
-    expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.show_footer.reject'))
-    expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.show_footer.accept'))
+    expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.reject'))
+    expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.accept'))
   end
 
   # Regression tests for https://github.com/hpi-swt2/wimi-portal/issues/515
@@ -60,7 +60,7 @@ describe 'time_sheet#show' do
     before :each do
       @time_sheet.update_attributes(signed: true)
       visit time_sheet_path(@time_sheet)
-      click_on I18n.t('time_sheets.show_footer.reject')
+      click_on I18n.t('time_sheets.wimi_actions.reject')
     end
 
     it 'is possible without adding a signature ' do
@@ -74,7 +74,7 @@ describe 'time_sheet#show' do
       @hiwi.update_attribute(:signature, 'hiwi_signature')
       login_as @hiwi
       visit time_sheet_path(@time_sheet)
-      check(I18n.t('time_sheets.show_footer.add_signature'))
+      check(I18n.t('time_sheets.wimi_actions.add_signature'))
       click_on I18n.t('helpers.links.hand_in')
     end
   end

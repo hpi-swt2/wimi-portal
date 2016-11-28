@@ -15,15 +15,17 @@
         </p>
         <% if @time_sheet.status.in?(['accepted', 'rejected']) %>
           <p>
-            <strong><%= t("time_sheets.show_footer.#{@time_sheet.status}_by") %>:</strong>
+            <%# i18n-tasks-use t('time_sheets.show.accepted_by') %>
+            <%# i18n-tasks-use t('time_sheets.show.rejected_by') %>
+            <strong><%= t(".#{@time_sheet.status}_by") %>:</strong>
             <%# TimeSheet#signer is simple integer, no belongs_to %>
             <%= linked_name User.find(@time_sheet.signer) %>
-            <%= t('time_sheets.show_footer.at').downcase %>
+            <%= t('.at').downcase %>
             <%= content_tag :span, l(@time_sheet.last_modified) %>
           </p>
           <% if @time_sheet.status == 'rejected' %>
             <p>
-              <strong><%= t('time_sheets.show_footer.reject_reason') %>:</strong>
+              <strong><%= t('.reject_reason') %>:</strong>
               <%= content_tag :span, @time_sheet.rejection_message %>
             </p>
           <% end %>
