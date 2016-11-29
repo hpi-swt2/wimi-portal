@@ -149,6 +149,7 @@ en:
         time_sheet:
           month:
             already_exists: "A time sheet for this month already exists."
+            no_contract: "The selected contract is not valid in the selected month."
         work_day:
           attributes:
             duration:
