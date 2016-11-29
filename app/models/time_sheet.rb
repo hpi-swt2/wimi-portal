@@ -142,7 +142,7 @@ class TimeSheet < ActiveRecord::Base
   end
 
   def unique_date
-    ts = TimeSheet.month(self.month).year(self.year)
+    ts = TimeSheet.user(self.user).where(contract_id: self.contract_id).month(self.month).year(self.year)
     if ts.any?
       errors.add(:month, I18n.t('activerecord.errors.models.time_sheet.month.already_exists'))
     end
