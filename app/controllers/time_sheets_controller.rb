@@ -38,9 +38,8 @@ class TimeSheetsController < ApplicationController
 
   def create
     @time_sheet = TimeSheet.new(time_sheet_params)
-    @time_sheet.contract = Contract.find(params['contract_id'])
+    #@time_sheet.contract = Contract.find(params['contract_id'])
     authorize! :create, @time_sheet
-
     if @time_sheet.save
       redirect_to edit_time_sheet_path(@time_sheet)
       flash[:success] = I18n.t('time_sheet.save')

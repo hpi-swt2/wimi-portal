@@ -125,7 +125,8 @@ $( document ).ready(function() {
 <% disable_date ||= false %>
 <% hide_work_days ||= false %>
 
-<% form_object = @time_sheet.new_record? ? [@time_sheet.contract,@time_sheet] : @time_sheet %>
+<!--<% form_object = @time_sheet.new_record? ? [@time_sheet.contract,@time_sheet] : @time_sheet %>-->
+<% form_object = @time_sheet %>
 <%= form_for form_object, html: {class: 'time_sheet_form'} do |f| %>
 
   <%# Allow to submit the form without JS for testing %>
@@ -154,7 +155,16 @@ $( document ).ready(function() {
       <div class="col-md-8 col-sm-8">
         <dl>
           <dt><%= t('activerecord.models.contract.one').capitalize %></dt>
-          <dd><%= f.object.contract %></dd>
+          <%= f.select(:contract_id) do %>
+            <% current_user.contracts.each do |c| %>
+              <% if c.id == f.object.contract.id %>  
+                <%= content_tag(:option, c.name, value: c.id, selected: "selected") %>
+              <% else %>
+                <%= content_tag(:option, c.name, value: c.id) %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <!--<dd><%= f.object.contract %></dd> -->
         </dl>
       </div>
     </div>
