@@ -146,6 +146,9 @@ en:
           too_far_in_the_future: " is too far in the future."
         project:
           cannot_delete: cannot delete, working hours were already entered
+        time_sheet:
+          month:
+            already_exists: "A time sheet for this month already exists."
         work_day:
           attributes:
             duration:

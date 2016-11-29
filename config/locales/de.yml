@@ -146,6 +146,9 @@ de:
           too_far_in_the_future: " ist zu weit in der Zukunft."
         project:
           cannot_delete: löschen fehlgeschlagen, es gibt bereits Arbeitsstunden
+        time_sheet:
+          month:
+            already_exists: "Für diesen Monat gibt es bereits einen Stundenzettel."
         work_day:
           attributes:
             duration:

@@ -39,4 +39,15 @@ describe 'Using time_sheets#new' do
     expect(page).to have_danger_flash_message
     expect(page).to have_current_path(new_contract_time_sheet_path(@contract))
   end
+
+  it 'is not possible to add multiple timesheets with the same month/year' do
+    @timesheet = FactoryGirl.create(:time_sheet, contract: @contract, month: Date.today.month, year: Date.today.year)
+
+    fill_in "time_sheet_month", with: Date.today.month
+    fill_in "time_sheet_year", with: Date.today.year
+
+    expect { find('#hiddensubmit').click }.to change { TimeSheet.count }.by(0)
+    # No flash error
+    expect(page).to have_css('div.alert-danger')
+  end
 end
