@@ -6,6 +6,8 @@ en:
         created_at: Created at
         id: Id
         name: Name
+        abbreviation: Abbreviation
+        description: Description
       contract:
         date: Contract Term
         end_date: End date
@@ -236,9 +238,6 @@ en:
       status_filter: Filters by status
       trip_request: Trip request
       type_filter: Filters by type
-    show:
-      a: Abbreviation
-      b: Description
   dashboard:
     actions:
       goto_current_time_sheet: Go to current time sheet

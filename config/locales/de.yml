@@ -6,6 +6,8 @@ de:
         created_at: Erstellungsdatum
         id: Id
         name: Name
+        abbreviation: Abkürzung
+        description: Beschreibung
       contract:
         date: Vertragslaufzeit
         end_date: Enddatum
@@ -236,9 +238,6 @@ de:
       status_filter: Filtern nach Status
       trip_request: Dienstreiseantrag
       type_filter: Filtern nach Art
-    show:
-      a: Abkürzung
-      b: Beschreibung
   dashboard:
     actions:
       goto_current_time_sheet: Aktuellen Stundenzettel anzeigen

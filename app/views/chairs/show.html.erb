@@ -8,9 +8,9 @@
       </div>
     </div>
     <dl>
-        <dt><%= t('.a') %>:</dt>
+        <dt><%= model_class.human_attribute_name(:abbreviation) %>:</dt>
         <dd><%= @chair.abbreviation %></dd>
-        <dt><%= t('.b') %>:</dt>
+        <dt><%= model_class.human_attribute_name(:description) %>:</dt>
         <dd><%= @chair.description %></dd>
         <dt><%= t('roles.chair_representative') %>:</dt>
         <dd><%= @chair.representative.user.name if @chair.representative %></dd>
