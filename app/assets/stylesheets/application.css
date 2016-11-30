@@ -205,3 +205,13 @@ tr.highlight {
     background-color: red;
     color: white;
 }
+
+/* Styling for Bootstrap modal popovers of gem 'data-confirm-modal' */
+
+.modal-footer {
+    text-align: center;
+}
+
+.modal-footer>.btn {
+    width: 49%;
+}

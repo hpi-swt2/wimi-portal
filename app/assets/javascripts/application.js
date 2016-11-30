@@ -16,11 +16,20 @@
 //= require bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
+//= require data-confirm-modal
 //= require select2
 //= require canvasjs.min
 //= require_tree .
 
 $(document).ready(function() {
+
+  dataConfirmModal.setDefaults({
+    title: $('div.page-header').text(),
+    commitClass: 'btn-primary fa fa-lg fa-check',
+    cancelClass: 'btn-default fa fa-lg fa-times',
+    commit: '',
+    cancel: ''
+  });
 
   $(".user-auto-complete").select2({
     theme: 'bootstrap',

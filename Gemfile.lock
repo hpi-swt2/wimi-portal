@@ -82,6 +82,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    data-confirm-modal (1.2.0)
+      railties (>= 3.0)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
     delocalize (1.0.0)
@@ -315,6 +317,7 @@ DEPENDENCIES
   capybara (~> 2.5)
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
+  data-confirm-modal
   database_cleaner
   delocalize
   devise
@@ -356,5 +359,8 @@ DEPENDENCIES
   wicked_pdf
   wkhtmltopdf-binary
 
+RUBY VERSION
+   ruby 2.2.2p95
+
 BUNDLED WITH
-   1.11.2
+   1.13.6

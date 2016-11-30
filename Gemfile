@@ -57,8 +57,13 @@ gem 'warden'
 gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails'
 gem 'devise-bootstrap-views'
-#use Bootstrap Tooltips
+# use Bootstrap Tooltips
 gem 'bootstrap-tooltip-rails'
+# Use Bootstrap's popover modals instead of the browser's
+# builtin confirm() API for links generated through
+# Rails' "link_to" helpers with the :confirm option.
+# See: https://github.com/ifad/data-confirm-modal
+gem 'data-confirm-modal'
 
 # Use Jquery as the JS lib
 gem 'jquery-rails'
