@@ -4,7 +4,6 @@
     <div class="page-header">
       <div class="h1">
         <%= @chair.name %>
-        <%= edit_button @chair, class: 'btn-md pull-right' %>
       </div>
     </div>
     <dl>
@@ -96,11 +95,16 @@
         </div>
         <div class="panel-body">
           <p>
+            <%= edit_button @chair, class: 'btn btn-block btn-warning' %>
             <% content_for :modals do %>
                 <%= render 'add_user_to_chair' %>
             <% end %>
             <% if can?(:add_user, @chair) %>
-              <%= link_to t('chair.user.add_prompt'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }%>
+              <hr>
+              <%= link_to t('chair.user.add_prompt'), "",
+                    id: "open-popup",
+                    data: { toggle: "modal", target: "#add-users-modal" },
+                    class: 'btn btn-block btn-success'%>
             <% end %>
           </p>
       </div>

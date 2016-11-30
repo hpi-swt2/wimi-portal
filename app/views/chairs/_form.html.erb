@@ -1,3 +1,4 @@
+<%- model_class = Chair -%>
 <%= form_for @chair, html: {class: "project"} do |f| %>
 
   <%= render partial: "shared/form_validation_errors", locals: {object: @chair} %>
@@ -58,16 +59,31 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-9 col-sm-9">
-      <%= f.submit nil, class: 'btn btn-success btn-block' %>
-    </div>
-    <div class="col-md-3 col-sm-3">
-      <%= link_to t("helpers.links.cancel"), @chair.persisted? ? chair_path(@chair) : chairs_path, class: 'btn btn-default btn-block' %>
+  <%= f.submit nil, class: 'hidden', id: 'form-submit-btn' %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t 'helpers.actions'%> </h4>
+        </div>
+        <div class="panel-body">
+          <% model_name = model_class.model_name.human.titleize %>
+          <%# Label that triggers the 'form-submit-btn' submit button when clicked.
+              Allows submitting the form with an element not inside the form element %>
+          <%= label_tag 'form-submit-btn',
+              @chair.new_record? ? t('helpers.submit.create', model: model_name) : t('helpers.submit.update', model: model_name),
+              class: 'btn btn-block btn-success' %>
+          <%= link_to t("helpers.links.cancel"),
+              @chair.persisted? ? chair_path(@chair) : chairs_path,
+              class: 'btn btn-block btn-default' %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>
-
 
 
 
