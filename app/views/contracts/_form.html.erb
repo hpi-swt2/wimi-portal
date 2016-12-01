@@ -1,3 +1,4 @@
+<%- model_class = Contract -%>
 <%= form_for @contract do |f| %>
 
   <%= render partial: "shared/form_validation_errors", locals: {object: @contract} %>
@@ -22,7 +23,6 @@
       <%= bootstrap_form_group(f, :hiwi) do %>
         <%= f.collection_select :hiwi_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
       <% end %>
-
       <%= bootstrap_form_group(f, :responsible) do %>
         <%= f.collection_select :responsible_id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
       <% end %>
@@ -46,29 +46,34 @@
             <%= f.number_field :wage_per_hour, value: @contract.wage_per_hour, step: 'any', class: 'form-control' %>
           <% end %>
         </div> <!-- col-md-6 col-sm-6 -->
-      <div> <!-- row -->
+      </div> <!-- row -->
 
       <div align="right">
         <span>* <%= t'helpers.forms.required_field'%></span>
       </div>
     </div>
   </div>
+  <%= f.submit nil, class: 'hidden', id: 'form-submit-btn' %>
+<% end %>
 
-
-  <div class="row edit-btns">
-    <div class="col-md-8 col-sm-8">
-      <%= f.submit nil, class: 'btn btn-success btn-block' %>
+<% content_for :sidebar do %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t 'helpers.actions'%> </h4>
+        </div>
+        <div class="panel-body">
+          <% model_name = model_class.model_name.human.titleize %>
+          <%# Label that triggers the 'form-submit-btn' submit button when clicked.
+              Allows submitting the form with an element not inside the form element %>
+          <%= label_tag 'form-submit-btn',
+              @contract.new_record? ? t('helpers.submit.create', model: model_name) : t('helpers.submit.update', model: model_name),
+              class: 'btn btn-block btn-success' %>
+          <%= delete_button @contract, class: 'btn-block' if @contract.persisted? %>
+          <%= link_to t("helpers.links.cancel"), :back, class: 'btn btn-block btn-default' %>
+        </div>
+      </div>
     </div>
-    <% if (can? :destroy, @contract) && @contract.persisted? %>
-      <div class="col-md-2 col-sm-2">
-          <%= delete_button @contract, class: 'btn-block' %>
-      </div>
-      <div class="col-md-2 col-sm-2">
-    <% else %>
-      <div class="col-md-4 col-sm-4">
-    <% end %>
-        <%= link_to t("helpers.links.cancel"), @contract.persisted? ? contract_path(@contract) : contracts_path, class: 'btn btn-default btn-block' %>
-      </div>
   </div>
-
 <% end %>

@@ -4,7 +4,6 @@
     <div class="page-header">
       <div class="h1">
         <%= model_class.model_name.human.titleize %> <%= @contract %>
-        <%= edit_button @contract, class: 'btn-md pull-right' %>
       </div>
     </div>
     <div class="row">
@@ -33,3 +32,18 @@
     </div>
   </div>
 </div>
+
+<% content_for :sidebar do %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t 'helpers.actions'%> </h4>
+        </div>
+        <div class="panel-body">
+          <%= edit_button @contract, class: 'btn-block' %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

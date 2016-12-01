@@ -4,7 +4,6 @@
   <div class="page-header">
     <h1>
       <%= t('activerecord.models.contract.other', default: model_class.model_name.human.pluralize).titleize %>
-      <%= create_button Contract, class: 'pull-right' %>
     </h1>
   </div>
   <% if @contracts.empty? %>
@@ -38,3 +37,18 @@
     <% end %>
   </div>
 </div>
+
+<% content_for :sidebar do %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t 'helpers.actions'%> </h4>
+        </div>
+        <div class="panel-body">
+          <%= create_button Contract, class: 'btn-block'%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
