@@ -38,7 +38,6 @@
                   </td>
                   <td><%= time_sheet.sum_minutes_formatted %></td>
                   <td>
-                    <%= edit_button time_sheet, class: 'btn-xs' %>
                     <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
                                 time_sheet_path(time_sheet),
                                 class: 'btn btn-default btn-xs' %>
@@ -48,6 +47,7 @@
                     <% else %>
                       <%= link_to 'PDF', download_time_sheet_path(time_sheet), class: 'btn btn-xs btn-info' %>
                     <% end %>
+                    <%= edit_button time_sheet, class: 'btn-xs' %>
                   </td>
                 </tr>
               <% end %>
