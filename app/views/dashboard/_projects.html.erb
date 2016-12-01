@@ -6,11 +6,11 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <% current_user.projects.each do |project|%>
-            <div class="col-md-12 col-sm-12">
+          <div class="col-md-12 col-sm-12">
+            <% current_user.projects.each do |project|%>
               <%= link_to project.title, project, class: "btn btn-default btn-block" %>
-            </div>
-          <%end%>
+            <%end%>
+          </div>
         </div>
       </div>
     </div>
