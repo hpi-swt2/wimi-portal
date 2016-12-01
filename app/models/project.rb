@@ -76,6 +76,10 @@ class Project < ActiveRecord::Base
     work_days.month(month, year).to_a.sum(&:duration)
   end
 
+  def name
+    self.title
+  end
+
   private
 
   # a project can only be deleted when noone has entered any workdays for it yet.

@@ -4,7 +4,6 @@
     <div class="page-header">
       <div class="h1">
         <%= @project.title %> <span><%= @project.status ? '' : t('.inactive', default:'(inactive)') %></span>
-        <%= edit_button @project, class: 'btn-md pull-right' %>
       </div>
     </div>
 
@@ -85,10 +84,12 @@
           </div>
           <div class="panel-body">
             <p>
-              <% content_for :modals do %>
-                  <%= render 'add_user_to_project' %>
-              <% end %>
+              <%= edit_button @project, class: 'btn-block' %>
               <% if can?(:invite_user, @project) %>
+                <% content_for :modals do %>
+                    <%= render 'add_user_to_project' %>
+                <% end %>
+                <hr>
                 <%= link_to t('project.user.add_prompt'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }, class: 'btn btn-block btn-success'%>
               <% end %>
             </p>

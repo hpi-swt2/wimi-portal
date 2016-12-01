@@ -18,10 +18,11 @@ RSpec.describe 'projects/edit', type: :view do
     visit project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
     click_on I18n.t('helpers.links.edit')
-    fill_in 'project_title', with: 'My New Project'
-    find('.btn[type="submit"]').click
+    new_project_title = 'My New Project'
+    fill_in 'project_title', with: new_project_title
+    click_on I18n.t('helpers.submit.update', model: project.model_name.human)
     project.reload
-    expect(project.title).to eq('My New Project')
+    expect(project.title).to eq(new_project_title)
   end
 
   it 'can be deleted by a wimi' do
@@ -64,7 +65,7 @@ RSpec.describe 'projects/edit', type: :view do
     @wimi.projects << project
     visit edit_project_path(project)
     find(:css, '#project_public_false').set(true)
-    find('.btn[type="submit"]').click
+    click_on I18n.t('helpers.submit.update', model: project.model_name.human)
     project.reload
     expect(project.public).to be false
   end
@@ -75,7 +76,7 @@ RSpec.describe 'projects/edit', type: :view do
     @wimi.projects << project
     visit edit_project_path(project)
     find(:css, '#project_public_true').set(true)
-    find('.btn[type="submit"]').click
+    click_on I18n.t('helpers.submit.update', model: project.model_name.human)
     project.reload
     expect(project.public).to be true
   end

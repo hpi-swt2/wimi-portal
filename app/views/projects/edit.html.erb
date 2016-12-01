@@ -7,26 +7,3 @@
     <%= render partial: 'form' %>
   </div>
 </div>
-<% content_for :sidebar do %>
-    <!--Actions-->
-    <div class="col-md-12">
-      <div class="display">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4><%=t('dashboard.index.actions')%></h4>
-          </div>
-          <div class="panel-body">
-            <% if can? :edit, @project%>
-              <% if @project.status %>
-                <%= link_to t('projects.show.set_inactive'), toggle_status_project_path, method: :get, class: 'btn btn-danger btn-xs', id: 'setInactiveButton' %>
-              <% else %>
-                <%= link_to t('projects.show.set_active'), toggle_status_project_path, method: :get, class: 'btn btn-success btn-xs'%>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-<% end %>
-
-
