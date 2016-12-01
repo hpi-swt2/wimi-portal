@@ -12,7 +12,6 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
 
     expect(page).to have_content(t('helpers.links.new'))
     expect(page).to have_content(t('helpers.links.edit'))
-    expect(page).to have_content(t('helpers.links.destroy'))
   end
 
   it 'expects buttons for admin' do
@@ -66,16 +65,5 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
 
     click_on t('helpers.links.edit')
     expect(page).to have_current_path(edit_chair_path(chair))
-  end
-
-  it 'tests functionality of Destroy Button' do
-    chair = FactoryGirl.create(:chair)
-    login_as(@superadmin, scope: :user)
-    visit chairs_path
-
-    expect(page).to have_content(chair.name)
-    click_on t('helpers.links.destroy')
-    expect(page).to have_current_path(chairs_path)
-    expect(page).to_not have_content(chair.name)
   end
 end
