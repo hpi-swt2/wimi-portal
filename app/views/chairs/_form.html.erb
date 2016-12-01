@@ -59,6 +59,11 @@
       </div>
     </div>
   </div>
+
+  <div align="right">
+    <span>* <%= t'helpers.forms.required_field'%></span>
+  </div>
+
   <%= f.submit nil, class: 'hidden', id: 'form-submit-btn' %>
 <% end %>
 
@@ -76,10 +81,8 @@
           <%= label_tag 'form-submit-btn',
               @chair.new_record? ? t('helpers.submit.create', model: model_name) : t('helpers.submit.update', model: model_name),
               class: 'btn btn-block btn-success' %>
-          <%= delete_button @chair, class: 'btn-block' %>
-          <%= link_to t("helpers.links.cancel"),
-              @chair.persisted? ? chair_path(@chair) : chairs_path,
-              class: 'btn btn-block btn-default' %>
+          <%= delete_button @chair, class: 'btn-block' if @chair.persisted? %>
+          <%= link_to t("helpers.links.cancel"), :back, class: 'btn btn-block btn-default' %>
         </div>
       </div>
     </div>
