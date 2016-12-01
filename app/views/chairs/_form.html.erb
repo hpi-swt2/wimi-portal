@@ -76,6 +76,7 @@
           <%= label_tag 'form-submit-btn',
               @chair.new_record? ? t('helpers.submit.create', model: model_name) : t('helpers.submit.update', model: model_name),
               class: 'btn btn-block btn-success' %>
+          <%= delete_button @chair, class: 'btn-block' %>
           <%= link_to t("helpers.links.cancel"),
               @chair.persisted? ? chair_path(@chair) : chairs_path,
               class: 'btn btn-block btn-default' %>
