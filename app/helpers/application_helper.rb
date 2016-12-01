@@ -57,7 +57,9 @@ module ApplicationHelper
     # <%= link_to t('helpers.links.destroy'), chair_path(id: chair), method: :delete, data: {confirm: t('helpers.links.confirm', default: t("helpers.links.confirm", default: 'Are you sure?'))}, class: 'btn btn-danger btn-xs' %>
     link_args[:method] = :delete
     if(link_args[:confirm].nil?)
-      link_args[:data] = {confirm: t("helpers.links.confirm_delete",default: 'Are you sure?')}
+      model_class = model.model_name.human.titleize
+      identifier = model.respond_to?(:name) ? "#{model_class} #{model.name}" : "#{model_class}"
+      link_args[:data] = {confirm: t("helpers.links.confirm_delete", model: identifier, default: 'Are you sure?')}
     else
       link_args[:data] = {confirm: link_args[:confirm]}
     end
