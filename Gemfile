@@ -64,6 +64,10 @@ gem 'bootstrap-tooltip-rails'
 # Rails' "link_to" helpers with the :confirm option.
 # See: https://github.com/ifad/data-confirm-modal
 gem 'data-confirm-modal'
+# Gem that bundles the jQuery DataTables plugin for
+# the Rails 3.1+ asset pipeline
+# See: https://github.com/rweng/jquery-datatables-rails
+gem 'jquery-datatables-rails', '~> 3.4.0'
 
 # Use Jquery as the JS lib
 gem 'jquery-rails'

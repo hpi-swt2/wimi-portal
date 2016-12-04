@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
 //= require jquery.turbolinks
 //= require bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap
@@ -23,6 +24,37 @@
 
 $(document).ready(function() {
 
+  /*
+   * Datatables configuration
+   */
+  // https://datatables.net/examples/advanced_init/defaults.html
+  $('.datatable').DataTable({
+    "paging": false,
+    // Show footer on how many rows are displayed currently
+    "info": true,
+    // No intial ordering
+    "order": [],
+    // I18n
+    // 'datatables_i18n' variable assigned using 'datatable_tag'
+    // helper (app/helpers/datatable_helper.rb)
+    language: window.datatables_i18n ? datatables_i18n : {}
+  });
+  // Move datatables search field to element
+  // '#datatable-search-placeholder'
+  // created using datatable_search_input helper
+  // (app/helpers/datatable_helper.rb)
+  // Warning: Only works with a single datatable per page
+  $placeholder = $("#datatable-search-placeholder")
+  $placeholder.replaceWith(
+    $(".dataTables_filter")
+      .detach()
+      .find("label input")
+      .attr("class", $placeholder.attr("class"))
+  );
+
+  /*
+   * ConfirmModal defaults
+   */
   dataConfirmModal.setDefaults({
     title: $('div.page-header').text(),
     commitClass: 'btn-primary fa fa-lg fa-check',
@@ -31,6 +63,9 @@ $(document).ready(function() {
     cancel: ''
   });
 
+  /*
+   * Select2 configuration
+   */
   $(".user-auto-complete").select2({
     theme: 'bootstrap',
     allowClear: true,

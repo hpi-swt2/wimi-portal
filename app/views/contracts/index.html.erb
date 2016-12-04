@@ -9,14 +9,15 @@
   <% if @contracts.empty? %>
       <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.contract.other', default: model_class.model_name.human.pluralize) %> </p> <br>
   <% else %>
-      <table class="table table-striped">
+      <%# data-order='[[ 1, "asc" ]]' to set default ordering on second column %>
+      <%= datatable_tag(class: "table-striped table-hover") do %>
         <thead>
           <tr>
             <th><%= model_class.human_attribute_name(:start_date) %></th>
             <th><%= model_class.human_attribute_name(:end_date) %></th>
             <th><%= model_class.human_attribute_name(:hiwi) %></th>
             <th><%= model_class.human_attribute_name(:responsible) %></th>
-            <th><%= t '.actions', default: t("helpers.actions") %></th>
+            <th data-orderable="false"><%= t '.actions', default: t("helpers.actions") %></th>
           </tr>
         </thead>
         <tbody>
@@ -33,17 +34,31 @@
             </tr>
           <% end %>
         </tbody>
-      </table>
+      <% end %> <%# datatable_tag %>
     <% end %>
   </div>
 </div>
 
 <% content_for :sidebar do %>
+  <%# filter for datatable %>
   <div class="col-md-12">
     <div class="display">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4> <%= t 'helpers.actions'%> </h4>
+          <h4> <%= t 'helpers.search.title', model: model_class.model_name.human(count: 2).titleize%> </h4>
+        </div>
+        <div class="panel-body">
+          <%= datatable_search_input %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%# new contract button %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t 'helpers.actions' %> </h4>
         </div>
         <div class="panel-body">
           <%= create_button Contract, class: 'btn-block'%>

@@ -17,6 +17,7 @@
  *= require bootstrap-datepicker
  *= require select2
  *= require select2-bootstrap
+ *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  */
 
 
@@ -214,4 +215,51 @@ tr.highlight {
 
 .modal-footer>.btn {
     width: 49%;
+}
+
+/*!
+ * DataTables + Font Awesome integration
+ * License: MIT - http://datatables.net/license
+ * https://datatables.net/blog/2014-06-06
+ */
+
+/*
+ * Sort styling
+ */
+table.dataTable thead th {
+    position: relative;
+    background-image: none !important; /* Remove the DataTables bootstrap integration styling */
+}
+
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    display: block;
+    font-family: FontAwesome;
+}
+
+table.dataTable thead th.sorting:after {
+    content: "\f0dc";
+}
+table.dataTable thead th.sorting_asc:after {
+    content: "\f0de";
+}
+table.dataTable thead th.sorting_desc:after {
+    content: "\f0dd";
+}
+
+div.dataTables_scrollBody table.dataTable thead th.sorting:after,
+div.dataTables_scrollBody table.dataTable thead th.sorting_asc:after,
+div.dataTables_scrollBody table.dataTable thead th.sorting_desc:after {
+    content: "";
+}
+
+/* In Bootstrap and Foundation the padding top is a little different from the DataTables stylesheet */
+table.table thead th.sorting:after,
+table.table thead th.sorting_asc:after,
+table.table thead th.sorting_desc:after {
+    top: 8px;
 }

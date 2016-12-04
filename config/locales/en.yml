@@ -362,6 +362,10 @@ en:
       travel_by: Travel by
   'false': 'no'
   helpers:
+    no_script_message_html: This functionality is only available if <a href="http://enable-javascript.com" target="_blank" class="alert-link">JavaScript is active</a>.
+    search:
+      title: "Filter %{model}"
+      help_text: Search terms are connected using "or".
     actions: Actions
     application_tabs:
       external_sign_in: External Sign-In

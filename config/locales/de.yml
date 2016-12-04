@@ -362,6 +362,10 @@ de:
       travel_by: Reise mit
   'false': Nein
   helpers:
+    no_script_message_html: Diese Funktion steht nur mit <a href="http://enable-javascript.com" target="_blank" class="alert-link">aktiviertem JavaScript</a> zur Verfügung.
+    search:
+      title: "%{model} durchsuchen"
+      help_text: Suchbegriffe werden mit "und" verknüpft.
     actions: Aktionen
     application_tabs:
       external_sign_in: Externer Login
