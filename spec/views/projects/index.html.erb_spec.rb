@@ -17,18 +17,6 @@ RSpec.describe 'projects/index', type: :view do
     expect(rendered).to match @proj2.title
   end
 
-  it 'does not show the actions column if no actions are possible' do
-    render
-    expect(rendered).to_not match I18n.t("helpers.actions")
-  end
-
-  it 'shows the actions column if actions are possible' do
-    @user.update(chair: @chair)
-    FactoryGirl.create(:wimi, chair: @chair, user: @user, representative: true)
-    visit projects_path
-    expect(page).to have_content I18n.t("helpers.actions")
-  end
-
   it 'does not show private projects that I do not belong to' do
     chair2 = FactoryGirl.create(:chair)
     @user.update(chair: @chair)

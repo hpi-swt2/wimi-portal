@@ -98,7 +98,7 @@ ignore_unused:
   - 'activerecord.attributes.*'
   - 'activerecord.models.*.{one,other}'
   - 'activerecord.errors.*'
-  - '{date,time}.*'
+  - '{date,time,datetime}.*'
   - '{true,false}'
   - 'helpers.submit.{create, submit, update}'
 # remove these once features are re-enabled
