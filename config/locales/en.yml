@@ -88,8 +88,10 @@ en:
         city: City
         created_at: Created at
         current_password: Current Password
-        current_sign_in_at: Current Sign In at
-        current_sign_in_ip: Current Sign In IP
+        # http://www.rubydoc.info/github/plataformatec/devise/Devise/Models/Trackable
+        current_sign_in_at: Last Sign In
+        current_sign_in_ip: Last Sign In IP
+        sign_in_count: Sign In Count
         email: Email
         email_notification: Email Notifications
         first_name: First Name
@@ -611,6 +613,8 @@ en:
     public_user_data:
       projects: Projects
       public_data: Public Data
+    index:
+      current_contract: Current Contract
     show:
       business_trips: Business Trips
       days: Day(s)

@@ -86,10 +86,12 @@ de:
       user:
         chair: Lehrstuhl
         city: Wohnort
-        created_at: Erstellungsdatum
+        created_at: Erstellt
         current_password: Aktuelles Passwort
-        current_sign_in_at: Aktuelle Anmeldung am
-        current_sign_in_ip: IP für aktuelle Anmeldung
+        # http://www.rubydoc.info/github/plataformatec/devise/Devise/Models/Trackable
+        current_sign_in_at: Letzte Anmeldung
+        current_sign_in_ip: IP letzte Anmeldung
+        sign_in_count: Anzahl Anmeldungen
         email: E-Mail
         email_notification: Email Benachrichtigungen
         first_name: Vorname
@@ -611,6 +613,8 @@ de:
     public_user_data:
       projects: Projekte
       public_data: "Öffentliche Daten"
+    index:
+      current_contract: Aktueller Vertrag
     show:
       business_trips: Geschäftsreisen
       days: Tag(e)

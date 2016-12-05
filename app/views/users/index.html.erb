@@ -4,12 +4,13 @@
     <div class="page-header">
       <h1><%=t '.title', default: model_class.model_name.human(count: 2).titleize %></h1>
     </div>
-    <table class="table table-striped">
+    <%= datatable_tag(class: "table-striped table-hover") do %>
       <thead>
         <tr>
-          <th><%= model_class.human_attribute_name(:id) %></th>
           <th><%= model_class.human_attribute_name(:name) %></th>
           <th><%= model_class.human_attribute_name(:email) %></th>
+          <th><%= TimeSheet.model_name.human(count: 2).titleize %></th>
+          <th><%= t('.current_contract') %></th>
           <th><%= model_class.human_attribute_name(:sign_in_count) %></th>
           <th><%= model_class.human_attribute_name(:current_sign_in_at) %></th>
           <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -18,15 +19,16 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= link_to user.id, user_path(user) %></td>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
+            <td><%= linked_name(user) %></td>
+            <td><%= mail_to user.email %></td>
+            <td><%= user.time_sheets.count %></td>
+            <td data-order="<%= user.current_contracts.count > 0 %>"><i class="fa fa-<%= user.current_contracts.count > 0 ? 'check' : 'times' %>" aria-hidden="true"></i></td>
             <td><%= user.sign_in_count %></td>
-            <td><%= user.current_sign_in_at ? l(user.current_sign_in_at, format: :full) : '' %></td>
-            <td><%= l user.created_at %></td>
+            <td data-order="<%= user.current_sign_in_at %>"><%= user.current_sign_in_at ? "#{l(user.current_sign_in_at, format: :full)} (#{time_ago_in_words(user.current_sign_in_at)})" : '' %></td>
+            <td data-order="<%= user.created_at %>"><%= l user.created_at %></td>
           </tr>
         <% end %>
       </tbody>
-    </table>
+    <% end %> <%# datatable_tag %>
   </div>
 </div>

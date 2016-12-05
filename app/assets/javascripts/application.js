@@ -39,18 +39,23 @@ $(document).ready(function() {
     // helper (app/helpers/datatable_helper.rb)
     language: window.datatables_i18n ? datatables_i18n : {}
   });
+
   // Move datatables search field to element
-  // '#datatable-search-placeholder'
-  // created using datatable_search_input helper
+  // '#datatable-search-placeholder' (if it exists).
+  // It's created using the 'datatable_search_input' helper
   // (app/helpers/datatable_helper.rb)
   // Warning: Only works with a single datatable per page
   $placeholder = $("#datatable-search-placeholder")
-  $placeholder.replaceWith(
-    $(".dataTables_filter")
-      .detach()
-      .find("label input")
-      .attr("class", $placeholder.attr("class"))
-  );
+  if ($placeholder.length) {
+    $placeholder.replaceWith(
+      $(".dataTables_filter")
+        .detach()
+        .find("label input")
+        .attr("class", $placeholder.attr("class"))
+    );
+  } else {$
+    $('.dataTables_filter input').addClass('form-control');
+  }
 
   /*
    * ConfirmModal defaults
