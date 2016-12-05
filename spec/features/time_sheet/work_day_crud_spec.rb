@@ -36,7 +36,6 @@ describe 'time_sheets#edit' do
     end
 
     it 'works with shortened time inputs' do
-      pending "Skipped until #531 is fixed."
 
       fill_in "time_sheet_work_days_attributes_0_start_time", with: '10'
       fill_in "time_sheet_work_days_attributes_0_end_time", with: '14'
