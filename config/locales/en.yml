@@ -512,7 +512,7 @@ en:
     save: Time Sheet saved successfully.
     no_contract: No contract found for today.
   time_sheets:
-    form:
+    edit:
       note_placeholder: Add a note
     show:
       create_next_month: Create sheet for next month

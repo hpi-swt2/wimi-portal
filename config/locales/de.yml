@@ -512,7 +512,7 @@ de:
     save: Stundenzettel erfolgreich gespeichert.
     no_contract: Kein Vertrag für heute gefunden
   time_sheets:
-    form:
+    edit:
       note_placeholder: Notiz hinzufügen
     show:
       create_next_month: Nächsten Monat erstellen
