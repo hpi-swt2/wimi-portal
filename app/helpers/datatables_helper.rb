@@ -8,7 +8,7 @@ module DatatablesHelper
   def datatable_tag(tag_args = {})
     searching = tag_args.key?(:searching) ? tag_args[:searching] : true
     info = tag_args.key?(:info) ? tag_args[:info] : true
-    content_tag(:table, class: 'table datatable ' + (tag_args[:class] || ''), data: {searching: searching}) do
+    content_tag(:table, class: 'table datatable ' + (tag_args[:class] || ''), data: {searching: searching, info: info}) do
       yield
       concat javascript_tag "var datatables_i18n = #{t('datatables').to_json}"
     end

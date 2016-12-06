@@ -17,26 +17,30 @@
         <% if contract.time_sheets.empty? %>
           <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.time_sheet.other', default: TimeSheet.model_name.human.pluralize) %> </p>
         <% else %>
-          <table class="table table-striped">
+          <%= datatable_tag(class: "table-striped table-hover", searching: false, info: false) do %>
             <thead>
               <tr>
                 <th><%= model_class.human_attribute_name(:month) %></th>
                 <th><%= model_class.human_attribute_name(:handed_in) %></th>
                 <th><%= model_class.human_attribute_name(:status) %></th>
                 <th><%= t('time_sheets.show.total_work_time') %></th>
-                <th><%= t '.actions', default: t("helpers.actions") %></th>
+                <th data-orderable="false"><%= t '.actions', default: t("helpers.actions") %></th>
               </tr>
             </thead>
             <tbody>
               <% contract.time_sheets.select {|ts| can? :show, ts}.each do |time_sheet| %>
                 <tr>
-                  <td><%= "#{time_sheet.month}/#{time_sheet.year}" %> (<%= l time_sheet.first_day, format: :short_month %>)</td>
                   <td><i class="fa fa<%= time_sheet.handed_in ? '-check' : '' %>-square-o" aria-hidden="true"></i> <%= "(#{l time_sheet.hand_in_date, format: :short_year})" if time_sheet.hand_in_date %></td>
+                  <td data-order="<%= time_sheet.first_day %>">
+                    <%= "#{time_sheet.month}/#{time_sheet.year}" %> (<%= l time_sheet.first_day, format: :short_month %>)
+                  </td>
                   <td>
                     <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger"}[time_sheet.status] %>
                     <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{time_sheet.status}") %></span>
                   </td>
-                  <td><%= time_sheet.sum_minutes_formatted %></td>
+                  <td data-order="<%= time_sheet.sum_minutes %>">
+                    <%= time_sheet.sum_minutes_formatted %>
+                  </td>
                   <td>
                     <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
                                 time_sheet_path(time_sheet),
@@ -52,7 +56,7 @@
                 </tr>
               <% end %>
             </tbody>
-          </table>
+          <% end %> <%# datatable_tag %>
         <% end %>
       <% end %>
     <% end %> <%# if/else @contracts.empty? %>
