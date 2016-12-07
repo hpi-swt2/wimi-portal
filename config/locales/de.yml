@@ -256,6 +256,7 @@ de:
       activities_empty: Noch keine Aktivitäten verfügbar.
       dashboard_title: Dashboard
       notifications: Wichtige Benachrichtigungen
+      ending_contracts: Bald endende Verträge
     projects:
       projects: Meine Projekte
   errors:
@@ -447,7 +448,7 @@ de:
       subject: Sie haben eine neue Benachrichtigung erhalten
       text: Sie haben eine neue Benachrichtigung. Besuchen Sie das Wimi-Portal Dashboard, um alle neuen Benachrichtigungen zu sehen.
       your_wimi_portal: Ihr Wimi-Portal
-  no_entries_yet: Es sind noch keine %{target} vorhanden.
+  no_entries_yet: Keine %{target} vorhanden.
   not_authorized: Du bist nicht befugt, diese Aktion durchzuführen.
   project:
     filter_chair: Filtern nach ...

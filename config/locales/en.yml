@@ -256,6 +256,7 @@ en:
       activities_empty: No activities yet.
       dashboard_title: Dashboard
       notifications: Important Notifications
+      ending_contracts: Soon-ending contracts
     projects:
       projects: My Projects
   errors:
