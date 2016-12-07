@@ -14,9 +14,9 @@
         <%# else render buttons normally %>
         <% else %>
           <%# sign check box %>
-          <div class="control-group text-center">
+          <div class="text-center">
             <%= f.check_box :wimi_signed %>
-            <%= f.label t('.add_signature') %>
+            <%= f.label :wimi_signed, t('.add_signature') %>
           </div>
           <%= f.button t('.accept'), name: 'time_sheet_action', value: 'accept', class: 'btn btn-success btn-block' %>
         <% end %>
@@ -34,4 +34,5 @@
     </div>
     <%= f.button t('.reject'), name: 'time_sheet_action', value: 'reject', class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
   <% end %> <%# form_for @time_sheets %>
+  <hr>
 <% end %> <%# if @time_sheet.status.include? 'pending' %>
