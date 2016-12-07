@@ -90,7 +90,9 @@
   <%# Month switch buttons %>
   <hr>
   <% if @next_month %>
-    <%= link_to t('.next_month'), time_sheet_path(@next_month), class: 'btn btn-block btn-default' %>
+    <%= link_to time_sheet_path(@next_month), class: 'btn btn-block btn-default' do %>
+      <%= t('.next_month') %> <i class='fa fa-chevron-right' aria-hidden='true'></i>
+    <% end %><%# link_to %>
   <% else %>
     <% if can? :create_next_month, @time_sheet %>
       <% date = @time_sheet.next_date %>
@@ -98,7 +100,9 @@
     <% end %>
   <% end %>
   <% if @previous_month %>
-    <%= link_to t('.previous_month'), time_sheet_path(@previous_month), class: 'btn btn-block btn-default' %>
+    <%= link_to time_sheet_path(@previous_month), class: 'btn btn-block btn-default' do %>
+      <i class='fa fa-chevron-left' aria-hidden='true'></i> <%= t('.previous_month') %>
+    <% end %><%# link_to %>
   <% end %>
 <% end %><%# content_for :actions do %>
 
