@@ -21,7 +21,6 @@
             <thead>
               <tr>
                 <th><%= model_class.human_attribute_name(:month) %></th>
-                <th><%= model_class.human_attribute_name(:handed_in) %></th>
                 <th><%= model_class.human_attribute_name(:status) %></th>
                 <th><%= t('time_sheets.show.total_work_time') %></th>
                 <th data-orderable="false"><%= t '.actions', default: t("helpers.actions") %></th>
@@ -30,7 +29,6 @@
             <tbody>
               <% contract.time_sheets.select {|ts| can? :show, ts}.each do |time_sheet| %>
                 <tr>
-                  <td><i class="fa fa<%= time_sheet.handed_in ? '-check' : '' %>-square-o" aria-hidden="true"></i> <%= "(#{l time_sheet.hand_in_date, format: :short_year})" if time_sheet.hand_in_date %></td>
                   <td data-order="<%= time_sheet.first_day %>">
                     <%= "#{time_sheet.month}/#{time_sheet.year}" %> (<%= l time_sheet.first_day, format: :short_month %>)
                   </td>
@@ -39,7 +37,7 @@
                     <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{time_sheet.status}") %></span>
                   </td>
                   <td data-order="<%= time_sheet.sum_minutes %>">
-                    <%= time_sheet.sum_minutes_formatted %>
+                    <%= time_sheet.sum_minutes_formatted %> <%= "/ #{time_sheet.monthly_work_minutes_formatted}" if time_sheet.monthly_work_minutes_formatted %>
                   </td>
                   <td>
                     <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
