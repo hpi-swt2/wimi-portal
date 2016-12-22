@@ -26,9 +26,10 @@ class Contract < ActiveRecord::Base
   # If a contract is deleted, delete all of its dependent time sheets
   has_many :time_sheets, -> { order(year: :desc, month: :desc) }, dependent: :destroy
 
-  validates_presence_of :start_date, :end_date, :chair, :hiwi, :responsible, :hours_per_week, :wage_per_hour
-  validates :hours_per_week, numericality: {greater_than: 0}
+  validates_presence_of :start_date, :end_date, :chair, :hiwi, :responsible, :wage_per_hour
   validates :wage_per_hour, numericality: {greater_than: 0}
+  validates_presence_of :hours_per_week, :unless => :flexible?
+  validates :hours_per_week, numericality: {greater_than: 0}, :unless => :flexible?
 
   def time_sheet(month, year)
     d_start = Date.new(year, month).at_beginning_of_month
