@@ -527,8 +527,8 @@ de:
   time_sheets:
     edit:
       note_placeholder: Notiz hinzufügen
-      empty_work_days: Keine Arbeitsstunden vorhanden
     show:
+      empty_work_days: Keine Arbeitsstunden vorhanden
       create_next_month: Nächsten Monat erstellen
       next_month: Nächsten Monat anzeigen
       previous_month: Vorherigen Monat anzeigen

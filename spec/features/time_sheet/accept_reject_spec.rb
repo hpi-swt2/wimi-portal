@@ -21,6 +21,7 @@ describe 'time_sheet#show' do
   end
 
   it 'there are no accept / reject buttons for an accepted time sheet' do
+    @time_sheet.delete
     @ts_accepted = FactoryGirl.create(:time_sheet,
       contract: @contract,
       signer: @wimi.id,
@@ -43,6 +44,7 @@ describe 'time_sheet#show' do
   end
 
   it 'there are no accept / reject buttons for a rejected time sheet' do
+    @time_sheet.delete
     @ts_rejected = FactoryGirl.create(:time_sheet,
       contract: @contract,
       signer: @wimi.id,

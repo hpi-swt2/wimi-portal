@@ -73,7 +73,7 @@ describe 'time_sheets#show' do
 
     it 'displays a message that no work_days have been entered yet' do
       within('#main-content') do
-        expect(page).to have_content(I18n.t('time_sheets.form.empty_work_days'))
+        expect(page).to have_content(I18n.t('time_sheets.show.empty_work_days'))
       end
     end
   end

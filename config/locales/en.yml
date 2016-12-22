@@ -527,8 +527,8 @@ en:
   time_sheets:
     edit:
       note_placeholder: Add a note
-      empty_work_days: No work days present
     show:
+      empty_work_days: No work days present
       create_next_month: Create sheet for next month
       next_month: Show next month
       previous_month: Show previous month
