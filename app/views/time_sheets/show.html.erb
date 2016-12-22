@@ -1,4 +1,5 @@
 <%- model_class = TimeSheet -%>
+<%= stylesheet_link_tag 'time_sheet_form' %>
 <div class="col-md-12">
   <div class="display">
     <div class="page-header">
@@ -40,6 +41,12 @@
         </p>
       </div>
     </div>
+
+    <p>
+      <strong><%= t('time_sheet.month_year')%>:</strong>
+      <%= l @time_sheet.first_day , format: :without_day %>
+    </p>
+
     <div class="row">
       <div class="col-md-12">
         <table class="table table-hover">
@@ -52,7 +59,7 @@
             <th style="width:200px;"><%= t('activerecord.attributes.work_day.project') %></th>
             <th><%= t('activerecord.attributes.work_day.attendance') %></th>
           </tr>
-          <%= @time_sheet.work_days.each do |w| %>
+          <% @time_sheet.work_days.each do |w| %>
             <tr class="work_day_tr">
               <td>
                 <%= l w.date, format: :weekday_short %>

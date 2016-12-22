@@ -87,16 +87,20 @@
       <div class="col-md-8 col-sm-8">
         <dl>
           <dt><%= t('activerecord.models.contract.one').capitalize %></dt>
-          <%= f.select(:contract_id) do %>
-            <% current_user.contracts.each do |c| %>
-              <% if c.id == f.object.contract.id %>  
-                <%= content_tag(:option, c.name, value: c.id, selected: "selected") %>
-              <% else %>
-                <%= content_tag(:option, c.name, value: c.id) %>
+          <% if current_user.current_contracts.length == 1 %>
+            <%= f.number_field :contract_id, class: "hidden" %>
+            <%= current_user.current_contracts.first.name %>
+          <% else %>
+            <%= f.select(:contract_id) do %>
+              <% current_user.current_contracts.each do |c| %>
+                <% if c.id == f.object.contract.id %>  
+                  <%= content_tag(:option, c.name, value: c.id, selected: "selected") %>
+                <% else %>
+                  <%= content_tag(:option, c.name, value: c.id) %>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
-          <!--<dd><%= f.object.contract %></dd> -->
         </dl>
       </div>
     </div>
