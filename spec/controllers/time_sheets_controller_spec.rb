@@ -82,16 +82,6 @@ RSpec.describe TimeSheetsController, type: :controller do
         expect(flash.count).to eq(1)
       end
 
-      it 'should not hand in time sheets that have a date in the future' do
-        future_date = Date.today >> 1
-        time_sheet = FactoryGirl.build(:time_sheet, month: future_date.month, year: future_date.year,contract: @contract)
-        get :hand_in, {id: time_sheet.to_param, time_sheet: signature_valid_attributes}, valid_session
-
-        expect(response).to have_http_status(302)
-        expect(time_sheet.signed).to be false
-        expect(flash.count).to eq(1)
-      end
-
       it 'should hand in time sheet with signature if present' do
         @user.update(signature: 'Signature')
         time_sheet = TimeSheet.create! valid_attributes

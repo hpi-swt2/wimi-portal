@@ -31,7 +31,8 @@ class Ability
     can [:index, :show], Contract, hiwi_id: user.id
     
     can [:index, :show, :leave], Project, users: { id: user.id }
-    
+
+    can :new, TimeSheet if user.current_contracts.any?
     can [:index, :show], TimeSheet, user: { id: user.id }
     can [:update, :hand_in, :destroy, :create], TimeSheet, handed_in: false, user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
@@ -74,6 +75,8 @@ class Ability
       # If a WiMi can show the contract, i.e. is responsible for it, all time sheets can be viewed.
       can?(:show, ts.contract) or (ts.status=="pending" and ts.contract.chair == user.chair)
     end
+
+    cannot :new, TimeSheet
 
     can :see_wimi_actions , TimeSheet do |ts|
       can?(:show, ts) and ts.handed_in?

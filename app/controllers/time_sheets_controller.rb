@@ -4,7 +4,7 @@ class TimeSheetsController < ApplicationController
   layout "action_sidebar"
 
   load_and_authorize_resource
-  skip_authorize_resource only: [:download, :create, :new, :current]
+  skip_authorize_resource only: [:download, :create, :current]
   
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
