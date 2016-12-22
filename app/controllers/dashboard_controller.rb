@@ -6,5 +6,6 @@ class DashboardController < ApplicationController
     @notifications = result[1]
 
     @ending_contracts = Contract.ends_soon.accessible_by(current_ability, :show)
+    @ending_contracts.sort {|a,b| a.end_date <=> b.end_date }
   end
 end
