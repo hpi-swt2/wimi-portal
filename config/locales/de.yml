@@ -512,8 +512,6 @@ de:
     save: Stundenzettel erfolgreich gespeichert.
     no_contract: Kein Vertrag für heute gefunden
   time_sheets:
-    form:
-      note_placeholder: Notiz hinzufügen
     edit:
       note_placeholder: Notiz hinzufügen
     show:
