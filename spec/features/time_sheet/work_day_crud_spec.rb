@@ -9,27 +9,54 @@ describe 'time_sheets#edit' do
     login_as @hiwi
   end
 
-  it 'allows adding a work_day' do
-    visit edit_time_sheet_path(@time_sheet_new)
-    start_time = '10:00'
-    break_duration = '60'
-    end_time = '14:00'
-    note = 'A note'
+  context 'when adding a work day' do
+    before :each do
+      visit edit_time_sheet_path(@time_sheet_new)
+      @start_time = '10:00'
+      @break_duration = '60'
+      @end_time = '14:00'
+      @note = 'A note'
+    end
 
-    fill_in "time_sheet_work_days_attributes_0_start_time", with: start_time
-    fill_in "time_sheet_work_days_attributes_0_break", with: break_duration
-    fill_in "time_sheet_work_days_attributes_0_end_time", with: end_time
-    fill_in "time_sheet_work_days_attributes_0_notes", with: note
+    it 'works with well-formatted inputs' do
+      fill_in "time_sheet_work_days_attributes_0_start_time", with: @start_time
+      fill_in "time_sheet_work_days_attributes_0_break", with: @break_duration
+      fill_in "time_sheet_work_days_attributes_0_end_time", with: @end_time
+      fill_in "time_sheet_work_days_attributes_0_notes", with: @note
 
-    find('#hiddensubmit').click
-    # No flash error
-    expect(page).to_not have_danger_flash_message
-    expect(page).to have_content(start_time)
-    expect(page).to have_content(break_duration)
-    expect(page).to have_content(end_time)
-    expect(page).to have_content(note)
-    # redirect to timesheet#show
-    expect(page).to have_current_path(time_sheet_path(@time_sheet_new))
+      find('#hiddensubmit').click
+      # redirect to timesheet#show
+      expect(page).to have_current_path(time_sheet_path(@time_sheet_new))
+      # No flash error
+      expect(page).to_not have_danger_flash_message
+      expect(page).to have_content(@start_time)
+      expect(page).to have_content(@break_duration)
+      expect(page).to have_content(@end_time)
+      expect(page).to have_content(@note)
+    end
+
+    it 'works with shortened time inputs' do
+
+      fill_in "time_sheet_work_days_attributes_0_start_time", with: '10'
+      fill_in "time_sheet_work_days_attributes_0_end_time", with: '14'
+
+      find('#hiddensubmit').click
+      expect(page).to have_current_path(time_sheet_path(@time_sheet_new))
+      expect(page).to have_content(@start_time)
+      expect(page).to have_content(@end_time)
+    end
+
+    it 'works with time inputs missing a colon' do
+      pending "Skipped until #531 is fixed."
+
+      fill_in "time_sheet_work_days_attributes_0_start_time", with: '1000'
+      fill_in "time_sheet_work_days_attributes_0_end_time", with: '1400'
+
+      find('#hiddensubmit').click
+      expect(page).to have_current_path(time_sheet_path(@time_sheet_new))
+      expect(page).to have_content(@start_time)
+      expect(page).to have_content(@end_time)
+    end
   end
 
   context 'when deleting a work day' do

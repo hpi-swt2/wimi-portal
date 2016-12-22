@@ -153,6 +153,10 @@ de:
           too_far_in_the_future: " ist zu weit in der Zukunft."
         project:
           cannot_delete: löschen fehlgeschlagen, es gibt bereits Arbeitsstunden
+        time_sheet:
+          month:
+            already_exists: "Für diesen Monat gibt es bereits einen Stundenzettel."
+            no_contract: "Der ausgewählte Vertrag beinhaltet den gewählten Monat nicht."
         work_day:
           attributes:
             duration:
@@ -521,7 +525,7 @@ de:
     save: Stundenzettel erfolgreich gespeichert.
     no_contract: Kein Vertrag für heute gefunden
   time_sheets:
-    form:
+    edit:
       note_placeholder: Notiz hinzufügen
       empty_work_days: Keine Arbeitsstunden vorhanden
     show:

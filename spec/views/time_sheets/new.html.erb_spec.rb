@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe 'time_sheets/new', type: :view do
+describe 'time_sheets/new', type: :view do
   before(:each) do
     @time_sheet = assign(:time_sheet, FactoryGirl.create(:time_sheet))
     login_as @time_sheet.contract.hiwi
+    allow(view).to receive_messages(:current_user => @time_sheet.contract.hiwi)
   end
 
   it 'renders the edit time_sheet form' do

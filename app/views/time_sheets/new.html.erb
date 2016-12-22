@@ -6,6 +6,131 @@
         <%=t 'helpers.titles.new', model: model_class.model_name.human.titleize %>
       </div>
     </div>
-    <%= render partial: 'form', locals: {hide_work_days: true} %>
+  <%= stylesheet_link_tag 'time_sheet_form' %>
+
+  <script>
+  var d;
+
+  $( document ).ready(function() {
+    $(function () {
+      $('#submit').click(function (event) {
+        $('.time_sheet_form')[0].submit();
+      })
+    })
+
+    // Update hiden month and year fields when the timepicker values change
+    $('#month-input').datepicker()
+        .on('changeDate', function(e) {
+            $('#time_sheet_month').val(e.date.getMonth()+1);
+            $('#time_sheet_year').val(e.date.getFullYear());
+        });
+
+    function getRowInputs($row) {
+      return $row.find('input:not([type=hidden])').not('.hidden');
+    }
+
+    function getRowSelects($row) {
+      return $row.find('select');
+    }
+
+    function clearRow($row) {
+      var inputs = getRowInputs($row);
+      var selects = getRowSelects($row);
+      inputs.val('');
+      selects.prop('selectedIndex', 0);
+    }
+
+    $('.clear').click(function(){
+      var tr = $(this).closest('tr');
+      clearRow(tr);
+    });
+
+    $('.duplicate').click(function(){
+      var current_tr = $(this).closest('tr');
+      var current_inputs = getRowInputs(current_tr);
+      var current_selects = getRowSelects(current_tr);
+      // .next() returns a hidden input (of the nested form)
+      var next_tr = current_tr.nextAll('tr').first();
+      var next_inputs = getRowInputs(next_tr);
+      var next_selects = getRowSelects(next_tr);
+
+      current_inputs.each(function(i) {
+        next_inputs.eq(i).val($(this).val());
+      });
+      current_selects.each(function(i) {
+        // var current_option = $(this).find('option:selected').index();
+        var current_opt = $(this).prop('selectedIndex');
+        next_selects.eq(i).prop('selectedIndex', current_opt);
+      });
+    });
+
+  });
+  </script>
+
+  <%= form_for @time_sheet, html: {class: 'time_sheet_form'} do |f| %>
+
+    <%# Allow to submit the form without JS for testing %>
+    <%= f.submit nil, id: "hiddensubmit", class:'hidden' %>
+
+    <%= render partial: "shared/form_validation_errors", locals: {object: @time_sheet} %>
+
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <% month_errors = f.object.errors[:month].concat(f.object.errors[:year]) %>
+        <div class="form-group <%= 'has-error' if month_errors.any? %>">
+          <%= f.label :month, class: 'control-label' %>
+          <%# text field augmented with datepicker %>
+          <%= text_field_tag 'month-input', nil, class: "form-control", 'data-provide': "datepicker", 'data-date-min-view-mode': "months", 'data-date-orientation': "bottom auto", 'data-date-format': "mm/yyyy", 'data-date-language': I18n.locale, value: "#{Date.today.month}/#{Date.today.year}"%>
+          <%= content_tag :span, month_errors.join(', '), :class => "help-block" if month_errors.any? %>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8">
+        <dl>
+          <dt><%= t('activerecord.models.contract.one').capitalize %></dt>
+          <% if current_user.current_contracts.length == 1 %>
+            <%= f.number_field :contract_id, class: "hidden" %>
+            <%= current_user.current_contracts.first.name %>
+          <% else %>
+            <%= f.select(:contract_id) do %>
+              <% current_user.current_contracts.each do |c| %>
+                <% if c.id == f.object.contract.id %>  
+                  <%= content_tag(:option, c.name, value: c.id, selected: "selected") %>
+                <% else %>
+                  <%= content_tag(:option, c.name, value: c.id) %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+
+    <%# Hidden fields updated by JS when the datepicker selection changes %>
+    <%= f.number_field :month, class: "hidden" %>
+    <%= f.number_field :year, class: "hidden" %>
+
+    <% content_for :actions do %>
+        <%= f.submit nil, class:"btn btn-success btn-block", id: "submit" %>
+    <% end %>
+
+  <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </div>
 </div>

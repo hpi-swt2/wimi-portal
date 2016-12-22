@@ -38,9 +38,12 @@ class TimeSheet < ActiveRecord::Base
   validates :month, numericality: {greater_than: 0}
   validates :year, numericality: {greater_than: 0}
 
+  validate :unique_date, :contract_date_fits
+
   accepts_nested_attributes_for :work_days, reject_if: :reject_work_day, :allow_destroy => true
 
   after_initialize :set_default_status, :if => :new_record?
+
 
   def reject_work_day(attributes)
     exists = attributes['id'].present?
@@ -169,4 +172,16 @@ class TimeSheet < ActiveRecord::Base
     self.status = "created"
   end
 
+  def unique_date
+    ts = TimeSheet.user(self.user).where(contract_id: self.contract_id).month(self.month).year(self.year)
+    if ts.any? and ts.first.id != self.id
+      errors.add(:month, I18n.t('activerecord.errors.models.time_sheet.month.already_exists'))
+    end
+  end
+
+  def contract_date_fits
+    if last_day < self.contract.start_date || first_day > self.contract.end_date
+      errors.add(:month, I18n.t('activerecord.errors.models.time_sheet.month.no_contract'))
+    end
+  end
 end

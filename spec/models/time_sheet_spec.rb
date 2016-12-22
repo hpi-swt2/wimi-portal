@@ -36,7 +36,7 @@ RSpec.describe TimeSheet, type: :model do
     @date2 = Date.new(@sheet.year, @sheet.month, 10)
   end
 
-  it 'doesn\'t allow creation for months before beginning of contract', :skip => true do
+  it 'doesn\'t allow creation for months before beginning of contract' do
     # user has a single current contract
     current_contract = @user.current_contracts
     expect(current_contract.length).to eq(1)
@@ -51,7 +51,7 @@ RSpec.describe TimeSheet, type: :model do
     expect(time_sheet).to_not be_valid
   end
 
-  it 'doesn\'t allow creation for months after end of contract', :skip => true do
+  it 'doesn\'t allow creation for months after end of contract' do
     current_contract = @user.current_contracts.first
     no_contract_date = (current_contract.start_date - 1.month).beginning_of_month
 
@@ -152,6 +152,26 @@ RSpec.describe TimeSheet, type: :model do
     it 'takes the year into account' do
       date = Date.today + 1.year # 1 year after the current date
       expect(@sheet.containsDate(date)).to be false
+    end
+  end
+
+  context 'same-month validation' do
+    it 'returns false when an identical time sheet exists' do
+      duplicate = FactoryGirl.build(:time_sheet, month: @sheet.month, year: @sheet.year, contract: @sheet.contract)
+
+      expect(duplicate).not_to be_valid
+    end
+
+    it 'returns true when the time sheet is unique' do
+      unique = FactoryGirl.create(:time_sheet)
+
+      expect(unique).to be_valid
+    end
+
+    it 'returns true when updating a time sheet' do
+      result = @sheet.update({})
+
+      expect(result).to be true
     end
   end
 

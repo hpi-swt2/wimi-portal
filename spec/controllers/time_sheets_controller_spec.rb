@@ -6,7 +6,7 @@ RSpec.describe TimeSheetsController, type: :controller do
     @user = FactoryGirl.create(:user)
     login_with @user
     @project = FactoryGirl.create(:project)
-    @contract = FactoryGirl.create(:contract, hiwi: @user, chair: @project.chair)
+    @contract = FactoryGirl.create(:contract, hiwi: @user, chair: @project.chair, start_date: Date.new(2015,1), end_date: Date.new(2016,1))
   end
 
   let(:valid_attributes) {
@@ -82,16 +82,6 @@ RSpec.describe TimeSheetsController, type: :controller do
         expect(flash.count).to eq(1)
       end
 
-      it 'should not hand in time sheets that have a date in the future' do
-        future_date = Date.today >> 1
-        time_sheet = FactoryGirl.create(:time_sheet, month: future_date.month, year: future_date.year)
-        get :hand_in, {id: time_sheet.to_param, time_sheet: signature_valid_attributes}, valid_session
-
-        expect(response).to have_http_status(302)
-        expect(time_sheet.signed).to be false
-        expect(flash.count).to eq(1)
-      end
-
       it 'should hand in time sheet with signature if present' do
         @user.update(signature: 'Signature')
         time_sheet = TimeSheet.create! valid_attributes
@@ -114,7 +104,8 @@ RSpec.describe TimeSheetsController, type: :controller do
 
   describe 'download' do
     it 'is allowed when the user can show the timesheet' do
-      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      contract = FactoryGirl.create(:contract, hiwi: @user)
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: contract)
       user_ability = Ability.new(@user)
       expect(user_ability.can? :show, @time_sheet).to be true
       get :download, {id: @time_sheet}

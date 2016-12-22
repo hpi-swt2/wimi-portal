@@ -58,7 +58,7 @@ Rails.application.routes.draw do
     resources :time_sheets, only: [:new, :create]
   end
 
-  resources :time_sheets, except: [:new, :create] do
+  resources :time_sheets, except: [:new] do
     member do
       get 'withdraw'
       patch 'hand_in'

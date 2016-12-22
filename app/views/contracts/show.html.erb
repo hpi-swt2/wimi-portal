@@ -13,8 +13,10 @@
           <dd><%= l @contract.start_date %> &ndash; <%= l @contract.end_date %></dd>
           <dt><%= model_class.human_attribute_name(:hiwi) %></dt>
           <dd><%= linked_name @contract.hiwi %> </dd>
-          <dt><%= model_class.human_attribute_name(:hours_per_week) %></dt>
-          <dd><%= @contract.hours_per_week %></dd>
+          <% unless @contract.flexible %>
+            <dt><%= model_class.human_attribute_name(:hours_per_week) %></dt>
+            <dd><%= @contract.hours_per_week %></dd>
+          <% end %>
           <dt><%= t('activerecord.models.chair.one').titleize %></dt>
           <dd><%= linked_name @contract.chair %> </dd>
         </dl>

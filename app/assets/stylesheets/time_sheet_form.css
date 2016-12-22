@@ -1,0 +1,61 @@
+/* disable number field arrows*/
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+td>.form-control[readonly] {
+  cursor: auto !important;
+  background-color: inherit !important;
+}
+
+td {
+  text-align: center;
+  position: relative;
+}
+
+th {
+  text-align: center;
+}
+
+td.notes {
+  text-align: left !important; 
+}
+
+span.helper-btns {
+  display:none;
+  width: 75px;
+  position: absolute;
+  left: -75px;
+  height: 35px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  top: 0px;
+  background-color: #f5f5f5;
+  padding-right: 5px;
+}
+
+span.helper-btns > .btn-xs {
+  margin-top: 5px;
+  /*line-height: 1.2;*/
+  /*font-size: 16px;*/
+}
+
+tr:hover span.helper-btns {
+  display:block;
+}
+
+tr.work_day_tr select {
+  height: 28px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-color: transparent;
+  border-color: transparent;
+  border-bottom: 1px solid #ccc;
+}

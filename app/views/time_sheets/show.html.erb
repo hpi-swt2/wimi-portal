@@ -1,4 +1,5 @@
 <%- model_class = TimeSheet -%>
+<%= stylesheet_link_tag 'time_sheet_form' %>
 <div class="col-md-12">
   <div class="display">
     <div class="page-header">
@@ -63,7 +64,55 @@
         <% end %>
       </div>
     </div>
-    <%= render partial: 'form', locals: {readonly: true, disable_date: true} %>
+
+    <p>
+      <strong><%= t('time_sheet.month_year')%>:</strong>
+      <%= l @time_sheet.first_day , format: :without_day %>
+    </p>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-hover">
+          <tr>
+            <th colspan="2"><%= t('activerecord.attributes.work_day.date') %></th>
+            <th><%= t('activerecord.attributes.work_day.start_time') %></th>
+            <th><%= t('activerecord.attributes.work_day.break') %></th>
+            <th><%= t('activerecord.attributes.work_day.end_time') %></th>
+            <th><%= t('activerecord.attributes.work_day.notes') %></th>
+            <th style="width:200px;"><%= t('activerecord.attributes.work_day.project') %></th>
+            <th><%= t('activerecord.attributes.work_day.attendance') %></th>
+          </tr>
+          <% @time_sheet.work_days.each do |w| %>
+            <tr class="work_day_tr">
+              <td>
+                <%= l w.date, format: :weekday_short %>
+              </td>
+              <td>
+                <%= l w.date, format: :day_month %>
+              </td>
+              <td>
+                <%= l w.start_time, format: :hours_minutes %>
+              </td>
+              <td>
+                <%= w.break %>
+              </td>
+              <td>
+                <%= l w.end_time, format: :hours_minutes %>
+              </td>
+              <td class="notes">
+                <%= w.notes %>
+              </td>
+              <td>
+                <%= w.project.title %>
+              </td>
+              <td>
+                <%= w.status %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 

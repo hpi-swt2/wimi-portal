@@ -153,6 +153,10 @@ en:
           too_far_in_the_future: " is too far in the future."
         project:
           cannot_delete: cannot delete, working hours were already entered
+        time_sheet:
+          month:
+            already_exists: "A time sheet for this month already exists."
+            no_contract: "The selected contract is not valid in the selected month."
         work_day:
           attributes:
             duration:
@@ -521,7 +525,7 @@ en:
     save: Time Sheet saved successfully.
     no_contract: No contract found for today.
   time_sheets:
-    form:
+    edit:
       note_placeholder: Add a note
       empty_work_days: No work days present
     show:
