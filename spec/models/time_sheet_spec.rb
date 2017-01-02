@@ -63,6 +63,26 @@ RSpec.describe TimeSheet, type: :model do
     expect(time_sheet).to_not be_valid
   end
 
+  context 'creation with contract checking' do
+    before(:each) do
+      start_date = Date.new(2000,12).beginning_of_month
+      end_date = Date.new(2000,12).end_of_month
+      @contract = FactoryGirl.create(:contract, start_date: start_date, end_date: end_date)
+    end
+
+    it 'is possible for the start month of a contract' do
+      time_sheet_start = FactoryGirl.create(:time_sheet, contract: @contract,
+        month: @contract.start_date.month, year: @contract.start_date.year)
+      expect(time_sheet_start).to be_valid
+    end
+
+    it 'is possible for the end month of a contract' do
+      time_sheet_end = FactoryGirl.create(:time_sheet, contract: @contract,
+        month: @contract.end_date.month, year: @contract.end_date.year)
+      expect(time_sheet_end).to be_valid
+    end
+  end # context 'creation with contract checking'
+
   it 'is possible to delete a time sheet without work days' do
     expect { @sheet.destroy }.to change { TimeSheet.count }.from(1).to(0)
   end
