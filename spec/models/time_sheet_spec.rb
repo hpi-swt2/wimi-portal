@@ -63,13 +63,25 @@ RSpec.describe TimeSheet, type: :model do
     expect(time_sheet).to_not be_valid
   end
 
-  it 'allows calling #monthly_work_minutes on time sheets, delegating to contract' do
-    expect(@sheet.monthly_work_minutes).to eq(@sheet.contract.monthly_work_minutes)
-  end
+  context 'creation with contract checking' do
+    before(:each) do
+      start_date = Date.new(2000,12).beginning_of_month
+      end_date = Date.new(2000,12).end_of_month
+      @contract = FactoryGirl.create(:contract, start_date: start_date, end_date: end_date)
+    end
 
-  it 'returns the percentage (range 0-100) of hours required by the contract' do
-    expect(@sheet.percentage_hours_worked).to eq(0)
-  end
+    it 'is possible for the start month of a contract' do
+      time_sheet_start = FactoryGirl.create(:time_sheet, contract: @contract,
+        month: @contract.start_date.month, year: @contract.start_date.year)
+      expect(time_sheet_start).to be_valid
+    end
+
+    it 'is possible for the end month of a contract' do
+      time_sheet_end = FactoryGirl.create(:time_sheet, contract: @contract,
+        month: @contract.end_date.month, year: @contract.end_date.year)
+      expect(time_sheet_end).to be_valid
+    end
+  end # context 'creation with contract checking'
 
   it 'is possible to delete a time sheet without work days' do
     expect { @sheet.destroy }.to change { TimeSheet.count }.from(1).to(0)
@@ -100,6 +112,14 @@ RSpec.describe TimeSheet, type: :model do
       FactoryGirl.create(:work_day, time_sheet: @sheet, notes: 'Lorem')
       expect(@sheet).to have_comments
     end
+  end
+
+  it 'allows calling #monthly_work_minutes on time sheets, delegating to contract' do
+    expect(@sheet.monthly_work_minutes).to eq(@sheet.contract.monthly_work_minutes)
+  end
+
+  it 'returns the percentage (range 0-100) of hours required by the contract' do
+    expect(@sheet.percentage_hours_worked).to eq(0)
   end
 
   it 'generates the right amount of work days' do

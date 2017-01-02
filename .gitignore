@@ -17,6 +17,11 @@ custom_scripts/
 
 .vagrant/
 
+# Ignore file that saves the results of last rspec run
+# File path set in spec/spec_helper.rb
+# Enables '--only-failures' RSpec flag
+spec/rspec_failures.txt
+
 # ignore simplecov results
 coverage
 

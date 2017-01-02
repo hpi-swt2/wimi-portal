@@ -29,6 +29,10 @@ RSpec.configure do |config|
   # If you want to explude tests e.g. acceptance test just flag them with "exclude: true"
   config.filter_run_excluding exclude: true
 
+  # Needed to enable '--only-failures' option
+  # See: https://relishapp.com/rspec/rspec-core/docs/command-line/only-failures
+  config.example_status_persistence_file_path = "spec/rspec_failures.txt"
+
   config.include ControllerHelpers, type: :controller
   Warden.test_mode!
 

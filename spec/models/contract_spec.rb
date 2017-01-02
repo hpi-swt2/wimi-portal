@@ -34,7 +34,7 @@ RSpec.describe Contract, type: :model do
     end
   end
 
-  context "deleting" do
+  context "deletion" do
     before(:each) do
       @hiwi = FactoryGirl.create(:hiwi)
       start_date = Date.today << 1
@@ -42,11 +42,11 @@ RSpec.describe Contract, type: :model do
       @contract = FactoryGirl.create(:contract, hiwi: @hiwi, start_date: start_date, end_date: end_date)
     end
 
-    it 'is possible to delete a contract without time_sheets' do
+    it 'is possible when a contract has no time_sheets' do
       expect { @contract.destroy }.to change { Contract.count }.from(1).to(0)
     end
 
-    it 'deleting a contract also deletes all of its time sheets' do
+    it 'also deletes all of a contract\'s time sheets' do
       @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, month: @contract.start_date.month, year: @contract.start_date.year)
       expect(@contract.time_sheets.count).to eq(1)
       expect { @contract.destroy }.to change { TimeSheet.count }.from(1).to(0)
