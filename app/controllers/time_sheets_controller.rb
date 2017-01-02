@@ -172,6 +172,21 @@ class TimeSheetsController < ApplicationController
   def time_sheet_params
     delocalize_config = {:start_time => :time, :end_time => :time}
 
-    params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym), work_days_attributes: WorkDay.column_names.map(&:to_sym)).delocalize(delocalize_config)
+    p = params[:time_sheet].permit(TimeSheet.column_names.map(&:to_sym), work_days_attributes: WorkDay.column_names.map(&:to_sym)).delocalize(delocalize_config)
+
+    # this actually works, but man is it ugly
+    # we should not be using delocalize
+    if p[:work_days_attributes]
+      p[:work_days_attributes].each do |index,d|
+        if /[0-9]{4}/.match(d[:start_time])
+          d[:start_time] = d[:start_time].slice(0..1) + ":" + d[:start_time].slice(2..-1)
+        end
+        if /[0-9]{4}/.match(d[:end_time])
+          d[:end_time] = d[:end_time].slice(0..1) + ":" + d[:end_time].slice(2..-1)
+        end
+      end
+    end
+
+    p
   end
 end

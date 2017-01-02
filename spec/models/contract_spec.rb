@@ -47,7 +47,7 @@ RSpec.describe Contract, type: :model do
     end
 
     it 'deleting a contract also deletes all of its time sheets' do
-      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, month: @contract.start_date.month)
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, month: @contract.start_date.month, year: @contract.start_date.year)
       expect(@contract.time_sheets.count).to eq(1)
       expect { @contract.destroy }.to change { TimeSheet.count }.from(1).to(0)
       expect(Contract.count).to eq(0)
