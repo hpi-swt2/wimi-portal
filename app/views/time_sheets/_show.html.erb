@@ -1,9 +1,0 @@
-<%= form_for(@time_sheet) do |f| %>
-  <% if current_user == @time_sheet.user && !@time_sheet.handed_in? %>
-    <div class="row">
-      <div class="col-md-12">
-        <%= link_to t('.edit', default: t('helpers.links.edit')), edit_time_sheet_path(@time_sheet), class: 'btn btn-warning btn-block' %>
-      </div>
-    </div>
-  <% end %>
-<% end %>
