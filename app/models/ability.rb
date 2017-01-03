@@ -76,8 +76,6 @@ class Ability
       can?(:show, ts.contract) or (ts.status=="pending" and ts.contract.chair == user.chair)
     end
 
-    cannot :new, TimeSheet
-
     can :see_wimi_actions , TimeSheet do |ts|
       can?(:show, ts) and ts.handed_in?
     end
