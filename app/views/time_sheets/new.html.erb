@@ -7,28 +7,7 @@
       </div>
     </div>
 
-  <script>
-  $( document ).ready(function() {
-    $(function () {
-      $('#submit').click(function (event) {
-        $('.time_sheet_form')[0].submit();
-      })
-    })
-
-    // Update hiden month and year fields when the timepicker values change
-    $('#month-input').datepicker()
-        .on('changeDate', function(e) {
-            $('#time_sheet_month').val(e.date.getMonth()+1);
-            $('#time_sheet_year').val(e.date.getFullYear());
-        });
-  });
-  </script>
-
   <%= form_for @time_sheet, html: {class: 'time_sheet_form'} do |f| %>
-
-    <%# Allow to submit the form without JS for testing %>
-    <%= f.submit nil, id: "hiddensubmit", class:'hidden' %>
-
     <%= render partial: "shared/form_validation_errors", locals: {object: @time_sheet} %>
 
     <div class="row">
@@ -62,14 +41,33 @@
       </div>
     </div>
 
+    <script>
+      $( document ).ready(function() {
+        // Update hiden month and year fields when the timepicker values change
+        $('#month-input').datepicker()
+            .on('changeDate', function(e) {
+                $('#time_sheet_month').val(e.date.getMonth()+1);
+                $('#time_sheet_year').val(e.date.getFullYear());
+            });
+      });
+    </script>
+
     <%# Hidden fields updated by JS when the datepicker selection changes %>
     <%= f.number_field :month, class: "hidden" %>
     <%= f.number_field :year, class: "hidden" %>
 
-    <% content_for :actions do %>
-        <%= f.submit nil, class:"btn btn-success btn-block", id: "submit" %>
-    <% end %>
+    <%# Allow to submit the form without JS for testing and via label in sidebar %>
+    <%= f.submit nil, id: "hiddensubmit", class: 'hidden' %>
 
+  <% end %> <%# form_for @time_sheet %>
+
+  <% content_for :actions do %>
+    <% model_name = model_class.model_name.human.titleize %>
+    <%# Label that triggers the 'hiddensubmit' submit button when clicked.
+        Allows submitting the form with an element not inside the form element %>
+    <%= label_tag 'hiddensubmit',
+      t('helpers.submit.create', model: model_name),
+      class: 'btn btn-block btn-success' %>
   <% end %>
 
   </div>
