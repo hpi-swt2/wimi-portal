@@ -9,10 +9,6 @@
     </div>
 
     <%= form_for @time_sheet, html: {class: 'time_sheet_form'} do |f| %>
-
-      <%# Allow to submit the form without JS for testing %>
-      <%= f.submit nil, id: "hiddensubmit", class:'hidden' %>
-
       <%= render partial: "shared/form_validation_errors", locals: {object: @time_sheet} %>
 
       <p>
@@ -80,16 +76,20 @@
         </div>
       </div>
 
-      <% content_for :actions do %>
-          <%= f.submit nil, class:"btn btn-success btn-block", id: "submit" %>
-      <% end %>
-
+      <%# Allow to submit the form without JS for testing and via label in sidebar %>
+      <%= f.submit nil, id: "hiddensubmit", class:'hidden' %>
     <% end %>
 
   </div>
 </div>
 
 <% content_for :actions do %>
+  <% model_name = model_class.model_name.human.titleize %>
+  <%# Label that triggers the 'hiddensubmit' submit button when clicked.
+      Allows submitting the form with an element not inside the form element %>
+  <%= label_tag 'hiddensubmit',
+    t('helpers.submit.update', model: model_name),
+    class: 'btn btn-block btn-success' %>
   <hr>
   <%= delete_button @time_sheet, class: 'btn-block', confirm: t('time_sheet.delete'), id: "delete" %>
   <%= link_to t('helpers.links.cancel'), time_sheet_path(@time_sheet), class: 'btn btn-block btn-default' %>
@@ -98,12 +98,6 @@
 
 <script>
   $( document ).ready(function() {
-    $(function () {
-      $('#submit').click(function (event) {
-        $('.time_sheet_form')[0].submit();
-      })
-    })
-
     function getRowInputs($row) {
       return $row.find('input:not([type=hidden])').not('.hidden');
     }
