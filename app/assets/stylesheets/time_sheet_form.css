@@ -1,33 +1,33 @@
 /* disable number field arrows*/
-input[type=number] {
+.time_sheet_form input[type=number] {
     -moz-appearance:textfield;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+.time_sheet_form input[type=number]::-webkit-inner-spin-button,
+.time_sheet_form input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-td>.form-control[readonly] {
+.time_sheet_form td>.form-control[readonly] {
   cursor: auto !important;
   background-color: inherit !important;
 }
 
-td {
+.time_sheet_form td {
   text-align: center;
   position: relative;
 }
 
-th {
+.time_sheet_form th {
   text-align: center;
 }
 
-td.notes {
+.time_sheet_form td.notes {
   text-align: left !important; 
 }
 
-span.helper-btns {
+.time_sheet_form span.helper-btns {
   display:none;
   width: 75px;
   position: absolute;
@@ -41,17 +41,17 @@ span.helper-btns {
   padding-right: 5px;
 }
 
-span.helper-btns > .btn-xs {
+.time_sheet_form span.helper-btns > .btn-xs {
   margin-top: 5px;
   /*line-height: 1.2;*/
   /*font-size: 16px;*/
 }
 
-tr:hover span.helper-btns {
+.time_sheet_form tr:hover span.helper-btns {
   display:block;
 }
 
-tr.work_day_tr select {
+.time_sheet_form tr.work_day_tr select {
   height: 28px;
   padding-top: 1px;
   padding-bottom: 1px;

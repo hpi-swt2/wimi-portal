@@ -7,7 +7,6 @@
         <%= t('helpers.titles.edit', model: model_class.model_name.human.titleize + ' ' + month_name) %>
       </div>
     </div>
-    <%= stylesheet_link_tag 'time_sheet_form' %>
 
     <%= form_for @time_sheet, html: {class: 'time_sheet_form'} do |f| %>
 
