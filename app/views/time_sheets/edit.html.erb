@@ -97,21 +97,12 @@
 
 
 <script>
-  var d;
-
   $( document ).ready(function() {
     $(function () {
       $('#submit').click(function (event) {
         $('.time_sheet_form')[0].submit();
       })
     })
-
-    // Update hiden month and year fields when the timepicker values change
-    $('#month-input').datepicker()
-        .on('changeDate', function(e) {
-            $('#time_sheet_month').val(e.date.getMonth()+1);
-            $('#time_sheet_year').val(e.date.getFullYear());
-        });
 
     function getRowInputs($row) {
       return $row.find('input:not([type=hidden])').not('.hidden');
@@ -153,4 +144,4 @@
     });
 
   });
-  </script>
+</script>
