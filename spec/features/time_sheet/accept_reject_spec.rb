@@ -21,13 +21,8 @@ describe 'time_sheet#show' do
   end
 
   it 'there are no accept / reject buttons for an accepted time sheet' do
-    @time_sheet.delete
-    @ts_accepted = FactoryGirl.create(:time_sheet,
-      contract: @contract,
-      signer: @wimi.id,
-      handed_in: true,
-      status: 'accepted')
-    visit time_sheet_path(@ts_accepted)
+    @time_sheet.update_attributes(signer: @wimi.id, status: 'accepted')
+    visit time_sheet_path(@time_sheet)
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.accepted"))
     expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.accept'))
     expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.reject'))
@@ -44,13 +39,8 @@ describe 'time_sheet#show' do
   end
 
   it 'there are no accept / reject buttons for a rejected time sheet' do
-    @time_sheet.delete
-    @ts_rejected = FactoryGirl.create(:time_sheet,
-      contract: @contract,
-      signer: @wimi.id,
-      handed_in: true,
-      status: 'rejected')
-    visit time_sheet_path(@ts_rejected)
+    @time_sheet.update_attributes(signer: @wimi.id, status: 'rejected')
+    visit time_sheet_path(@time_sheet)
     expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.rejected"))
     expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.reject'))
     expect(page).to_not have_selector(:link_or_button, I18n.t('time_sheets.wimi_actions.accept'))
