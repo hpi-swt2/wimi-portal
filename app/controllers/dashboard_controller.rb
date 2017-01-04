@@ -7,5 +7,7 @@ class DashboardController < ApplicationController
 
     @ending_contracts = Contract.ends_soon.accessible_by(current_ability, :show)
     @ending_contracts.sort {|a,b| a.end_date <=> b.end_date }
+
+    @missing_timesheets = []
   end
 end

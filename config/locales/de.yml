@@ -261,6 +261,7 @@ de:
       dashboard_title: Dashboard
       notifications: Wichtige Benachrichtigungen
       ending_contracts: Bald endende Verträge
+      missing_timesheets: Fehlende Stundenzettel
     projects:
       projects: Meine Projekte
   errors:

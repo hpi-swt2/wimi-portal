@@ -1,0 +1,23 @@
+<div class="col-md-12 col-sm-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><%= t 'dashboard.index.missing_timesheets' %></h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <% if @missing_timesheets.each do |timesheet| %>
+              <div class="col-md-6">
+                <%= linked_name timesheet %>
+              </div>
+              <div class="col-md-6">
+                <%= t 'activerecord.models.user.one' %>: <%= linked_name timesheet.user %>
+              </div>
+            <% end.empty? %>
+              <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -53,6 +53,11 @@
   </div>
 <% end %>
 
+<!-- Missing Timesheets -->
+<% if current_user.is_representative? or current_user.is_admin? %>
+  <%= render partial: 'missing_timesheets' %>
+<% end %>
+
 <!-- Notifications -->
 <% unless @notifications.empty? %>
 <div class="col-md-12 col-sm-12">
