@@ -6,13 +6,18 @@
         </div>
         <div class="panel-body">
           <div class="row">
-            <% if @missing_timesheets.each do |timesheet| %>
-              <div class="col-md-6">
-                <%= linked_name timesheet %>
-              </div>
-              <div class="col-md-6">
-                <%= t 'activerecord.models.user.one' %>: <%= linked_name timesheet.user %>
-              </div>
+            <% if @missing_timesheets.each do |dates,contract| %>
+              <% dates.each do |date| %>
+                <div class="col-md-4">
+                  <%= l date, format: :short_month_year %>
+                </div>
+                <div class="col-md-4">
+                  <%= t('activerecord.models.contract.one').capitalize %>: <%= linked_name contract %>
+                </div>
+                <div class="col-md-4">
+                  <%= t 'activerecord.attributes.contract.hiwi' %>: <%= linked_name contract.hiwi %>
+                </div>
+              <% end %>
             <% end.empty? %>
               <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
             <% end %>

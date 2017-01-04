@@ -29,11 +29,13 @@ describe 'dashboard#index' do
     end
 
     it 'shows missing timesheets for past months' do
-      expect(page.find('#missing_timesheets')).to have_content(I18n.l(@start_date, format: :short_month_year))
+      expect(page.find('#missing_timesheets').all('.col-md-4').first).to have_content(I18n.l(@start_date, format: :short_month_year))
+      expect(page.find('#missing_timesheets')).to have_content(@contract.hiwi.name)
+      expect(page.find('#missing_timesheets')).to have_content(@contract.name)
     end
 
     it 'does not show the current month to be missing' do
-      expect(page.find('#missing_timesheets')).not_to have_content(I18n.l(@end_date, format: :short_month_year))
+      expect(page.find('#missing_timesheets').all('.col-md-4').first).not_to have_content(I18n.l(@end_date, format: :short_month_year))
     end
   end
 

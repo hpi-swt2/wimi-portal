@@ -68,4 +68,11 @@ class Contract < ActiveRecord::Base
   def monthly_work_minutes
     self.monthly_work_hours ? self.monthly_work_hours * 60 : self.monthly_work_hours
   end
+
+  def missing_timesheets
+    contract_dates = ((start_date.at_beginning_of_month)..((Date.today << 1).at_beginning_of_month)).select{|d| d.day == 1}
+    valid_dates = time_sheets.select{|ts| ts.status = 'accepted'}.collect{|ts| Date.new(ts.year, ts.month)}
+    contract_dates.delete_if{|date| valid_dates.include? date }
+    contract_dates
+  end
 end
