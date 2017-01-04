@@ -164,6 +164,10 @@ class TimeSheet < ActiveRecord::Base
     return "Arbeitszeitnachweis #{last_name} #{date}"
   end
 
+  def name
+    I18n.l(Date.new(year,month,1), format: :short_month_year)
+  end
+
   private
 
   # Initialize the TimeSheet to status "created".

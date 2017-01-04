@@ -16,4 +16,18 @@ FactoryGirl.define do
     chair
     application 'accepted'
   end
+
+  factory :admin, class: 'ChairWimi' do
+  	user
+  	chair
+  	admin true
+  	application 'accepted'
+  end
+
+  factory :representative, class: 'ChairWimi' do
+  	user 
+  	chair
+  	representative true
+  	application 'accepted'
+  end
 end

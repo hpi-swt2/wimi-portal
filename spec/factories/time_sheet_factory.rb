@@ -44,5 +44,16 @@ FactoryGirl.define do
         ts.contract = FactoryGirl.create(:contract, args)
       end
     end
+    factory :time_sheet_accepted do
+      handed_in true
+      hand_in_date { Date.new(year,month) }
+      status 'accepted'
+      signer { contract.responsible.id }
+      representative_signed_at { Date.new(year,month) }
+    end
+
   end
+
+  
+
 end
