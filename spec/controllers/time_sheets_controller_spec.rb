@@ -11,18 +11,18 @@ RSpec.describe TimeSheetsController, type: :controller do
   end
 
   let(:valid_attributes) {
-    {month: 1, year: 2015, 
+    {month: @contract.start_date.month, year: @contract.start_date.year,
      user: @user, contract: @contract}
   }
   let(:time_sheet) {
     TimeSheet.create! valid_attributes
   }
   let(:signature_valid_attributes) {
-    {month: 1, year: 2015, 
+    {month: @contract.start_date.month, year: @contract.start_date.year,
      user: @user, contract: @contract, signed: 1}
   }
   let(:invalid_attributes) {
-    {month: -1, year: 2015, 
+    {month: -1, year: @contract.start_date.year,
       user: @user, contract: @contract}
   }
   let(:valid_session) { {} }
@@ -89,6 +89,14 @@ RSpec.describe TimeSheetsController, type: :controller do
         expect {
           get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
         }.to change { EventTimeSheetSubmitted.count }.by(1)
+      end
+
+      it 'should not update attributes on hand_in if already handed in' do
+        time_sheet.hand_in()
+        expect {
+          get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
+        }.to_not change { time_sheet.hand_in_date }
+        expect(flash.count).to eq(1)
       end
     end
   end
