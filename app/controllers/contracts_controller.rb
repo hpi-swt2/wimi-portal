@@ -1,6 +1,8 @@
 class ContractsController < ApplicationController
   load_and_authorize_resource
 
+  skip_authorize_resource only: :dismiss
+
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
     redirect_to contracts_path
@@ -50,6 +52,17 @@ class ContractsController < ApplicationController
     @contract.destroy
     redirect_to contracts_path
     flash[:success] = t('helpers.flash.destroyed', model: @contract.model_name.human.titleize)
+  end
+
+  def dismiss
+    contract = Contract.find(params[:id])
+    authorize! :show, contract
+    month = params[:month]
+    entry = DismissedMissingTimesheet.new(user: current_user, contract: contract, month: month)
+    if entry.save
+      flash[:success] = I18n.t('dashboard.index.dismissed')
+    end
+    redirect_to dashboard_path
   end
 
   private

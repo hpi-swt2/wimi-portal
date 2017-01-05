@@ -262,6 +262,7 @@ de:
       notifications: Wichtige Benachrichtigungen
       ending_contracts: Bald endende Verträge
       missing_timesheets: Fehlende Stundenzettel
+      dismissed: Eintrag ausgeblendet.
     projects:
       projects: Meine Projekte
   errors:

@@ -262,6 +262,7 @@ en:
       notifications: Important Notifications
       ending_contracts: Soon-ending contracts
       missing_timesheets: Missing Timesheets
+      dismissed: Dismissed entry.
     projects:
       projects: My Projects
   errors:

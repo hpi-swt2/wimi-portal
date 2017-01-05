@@ -9,7 +9,12 @@ class DashboardController < ApplicationController
     @ending_contracts.sort {|a,b| a.end_date <=> b.end_date }
 
     @missing_timesheets = Contract.accessible_by(current_ability, :show)
-    @missing_timesheets = @missing_timesheets.collect{|c| c.missing_timesheets != [] ? [c.missing_timesheets,c] : nil}
+    @missing_timesheets = @missing_timesheets.collect do |contract|
+      mt = contract.missing_timesheets
+      dismissed = DismissedMissingTimesheet.dates_for(current_user, contract)
+      mt = mt.select{|date| !dismissed.include?(date)}
+      mt != [] ? [mt,contract] : nil
+    end
     @missing_timesheets.compact!
   end
 end
