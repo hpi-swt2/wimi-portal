@@ -54,6 +54,34 @@ class TimeSheet < ActiveRecord::Base
     )
   end
 
+  def accept_as(wimi)
+    success = self.update(
+      status: 'accepted',
+      last_modified: Date.today,
+      signer: wimi.id,
+      representative_signature: wimi.signature,
+      representative_signed_at: Date.today())
+    if success
+      ActiveSupport::Notifications.instrument('event', trigger: self.id, target: self.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
+    end
+    return success
+  end
+
+  def reject_as(wimi)
+    success = self.update(
+      status: 'rejected',
+      handed_in: false,
+      last_modified: Date.today(),
+      signer: wimi.id,
+      user_signature: nil,
+      signed: false,
+      user_signed_at: nil)
+    if success
+      ActiveSupport::Notifications.instrument('event', trigger: self.id, target: self.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetDeclined')
+    end
+    return success
+  end
+
   def reject_work_day(attributes)
     exists = attributes['id'].present?
     empty = attributes.slice(:start_time, :end_time).values.all?(&:blank?)

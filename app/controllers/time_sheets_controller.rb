@@ -74,19 +74,6 @@ class TimeSheetsController < ApplicationController
     redirect_to time_sheet_path(@time_sheet)
   end
 
-  def accept
-    @time_sheet.update(status: 'accepted', last_modified: Date.today, signer: current_user.id, representative_signature: current_user.signature, representative_signed_at: Date.today)
-    ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
-    redirect_to time_sheet_path(@time_sheet)
-  end
-
-  def reject
-    @time_sheet.update(status: 'rejected', handed_in: false, last_modified: Date.today, signer: current_user.id)
-    @time_sheet.update(user_signature: nil, signed: false, user_signed_at: nil)
-    ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetDeclined')
-    redirect_to time_sheet_path(@time_sheet)
-  end
-
   def update
     if @time_sheet.update(time_sheet_params)
       flash[:success] = t('helpers.flash.updated', model: @time_sheet.model_name.human.capitalize)
@@ -102,12 +89,14 @@ class TimeSheetsController < ApplicationController
     case params[:time_sheet_action]
       when 'reject'
         @time_sheet.update(time_sheet_params)
+        @time_sheet.reject_as(current_user)
         flash[:success] = t('.flash.rejected')
-        reject
+        redirect_to time_sheet_path(@time_sheet)
       when 'accept'
+        @time_sheet.accept_as(current_user)
         @time_sheet.update(wimi_signed: time_sheet_params[:wimi_signed])
         flash[:success] = t('.flash.accepted')
-        accept
+        redirect_to time_sheet_path(@time_sheet)
       else
         raise CanCan::AccessDenied
     end
