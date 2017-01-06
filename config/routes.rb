@@ -56,6 +56,9 @@ Rails.application.routes.draw do
 
   resources :contracts do
     resources :time_sheets, only: [:new, :create]
+    member do
+      get 'dismiss'
+    end
   end
 
   resources :time_sheets, except: [:new] do
@@ -69,7 +72,6 @@ Rails.application.routes.draw do
       get 'current'
     end
   end
-
 
   resources :trips do
     resources :expenses, except: [:show, :index]

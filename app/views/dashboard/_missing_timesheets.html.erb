@@ -8,14 +8,17 @@
           <div class="row">
             <% if @missing_timesheets.each do |dates,contract| %>
               <% dates.each do |date| %>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <%= l date, format: :short_month_year %>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <%= t('activerecord.models.contract.one').capitalize %>: <%= linked_name contract %>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <%= t 'activerecord.attributes.contract.hiwi' %>: <%= linked_name contract.hiwi %>
+                </div>
+                <div class="col-md-3">
+                  <%= link_to "x", dismiss_contract_path(id: contract.id, month: date), class: "btn btn-xs btn-danger" %>
                 </div>
               <% end %>
             <% end.empty? %>
