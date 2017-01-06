@@ -22,23 +22,6 @@ RSpec.describe 'navigation bar', type: :view do
     #    end
   end
 
-  context 'for a registered User' do
-    it_behaves_like 'a registered User'
-    before(:each) do
-      @user = FactoryGirl.create(:user)
-      login_as @user
-      visit root_path
-    end
-
-    # If a user is not part of a project, should the (empty) projects#index page
-    # be accesible to him / be linked from the navbar? This is the case currently
-    it 'should not link to project pages when a user is not authorized to see any projects', :skip => true do
-      expect(Ability.new(@user).can?(:index, Project)).to be false
-      expect(page).to_not have_link(I18n.t('activerecord.models.project.other').titleize, href: projects_path)
-      expect(page).to_not have_link(I18n.t('activerecord.models.project.one').titleize, href: projects_path)
-    end
-  end
-
   context 'for a superadmin' do
     it_behaves_like 'a registered User'
     before(:each) do
@@ -79,11 +62,14 @@ RSpec.describe 'navigation bar', type: :view do
       expect(page).to have_link(I18n.t('activerecord.models.project.one').titleize, href: project_path(@project))
     end
 
-    it 'should link to project#indexif the user is part of multiple projects' do
+    it 'should link to project#index if the user is part of multiple projects' do
       @user.projects << @project2
-      login_as @user
       visit root_path
       expect(page).to have_link(I18n.t('activerecord.models.project.other').titleize, href: projects_path)
+    end
+
+    it 'should link to the overview of time sheets' do
+      expect(page).to have_link(I18n.t('activerecord.models.time_sheet.other').titleize, href: time_sheets_path)
     end
   end
 
