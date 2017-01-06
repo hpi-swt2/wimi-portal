@@ -12,7 +12,12 @@ class TimeSheetsController < ApplicationController
   end
 
   def index
-    @contracts = Contract.all.order(end_date: :desc).select {|c| can? :index, c}
+    @all_contracts = Contract.all.order(end_date: :desc).select {|c| can? :index, c}
+    @contracts = @all_contracts
+    if params[:contract].present?
+      # Cannot use 'where' clause, as @all_contracts is an array due to use of previous 'select'
+      @contracts = @all_contracts.select{|c| c.id == params[:contract].to_i}
+    end
   end
 
   def show

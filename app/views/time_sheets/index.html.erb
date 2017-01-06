@@ -78,3 +78,27 @@
     });
   });
 </script>
+
+<% content_for :sidebar do %>
+  <!--Filter-->
+  <%= form_tag time_sheets_path, method: :get, class: "form-horizontal" do %>
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4> <%= t('project.filter_chair') %> </h4>
+          </div>
+          <div class="panel-body" style="padding: 0px;">
+            <div class="col-md-12 nobottompadding">
+              <strong><%= t('activerecord.models.contract.one').capitalize %></strong>
+              <%= select_tag :contract, options_from_collection_for_select(@all_contracts, 'id', 'name', params.fetch(:contract, nil)), { class: 'select optional form-control', include_blank: true} %>
+            </div>
+            <div class="col-md-12">
+              <%= button_tag t('links.search'), {name: "commit", value: "filter", class: "btn btn-primary btn-block"} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
