@@ -47,6 +47,10 @@ h1,h2,h3,h4 {
   margin-top: 0px;
 }
 
+.table-condensed {
+  margin-bottom: 0px;
+}
+
 .vertical-align {
   display: flex;
   flex-direction: row;

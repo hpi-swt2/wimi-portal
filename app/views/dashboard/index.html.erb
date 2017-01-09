@@ -35,18 +35,28 @@
           <h4><%= t '.ending_contracts' %></h4>
         </div>
         <div class="panel-body">
-          <div class="row">
-            <% if @ending_contracts.each do |contract| %>
-              <div class="col-md-6">
-                <%= linked_name contract %>
-              </div>
-              <div class="col-md-6">
-                <%= t 'activerecord.attributes.contract.responsible' %>: <%= linked_name contract.responsible %>
-              </div>
-            <% end.empty? %>
-              <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
-            <% end %>
-          </div>
+          <% if @ending_contracts.empty? %>
+            <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
+          <% else %>
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th><%= Contract.human_attribute_name(:end_date) %></th>
+                  <th><%= Contract.human_attribute_name(:hiwi) %></th>
+                  <th><%= Contract.human_attribute_name(:responsible) %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @ending_contracts.each do |contract| %>
+                  <tr>
+                    <td><%= l contract.end_date, format: :short_month_year %></td>
+                    <td><%= linked_name contract.hiwi %></td>
+                    <td><%= linked_name contract.responsible %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
         </div>
       </div>
     </div>
