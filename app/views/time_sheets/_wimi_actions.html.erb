@@ -32,7 +32,23 @@
         </div>
       </div>
     </div>
-    <%= f.button t('.reject'), name: 'time_sheet_action', value: 'reject', class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
+    <%= f.button t('.reject'), name: 'time_sheet_action', value: 'reject', id: 'btn-reject', class: 'btn btn-danger btn-block', style: "margin-bottom: 5px;"%>
   <% end %> <%# form_for @time_sheets %>
   <hr>
 <% end %> <%# if @time_sheet.status.include? 'pending' %>
+
+<script type="text/javascript">
+(function( $btn ) {
+  $btn.on('click', function(event) {
+    if ($('#message').val().trim()) {
+      return true
+    } else {
+      event.preventDefault();
+      dataConfirmModal.confirm({
+        text: "<%=t 'time_sheet.confirm_reject' %>",
+        onConfirm: function() { $btn.unbind('click').trigger('click'); }
+      });
+    }
+  });
+})($('#btn-reject'));
+</script>

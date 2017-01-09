@@ -518,6 +518,7 @@ en:
     signature_not_found: You have selected to sign the document, but there was no signature found
     signature_not_found_time_sheet: The document was not handed in, because you have selected to sign the document, but there was no signature found
   time_sheet:
+    confirm_reject: "No rejection reason was given. Reject the time sheet anyway?"
     delete: Are you sure that this timesheet should be deleted?
     download:
       has_comments: This timesheet has comments. Include them in the download?

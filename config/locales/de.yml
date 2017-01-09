@@ -518,6 +518,7 @@ de:
     signature_not_found: Sie haben ausgewählt, das Dokument zu unterschreiben, haben aber noch keine Unterschrift hinzugefügt
     signature_not_found_time_sheet: Das Dokument wurde nicht eingereicht, da Sie ausgewählt haben, das Dokument zu unterschreiben, aber noch keine Unterschrift hinzugefügt wurde
   time_sheet:
+    confirm_reject: "Es wurde kein Ablehnungsgrund angegeben. Stundenzettel trotzdem ablehnen?"
     delete: Wollen Sie diesen Stundenzettel wirklich löschen?
     download:
       has_comments: Dieser Stundenzettel hat Kommentare. Beim Export beibehalten?
