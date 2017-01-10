@@ -6,4 +6,14 @@ class DismissedMissingTimesheet < ActiveRecord::Base
   belongs_to :contract
 
   validates :user, :contract, presence: true
+
+  def self.missing_for(user, contracts)
+    missing_ts = contracts.collect do |contract|
+      missing = contract.missing_timesheets
+      dismissed = self.dates_for(user, contract)
+      missing = missing.select{|date| !dismissed.include?(date)}
+      missing != [] ? [missing, contract] : nil
+    end
+    return missing_ts.compact
+  end
 end
