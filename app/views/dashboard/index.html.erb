@@ -34,7 +34,7 @@
         <div class="panel-heading">
           <h4><%= t '.ending_contracts' %></h4>
         </div>
-        <div class="panel-body">
+        <div class="panel-body panel-scroll">
           <% if @ending_contracts.empty? %>
             <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
           <% else %>
@@ -76,7 +76,7 @@
       <div class="panel-heading">
         <h4><%=t('.notifications')%></h4>
       </div>
-      <div class="panel-body">
+      <div class="panel-body panel-scroll">
         <% @notifications.each do |event| %>
           <%= render partial: event %>
           <%= link_to t('helpers.submit.hide'), hide_event_path(id: event, request: current_user), method: :post, class: 'label label-warning' %>
@@ -96,7 +96,7 @@
       <div class="panel-heading">
         <h4><%=t('.activities')%></h4>
       </div>
-      <div class="panel-body">
+      <div class="panel-body panel-scroll">
         <% unless @activities.empty? %>
           <% @activities.each do |event| %>
             <%= render partial: event %>

@@ -4,7 +4,7 @@
         <div class="panel-heading">
           <h4><%= t 'dashboard.index.missing_timesheets' %></h4>
         </div>
-        <div class="panel-body">
+        <div class="panel-body panel-scroll">
           <% if @missing_timesheets.empty? %>
             <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
           <% else %>
