@@ -9,7 +9,7 @@
         <div class="row add-user">
           <div class="col-sm-12">
             <div class="description-text">
-              <%= form_for :add_user_to_chair, url: add_user_chair_path(@chair) do |f| %>
+              <%= form_for :add_user_to_chair, url: chair_users_path(@chair) do |f| %>
                 <div class="modal-body clearfix" >
                   <%= f.collection_select :id, User.all, :id, :name_with_email, {:include_blank => true}, {:class=>'form-control user-auto-complete'} %>
                 </div>

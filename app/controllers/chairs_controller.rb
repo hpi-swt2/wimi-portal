@@ -1,7 +1,7 @@
 class ChairsController < ApplicationController
   
   load_and_authorize_resource
-  #before_action :set_chair, only: [:show, :accept_request, :remove_from_chair, :destroy, :update, :set_admin, :withdraw_admin, :requests]
+  #before_action :set_chair, only: [:show, :accept_request, :remove_user, :destroy, :update, :set_admin, :withdraw_admin, :requests]
 
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('chairs.navigation.not_authorized')
@@ -126,7 +126,7 @@ class ChairsController < ApplicationController
     end
   end
 
-  def remove_from_chair
+  def remove_user
     chair_wimi = ChairWimi.find(params[:request])
     status = ('removed' if chair_wimi.application == 'accepted') || ('declined' if chair_wimi.application == 'pending')
 

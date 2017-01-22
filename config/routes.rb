@@ -5,7 +5,19 @@ Rails.application.routes.draw do
   get 'extern' => 'users#external_login', as: 'external_login'
 
   resources :chair_applications
-  resources :chairs
+  resources :chairs do
+  end
+  post 'chairs/:id/users' => 'chairs#add_user', as: :chair_users
+  delete 'chairs/:id/users/:request' => 'chairs#remove_user', as: :chair_user
+  post 'chairs/:id/admins' => 'chairs#set_admin', as: :chair_admins
+  delete 'chairs/:id/admins/:request' => 'chairs#withdraw_admin', as: :chair_admin
+  
+#  post 'chairs/remove_user', to: 'chairs#remove_from_chair'
+#  post 'chairs/destroy', to: 'chairs#destroy'
+#  post 'chairs/set_admin', to: 'chairs#set_admin'
+#  post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
+  get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
+  post 'chairs/:id/requests' => 'chairs#requests_filtered', as: 'requests_filtered'
 
   resources :project_applications, only: [:index, :destroy] do
     member do
@@ -83,21 +95,7 @@ Rails.application.routes.draw do
     get 'trips/file', to: 'trips#file'
     get 'trips/accept_reject', to: 'trips#accept_reject'
   end
-
-  resources :chairs do
-    member do
-      post 'add_user'
-    end
-  end
-
-  post 'chairs/apply', to: 'chairs#apply'
-  post 'chairs/accept', to: 'chairs#accept_request'
-  post 'chairs/remove_user', to: 'chairs#remove_from_chair'
-  post 'chairs/destroy', to: 'chairs#destroy'
-  post 'chairs/set_admin', to: 'chairs#set_admin'
-  post 'chairs/withdraw_admin', to: 'chairs#withdraw_admin'
-  get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
-  post 'chairs/:id/requests' => 'chairs#requests_filtered', as: 'requests_filtered'
+  
   get 'projects/typeahead/:query' => 'projects#typeahead'
 
   post 'events/hide', to: 'events#hide', as: 'hide_event'
