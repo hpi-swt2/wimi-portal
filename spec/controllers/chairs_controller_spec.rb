@@ -258,14 +258,14 @@ RSpec.describe ChairsController, type: :controller do
 
     it 'removes wimi from chair' do
       login_with @admin
-      post :remove_from_chair, {id: @chair, request: @wimi.chair_wimi}
+      post :remove_user, {id: @chair, request: @wimi.chair_wimi}
 
       expect(@wimi.reload.is_wimi?).to eq(false)
     end
 
     it 'tries to remove admin' do
       login_with @admin
-      post :remove_from_chair, {id: @chair, request: @admin.chair_wimi}
+      post :remove_user, {id: @chair, request: @admin.chair_wimi}
 
       expect(@wimi.reload.is_wimi?).to eq(true)
     end
