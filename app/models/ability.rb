@@ -40,12 +40,6 @@ class Ability
       ts.user == user and user.has_contract_for(ts.month, ts.year)
     end
     can :withdraw, TimeSheet, user: {id: user.id}, handed_in: true, status: 'pending'
-    
-    can [:index, :show], WorkDay, user: { id: user.id }
-    can [:create, :edit, :update, :destroy], WorkDay do |wd|
-      wd.user == user and can?(:edit, wd.time_sheet)
-    end
-    cannot [:new, :create], WorkDay if user.recent_contracts.empty?
   end
 
   def initialize_hiwi(user)
@@ -57,28 +51,22 @@ class Ability
   def initialize_wimi(user)
     initialize_user user
     
-    can [:new, :create], Project
-    can [:index, :show], Project, chair: { chair_wimis: {user_id: user.id} }
+    can :create, Project
+    can :read, Project, chair: { chair_wimis: {user_id: user.id} }
     can :manage, Project, users: { id: user.id }
     cannot :leave, Project do |project|
       project.wimis.size == 1
     end
     
-        # [:index, :show]
-    can [:index, :show, :create, :update], Contract, responsible_id: user.id
-    can [:index], Contract do |con|
-      con.time_sheets.any? {|ts| can? :show, ts }
-    end
-    can [:index, :show, :accept, :reject, :accept_reject], TimeSheet do |ts|
-      # For HiWis that they are not responsible for, WiMis can only view those
-      # time sheets that were handed in by HiWis of their chair.
-      # If a WiMi can show the contract, i.e. is responsible for it, all time sheets can be viewed.
-      can?(:show, ts.contract) or (ts.status=="pending" and ts.contract.chair == user.chair)
-    end
-
-    can :see_wimi_actions , TimeSheet do |ts|
-      can?(:show, ts) and ts.handed_in?
-    end
+    alias_action :read, :accept, :reject, :accept_reject, to: :ts_wimi_actions
+    
+    can [:read, :create, :update], Contract, responsible_id: user.id
+    can :ts_wimi_actions, TimeSheet, contract: { responsible_id: user.id }
+    can :see_wimi_actions, TimeSheet, contract: { responsible_id: user.id }, handed_in: true
+    
+    # allow access to time sheets and contracts of other wimis if time sheet is 'pending'
+    can [:ts_wimi_actions, :see_wimi_actions], TimeSheet, status: 'pending', contract: { chair_id: user.chair.id }
+    can :read, Contract, chair_id: user.chair.id, time_sheets: { status: 'pending' }
   end
 
   def initialize_admin(user)
