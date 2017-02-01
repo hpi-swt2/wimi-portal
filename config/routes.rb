@@ -113,9 +113,6 @@ Rails.application.routes.draw do
   post 'users/:id/upload_signature', to: 'users#upload_signature', as: 'upload_signature'
   post 'users/:id/delete_signature', to: 'users#delete_signature', as: 'delete_signature'
 
-  get '/admin_search', to: 'chairs#admin_search', as: 'admin_search'
-  get '/representative_search', to: 'chairs#representative_search', as: 'representative_search'
-
   resources :users, only: [:show, :edit, :edit_leave, :update]
   get '/users/autocomplete/:query', to: 'users#autocomplete', as: 'autocomplete'
 end
