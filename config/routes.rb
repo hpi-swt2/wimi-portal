@@ -19,17 +19,6 @@ Rails.application.routes.draw do
   get 'chairs/:id/requests' => 'chairs#requests', as: 'requests'
   post 'chairs/:id/requests' => 'chairs#requests_filtered', as: 'requests_filtered'
 
-  resources :project_applications, only: [:index, :destroy] do
-    member do
-      get 'accept'
-      get 'decline'
-      get 'reapply'
-    end
-    collection do
-      post 'apply/project_:id', to: 'project_applications#create', as: 'apply'
-    end
-  end
-
   get 'documents/generate_pdf' => 'documents#generate_pdf', as: 'generate_pdf'
 
   # root 'dashboard#index'

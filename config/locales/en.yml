@@ -466,17 +466,6 @@ en:
       already_member: "%{name} is already a member of this project."
       last_wimi: You are the last research assistant. You can not leave the project.
       successfully_added: "%{name} has been added successfully."
-  project_applications:
-    created: Application was successfully created
-    destroy: Application was deleted
-    index:
-      cancel: Cancel Application
-    not_created: Application was not created
-    reapply: Reapply
-    states:
-      accepted: Accepted
-      declined: Declined
-      pending: Pending
   projects:
     create:
       success: Project was successfully created.

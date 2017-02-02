@@ -466,17 +466,6 @@ de:
       already_member: "%{name} ist bereits Mitglied dieses Projekts."
       last_wimi: Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.
       successfully_added: "%{name} wurde erfolgreich hinzugefügt."
-  project_applications:
-    created: Bewerbung wurde erfolgreich erstellt
-    destroy: Bewerbung wurde zurückgezogen
-    index:
-      cancel: Bewerbung zurückziehen
-    not_created: Bewerbung konnte nicht erstellt werden
-    reapply: Erneut bewerben
-    states:
-      accepted: Akzeptiert
-      declined: Abgelehnt
-      pending: Ausstehend
   projects:
     create:
       success: Projekt wurde erfolgreich erstellt.
