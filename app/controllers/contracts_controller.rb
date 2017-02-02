@@ -9,8 +9,7 @@ class ContractsController < ApplicationController
   end
 
   def index
-    # @contracts = Contract.accessible_by(current_ability, :index)
-    @contracts = Contract.all.order(end_date: :desc).select {|c| can? :index, c}
+    @contracts = @contracts.order(end_date: :desc)
     # If there is only one contract available to view to a user and
     # no permissions are available to create one (which is possible on the index page)
     # then redirect directly to the show page of the only contract.
