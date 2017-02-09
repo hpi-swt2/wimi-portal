@@ -29,7 +29,6 @@ class Project < ActiveRecord::Base
   def invite_user(user, sender)
     if user && !user.is_superadmin?
       inv = Invitation.create(user: user, project: self, sender: sender)
-      ActiveSupport::Notifications.instrument('event', {trigger: inv.id, target: user.id, seclevel: :hiwi, type: 'EventProjectInvitation'})
       user.invitations << inv
       return true
     else
@@ -49,14 +48,12 @@ class Project < ActiveRecord::Base
   def destroy_invitations
     invitation = Invitation.where(project: self)
     invitation.each do |inv|
-      Event.find_by(trigger: inv.id).destroy!
       inv.destroy!
     end
   end
 
   def destroy_invitation(user)
     inv = Invitation.find_by(user: user, project: self)
-    Event.find_by(trigger: inv.id, target_id: user.id).destroy!
     inv.destroy!
   end
 

@@ -84,9 +84,7 @@ class TripsController < ApplicationController
 
   def hand_in
     if @trip.status == 'saved'
-      if @trip.update(status: 'applied')
-        ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: @trip.id, chair: current_user.chair, type: 'EventRequest', seclevel: :representative, status: 'trip'})
-      end
+
     end
     redirect_to trips_path
   end
@@ -108,7 +106,6 @@ class TripsController < ApplicationController
   def reject
     if (can? :read, @trip) && @trip.status == 'applied'
       @trip.update_attributes(status: 'declined', last_modified: Date.today, person_in_power: current_user, rejection_message: get_rejection_message)
-      ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestDeclined'})
       redirect_to @trip.user
     else
       redirect_to root_path
@@ -119,7 +116,6 @@ class TripsController < ApplicationController
   def accept
     if (can? :read, @trip) && @trip.status == 'applied'
       @trip.update_attributes(status: 'accepted', last_modified: Date.today, person_in_power: current_user, representative_signature: current_user.signature, representative_signed_at: Date.today)
-      ActiveSupport::Notifications.instrument('event', {trigger: @trip.id, target: @trip.user.id, seclevel: :wimi, type: 'EventTravelRequestAccepted'})
       redirect_to @trip.user
     else
       redirect_to root_path

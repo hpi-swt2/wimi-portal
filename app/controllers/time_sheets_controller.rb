@@ -68,7 +68,6 @@ class TimeSheetsController < ApplicationController
       @time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
     end
     @time_sheet.hand_in()
-    ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
     flash[:success] = t('.flash')
     redirect_to time_sheet_path(@time_sheet)
   end

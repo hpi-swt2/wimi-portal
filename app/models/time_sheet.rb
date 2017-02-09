@@ -61,9 +61,6 @@ class TimeSheet < ActiveRecord::Base
       signer: wimi.id,
       representative_signature: wimi.signature,
       representative_signed_at: Date.today())
-    if success
-      ActiveSupport::Notifications.instrument('event', trigger: self.id, target: self.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
-    end
     return success
   end
 
@@ -76,9 +73,6 @@ class TimeSheet < ActiveRecord::Base
       user_signature: nil,
       signed: false,
       user_signed_at: nil)
-    if success
-      ActiveSupport::Notifications.instrument('event', trigger: self.id, target: self.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetDeclined')
-    end
     return success
   end
 

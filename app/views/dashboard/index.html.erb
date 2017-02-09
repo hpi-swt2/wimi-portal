@@ -68,50 +68,6 @@
   <%= render partial: 'missing_timesheets' %>
 <% end %>
 
-<!-- Notifications -->
-<% unless @notifications.empty? %>
-<div class="col-md-12 col-sm-12">
-  <div class="display">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%=t('.notifications')%></h4>
-      </div>
-      <div class="panel-body panel-scroll">
-        <% @notifications.each do |event| %>
-          <%= render partial: event %>
-          <%= link_to t('helpers.submit.hide'), hide_event_path(id: event, request: current_user), method: :post, class: 'label label-warning' %>
-          <br>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-<% end %>
-
-<!-- Activities -->
-<% unless current_user.is_user? and @activities.empty? %>
-<div class="col-md-12 col-sm-12">
-  <div class="display">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%=t('.activities')%></h4>
-      </div>
-      <div class="panel-body panel-scroll">
-        <% unless @activities.empty? %>
-          <% @activities.each do |event| %>
-            <%= render partial: event %>
-            <%= link_to t('helpers.submit.hide'), hide_event_path(id: event, request: current_user), method: :post, class: 'label label-warning' %>
-            <br>
-          <% end %>
-        <% else %>
-          <%= t('.activities_empty') %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-<% end %>
-
 <% content_for :sidebar do %>
   <% action_content = render partial: 'actions' %>
   <% if action_content.present? %>

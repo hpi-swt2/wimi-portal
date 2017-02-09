@@ -46,6 +46,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
 #  end
 
   it 'shows when one of your timesheets gets declined / accepted' do
+    pending 'rewrite event system'
     chair = FactoryGirl.create(:wimi, user: @user).chair
     hiwi = FactoryGirl.create(:hiwi)
     contract = FactoryGirl.create(:contract, hiwi: hiwi, responsible: @user, chair: chair)
@@ -61,6 +62,7 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
   end
 
   it 'shows if a hiwi of one of your projects submitted a timesheet' do
+    pending 'rewrite event system'
     chair = FactoryGirl.create(:chair)
     wimi = FactoryGirl.create(:wimi, chair: chair).user
     contract = FactoryGirl.create(:contract, chair: chair, hiwi: @user, responsible: wimi)

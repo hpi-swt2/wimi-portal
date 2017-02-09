@@ -86,6 +86,7 @@ RSpec.describe TimeSheetsController, type: :controller do
       end
 
       it 'should trigger a notification on successful submission' do
+        pending 'rewrite event system'
         expect {
           get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
         }.to change { EventTimeSheetSubmitted.count }.by(1)
