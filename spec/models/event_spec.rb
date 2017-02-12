@@ -5,8 +5,8 @@ RSpec.describe Event, type: :model do
     expect(FactoryGirl.build_stubbed(:event)).to be_valid
   end
 
-  it 'can access the I18n keys' do
-    event = FactoryGirl.create(:event, type: 'test')
+  it 'creates valid messages from I18n keys' do
+    event = FactoryGirl.create(:event)
     expect(event.message).to include('test')
     expect(event.message).to include(event.user.name)
   end

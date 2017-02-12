@@ -299,7 +299,7 @@ en:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
   event:
-    test: "%{user} %{target_object} %{target_user} test"
+    default: "%{user} %{target_object} %{target_user} test"
     time_sheet_hand_in: "%{user} handed in time sheet %{target_object} with responsible %{target_user}"
     time_sheet_accept: "%{user} accepted the time sheet %{target_object} of %{target_user}"
     time_sheet_decline: "%{user} declined the time sheet %{target_object} of %{target_user}"

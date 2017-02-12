@@ -3,6 +3,6 @@ FactoryGirl.define do
     user
     target_user { user }
     object { user }
-    type 'test'
+    type 'default'
   end
 end

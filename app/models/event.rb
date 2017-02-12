@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
 	belongs_to :target_user, class_name: 'User'
 	belongs_to :object, polymorphic: true
 
-	enum type: [ :default, :test, :time_sheet_hand_in, :time_sheet_accept, :time_sheet_decline,
+	enum type: [ :default, :time_sheet_hand_in, :time_sheet_accept, :time_sheet_decline,
     :project_create, :project_join, :project_leave, :chair_join, :chair_leave, :chair_add_admin,
     :contract_create, :contract_extend
   ]
