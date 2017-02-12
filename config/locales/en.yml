@@ -298,47 +298,19 @@ en:
       wrong_length:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
-  event_holiday_requests:
-    event_holiday_request:
-      full_html: "%{person_in_power} <b>%{status}</b> the holiday request of %{user}."
-  event_project_invitations:
-    event_project_invitation:
-      accept: Accept
-      decline: Decline
-      full_html: "%{trigger_name} invites you to join the project %{project_name}."
-  event_time_sheet_accepteds:
-    event_time_sheet_accepted:
-      full_html: "%{signer} <b>accepted</b> your time sheet for %{month}."
-      view: View
-  event_time_sheet_declineds:
-    event_time_sheet_declined:
-      full_html: "%{signer} <b>declined</b> your time sheet for %{month}."
-      view: View
-  event_time_sheet_submitteds:
-    event_time_sheet_submitted:
-      full_html: "%{link_to_user} has submitted a time sheet for you to sign. %{link_to_view}"
-      view: View
-  event_travel_request_accepteds:
-    event_travel_request_accepted:
-      full_html: The %{link_to_request} you filed on the %{date} was <b>accepted</b> by %{person_in_power}. %{link_to_view}
-      request: travel request
-      view: View
-  event_travel_request_declineds:
-    event_travel_request_declined:
-      full_html: The %{link_to_request} you filed on the %{date} was <b>declined</b> by %{person_in_power}. %{link_to_view}
-      request: travel request
-      view: View
-  events:
-    event_admin_right:
-      added: "%{trigger} has set %{target} as assistant."
-      removed: "%{trigger} has removed %{target} as assistant."
-    event_request:
-      expense: "%{trigger} created a travel expense request."
-      holiday: "%{trigger} created a holiday request."
-      trip: "%{trigger} created a trip request."
-    event_user_chair:
-      added: "%{trigger} has added %{target} to the research group."
-      removed: "%{trigger} has removed %{target} from the research group."
+  event:
+    test: "%{user} %{target_object} %{target_user} test"
+    time_sheet_hand_in: "%{user} handed in time sheet %{target_object} with responsible %{target_user}"
+    time_sheet_accept: "%{user} accepted the time sheet %{target_object} of %{target_user}"
+    time_sheet_decline: "%{user} declined the time sheet %{target_object} of %{target_user}"
+    project_create: "%{user} created project %{target_object}"
+    project_join: "%{user} added %{target_user} to %{target_object}"
+    project_leave: "%{user} removed %{target_user} from project %{target_object}"
+    chair_join: "%{user} added %{target_user} to chair %{target_object}"
+    chair_leave: "%{user} removed %{target_user} from chair %{target_object}"
+    chair_add_admin: "%{user} granted admin rights to %{target_user} for chair %{target_object}"
+    contract_create: "%{user} created contract %{target_object} for %{target_user}"
+    contract_extend: "%{user} extended the contract %{target_object} of %{target_user}"
   expense:
     applied: Expense is already applied
     destroyed: Expense was successfully destroyed

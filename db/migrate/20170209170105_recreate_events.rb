@@ -4,7 +4,8 @@ class RecreateEvents < ActiveRecord::Migration
   		t.references :user, index: true
   		t.references :target_user, index: true
   		t.references :object, polymorphic: true, index: true
-  		t.
+  		t.datetime :created_at
+  		t.integer :type
   	end
   end
 end

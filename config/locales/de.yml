@@ -298,47 +298,19 @@ de:
       wrong_length:
         one: hat die falsche Länge (muss genau 1 Zeichen haben)
         other: hat die falsche Länge (muss genau %{count} Zeichen haben)
-  event_holiday_requests:
-    event_holiday_request:
-      full_html: "%{person_in_power} hat den Urlaubsantrag von %{user} <b>%{status}</b>."
-  event_project_invitations:
-    event_project_invitation:
-      accept: Annehmen
-      decline: Ablehnen
-      full_html: "%{trigger_name} hat Sie in das Projekt %{project_name} eingeladen."
-  event_time_sheet_accepteds:
-    event_time_sheet_accepted:
-      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>bestätigt</b>."
-      view: Ansehen
-  event_time_sheet_declineds:
-    event_time_sheet_declined:
-      full_html: "%{signer} vom Projekt %{project} hat Ihren Stundenzettel für %{month} <b>abgelehnt</b>."
-      view: Ansehen
-  event_time_sheet_submitteds:
-    event_time_sheet_submitted:
-      full_html: "%{link_to_user} hat einen Stundenzettel zur Unterschrift vorgelegt. %{link_to_view}"
-      view: Ansehen
-  event_travel_request_accepteds:
-    event_travel_request_accepted:
-      full_html: Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>angenommen</b>. %{link_to_view}
-      request: Dienstreiseantrag
-      view: Ansehen
-  event_travel_request_declineds:
-    event_travel_request_declined:
-      full_html: Ihr %{link_to_request} vom %{date} wurde von %{person_in_power} <b>abgelehnt</b>. %{link_to_view}
-      request: Dienstreiseantrag
-      view: Ansehen
-  events:
-    event_admin_right:
-      added: "%{trigger} hat %{target} Admin-Rechte verliehen."
-      removed: "%{trigger} hat %{target} Admin-Rechte entzogen."
-    event_request:
-      expense: "%{trigger} hat eine Reisekostenabrechnung gestellt."
-      holiday: "%{trigger} hat einen Urlaubsantrag gestellt."
-      trip: "%{trigger} hat einen Reiseantrag gestellt."
-    event_user_chair:
-      added: "%{trigger} hat %{target} in den Lehrstuhl aufgenommen."
-      removed: "%{trigger} hat %{target} aus dem Lehrstuhl entfernt."
+  event:
+    test: "%{user} %{target_object} %{target_user} test"
+    time_sheet_hand_in: "%{user} hat den Stundenzettel %{target_object} eingereicht, Verantwortlicher: %{target_user}"
+    time_sheet_accept: "%{user} hat den Stundenzettel %{target_object} von %{target_user} akzeptiert"
+    time_sheet_decline: "%{user} hat den Stundenzettel %{target_object} von %{target_user} abgelehnt"
+    project_create: "%{user} hat das projekt %{target_object} erstellt"
+    project_join: "%{user} hat %{target_user} zu %{target_object} hinzugefügt"
+    project_leave: "%{user} hat %{target_user} aus dem Projekt %{target_object} entfernt"
+    chair_join: "%{user} hat %{target_user} zum Lehrstuhl %{target_object} hinzugefügt"
+    chair_leave: "%{user} hat %{target_user} aus dem Lehrstuhl %{target_object} entfernt"
+    chair_add_admin: "%{user} hat %{target_user} Adminrechte für den Lehrstuhl %{target_object} verliehen"
+    contract_create: "%{user} hat den Vertrag %{target_object} für %{target_user} erstellt"
+    contract_extend: "%{user} hat den Vertrag %{target_object} mit %{target_user} verlängert"
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht

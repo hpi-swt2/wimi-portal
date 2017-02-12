@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209165839) do
+ActiveRecord::Schema.define(version: 20170209170105) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -54,6 +54,19 @@ ActiveRecord::Schema.define(version: 20170209165839) do
 
   add_index "dismissed_missing_timesheets", ["contract_id"], name: "index_dismissed_missing_timesheets_on_contract_id"
   add_index "dismissed_missing_timesheets", ["user_id"], name: "index_dismissed_missing_timesheets_on_user_id"
+
+  create_table "events", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "target_user_id"
+    t.integer  "object_id"
+    t.string   "object_type"
+    t.datetime "created_at"
+    t.integer  "type"
+  end
+
+  add_index "events", ["object_type", "object_id"], name: "index_events_on_object_type_and_object_id"
+  add_index "events", ["target_user_id"], name: "index_events_on_target_user_id"
+  add_index "events", ["user_id"], name: "index_events_on_user_id"
 
   create_table "expense_items", force: :cascade do |t|
     t.date     "date"
