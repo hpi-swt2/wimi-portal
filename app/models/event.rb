@@ -14,7 +14,7 @@ class Event < ActiveRecord::Base
 
 	validates_presence_of :user, :target_user
 
-	def self.add(type, user, object , target_user)
+	def self.add(type, user, object, target_user)
 		if object != nil
 			event = self.new({ type: type, user: user, object: object, target_user: target_user})
 		else
@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
 		end
 		return nil
 	end
-
+  
 	def message
 		if self.object != nil
 			return I18n.t("event.#{self.type}", 

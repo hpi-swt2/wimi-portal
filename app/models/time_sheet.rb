@@ -44,23 +44,29 @@ class TimeSheet < ActiveRecord::Base
 
   after_initialize :set_default_status, :if => :new_record?
 
-  def hand_in
+  def hand_in(hiwi)
     # Update also saves, returns false if saving failed
     # http://apidock.com/rails/ActiveRecord/Persistence/update
-    self.update(
+    success = self.update(
       status: 'pending',
       handed_in: true,
       hand_in_date: Date.today
     )
+    if success
+      Event.add('time_sheet_hand_in', hiwi, self, self.contract.responsible)
+    end
+    return success
   end
 
   def accept_as(wimi)
     success = self.update(
       status: 'accepted',
-      last_modified: Date.today,
       signer: wimi.id,
       representative_signature: wimi.signature,
       representative_signed_at: Date.today())
+    if success
+      Event.add('time_sheet_accept', wimi, self, self.user)
+    end
     return success
   end
 
@@ -68,11 +74,13 @@ class TimeSheet < ActiveRecord::Base
     success = self.update(
       status: 'rejected',
       handed_in: false,
-      last_modified: Date.today(),
       signer: wimi.id,
       user_signature: nil,
       signed: false,
       user_signed_at: nil)
+    if success
+      Event.add('time_sheet_decline', wimi, self, self.user)
+    end
     return success
   end
 

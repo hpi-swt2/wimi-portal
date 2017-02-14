@@ -67,7 +67,7 @@ class TimeSheetsController < ApplicationController
     elsif signed && !current_user.signature.nil?
       @time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
     end
-    @time_sheet.hand_in()
+    @time_sheet.hand_in(current_user)
     flash[:success] = t('.flash')
     redirect_to time_sheet_path(@time_sheet)
   end

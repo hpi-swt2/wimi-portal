@@ -106,6 +106,7 @@ class ChairsController < ApplicationController
     end
     chairwimi = ChairWimi.create(application: 'accepted', chair: @chair, user: user)
     if chairwimi.save
+      Event.add('chair_join', current_user, @chair, user)
       flash[:success] = I18n.t('chair.user.successfully_added', name: user.name)
     else
       flash[:error] = I18n.t('chair.user.add_error')
