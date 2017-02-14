@@ -40,6 +40,9 @@ class Ability
       ts.user == user and user.has_contract_for(ts.month, ts.year)
     end
     can :withdraw, TimeSheet, user: {id: user.id}, handed_in: true, status: 'pending'
+
+    can :show, Event, user: { id: user.id }
+    can :show, Event, target_user: { id: user.id }
   end
 
   def initialize_hiwi(user)
@@ -67,6 +70,10 @@ class Ability
     # allow access to time sheets and contracts of other wimis if time sheet is 'pending'
     can [:ts_wimi_actions, :see_wimi_actions], TimeSheet, status: 'pending', contract: { chair_id: user.chair.id }
     can :read, Contract, chair_id: user.chair.id, time_sheets: { status: 'pending' }
+
+    can :show, Event do |e|
+      (e.user.projects & user.projects).any? or (e.target_user.projects & user.projects).any?
+    end
   end
 
   def initialize_admin(user)
@@ -77,6 +84,10 @@ class Ability
     can :manage, Contract, chair_id: user.chair.id
     
     can :manage, Project, chair_id: user.chair.id
+
+    can :show, Event do |e|
+      e.user.all_chairs.include?(user.chair) or e.target_user.all_chairs.include?(user.chair)
+    end
   end
 
   def initialize_representative(user)

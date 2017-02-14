@@ -46,28 +46,27 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
 #  end
 
   it 'shows when one of your timesheets gets declined / accepted' do
-    pending 'rewrite event system'
     chair = FactoryGirl.create(:wimi, user: @user).chair
     hiwi = FactoryGirl.create(:hiwi)
     contract = FactoryGirl.create(:contract, hiwi: hiwi, responsible: @user, chair: chair)
     time_sheet = FactoryGirl.create(:time_sheet, contract: contract)
     login_as hiwi
 
-    time_sheet.update(signer: contract.responsible.id)
-    ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: hiwi.id, seclevel: :hiwi, type: 'EventTimeSheetAccepted'})
+    time_sheet.accept_as(contract.responsible)
 
     visit dashboard_path
     expect(page.body).to have_content(contract.responsible.name)
-    expect(page.body).to have_content(l(Date.new(1, time_sheet.month, 1), format: :without_day_year))
+    expect(page.body).to have_content(time_sheet.name)
   end
 
   it 'shows if a hiwi of one of your projects submitted a timesheet' do
-    pending 'rewrite event system'
     chair = FactoryGirl.create(:chair)
     wimi = FactoryGirl.create(:wimi, chair: chair).user
     contract = FactoryGirl.create(:contract, chair: chair, hiwi: @user, responsible: wimi)
     time_sheet = FactoryGirl.create(:time_sheet, contract: contract)
-    ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: wimi.id, seclevel: :wimi, type: 'EventTimeSheetSubmitted'})
+    
+
+    time_sheet.hand_in(time_sheet.user)
 
     login_as wimi
     visit dashboard_path

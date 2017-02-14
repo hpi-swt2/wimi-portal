@@ -68,6 +68,24 @@
   <%= render partial: 'missing_timesheets' %>
 <% end %>
 
+<!-- Notifications -->
+<% if @events.any? %>
+<div class="col-md-12 col-sm-12">
+  <div class="display">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= t '.notifications' %>
+      </div>
+      <div class="panel-body panel-scroll">
+        <% @events.each do |event| %>
+          <%= render partial: 'event', object: event%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
 <% content_for :sidebar do %>
   <% action_content = render partial: 'actions' %>
   <% if action_content.present? %>
