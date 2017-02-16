@@ -194,27 +194,4 @@ RSpec.describe TimeSheet, type: :model do
       expect(result).to be true
     end
   end
-
-  context 'Events are created on' do
-    it 'hand in' do
-      @sheet.hand_in(@user)
-
-      expect(Event.all.count).to eq(1)
-      expect(Event.first.type).to eq('time_sheet_hand_in')
-    end
-
-    it 'accept' do
-      @sheet.accept_as(@sheet.contract.responsible)
-
-      expect(Event.all.count).to eq(1)
-      expect(Event.first.type).to eq('time_sheet_accept')
-    end
-
-    it 'decline' do
-      @sheet.reject_as(@sheet.contract.responsible)
-
-      expect(Event.all.count).to eq(1)
-      expect(Event.first.type).to eq('time_sheet_decline')
-    end
-  end
 end

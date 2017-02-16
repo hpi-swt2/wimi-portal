@@ -118,6 +118,7 @@ class ChairsController < ApplicationController
     status = ('removed' if chair_wimi.application == 'accepted') || ('declined' if chair_wimi.application == 'pending')
 
     if chair_wimi.remove(current_user)
+      Event.add('chair_leave', current_user, @chair, chair_wimi.user)
       flash[:success] = I18n.t('chair.remove_from_chair.success')
     else
       flash[:error] = I18n.t('chair.remove_from_chair.error')
