@@ -134,6 +134,14 @@ RSpec.describe ChairsController, type: :controller do
       expect(Event.all.count).to eq(1)
       expect(Event.first.type).to eq('chair_leave')
     end
+
+    it 'granting admin rights to a user' do
+      FactoryGirl.create(:wimi, user: @user, chair: @chair)
+      post :set_admin, id: @chair.id, request: @user.chair_wimi.id
+
+      expect(Event.all.count).to eq(1)
+      expect(Event.first.type).to eq('chair_add_admin')
+    end
   end
 end
 
@@ -163,6 +171,37 @@ RSpec.describe ProjectsController, type: :controller do
 
       expect(Event.all.count).to eq(1)
       expect(Event.first.type).to eq('project_leave')
+    end
+  end
+end
+
+RSpec.describe ContractsController, type: :controller do
+  before :each do
+    @chair = FactoryGirl.create(:chair)
+    @representative = @chair.representative.user
+    @user = FactoryGirl.create(:user)
+
+    login_with @representative
+  end
+
+  context 'Events are created on' do
+    it 'creating a contract' do
+      @contract = FactoryGirl.build(:contract, chair: @chair, hiwi: @user)
+      post :create, contract: @contract.attributes
+
+      expect(flash[:success]).to eq(I18n.t('helpers.flash.created', model: @contract.model_name.human.titleize))
+      expect(Event.all.count).to eq(1)
+      expect(Event.first.type).to eq('contract_create')
+    end
+
+    it 'extending a contract' do
+      @contract = FactoryGirl.create(:contract, chair: @chair, hiwi: @user)
+      attributes = @contract.attributes
+      attributes['end_date'] = attributes['end_date'] >> 1
+      patch :update, id: @contract.id , contract: attributes
+
+      expect(Event.all.count).to eq(1)
+      expect(Event.first.type).to eq('contract_extend')
     end
   end
 end

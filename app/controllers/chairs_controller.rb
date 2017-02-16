@@ -131,6 +131,7 @@ class ChairsController < ApplicationController
     chair_wimi.admin = true
 
     if chair_wimi.save
+      Event.add('chair_add_admin', current_user, @chair, chair_wimi.user)
       flash[:success] = I18n.t('chair.set_admin.success')
     else
       flash[:error] = I18n.t('chair.set_admin.error')

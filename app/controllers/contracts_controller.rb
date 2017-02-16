@@ -25,6 +25,7 @@ class ContractsController < ApplicationController
   def create
     @contract = Contract.new(contract_params)
     if @contract.save
+      Event.add('contract_create', current_user, @contract, @contract.hiwi)
       redirect_to contract_path(@contract)
       flash[:success] = t('helpers.flash.created', model: @contract.model_name.human.titleize)
     else
@@ -38,8 +39,12 @@ class ContractsController < ApplicationController
 
   def update
     new_contract_params = contract_params
+    old_end_date = @contract.end_date
 
     if @contract.update(new_contract_params)
+      if old_end_date < @contract.end_date
+        Event.add('contract_extend', current_user, @contract, @contract.hiwi)
+      end
       redirect_to contract_path(@contract)
       flash[:success] = t('helpers.flash.updated', model: @contract.model_name.human.titleize)
     else
