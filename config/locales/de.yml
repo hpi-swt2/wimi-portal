@@ -221,8 +221,6 @@ de:
       success: Adminrechte wurden erfolgreich entzogen
   chairs:
     applications:
-      accept: Annehmen
-      decline: Ablehnen
       grant_rights: Als Admin ernennen
       remove_from_chair: Vom Lehrstuhl entfernen
       withdraw_rights: Rechte entziehen
@@ -256,8 +254,6 @@ de:
       contracts: Meine Verträge
     index:
       actions: Aktionen
-      activities: Aktivitäten
-      activities_empty: Noch keine Aktivitäten verfügbar.
       dashboard_title: Dashboard
       notifications: Wichtige Benachrichtigungen
       ending_contracts: Bald endende Verträge

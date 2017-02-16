@@ -221,8 +221,6 @@ en:
       success: Admin rights were successfully removed
   chairs:
     applications:
-      accept: Accept
-      decline: Decline
       grant_rights: Set as assistant
       remove_from_chair: Remove from research group
       withdraw_rights: Set as employee
@@ -256,8 +254,6 @@ en:
       contracts: My Contracts
     index:
       actions: Actions
-      activities: Activities
-      activities_empty: No activities yet.
       dashboard_title: Dashboard
       notifications: Important Notifications
       ending_contracts: Soon-ending contracts

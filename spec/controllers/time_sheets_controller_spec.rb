@@ -86,14 +86,13 @@ RSpec.describe TimeSheetsController, type: :controller do
       end
 
       it 'should trigger a notification on successful submission' do
-        pending 'rewrite event system'
         expect {
           get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
-        }.to change { EventTimeSheetSubmitted.count }.by(1)
+        }.to change { Event.count }.by(1)
       end
 
       it 'should not update attributes on hand_in if already handed in' do
-        time_sheet.hand_in()
+        time_sheet.hand_in(@user)
         expect {
           get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
         }.to_not change { time_sheet.hand_in_date }
@@ -104,7 +103,7 @@ RSpec.describe TimeSheetsController, type: :controller do
 
   describe 'GET #accept_reject' do
     before(:each) do
-      time_sheet.hand_in()
+      time_sheet.hand_in(@user)
       login_with @contract.responsible
     end
 

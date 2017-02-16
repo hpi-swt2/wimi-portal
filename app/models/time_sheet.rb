@@ -74,6 +74,7 @@ class TimeSheet < ActiveRecord::Base
     success = self.update(
       status: 'rejected',
       handed_in: false,
+      last_modified: Date.today(),
       signer: wimi.id,
       user_signature: nil,
       signed: false,
