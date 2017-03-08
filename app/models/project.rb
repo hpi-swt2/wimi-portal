@@ -20,6 +20,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :users
   belongs_to :chair
   has_many :work_days
+  has_many :events , as: :object, dependent: :destroy
 
   validates :title, presence: true
   validates :chair, presence: true

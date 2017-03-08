@@ -31,5 +31,32 @@ RSpec.describe Event, type: :model do
       expect(Event.all.count).to eq(1)
     end
   end
+
+  context 'cascade deletes when' do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      @target_user = FactoryGirl.create(:user)
+      @chair = FactoryGirl.create(:chair)
+      event = FactoryGirl.create(:event, user: @user, object: @chair, target_user: @target_user)
+    end
+
+    it 'the creating user is destroyed' do
+      expect(Event.count).to eq(1)
+      @user.destroy
+      expect(Event.count).to eq(0)
+    end
+
+    it 'the target user is destroyed' do
+      expect(Event.count).to eq(1)
+      @target_user.destroy
+      expect(Event.count).to eq(0)
+    end
+
+    it 'the associated object is destroyed' do
+      expect(Event.count).to eq(1)
+      @chair.destroy
+      expect(Event.count).to eq(0)
+    end
+  end
 end
 

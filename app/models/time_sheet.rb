@@ -34,6 +34,7 @@ class TimeSheet < ActiveRecord::Base
   enum status: [:pending, :accepted, :rejected, :created]
   # When a time sheet is destroyed, also destroy all of the connected work days
   has_many :work_days, :inverse_of => :time_sheet, dependent: :destroy
+  has_many :events, as: :object, :dependent => :destroy
   
   validates :month, numericality: {greater_than: 0}
   validates :year, numericality: {greater_than: 0}
