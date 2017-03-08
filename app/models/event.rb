@@ -37,6 +37,6 @@ class Event < ActiveRecord::Base
 			return I18n.t("event.#{self.type}", 
 				user: self.user.name, 
 				target_user: self.target_user.name)
-    end
+    	end
 	end
 end

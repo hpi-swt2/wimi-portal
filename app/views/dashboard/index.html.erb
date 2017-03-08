@@ -77,9 +77,11 @@
         <%= t '.notifications' %>
       </div>
       <div class="panel-body panel-scroll">
-        <% @events.each do |event| %>
-          <%= render partial: 'event', object: event%>
-        <% end %>
+        <table class="table table-condensed table-hover">
+          <% @events.each do |event| %>
+            <%= render partial: 'event', object: event%>
+          <% end %>
+        </table>
       </div>
     </div>
   </div>

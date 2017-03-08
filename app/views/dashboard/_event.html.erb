@@ -1,1 +1,10 @@
-<%= l event.created_at %> <%= event.message %>
+<tr>
+	<td><%= l event.created_at %></td>
+	<td>
+		<% if event.object != nil %>
+			<%= entity_link(event.message, event.object) %>
+		<% else %>
+			<%= event.message %>
+		<% end %>
+	</td>
+</tr>
