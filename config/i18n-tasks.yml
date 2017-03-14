@@ -101,6 +101,7 @@ ignore_unused:
   - '{date,time,datetime}.*'
   - '{true,false}'
   - 'helpers.submit.*'
+  - 'event.user_friendly_name.*'
 # remove these once features are re-enabled
   - '{expenses, holidays, trips}.*'
   - '*.{expense, holiday, trip}.*'
