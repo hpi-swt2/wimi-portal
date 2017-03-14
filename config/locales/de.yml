@@ -307,6 +307,18 @@ de:
     chair_add_admin: "%{user} hat %{target_user} Adminrechte für den Lehrstuhl %{target_object} verliehen"
     contract_create: "%{user} hat den Vertrag %{target_object} für %{target_user} erstellt"
     contract_extend: "%{user} hat den Vertrag %{target_object} mit %{target_user} verlängert"
+    user_friendly_name:
+      time_sheet_hand_in: Stundenzettel einreichen
+      time_sheet_accept: Stundenzettel wurde angenommen
+      time_sheet_decline: Stundenzettel wurde abgelehnt
+      project_create: Ein Projekt wurde erstellt
+      project_join: Jemand ist einem Projekt beigetreten
+      project_leave: Jemand wurde aus einem Projekt entfernt
+      chair_join: Jemand ist dem Lehrstuhl beigetreten
+      chair_leave: Jemand hat den Lehrstuhl verlassen
+      chair_add_admin: Einem Benutzer wurden Adminrechte gewährt
+      contract_create: Ein Vertrag wurde erstellt
+      contract_extend: Ein Vertrag wurde verlängert
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
@@ -566,6 +578,7 @@ de:
     external_login:
       login: Anmelden
     form:
+      event_settings: Benachrichtigungseinstellungen
       user_data: Profilbezogene Daten
     no_email: ist keine gültige Email-Adresse.
     private_user_data:

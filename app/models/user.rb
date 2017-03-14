@@ -53,6 +53,8 @@ class User < ActiveRecord::Base
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
 
+  serialize :event_settings, Array
+
   validates :first_name, length: {minimum: 1}
   validates :last_name, length: {minimum: 1}
   validates :email, length: {minimum: 1}, user_email: true
@@ -167,6 +169,11 @@ class User < ActiveRecord::Base
       return list
     end
     sheets.uniq
+  end
+
+  def update_event_settings(array)
+    prefs = array.map(&:to_i)
+    self.update(event_settings: prefs)
   end
 
   def self.openid_required_fields

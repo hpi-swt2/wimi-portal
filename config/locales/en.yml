@@ -307,6 +307,18 @@ en:
     chair_add_admin: "%{user} granted admin rights to %{target_user} for chair %{target_object}"
     contract_create: "%{user} created contract %{target_object} for %{target_user}"
     contract_extend: "%{user} extended the contract %{target_object} of %{target_user}"
+    user_friendly_name:
+      time_sheet_hand_in: Time sheet was handed in
+      time_sheet_accept: Time sheet was accepted
+      time_sheet_decline: Time sheet was declined
+      project_create: Project was created
+      project_join: Someone joined a project
+      project_leave: Someone left a project
+      chair_join: Someone joined a chair
+      chair_leave: Someone left a chair
+      chair_add_admin: Someone was granted admin rights
+      contract_create: A contract was created
+      contract_extend: A contract was extended
   expense:
     applied: Expense is already applied
     destroyed: Expense was successfully destroyed
@@ -566,6 +578,7 @@ en:
     external_login:
       login: Log in
     form:
+      event_settings: Event settings
       user_data: User Data
     no_email: is not a valid email address.
     private_user_data:

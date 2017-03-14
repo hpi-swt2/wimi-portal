@@ -23,6 +23,9 @@ class UsersController < ApplicationController
   end
 
   def update
+    if event_settings.any?
+      @user.update_event_settings(event_settings[:event_settings])
+    end
     if @user.update(user_params)
       I18n.locale = @user.language
 
@@ -95,5 +98,9 @@ class UsersController < ApplicationController
 
   def user_params
     params[:user].permit(User.column_names.map(&:to_sym))
+  end
+
+  def event_settings
+    params[:user].permit(event_settings: [])
   end
 end
