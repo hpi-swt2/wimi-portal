@@ -14,6 +14,8 @@ class Event < ActiveRecord::Base
 
 	validates_presence_of :user, :target_user
 
+	after_commit :send_mail, on: :create
+
 	def self.add(type, user, object, target_user)
 		if object != nil
 			event = self.new({ type: type, user: user, object: object, target_user: target_user})
@@ -25,6 +27,25 @@ class Event < ActiveRecord::Base
 			return event
 		end
 		return nil
+	end
+
+	def users_want_mail
+		User.all.select do |user|
+			a = Ability.new(user)
+			if a.can? :show, self
+				ret = user.event_settings.include? Event.types[self.type]
+			else
+				ret = false
+			end
+			ret
+		end
+	end
+
+	def send_mail
+		users_to_mail = self.users_want_mail
+		users_to_mail.each do |user|
+			MailNotifier.notification(self, user)
+		end
 	end
   
 	def message
