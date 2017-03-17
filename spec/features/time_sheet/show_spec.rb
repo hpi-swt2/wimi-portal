@@ -4,7 +4,7 @@ describe 'time_sheets#show' do
   before :each do
     @contract = FactoryGirl.create(:contract, hours_per_week: 2)
     @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
-    @expected_monthly_work_time = (@contract.hours_per_week * 4.5).to_i
+    @expected_monthly_work_time = (@contract.hours_per_week * 4).to_i
     hiwi = @contract.hiwi
     login_as hiwi
   end

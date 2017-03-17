@@ -125,7 +125,7 @@ class TimeSheet < ActiveRecord::Base
 
   def percentage_hours_worked
     if self.monthly_work_minutes
-      (self.sum_minutes / self.monthly_work_minutes)*100
+      (self.sum_minutes / self.monthly_work_minutes.to_f)*100
     else
       self.monthly_work_minutes
     end

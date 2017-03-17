@@ -53,7 +53,7 @@ class WorkDay < ActiveRecord::Base
 
   def duration_in_minutes
     unless end_time.blank? || start_time.blank? || self.break.blank?
-      (end_time - start_time).to_i / 60 - self.break
+      ((end_time - start_time).to_i / 60) - self.break
     end
   end
 
