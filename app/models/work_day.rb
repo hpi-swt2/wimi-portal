@@ -31,7 +31,7 @@ class WorkDay < ActiveRecord::Base
   validates :time_sheet, presence: true
   validates :project, presence: true
   validates :date, presence: true
-  validates :break, numericality: {greater_than_or_equal_to: 0}
+  validates :break, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates_time :end_time, after: :start_time

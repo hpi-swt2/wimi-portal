@@ -22,13 +22,13 @@
         <div class="col-md-12">
           <table class="table table-hover arrow-nav">
             <tr>
-              <th colspan="2"><%= t('activerecord.attributes.work_day.date') %></th>
-              <th><%= t('activerecord.attributes.work_day.start_time') %></th>
-              <th><%= t('activerecord.attributes.work_day.break') %></th>
-              <th><%= t('activerecord.attributes.work_day.end_time') %></th>
-              <th><%= t('activerecord.attributes.work_day.notes') %></th>
-              <th style="width:200px;"><%= t('activerecord.attributes.work_day.project') %></th>
-              <th><%= t('activerecord.attributes.work_day.attendance') %></th>
+              <th colspan="2" class="col-xs-1"><%= t('activerecord.attributes.work_day.date') %></th>
+              <th class="col-xs-1"><%= t('activerecord.attributes.work_day.start_time') %></th>
+              <th class="col-xs-1" style="max-width: 30px;"><%= t('activerecord.attributes.work_day.break') %></th>
+              <th class="col-xs-1"><%= t('activerecord.attributes.work_day.end_time') %></th>
+              <th class="col-xs-4"><%= t('activerecord.attributes.work_day.notes') %></th>
+              <th class="col-xs-2"><%= t('activerecord.attributes.work_day.project') %></th>
+              <th class="col-xs-1"><%= t('activerecord.attributes.work_day.attendance') %></th>
             </tr>
             <%= f.fields_for :work_days, @time_sheet.work_days.to_a.sort! {|a,b| a.date <=> b.date } do |t| %>
               <tr class="work_day_tr">
@@ -52,7 +52,7 @@
                   <%= content_tag :span, t.object.errors[:start_time].concat(t.object.errors[:duration]).join(', '), :class => "help-block" if t.object.errors[:duration].any? %>
                 </td>
                 <td <%= 'class=has-error' if t.object.errors[:break].any? %>>
-                  <%= t.number_field :break , in: 0..2400, size: 4, maxlength: 4 , placeholder: "0"  %>
+                  <%= t.text_field :break , size: 4, maxlength: 4, placeholder: "0"  %>
                   <%= content_tag :span, t.object.errors[:break].join(', '), :class => "help-block" if t.object.errors[:break].any? %>
                 </td>
                 <td <%= 'class=has-error' if t.object.errors[:end_time].any? %>>
@@ -61,7 +61,7 @@
                 </td>
 
                 <td>
-                  <%= t.text_field :notes , size: 50, class: 'form-control', placeholder: t('.note_placeholder')  %>
+                  <%= t.text_area :notes , cols:50, rows: 1, class: 'form-control', placeholder: t('.note_placeholder'), style: 'height: 30px;min-width: 100px;max-width: 300px;'  %>
                 </td>
                 <td <%= 'class=has-error' if t.object.errors[:project_id].any? %>>
                   <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control'}) %>
