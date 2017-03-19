@@ -51,6 +51,8 @@ class User < ActiveRecord::Base
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
 
+  enum include_comments: [:always, :never, :ask]
+
   validates :first_name, length: {minimum: 1}
   validates :last_name, length: {minimum: 1}
   validates :email, length: {minimum: 1}, user_email: true

@@ -66,6 +66,27 @@
       </div>
     </div>
   </div>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><%=t('.download_settings')%></h4>
+        </div>
+        <div class="panel-body">
+        <%= form_for @user do |f| %>
+          <% User.include_comments.each do |typename, val| %>
+            <%= bootstrap_form_group(f, t('.include_comments.' + typename)) do %>
+              <%= f.radio_button :include_comments, typename %>
+            <% end %>
+          <% end %>
+        <%= f.submit t('helpers.links.save'), class: 'btn btn-success btn-block' %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <% end %>
 <% end %>
 

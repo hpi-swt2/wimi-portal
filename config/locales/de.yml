@@ -615,7 +615,12 @@ de:
     show:
       business_trips: Geschäftsreisen
       days: Tag(e)
+      download_settings: Stundenzettel-zu-PDF Einstellungen
       holiday_requests: Urlaubsanfragen
+      include_comments:
+        always: Kommentare immer drucken
+        never: Kommentare immer weglassen
+        ask: Jedesmal nachfragen
       information: Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei aus
       password: Passwort ändern
       remaining_leave: 'Verbleibender Resturlaub: %{leave} Tag(e)'

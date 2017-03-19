@@ -101,6 +101,7 @@ ignore_unused:
   - '{date,time,datetime}.*'
   - '{true,false}'
   - 'helpers.submit.{create, submit, update}'
+  - 'users.show.include_comments.*'
 # remove these once features are re-enabled
   - '{expenses, holidays, trips}.*'
   - '*.{expense, holiday, trip}.*'

@@ -132,10 +132,17 @@
   <%# Edit %>
   <%= edit_button @time_sheet, class: 'btn-block' %>
   <%# Download PDF %>
-  <% if @time_sheet.has_comments? %>
-    <%= link_to t('helpers.links.download_pdf'), "", id: "open-popup", data: { toggle: "modal", target: "#download-pdf-modal", timesheet: @time_sheet.id}, class: 'btn btn-block btn-info'%>
+  <% case @time_sheet.contract.hiwi.include_comments %>
+  <% when 'always' %>
+    <%= link_to t('helpers.links.download_pdf'), download_time_sheet_path(@time_sheet) + '?include_comments=1', class: 'btn btn-block btn-info' %>
+  <% when 'never' %>
+    <%= link_to t('helpers.links.download_pdf'), download_time_sheet_path(@time_sheet) + '?include_comments=0', class: 'btn btn-block btn-info' %>
   <% else %>
-    <%= link_to t('helpers.links.download_pdf'), download_time_sheet_path(@time_sheet), class: 'btn btn-block btn-info' %>
+    <% if @time_sheet.has_comments?%>
+      <%= link_to t('helpers.links.download_pdf'), "", id: "open-popup", data: { toggle: "modal", target: "#download-pdf-modal", timesheet: @time_sheet.id}, class: 'btn btn-block btn-info'%>
+    <% else%>
+      <%= link_to t('helpers.links.download_pdf'), download_time_sheet_path(@time_sheet), class: 'btn btn-block btn-info' %>
+    <% end %>
   <% end %>
   <%# Withdraw timesheet %>
   <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>

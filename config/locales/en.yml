@@ -615,7 +615,12 @@ en:
     show:
       business_trips: Business Trips
       days: Day(s)
+      download_settings: PDF timesheet download settings
       holiday_requests: Holiday Requests
+      include_comments:
+        always: Always include comments
+        never: Never include comments
+        ask: Always ask me
       information: Please choose a *.bmp, *.jpeg, *.jpg or *.png file
       password: Change Password
       remaining_leave: 'Remaining Leave: %{leave} Day(s)'
