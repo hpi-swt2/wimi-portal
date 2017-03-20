@@ -7,8 +7,9 @@ RSpec.describe Event, type: :model do
 
   it 'creates valid messages from I18n keys' do
     event = FactoryGirl.create(:event)
-    expect(event.message).to include('test')
     expect(event.message).to include(event.user.name)
+    expect(event.message).to include(event.target_user.name)
+    expect(event.message).to include(event.object.name)
   end
 
   it 'prints the unique message for each type' do

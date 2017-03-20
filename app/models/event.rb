@@ -8,9 +8,9 @@ class Event < ActiveRecord::Base
 	belongs_to :object, polymorphic: true
 
 	enum type: [ :default, :time_sheet_hand_in, :time_sheet_accept, :time_sheet_decline,
-    :project_create, :project_join, :project_leave, :chair_join, :chair_leave, :chair_add_admin,
-    :contract_create, :contract_extend
-  ]
+		:project_create, :project_join, :project_leave, :chair_join, :chair_leave, :chair_add_admin,
+		:contract_create, :contract_extend
+	]
 
 	validates_presence_of :user, :target_user
 
@@ -50,13 +50,13 @@ class Event < ActiveRecord::Base
   
 	def message
 		if self.object != nil
-			return I18n.t("event.#{self.type}", 
+			return I18n.t("event.#{self.type}",
 				user: self.user.name, 
-				target_object: self.object.name, 
+				target_object: self.object.name,
 				target_user: self.target_user.name)
 		else
-			return I18n.t("event.#{self.type}", 
-				user: self.user.name, 
+			return I18n.t("event.#{self.type}",
+				user: self.user.name,
 				target_user: self.target_user.name)
     	end
 	end
