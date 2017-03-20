@@ -298,7 +298,7 @@ en:
     default: "%{user} modified %{obj} affecting %{target_user}"
     time_sheet_hand_in: "%{user} handed in time sheet %{obj} with responsible %{target_user}"
     time_sheet_accept: "%{user} accepted the time sheet %{obj} of %{target_user}"
-    time_sheet_decline: "%{user} declined the time sheet %{obj} of %{target_user}"
+    time_sheet_decline: "%{user} rejected the time sheet %{obj} of %{target_user}"
     project_create: "%{user} created project %{obj}"
     project_join: "%{user} added %{target_user} to %{obj}"
     project_leave: "%{user} removed %{target_user} from project %{obj}"
