@@ -41,22 +41,15 @@ RSpec.describe Event, type: :model do
     end
 
     it 'the creating user is destroyed' do
-      expect(Event.count).to eq(1)
-      @user.destroy
-      expect(Event.count).to eq(0)
+      expect { @user.destroy }.to change { Event.count }.from(1).to(0)
     end
 
     it 'the target user is destroyed' do
-      expect(Event.count).to eq(1)
-      @target_user.destroy
-      expect(Event.count).to eq(0)
+      expect { @target_user.destroy }.to change { Event.count }.from(1).to(0)
     end
 
     it 'the associated object is destroyed' do
-      expect(Event.count).to eq(1)
-      @chair.destroy
-      expect(Event.count).to eq(0)
+      expect { @chair.destroy }.to change { Event.count }.from(1).to(0)
     end
   end
 end
-
