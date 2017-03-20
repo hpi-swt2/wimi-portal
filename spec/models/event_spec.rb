@@ -6,30 +6,31 @@ RSpec.describe Event, type: :model do
   end
 
   it 'creates valid messages from I18n keys' do
-    event = FactoryGirl.create(:event, type: 'default')
-    expect(event.message).to include(event.user.name)
-    expect(event.message).to include(event.target_user.name)
-    expect(event.message).to include(event.object.name)
-  end
-
-  it 'prints the unique message for each type' do
-    Event.types.each do |type, value| 
+    Event.types.each do |type, value|
       event = FactoryGirl.create(:event, type: type)
-      expect(event.message).to eq(I18n.t("event.#{event.type}",
-                                    user: event.user.name, 
-                                    obj: event.object.name,
-                                    target_user: event.target_user.name))
+      expect(event.message).to include(event.user.name)
+      expect(event.message).to include(event.target_user.name)
+      expect(event.message).to include(event.object.name)
     end
   end
 
-  context 'self.add' do
-    it 'adds an event' do
-      expect(Event.all.count).to eq(0)
+  it 'prints the unique message for each type' do
+    Event.types.each do |type, value|
+      event = FactoryGirl.create(:event, type: type)
+      translation = I18n.t("event.#{event.type}",
+                            user: event.user.name,
+                            obj: event.object.name,
+                            target_user: event.target_user.name)
+      expect(event.message).to eq(translation)
+    end
+  end
 
-      user = FactoryGirl.create(:user)
-      Event.add('default', user, user, user)
-
-      expect(Event.all.count).to eq(1)
+  it "can be created using 'add' constructor" do
+    user = FactoryGirl.create(:user)
+    Event.types.each do |type, value|
+      expect {
+        Event.add(type, user, user, user)
+      }.to change { Event.count }.by(1)
     end
   end
 
