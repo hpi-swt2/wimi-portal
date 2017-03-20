@@ -47,17 +47,18 @@ class Event < ActiveRecord::Base
 			MailNotifier.notification(self, user)
 		end
 	end
-  
+
 	def message
 		if self.object != nil
 			return I18n.t("event.#{self.type}",
-				user: self.user.name, 
-				target_object: self.object.name,
+				user: self.user.name,
+				# The I18n interpolation key cannot be the reserved name 'object'
+				obj: self.object.name,
 				target_user: self.target_user.name)
 		else
 			return I18n.t("event.#{self.type}",
 				user: self.user.name,
 				target_user: self.target_user.name)
-    	end
+		end
 	end
 end

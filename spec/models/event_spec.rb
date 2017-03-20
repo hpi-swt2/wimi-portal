@@ -6,7 +6,7 @@ RSpec.describe Event, type: :model do
   end
 
   it 'creates valid messages from I18n keys' do
-    event = FactoryGirl.create(:event)
+    event = FactoryGirl.create(:event, type: 'default')
     expect(event.message).to include(event.user.name)
     expect(event.message).to include(event.target_user.name)
     expect(event.message).to include(event.object.name)
@@ -15,9 +15,9 @@ RSpec.describe Event, type: :model do
   it 'prints the unique message for each type' do
     Event.types.each do |type, value| 
       event = FactoryGirl.create(:event, type: type)
-      expect(event.message).to eq(I18n.t("event.#{event.type}", 
+      expect(event.message).to eq(I18n.t("event.#{event.type}",
                                     user: event.user.name, 
-                                    target_object: event.object.name, 
+                                    obj: event.object.name,
                                     target_user: event.target_user.name))
     end
   end
