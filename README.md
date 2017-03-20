@@ -110,3 +110,7 @@ The following environment variables should be set:
 * `SECRET_KEY_BASE`
 * `EMAIL_PW`
 * `EMAIL_USER`
+
+## Important Commands
+* migrate db `bundle exec rake db:migrate && bundle exec rake db:migrate RAILS_ENV=test`
+* redo assets `bundle exec rake assets:clobber && bundle exec rake assets:precompile`
