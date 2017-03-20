@@ -6,7 +6,7 @@
 [![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal)](http://wimi-portal.herokuapp.com/)
 [![License](http://img.shields.io/badge/license-AGPL-blue.svg)](https://github.com/hpi-swt2/wimi-portal/blob/master/LICENSE)
 
-## Building Status
+## Build Status
 
 Branch      | Status
 ----------- | ----------
@@ -22,70 +22,34 @@ Branch      | Heroku App | Status
 master  |  [click here](http://wimi-portal.herokuapp.com/)  | [![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal)](http://wimi-portal.herokuapp.com/)
 dev  |  [click here](http://wimi-portal-dev.herokuapp.com/)  | [![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal-dev)](http://wimi-portal-dev.herokuapp.com/)
 
-## Setup
+## Local Setup
 
-Install gem bundle with
+* `bundle install` Install the required Ruby gem dependencies defined in the [Gemfile](https://github.com/hpi-swt2/workshop-portal/blob/production/Gemfile)
+* `cp database.sqlite.yml database.yml` Select database config (for development we recommend SQLite) 
+* `rake db:create db:migrate db:seed` Setup database, run migrations, seed the database with defaults
+* `rails s` Start the Rails development server (By default runs on _localhost:3000_)
+* `rspec` Run all the tests (using the [RSpec](http://rspec.info/) test framework)
 
-```bundle install```
+## Setup using Vagrant (Virtual Machine)
 
-select database config (in this case we take the sqlite)
-
-```cp database.sqlite.yml database.yml```
-
-create a database, run the available migrations and seed the database with mandatory default values
-
-```rake db:create db:migrate db:seed```
-
-you can also run a rake task to add demo data
-
-```rake db:add_demo_data```
-
-then we can run either the rails console with
-
-```rails c```
-
-or the rails server with
-
-```rails s```
-
-in case you want to run all tests go ahead and execute
-
-```rspec ```
-
-or by specifing the exact spec file with
-
-```rspec spec/controller/expenses_controller_spec.rb```
-
-## Vagrant
-
-In case you want to setup this project via windows, you may want to use vagrant like described in the following. Please keep in mind, that vagrant will be slower since it is handled via VM.
+If you want to use a VM to setup the project (e.g. when on Windows), we recommend [Vagrant](https://www.vagrantup.com/).
+Please keep in mind that this method may lead to a loss in performance, due to the added abstraction layer.
 
 ```
-vagrant up
-vagrant ssh
+vagrant up # bring up the VM
+vagrant ssh # login using SSH
 cd hpi-swt2
-# disable docs for gems
-echo “gem: --no-document” >> ~/.gemrc
-bundle install
-gem install pg
-cp config/database.psql.yml config/database.yml
-# restarting the session
-exit
-```
-
-in case you want to use sqlite
-
-```
-bundle install --without=production
-cp config/database.sqlite.yml config/database.yml
-```
-
-And finally starting the server with
-
-```
-vagrant ssh #connect with VM
+echo "gem: --no-document" >> ~/.gemrc # disable docs for gems
+bundle install # install dependencies
+gem install pg # required for Postgres usage
+cp config/database.psql.yml config/database.yml # in case you want to use Postgres
+cp config/database.sqlite.yml config/database.yml # in case you want to user SQLite
+exit # restart the session, required step
+vagrant ssh # reconnect to the VM
 cd hpi-swt2
-rails s -b 0 #starting rails server, the -b part is necessary since the app is running in a VM and would otherwise drop the requests coming from the host OS
+rails s -b 0 # start the rails server
+# the -b part is necessary since the app is running in a VM and would
+# otherwise drop the requests coming from the host OS
 ```
 
 ## Debugging
@@ -111,6 +75,14 @@ The following environment variables should be set:
 * `EMAIL_PW`
 * `EMAIL_USER`
 
-## Important Commands
-* migrate db `bundle exec rake db:migrate && bundle exec rake db:migrate RAILS_ENV=test`
-* redo assets `bundle exec rake assets:clobber && bundle exec rake assets:precompile`
+## Important Development Commands
+* `bundle exec rake db:migrate && bundle exec rake db:migrate RAILS_ENV=test` Migrate dbs
+* `bundle exec rake assets:clobber && bundle exec rake assets:precompile` Redo asset generation
+* `bundle exec rspec spec/<rest_of_file_path>.rb` Specify a folder or test file to run
+* `rails c --sandbox` Test out some code in the Rails console without changing any data
+* `rails g migration DoSomething` Create migration _db/migrate/*_DoSomething.rb_.
+* `rails dbconsole` Starts the CLI of the database you're using
+* `bundle exec rake routes` Show all the routes (and their names) of the application
+* `bundle exec rake about` Show stats on current Rails installation, including version numbers
+* `bundle exec rspec --profile` examine how much time individual tests take
+
