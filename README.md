@@ -1,26 +1,12 @@
 # wimi-portal
-
-[![Code Climate](https://codeclimate.com/github/hpi-swt2/wimi-portal/badges/gpa.svg)](https://codeclimate.com/github/hpi-swt2/wimi-portal)
-[![Test Coverage](https://codeclimate.com/github/hpi-swt2/wimi-portal/badges/coverage.svg)](https://codeclimate.com/github/hpi-swt2/wimi-portal/coverage)
-[![Build Status](https://travis-ci.org/hpi-swt2/wimi-portal.svg?branch=dev)](https://travis-ci.org/hpi-swt2/wimi-portal)
-[![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal)](http://wimi-portal.herokuapp.com/)
 [![License](http://img.shields.io/badge/license-AGPL-blue.svg)](https://github.com/hpi-swt2/wimi-portal/blob/master/LICENSE)
 
-## Build Status
-
-Branch      | Status
------------ | ----------
-master  | [![Build Status](https://travis-ci.org/hpi-swt2/wimi-portal.svg?branch=master)](https://travis-ci.org/hpi-swt2/wimi-portal)
-dev  | [![Build Status](https://travis-ci.org/hpi-swt2/wimi-portal.svg?branch=dev)](https://travis-ci.org/hpi-swt2/wimi-portal)
-
-## Heroku Deployment
+Branch | Travis CI  | Code Analysis | Heroku Deploy | Errbit
+------ | ---------- | ------------- | ------------- | ------
+master  | [![Build Status](https://travis-ci.org/hpi-swt2/wimi-portal.svg?branch=master)](https://travis-ci.org/hpi-swt2/wimi-portal) | [![Code Climate](https://codeclimate.com/github/hpi-swt2/wimi-portal/badges/gpa.svg)](https://codeclimate.com/github/hpi-swt2/wimi-portal) [![Test Coverage](https://codeclimate.com/github/hpi-swt2/wimi-portal/badges/coverage.svg)](https://codeclimate.com/github/hpi-swt2/wimi-portal/coverage) | [![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal)](http://wimi-portal.herokuapp.com/) [[deployed app]](http://wimi-portal.herokuapp.com/) | [[link]](http://swt2-2015-errbit.herokuapp.com/)
+dev  | [![Build Status](https://travis-ci.org/hpi-swt2/wimi-portal.svg?branch=dev)](https://travis-ci.org/hpi-swt2/wimi-portal) | [[codeclimate diff to master]](https://codeclimate.com/github/hpi-swt2/wimi-portal/compare/dev) | [![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal-dev)](http://wimi-portal-dev.herokuapp.com/) [[deployed app]](http://wimi-portal-dev.herokuapp.com/)
 
 When TravisCI run all tests successfully, the build is deployed to heroku. This is done for the master branch as well as the dev branch.
-
-Branch      | Heroku App | Status
------------ | ---------- | ----------
-master  |  [click here](http://wimi-portal.herokuapp.com/)  | [![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal)](http://wimi-portal.herokuapp.com/)
-dev  |  [click here](http://wimi-portal-dev.herokuapp.com/)  | [![Heroku](https://heroku-badge.herokuapp.com/?app=wimi-portal-dev)](http://wimi-portal-dev.herokuapp.com/)
 
 ## Local Setup
 
@@ -52,20 +38,6 @@ rails s -b 0 # start the rails server
 # otherwise drop the requests coming from the host OS
 ```
 
-## Debugging
-
-### Errbit
-```
-http://swt2-2015-errbit.herokuapp.com/
-```
-
-Please request a login from @chrisma or @derari
-
-### NewRelic
-```
-http://newrelic.com/
-```
-
 ## Deploy
 
 The following environment variables should be set:
@@ -85,4 +57,3 @@ The following environment variables should be set:
 * `bundle exec rake routes` Show all the routes (and their names) of the application
 * `bundle exec rake about` Show stats on current Rails installation, including version numbers
 * `bundle exec rspec --profile` examine how much time individual tests take
-
