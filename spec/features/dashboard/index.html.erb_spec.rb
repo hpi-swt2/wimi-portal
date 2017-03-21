@@ -64,9 +64,8 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     wimi = FactoryGirl.create(:wimi, chair: chair).user
     contract = FactoryGirl.create(:contract, chair: chair, hiwi: @user, responsible: wimi)
     time_sheet = FactoryGirl.create(:time_sheet, contract: contract)
-    
 
-    time_sheet.hand_in(time_sheet.user)
+    time_sheet.hand_in()
 
     login_as wimi
     visit dashboard_path

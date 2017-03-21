@@ -45,7 +45,7 @@ class TimeSheet < ActiveRecord::Base
 
   after_initialize :set_default_status, :if => :new_record?
 
-  def hand_in(hiwi)
+  def hand_in()
     # Update also saves, returns false if saving failed
     # http://apidock.com/rails/ActiveRecord/Persistence/update
     success = self.update(
@@ -54,7 +54,7 @@ class TimeSheet < ActiveRecord::Base
       hand_in_date: Date.today
     )
     if success
-      Event.add('time_sheet_hand_in', hiwi, self, self.contract.responsible)
+      Event.add('time_sheet_hand_in', self.user, self, self.contract.responsible)
     end
     return success
   end

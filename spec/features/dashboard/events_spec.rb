@@ -68,7 +68,7 @@ RSpec.describe 'dashboard/index.html.erb' do
       end
 
       it 'hand in' do
-        @sheet.hand_in(@user)
+        @sheet.hand_in()
 
         expect(Event.all.count).to eq(1)
         expect(Event.first.type).to eq('time_sheet_hand_in')

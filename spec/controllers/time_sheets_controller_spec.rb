@@ -92,7 +92,7 @@ RSpec.describe TimeSheetsController, type: :controller do
       end
 
       it 'should not update attributes on hand_in if already handed in' do
-        time_sheet.hand_in(@user)
+        time_sheet.hand_in()
         expect {
           get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
         }.to_not change { time_sheet.hand_in_date }
@@ -103,7 +103,7 @@ RSpec.describe TimeSheetsController, type: :controller do
 
   describe 'GET #accept_reject' do
     before(:each) do
-      time_sheet.hand_in(@user)
+      time_sheet.hand_in()
       login_with @contract.responsible
     end
 
