@@ -174,13 +174,6 @@ class User < ActiveRecord::Base
     sheets.uniq
   end
 
-  def update_event_settings(array)
-    invalid = array.detect {|p| not Event.types.include? p}
-    raise "Invalid event type! #{invalid}" if invalid
-    prefs = array.map {|p| Event.types[p]}
-    self.update(event_settings: prefs)
-  end
-
   def self.openid_required_fields
     ['http://axschema.org/contact/email']
   end

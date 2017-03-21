@@ -10,7 +10,7 @@ RSpec.describe Event, type: :model do
       @event = FactoryGirl.create(:event, user: @user, target_user: @user)
       expect(@user_ability.can? :show,@event).to be true
       expect(@user2_ability.can? :show, @event).to be false
-      @user.update_event_settings([@event.type])
+      @user.update(event_settings: [@event.type_id])
     end
 
     it 'contains only users that can? :show the event' do
@@ -19,7 +19,7 @@ RSpec.describe Event, type: :model do
 
     it 'contains only users that include the event type in the email settings' do
       expect(@event.users_want_mail).to include(@user)
-      @user.update_event_settings([])
+      @user.update(event_settings: [])
       expect(@event.users_want_mail).to eq([])
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe Event, type: :model do
     before :each do
       @user = FactoryGirl.create(:user)
       @event = FactoryGirl.build(:event, user: @user, target_user: @user)
-      @user.update_event_settings([@event.type])
+      @user.update(event_settings: [@event.type_id])
     end
 
     it 'on event creation' do

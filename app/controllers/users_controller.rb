@@ -24,7 +24,8 @@ class UsersController < ApplicationController
 
   def update
     if event_settings.any?
-      @user.update_event_settings(event_settings[:event_settings])
+      event_params = event_settings[:event_settings]
+      @user.update(event_settings: event_params.map(&:to_i))
     end
     if @user.update(user_params)
       I18n.locale = @user.language
