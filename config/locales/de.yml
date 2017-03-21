@@ -578,7 +578,7 @@ de:
     external_login:
       login: Anmelden
     form:
-      event_settings: Benachrichtigungseinstellungen
+      event_settings: E-Mail Benachrichtigungen
       user_data: Profilbezogene Daten
     no_email: ist keine gültige Email-Adresse.
     private_user_data:

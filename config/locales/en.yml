@@ -578,7 +578,7 @@ en:
     external_login:
       login: Log in
     form:
-      event_settings: Event settings
+      event_settings: E-Mail notifications
       user_data: User Data
     no_email: is not a valid email address.
     private_user_data:
