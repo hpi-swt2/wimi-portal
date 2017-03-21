@@ -42,13 +42,9 @@ class Event < ActiveRecord::Base
 
   def users_want_mail
     User.all.select do |user|
-      a = Ability.new(user)
-      if a.can? :show, self
-        ret = user.event_settings.include? Event.types[self.type]
-      else
-        ret = false
-      end
-      ret
+      can_view_event = Ability.new(user).can? :show, self
+      wants_mail_for_type = user.event_settings.include? type_id
+      can_view_event && wants_mail_for_type
     end
   end
 
