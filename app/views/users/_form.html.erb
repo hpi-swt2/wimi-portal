@@ -44,9 +44,6 @@
       <table class="table table-condensed table-hover">
         <tbody>
           <% Event.types.each do |typename, val| %>
-            <% if typename == "default" %>
-              <% next %>
-            <% end %>
             <tr>
               <%# .show sets element to display:block using bootstrap stylesheet, making label take up the width of the <td> %>
               <td><%= f.label "event_settings_#{val}", I18n.t('event.user_friendly_name.' + typename), class: "show" %></td>
