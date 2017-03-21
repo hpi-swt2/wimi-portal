@@ -308,17 +308,17 @@ en:
     contract_create: "%{user} created contract %{obj} for %{target_user}"
     contract_extend: "%{user} extended the contract %{obj} of %{target_user}"
     user_friendly_name:
-      time_sheet_hand_in: Time sheet was handed in
-      time_sheet_accept: Time sheet was accepted
-      time_sheet_decline: Time sheet was declined
-      project_create: Project was created
-      project_join: Someone joined a project
-      project_leave: Someone left a project
-      chair_join: Someone joined a chair
-      chair_leave: Someone left a chair
-      chair_add_admin: Someone was granted admin rights
-      contract_create: A contract was created
-      contract_extend: A contract was extended
+      time_sheet_hand_in: Time sheet handed in
+      time_sheet_accept: Time sheet accepted
+      time_sheet_decline: Time sheet declined
+      project_create: Project creation
+      project_join: Someone joined project
+      project_leave: Someone left project
+      chair_join: Someone joined chair
+      chair_leave: Someone left chair
+      chair_add_admin: Admin rights granted
+      contract_create: Contract creation
+      contract_extend: Contract extension
   expense:
     applied: Expense is already applied
     destroyed: Expense was successfully destroyed

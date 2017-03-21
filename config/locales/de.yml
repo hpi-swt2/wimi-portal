@@ -308,17 +308,17 @@ de:
     contract_create: "%{user} hat den Vertrag %{obj} für %{target_user} erstellt"
     contract_extend: "%{user} hat den Vertrag %{obj} mit %{target_user} verlängert"
     user_friendly_name:
-      time_sheet_hand_in: Stundenzettel einreichen
-      time_sheet_accept: Stundenzettel wurde angenommen
-      time_sheet_decline: Stundenzettel wurde abgelehnt
-      project_create: Ein Projekt wurde erstellt
-      project_join: Jemand ist einem Projekt beigetreten
-      project_leave: Jemand wurde aus einem Projekt entfernt
-      chair_join: Jemand ist dem Lehrstuhl beigetreten
-      chair_leave: Jemand hat den Lehrstuhl verlassen
-      chair_add_admin: Einem Benutzer wurden Adminrechte gewährt
-      contract_create: Ein Vertrag wurde erstellt
-      contract_extend: Ein Vertrag wurde verlängert
+      time_sheet_hand_in: Stundenzettel eingereicht
+      time_sheet_accept: Stundenzettel angenommen
+      time_sheet_decline: Stundenzettel abgelehnt
+      project_create: Neues Projekt erstellt
+      project_join: Neues Projektmitglied
+      project_leave: Projektmitglied entfernt
+      chair_join: Neues Lehrstuhlmitglied
+      chair_leave: Lehrstuhlmitglied entfernt
+      chair_add_admin: Adminrechte gewährt
+      contract_create: Vertragserstellung
+      contract_extend: Vertragsverlängerung
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
