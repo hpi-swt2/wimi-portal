@@ -85,10 +85,10 @@ class ExpensesController < ApplicationController
 
   def hand_in
     if @expense.status == 'saved' && @expense.trip.status != 'saved'
-      
+      @expense.update(status: 'applied')
     else
       flash[:error] = t('expense.no_trip')
-      end
+    end
     redirect_to trip_path(@expense.trip)
   end
 
