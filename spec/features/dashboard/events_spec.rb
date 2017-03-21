@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'cancan/matchers'
 
 RSpec.describe 'dashboard/index.html.erb' do
   context 'roles see only their respective events:' do
@@ -32,31 +33,28 @@ RSpec.describe 'dashboard/index.html.erb' do
       expect(Event.all.count).to eq(4)
     end
 
-  	it 'hiwis where they are user or target_user' do
-  		ability = Ability.new(@hiwi)
-
-  		expect(ability.can?(:show, Event.first)).to be true
-      expect(ability.can?(:show, Event.second)).to be false
-      expect(ability.can?(:show, Event.third)).to be false
-      expect(ability.can?(:show, Event.fourth)).to be false
-  	end
+    it 'hiwis where they are user or target_user' do
+      ability = Ability.new(@hiwi)
+      expect(ability).to be_able_to(:show, Event.first)
+      expect(ability).to_not be_able_to(:show, Event.second)
+      expect(ability).to_not be_able_to(:show, Event.third)
+      expect(ability).to_not be_able_to(:show, Event.fourth)
+    end
 
     it 'wimis where user/target_user is in the same project' do
       ability = Ability.new(@wimi)
-
-      expect(ability.can?(:show, Event.first)).to be true
-      expect(ability.can?(:show, Event.second)).to be true
-      expect(ability.can?(:show, Event.third)).to be false
-      expect(ability.can?(:show, Event.fourth)).to be false
+      expect(ability).to be_able_to(:show, Event.first)
+      expect(ability).to be_able_to(:show, Event.second)
+      expect(ability).to_not be_able_to(:show, Event.third)
+      expect(ability).to_not be_able_to(:show, Event.fourth)
     end
 
     it 'admin/representative where user/target_user is in the same chair' do
       ability = Ability.new(@representative)
-
-      expect(ability.can?(:show, Event.first)).to be true
-      expect(ability.can?(:show, Event.second)).to be true
-      expect(ability.can?(:show, Event.third)).to be true
-      expect(ability.can?(:show, Event.fourth)).to be false
+      expect(ability).to be_able_to(:show, Event.first)
+      expect(ability).to be_able_to(:show, Event.second)
+      expect(ability).to be_able_to(:show, Event.third)
+      expect(ability).to_not be_able_to(:show, Event.fourth)
     end
   end
 
