@@ -255,7 +255,7 @@ en:
     index:
       actions: Actions
       dashboard_title: Dashboard
-      notifications: Important Notifications
+      notifications: Notifications
       ending_contracts: Soon-ending contracts
       missing_timesheets: Missing Timesheets
       dismissed: Dismissed entry.
