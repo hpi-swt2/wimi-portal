@@ -31,7 +31,7 @@ class Project < ActiveRecord::Base
     if user && !user.is_superadmin? # <-- what is the superadmin doing here?
       inv = Invitation.create(user: user, project: self, sender: sender)
       user.invitations << inv
-      Event.add('project_join', sender, self, user)
+      Event.add(:project_join, sender, self, user)
       return true
     else
       return false

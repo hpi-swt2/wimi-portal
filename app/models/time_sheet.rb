@@ -54,7 +54,7 @@ class TimeSheet < ActiveRecord::Base
       hand_in_date: Date.today
     )
     if success
-      Event.add('time_sheet_hand_in', self.user, self, self.contract.responsible)
+      Event.add(:time_sheet_hand_in, self.user, self, self.contract.responsible)
     end
     return success
   end
@@ -66,7 +66,7 @@ class TimeSheet < ActiveRecord::Base
       representative_signature: wimi.signature,
       representative_signed_at: Date.today())
     if success
-      Event.add('time_sheet_accept', wimi, self, self.user)
+      Event.add(:time_sheet_accept, wimi, self, self.user)
     end
     return success
   end
@@ -81,7 +81,7 @@ class TimeSheet < ActiveRecord::Base
       signed: false,
       user_signed_at: nil)
     if success
-      Event.add('time_sheet_decline', wimi, self, self.user)
+      Event.add(:time_sheet_decline, wimi, self, self.user)
     end
     return success
   end

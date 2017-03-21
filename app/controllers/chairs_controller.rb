@@ -106,7 +106,7 @@ class ChairsController < ApplicationController
     end
     chairwimi = ChairWimi.create(application: 'accepted', chair: @chair, user: user)
     if chairwimi.save
-      Event.add('chair_join', current_user, @chair, user)
+      Event.add(:chair_join, current_user, @chair, user)
       flash[:success] = I18n.t('chair.user.successfully_added', name: user.name)
     else
       flash[:error] = I18n.t('chair.user.add_error')
@@ -118,7 +118,7 @@ class ChairsController < ApplicationController
     status = ('removed' if chair_wimi.application == 'accepted') || ('declined' if chair_wimi.application == 'pending')
 
     if chair_wimi.remove(current_user)
-      Event.add('chair_leave', current_user, @chair, chair_wimi.user)
+      Event.add(:chair_leave, current_user, @chair, chair_wimi.user)
       flash[:success] = I18n.t('chair.remove_from_chair.success')
     else
       flash[:error] = I18n.t('chair.remove_from_chair.error')
@@ -131,7 +131,7 @@ class ChairsController < ApplicationController
     chair_wimi.admin = true
 
     if chair_wimi.save
-      Event.add('chair_add_admin', current_user, @chair, chair_wimi.user)
+      Event.add(:chair_add_admin, current_user, @chair, chair_wimi.user)
       flash[:success] = I18n.t('chair.set_admin.success')
     else
       flash[:error] = I18n.t('chair.set_admin.error')
