@@ -79,7 +79,10 @@
       <div class="panel-body panel-scroll">
         <table class="table table-condensed table-hover">
           <% @events.each do |event| %>
-            <%= render partial: 'event', object: event%>
+            <tr>
+              <td><%= l event.created_at.to_date, format: :short_year %></td>
+              <td><%= entity_link(event.message, event.object) %></td>
+            </tr>
           <% end %>
         </table>
       </div>
