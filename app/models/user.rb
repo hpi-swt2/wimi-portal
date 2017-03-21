@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
 
   serialize :event_settings, Array
 
+  validate :validate_event_settings
   validates :first_name, length: {minimum: 1}
   validates :last_name, length: {minimum: 1}
   validates :email, length: {minimum: 1}, user_email: true
@@ -174,7 +175,9 @@ class User < ActiveRecord::Base
   end
 
   def update_event_settings(array)
-    prefs = array.map(&:to_i)
+    invalid = array.detect {|p| not Event.types.include? p}
+    raise "Invalid event type! #{invalid}" if invalid
+    prefs = array.map {|p| Event.types[p]}
     self.update(event_settings: prefs)
   end
 
@@ -216,4 +219,13 @@ class User < ActiveRecord::Base
     end
     trips.sort! { |a, b| b.date_start <=> a.date_start }
   end
+
+  private
+
+  def validate_event_settings
+    if !event_settings.is_a?(Array) || event_settings.any?{|i| not Event.types.values.include?(i)}
+      errors.add(:event_settings, :invalid)
+    end
+  end
+
 end

@@ -15,7 +15,7 @@ FactoryGirl.define do
   factory :event do
     user
     target_user { user }
-    object { user }
-    type 'default'
+    object { FactoryGirl.create(:project) }
+    type 'project_create'
   end
 end

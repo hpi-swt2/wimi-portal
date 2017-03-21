@@ -27,13 +27,14 @@ RSpec.describe Event, type: :model do
   context 'mails are sent' do
     before :each do
       @user = FactoryGirl.create(:user)
-      @event = FactoryGirl.create(:event, user: @user, target_user: @user)
+      @event = FactoryGirl.build(:event, user: @user, target_user: @user)
       @user.update_event_settings([@event.type])
     end
 
     it 'on event creation' do
-      expect(MailNotifier).to receive(:notification).with(@event,@user)
-      @event.run_callbacks(:commit)
+      expect(@event.users_want_mail).to include(@user)
+      expect(MailNotifier).to receive(:notification).with(@event, @user)
+      @event.save!
     end
   end
 end

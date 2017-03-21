@@ -24,10 +24,10 @@ RSpec.describe 'dashboard/index.html.erb' do
       @representative_other = @chair_other.representative.user
       @wimi_other = FactoryGirl.create(:wimi, chair: @chair_other).user
 
-      Event.add('default', @wimi, nil , @hiwi) # all should see this
-      Event.add('default', @representative, nil, @wimi) # hiwi cant see this
-      Event.add('default', @representative, nil, @hiwi2) # hiwi and wimi cant see this
-      Event.add('default', @representative_other, nil, @wimi_other) # none can see this
+      Event.add('project_join', @wimi, @project , @hiwi) # all should see this
+      Event.add('project_join', @representative, @project, @wimi) # hiwi cant see this
+      Event.add('project_join', @representative, @project, @hiwi2) # hiwi and wimi cant see this
+      Event.add('project_join', @representative_other, @project, @wimi_other) # none can see this
 
       expect(Event.all.count).to eq(4)
     end
