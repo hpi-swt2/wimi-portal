@@ -84,7 +84,7 @@ class TripsController < ApplicationController
 
   def hand_in
     if @trip.status == 'saved'
-
+      @trip.update(status: 'applied')
     end
     redirect_to trips_path
   end
