@@ -78,10 +78,15 @@
       </div>
       <div class="panel-body panel-scroll">
         <table class="table table-condensed table-hover">
-          <% @events.each do |event| %>
+          <% @events.each do |e| %>
             <tr>
-              <td><%= l event.created_at.to_date, format: :short_year %></td>
-              <td><%= entity_link(event.message, event.object) %></td>
+              <td><%= l e.created_at.to_date, format: :short_year %></td>
+              <td><%= I18n.t("event.#{e.type}",
+                        user: link_to(e.user.name, e.user),
+                        # The I18n interpolation key cannot be the reserved name 'object'
+                        obj: link_to(e.object.name, e.object),
+                        target_user: link_to(e.target_user.name, e.target_user)).html_safe %>
+              </td>
             </tr>
           <% end %>
         </table>

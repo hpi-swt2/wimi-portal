@@ -15,6 +15,7 @@ class Ability
       check_functions.each_with_index do |check_func, index|
         if user.send check_func
           send initialize_functions[index], user
+          initialize_after(user)
           return
         end
       end
@@ -42,7 +43,7 @@ class Ability
     can :withdraw, TimeSheet, user: {id: user.id}, handed_in: true, status: 'pending'
 
     can :show, Event, user: { id: user.id }
-    can :show, Event, target_user: { id: user.id }
+    can [:show, :receive_email], Event, target_user: { id: user.id }
   end
 
   def initialize_hiwi(user)
@@ -72,7 +73,7 @@ class Ability
     can :read, Contract, chair_id: user.chair.id, time_sheets: { status: 'pending' }
 
     can :show, Event do |e|
-      (e.user.projects & user.projects).any? or (e.target_user.projects & user.projects).any?
+      (e.related_projects & user.projects).any?
     end
   end
 
@@ -86,7 +87,7 @@ class Ability
     can :manage, Project, chair_id: user.chair.id
 
     can :show, Event do |e|
-      e.user.all_chairs.include?(user.chair) or e.target_user.all_chairs.include?(user.chair)
+      e.related_chair == user.chair
     end
   end
 
@@ -98,5 +99,10 @@ class Ability
     initialize_user(user)
     can :manage, Chair
     can :index, User
+  end
+
+  # Ensure these rules are applied last
+  def initialize_after(user)
+    cannot :receive_email, Event, user: { id: user.id }
   end
 end

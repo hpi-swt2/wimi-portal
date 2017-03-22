@@ -23,38 +23,39 @@ RSpec.describe 'dashboard/index.html.erb' do
 
       @chair_other = FactoryGirl.create(:chair)
       @representative_other = @chair_other.representative.user
-      @wimi_other = FactoryGirl.create(:wimi, chair: @chair_other).user
+      wimi2 = FactoryGirl.create(:wimi, chair: @chair_other).user
 
-      Event.add(:project_join, @wimi, @project , @hiwi) # all should see this
-      Event.add(:project_join, @representative, @project, @wimi) # hiwi cant see this
-      Event.add(:project_join, @representative, @project, @hiwi2) # hiwi and wimi cant see this
-      Event.add(:project_join, @representative_other, @project, @wimi_other) # none can see this
+      @wimi_adds_hiwi = Event.add(:project_join, @wimi, @project , @hiwi) # all should see this
+      @rep_adds_wimi = Event.add(:project_join, @representative, @project, @wimi) # hiwi cant see this
+      @rep_adds_hiwi2 = Event.add(:project_join, @representative, @project, @hiwi2) # hiwi and wimi cant see this
+      @rep2_adds_wimi2 = Event.add(:project_join, @representative_other, @project, wimi2) # none can see this
 
       expect(Event.all.count).to eq(4)
     end
 
     it 'hiwis where they are user or target_user' do
       ability = Ability.new(@hiwi)
-      expect(ability).to be_able_to(:show, Event.first)
-      expect(ability).to_not be_able_to(:show, Event.second)
-      expect(ability).to_not be_able_to(:show, Event.third)
-      expect(ability).to_not be_able_to(:show, Event.fourth)
+      expect(ability).to be_able_to(:show, @wimi_adds_hiwi)
+      expect(ability).to_not be_able_to(:show, @rep_adds_wimi)
+      expect(ability).to_not be_able_to(:show, @rep_adds_hiwi2)
+      expect(ability).to_not be_able_to(:show, @rep2_adds_wimi2)
     end
 
     it 'wimis where user/target_user is in the same project' do
       ability = Ability.new(@wimi)
-      expect(ability).to be_able_to(:show, Event.first)
-      expect(ability).to be_able_to(:show, Event.second)
-      expect(ability).to_not be_able_to(:show, Event.third)
-      expect(ability).to_not be_able_to(:show, Event.fourth)
+      expect(ability).to be_able_to(:show, @wimi_adds_hiwi)
+      expect(ability).to be_able_to(:show, @rep_adds_wimi)
+      # wimi and hiwi are in the same project
+      expect(ability).to be_able_to(:show, @rep_adds_hiwi2)
+      expect(ability).to be_able_to(:show, @rep2_adds_wimi2)
     end
 
     it 'admin/representative where user/target_user is in the same chair' do
       ability = Ability.new(@representative)
-      expect(ability).to be_able_to(:show, Event.first)
-      expect(ability).to be_able_to(:show, Event.second)
-      expect(ability).to be_able_to(:show, Event.third)
-      expect(ability).to_not be_able_to(:show, Event.fourth)
+      expect(ability).to_not be_able_to(:show, @wimi_adds_hiwi)
+      expect(ability).to be_able_to(:show, @rep_adds_wimi)
+      expect(ability).to be_able_to(:show, @rep_adds_hiwi2)
+      expect(ability).to_not be_able_to(:show, @rep2_adds_wimi2)
     end
   end
 

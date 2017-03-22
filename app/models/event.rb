@@ -42,7 +42,7 @@ class Event < ActiveRecord::Base
 
   def users_want_mail
     User.all.select do |user|
-      can_view_event = Ability.new(user).can? :show, self
+      can_view_event = Ability.new(user).can? :receive_email, self
       wants_mail_for_type = user.event_settings.include? type_id
       can_view_event && wants_mail_for_type
     end
@@ -64,5 +64,29 @@ class Event < ActiveRecord::Base
 
   def type_id
     Event.types[self.type]
+  end
+
+  # Some events are only relevant for people in a project
+  def related_projects
+    case self.object
+      when Project
+        [self.object]
+      when TimeSheet
+        self.object.projects
+      else
+        []
+    end
+  end
+
+  # Some events are only relevant admins of a chair
+  def related_chair
+    case self.object
+      when Chair
+        self.chair
+      when Contract
+        self.object.chair
+      else
+        nil
+    end
   end
 end

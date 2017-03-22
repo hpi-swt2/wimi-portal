@@ -35,6 +35,7 @@ class TimeSheet < ActiveRecord::Base
   # When a time sheet is destroyed, also destroy all of the connected work days
   has_many :work_days, :inverse_of => :time_sheet, dependent: :destroy
   has_many :events, as: :object, :dependent => :destroy
+  has_many :projects, through: :work_days
   
   validates :month, numericality: {greater_than: 0}
   validates :year, numericality: {greater_than: 0}
@@ -45,7 +46,7 @@ class TimeSheet < ActiveRecord::Base
 
   after_initialize :set_default_status, :if => :new_record?
 
-  def hand_in()
+  def hand_in
     # Update also saves, returns false if saving failed
     # http://apidock.com/rails/ActiveRecord/Persistence/update
     success = self.update(
