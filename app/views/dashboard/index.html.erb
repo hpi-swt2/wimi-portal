@@ -82,10 +82,10 @@
             <tr>
               <td><%= l e.created_at.to_date, format: :short_year %></td>
               <td><%= I18n.t("event.#{e.type}",
-                        user: link_to(e.user.name, e.user),
+                        user: linked_name(e.user),
                         # The I18n interpolation key cannot be the reserved name 'object'
-                        obj: link_to(e.object.name, e.object),
-                        target_user: link_to(e.target_user.name, e.target_user)).html_safe %>
+                        obj: linked_name(e.object),
+                        target_user: linked_name(e.target_user)).html_safe %>
               </td>
             </tr>
           <% end %>
