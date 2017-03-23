@@ -213,6 +213,10 @@ class User < ActiveRecord::Base
     trips.sort! { |a, b| b.date_start <=> a.date_start }
   end
 
+  def clear_event_settings
+    update(event_settings: [])
+  end
+
   private
 
   def validate_event_settings
