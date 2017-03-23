@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314124852) do
+ActiveRecord::Schema.define(version: 20170323214831) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -233,7 +233,6 @@ ActiveRecord::Schema.define(version: 20170314124852) do
     t.string   "city"
     t.string   "zip_code"
     t.text     "signature"
-    t.boolean  "email_notification",        default: false
     t.integer  "sign_in_count",             default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
