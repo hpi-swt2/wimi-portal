@@ -263,6 +263,8 @@ de:
       ending_contracts: Bald endende Verträge
       missing_timesheets: Fehlende Stundenzettel
       dismissed: Eintrag ausgeblendet.
+    missing_timesheets:
+      missing_ts_last_month_only: Nur für den letzten Monat
     projects:
       projects: Meine Projekte
   errors:
@@ -635,6 +637,7 @@ de:
     update:
       user_updated: Profil erfolgreich aktualisiert.
       user_updated_language: Sprache erfolgreich aktualisiert.
+      user_updated_setting: Einstellung erfolgreich aktualisiert.
     upload_signature:
       invalid_file_extension: Bitte wählen Sie eine Datei mit einer gültigen Endung
       upload_error: Bitte wählen Sie eine Datei aus

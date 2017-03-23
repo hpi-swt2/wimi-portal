@@ -29,6 +29,9 @@ class UsersController < ApplicationController
       if user_params.has_key?(:language)
         flash[:success] = t('.user_updated_language')
         redirect_to :back
+      elsif user_params.has_key?(:missing_ts_last_month_only)
+        flash[:success] = t('.user_updated_setting')
+        redirect_to :back
       else
         flash[:success] = t('.user_updated')
         redirect_to current_user

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105094707) do
+ActiveRecord::Schema.define(version: 20170323222658) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -228,29 +228,30 @@ ActiveRecord::Schema.define(version: 20170105094707) do
   add_index "user_events", ["user_id"], name: "index_user_events_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                     default: "",    null: false
+    t.string   "email",                      default: "",    null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "identity_url"
-    t.string   "language",                  default: "en",  null: false
+    t.string   "language",                   default: "en",  null: false
     t.string   "street"
-    t.integer  "personnel_number",          default: 0
-    t.integer  "remaining_leave",           default: 28
-    t.integer  "remaining_leave_last_year", default: 0
-    t.boolean  "superadmin",                default: false
+    t.integer  "personnel_number",           default: 0
+    t.integer  "remaining_leave",            default: 28
+    t.integer  "remaining_leave_last_year",  default: 0
+    t.boolean  "superadmin",                 default: false
     t.string   "username"
-    t.string   "encrypted_password",        default: "",    null: false
+    t.string   "encrypted_password",         default: "",    null: false
     t.string   "city"
     t.string   "zip_code"
     t.text     "signature"
-    t.boolean  "email_notification",        default: false
-    t.integer  "sign_in_count",             default: 0,     null: false
+    t.boolean  "email_notification",         default: false
+    t.integer  "sign_in_count",              default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.boolean  "missing_ts_last_month_only"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

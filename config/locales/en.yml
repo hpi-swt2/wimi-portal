@@ -263,6 +263,8 @@ en:
       ending_contracts: Soon-ending contracts
       missing_timesheets: Missing Timesheets
       dismissed: Dismissed entry.
+    missing_timesheets:
+      missing_ts_last_month_only: Last month only
     projects:
       projects: My Projects
   errors:
@@ -635,6 +637,7 @@ en:
     update:
       user_updated: Profile was updated successfully
       user_updated_language: Language was updated successfully
+      user_updated_setting: Setting was update successfully
     upload_signature:
       invalid_file_extension: Please choose a file with a correct extension
       upload_error: Please choose a file

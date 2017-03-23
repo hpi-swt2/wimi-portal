@@ -2,7 +2,20 @@
     <div class="display">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4><%= t 'dashboard.index.missing_timesheets' %></h4>
+          <div class="row">
+              <div class="col-md-6">
+                <h4><%= t 'dashboard.index.missing_timesheets' %></h4>
+              </div>
+              <div class="col-md-6">
+                <%# Checkbox to show only last month %>
+                <%= form_for current_user, html: {id: 'lastmonthonlyForm'} do |f| -%>
+                <label class="pull-right">
+                  <%= f.check_box :missing_ts_last_month_only, {id: 'lastmonthonlySelect', onchange: "$('#lastmonthonlyForm').submit();"} %>
+                  <%= t('.missing_ts_last_month_only') %>
+                </label>
+                <% end %>
+              </div>
+          </div>
         </div>
         <div class="panel-body panel-scroll">
           <% if @missing_timesheets.empty? %>
