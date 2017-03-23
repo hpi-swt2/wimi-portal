@@ -215,16 +215,6 @@ ActiveRecord::Schema.define(version: 20170314124852) do
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
-  create_table "user_events", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "user_events", ["event_id"], name: "index_user_events_on_event_id"
-  add_index "user_events", ["user_id"], name: "index_user_events_on_user_id"
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "",    null: false
     t.string   "first_name"
