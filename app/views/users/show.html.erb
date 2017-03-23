@@ -73,14 +73,17 @@
           <h4><%=t('.download_settings')%></h4>
         </div>
         <div class="panel-body">
-        <%= form_for @user do |f| %>
-          <% User.include_comments.each do |typename, val| %>
-            <%= bootstrap_form_group(f, t('.include_comments.' + typename)) do %>
-              <%= f.radio_button :include_comments, typename %>
+          <%= form_for @user do |f| %>
+            <% User.include_comments.each do |typename, val| %>
+            <div class="radio">
+              <label>
+                <%= f.radio_button :include_comments, typename %>
+                <%= t('.include_comments.' + typename) %>
+              </label>
+            </div>
             <% end %>
+            <%= f.submit t('helpers.links.save'), class: 'btn btn-success btn-block' %>
           <% end %>
-        <%= f.submit t('helpers.links.save'), class: 'btn btn-success btn-block' %>
-        <% end %>
         </div>
       </div>
     </div>
