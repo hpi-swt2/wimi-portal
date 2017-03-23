@@ -584,8 +584,6 @@ en:
     no_email: is not a valid email address.
     private_user_data:
       hiwi: Student Assistant
-      is_off: 'off'
-      is_on: 'on'
       private_data: Private Data
       user_status: Status
       wimi: Research Assistant

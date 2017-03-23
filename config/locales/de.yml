@@ -584,8 +584,6 @@ de:
     no_email: ist keine gültige Email-Adresse.
     private_user_data:
       hiwi: HiWi
-      is_off: aus
-      is_on: an
       private_data: Persönliche Daten
       user_status: Status
       wimi: WiMi

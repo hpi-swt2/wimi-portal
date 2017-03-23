@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe 'updating event preferences' do 
   before :each do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user, event_settings: [])
     login_as @user
   end
 
@@ -29,5 +29,15 @@ describe 'updating event preferences' do
     click_on('Save')
     @user.reload
     expect(@user.event_settings).to eq([])
+  end
+end
+
+describe 'a new users event settings' do
+  it 'include all fields' do
+    @user = FactoryGirl.create(:user)
+
+    all_events = Event.types.collect { |type, val| val }
+    expect(user.event_settings).to eq(all_events)
+
   end
 end
