@@ -574,6 +574,8 @@ en:
       remaining_leave_fly: Remaining Leave from last year
       save: Save Leave
       title: Edit Leave
+    event_settings:
+      event_settings: E-Mail Notifications
     external_login:
       login: Log in
     form:

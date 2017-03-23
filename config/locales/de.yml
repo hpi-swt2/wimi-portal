@@ -574,6 +574,8 @@ de:
       remaining_leave_fly: Verbleibender Resturlaub vom letzten Jahr
       save: Resturlaub Speichern
       title: Resturlaub bearbeiten
+    event_settings:
+      event_settings: E-Mail Benachrichtigungen
     external_login:
       login: Anmelden
     form:
