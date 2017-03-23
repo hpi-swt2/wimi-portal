@@ -27,6 +27,13 @@
           </div>
           <% end %>
         </div>
+        <% if can? :edit, @user %>
+        <div class="row">
+          <div class="col-md-12">
+            <%= render partial: 'event_settings', locals: {user: @user}%>
+          </div>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>

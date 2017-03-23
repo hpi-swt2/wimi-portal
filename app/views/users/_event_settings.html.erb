@@ -1,0 +1,11 @@
+<table class="table table-condensed table-hover">
+  <tbody>
+    <% Event.types.each do |typename, val| %>
+      <tr>
+        <%# .show sets element to display:block using bootstrap stylesheet, making label take up the width of the <td> %>
+        <td><%= I18n.t('event.user_friendly_name.' + typename)%></td>
+        <td><span class="<%= user.event_settings.include?(val) ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"%>"></span></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
