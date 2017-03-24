@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   validates_format_of :zip_code, with: /(\A\d{5}\Z)|(\A\Z)/i
   validates_confirmation_of :password
 
-  after_initialize :set_event_settings
+  after_initialize :set_event_settings, if: :new_record?
 
   def name
     "#{first_name} #{last_name}"
@@ -232,8 +232,6 @@ class User < ActiveRecord::Base
   end
 
   def set_event_settings
-    if self.new_record?
-      self.event_settings = Event.types.collect { |type, val| val }
-    end
+    self.event_settings = Event.types.values
   end
 end

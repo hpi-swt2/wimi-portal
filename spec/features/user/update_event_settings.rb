@@ -35,9 +35,7 @@ end
 describe 'a new users event settings' do
   it 'include all fields' do
     @user = FactoryGirl.create(:user)
-
-    all_events = Event.types.collect { |type, val| val }
-    expect(user.event_settings).to eq(all_events)
-
+    all_events = Event.types.values
+    expect(@user.event_settings).to eq(all_events)
   end
 end
