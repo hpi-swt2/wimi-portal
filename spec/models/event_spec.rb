@@ -18,26 +18,6 @@ RSpec.describe Event, type: :model do
     expect(FactoryGirl.build_stubbed(:event)).to be_valid
   end
 
-  it 'creates valid messages from I18n keys' do
-    Event.types.each do |type, value|
-      event = FactoryGirl.create(:event, type: type)
-      expect(event.message).to include(event.user.name)
-      expect(event.message).to include(event.target_user.name)
-      expect(event.message).to include(event.object.name)
-    end
-  end
-
-  it 'prints the unique message for each type' do
-    Event.types.each do |type, value|
-      event = FactoryGirl.create(:event, type: type)
-      translation = I18n.t("event.#{event.type}",
-                            user: event.user.name,
-                            obj: event.object.name,
-                            target_user: event.target_user.name)
-      expect(event.message).to eq(translation)
-    end
-  end
-
   it "can be created using 'add' constructor" do
     user = FactoryGirl.create(:user)
     Event.types.each do |type, value|

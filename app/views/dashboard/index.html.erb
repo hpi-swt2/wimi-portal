@@ -78,15 +78,11 @@
       </div>
       <div class="panel-body panel-scroll">
         <table class="table table-condensed table-hover">
-          <% @events.each do |e| %>
+          <% @events.each do |event| %>
             <tr>
-              <td><%= l e.created_at.to_date, format: :short_year %></td>
-              <td><%= I18n.t("event.#{e.type}",
-                        user: linked_name(e.user),
-                        # The I18n interpolation key cannot be the reserved name 'object'
-                        obj: linked_name(e.object),
-                        target_user: linked_name(e.target_user)).html_safe %>
-              </td>
+              <td><%= l event.created_at.to_date, format: :short_year %></td>
+              <%# helper defined in app/helpers/application_helper.rb %>
+              <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
             </tr>
           <% end %>
         </table>

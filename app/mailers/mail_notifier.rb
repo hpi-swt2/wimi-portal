@@ -10,11 +10,20 @@ class MailNotifier < ApplicationMailer
     l = I18n.locale
     I18n.locale = user.language
 
+    # i18n-tasks-use t'mail_notifier.notification.subject'
     @greeting = t('mail_notifier.notification.hello') + user.name
     @event = event
-    # i18n-tasks-use t'mail_notifier.notification.subject'
+    @current_user = user
 
     mail to: user.email
     I18n.locale = l
+  end
+
+  private
+
+  # Ensure that the function 'current_user' returns the user in the context
+  # so that application helpers using cancan work, e.g. 'linked_name'
+  def current_user
+    @current_user
   end
 end

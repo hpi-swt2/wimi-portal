@@ -41,10 +41,8 @@ class Event < ActiveRecord::Base
   end
 
   def users_want_mail
-    User.all.select do |user|
-      can_receive_mail = Ability.new(user).can? :receive_email, self
-      wants_mail_for_type = user.event_settings.include? type_id
-      can_receive_mail && wants_mail_for_type
+    User.all.select do |u|
+      (Ability.new(u).can? :receive_email, self) && u.wants_mail_for(type_id)
     end
   end
 
@@ -52,14 +50,6 @@ class Event < ActiveRecord::Base
     self.users_want_mail.each do |user|
       MailNotifier.notification(self, user)
     end
-  end
-
-  def message
-    return I18n.t("event.#{self.type}",
-      user: self.user.name,
-      # The I18n interpolation key cannot be the reserved name 'object'
-      obj: self.object.name,
-      target_user: self.target_user.name)
   end
 
   def type_id

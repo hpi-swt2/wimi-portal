@@ -1,6 +1,7 @@
 <h2><%= @greeting %>,</h2>
 
-<p><%= l @event.created_at %> <%= @event.message %></p>
+<p><%= l @event.created_at %></p>
+<p><%= render partial: "shared/event_message", locals: {event: @event} %></p>
 
 <br>
-<p><%= t('mail_notifier.notification.your_wimi_portal')  %></p>
+<p><%= t('mail_notifier.notification.your_wimi_portal') %></p>

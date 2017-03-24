@@ -219,6 +219,10 @@ class User < ActiveRecord::Base
     update(event_settings: [])
   end
 
+  def wants_mail_for(event_int)
+    self.event_settings.include?(event_int)
+  end
+
   private
 
   def validate_event_settings
