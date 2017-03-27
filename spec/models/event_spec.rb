@@ -27,6 +27,13 @@ RSpec.describe Event, type: :model do
     end
   end
 
+  it "requires user, object and target_user to be valid" do
+    user = FactoryGirl.create(:user)
+    expect(Event.new).to_not be_valid
+    event = Event.new(user: user, object: user, target_user: user)
+    expect(event).to be_valid
+  end
+
   context 'cascade deletes when' do
     before :each do
       @user = FactoryGirl.create(:user)
