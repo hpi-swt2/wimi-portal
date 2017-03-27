@@ -60,3 +60,10 @@ bower.json
 
 # compiled assets directory
 public/assets/
+
+# Ignored extra directories
+analysis/
+wimi-backups/
+
+# Visual Studio Code
+.vscode/
