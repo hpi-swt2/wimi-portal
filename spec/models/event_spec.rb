@@ -47,4 +47,24 @@ RSpec.describe Event, type: :model do
       expect { @chair.destroy }.to change { Event.count }.from(1).to(0)
     end
   end
+
+  # Only ints representing event types are saved in the db.
+  # If the order / count is changed, this needs to be reflected in the
+  # existing database with a migration. Beware.
+  it 'has the original order of type Enum' do
+    original_enum_order = {
+      "time_sheet_hand_in"=>0,
+      "time_sheet_accept"=>1,
+      "time_sheet_decline"=>2,
+      "project_create"=>3,
+      "project_join"=>4,
+      "project_leave"=>5,
+      "chair_join"=>6,
+      "chair_leave"=>7,
+      "chair_add_admin"=>8,
+      "contract_create"=>9,
+      "contract_extend"=>10
+    }
+    expect(Event.types).to eq(original_enum_order)
+  end
 end
