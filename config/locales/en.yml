@@ -427,11 +427,11 @@ en:
   links:
     search: Search
     submit: Submit
-  mail_notifier:
+  application_mailer:
     notification:
       hello: 'Hello #{name}'
       subject: '[WiMi-Portal] %{text}'
-      your_wimi_portal: Your Wimi-Portal
+      your_wimi_portal: Your WiMi-Portal
   no_entries_yet: There are no %{target} yet.
   not_authorized: You are not authorized to do that action.
   project:

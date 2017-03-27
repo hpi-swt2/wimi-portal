@@ -38,7 +38,7 @@ RSpec.describe Event, type: :model do
 
     it 'on event creation' do
       expect(@event.users_want_mail).to include(@user2)
-      expect(MailNotifier).to receive(:notification).with(@event, @user2)
+      expect(ApplicationMailer).to receive(:notification).with(@event, @user2)
       @event.save!
     end
   end

@@ -1,8 +1,8 @@
-<%= t('mail_notifier.notification.hello', name: @user.first_name) %>
+<%= t('.hello', name: @user.first_name) %>
 
 <%= l @event.created_at %>
 <%= render partial: "shared/event_message", locals: {event: @event, as_html: false} %>
 
 <%= polymorphic_url(@event.object) %>
 
-<%= t('mail_notifier.notification.your_wimi_portal')  %>
+<%= t('.your_wimi_portal')  %>

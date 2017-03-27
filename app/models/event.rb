@@ -48,7 +48,7 @@ class Event < ActiveRecord::Base
 
   def send_mail
     self.users_want_mail.each do |user|
-      MailNotifier.notification(self, user)
+      ApplicationMailer.notification(self, user)
     end
   end
 
