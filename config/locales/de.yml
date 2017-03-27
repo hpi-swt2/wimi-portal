@@ -430,7 +430,7 @@ de:
   mail_notifier:
     notification:
       hello: 'Hallo '
-      subject: '[WiMi-Portal] Benachrichtigung'
+      subject: '[WiMi-Portal] %{text}'
       your_wimi_portal: Ihr Wimi-Portal
   no_entries_yet: Keine %{target} vorhanden.
   not_authorized: Du bist nicht befugt, diese Aktion durchzuführen.

@@ -9,7 +9,11 @@ class MailNotifier < ApplicationMailer
     @event = event
     @current_user = user
 
-    mail(to: user.email, subject: t('mail_notifier.notification.subject'))
+    subject = t('mail_notifier.notification.subject', text: 
+      t("event.user_friendly_name.#{@event.type}")
+    )
+    
+    mail(to: user.email, subject: subject)
     I18n.locale = l
   end
 

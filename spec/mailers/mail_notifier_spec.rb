@@ -8,7 +8,10 @@ RSpec.describe MailNotifier, type: :mailer do
     let(:mail) { MailNotifier.notification(event, user) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq(I18n.t("mail_notifier.notification.subject"))
+      subj = I18n.t("mail_notifier.notification.subject",
+        text: I18n.t("event.user_friendly_name.#{event.type}")
+      )
+      expect(mail.subject).to eq(subj)
       expect(mail.to.count).to eq(1)
       expect(mail.to.first).to eq(user.email)
       expect(mail.from.count).to eq(1)
