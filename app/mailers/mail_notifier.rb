@@ -1,5 +1,4 @@
 class MailNotifier < ApplicationMailer
-  default from: 'HPI Wimi Portal <hpi.wimiportal@gmail.com>'
 
   def notification(event, user)
     l = I18n.locale
