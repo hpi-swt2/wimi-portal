@@ -431,7 +431,6 @@ en:
     notification:
       hello: 'Hello '
       subject: '[WiMi-Portal] Notification'
-      text: you got a new notification. Check your Wimi-Portal Dashboard to see all the recent notifications.
       your_wimi_portal: Your Wimi-Portal
   no_entries_yet: There are no %{target} yet.
   not_authorized: You are not authorized to do that action.

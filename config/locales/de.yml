@@ -430,8 +430,7 @@ de:
   mail_notifier:
     notification:
       hello: 'Hallo '
-      subject: Sie haben eine neue Benachrichtigung erhalten
-      text: Sie haben eine neue Benachrichtigung. Besuchen Sie das Wimi-Portal Dashboard, um alle neuen Benachrichtigungen zu sehen.
+      subject: '[WiMi-Portal] Benachrichtigung'
       your_wimi_portal: Ihr Wimi-Portal
   no_entries_yet: Keine %{target} vorhanden.
   not_authorized: Du bist nicht befugt, diese Aktion durchzuführen.
