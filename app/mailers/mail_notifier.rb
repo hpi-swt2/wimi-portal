@@ -1,19 +1,14 @@
 class MailNotifier < ApplicationMailer
 
   def notification(event, user)
-    l = I18n.locale
-    I18n.locale = user.language
-
-    @greeting = t('mail_notifier.notification.hello') + user.name
     @event = event
-    @current_user = user
-
-    subject = t('mail_notifier.notification.subject', text: 
-      t("event.user_friendly_name.#{@event.type}")
+    @user = user
+    # locale needs to be set manually, as the ApplicationMailer 
+    # is not aware of the user's language settings
+    subject = t('mail_notifier.notification.subject', locale: user.language,
+      text: t("event.user_friendly_name.#{@event.type}", locale: user.language)
     )
-    
     mail(to: user.email, subject: subject)
-    I18n.locale = l
   end
 
   private

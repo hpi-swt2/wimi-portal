@@ -429,7 +429,7 @@ de:
     submit: Abschicken
   mail_notifier:
     notification:
-      hello: 'Hallo '
+      hello: 'Hallo %{name}'
       subject: '[WiMi-Portal] %{text}'
       your_wimi_portal: Ihr Wimi-Portal
   no_entries_yet: Keine %{target} vorhanden.

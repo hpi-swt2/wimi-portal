@@ -429,7 +429,7 @@ en:
     submit: Submit
   mail_notifier:
     notification:
-      hello: 'Hello '
+      hello: 'Hello #{name}'
       subject: '[WiMi-Portal] %{text}'
       your_wimi_portal: Your Wimi-Portal
   no_entries_yet: There are no %{target} yet.

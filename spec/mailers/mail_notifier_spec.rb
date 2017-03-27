@@ -20,7 +20,7 @@ RSpec.describe MailNotifier, type: :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match(I18n.t("mail_notifier.notification.hello"))
+      expect(mail.body.encoded).to match(I18n.t("mail_notifier.notification.hello", name: user.first_name))
     end
 
     it "finds name of user in email" do
