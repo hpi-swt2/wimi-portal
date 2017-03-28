@@ -17,6 +17,10 @@ class UsersController < ApplicationController
 
   def show
     @trips = @user.get_desc_sorted_trips
+    @recent_events = Event.where("user_id=? or target_user_id=?", @user.id, @user.id)
+      .limit(5)
+      .order(created_at: :desc)
+      .select { |e| current_ability.can?(:show, e) }
   end
 
   def edit
