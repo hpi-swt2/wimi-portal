@@ -105,7 +105,10 @@
                     class: 'btn btn-block btn-success'%>
             <% end %>
           </p>
+        </div>
       </div>
     </div>
   </div>
+  <%# Recent activity %>
+  <%= render partial: "shared/recent_events", locals: {recent_events: @recent_events} %>
 <% end %>

@@ -355,6 +355,7 @@ en:
       title: "Filter %{model}"
       help_text: Search terms are connected using "or".
     actions: Actions
+    recent_activity: Recent Activity
     application_tabs:
       external_sign_in: External Sign-In
       logout: Logout

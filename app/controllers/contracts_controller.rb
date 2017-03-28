@@ -37,6 +37,10 @@ class ContractsController < ApplicationController
     
   end
 
+  def show
+    @recent_events = Event.recent_events_for(@contract)
+  end
+
   def update
     new_contract_params = contract_params
     old_end_date = @contract.end_date

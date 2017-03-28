@@ -40,6 +40,10 @@ class Event < ActiveRecord::Base
     return nil
   end
 
+  def self.recent_events_for(obj)
+    Event.where(object: obj).limit(3).order(created_at: :desc)
+  end
+
   def users_want_mail
     User.all.select do |u|
       (Ability.new(u).can? :receive_email, self) && u.wants_mail_for(type_id)

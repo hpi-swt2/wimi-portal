@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @recent_events = Event.recent_events_for(@project)
   end
 
   def new

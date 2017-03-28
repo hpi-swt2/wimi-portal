@@ -355,6 +355,7 @@ de:
       title: "%{model} durchsuchen"
       help_text: Suchbegriffe werden mit "und" verknüpft.
     actions: Aktionen
+    recent_activity: Letzte Aktivität
     application_tabs:
       external_sign_in: Externer Login
       logout: Abmelden

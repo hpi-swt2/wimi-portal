@@ -1,0 +1,24 @@
+<%# Events related to the rendered object %>
+<% unless recent_events.empty? %>
+  <div class="col-md-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> <%= t 'helpers.recent_activity' %> </h4>
+        </div>
+        <div class="panel-body">
+          <table class="table table-condensed table-hover table-borderless">
+            <% recent_events.each do |event| %>
+              <tr>
+                <td>
+                  <%= content_tag(:strong, l(event.created_at, format: :full)) %> 
+                  <%= render partial: "shared/event_message", locals: {event: event} %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

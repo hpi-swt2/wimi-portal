@@ -27,6 +27,7 @@ class TimeSheetsController < ApplicationController
     @next_month = TimeSheet.user(@time_sheet.user).month(next_date[:month]).year(next_date[:year]).first
     prev_date = @time_sheet.previous_date
     @previous_month = TimeSheet.user(@time_sheet.user).month(prev_date[:month]).year(prev_date[:year]).first
+    @recent_events = Event.recent_events_for(@time_sheet)
   end
 
   def new
