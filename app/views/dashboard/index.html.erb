@@ -1,5 +1,5 @@
 <%- model_class = Project -%>
-<!-- header -->
+<%# header %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="page-header">
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<!-- Soon-ending contracts -->
+<%# Soon-ending contracts %>
 <% unless current_user.is_hiwi? %>
   <div class="col-md-12 col-sm-12">
     <div class="display">
@@ -63,12 +63,12 @@
   </div>
 <% end %>
 
-<!-- Missing Timesheets -->
+<%# Missing Timesheets %>
 <% if current_user.is_representative? or current_user.is_admin? %>
   <%= render partial: 'missing_timesheets' %>
 <% end %>
 
-<!-- Notifications -->
+<%# Notifications %>
 <% if @events.any? %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
@@ -80,8 +80,7 @@
         <table class="table table-condensed table-hover">
           <% @events.each do |event| %>
             <tr>
-              <td><%= l event.created_at.to_date, format: :short_year %></td>
-              <%# helper defined in app/helpers/application_helper.rb %>
+              <td><%= content_tag :strong, l(event.created_at, format: :full) %></td>
               <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
             </tr>
           <% end %>
@@ -95,7 +94,7 @@
 <% content_for :sidebar do %>
   <% action_content = render partial: 'actions' %>
   <% if action_content.present? %>
-    <!--Actions-->
+    <%# Actions %>
     <div class="col-md-12 col-sm-12">
       <div class="display">
         <div class="panel panel-default">

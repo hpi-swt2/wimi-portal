@@ -5,6 +5,8 @@ class DashboardController < ApplicationController
     contracts = Contract.accessible_by(current_ability, :show)
     @missing_timesheets = DismissedMissingTimesheet.missing_for(current_user, contracts)
 
-    @events = Event.all.select { |event| current_ability.can?(:show , event)}
+    @events = Event.limit(50)
+      .order(created_at: :desc)
+      .select { |e| current_ability.can?(:show, e)}
   end
 end

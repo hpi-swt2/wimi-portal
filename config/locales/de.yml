@@ -255,7 +255,7 @@ de:
     index:
       actions: Aktionen
       dashboard_title: Dashboard
-      notifications: Benachrichtigungen
+      notifications: Neueste Benachrichtigungen
       ending_contracts: Bald endende Verträge
       missing_timesheets: Fehlende Stundenzettel
       dismissed: Eintrag ausgeblendet.
