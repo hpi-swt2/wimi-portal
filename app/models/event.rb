@@ -72,7 +72,7 @@ class Event < ActiveRecord::Base
   def related_chair
     case self.object
       when Chair
-        self.chair
+        self.object
       when Contract
         self.object.chair
       else
