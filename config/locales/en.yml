@@ -595,7 +595,7 @@ en:
     show:
       business_trips: Business Trips
       days: Day(s)
-      download_settings: PDF timesheet download settings
+      download_settings: Time Sheet PDF Settings
       holiday_requests: Holiday Requests
       include_comments:
         always: Always include comments

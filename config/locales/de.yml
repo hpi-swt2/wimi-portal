@@ -595,7 +595,7 @@ de:
     show:
       business_trips: Geschäftsreisen
       days: Tag(e)
-      download_settings: Stundenzettel-zu-PDF Einstellungen
+      download_settings: Stundenzettel PDF Einstellungen
       holiday_requests: Urlaubsanfragen
       include_comments:
         always: Kommentare immer drucken
