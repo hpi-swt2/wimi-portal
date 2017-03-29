@@ -20,28 +20,25 @@ describe 'timesheets#show' do
     it 'never, never includes comments' do
       @user.update({include_comments: 'never'})
       @user.reload
-
       visit time_sheets_path
-
       expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 0))
     end
 
-    # TODO test modal somehow
-    # it 'ask, toggles a modal if the time sheet has comments' do
-    #   @user.update({include_comments: 'ask'})
-    #   @user.reload
+    it "'ask' setting toggles a modal if the time sheet has comments" do
+      @user.update({include_comments: 'ask'})
+      @workday = FactoryGirl.create(:work_day, notes: "Some notes")
+      @time_sheet.work_days << @workday
+      @time_sheet.save!
+      expect(@time_sheet.has_comments?).to be true
+      visit time_sheets_path
+      expect(page).to have_current_path(time_sheets_path)
 
-    #   @workday = FactoryGirl.create(:work_day, notes: "Lorem")
-    #   @time_sheet.work_days << @workday
+      # Link does not include 'include_comments' params 
+      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet))
 
-    #   expect(@time_sheet.has_comments?).to be true
-
-    #   visit time_sheets_path
-    #   expect(page).to have_current_path(time_sheets_path)
-
-    #   click_on("PDF")
-
-    #   expect(page).to have_content(I18n.t("time_sheet.download.has_comments"))
-    # end
+      click_on("PDF")
+      # Clicking the link did not immediately download a PDF
+      expect(response_headers["Content-Type"]).to_not include("pdf")
+    end
   end
 end
