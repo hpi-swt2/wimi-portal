@@ -93,6 +93,7 @@ de:
         current_sign_in_ip: IP letzte Anmeldung
         sign_in_count: Anzahl Anmeldungen
         email: E-Mail
+        email_help: Adresse an die E-Mail Benachrichtigungen verschickt werden
         email_notification: Email Benachrichtigungen
         first_name: Vorname
         id: Id
@@ -105,6 +106,7 @@ de:
         password_confirmation: Passwort Bestätigen
         personal_data: Benutzerdaten
         personnel_number: Personalnummer
+        personnel_number_help: Optional. Wird auf Stundenzettel PDFs eingetragen
         remember_created_at: Erstellungsdatum speichern
         remember_me: Angemeldet bleiben
         reset_password_sent_at: Kennwort zurücksetzen versendet an
@@ -254,7 +256,6 @@ de:
       contracts: Meine Verträge
     index:
       actions: Aktionen
-      dashboard_title: Dashboard
       notifications: Neueste Benachrichtigungen
       ending_contracts: Bald endende Verträge
       missing_timesheets: Fehlende Stundenzettel

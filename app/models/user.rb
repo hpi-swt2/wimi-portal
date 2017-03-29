@@ -66,7 +66,6 @@ class User < ActiveRecord::Base
   validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999, allow_blank: true
   validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
-  validates_format_of :zip_code, with: /(\A\d{5}\Z)|(\A\Z)/i
   validates_confirmation_of :password
 
   after_initialize :set_event_settings, if: :new_record?

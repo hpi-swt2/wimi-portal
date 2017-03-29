@@ -3,15 +3,25 @@
 <div class="col-md-12">
   <div class="display">
     <div class="page-header">
-      <h1><%=t '.title', default: [:'helpers.titles.edit', 'Edit %{model}'], model: model_class.model_name.human.titleize %></h1>
+      <h1><%=t 'helpers.titles.edit', model: model_class.model_name.human.titleize %></h1>
     </div>
-    <%- unless current_user.username.blank? -%>
-      <div class="page-header">
-        <h4><%= t('.password') %></h4>
-      </div>
-        <%= render partial: 'shared/passwords' %>
-    <%- end -%>
-
     <%= render 'form' %>
   </div>
 </div>
+
+<% if current_user.username %>
+  <% content_for :sidebar do %>
+    <div class="col-md-12">
+      <div class="display">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4><%= t('.password') %></h4>
+          </div>
+          <div class="panel-body">
+            <%= render partial: 'shared/passwords' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

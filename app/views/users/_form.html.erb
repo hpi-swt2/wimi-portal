@@ -7,32 +7,29 @@
       <h4><%= t('.user_data') %></h4>
     </div>
     <div class="panel-body">
-      <%= bootstrap_form_group(f, :first_name) do %>
-        <%= f.text_field :first_name, value: @user.first_name, class: 'form-control' %>
-      <% end %>
-
-      <%= bootstrap_form_group(f, :last_name) do %>
-        <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
-      <% end %>
-
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <%= bootstrap_form_group(f, :first_name) do %>
+            <%= f.text_field :first_name, value: @user.first_name, class: 'form-control' %>
+          <% end %>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <%= bootstrap_form_group(f, :last_name) do %>
+            <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+        <%= bootstrap_form_group(f, :personnel_number) do %>
+          <%= f.text_field :personnel_number, value: @user.personnel_number, class: 'form-control' %>
+          <%= content_tag :span, t('activerecord.attributes.user.personnel_number_help'), class: 'help-block' %>
+        <% end %>
+        </div>
+      </div>
       <%= bootstrap_form_group(f, :email) do %>
         <%= f.text_field :email, value: @user.email, class: 'form-control' %>
-      <% end %>
-
-      <%= bootstrap_form_group(f, :city) do %>
-        <%= f.text_field :city, value: @user.city, class: 'form-control' %>
-      <% end %>
-
-      <%= bootstrap_form_group(f, :zip_code) do %>
-        <%= f.text_field :zip_code, value: @user.zip_code, class: 'form-control' %>
-      <% end %>
-
-      <%= bootstrap_form_group(f, :street) do %>
-        <%= f.text_field :street, value: @user.street, class: 'form-control' %>
-      <% end %>
-
-      <%= bootstrap_form_group(f, :personnel_number) do %>
-        <%= f.text_field :personnel_number, value: @user.personnel_number, class: 'form-control' %>
+        <%= content_tag :span, t('activerecord.attributes.user.email_help'), class: 'help-block' %>
       <% end %>
     </div>
   </div>
