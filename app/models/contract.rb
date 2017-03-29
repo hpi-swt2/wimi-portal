@@ -55,7 +55,7 @@ class Contract < ActiveRecord::Base
     end
     date = "#{formatted_start} - #{I18n.l(end_date, format: :short_month_year)}"
     model = Contract.model_name.human.titleize
-    hiwi ? "#{hiwi.name} (#{date})" : "#{model} (#{date})"
+    hiwi ? "#{hiwi.last_name} (#{date})" : "#{model} (#{date})"
   end
 
   def to_s
