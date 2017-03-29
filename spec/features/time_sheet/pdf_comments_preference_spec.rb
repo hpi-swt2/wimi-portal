@@ -14,7 +14,7 @@ describe 'timesheets#show' do
 
       visit time_sheets_path
 
-      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet) + '?include_comments=1')
+      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 1))
     end
 
     it 'never, never includes comments' do
@@ -23,7 +23,7 @@ describe 'timesheets#show' do
 
       visit time_sheets_path
 
-      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet) + '?include_comments=0')
+      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 0))
     end
 
     # TODO test modal somehow
