@@ -63,6 +63,7 @@ class TimeSheet < ActiveRecord::Base
   def accept_as(wimi)
     success = self.update(
       status: 'accepted',
+      last_modified: Date.today,
       signer: wimi.id,
       representative_signature: wimi.signature,
       representative_signed_at: Date.today())
