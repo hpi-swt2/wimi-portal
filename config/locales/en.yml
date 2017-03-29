@@ -93,6 +93,7 @@ en:
         current_sign_in_ip: Last Sign In IP
         sign_in_count: Sign In Count
         email: Email
+        email_help: Address that is used to send notification emails
         email_notification: Email Notifications
         first_name: First Name
         id: Id
@@ -105,6 +106,7 @@ en:
         password_confirmation: Password Confirmation
         personal_data: User Data
         personnel_number: Staff Number
+        personnel_number_help: Optional. If set, included on exported time sheet PDFs
         remember_created_at: Remember Created at
         remember_me: Remember me
         reset_password_sent_at: Reset Password sent at
