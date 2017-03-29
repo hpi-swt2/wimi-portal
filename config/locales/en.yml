@@ -490,6 +490,7 @@ en:
     delete: Are you sure that this timesheet should be deleted?
     download:
       has_comments: This timesheet has comments. Include them in the download?
+      setting_reminder: This setting can be globally set for all time sheets in the profile
       with_comments: 'Yes'
       without_comments: 'No'
     month_year: Month/Year

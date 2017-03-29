@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe 'timesheets#show' do
-	before :each do
-		@time_sheet = FactoryGirl.create(:time_sheet)
-		@user = @time_sheet.contract.hiwi
+  before :each do
+    @time_sheet = FactoryGirl.create(:time_sheet)
+    @user = @time_sheet.contract.hiwi
     login_as @user
   end
 
