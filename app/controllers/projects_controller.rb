@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @recent_events = Event.recent_events_for(@project)
   end
 
   def new
@@ -34,6 +35,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.chair = current_user.chair
     if can?(:create, @project) and @project.save
+      Event.add(:project_create, current_user, @project, current_user)
       current_user.projects << @project
       flash[:success] = t '.success'
       unless params[:invitations].blank?
@@ -80,6 +82,7 @@ class ProjectsController < ApplicationController
     end
     @project.users << user
     if @project.save
+      Event.add(:project_join, current_user, @project, user)
       flash[:success] = I18n.t('project.user.successfully_added', name: user.name)
     else
       flash[:error] = I18n.t('project.user.add_error')
@@ -110,6 +113,7 @@ class ProjectsController < ApplicationController
     else
       if can?(:edit, @project) || current_user == user
         @project.remove_user(user)
+        Event.add(:project_leave, current_user, @project, user)
         if user == current_user
           redirect_to projects_path
         else

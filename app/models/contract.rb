@@ -27,6 +27,7 @@ class Contract < ActiveRecord::Base
   belongs_to :responsible, class_name: 'User'
   # If a contract is deleted, delete all of its dependent time sheets
   has_many :time_sheets, -> { order(year: :desc, month: :desc) }, dependent: :destroy
+  has_many :events , as: :object, :dependent => :destroy
 
   validates_presence_of :start_date, :end_date, :chair, :hiwi, :responsible, :wage_per_hour
   validates :wage_per_hour, numericality: {greater_than: 0}

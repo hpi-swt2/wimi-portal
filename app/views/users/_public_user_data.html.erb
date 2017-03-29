@@ -1,17 +1,23 @@
 <%- model_class = User -%>
 
-<h4><%=t('.public_data')%></h4><br>
+<div class="panel panel-default">
+  <div class="panel panel-heading">
+    <h4><%=t('.public_data')%></h4>
+  </div>
+  <div class="panel panel-body">
+    <% [:first_name, :last_name].each do |field| %>
+      <p><strong><%= model_class.human_attribute_name(field)%>: </strong><%= @user[field] %></p>
+    <% end %>
 
-<% [:first_name, :last_name].each do |field| %>
-    <p><strong><%= model_class.human_attribute_name(field)%>: </strong><%= @user[field] %></p>
-<% end %>
+    <strong><%= model_class.human_attribute_name(:chair)%></strong>: <%= @user.chair ? @user.chair.name : '' %></p>
 
-<strong><%= model_class.human_attribute_name(:chair)%></strong>: <%= @user.chair ? @user.chair.name : '' %></p>
+    <p>
+      <strong><%= t('.projects')%>: </strong>
+      <% @user.projects[0..-2].each do |project| %>
+        <%= link_to(project.title, project) + ', '%>
+      <% end %>
+      <%= link_to(@user.projects.last.title, @user.projects.last) if @user.projects.last  %>
+    </p>
 
-<p>
-  <strong><%= t('.projects')%>: </strong>
-  <% @user.projects[0..-2].each do |project| %>
-    <%= link_to(project.title, project) + ', '%>
-  <% end %>
-  <%= link_to(@user.projects.last.title, @user.projects.last) if @user.projects.last  %>
-</p>
+  </div>
+</div>

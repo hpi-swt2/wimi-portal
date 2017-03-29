@@ -52,12 +52,11 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     time_sheet = FactoryGirl.create(:time_sheet, contract: contract)
     login_as hiwi
 
-    time_sheet.update(signer: contract.responsible.id)
-    ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: hiwi.id, seclevel: :hiwi, type: 'EventTimeSheetAccepted'})
+    time_sheet.accept_as(contract.responsible)
 
     visit dashboard_path
     expect(page.body).to have_content(contract.responsible.name)
-    expect(page.body).to have_content(l(Date.new(1, time_sheet.month, 1), format: :without_day_year))
+    expect(page.body).to have_content(time_sheet.name)
   end
 
   it 'shows if a hiwi of one of your projects submitted a timesheet' do
@@ -65,7 +64,8 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     wimi = FactoryGirl.create(:wimi, chair: chair).user
     contract = FactoryGirl.create(:contract, chair: chair, hiwi: @user, responsible: wimi)
     time_sheet = FactoryGirl.create(:time_sheet, contract: contract)
-    ActiveSupport::Notifications.instrument('event', {trigger: time_sheet.id, target: wimi.id, seclevel: :wimi, type: 'EventTimeSheetSubmitted'})
+
+    time_sheet.hand_in()
 
     login_as wimi
     visit dashboard_path

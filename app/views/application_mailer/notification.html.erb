@@ -1,0 +1,7 @@
+<h2><%= t('.hello', name: @user.first_name) %>,</h2>
+
+<p><%= l @event.created_at %></p>
+<p><%= render partial: "shared/event_message", locals: {event: @event} %></p>
+
+<br>
+<p><%= t('.your_wimi_portal') %></p>

@@ -7,6 +7,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   # Default rails server
   config.action_mailer.default_url_options = {host: 'localhost', port: 3000}
+  # From email address
+  config.action_mailer.default_options = {from: 'HPI WiMi Portal <hpi.wimiportal@localhost>'}
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development

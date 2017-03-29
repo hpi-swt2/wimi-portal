@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105094707) do
+ActiveRecord::Schema.define(version: 20170323214831) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -56,19 +56,17 @@ ActiveRecord::Schema.define(version: 20170105094707) do
   add_index "dismissed_missing_timesheets", ["user_id"], name: "index_dismissed_missing_timesheets_on_user_id"
 
   create_table "events", force: :cascade do |t|
-    t.integer  "trigger_id"
-    t.integer  "target_id"
-    t.integer  "chair_id"
-    t.integer  "seclevel"
-    t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "status"
+    t.integer  "user_id"
+    t.integer  "target_user_id"
+    t.integer  "object_id"
+    t.string   "object_type"
+    t.datetime "created_at"
+    t.integer  "type"
   end
 
-  add_index "events", ["chair_id"], name: "index_events_on_chair_id"
-  add_index "events", ["target_id"], name: "index_events_on_target_id"
-  add_index "events", ["trigger_id"], name: "index_events_on_trigger_id"
+  add_index "events", ["object_type", "object_id"], name: "index_events_on_object_type_and_object_id"
+  add_index "events", ["target_user_id"], name: "index_events_on_target_user_id"
+  add_index "events", ["user_id"], name: "index_events_on_user_id"
 
   create_table "expense_items", force: :cascade do |t|
     t.date     "date"
@@ -217,16 +215,6 @@ ActiveRecord::Schema.define(version: 20170105094707) do
   add_index "trips", ["person_in_power_id"], name: "index_trips_on_person_in_power_id"
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
-  create_table "user_events", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "user_events", ["event_id"], name: "index_user_events_on_event_id"
-  add_index "user_events", ["user_id"], name: "index_user_events_on_user_id"
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                     default: "",    null: false
     t.string   "first_name"
@@ -245,12 +233,12 @@ ActiveRecord::Schema.define(version: 20170105094707) do
     t.string   "city"
     t.string   "zip_code"
     t.text     "signature"
-    t.boolean  "email_notification",        default: false
     t.integer  "sign_in_count",             default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "event_settings"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -27,6 +27,13 @@
           </div>
           <% end %>
         </div>
+        <% if can? :edit, @user %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= render 'event_settings' %>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -67,6 +74,8 @@
     </div>
   </div>
   <% end %>
+  <%# Recent activity %>
+  <%= render partial: "shared/recent_events", locals: {recent_events: @recent_events} %>
 <% end %>
 
 <% if can? :see_holidays, @user and false %>

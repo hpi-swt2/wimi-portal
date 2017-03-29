@@ -74,7 +74,7 @@
 </div>
 
 <% content_for :sidebar do %>
-  <!--Actions-->
+  <%# Actions %>
   <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
     <div class="col-md-12">
       <div class="display">
@@ -98,4 +98,6 @@
       </div>
     </div>
   <% end %>
+  <%# Recent activity %>
+  <%= render partial: "shared/recent_events", locals: {recent_events: @recent_events} %>
 <% end %>

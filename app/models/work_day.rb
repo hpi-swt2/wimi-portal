@@ -12,7 +12,7 @@
 #  updated_at    :datetime         not null
 #  time_sheet_id :integer
 #  project_id    :integer
-#  status        :st
+#  status        :string
 #
 
 class WorkDay < ActiveRecord::Base

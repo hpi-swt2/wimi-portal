@@ -20,6 +20,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :users
   belongs_to :chair
   has_many :work_days
+  has_many :events , as: :object, dependent: :destroy
 
   validates :title, presence: true
   validates :chair, presence: true
@@ -27,10 +28,10 @@ class Project < ActiveRecord::Base
   before_destroy :check_for_workdays
 
   def invite_user(user, sender)
-    if user && !user.is_superadmin?
+    if user && !user.is_superadmin? # <-- what is the superadmin doing here?
       inv = Invitation.create(user: user, project: self, sender: sender)
-      ActiveSupport::Notifications.instrument('event', {trigger: inv.id, target: user.id, seclevel: :hiwi, type: 'EventProjectInvitation'})
       user.invitations << inv
+      Event.add(:project_join, sender, self, user)
       return true
     else
       return false
@@ -49,14 +50,12 @@ class Project < ActiveRecord::Base
   def destroy_invitations
     invitation = Invitation.where(project: self)
     invitation.each do |inv|
-      Event.find_by(trigger: inv.id).destroy!
       inv.destroy!
     end
   end
 
   def destroy_invitation(user)
     inv = Invitation.find_by(user: user, project: self)
-    Event.find_by(trigger: inv.id, target_id: user.id).destroy!
     inv.destroy!
   end
 

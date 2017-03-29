@@ -72,7 +72,7 @@
     <% if @time_sheet.work_days.any? %>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-hover time_sheet_form">
+          <table id="work-days" class="table table-hover time_sheet_form">
             <tr>
               <th colspan="2"><%= t('activerecord.attributes.work_day.date') %></th>
               <th><%= t('activerecord.attributes.work_day.start_time') %></th>
@@ -118,6 +118,9 @@
     <% end %>
   </div>
 </div>
+
+<%# Recent activity %>
+<%= render partial: "shared/recent_events", locals: {recent_events: @recent_events} %>
 
 <% content_for :actions do %>
   <%# Accept and reject timesheet, sign checkbox %>
