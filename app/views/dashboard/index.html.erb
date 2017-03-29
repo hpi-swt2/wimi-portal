@@ -28,41 +28,39 @@
 </div>
 
 <%# Soon-ending contracts %>
-<% unless current_user.is_hiwi? %>
-  <div class="col-md-12 col-sm-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4><%= t '.ending_contracts' %></h4>
-        </div>
-        <div class="panel-body panel-scroll">
-          <% if @ending_contracts.empty? %>
-            <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
-          <% else %>
-            <table class="table table-condensed table-hover">
-              <thead>
+<div class="col-md-12 col-sm-12">
+  <div class="display">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%= t '.ending_contracts' %></h4>
+      </div>
+      <div class="panel-body panel-scroll">
+        <% if @ending_contracts.empty? %>
+          <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
+        <% else %>
+          <table class="table table-condensed table-hover">
+            <thead>
+              <tr>
+                <th><%= Contract.human_attribute_name(:end_date) %></th>
+                <th><%= Contract.human_attribute_name(:hiwi) %></th>
+                <th><%= Contract.human_attribute_name(:responsible) %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @ending_contracts.each do |contract| %>
                 <tr>
-                  <th><%= Contract.human_attribute_name(:end_date) %></th>
-                  <th><%= Contract.human_attribute_name(:hiwi) %></th>
-                  <th><%= Contract.human_attribute_name(:responsible) %></th>
+                  <td><%= l contract.end_date, format: :short_month_year %></td>
+                  <td><%= linked_name contract.hiwi %></td>
+                  <td><%= linked_name contract.responsible %></td>
                 </tr>
-              </thead>
-              <tbody>
-                <% @ending_contracts.each do |contract| %>
-                  <tr>
-                    <td><%= l contract.end_date, format: :short_month_year %></td>
-                    <td><%= linked_name contract.hiwi %></td>
-                    <td><%= linked_name contract.responsible %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          <% end %>
-        </div>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
       </div>
     </div>
   </div>
-<% end %>
+</div>
 
 <%# Missing Timesheets %>
 <%= render partial: 'missing_timesheets' %>
@@ -81,7 +79,7 @@
           <table class="table table-condensed table-hover">
             <thead>
               <tr>
-                <th><%= Event.human_attribute_name(:created_at) %></th>
+                <th style="min-width: 100px;"><%= Event.human_attribute_name(:created_at) %></th>
                 <th><%= Event.human_attribute_name(:message) %></th>
               </tr>
             </thead>
