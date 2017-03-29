@@ -1,4 +1,5 @@
-<%# PDF links for all work_sheets, no matter their status %>
+<%# PDF download link %>
+<%# Also requires content_for :modals { render 'download_prompt' } %>
 <% case time_sheet.contract.hiwi.include_comments %>
 <% when 'always' %>
   <%= link_to btn_text, download_time_sheet_path(time_sheet, include_comments: 1), class: btn_class %>
