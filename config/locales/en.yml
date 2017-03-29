@@ -256,7 +256,6 @@ en:
       contracts: My Contracts
     index:
       actions: Actions
-      dashboard_title: Dashboard
       notifications: Newest Notifications
       ending_contracts: Soon-Ending Contracts
       missing_timesheets: Missing Time Sheets
