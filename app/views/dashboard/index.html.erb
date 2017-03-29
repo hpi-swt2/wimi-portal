@@ -65,9 +65,7 @@
 <% end %>
 
 <%# Missing Timesheets %>
-<% if current_user.is_representative? or current_user.is_admin? %>
-  <%= render partial: 'missing_timesheets' %>
-<% end %>
+<%= render partial: 'missing_timesheets' %>
 
 <%# Notifications %>
 <div class="col-md-12 col-sm-12">
@@ -88,9 +86,6 @@
               </tr>
             </thead>
             <tbody>
-              <% if @events.empty? %>
-                <tr><td colspan="2">asdf</td></tr>
-              <% end %>
               <% @events.each do |event| %>
                 <tr>
                   <td><%= content_tag :strong, l(event.created_at, format: :full) %></td>
