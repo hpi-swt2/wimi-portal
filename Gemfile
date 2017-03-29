@@ -68,6 +68,10 @@ gem 'data-confirm-modal'
 # the Rails 3.1+ asset pipeline
 # See: https://github.com/rweng/jquery-datatables-rails
 gem 'jquery-datatables-rails', '~> 3.4.0'
+# Bundles JQuery Autosize Plugin from Jack Moore
+# See: https://github.com/acrogenesis/autosize
+# And: http://www.jacklmoore.com/autosize/
+gem 'autosize'
 
 # Use Jquery as the JS lib
 gem 'jquery-rails'

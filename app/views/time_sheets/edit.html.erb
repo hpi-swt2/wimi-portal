@@ -59,9 +59,13 @@
                   <%= t.text_field :end_time , value: t.object.end_time ? l(t.object.end_time, format: :hours_minutes) : "", size: 5, maxlength: 5, placeholder: "00:00" %>
                   <%= content_tag :span, t.object.errors[:end_time].join(', '), :class => "help-block" if t.object.errors[:end_time].any? %>
                 </td>
-
                 <td>
-                  <%= t.text_area :notes , cols:50, rows: 1, class: 'form-control', placeholder: t('.note_placeholder'), style: 'height: 30px;min-width: 100px;max-width: 300px;'  %>
+                  <%= t.text_area :notes,
+                    rows: 1,
+                    class: 'form-control',
+                    :data => {"enable-autosize" => true},
+                    placeholder: t('.note_placeholder'),
+                    style: 'max-height: 10em; min-width: 100px; max-width: 300px;'  %>
                 </td>
                 <td <%= 'class=has-error' if t.object.errors[:project_id].any? %>>
                   <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control'}) %>
