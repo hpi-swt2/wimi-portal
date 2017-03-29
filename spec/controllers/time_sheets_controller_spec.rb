@@ -88,7 +88,7 @@ RSpec.describe TimeSheetsController, type: :controller do
       it 'should trigger a notification on successful submission' do
         expect {
           get :hand_in, {id: time_sheet.to_param, time_sheet: valid_attributes}, valid_session
-        }.to change { EventTimeSheetSubmitted.count }.by(1)
+        }.to change { Event.count }.by(1)
       end
 
       it 'should not update attributes on hand_in if already handed in' do

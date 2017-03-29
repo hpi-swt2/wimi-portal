@@ -27,6 +27,7 @@ class TimeSheetsController < ApplicationController
     @next_month = TimeSheet.user(@time_sheet.user).month(next_date[:month]).year(next_date[:year]).first
     prev_date = @time_sheet.previous_date
     @previous_month = TimeSheet.user(@time_sheet.user).month(prev_date[:month]).year(prev_date[:year]).first
+    @recent_events = Event.recent_events_for(@time_sheet)
   end
 
   def new
@@ -68,7 +69,6 @@ class TimeSheetsController < ApplicationController
       @time_sheet.update_attributes(user_signature: current_user.signature, signed: true, user_signed_at: Date.today)
     end
     @time_sheet.hand_in()
-    ActiveSupport::Notifications.instrument('event', trigger: @time_sheet.id, target: @time_sheet.contract.user_id, seclevel: :wimi, type: 'EventTimeSheetSubmitted')
     flash[:success] = t('.flash')
     redirect_to time_sheet_path(@time_sheet)
   end

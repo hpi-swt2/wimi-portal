@@ -33,7 +33,7 @@ en:
     - Saturday
     formats:
       default: "%m/%d/%Y"
-      short_year: "%m/%-d/%y"
+      short_year: "%-m/%-d/%y"
       short_month: "%b"
       short_month_year: "%b %y"
       without_day: "%B %Y"

@@ -194,5 +194,4 @@ RSpec.describe TimeSheet, type: :model do
       expect(result).to be true
     end
   end
-
 end

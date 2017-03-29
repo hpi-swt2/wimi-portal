@@ -73,6 +73,7 @@ class ChairsController < ApplicationController
   def show
     @requests = @chair.chair_wimis.where(application: 'pending')
     @user = current_user
+    @recent_events = Event.recent_events_for(@chair)
   end
 
   # Show requests (Representative tasks):
@@ -94,20 +95,6 @@ class ChairsController < ApplicationController
     render 'requests'
   end
 
-#  # Admin tasks:
-#  def accept_request # applying for chair is deprecated
-#    chair_wimi = ChairWimi.find(params[:request])
-#    chair_wimi.application = 'accepted'
-#
-#    if chair_wimi.save
-#      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: 'added'})
-#      flash[:success] = I18n.t('chair.accept_request.success')
-#    else
-#      flash[:error] = I18n.t('chair.accept_request.error')
-#    end
-#    redirect_to chair_path(@chair)
-#  end
-
   def add_user
     user = User.find_by_id params[:add_user_to_chair][:id]
     redirect_to chair_path(@chair)
@@ -120,6 +107,7 @@ class ChairsController < ApplicationController
     end
     chairwimi = ChairWimi.create(application: 'accepted', chair: @chair, user: user)
     if chairwimi.save
+      Event.add(:chair_join, current_user, @chair, user)
       flash[:success] = I18n.t('chair.user.successfully_added', name: user.name)
     else
       flash[:error] = I18n.t('chair.user.add_error')
@@ -131,7 +119,7 @@ class ChairsController < ApplicationController
     status = ('removed' if chair_wimi.application == 'accepted') || ('declined' if chair_wimi.application == 'pending')
 
     if chair_wimi.remove(current_user)
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventUserChair', seclevel: :admin, status: status})
+      Event.add(:chair_leave, current_user, @chair, chair_wimi.user)
       flash[:success] = I18n.t('chair.remove_from_chair.success')
     else
       flash[:error] = I18n.t('chair.remove_from_chair.error')
@@ -144,7 +132,7 @@ class ChairsController < ApplicationController
     chair_wimi.admin = true
 
     if chair_wimi.save
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventAdminRight', seclevel: :admin, status: 'added'})
+      Event.add(:chair_add_admin, current_user, @chair, chair_wimi.user)
       flash[:success] = I18n.t('chair.set_admin.success')
     else
       flash[:error] = I18n.t('chair.set_admin.error')
@@ -155,7 +143,6 @@ class ChairsController < ApplicationController
   def withdraw_admin
     chair_wimi = ChairWimi.find(params[:request])
     if chair_wimi.withdraw_admin(current_user)
-      ActiveSupport::Notifications.instrument('event', {trigger: current_user.id, target: chair_wimi.user.id, chair: @chair, type: 'EventAdminRight', seclevel: :admin, status: 'removed'})
       flash[:success] = I18n.t('chair.withdraw.success')
     else
       flash[:error] = I18n.t('chair.withdraw.error')

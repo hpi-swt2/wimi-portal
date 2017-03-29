@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+  <div class="panel panel-heading">
+    <h4><%= t('.event_settings') %></h4>
+  </div>
+  <div class="panel panel-body">
+    <table class="table table-condensed table-hover">
+      <tbody>
+        <% Event.types.each do |typename, val| %>
+          <tr>
+            <td><%= t "event.user_friendly_name.#{typename}" %></td>
+            <td>
+              <% fa_class = @user.wants_mail_for(val) ? "fa-check text-success" : "fa-times text-danger" %>
+              <span class="<%="fa #{fa_class}"%>"></span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

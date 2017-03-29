@@ -44,11 +44,11 @@ describe 'time_sheets#show' do
 
     it 'displays a table of work_days' do
       within('#main-content') do
-        expect(page).to have_css('table', count: 1)
-        # table header is als a <tr> element
-        expect(page).to have_css('table tr', count: WorkDay.count + 1)
-        expect(page).to have_css('table tr th', minimum: 1)
-        expect(page).to have_css('table tr td', minimum: 1)
+        expect(page).to have_css('table#work-days', count: 1)
+        # table header is also a <tr> element
+        expect(page).to have_css('table#work-days tr', count: WorkDay.count + 1)
+        expect(page).to have_css('table#work-days tr th', minimum: 1)
+        expect(page).to have_css('table#work-days tr td', minimum: 1)
       end
     end
   end
@@ -66,8 +66,8 @@ describe 'time_sheets#show' do
 
     it 'does not display a table of work_days if none are available' do
       within('#main-content') do
-        expect(page).to_not have_css('table')
-        expect(page).to_not have_css('tr')
+        expect(page).to_not have_css('table#work-days')
+        expect(page).to_not have_css('table#work-days tr')
       end
     end
 

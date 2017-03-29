@@ -1,0 +1,5 @@
+<%= I18n.t("event.#{event.type}",
+        user: linked_name(event.user),
+        # The I18n interpolation key cannot be the reserved name 'object'
+        obj: linked_name(event.object),
+        target_user: linked_name(event.target_user)).html_safe %>

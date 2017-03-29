@@ -26,6 +26,8 @@
 #  last_sign_in_at           :datetime
 #  current_sign_in_ip        :string
 #  last_sign_in_ip           :string
+#  include_comments          :integer
+#  event_settings            :string
 #
 
 require 'rails_helper'
@@ -90,5 +92,11 @@ RSpec.describe User, type: :model do
 
     expect(user.has_contract_for(today.month, today.year)).to be true
     expect(user.has_contract_for((today + 1.month).month, (today + 1.month).year)).to be false
+  end
+
+  it 'fails when event_settings is passed non-integers' do
+    u = FactoryGirl.create(:user)
+    u.event_settings = ['project_join', 'definitely_not_supported']
+    expect(u).to_not be_valid
   end
 end

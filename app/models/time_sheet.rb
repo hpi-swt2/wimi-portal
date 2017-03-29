@@ -34,6 +34,8 @@ class TimeSheet < ActiveRecord::Base
   enum status: [:pending, :accepted, :rejected, :created]
   # When a time sheet is destroyed, also destroy all of the connected work days
   has_many :work_days, :inverse_of => :time_sheet, dependent: :destroy
+  has_many :events, as: :object, :dependent => :destroy
+  has_many :projects, through: :work_days
   
   validates :month, numericality: {greater_than: 0}
   validates :year, numericality: {greater_than: 0}
@@ -47,11 +49,15 @@ class TimeSheet < ActiveRecord::Base
   def hand_in
     # Update also saves, returns false if saving failed
     # http://apidock.com/rails/ActiveRecord/Persistence/update
-    self.update(
+    success = self.update(
       status: 'pending',
       handed_in: true,
       hand_in_date: Date.today
     )
+    if success
+      Event.add(:time_sheet_hand_in, self.user, self, self.contract.responsible)
+    end
+    return success
   end
 
   def accept_as(wimi)
@@ -62,7 +68,7 @@ class TimeSheet < ActiveRecord::Base
       representative_signature: wimi.signature,
       representative_signed_at: Date.today())
     if success
-      ActiveSupport::Notifications.instrument('event', trigger: self.id, target: self.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetAccepted')
+      Event.add(:time_sheet_accept, wimi, self, self.user)
     end
     return success
   end
@@ -77,7 +83,7 @@ class TimeSheet < ActiveRecord::Base
       signed: false,
       user_signed_at: nil)
     if success
-      ActiveSupport::Notifications.instrument('event', trigger: self.id, target: self.contract.user_id, seclevel: :hiwi, type: 'EventTimeSheetDeclined')
+      Event.add(:time_sheet_decline, wimi, self, self.user)
     end
     return success
   end

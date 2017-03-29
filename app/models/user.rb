@@ -26,6 +26,8 @@
 #  last_sign_in_at           :datetime
 #  current_sign_in_ip        :string
 #  last_sign_in_ip           :string
+#  include_comments          :integer
+#  event_settings            :string
 #
 
 class User < ActiveRecord::Base
@@ -47,12 +49,17 @@ class User < ActiveRecord::Base
   has_many :project_applications, dependent: :destroy
   has_many :trips
   has_many :invitations
+  has_many :caused_events , class_name: 'Event', :dependent => :destroy
+  has_many :targeted_events, class_name: 'Event', foreign_key: :target_user_id, :dependent => :destroy
   has_and_belongs_to_many :projects
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
 
   enum include_comments: [:always, :never, :ask]
 
+  serialize :event_settings, Array
+
+  validate :validate_event_settings
   validates :first_name, length: {minimum: 1}
   validates :last_name, length: {minimum: 1}
   validates :email, length: {minimum: 1}, user_email: true
@@ -61,6 +68,8 @@ class User < ActiveRecord::Base
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
   validates_format_of :zip_code, with: /(\A\d{5}\Z)|(\A\Z)/i
   validates_confirmation_of :password
+
+  after_initialize :set_event_settings, if: :new_record?
 
   def name
     "#{first_name} #{last_name}"
@@ -208,71 +217,23 @@ class User < ActiveRecord::Base
     trips.sort! { |a, b| b.date_start <=> a.date_start }
   end
 
-  def create_notification_arrays
-    #activities are events you dont necessarily need to react to
-    # => get destroyed if they're not under the newest 50
-    #notifications are events you need to react to
-    # => get destroyed when you react to them
+  def clear_event_settings
+    update(event_settings: [])
+  end
 
-    act = []
-    noti = []
+  def wants_mail_for(event_int)
+    self.event_settings.include?(event_int)
+  end
 
-    # Chair-Applications: apply
-    noti += Event.where(chair: chair).where(type: 'EventChairApplication') if is_admin?
+  private
 
-    # Chair-Applications: accept
-    act += Event.where(target_id: id).where(type: 'EventUserChair').where(status: 'added')
-    act += Event.where(chair: chair).where(type: 'EventUserChair').where(status: 'added') if is_wimi?
-
-    # Chair-Applications: decline
-    act += Event.where(target_id: id).where(type: 'EventUserChair').where(status: 'declined')
-    act += Event.where(chair: chair).where(type: 'EventUserChair').where(status: 'declined') if is_admin?
-
-    # Chair-Applications: remove
-    act += Event.where(target_id: id).where(type: 'EventUserChair').where(status: 'removed')
-    act += Event.where(chair: chair).where(type: 'EventUserChair').where(status: 'removed') if is_wimi?
-
-    # Chair-Admins: granted
-    act += Event.where(target_id: id).where(type: 'EventAdminRight').where(status: 'added')
-    act += Event.where(chair: chair).where(type: 'EventAdminRight').where(status: 'added') if is_admin?
-
-    # Chair-Admins: granted
-    act += Event.where(target_id: id).where(type: 'EventAdminRight').where(status: 'removed')
-    act += Event.where(chair: chair).where(type: 'EventAdminRight').where(status: 'removed') if is_admin?
-
-    # Holiday-/Trip-/Expense-Requests
-    act += Event.where(trigger_id: id).where(type: 'EventRequest')
-    noti += Event.where(chair: chair).where(type: 'EventRequest') if is_representative?
-
-    act += Event.where(target_id: id).where(type: 'EventTravelRequestAccepted')
-    act += Event.where(target_id: id).where(type: 'EventTravelRequestDeclined')
-
-    # Holiday-Requests: accepted / declined
-    act += Event.where(chair: chair).where(type: 'EventHolidayRequest') if is_representative?
-    act += Event.where(target_id: id).where(type: 'EventHolidayRequest')
-
-    # Project-Invitation
-    noti += Event.where(target_id: id).where(type: 'EventProjectInvitation')
-
-    # Time-Sheets
-    act += Event.where(target_id: id).where(type: 'EventTimeSheetAccepted')
-    act += Event.where(target_id: id).where(type: 'EventTimeSheetDeclined')
-
-    Contract.all.where(responsible: self).each do |contract|
-      noti += Event.where(target_id: self.id).where(type: 'EventTimeSheetSubmitted') if is_wimi?
+  def validate_event_settings
+    if !event_settings.is_a?(Array) || event_settings.any?{|i| not Event.types.values.include?(i)}
+      errors.add(:event_settings, :invalid)
     end
+  end
 
-    noti.delete_if { |event| event.is_hidden_by(self) }
-    act.delete_if { |event| event.is_hidden_by(self) }
-
-    noti = noti.uniq.sort_by { |n| n[:created_at] }.reverse
-    act = act.uniq.sort_by { |n| n[:created_at] }.reverse
-
-    to_delete = act.drop(50)
-    to_delete.each(&:destroy!)
-
-    act = act.take(50)
-
-    return [act,noti]
+  def set_event_settings
+    self.event_settings = Event.types.values
   end
 end
