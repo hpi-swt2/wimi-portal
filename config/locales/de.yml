@@ -124,10 +124,10 @@ de:
           holiday: Feiertag
         break: Pause
         date: Datum
-        end_time: Endzeit
+        end_time: Ende
         notes: Anmerkung
         project: Projekt
-        start_time: Startzeit
+        start_time: Start
     errors:
       models:
         expense:
