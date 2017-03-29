@@ -85,7 +85,7 @@
           <div class="panel-body">
             <p>
               <%= edit_button @project, class: 'btn-block' %>
-              <% if can?(:invite_user, @project) %>
+              <% if can?(:edit, @project) %>
                 <% content_for :modals do %>
                     <%= render 'add_user_to_project' %>
                 <% end %>

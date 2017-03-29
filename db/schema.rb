@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329152002) do
+ActiveRecord::Schema.define(version: 20170329192047) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -130,16 +130,6 @@ ActiveRecord::Schema.define(version: 20170329152002) do
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
 
-  create_table "invitations", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "sender_id"
-  end
-
-  add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
-
   create_table "project_applications", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "user_id"
@@ -235,6 +225,7 @@ ActiveRecord::Schema.define(version: 20170329152002) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "include_comments"
     t.string   "event_settings"
   end
 

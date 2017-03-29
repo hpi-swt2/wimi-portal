@@ -49,8 +49,8 @@
         <%# Login links for not signed in users%>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "pull-right"}) do |f| %>
           <%= f.hidden_field :identity_url, value: 'https://openid.hpi.uni-potsdam.de/serve' %>
-          <%= f.submit t('helpers.application_tabs.sign_in'), class: 'SignInButton btn btn-primary' %>
-          <img src='<%=asset_path 'openid-logo.png' %>' class="openID" />
+          <%= f.submit t('helpers.application_tabs.sign_in'), id: 'hpi-sign-in-navbar', class: 'btn btn-primary navbar-btn' %>
+          <img src='<%=asset_path 'openid-logo.png' %>' id="openID-navbar" />
         <% end %>
         <%= link_to t('helpers.application_tabs.external_sign_in'), external_login_path, class: 'btn btn-default navbar-btn pull-right' %>
       <% end %>

@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
-  skip_load_and_authorize_resource only: :create
 
   has_scope :title
   has_scope :chair
@@ -34,18 +33,10 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.chair = current_user.chair
-    if can?(:create, @project) and @project.save
+    if @project.save
       Event.add(:project_create, current_user, @project, current_user)
       current_user.projects << @project
       flash[:success] = t '.success'
-      unless params[:invitations].blank?
-        params[:invitations].values.each do |email|
-          user = User.find_by_email(email)
-          unless user.nil? or Invitation.where(project: @project, user: user).size > 0 or @project.users.include? user
-            @project.invite_user user, current_user
-          end
-        end
-      end
       redirect_to @project
     else
       render :new
