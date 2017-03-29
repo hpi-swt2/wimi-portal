@@ -2,6 +2,9 @@
 en:
   activerecord:
     attributes:
+      event:
+        created_at: Time
+        message: Message
       chair:
         created_at: Created at
         id: Id
@@ -172,6 +175,9 @@ en:
           other: "%{count} errors prohibited this %{model} from being saved"
       try_again_later: Error - Please try again later.
     models:
+      event:
+        one: notification
+        other: notifications
       chair:
         one: research group
         other: research groups

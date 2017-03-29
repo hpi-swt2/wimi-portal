@@ -70,7 +70,6 @@
 <% end %>
 
 <%# Notifications %>
-<% if @events.any? %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
     <div class="panel panel-default">
@@ -78,19 +77,33 @@
         <h4><%= t '.notifications' %></h4>
       </div>
       <div class="panel-body panel-scroll">
-        <table class="table table-condensed table-hover">
-          <% @events.each do |event| %>
-            <tr>
-              <td><%= content_tag :strong, l(event.created_at, format: :full) %></td>
-              <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
-            </tr>
-          <% end %>
-        </table>
+        <% if @events.empty? %>
+          <%= t 'no_entries_yet', target: t('activerecord.models.event.other') %>
+        <% else %>
+          <table class="table table-condensed table-hover">
+            <thead>
+              <tr>
+                <th><%= Event.human_attribute_name(:created_at) %></th>
+                <th><%= Event.human_attribute_name(:message) %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @events.empty? %>
+                <tr><td colspan="2">asdf</td></tr>
+              <% end %>
+              <% @events.each do |event| %>
+                <tr>
+                  <td><%= content_tag :strong, l(event.created_at, format: :full) %></td>
+                  <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-<% end %>
 
 <% content_for :sidebar do %>
   <% action_content = render partial: 'actions' %>
