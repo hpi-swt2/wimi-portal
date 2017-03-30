@@ -19,7 +19,7 @@
         </div>
         <% end %>
       <div class="col-md-6 col-sm-12">
-        <%= content_tag :strong, t('activerecord.models.chair.one').titleize %>: <%= linked_name @contract.chair %>
+        <%= content_tag :strong, t('activerecord.models.chair.one').capitalize %>: <%= linked_name @contract.chair %>
       </div>
       <div class="col-md-6 col-sm-12">
         <%= content_tag :strong, model_class.human_attribute_name(:flexible) %>: <%= t @contract.flexible.to_s %>
@@ -34,6 +34,7 @@
   </div>
 </div>
 
+<%# Time sheets table %>
 <div class="col-md-12">
   <div class="display">
     <div class="page-header">
@@ -41,7 +42,7 @@
         <%= t '.time_sheets_heading' %>
       </div>
     </div>
-    <%= render partial: "time_sheets/table", locals: {time_sheets: @contract.time_sheets.select {|ts| can? :show, ts}} %>
+    <%= render partial: "time_sheets/table", locals: {contract: @contract} %>
   </div>
 </div>
 

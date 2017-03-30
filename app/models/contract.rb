@@ -76,4 +76,13 @@ class Contract < ActiveRecord::Base
     contract_dates.delete_if{|date| valid_dates.include? date }
     contract_dates
   end
+
+  def months_without_time_sheet
+    # http://ruby-doc.org/stdlib-2.0.0/libdoc/date/rdoc/Date.html#method-i-upto
+    ts_month_years = time_sheets.map { |ts| [ts.year, ts.month] }
+    start_date.upto(end_date)
+      .map { |d| [d.year, d.month] }.uniq
+      .select { |m| !ts_month_years.include? m }
+      .map { |year, month| Date.new(year, month)}
+  end
 end

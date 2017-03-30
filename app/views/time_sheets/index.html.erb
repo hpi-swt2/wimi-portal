@@ -14,7 +14,7 @@
             <%= link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(contract), class: 'btn btn-success btn-sm pull-right' %>
           <% end %>
         </h4>
-        <%= render partial: "table", locals: {time_sheets: contract.time_sheets.select {|ts| can? :show, ts}} %>
+        <%= render partial: "table", locals: {contract: contract} %>
       <% end %>
     <% end %> <%# if/else @contracts.empty? %>
   </div>

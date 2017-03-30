@@ -1,6 +1,9 @@
 <%- model_class = TimeSheet -%>
-<% if time_sheets.empty? %>
-  <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.time_sheet.other', default: TimeSheet.model_name.human.pluralize) %> </p>
+<% time_sheets = contract.time_sheets.select {|ts| can? :show, ts} %>
+<% missing = contract.months_without_time_sheet %>
+
+<% if time_sheets.empty? and missing.empty? %>
+  <p> <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %> </p>
 <% else %>
   <%= datatable_tag(class: "table-striped table-hover", searching: false, info: false) do %>
     <thead>
@@ -12,6 +15,22 @@
       </tr>
     </thead>
     <tbody>
+      <% missing.each do |date| %>
+        <tr class="text-muted">
+          <td data-order="<%= date %>">
+            <%= "#{date.month}/#{date.year}" %> (<%= l date, format: :short_month %>)
+          </td>
+          <td>
+            ---
+          </td>
+          <td data-order="0">
+            ---
+          </td>
+          <td>
+            <%= link_to 'Neu anlegen', time_sheets_path, class: 'btn btn-success btn-xs' %>
+          </td>
+        </tr>
+      <% end %>
       <% time_sheets.each do |time_sheet| %>
         <tr>
           <td data-order="<%= time_sheet.first_day %>">

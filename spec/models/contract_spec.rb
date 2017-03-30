@@ -73,4 +73,36 @@ RSpec.describe Contract, type: :model do
       expect(@flexible_contract.monthly_work_minutes).to be nil
     end
   end
+
+  context "determining months for which no time sheets were created" do
+    before(:each) do
+      @month_duration = 2
+      @start_date = Date.today.beginning_of_month
+      @end_date = (@start_date + @month_duration.months).end_of_month
+      @contract = FactoryGirl.create(:contract, start_date: @start_date, end_date: @end_date)
+    end
+
+    it "returns all contract months when no time sheets are present" do
+      all_months = @start_date.upto(@end_date).map{ |d| Date.new(d.year, d.month) }.uniq
+      expect(@contract.months_without_time_sheet).to eq(all_months)
+      expect(@contract.months_without_time_sheet.size).to eq(@month_duration + 1)
+    end
+
+    it "returns missing months when time sheet is present in first contract month" do
+      FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
+      expect(@contract.months_without_time_sheet.size).to eq(@month_duration)
+    end
+    
+    it "returns missing months when time sheet is present in last contract month" do
+      FactoryGirl.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
+      expect(@contract.months_without_time_sheet.size).to eq(@month_duration)
+    end
+
+    it "returns missing months when time sheet is present in middle contract month" do
+      date = @contract.start_date + 1.month + 1.day
+      FactoryGirl.create(:time_sheet, contract: @contract, month: date.month, year: date.year)
+      expected = [@start_date, @end_date.beginning_of_month]
+      expect(@contract.months_without_time_sheet).to eq(expected)
+    end
+  end
 end
