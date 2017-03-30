@@ -2,6 +2,11 @@
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
+ * The asset pipeline automatically evaluates ERB.
+ * This means if you add an erb extension to a CSS asset (for example, application.css.erb),
+ * then helpers like asset_path are available in your CSS rules.
+ * See: http://guides.rubyonrails.org/asset_pipeline.html#css-and-erb
+ *
  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
  * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
  *
@@ -41,7 +46,7 @@ html, body {
 
 body {
     padding-top: 50px; /*50px for the height of the navbar*/
-    background-image: url("startseitehintergrund.png");
+    background-image: url(<%= asset_path "bg.jpg" %>);
     background-attachment: fixed;
 }
 
