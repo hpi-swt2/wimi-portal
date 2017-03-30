@@ -6,30 +6,29 @@
         <%= model_class.model_name.human.titleize %> <%= @contract %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6 col-sm-6">
-        <dl>
-          <dt><%= t('activerecord.attributes.contract.date') %></dt>
-          <dd><%= l @contract.start_date %> &ndash; <%= l @contract.end_date %></dd>
-          <dt><%= model_class.human_attribute_name(:hiwi) %></dt>
-          <dd><%= linked_name @contract.hiwi %> </dd>
-          <% unless @contract.flexible %>
-            <dt><%= model_class.human_attribute_name(:hours_per_week) %></dt>
-            <dd><%= @contract.hours_per_week %></dd>
-          <% end %>
-          <dt><%= t('activerecord.models.chair.one').titleize %></dt>
-          <dd><%= linked_name @contract.chair %> </dd>
-        </dl>
+    <div class="row bot-buffer-5">
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, t('activerecord.attributes.contract.date') %>: <%= l @contract.start_date %> &ndash; <%= l @contract.end_date %>
       </div>
-      <div class="col-md-6 col-sm-6">
-        <dl>
-          <dt><%= model_class.human_attribute_name(:flexible) %></dt>
-          <dd><%= t @contract.flexible.to_s %></dd>
-          <dt><%= model_class.human_attribute_name(:responsible) %></dt>
-          <dd><%= linked_name @contract.responsible %> </dd>
-          <dt><%= model_class.human_attribute_name(:wage_per_hour) %></dt>
-          <dd><%= @contract.wage_per_hour %> €</dd>
-        </dl>
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, model_class.human_attribute_name(:hiwi) %>: <%= linked_name @contract.hiwi %>
+      </div>
+      <% unless @contract.flexible %>
+        <div class="col-md-6 col-sm-12">
+          <%= content_tag :strong, model_class.human_attribute_name(:hours_per_week) %>: <%= @contract.hours_per_week %>
+        </div>
+        <% end %>
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, t('activerecord.models.chair.one').titleize %>: <%= linked_name @contract.chair %>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, model_class.human_attribute_name(:flexible) %>: <%= t @contract.flexible.to_s %>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, model_class.human_attribute_name(:responsible) %>: <%= linked_name @contract.responsible %>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, model_class.human_attribute_name(:wage_per_hour) %>: <%= @contract.wage_per_hour %> €
       </div>
     </div>
   </div>
