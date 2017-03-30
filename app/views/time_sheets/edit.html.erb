@@ -103,7 +103,7 @@
 <script>
   $( document ).ready(function() {
     function getRowInputs($row) {
-      return $row.find('input:not([type=hidden])').not('.hidden');
+      return $row.find('input:not([type=hidden]), textarea').not('.hidden');
     }
 
     function getRowSelects($row) {
@@ -114,6 +114,8 @@
       var inputs = getRowInputs($row);
       var selects = getRowSelects($row);
       inputs.val('');
+      // trigger autosize JQuery plugin to adapt to new content
+      inputs.trigger('autosize.resize');
       selects.prop('selectedIndex', 0);
     }
 
@@ -132,7 +134,10 @@
       var next_selects = getRowSelects(next_tr);
 
       current_inputs.each(function(i) {
-        next_inputs.eq(i).val($(this).val());
+        var input = next_inputs.eq(i);
+        input.val($(this).val());
+        // trigger autosize JQuery plugin to adapt to new content
+        input.trigger('autosize.resize');
       });
       current_selects.each(function(i) {
         // var current_option = $(this).find('option:selected').index();
