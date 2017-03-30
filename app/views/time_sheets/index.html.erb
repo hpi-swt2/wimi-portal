@@ -14,48 +14,7 @@
             <%= link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(contract), class: 'btn btn-success btn-sm pull-right' %>
           <% end %>
         </h4>
-        <% if contract.time_sheets.empty? %>
-          <p> <%= t 'no_entries_yet', target: (t 'activerecord.models.time_sheet.other', default: TimeSheet.model_name.human.pluralize) %> </p>
-        <% else %>
-          <%= datatable_tag(class: "table-striped table-hover", searching: false, info: false) do %>
-            <thead>
-              <tr>
-                <th><%= model_class.human_attribute_name(:month) %></th>
-                <th><%= model_class.human_attribute_name(:status) %></th>
-                <th><%= t('time_sheets.show.total_work_time') %></th>
-                <th data-orderable="false" class="action-heading"><%= t '.actions', default: t("helpers.actions") %></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% contract.time_sheets.select {|ts| can? :show, ts}.each do |time_sheet| %>
-                <tr>
-                  <td data-order="<%= time_sheet.first_day %>">
-                    <%= "#{time_sheet.month}/#{time_sheet.year}" %> (<%= l time_sheet.first_day, format: :short_month %>)
-                  </td>
-                  <td>
-                    <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger"}[time_sheet.status] %>
-                    <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{time_sheet.status}") %></span>
-                  </td>
-                  <td data-order="<%= time_sheet.sum_minutes %>">
-                    <%= time_sheet.sum_minutes_formatted %> <%= "/ #{time_sheet.monthly_work_minutes_formatted}" if time_sheet.monthly_work_minutes_formatted %>
-                  </td>
-                  <td>
-                    <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
-                                time_sheet_path(time_sheet),
-                                class: 'btn btn-default btn-xs' %>
-                    <%# PDF links for all work_sheets, no matter their status %>
-                    <% if time_sheet.has_comments? %>
-                      <%= link_to 'PDF', "", id: "open-popup", data: { toggle: "modal", target: "#download-pdf-modal", timesheet: time_sheet.id}, class: 'btn btn-xs btn-info'%>
-                    <% else %>
-                      <%= link_to 'PDF', download_time_sheet_path(time_sheet), class: 'btn btn-xs btn-info' %>
-                    <% end %>
-                    <%= edit_button time_sheet, class: 'btn-xs' %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          <% end %> <%# datatable_tag %>
-        <% end %>
+        <%= render partial: "table", locals: {time_sheets: contract.time_sheets.select {|ts| can? :show, ts}} %>
       <% end %>
     <% end %> <%# if/else @contracts.empty? %>
   </div>

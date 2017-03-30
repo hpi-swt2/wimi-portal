@@ -35,6 +35,17 @@
   </div>
 </div>
 
+<div class="col-md-12">
+  <div class="display">
+    <div class="page-header">
+      <div class="h4">
+        <%= t '.time_sheets_heading' %>
+      </div>
+    </div>
+    <%= render partial: "time_sheets/table", locals: {time_sheets: @contract.time_sheets.select {|ts| can? :show, ts}} %>
+  </div>
+</div>
+
 <% content_for :sidebar do %>
   <div class="col-md-12">
     <div class="display">
