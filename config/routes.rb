@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     member do
       get 'dismiss'
     end
+    post ':month/:year', to: 'time_sheets#create_for_month_year', as: 'create_for_month_year'
   end
 
   resources :time_sheets, except: [:new] do

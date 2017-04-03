@@ -27,6 +27,27 @@
   </div>
 </div>
 
+<%# Time Sheets %>
+<% @own_contracts.each do |contract| %>
+  <div class="col-md-12 col-sm-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>
+            <%= link_to "#{Contract.model_name.human.titleize} #{contract}", contract_path(contract) %>
+            <%# if can?(:new, TimeSheet.new(contract: contract)) %>
+              <%# link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(contract), class: 'btn btn-success btn-sm pull-right' %>
+            <%# end %>
+          </h4>
+        </div>
+        <div class="panel-body panel-scroll">
+          <%= render partial: "time_sheets/table", locals: {contract: contract} %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <%# Soon-ending contracts %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
@@ -116,14 +137,14 @@
     </div>
   <% end %>
 
-  <%# My Projects %>
-  <% unless current_user.projects.blank? %>
-    <%= render partial: 'projects' %>
-  <% end %>
-
   <%# My Contracts %>
   <%# could use "Contract.accessible_by(current_ability)", but  %>
   <% unless current_user.contracts.blank? %>
     <%= render partial: 'contracts' %>
+  <% end %>
+
+  <%# My Projects %>
+  <% unless current_user.projects.blank? %>
+    <%= render partial: 'projects' %>
   <% end %>
 <% end %>

@@ -8,5 +8,7 @@ class DashboardController < ApplicationController
     @events = Event.limit(50)
       .order(created_at: :desc)
       .select { |e| current_ability.can?(:show, e)}
+
+    @own_contracts = current_user.contracts
   end
 end

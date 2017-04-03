@@ -4,7 +4,7 @@ class TimeSheetsController < ApplicationController
   layout "action_sidebar"
 
   load_and_authorize_resource
-  skip_authorize_resource only: [:download, :create, :current]
+  skip_authorize_resource only: [:download, :create, :current, :create_for_month_year]
   
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
@@ -51,6 +51,22 @@ class TimeSheetsController < ApplicationController
       flash[:success] = I18n.t('time_sheet.save')
     else
       render :new
+    end
+  end
+
+  def create_for_month_year
+    contract = Contract.find(params[:contract_id])
+    @time_sheet = TimeSheet.new(
+      month: params[:month],
+      year: params[:year],
+      contract: contract
+    )
+    authorize! :create, @time_sheet
+    if @time_sheet.save
+      redirect_to edit_time_sheet_path(@time_sheet)
+      flash[:success] = I18n.t('time_sheet.save')
+    else
+      redirect_to new_contract_time_sheet_path(contract)
     end
   end
 

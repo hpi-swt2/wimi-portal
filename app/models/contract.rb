@@ -77,12 +77,12 @@ class Contract < ActiveRecord::Base
     contract_dates
   end
 
-  def months_without_time_sheet
-    # http://ruby-doc.org/stdlib-2.0.0/libdoc/date/rdoc/Date.html#method-i-upto
-    ts_month_years = time_sheets.map { |ts| [ts.year, ts.month] }
-    start_date.upto(end_date)
+  # Return an ordered collection of time sheets of the contract
+  # including unsaved instances representing missing time sheets
+  def time_sheets_including_missing(upto_date = end_date)
+    upto_date = end_date if upto_date > end_date
+    upto_date.downto(start_date)
       .map { |d| [d.year, d.month] }.uniq
-      .select { |m| !ts_month_years.include? m }
-      .map { |year, month| Date.new(year, month)}
+      .map { |y, m| time_sheets.find_or_initialize_by(year: y, month: m) }
   end
 end

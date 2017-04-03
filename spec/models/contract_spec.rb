@@ -74,35 +74,57 @@ RSpec.describe Contract, type: :model do
     end
   end
 
-  context "determining months for which no time sheets were created" do
+  context "listing time sheets, including missing ones" do
     before(:each) do
-      @month_duration = 2
+      @month_duration = 3
       @start_date = Date.today.beginning_of_month
-      @end_date = (@start_date + @month_duration.months).end_of_month
+      @end_date = (@start_date + @month_duration.months - 1).end_of_month
       @contract = FactoryGirl.create(:contract, start_date: @start_date, end_date: @end_date)
     end
 
-    it "returns all contract months when no time sheets are present" do
-      all_months = @start_date.upto(@end_date).map{ |d| Date.new(d.year, d.month) }.uniq
-      expect(@contract.months_without_time_sheet).to eq(all_months)
-      expect(@contract.months_without_time_sheet.size).to eq(@month_duration + 1)
+    it "returns unsaved time sheets when no time sheets are present" do
+      expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
+      all_new = @contract.time_sheets_including_missing.all? { |ts| ts.new_record? }
+      expect(all_new).to be true
     end
 
-    it "returns missing months when time sheet is present in first contract month" do
-      FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
-      expect(@contract.months_without_time_sheet.size).to eq(@month_duration)
+    it "returns single saved time sheet when time sheet is present in first contract month" do
+      ts = FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
+      expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
+      saved = @contract.time_sheets_including_missing.select { |ts| ts.persisted? }
+      expect(saved.size).to eq(1)
+      expect(saved.first).to eq(ts)
     end
     
-    it "returns missing months when time sheet is present in last contract month" do
-      FactoryGirl.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
-      expect(@contract.months_without_time_sheet.size).to eq(@month_duration)
+    it "returns single saved time sheet when time sheet is present in last contract month" do
+      ts = FactoryGirl.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
+      expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
+      saved = @contract.time_sheets_including_missing.select { |ts| ts.persisted? }
+      expect(saved.size).to eq(1)
+      expect(saved.first).to eq(ts)
     end
 
     it "returns missing months when time sheet is present in middle contract month" do
       date = @contract.start_date + 1.month + 1.day
-      FactoryGirl.create(:time_sheet, contract: @contract, month: date.month, year: date.year)
-      expected = [@start_date, @end_date.beginning_of_month]
-      expect(@contract.months_without_time_sheet).to eq(expected)
+      ts = FactoryGirl.create(:time_sheet, contract: @contract, month: date.month, year: date.year)
+      expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
+      saved = @contract.time_sheets_including_missing.select { |ts| ts.persisted? }
+      expect(saved.size).to eq(1)
+      expect(saved.first).to eq(ts)
+    end
+
+    it "returns missing months up to a specified date when time sheet is present" do
+      date = @contract.start_date + 1.month + 1.day
+      ts = FactoryGirl.create(:time_sheet, contract: @contract, month: date.month, year: date.year)
+      expect(@contract.time_sheets_including_missing(date).size).to eq(@month_duration - 1)
+      saved = @contract.time_sheets_including_missing(date).select { |ts| ts.persisted? }
+      expect(saved.size).to eq(1)
+      expect(saved.first).to eq(ts)
+    end
+
+    it "returns missing months up to a specified date, but none after contract end" do
+      date_after_contract_end = @end_date+3.months
+      expect(@contract.time_sheets_including_missing(date_after_contract_end).size).to eq(@month_duration)
     end
   end
 end
