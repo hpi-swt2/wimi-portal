@@ -15,9 +15,9 @@
           <%= menu_item t('activerecord.models.user.other').titleize, users_path %>
         <% end %>
 
-        <%# TimeSheet overview %>
-        <% if can? :index, TimeSheet %>
-          <%= menu_item t('activerecord.models.time_sheet.other').titleize, time_sheets_path %>
+        <%# Contract overview %>
+        <% if can? :index, Contract %>
+          <%= menu_item t('activerecord.models.contract.other').titleize, contracts_path %>
         <% end %>
 
         <%# Project overview %>
@@ -28,11 +28,6 @@
         <%# Chair links %>
         <% if can? :index, Chair %>
           <%= menu_item t('activerecord.models.chair.other').titleize, chairs_path %>
-        <% end %>
-
-        <%# Contract overview %>
-        <% if can? :index, Contract %>
-          <%= menu_item t('activerecord.models.contract.other').titleize, contracts_path %>
         <% end %>
 
         <%# Language switcher %>

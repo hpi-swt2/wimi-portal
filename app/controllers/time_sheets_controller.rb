@@ -11,15 +11,6 @@ class TimeSheetsController < ApplicationController
     redirect_to dashboard_path
   end
 
-  def index
-    @all_contracts = Contract.all.order(end_date: :desc).select {|c| can? :index, c}
-    @contracts = @all_contracts
-    if params[:contract].present?
-      # Cannot use 'where' clause, as @all_contracts is an array due to use of previous 'select'
-      @contracts = @all_contracts.select{|c| c.id == params[:contract].to_i}
-    end
-  end
-
   def show
     set_time_sheet
     set_projects
@@ -135,7 +126,7 @@ class TimeSheetsController < ApplicationController
     @time_sheet.destroy
     #struggling with i18n, im sure this could be improved somehow
     flash[:success] = t('helpers.flash.destroyed', model: t('activerecord.models.time_sheet.one'))
-    redirect_to time_sheets_path
+    redirect_to dashboard_path
   end
 
   # Route that redirects to the current_user's first time sheet of this month
@@ -160,7 +151,7 @@ class TimeSheetsController < ApplicationController
         end
       else
         flash[:error] = I18n.t('time_sheet.no_contract')
-        redirect_to time_sheets_path
+        redirect_to dashboard_path
       end
     end
   end

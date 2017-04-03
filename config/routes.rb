@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     post ':month/:year', to: 'time_sheets#create_for_month_year', as: 'create_for_month_year'
   end
 
-  resources :time_sheets, except: [:new] do
+  resources :time_sheets, except: [:new, :index] do
     member do
       get 'withdraw'
       patch 'hand_in'
