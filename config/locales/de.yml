@@ -497,7 +497,7 @@ de:
     delete: Wollen Sie diesen Stundenzettel wirklich löschen?
     download:
       has_comments: Dieser Stundenzettel hat Kommentare. Beim Export beibehalten?
-      setting_reminder: Diese Einstellung kann für alle Studenzettel im Profil festgelegt werden
+      setting_reminder: Diese Einstellung kann für alle Stundenzettel im Profil festgelegt werden
       with_comments: Ja
       without_comments: Nein
     month_year: Monat/Jahr
