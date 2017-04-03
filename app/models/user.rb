@@ -54,6 +54,8 @@ class User < ActiveRecord::Base
   has_one :chair_wimi
   has_one :chair, through: :chair_wimi
 
+  enum include_comments: [:always, :never, :ask]
+
   serialize :event_settings, Array
 
   validate :validate_event_settings

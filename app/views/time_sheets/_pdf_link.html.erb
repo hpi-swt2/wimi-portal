@@ -1,0 +1,14 @@
+<%# PDF download link %>
+<%# Also requires content_for :modals { render 'download_prompt' } %>
+<% case time_sheet.contract.hiwi.include_comments %>
+<% when 'always' %>
+  <%= link_to btn_text, download_time_sheet_path(time_sheet, include_comments: 1), class: btn_class %>
+<% when 'never' %>
+  <%= link_to btn_text, download_time_sheet_path(time_sheet, include_comments: 0), class: btn_class %>
+<% else %>
+  <% if time_sheet.has_comments? %>
+    <%= link_to btn_text, "", id: "open-popup", data: { toggle: "modal", target: "#download-pdf-modal", timesheet: time_sheet.id}, class: btn_class %>
+  <% else %>
+    <%= link_to btn_text, download_time_sheet_path(time_sheet), class: btn_class %>
+  <% end %>
+<% end %>
