@@ -34,7 +34,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>
-            <%= link_to "#{Contract.model_name.human.titleize} #{contract}", contract_path(contract) %>
+            <%= t('activerecord.models.contract.one').titleize %> <%= linked_name contract %>
             <%# if can?(:new, TimeSheet.new(contract: contract)) %>
               <%# link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(contract), class: 'btn btn-success btn-sm pull-right' %>
             <%# end %>
@@ -84,7 +84,10 @@
 </div>
 
 <%# Missing Timesheets %>
-<%= render partial: 'missing_timesheets' %>
+<%# HiWis already see their missing time sheets in the contract panel %>
+<% unless current_user.is_hiwi? %>
+  <%= render partial: 'missing_timesheets' %>
+<% end %>
 
 <%# Notifications %>
 <div class="col-md-12 col-sm-12">
