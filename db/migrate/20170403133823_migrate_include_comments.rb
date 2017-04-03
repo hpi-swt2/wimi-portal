@@ -2,9 +2,9 @@ class MigrateIncludeComments < ActiveRecord::Migration
 
   def up
     say_with_time "Set time sheet download prefs default to 'always ask'" do
-      # Set the default enum value. 2 maps to :ask
+      # Set the default enum value.
       # https://apidock.com/rails/ActiveRecord/ConnectionAdapters/SchemaStatements/change_column_default
-      change_column_default(:users, :include_comments, 2)
+      change_column_default(:users, :include_comments, User.include_comments['ask'])
 
       counter = 0
       User.all.each do |user|
