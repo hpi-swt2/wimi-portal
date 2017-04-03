@@ -92,4 +92,8 @@ RSpec.describe User, type: :model do
     u.event_settings = ['project_join', 'definitely_not_supported']
     expect(u).to_not be_valid
   end
+
+  it 'sets the correct default value for PDF download prefs' do
+    expect(User.create().include_comments).to eq('ask')
+  end
 end
