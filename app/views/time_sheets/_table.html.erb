@@ -64,3 +64,21 @@
     </tbody>
   <% end %> <%# datatable_tag %>
 <% end %> <%# if contract.time_sheets.empty? %>
+
+<% content_for :modals do %>
+    <%= render 'time_sheets/download_prompt' %>
+<% end %>
+
+<script>
+  $(function() {
+    $('#download-pdf-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var timesheetId = button.data('timesheet') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.dl-with-comments').attr('href', '/time_sheets/' + timesheetId + '/download?include_comments=1')
+      modal.find('.dl-without-comments').attr('href', '/time_sheets/' + timesheetId + '/download?include_comments=0')
+    });
+  });
+</script>
