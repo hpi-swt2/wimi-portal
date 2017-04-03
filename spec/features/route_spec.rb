@@ -59,8 +59,6 @@ feature 'Routes' do
 
   let :problematic_routes do
     [
-      '/projects/:id/accept_invitation',
-      '/projects/:id/decline_invitation',
       '/projects/typeahead/:query',
       '/documents/generate_pdf',
       '/users/edit_leave',

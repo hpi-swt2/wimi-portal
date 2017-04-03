@@ -2,6 +2,9 @@
 de:
   activerecord:
     attributes:
+      event:
+        created_at: Zeit
+        message: Nachricht
       chair:
         created_at: Erstellungsdatum
         id: Id
@@ -121,10 +124,10 @@ de:
           holiday: Feiertag
         break: Pause
         date: Datum
-        end_time: Endzeit
+        end_time: Ende
         notes: Anmerkung
         project: Projekt
-        start_time: Startzeit
+        start_time: Start
     errors:
       models:
         expense:
@@ -172,6 +175,9 @@ de:
           other: "%{model} konnte wegen %{count} Fehlern nicht gespeichert werden"
       try_again_later: Fehler - Bitte versuchen Sie es später nochmal.
     models:
+      event:
+        one: Benachrichtigung
+        other: Benachrichtigungen
       chair:
         one: Lehrstuhl
         other: Lehrstühle

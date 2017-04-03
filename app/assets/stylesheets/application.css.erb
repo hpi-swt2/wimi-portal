@@ -2,6 +2,11 @@
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
+ * The asset pipeline automatically evaluates ERB.
+ * This means if you add an erb extension to a CSS asset (for example, application.css.erb),
+ * then helpers like asset_path are available in your CSS rules.
+ * See: http://guides.rubyonrails.org/asset_pipeline.html#css-and-erb
+ *
  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
  * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
  *
@@ -27,14 +32,11 @@ h1 span { font-size:20px; }
     margin-bottom: 10px;
 }
 
-.openID{
-    height: 35px;
+#openID-navbar {
     width: 80px;
-    margin-top: 5px;
 }
 
-.SignInButton {
-    margin-top: 8px;
+#hpi-sign-in-navbar {
     margin-left: 5px;
 }
 
@@ -44,7 +46,7 @@ html, body {
 
 body {
     padding-top: 50px; /*50px for the height of the navbar*/
-    background-image: url("startseitehintergrund.png");
+    background-image: url(<%= asset_path "bg.jpg" %>);
     background-attachment: fixed;
 }
 
@@ -62,11 +64,6 @@ body {
     box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
 }
 
-.userProjectCheckbox {
-    margin-left: 20px;
-    margin-bottom: 15px;
-}
-
 /* Styles for anchors without a link (href) */
 a:not([href]):hover {
     text-decoration: none;
@@ -81,78 +78,12 @@ a.anchor {
     margin-top: -90px;
 }
 
-.projectCheckbox {
-    margin-left: -30px;
-}
-
-.projectTitleControl {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.UserTable {
-    margin-top: 20px;
-    margin-left: -15px;
-
-}
-
-.dl-horizontal dt {
-    width:280px;
-    white-space: normal;
-    margin-bottom: 5px;
-}
-.dl-horizontal dd {
-    margin-left:300px;
-}
-
-.time-select {
-    display: inline-block;
-    width: 47%;
-}
-
 .col-sm-4 > .form-group > label.control-label {
     display: block;
 }
 
-.email-invite {
-    width: 503px;
-    margin-right: 5px;
-}
-
-.inviteBoxes {
-    margin-top: 20px;
-    max-height: 200px;
-}
-
-.inviteBoxesHeading {
-    margin-top: 40px;
-}
-
-.submitGroup {
-    margin-top: 40px;
-}
-
-.removeButton {
-    width: 103.516px;
-}
-
-.inviteInput {
-    margin-left: 15px;
-}
-
-.addnewUserButton {
-    margin-left: 15px;
-}
-
 .link {
     color: mediumblue;
-}
-.buttonGroup {
-    margin-top: 40px;
-}
-
-.page-body {
-    margin-top: 50px;
 }
 
 .display {
@@ -168,10 +99,6 @@ a.anchor {
 
 .nobottompadding {
     padding-bottom: 0px;
-}
-
-.btn-eq {
-    width: auto;
 }
 
 .panel-compact > .form-group > .form-control {
@@ -207,17 +134,20 @@ tr.highlight {
     color: white;
 }
 
+/* For panels on dashboard */
 .panel-scroll {
     max-height: 300px;
     overflow: auto;
 }
 
+/* ensure action column can fit at least 2 xs buttons */
 th.action-heading {
     min-width: 60px;
 }
 
-/* Styling for Bootstrap modal popovers of gem 'data-confirm-modal' */
-
+/*
+ * Styling for Bootstrap modal popovers of gem 'data-confirm-modal'
+ */
 .modal-footer {
     text-align: center;
 }

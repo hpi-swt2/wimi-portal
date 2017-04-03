@@ -48,7 +48,6 @@ class User < ActiveRecord::Base
   has_many :expenses
   has_many :project_applications, dependent: :destroy
   has_many :trips
-  has_many :invitations
   has_many :caused_events , class_name: 'Event', :dependent => :destroy
   has_many :targeted_events, class_name: 'Event', foreign_key: :target_user_id, :dependent => :destroy
   has_and_belongs_to_many :projects

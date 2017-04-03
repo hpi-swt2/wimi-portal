@@ -30,8 +30,6 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       post 'add_user'
-      get 'accept_invitation'
-      get 'decline_invitation'
     end
   end
 

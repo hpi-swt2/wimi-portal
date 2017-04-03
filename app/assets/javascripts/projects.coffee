@@ -28,76 +28,6 @@ sendLanguageWithButtonToCallback = (clickedButton, callbackWarning) ->
       callbackWarning 'en', clickedButton
       return
 
-inviteInitUser = (locale) ->
-  count = 0
-  $('body').on 'click', '#invite_user', ->
-    email = $('#invitation_mail').val()
-    if validateEmail(email)
-      $('#invitation_mail').val('')
-
-      span = document.createElement("span")
-      span.id = 'user' + count
-
-      deleteButton = document.createElement("input")
-      deleteButton.type = 'RemoveButton'
-
-      if locale == 'en'
-        deleteButton.value = 'Remove'
-      else
-        deleteButton.value = 'Entfernen'
-
-      deleteButton.id = 'delete' + count
-      deleteButton.name = 'deleteInvitationButton' + count
-
-      newInvitation = document.createElement("input")
-      newInvitation.value = email
-      newInvitation.name = 'invitations[' + count + ']'
-      newInvitation.type = 'invitationEmail'
-
-      divcol9 = document.createElement('div')
-      divcol9.id = 'div9'
-      divcol3 = document.createElement('div')
-      divcol3.id = 'div3'
-
-      divcol9.appendChild(newInvitation)
-      divcol3.appendChild(deleteButton)
-
-      span.appendChild(divcol9)
-      span.appendChild(divcol3)
-
-      list = document.getElementById("invited_users")
-      list.appendChild(span)
-
-      setTimeout ( ->
-        $('#invited_users > span').addClass('col-md-12')
-        $('#invited_users > span').css('padding-top', '0px')
-        $('#invited_users > span > #div9').addClass('col-md-9')
-        $('#invited_users > span > #div3').addClass('col-md-3')
-        $('input[type=invitationEmail]').addClass('form-control').attr('readonly', true)
-        $('input[type=RemoveButton]').addClass('btn btn-default btn-block')
-      ), 5
-
-      count += 1
-      $(deleteButton).on 'click',  -> deleteInvitation()
-      return
-    else
-      if locale == 'en'
-        alert 'Please enter a valid email adress'
-      else
-        alert 'Bitte gibt eine valide Email-Adresse ein'
-
-deleteInvitation = ->
-  deleteButtonCount = $("input[type=button][clicked=true]").prevObject[0].activeElement.id
-  deleteButtonCount = deleteButtonCount.split('delete')[1]
-
-  list = document.getElementById("invited_users")
-  elem = document.getElementById("user" + deleteButtonCount)
-  list.removeChild(elem)
-
-validateEmail = (email) ->
-  re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  re.test email
-
 renderHiwiWorkingHoursCharts = (data) ->
   chart = new (CanvasJS.Chart)('hiwiWorkingHoursChart',
     animationEnabled: true
@@ -149,8 +79,6 @@ ready = ->
     sendLanguageWithButtonToCallback $('#setInactiveButton'), setInactiveWarning
   if $('#SignOutMyself').length
     sendLanguageWithButtonToCallback $('#SignOutMyself'), signOutMyselfWarning
-  if $('#invite_user').length
-    sendLanguageWithButtonToCallback $('#invite_user'), inviteInitUser
   if $('#hiwiWorkingHoursChart').length
     initWorkingHoursChart()
   return

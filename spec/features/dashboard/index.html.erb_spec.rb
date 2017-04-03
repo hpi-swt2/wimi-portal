@@ -18,33 +18,6 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(page).to_not have_content(project2.title)
   end
 
-  # apply is deprecated
-#  it 'performs an application after click on Apply' do
-#    login_as @user
-#    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
-#    visit dashboard_path
-#
-#    expect(page).to have_content(chair1.name)
-#    expect(page).to have_content(I18n.t('activerecord.attributes.chair.apply'))
-#    expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.application.status.pending'))
-#    click_on I18n.t('activerecord.attributes.chair.apply')
-#    visit dashboard_path
-#
-#    expect(page).to have_content(I18n.t('activerecord.attributes.chair.application.status.pending'))
-#    expect(page).to_not have_content(I18n.t('activerecord.attributes.chair.apply'))
-#  end
-
-  # invitations are deprecated
-#  it 'shows invitations for projects' do
-#    login_as @user
-#    project = FactoryGirl.create(:project)
-#    project.invite_user(@user, @user)
-#    visit dashboard_path
-#
-#    content = I18n.t('event_project_invitations.event_project_invitation.full_html', trigger_name: @user.name, project_name: project.title)
-#    expect(page).to have_content(content)
-#  end
-
   it 'shows when one of your timesheets gets declined / accepted' do
     chair = FactoryGirl.create(:wimi, user: @user).chair
     hiwi = FactoryGirl.create(:hiwi)
@@ -72,45 +45,6 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     expect(wimi.is_wimi?).to be true
     expect(page.body).to have_content(@user.name)
   end
-
-  # applications are deprecated
-#  it 'shows notifications for the chairs admin' do
-#    chair1 = FactoryGirl.create(:chair, name: 'Chair1')
-#    another_user = FactoryGirl.create(:user)
-#    notification = t('events.event_chair_application', trigger: @user.name)
-#    login_as @user
-#    visit dashboard_path
-#
-#    expect(page).to have_content(chair1.name)
-#    expect(page).to have_content('Apply as WiMi')
-#    click_on('Apply as WiMi')
-#    visit dashboard_path
-#    expect(page).to_not have_content(notification)
-#
-#    admin = FactoryGirl.create(:user)
-#    FactoryGirl.create(:wimi, chair: chair1, user: admin, admin: true)
-#
-#    login_as admin
-#    visit dashboard_path
-#
-#    expect(page).to have_content(notification)
-#    expect(page).to have_link('Accept')
-#    expect(page).to have_link('Decline')
-#    expect(page).to_not have_link('Show holiday requests')
-#    expect(page).to_not have_link('Show expense requests')
-#    expect(page).to_not have_link('Show trip requests')
-#    expect(page).to_not have_link('Apply as WiMi')
-#
-#    chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-#    FactoryGirl.create(:wimi, chair: chair2, user: another_user, admin: true)
-#
-#    login_as another_user
-#    visit dashboard_path
-#
-#    expect(page).to_not have_content(notification)
-#    expect(page).to_not have_link('Accept')
-#    expect(page).to_not have_link('Decline')
-#  end
 
   it 'shows representative links' do
     chair = FactoryGirl.create(:chair, name: 'Chair')

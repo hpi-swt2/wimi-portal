@@ -14,9 +14,12 @@
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
 //= require jquery.turbolinks
+//= require jquery.autosize
 //= require bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.de.js
 //= require data-confirm-modal
 //= require select2
 //= require canvasjs.min
@@ -93,5 +96,10 @@ $(document).ready(function() {
       }
     }
   });
+
+  /**
+   * Autosize JQuery plugin configuration
+   */
+  $('textarea[data-enable-autosize="true"]').autosize();
 
 });

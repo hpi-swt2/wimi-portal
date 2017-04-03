@@ -27,17 +27,6 @@ class Project < ActiveRecord::Base
 
   before_destroy :check_for_workdays
 
-  def invite_user(user, sender)
-    if user && !user.is_superadmin? # <-- what is the superadmin doing here?
-      inv = Invitation.create(user: user, project: self, sender: sender)
-      user.invitations << inv
-      Event.add(:project_join, sender, self, user)
-      return true
-    else
-      return false
-    end
-  end
-
   def add_user(user)
     if user && !user.is_superadmin?
       users << user
@@ -45,18 +34,6 @@ class Project < ActiveRecord::Base
     else
       return false
     end
-  end
-
-  def destroy_invitations
-    invitation = Invitation.where(project: self)
-    invitation.each do |inv|
-      inv.destroy!
-    end
-  end
-
-  def destroy_invitation(user)
-    inv = Invitation.find_by(user: user, project: self)
-    inv.destroy!
   end
 
   def hiwis

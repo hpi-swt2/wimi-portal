@@ -130,16 +130,6 @@ ActiveRecord::Schema.define(version: 20170403133823) do
 
   add_index "holidays", ["user_id"], name: "index_holidays_on_user_id"
 
-  create_table "invitations", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "sender_id"
-  end
-
-  add_index "invitations", ["sender_id"], name: "index_invitations_on_sender_id"
-
   create_table "project_applications", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "user_id"
