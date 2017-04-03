@@ -501,6 +501,7 @@ de:
     delete: Wollen Sie diesen Stundenzettel wirklich löschen?
     download:
       has_comments: Dieser Stundenzettel hat Kommentare. Beim Export beibehalten?
+      setting_reminder: Diese Einstellung kann für alle Stundenzettel im Profil festgelegt werden
       with_comments: Ja
       without_comments: Nein
     month_year: Monat/Jahr
@@ -606,7 +607,12 @@ de:
     show:
       business_trips: Geschäftsreisen
       days: Tag(e)
+      download_settings: Stundenzettel PDF Einstellungen
       holiday_requests: Urlaubsanfragen
+      include_comments:
+        always: Kommentare immer drucken
+        never: Kommentare immer weglassen
+        ask: Jedesmal nachfragen
       information: Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei aus
       password: Passwort ändern
       remaining_leave: 'Verbleibender Resturlaub: %{leave} Tag(e)'

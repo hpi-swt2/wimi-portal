@@ -501,6 +501,7 @@ en:
     delete: Are you sure that this timesheet should be deleted?
     download:
       has_comments: This timesheet has comments. Include them in the download?
+      setting_reminder: This setting can be globally set for all time sheets in the profile
       with_comments: 'Yes'
       without_comments: 'No'
     month_year: Month/Year
@@ -606,7 +607,12 @@ en:
     show:
       business_trips: Business Trips
       days: Day(s)
+      download_settings: Time Sheet PDF Settings
       holiday_requests: Holiday Requests
+      include_comments:
+        always: Always include comments
+        never: Never include comments
+        ask: Always ask me
       information: Please choose a *.bmp, *.jpeg, *.jpg or *.png file
       password: Change Password
       remaining_leave: 'Remaining Leave: %{leave} Day(s)'
