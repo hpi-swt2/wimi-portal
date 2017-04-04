@@ -16,8 +16,8 @@ RSpec.describe 'projects/edit', type: :view do
     project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
     visit project_path(project)
-    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
-    click_on I18n.t('helpers.links.edit')
+    expect(page).to have_link(nil, edit_project_path(project))
+    click_on I18n.t('helpers.links.edit_short')
     new_project_title = 'My New Project'
     fill_in 'project_title', with: new_project_title
     click_on I18n.t('helpers.submit.update', model: project.model_name.human)
