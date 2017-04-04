@@ -6,6 +6,13 @@ class ReportingController < ApplicationController
     render :layout => 'no_sidebar'
   end
 
+  def data
+    render json: 
+      @chair.work_days
+      .group_by {|w| [w.project.name, w.month_year]}
+      .map {| (p, m), w | {project: p, month:m, work_minutes:w.sum(&:duration_in_minutes)} }
+  end
+
   private
 
   def prepare_chair

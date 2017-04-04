@@ -64,6 +64,10 @@ class WorkDay < ActiveRecord::Base
     format("%d:%02d", hours, minutes)
   end
 
+  def month_year
+    date.strftime('%Y-%m')
+  end
+
   private
 
   def default_values
