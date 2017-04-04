@@ -3,15 +3,21 @@ require 'rails_helper'
 RSpec.describe 'navigation bar', type: :view do
   shared_examples 'a registered User' do
     it 'should link to home' do
-      expect(page).to have_link('HPI WiMi-Portal')
+      within('div.navbar-collapse') do
+        expect(page).to have_link(nil, root_path)
+      end
     end
 
     it 'should link to profile' do
-      expect(page).to have_link(I18n.t('helpers.application_tabs.profile').titleize, href: user_path(@user))
+      within('div.navbar-collapse') do
+        expect(page).to have_link(nil, href: user_path(@user))
+      end
     end
 
     it 'should link to logout' do
-      expect(page).to have_link(I18n.t('helpers.application_tabs.logout').titleize, href: destroy_user_session_path)
+      within('div.navbar-collapse') do
+        expect(page).to have_link(I18n.t('helpers.application_tabs.logout').titleize, href: destroy_user_session_path)
+      end
     end
 
     #     Test for the language select, doesn't work at the moment. When javascript tests are fully funtional, it may work.

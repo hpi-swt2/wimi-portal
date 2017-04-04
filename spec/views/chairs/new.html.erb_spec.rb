@@ -12,6 +12,8 @@ RSpec.describe 'chairs/new.html.erb', type: :view do
 
     # cannot test JS ...
     # expect(page).to have_content(@user.name)
-    expect(page).to_not have_content(@superadmin.name)
+    within('div.content') do
+      expect(page).to_not have_content(@superadmin.name)
+    end
   end
 end
