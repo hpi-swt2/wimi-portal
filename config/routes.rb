@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :chair_applications
   resources :chairs do
+    get 'reporting' => 'reporting#index', as: 'reporting_index'
   end
   post 'chairs/:id/users' => 'chairs#add_user', as: :chair_users
   delete 'chairs/:id/users/:request' => 'chairs#remove_user', as: :chair_user

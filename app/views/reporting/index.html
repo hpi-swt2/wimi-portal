@@ -1,0 +1,29 @@
+<%- model_class = Chair -%>
+<div class="col-md-12 col-sm-12">
+  <div class="display">
+  <div class="page-header">
+    <h1>
+      Reporting
+    </h1>
+  </div>
+    <div class="page-header">
+      <h3>C3 Chart</h3>
+    </div>
+    <div class="row">
+      <div id="chart"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  var chart = c3.generate({
+    bindto: '#chart',
+    data: {
+      columns: [
+        ['data1', 30, 200, 100, 400, 150, 250],
+        ['data2', 50, 20, 10, 40, 15, 25]
+      ]
+    }
+  });
+</script>

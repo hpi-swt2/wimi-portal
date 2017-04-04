@@ -72,6 +72,12 @@ gem 'jquery-datatables-rails', '~> 3.4.0'
 # See: https://github.com/acrogenesis/autosize
 # And: http://www.jacklmoore.com/autosize/
 gem 'autosize'
+# C3.js charting library bundled for asset pipeline
+# See: https://github.com/SunnyLi/c3-rails
+gem 'c3-rails'
+# D3.js library, required by 'c3-rails'
+# Latest version of d3.js in incompatible with latest c3,js
+gem 'd3-rails', '~> 3.5.17'
 
 # Use Jquery as the JS lib
 gem 'jquery-rails'

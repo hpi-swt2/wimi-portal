@@ -66,6 +66,7 @@ GEM
       activesupport (>= 3.1.0)
       tzinfo
     byebug (8.2.0)
+    c3-rails (0.4.11)
     cancancan (1.13.1)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -85,6 +86,8 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
+    d3-rails (3.5.17)
+      railties (>= 3.1)
     data-confirm-modal (1.2.0)
       railties (>= 3.0)
     database_cleaner (1.5.1)
@@ -323,10 +326,12 @@ DEPENDENCIES
   bootstrap-tooltip-rails
   business_time
   byebug
+  c3-rails
   cancancan
   capybara (~> 2.5)
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
+  d3-rails (~> 3.5.17)
   data-confirm-modal
   database_cleaner
   delocalize

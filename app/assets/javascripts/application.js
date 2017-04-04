@@ -15,6 +15,8 @@
 //= require dataTables/jquery.dataTables
 //= require jquery.turbolinks
 //= require jquery.autosize
+//= require d3
+//= require c3
 //= require bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap
 //= require bootstrap-datepicker/core
