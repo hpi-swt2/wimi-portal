@@ -383,7 +383,8 @@ de:
       confirm_delete: Sind sie sicher, dass "%{model}" gelöscht werden soll?
       destroy: Löschen
       download_pdf: Als PDF herunterladen
-      edit: Bearbeiten
+      edit: "%{model} bearbeiten"
+      edit_short: Bearbeiten 
       edit_leave: Resturlaub bearbeiten
       hand_in: Einreichen
       new: Neu
