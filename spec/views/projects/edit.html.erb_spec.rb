@@ -31,9 +31,9 @@ RSpec.describe 'projects/edit', type: :view do
     project_title = project.title
     @wimi.projects << project
     visit edit_project_path(project)
-    expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
-    click_on 'Delete'
-    expect(page).to have_content('Project was successfully destroyed.')
+    expect(page).to have_delete_link(project)
+    click_on I18n.t('helpers.links.destroy')
+    expect(page).to have_content(I18n.t 'projects.destroy.success')
     expect(page).to have_no_content(project_title)
   end
 

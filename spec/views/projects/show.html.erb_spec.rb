@@ -84,8 +84,8 @@ RSpec.describe 'projects/show', type: :view do
     
     it 'not possible for wimi to edit if not a member' do
       visit current_path
-      expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
-      expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
+      expect(page).not_to have_css("a[href='#{edit_project_path(@project)}']")
+      expect(page).not_to have_delete_link(@project)
       expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
     end
   end
