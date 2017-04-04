@@ -36,7 +36,7 @@
         <% end %>
 
         <%# Profile link %>
-        <%= menu_item t('helpers.application_tabs.profile'), url_for(current_user) %>
+        <%= menu_item truncate(current_user.name), url_for(current_user) %>
 
         <%# Logout link %>
         <%= menu_item t('helpers.application_tabs.logout'), destroy_user_session_path %>
