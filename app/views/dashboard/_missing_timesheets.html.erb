@@ -2,7 +2,14 @@
     <div class="display">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4><%= t 'dashboard.index.missing_timesheets' %></h4>
+          <h4>
+            <%= t 'dashboard.index.missing_timesheets' %>
+            <label class="checkbox-inline pull-right">
+              <input type="checkbox" value="" checked data-toggle-visibility="true" data-target-class="old-ts">
+              <small><%= t '.toggle_visibility' %></small>
+            </label>
+          </h4>
+          
         </div>
         <div class="panel-body panel-scroll">
           <% if @missing_timesheets.empty? %>
@@ -14,17 +21,15 @@
                   <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
                   <th><%= t('activerecord.models.contract.one').capitalize %></th>
                   <th><%= Contract.human_attribute_name(:responsible).capitalize %></th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <% @missing_timesheets.each do |dates,contract| %>
                   <% dates.each do |date| %>
-                    <tr>
+                    <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
                       <td><%= l date, format: :short_month_year %></td>
                       <td><%= linked_name contract %></td>
                       <td><%= linked_name contract.responsible %></td>
-                      <td><%= link_to "x", dismiss_contract_path(id: contract.id, month: date), class: "btn btn-xs btn-danger" %></td>
                     </tr>
                   <% end %>
                 <% end %>

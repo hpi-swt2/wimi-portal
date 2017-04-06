@@ -269,6 +269,8 @@ de:
       contract_ends_soon: Vertrag endet bald
     projects:
       projects: Meine Projekte
+    missing_timesheets:
+      toggle_visibility: Nur die letzten beiden Monate anzeigen
   errors:
     format: "%{attribute} %{message}"
     messages:

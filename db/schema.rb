@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403133823) do
+ActiveRecord::Schema.define(version: 20170406124853) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -43,17 +43,6 @@ ActiveRecord::Schema.define(version: 20170403133823) do
     t.integer "hours_per_week"
     t.decimal "wage_per_hour",  precision: 5, scale: 2
   end
-
-  create_table "dismissed_missing_timesheets", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "contract_id"
-    t.date     "month"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "dismissed_missing_timesheets", ["contract_id"], name: "index_dismissed_missing_timesheets_on_contract_id"
-  add_index "dismissed_missing_timesheets", ["user_id"], name: "index_dismissed_missing_timesheets_on_user_id"
 
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
@@ -227,7 +216,6 @@ ActiveRecord::Schema.define(version: 20170403133823) do
     t.string   "last_sign_in_ip"
     t.integer  "include_comments",           default: 2
     t.string   "event_settings"
-    t.boolean  "missing_ts_last_month_only"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

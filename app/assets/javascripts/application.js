@@ -102,4 +102,13 @@ $(document).ready(function() {
    */
   $('textarea[data-enable-autosize="true"]').autosize();
 
+  /**
+   * Enable toggling visibility with Javascript
+   */
+  $('*[data-toggle-visibility="true"]').click(function(event) {
+    if ($(this).prop('tagName') != 'INPUT') { event.preventDefault(); }
+    // Bootstrap class for visibility
+    $('.' + $(this).attr('data-target-class')).toggleClass("hidden");
+  });
+
 });

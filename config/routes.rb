@@ -55,9 +55,6 @@ Rails.application.routes.draw do
 
   resources :contracts do
     resources :time_sheets, only: [:new, :create]
-    member do
-      get 'dismiss'
-    end
     post ':month/:year', to: 'time_sheets#create_for_month_year', as: 'create_for_month_year'
   end
 

@@ -62,17 +62,6 @@ class ContractsController < ApplicationController
     flash[:success] = t('helpers.flash.destroyed', model: @contract.model_name.human.titleize)
   end
 
-  def dismiss
-    contract = Contract.find(params[:id])
-    authorize! :show, contract
-    month = params[:month]
-    entry = DismissedMissingTimesheet.new(user: current_user, contract: contract, month: month)
-    if entry.save
-      flash[:success] = I18n.t('dashboard.index.dismissed')
-    end
-    redirect_to dashboard_path
-  end
-
   private
 
   def contract_params
