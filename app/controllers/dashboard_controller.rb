@@ -1,12 +1,12 @@
 class DashboardController < ApplicationController
   def index
-    @ending_contracts = Contract.ends_soon.accessible_by(current_ability, :show)
-
     contracts = Contract.accessible_by(current_ability, :show)
 
-    @missing_timesheets = contracts.collect do |contract|
+    @ending_contracts = contracts.ends_soon
+
+    @missing_timesheets = contracts.map do |contract|
       missing = contract.missing_timesheets
-      missing != [] ? [missing, contract] : nil
+      missing.present? ? [missing, contract] : nil
     end
     @missing_timesheets.compact!
 

@@ -4,7 +4,10 @@
         <div class="panel-heading">
           <h4>
             <%= t 'dashboard.index.missing_timesheets' %>
-            <a href="#" class="btn btn-xs btn-info pull-right" data-function="toggle" data-target="oldts" data-toggletext="<%= t('.hide_old_entries')%>"><%= t('.show_old_entries')%></a>
+            <label class="checkbox-inline pull-right">
+              <input type="checkbox" value="" checked data-toggle-visibility="true" data-target-class="old-ts">
+              <small><%= t '.toggle_visibility' %></small>
+            </label>
           </h4>
           
         </div>
@@ -23,10 +26,7 @@
               <tbody>
                 <% @missing_timesheets.each do |dates,contract| %>
                   <% dates.each do |date| %>
-                    <tr <%= if date < Date.today.at_beginning_of_month << 1
-                              'class=oldts style=display:none;'
-                            end%>
-                      >
+                    <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
                       <td><%= l date, format: :short_month_year %></td>
                       <td><%= linked_name contract %></td>
                       <td><%= linked_name contract.responsible %></td>

@@ -102,14 +102,13 @@ $(document).ready(function() {
    */
   $('textarea[data-enable-autosize="true"]').autosize();
 
-
-  $('*[data-function="toggle"]').click(function(event) {
-    event.preventDefault()
-    var targetClass = $(this).attr('data-target');
-    var currentText = $(this).text();
-    $(this).text($(this).attr('data-toggletext'));
-    $(this).attr('data-toggletext', currentText);
-    $('.' + targetClass).toggle();
+  /**
+   * Enable toggling visibility with Javascript
+   */
+  $('*[data-toggle-visibility="true"]').click(function(event) {
+    if ($(this).prop('tagName') != 'INPUT') { event.preventDefault(); }
+    // Bootstrap class for visibility
+    $('.' + $(this).attr('data-target-class')).toggleClass("hidden");
   });
 
 });

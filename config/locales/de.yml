@@ -270,8 +270,7 @@ de:
     projects:
       projects: Meine Projekte
     missing_timesheets:
-      show_old_entries: Alte Einträge anzeigen
-      hide_old_entries: Alte Einträge ausblenden
+      toggle_visibility: Nur die letzten beiden Monate anzeigen
   errors:
     format: "%{attribute} %{message}"
     messages:

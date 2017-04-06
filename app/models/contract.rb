@@ -70,13 +70,12 @@ class Contract < ActiveRecord::Base
     self.monthly_work_hours ? self.monthly_work_hours * 60 : self.monthly_work_hours
   end
 
-  def missing_timesheets
-    date = Date.today - 1.month
-    date = end_date if date > end_date
-    contract_dates = ((start_date.at_beginning_of_month)..((date).at_beginning_of_month)).select{|d| d.day == 1}
-    valid_dates = time_sheets.select{|ts| ts.status = 'accepted'}.map{|ts| Date.new(ts.year, ts.month)}
+  def missing_timesheets(upto_date = Date.today - 1.month)
+    upto_date = end_date if upto_date > end_date
+    contract_dates = upto_date.downto(start_date)
+      .map { |d| d.change(day: 1) }.uniq
+    valid_dates = time_sheets.accepted.map(&:first_day)
     contract_dates.delete_if{|date| valid_dates.include? date }
-    contract_dates
   end
 
   # Return an ordered collection of time sheets of the contract
