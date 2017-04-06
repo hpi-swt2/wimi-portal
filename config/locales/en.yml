@@ -269,6 +269,9 @@ en:
       contract_ends_soon: Contract ends soon
     projects:
       projects: My Projects
+    missing_timesheets:
+      show_old_entries: show old entries
+      hide_old_entries: hide old entries
   errors:
     format: "%{attribute} %{message}"
     messages:

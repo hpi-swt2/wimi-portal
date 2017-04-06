@@ -102,4 +102,14 @@ $(document).ready(function() {
    */
   $('textarea[data-enable-autosize="true"]').autosize();
 
+
+  $('*[data-function="toggle"]').click(function(event) {
+    event.preventDefault()
+    var targetClass = $(this).attr('data-target');
+    var currentText = $(this).text();
+    $(this).text($(this).attr('data-toggletext'));
+    $(this).attr('data-toggletext', currentText);
+    $('.' + targetClass).toggle();
+  });
+
 });

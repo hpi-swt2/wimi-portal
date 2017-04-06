@@ -2,7 +2,11 @@
     <div class="display">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4><%= t 'dashboard.index.missing_timesheets' %></h4>
+          <h4>
+            <%= t 'dashboard.index.missing_timesheets' %>
+            <a href="#" class="btn btn-xs btn-info pull-right" data-function="toggle" data-target="oldts" data-toggletext="<%= t('.hide_old_entries')%>"><%= t('.show_old_entries')%></a>
+          </h4>
+          
         </div>
         <div class="panel-body panel-scroll">
           <% if @missing_timesheets.empty? %>
@@ -20,7 +24,10 @@
               <tbody>
                 <% @missing_timesheets.each do |dates,contract| %>
                   <% dates.each do |date| %>
-                    <tr>
+                    <tr <%= if date < Date.today.at_beginning_of_month << 1
+                              'class=oldts style=display:none;'
+                            end%>
+                      >
                       <td><%= l date, format: :short_month_year %></td>
                       <td><%= linked_name contract %></td>
                       <td><%= linked_name contract.responsible %></td>
