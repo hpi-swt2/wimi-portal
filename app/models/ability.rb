@@ -80,11 +80,12 @@ class Ability
   def initialize_admin(user)
     initialize_wimi user
     
-    can [:manage], Chair, chair_wimis: {user_id: user.id}
-    cannot [:destroy, :new, :create], Chair
+    can :manage, Chair, chair_wimis: { user_id: user.id }
     can :manage, Contract, chair_id: user.chair.id
-    
     can :manage, Project, chair_id: user.chair.id
+    can :read, TimeSheet, contract: { chair_id: user.chair.id }
+
+    cannot [:destroy, :new, :create], Chair
 
     can :show, Event do |e|
       e.related_chair == user.chair

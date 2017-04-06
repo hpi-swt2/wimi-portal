@@ -12,7 +12,7 @@ describe 'timesheets#show' do
       @user.update({include_comments: 'always'})
       @user.reload
 
-      visit time_sheets_path
+      visit contract_path(@time_sheet.contract)
 
       expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 1))
     end
@@ -20,7 +20,7 @@ describe 'timesheets#show' do
     it 'never, never includes comments' do
       @user.update({include_comments: 'never'})
       @user.reload
-      visit time_sheets_path
+      visit contract_path(@time_sheet.contract)
       expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 0))
     end
 
@@ -30,8 +30,8 @@ describe 'timesheets#show' do
       @time_sheet.work_days << @workday
       @time_sheet.save!
       expect(@time_sheet.has_comments?).to be true
-      visit time_sheets_path
-      expect(page).to have_current_path(time_sheets_path)
+      visit contract_path(@time_sheet.contract)
+      expect(page).to have_current_path(contract_path(@time_sheet.contract))
 
       # Link does not include 'include_comments' params 
       expect(page).to have_link(nil, download_time_sheet_path(@time_sheet))

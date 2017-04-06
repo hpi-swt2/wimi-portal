@@ -266,6 +266,7 @@ en:
       ending_contracts: Soon-Ending Contracts
       missing_timesheets: Missing Time Sheets
       dismissed: Dismissed entry.
+      contract_ends_soon: Contract ends soon
     projects:
       projects: My Projects
   errors:
@@ -453,6 +454,9 @@ en:
       already_member: "%{name} is already a member of this project."
       last_wimi: You are the last research assistant. You can not leave the project.
       successfully_added: "%{name} has been added successfully."
+  contracts:
+    show:
+      time_sheets_heading: Time Sheets of This Contract
   projects:
     create:
       success: Project was successfully created.

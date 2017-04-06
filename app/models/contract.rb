@@ -76,4 +76,13 @@ class Contract < ActiveRecord::Base
     contract_dates.delete_if{|date| valid_dates.include? date }
     contract_dates
   end
+
+  # Return an ordered collection of time sheets of the contract
+  # including unsaved instances representing missing time sheets
+  def time_sheets_including_missing(upto_date = end_date)
+    upto_date = end_date if upto_date > end_date
+    upto_date.downto(start_date)
+      .map { |d| [d.year, d.month] }.uniq
+      .map { |y, m| time_sheets.find_or_initialize_by(year: y, month: m) }
+  end
 end

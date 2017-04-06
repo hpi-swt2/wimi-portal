@@ -27,43 +27,73 @@
   </div>
 </div>
 
-<%# Soon-ending contracts %>
-<div class="col-md-12 col-sm-12">
-  <div class="display">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%= t '.ending_contracts' %></h4>
-      </div>
-      <div class="panel-body panel-scroll">
-        <% if @ending_contracts.empty? %>
-          <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
-        <% else %>
-          <table class="table table-condensed table-hover">
-            <thead>
-              <tr>
-                <th><%= Contract.human_attribute_name(:end_date) %></th>
-                <th><%= Contract.human_attribute_name(:hiwi) %></th>
-                <th><%= Contract.human_attribute_name(:responsible) %></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @ending_contracts.each do |contract| %>
-                <tr>
-                  <td><%= l contract.end_date, format: :short_month_year %></td>
-                  <td><%= linked_name contract.hiwi %></td>
-                  <td><%= linked_name contract.responsible %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% end %>
+<%# Time Sheets %>
+<% @own_contracts.each do |contract| %>
+  <div class="col-md-12 col-sm-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>
+            <%= t('activerecord.models.contract.one').titleize %> <%= linked_name contract %>
+            <% if @ending_contracts.include? contract %>
+              <span class="label label-danger pull-right"><%= t '.contract_ends_soon' %></span>
+            <% end %>
+            <%# if can?(:new, TimeSheet.new(contract: contract)) %>
+              <%# link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(contract), class: 'btn btn-success btn-sm pull-right' %>
+            <%# end %>
+          </h4>
+        </div>
+        <div class="panel-body panel-scroll">
+          <%= render partial: "time_sheets/table", locals: {contract: contract} %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
+
+<%# Soon-ending contracts %>
+<%# HiWis already see a warning on soone-ending contracts on the contract dashboard panel %>
+<% unless current_user.is_hiwi? %>
+  <div class="col-md-12 col-sm-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><%= t '.ending_contracts' %></h4>
+        </div>
+        <div class="panel-body panel-scroll">
+          <% if @ending_contracts.empty? %>
+            <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
+          <% else %>
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th><%= Contract.human_attribute_name(:end_date) %></th>
+                  <th><%= Contract.human_attribute_name(:hiwi) %></th>
+                  <th><%= Contract.human_attribute_name(:responsible) %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @ending_contracts.each do |contract| %>
+                  <tr>
+                    <td><%= l contract.end_date, format: :short_month_year %></td>
+                    <td><%= linked_name contract.hiwi %></td>
+                    <td><%= linked_name contract.responsible %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <%# Missing Timesheets %>
-<%= render partial: 'missing_timesheets' %>
+<%# HiWis already see their missing time sheets in the contract panel %>
+<% unless current_user.is_hiwi? %>
+  <%= render partial: 'missing_timesheets' %>
+<% end %>
 
 <%# Notifications %>
 <div class="col-md-12 col-sm-12">
@@ -116,14 +146,14 @@
     </div>
   <% end %>
 
-  <%# My Projects %>
-  <% unless current_user.projects.blank? %>
-    <%= render partial: 'projects' %>
-  <% end %>
-
   <%# My Contracts %>
   <%# could use "Contract.accessible_by(current_ability)", but  %>
   <% unless current_user.contracts.blank? %>
     <%= render partial: 'contracts' %>
+  <% end %>
+
+  <%# My Projects %>
+  <% unless current_user.projects.blank? %>
+    <%= render partial: 'projects' %>
   <% end %>
 <% end %>

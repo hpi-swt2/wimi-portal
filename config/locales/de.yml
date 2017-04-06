@@ -266,6 +266,7 @@ de:
       ending_contracts: Bald endende Verträge
       missing_timesheets: Fehlende Stundenzettel
       dismissed: Eintrag ausgeblendet.
+      contract_ends_soon: Vertrag endet bald
     projects:
       projects: Meine Projekte
   errors:
@@ -453,6 +454,9 @@ de:
       already_member: "%{name} ist bereits Mitglied dieses Projekts."
       last_wimi: Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.
       successfully_added: "%{name} wurde erfolgreich hinzugefügt."
+  contracts:
+    show:
+      time_sheets_heading: Stundenzettel dieses Vertrages
   projects:
     create:
       success: Projekt wurde erfolgreich erstellt.

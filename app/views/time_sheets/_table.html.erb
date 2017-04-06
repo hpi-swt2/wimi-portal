@@ -1,0 +1,80 @@
+<%- model_class = TimeSheet -%>
+
+<% time_sheets = contract.time_sheets_including_missing(Date.today).select {|ts| can? :show, ts} %>
+<% if time_sheets.empty? %>
+  <p> <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %> </p>
+<% else %>
+  <%= datatable_tag(class: "table-striped table-hover", searching: false, info: false) do %>
+    <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:month) %></th>
+        <th><%= model_class.human_attribute_name(:status) %></th>
+        <th><%= t('time_sheets.show.total_work_time') %></th>
+        <th data-orderable="false" class="action-heading"><%= t '.actions', default: t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% time_sheets.each do |time_sheet| %>
+        <%# Unsaved time sheet instances represent missing time sheets %>
+        <% if time_sheet.new_record? %>
+          <tr class="text-muted">
+            <td data-order="<%= time_sheet.first_day %>">
+              <%= "#{time_sheet.month}/#{time_sheet.year}" %> (<%= l time_sheet.first_day, format: :short_month %>)
+            </td>
+            <td>
+              ---
+            </td>
+            <td data-order="-1">
+              ---
+            </td>
+            <td>
+              <% if can?(:create, TimeSheet.new(contract: contract)) %>
+                <%= button_to t('helpers.titles.new', model: "#{TimeSheet.model_name.human.titleize} #{l time_sheet.first_day, format: :short_month_year}"),
+                  contract_create_for_month_year_path(contract, time_sheet.month, time_sheet.year), class: 'btn btn-success btn-xs' %>
+              <% end %>
+            </td>
+          </tr>
+        <% else %>
+          <tr>
+            <td data-order="<%= time_sheet.first_day %>">
+              <%= "#{time_sheet.month}/#{time_sheet.year}" %> (<%= l time_sheet.first_day, format: :short_month %>)
+            </td>
+            <td>
+              <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger"}[time_sheet.status] %>
+              <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{time_sheet.status}") %></span>
+            </td>
+            <td data-order="<%= time_sheet.sum_minutes %>">
+              <%= time_sheet.sum_minutes_formatted %> <%= "/ #{time_sheet.monthly_work_minutes_formatted}" if time_sheet.monthly_work_minutes_formatted %>
+            </td>
+            <td>
+              <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
+                          time_sheet_path(time_sheet),
+                          class: 'btn btn-default btn-xs' %>
+              <%# PDF links for all work_sheets, no matter their status %>
+              <%= render partial: 'time_sheets/pdf_link', locals: {time_sheet: time_sheet, btn_text: 'PDF', btn_class: 'btn btn-info btn-xs'} %>
+              <%= edit_button time_sheet, class: 'btn-xs' %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  <% end %> <%# datatable_tag %>
+<% end %> <%# if contract.time_sheets.empty? %>
+
+<% content_for :modals do %>
+    <%= render 'time_sheets/download_prompt' %>
+<% end %>
+
+<script>
+  $(function() {
+    $('#download-pdf-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var timesheetId = button.data('timesheet') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.dl-with-comments').attr('href', '/time_sheets/' + timesheetId + '/download?include_comments=1')
+      modal.find('.dl-without-comments').attr('href', '/time_sheets/' + timesheetId + '/download?include_comments=0')
+    });
+  });
+</script>

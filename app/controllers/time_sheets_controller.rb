@@ -4,20 +4,11 @@ class TimeSheetsController < ApplicationController
   layout "action_sidebar"
 
   load_and_authorize_resource
-  skip_authorize_resource only: [:download, :create, :current]
+  skip_authorize_resource only: [:download, :create, :current, :create_for_month_year]
   
   rescue_from CanCan::AccessDenied do |_exception|
     flash[:error] = t('not_authorized')
     redirect_to dashboard_path
-  end
-
-  def index
-    @all_contracts = Contract.all.order(end_date: :desc).select {|c| can? :index, c}
-    @contracts = @all_contracts
-    if params[:contract].present?
-      # Cannot use 'where' clause, as @all_contracts is an array due to use of previous 'select'
-      @contracts = @all_contracts.select{|c| c.id == params[:contract].to_i}
-    end
   end
 
   def show
@@ -51,6 +42,22 @@ class TimeSheetsController < ApplicationController
       flash[:success] = I18n.t('time_sheet.save')
     else
       render :new
+    end
+  end
+
+  def create_for_month_year
+    contract = Contract.find(params[:contract_id])
+    @time_sheet = TimeSheet.new(
+      month: params[:month],
+      year: params[:year],
+      contract: contract
+    )
+    authorize! :create, @time_sheet
+    if @time_sheet.save
+      redirect_to edit_time_sheet_path(@time_sheet)
+      flash[:success] = I18n.t('time_sheet.save')
+    else
+      redirect_to new_contract_time_sheet_path(contract)
     end
   end
 
@@ -119,7 +126,7 @@ class TimeSheetsController < ApplicationController
     @time_sheet.destroy
     #struggling with i18n, im sure this could be improved somehow
     flash[:success] = t('helpers.flash.destroyed', model: t('activerecord.models.time_sheet.one'))
-    redirect_to time_sheets_path
+    redirect_to dashboard_path
   end
 
   # Route that redirects to the current_user's first time sheet of this month
@@ -144,7 +151,7 @@ class TimeSheetsController < ApplicationController
         end
       else
         flash[:error] = I18n.t('time_sheet.no_contract')
-        redirect_to time_sheets_path
+        redirect_to dashboard_path
       end
     end
   end
