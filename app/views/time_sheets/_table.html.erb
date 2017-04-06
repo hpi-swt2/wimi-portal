@@ -52,7 +52,7 @@
                           class: 'btn btn-default btn-xs' %>
               <%# PDF links for all work_sheets, no matter their status %>
               <%= render partial: 'time_sheets/pdf_link', locals: {time_sheet: time_sheet, btn_text: 'PDF', btn_class: 'btn btn-info btn-xs'} %>
-              <%= edit_button time_sheet, class: 'btn-xs' %>
+              <%= edit_button_table time_sheet %>
             </td>
           </tr>
         <% end %>
