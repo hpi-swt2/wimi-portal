@@ -195,27 +195,27 @@ ActiveRecord::Schema.define(version: 20170406124853) do
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                     default: "",    null: false
+    t.string   "email",                      default: "",    null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "identity_url"
-    t.string   "language",                  default: "en",  null: false
-    t.integer  "personnel_number",          default: 0
-    t.integer  "remaining_leave",           default: 28
-    t.integer  "remaining_leave_last_year", default: 0
-    t.boolean  "superadmin",                default: false
+    t.string   "language",                   default: "en",  null: false
+    t.integer  "personnel_number",           default: 0
+    t.integer  "remaining_leave",            default: 28
+    t.integer  "remaining_leave_last_year",  default: 0
+    t.boolean  "superadmin",                 default: false
     t.string   "username"
-    t.string   "encrypted_password",        default: "",    null: false
+    t.string   "encrypted_password",         default: "",    null: false
     t.text     "signature"
-    t.integer  "sign_in_count",             default: 0,     null: false
+    t.integer  "sign_in_count",              default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "include_comments",           default: 2
     t.string   "event_settings"
-    t.integer  "include_comments",          default: 2
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

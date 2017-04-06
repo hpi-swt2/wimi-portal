@@ -4,7 +4,7 @@
 <% if time_sheets.empty? %>
   <p> <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %> </p>
 <% else %>
-  <%= datatable_tag(class: "table-striped table-hover", searching: false, info: false) do %>
+  <%= datatable_tag(class: "table-striped table-hover", searching: searching, info: info) do %>
     <thead>
       <tr>
         <th><%= model_class.human_attribute_name(:month) %></th>
