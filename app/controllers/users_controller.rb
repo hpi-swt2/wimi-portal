@@ -31,6 +31,7 @@ class UsersController < ApplicationController
       event_params = event_settings[:event_settings]
       @user.update(event_settings: event_params.map(&:to_i))
     else
+      # When no notification checkboxes are selected, event_settings is empty
       @user.clear_event_settings
     end
     if @user.update(user_params)
