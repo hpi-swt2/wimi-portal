@@ -384,7 +384,8 @@ en:
       confirm_delete: Are you sure that "%{model}" should be deleted?
       destroy: Delete
       download_pdf: Download as PDF
-      edit: Edit
+      edit: Edit %{model}
+      edit_short: Edit
       edit_leave: Edit Leave
       hand_in: Hand in
       new: New

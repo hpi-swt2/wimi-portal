@@ -32,7 +32,7 @@
                     <td><%= t(".status_#{project.status.to_s}") %></td>
                     <td>
                       <%= show_button project, class: 'btn-xs' %>
-                      <%= edit_button project, class: 'btn-xs' %>
+                      <%= edit_button_table project %>
                     </td>
                   </tr>
               <% end %>

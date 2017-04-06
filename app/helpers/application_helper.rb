@@ -37,7 +37,8 @@ module ApplicationHelper
   
   def action_button(action, model, link_args = {})
     link_args[:class] = 'btn ' + (link_args[:class] || '')
-    title = t(".#{action}", default: t("helpers.links.#{action}", model: model.model_name.human.titleize))
+    i18n_key = link_args[:additional_I18n] ? "_#{link_args[:additional_I18n]}" : ''
+    title = t(".#{action}", default: t("helpers.links.#{action}#{i18n_key}", model: model.model_name.human.titleize))
     can_link title, action, model, link_args
   end
   
@@ -50,6 +51,13 @@ module ApplicationHelper
   def edit_button(model, link_args = {})
     # <%= link_to t('helpers.links.edit'), edit_chair_path(chair), class: 'btn btn-warning btn-xs' %>
     link_args[:class] = 'btn-warning ' + (link_args[:class] || '')
+    action_button :edit, model, link_args
+  end
+
+  # Small version of edit button with short description for use in tables
+  def edit_button_table(model, link_args = {})
+    link_args[:class] = 'btn-warning btn-xs' + (link_args[:class] || '')
+    link_args[:additional_I18n] = 'short'
     action_button :edit, model, link_args
   end
   
