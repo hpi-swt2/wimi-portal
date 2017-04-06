@@ -18,7 +18,6 @@
                   <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
                   <th><%= t('activerecord.models.contract.one').capitalize %></th>
                   <th><%= Contract.human_attribute_name(:responsible).capitalize %></th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -31,7 +30,6 @@
                       <td><%= l date, format: :short_month_year %></td>
                       <td><%= linked_name contract %></td>
                       <td><%= linked_name contract.responsible %></td>
-                      <td><%= link_to "x", dismiss_contract_path(id: contract.id, month: date), class: "btn btn-xs btn-danger" %></td>
                     </tr>
                   <% end %>
                 <% end %>
