@@ -513,6 +513,8 @@ de:
     edit:
       note_placeholder: Notiz hinzufügen
     show:
+      time: Zeit
+      duration: Dauer
       empty_work_days: Keine Arbeitsstunden vorhanden
       create_next_month: Nächsten Monat erstellen
       next_month: Nächsten Monat anzeigen

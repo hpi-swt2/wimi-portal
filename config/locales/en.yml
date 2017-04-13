@@ -513,6 +513,8 @@ en:
     edit:
       note_placeholder: Add a note
     show:
+      time: Time
+      duration: Duration
       empty_work_days: No work days present
       create_next_month: Create sheet for next month
       next_month: Show next month
