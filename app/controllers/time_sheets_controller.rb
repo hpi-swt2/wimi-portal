@@ -81,8 +81,9 @@ class TimeSheetsController < ApplicationController
   end
 
   def withdraw
-    @time_sheet.update(status: 'created', handed_in: false)
-    flash[:success] = t('.flash')
+    if @time_sheet.update(status: 'created', handed_in: false)
+      flash[:success] = t('.flash')
+    end
     redirect_to time_sheet_path(@time_sheet)
   end
 
@@ -129,6 +130,20 @@ class TimeSheetsController < ApplicationController
     redirect_to dashboard_path
   end
 
+  def close
+    if @time_sheet.update(status: 'closed', handed_in: false)
+      flash[:success] = t('.flash')
+    end
+    redirect_to time_sheet_path(@time_sheet)
+  end
+  
+  def reopen
+    if @time_sheet.update(status: 'created', handed_in: false)
+      flash[:success] = t('.flash')
+    end
+    redirect_to time_sheet_path(@time_sheet)
+  end
+  
   # Route that redirects to the current_user's first time sheet of this month
   # Creates that timesheet if it's not there yet and a contract for today's date exists
   def current

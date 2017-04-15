@@ -19,7 +19,7 @@
         <% if time_sheet.new_record? %>
           <tr class="text-muted">
             <td data-order="<%= time_sheet.first_day %>">
-              <%= "#{time_sheet.month}/#{time_sheet.year}" %> (<%= l time_sheet.first_day, format: :short_month %>)
+              <%=  time_sheet.name %>
             </td>
             <td>
               ---
@@ -37,7 +37,7 @@
         <% else %>
           <tr>
             <td data-order="<%= time_sheet.first_day %>">
-              <%= "#{time_sheet.month}/#{time_sheet.year}" %> (<%= l time_sheet.first_day, format: :short_month %>)
+              <%=  time_sheet.name %>
             </td>
             <td>
               <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger"}[time_sheet.status] %>

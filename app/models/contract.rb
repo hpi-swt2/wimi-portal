@@ -39,12 +39,18 @@ class Contract < ActiveRecord::Base
   WEEKS_PER_MONTH = 4
 
   def time_sheet(month, year)
+    ts = peek_time_sheet(month, year)
+    ts.save! if ts.new_record?
+    ts
+  end
+  
+  def peek_time_sheet(month, year)
     d_start = Date.new(year, month).at_beginning_of_month
     d_end = d_start.at_end_of_month
     return nil unless start_date < d_end and end_date > d_start
     # if two contracts in one month, use existing contract's time sheet
     ts = TimeSheet.user(hiwi).month(month).year(year).where(contract: self).first
-    ts || TimeSheet.create!(month: month, year: year, contract: self)
+    ts || TimeSheet.new(month: month, year: year, contract: self)
   end
   
   def name
@@ -74,7 +80,7 @@ class Contract < ActiveRecord::Base
     upto_date = end_date if upto_date > end_date
     contract_dates = upto_date.downto(start_date)
       .map { |d| d.change(day: 1) }.uniq
-    valid_dates = time_sheets.accepted.map(&:first_day)
+    valid_dates = (time_sheets.accepted | time_sheets.closed).map(&:first_day)
     contract_dates.delete_if{|date| valid_dates.include? date }
   end
 

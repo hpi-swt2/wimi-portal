@@ -24,7 +24,8 @@ class Event < ActiveRecord::Base
   # is responsible for mapping to the correct event type
   enum type: [ :time_sheet_hand_in, :time_sheet_accept, :time_sheet_decline,
     :project_create, :project_join, :project_leave, :chair_join, :chair_leave,
-    :chair_add_admin, :contract_create, :contract_extend
+    :chair_add_admin, :contract_create, :contract_extend,
+    :time_sheet_closed
   ]
 
   validates_presence_of :user, :target_user, :object

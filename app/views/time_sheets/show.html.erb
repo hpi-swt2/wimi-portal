@@ -10,7 +10,7 @@
       <div class="col-md-12">
         <p>
           <strong><%= model_class.human_attribute_name(:status) %>:</strong>
-          <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger"}[@time_sheet.status] %>
+          <% label_type = {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger", "closed" => "primary"}[@time_sheet.status] %>
           <span class="label label-<%= label_type %>"><%= t("activerecord.attributes.time_sheet.status_enum.#{@time_sheet.status}") %></span>
         </p>
         <% if @time_sheet.status.in?(['accepted', 'rejected']) %>
@@ -128,7 +128,8 @@
     <%= render 'wimi_actions' %>
   <% end %>
   <%# hand in button, sign checkbox %>
-  <% if (can? :see_hiwi_actions, @time_sheet) and (not @time_sheet.handed_in?) and (@time_sheet.user == current_user) %>
+  <%# if (can? :see_hiwi_actions, @time_sheet) and (not @time_sheet.handed_in?) and (@time_sheet.user == current_user) %>
+  <% if can? :hand_in, @time_sheet %>
     <%= render 'hand_in' %>
     <hr>
   <% end %>
@@ -138,6 +139,9 @@
   <%= render partial: 'pdf_link', locals: {time_sheet: @time_sheet, btn_text: t('helpers.links.download_pdf'), btn_class: 'btn btn-block btn-info'} %>
   <%# Withdraw timesheet %>
   <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
+  <%# Close and Reopen timesheet %>
+  <%= action_button :close, @time_sheet , class: 'btn-block btn-danger' %>
+  <%= action_button :reopen, @time_sheet , class: 'btn-block btn-warning' %>
   <%# Month switch buttons %>
   <hr>
   <% if @next_month %>

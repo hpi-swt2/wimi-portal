@@ -71,9 +71,10 @@ en:
         status: Status
         status_enum:
           accepted: accepted
-          created: created
+          created: open
           pending: handed in
           rejected: rejected
+          closed: closed
       trip:
         annotation: Annotations
         created_at: Created at
@@ -320,6 +321,7 @@ en:
       time_sheet_hand_in: Time sheet handed in
       time_sheet_accept: Time sheet accepted
       time_sheet_decline: Time sheet declined
+      time_sheet_closed: Time sheet closed
       project_create: Project creation
       project_join: Someone joined project
       project_leave: Someone left project
@@ -382,6 +384,7 @@ en:
       withdraw: Withdraw
       back: Back
       cancel: Cancel
+      close: Close
       confirm: Are you sure?
       confirm_delete: Are you sure that "%{model}" should be deleted?
       destroy: Delete
@@ -391,6 +394,7 @@ en:
       edit_leave: Edit Leave
       hand_in: Hand in
       new: New
+      reopen: Reopen
       save: Save
       show: Show
       show_details: Show Details
@@ -542,6 +546,10 @@ en:
       signature_info: In order to sign, a signature must be available.
     withdraw:
       flash: Time sheet was successfully withdrawn
+    close:
+        flash: Time sheet was closed.
+    reopen:
+        flash: Time sheet was re-opened.
   trip:
     applied: Trip is already applied
     destroyed: Trip was successfully destroyed

@@ -1,42 +1,60 @@
+<% if @missing_timesheets.empty? %>
+  <%#= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
+<% else %>
 <div class="col-md-12 col-sm-12" id="missing_timesheets">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>
-            <%= t 'dashboard.index.missing_timesheets' %>
-            <label class="checkbox-inline pull-right">
-              <input type="checkbox" value="" checked data-toggle-visibility="true" data-target-class="old-ts">
-              <small><%= t '.toggle_visibility' %></small>
-            </label>
-          </h4>
-          
-        </div>
-        <div class="panel-body panel-scroll">
-          <% if @missing_timesheets.empty? %>
-            <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
-          <% else %>
-            <table class="table table-condensed table-hover">
-              <thead>
-                <tr>
-                  <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
-                  <th><%= t('activerecord.models.contract.one').capitalize %></th>
-                  <th><%= Contract.human_attribute_name(:responsible).capitalize %></th>
+  <div class="display">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>
+          <%= t 'dashboard.index.missing_timesheets' %>
+          <label class="checkbox-inline pull-right">
+            <input type="checkbox" value="" checked data-toggle-visibility="true" data-target-class="old-ts">
+            <small><%= t '.toggle_visibility' %></small>
+          </label>
+        </h4>
+
+      </div>
+      <div class="panel-body panel-scroll">
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
+              <th><%= t('activerecord.models.contract.one').capitalize %></th>
+              <th><%= Contract.human_attribute_name(:responsible).capitalize %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @missing_timesheets.each do |dates,contract| %>
+              <% dates.each do |date| %>
+                <% ts = contract.peek_time_sheet(date.month, date.year) %>
+                <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
+                  <td><%= ts.name %></td>
+                  <td><%= linked_name contract %></td>
+                  <td><%= linked_name contract.responsible %></td>
+                  <td>
+                    <% if can? :close, ts %>
+                      <% if ts.new_record? %>
+                        <% if can?(:create, ts) %>
+                          <%= button_to t('helpers.links.new'),
+                            contract_create_for_month_year_path(contract, ts.month, ts.year), class: 'btn btn-success btn-xs' %>
+                        <% end %>
+                        <%# here be dragons %>
+                      <% else %>
+                        <%= show_button ts, class: 'btn-xs' %>
+                        <%= edit_button_table ts %>
+                        <%# todo: use js %>
+                        <%= link_to t('helpers.links.close'), close_time_sheet_path(ts), class: 'btn btn-xs btn-danger' %> 
+                      <% end %>
+                    <% end %>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                <% @missing_timesheets.each do |dates,contract| %>
-                  <% dates.each do |date| %>
-                    <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
-                      <td><%= l date, format: :short_month_year %></td>
-                      <td><%= linked_name contract %></td>
-                      <td><%= linked_name contract.responsible %></td>
-                    </tr>
-                  <% end %>
-                <% end %>
-              </tbody>
-            </table>
-          <% end %>
-        </div>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
+<% end %>

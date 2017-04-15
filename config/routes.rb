@@ -64,6 +64,8 @@ Rails.application.routes.draw do
       patch 'hand_in'
       get 'accept_reject'
       get 'download'
+      get 'close'
+      get 'reopen'
     end
     collection do
       get 'current'
