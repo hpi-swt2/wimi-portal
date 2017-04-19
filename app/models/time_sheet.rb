@@ -217,10 +217,10 @@ class TimeSheet < ActiveRecord::Base
 
   private
 
-  # Initialize the TimeSheet to status "created".
-  # As "pending" is first in the enum definition, it is the standard
+  # Initialize the TimeSheet to status "created", if not other status is set.
+  # As "pending" is first in the enum definition, it is normally the standard
   def set_default_status
-    self.status = "created"
+    self.status = :created if TimeSheet.statuses.keys.first == self.status
   end
 
   def unique_date

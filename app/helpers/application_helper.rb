@@ -104,4 +104,8 @@ module ApplicationHelper
       I18n.t('helpers.timespan.hours_minutes', hours: h.to_i, minutes: m.to_i)
     end
   end
+
+  def status_label_css(status)
+    {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger", "closed" => "success"}[status]
+  end
 end

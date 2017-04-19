@@ -52,6 +52,8 @@ class TimeSheetsController < ApplicationController
       year: params[:year],
       contract: contract
     )
+    # :status is an optional URL parameter
+    @time_sheet.status = params[:status] if params[:status]
     authorize! :create, @time_sheet
     if @time_sheet.save
       redirect_to edit_time_sheet_path(@time_sheet)

@@ -40,6 +40,7 @@ class Contract < ActiveRecord::Base
 
   def time_sheet(month, year)
     ts = peek_time_sheet(month, year)
+    return nil unless ts.present?
     ts.save! if ts.new_record?
     ts
   end
@@ -47,7 +48,7 @@ class Contract < ActiveRecord::Base
   def peek_time_sheet(month, year)
     d_start = Date.new(year, month).at_beginning_of_month
     d_end = d_start.at_end_of_month
-    return nil unless start_date < d_end and end_date > d_start
+    return nil unless start_date <= d_end and end_date >= d_start
     # if two contracts in one month, use existing contract's time sheet
     ts = TimeSheet.user(hiwi).month(month).year(year).where(contract: self).first
     ts || TimeSheet.new(month: month, year: year, contract: self)

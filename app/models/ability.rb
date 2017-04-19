@@ -36,7 +36,6 @@ class Ability
     can :new, TimeSheet if user.current_contracts.any?
     can [:index, :show], TimeSheet, user: { id: user.id }
     can [:update, :hand_in, :destroy, :create, :close], TimeSheet, handed_in: false, user: { id: user.id }
-    cannot [:hand_in, :destroy, :close], TimeSheet, status: 'closed'
     can :reopen, TimeSheet, status: 'closed', user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
     can :create_next_month, TimeSheet do |ts|
@@ -86,6 +85,7 @@ class Ability
     can :manage, Contract, chair_id: user.chair.id
     can :manage, Project, chair_id: user.chair.id
     can [:read, :close], TimeSheet, contract: { chair_id: user.chair.id }
+    can [:create], TimeSheet, status: 'closed', contract: { chair_id: user.chair.id }
 
     cannot [:destroy, :new, :create], Chair
 
@@ -107,5 +107,6 @@ class Ability
   # Ensure these rules are applied last
   def initialize_after(user)
     cannot :receive_email, Event, user: { id: user.id }
+    cannot [:hand_in, :destroy, :close], TimeSheet, status: 'closed'
   end
 end

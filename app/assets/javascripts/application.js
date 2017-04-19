@@ -82,7 +82,7 @@ $(document).ready(function() {
       url: function (params) {
         return '/users/autocomplete/' + params.term;
       },
-      /* query is in the form /users/autocomplete/<query> */
+      // query is in the form /users/autocomplete/<query>
       data: function (params) {return ''},
       dataType: 'json',
       delay: 250,
@@ -97,18 +97,35 @@ $(document).ready(function() {
     }
   });
 
-  /**
+  /*
    * Autosize JQuery plugin configuration
    */
   $('textarea[data-enable-autosize="true"]').autosize();
 
-  /**
+  /*
    * Enable toggling visibility with Javascript
    */
   $('*[data-toggle-visibility="true"]').click(function(event) {
     if ($(this).prop('tagName') != 'INPUT') { event.preventDefault(); }
     // Bootstrap class for visibility
     $('.' + $(this).attr('data-target-class')).toggleClass("hidden");
+  });
+
+  /*
+   * Enable making buttons to POST routes (i.e. forms that make POST requests in Rails 4)
+   * created with the 'button_to' helper submit via JS, without reloading the page
+   * The table row the button was in can be optionally also removed
+   */
+  $('input[type="submit"][data-toggle="js-submit"]').click(function(event) {
+    // Do not execute the default action of submitting the form and reloading the page
+    event.preventDefault();
+    // If the 'data-row-remove' attribute is set, get the closest tr, otherwise remove nothing
+    var $rowToRemove = $(this).attr('data-row-remove') ? $(this).closest('tr') : '';
+    $.post($(this.form).attr('action'))
+      .fail(function(e) { console.error('ERROR: ', e) })
+      .done(function() {
+        $rowToRemove.remove();
+      })
   });
 
 });
