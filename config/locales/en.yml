@@ -266,7 +266,6 @@ en:
       notifications: Newest Notifications
       ending_contracts: Soon-Ending Contracts
       missing_timesheets: Missing Time Sheets
-      dismissed: Dismissed entry.
       contract_ends_soon: Contract ends soon
     projects:
       projects: My Projects
@@ -521,6 +520,8 @@ en:
     edit:
       note_placeholder: Add a note
     show:
+      time: Time
+      duration: Duration
       empty_work_days: No work days present
       create_next_month: Create sheet for next month
       next_month: Show next month

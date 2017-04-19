@@ -266,7 +266,6 @@ de:
       notifications: Neueste Benachrichtigungen
       ending_contracts: Bald endende Verträge
       missing_timesheets: Fehlende Stundenzettel
-      dismissed: Eintrag ausgeblendet.
       contract_ends_soon: Vertrag endet bald
     projects:
       projects: Meine Projekte
@@ -521,6 +520,8 @@ de:
     edit:
       note_placeholder: Notiz hinzufügen
     show:
+      time: Zeit
+      duration: Dauer
       empty_work_days: Keine Arbeitsstunden vorhanden
       create_next_month: Nächsten Monat erstellen
       next_month: Nächsten Monat anzeigen

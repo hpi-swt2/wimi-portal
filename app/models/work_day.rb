@@ -64,6 +64,13 @@ class WorkDay < ActiveRecord::Base
     format("%d:%02d", hours, minutes)
   end
 
+  def self.status_mapping
+    {
+      'K' => I18n.t('activerecord.attributes.work_day.attendance_options.sick'),
+      'F' => I18n.t('activerecord.attributes.work_day.attendance_options.holiday')
+    }
+  end
+
   private
 
   def default_values

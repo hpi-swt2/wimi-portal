@@ -112,6 +112,12 @@ $(document).ready(function() {
   });
 
   /*
+   * Enable Bootstrap tooltips
+   * http://getbootstrap.com/javascript/#tooltips-usage
+   */
+   $('[data-toggle="tooltip"], "a[rel~=tooltip], .has-tooltip').tooltip()
+
+  /*
    * Enable making buttons to POST routes (i.e. forms that make POST requests in Rails 4)
    * created with the 'button_to' helper submit via JS, without reloading the page
    * The table row the button was in can be optionally also removed

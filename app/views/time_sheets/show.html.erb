@@ -33,7 +33,7 @@
         <% end %>
         <p>
           <strong><%= model_class.human_attribute_name(:handed_in) %>:</strong>
-          <%= t @time_sheet.handed_in.to_s %> <%= "(#{l @time_sheet.hand_in_date})" if @time_sheet.hand_in_date %>
+          <%= t @time_sheet.handed_in.to_s %> <%= "(#{l @time_sheet.hand_in_date})" if @time_sheet.handed_in and @time_sheet.hand_in_date %>
         </p>
         <% if @time_sheet.status.in? ['pending', 'accepted'] %>
           <p>
@@ -75,39 +75,25 @@
         <div class="col-md-12">
           <table id="work-days" class="table table-hover time_sheet_form">
             <tr>
-              <th colspan="2"><%= t('activerecord.attributes.work_day.date') %></th>
-              <th><%= t('activerecord.attributes.work_day.start_time') %></th>
-              <th><%= t('activerecord.attributes.work_day.break') %></th>
-              <th><%= t('activerecord.attributes.work_day.end_time') %></th>
-              <th><%= t('activerecord.attributes.work_day.notes') %></th>
-              <th style="width:200px;"><%= t('activerecord.attributes.work_day.project') %></th>
-              <th><%= t('activerecord.attributes.work_day.attendance') %></th>
+              <th colspan="2"><%= WorkDay.human_attribute_name(:date) %></th>
+              <th><%= t('.time') %></th>
+              <th><%= WorkDay.human_attribute_name(:break) %></th>
+              <th><%= t('.duration') %></th>
+              <th><%= WorkDay.human_attribute_name(:notes) %></th>
+              <th style="width:200px;"><%= WorkDay.human_attribute_name(:project) %></th>
+              <th><%# Attendance, e.g. ill or public holiday %></th>
             </tr>
             <% @time_sheet.work_days.each do |w| %>
               <tr class="work_day_tr">
+                <td><%= l w.date, format: :weekday_short %></td>
+                <td><%= l w.date, format: :day_month %></td>
+                <td><%= "#{l w.start_time, format: :hours_minutes} &mdash; #{l w.end_time, format: :hours_minutes}".html_safe %></td>
+                <td><%= w.break > 0 ? "#{w.break} min" : '---' %></td>
+                <td><%= "#{w.duration_hours_minutes} h" %></td>
+                <td class="notes"><%= w.notes %></td>
+                <td><%= w.project.title %></td>
                 <td>
-                  <%= l w.date, format: :weekday_short %>
-                </td>
-                <td>
-                  <%= l w.date, format: :day_month %>
-                </td>
-                <td>
-                  <%= l w.start_time, format: :hours_minutes %>
-                </td>
-                <td>
-                  <%= w.break %>
-                </td>
-                <td>
-                  <%= l w.end_time, format: :hours_minutes %>
-                </td>
-                <td class="notes">
-                  <%= w.notes %>
-                </td>
-                <td>
-                  <%= w.project.title %>
-                </td>
-                <td>
-                  <%= w.status %>
+                  <span data-toggle="tooltip" data-placement="top" title="<%= WorkDay.status_mapping[w.status] %>"><%= w.status %></span>
                 </td>
               </tr>
             <% end %>
