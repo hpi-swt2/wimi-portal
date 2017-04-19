@@ -1,6 +1,3 @@
-<% if @missing_timesheets.empty? %>
-  <%#= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
-<% else %>
 <div class="col-md-12 col-sm-12" id="missing_timesheets">
   <div class="display">
     <div class="panel panel-default">
@@ -15,6 +12,9 @@
 
       </div>
       <div class="panel-body panel-scroll">
+        <% if @missing_timesheets.empty? %>
+          <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
+        <% else %>
         <table class="table table-condensed table-hover">
           <thead>
             <tr>
@@ -53,8 +53,8 @@
             <% end %>
           </tbody>
         </table>
+      <% end %>
       </div>
     </div>
   </div>
 </div>
-<% end %>
