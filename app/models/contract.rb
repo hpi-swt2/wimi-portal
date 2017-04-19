@@ -80,6 +80,7 @@ class Contract < ActiveRecord::Base
     upto_date = end_date if upto_date > end_date
     contract_dates = upto_date.downto(start_date)
       .map { |d| d.change(day: 1) }.uniq
+    # accepted and closed are scopes defined by the status enum
     valid_dates = (time_sheets.accepted | time_sheets.closed).map(&:first_day)
     contract_dates.delete_if{|date| valid_dates.include? date }
   end

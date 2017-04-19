@@ -133,6 +133,7 @@ class TimeSheetsController < ApplicationController
   def close
     if @time_sheet.update(status: 'closed', handed_in: false)
       flash[:success] = t('.flash')
+      Event.add(:time_sheet_closed, current_user, @time_sheet, @time_sheet.user)
     end
     redirect_to time_sheet_path(@time_sheet)
   end
