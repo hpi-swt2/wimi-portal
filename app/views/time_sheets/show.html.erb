@@ -141,8 +141,8 @@
   <%# Withdraw timesheet %>
   <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
   <%# Close and Reopen timesheet %>
-  <%= action_button :close, @time_sheet , class: 'btn-block btn-danger' %>
-  <%= action_button :reopen, @time_sheet , class: 'btn-block btn-default' %>
+  <%= action_button :reopen, @time_sheet, class: 'btn-block btn-default' %>
+  <%= action_button :close, @time_sheet, method: :post, class: 'btn-block btn-danger' %>
   <%# Month switch buttons %>
   <hr>
   <% if @next_month %>
