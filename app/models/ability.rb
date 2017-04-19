@@ -108,5 +108,6 @@ class Ability
   def initialize_after(user)
     cannot :receive_email, Event, user: { id: user.id }
     cannot [:hand_in, :destroy, :close], TimeSheet, status: 'closed'
+    cannot [:close], TimeSheet, status: 'accepted'
   end
 end
