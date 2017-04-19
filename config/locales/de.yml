@@ -331,6 +331,8 @@ de:
       chair_add_admin: Adminrechte gewährt
       contract_create: Vertragserstellung
       contract_extend: Vertragsverlängerung
+    extended_message:
+      time_sheet_closed: Bitte stelle sicher, dass die Arbeitsstunden korrekt eingetragen sind.
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
