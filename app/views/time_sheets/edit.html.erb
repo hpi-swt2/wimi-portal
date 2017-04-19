@@ -74,7 +74,7 @@
                   <%= content_tag :span, t.object.errors[:project_id].join(', '), :class => "help-block" if t.object.errors[:project_id].any? %>
                 </td>
                 <td>
-                  <%= t.select(:status, [["",""], [t('activerecord.attributes.work_day.attendance_options.sick'), 'K'], [t('activerecord.attributes.work_day.attendance_options.holiday'), 'F']], {}, {class: 'form-control'}) %>
+                  <%= t.select(:status, [["",""]].concat(WorkDay.status_mapping.map {|k,v| [v,k]}), {}, {class: 'form-control'}) %>
                 </td>
               </tr>
             <% end %>

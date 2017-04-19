@@ -97,12 +97,12 @@ $(document).ready(function() {
     }
   });
 
-  /**
+  /*
    * Autosize JQuery plugin configuration
    */
   $('textarea[data-enable-autosize="true"]').autosize();
 
-  /**
+  /*
    * Enable toggling visibility with Javascript
    */
   $('*[data-toggle-visibility="true"]').click(function(event) {
@@ -110,5 +110,11 @@ $(document).ready(function() {
     // Bootstrap class for visibility
     $('.' + $(this).attr('data-target-class')).toggleClass("hidden");
   });
+
+  /*
+   * Enable Bootstrap tooltips
+   * http://getbootstrap.com/javascript/#tooltips-usage
+   */
+   $('[data-toggle="tooltip"], "a[rel~=tooltip], .has-tooltip').tooltip()
 
 });

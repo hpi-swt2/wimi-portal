@@ -91,7 +91,9 @@
                 <td><%= "#{w.duration_hours_minutes} h" %></td>
                 <td class="notes"><%= w.notes %></td>
                 <td><%= w.project.title %></td>
-                <td><%= w.status %></td>
+                <td>
+                  <span data-toggle="tooltip" data-placement="top" title="<%= WorkDay.status_mapping[w.status] %>"><%= w.status %></span>
+                </td>
               </tr>
             <% end %>
           </table>
