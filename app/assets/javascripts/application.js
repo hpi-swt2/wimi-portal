@@ -115,6 +115,6 @@ $(document).ready(function() {
    * Enable Bootstrap tooltips
    * http://getbootstrap.com/javascript/#tooltips-usage
    */
-   $('[data-toggle="tooltip"], "a[rel~=tooltip], .has-tooltip').tooltip()
+   $('*[data-toggle="tooltip"], a[rel~=tooltip], .has-tooltip').tooltip()
 
 });
