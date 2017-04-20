@@ -3,5 +3,9 @@
 <p><%= l @event.created_at %></p>
 <p><%= render partial: "shared/event_message", locals: {event: @event} %></p>
 
+
+<% extended = t("event.extended_message.#{@event.type}", default: '') %>
+<%= content_tag :p, extended if extended %>
+
 <br>
 <p><%= t('.your_wimi_portal') %></p>

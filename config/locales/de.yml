@@ -71,9 +71,10 @@ de:
         status: Status
         status_enum:
           accepted: angenommen
-          created: erstellt
+          created: offen
           pending: eingereicht
           rejected: abgelehnt
+          closed: geschlossen
       trip:
         annotation: Bemerkungen
         created_at: Erstellungsdatum
@@ -307,6 +308,7 @@ de:
     time_sheet_hand_in: "%{user} hat den Stundenzettel %{obj} eingereicht, Verantwortlicher: %{target_user}"
     time_sheet_accept: "%{user} hat den Stundenzettel %{obj} von %{target_user} akzeptiert"
     time_sheet_decline: "%{user} hat den Stundenzettel %{obj} von %{target_user} abgelehnt"
+    time_sheet_closed: "%{user} hat den Stundenzettel %{obj} von %{target_user} geschlossen, in Papierform abgegeben"
     project_create: "%{user} hat das Projekt %{obj} erstellt"
     project_join: "%{user} hat %{target_user} zu %{obj} hinzugefügt"
     project_leave: "%{user} hat %{target_user} aus dem Projekt %{obj} entfernt"
@@ -319,6 +321,7 @@ de:
       time_sheet_hand_in: Stundenzettel eingereicht
       time_sheet_accept: Stundenzettel angenommen
       time_sheet_decline: Stundenzettel abgelehnt
+      time_sheet_closed: Stundenzettel geschlossen
       project_create: Neues Projekt erstellt
       project_join: Neues Projektmitglied
       project_leave: Projektmitglied entfernt
@@ -327,6 +330,8 @@ de:
       chair_add_admin: Adminrechte gewährt
       contract_create: Vertragserstellung
       contract_extend: Vertragsverlängerung
+    extended_message:
+      time_sheet_closed: Bitte stelle sicher, dass die Arbeitsstunden korrekt eingetragen sind.
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
@@ -381,6 +386,7 @@ de:
       withdraw: Zurücknehmen
       back: Zurück
       cancel: Abbrechen
+      close: Schließen
       confirm: Sicher?
       confirm_delete: Sind sie sicher, dass "%{model}" gelöscht werden soll?
       destroy: Löschen
@@ -390,6 +396,7 @@ de:
       edit_leave: Resturlaub bearbeiten
       hand_in: Einreichen
       new: Neu
+      reopen: Wieder eröffnen
       save: Speichern
       show: Anzeigen
       show_details: Details anzeigen
@@ -543,6 +550,10 @@ de:
       signature_info: Zum Unterschreiben muss eine Unterschrift vorhanden sein.
     withdraw:
       flash: Stundenzettel wurde erfolgreich zurückgenommen
+    close:
+      flash: Stundenzettel wurde geschlossen
+    reopen:
+      flash: Stundenzettel wurde wieder geöffnet
   trip:
     applied: Dienstreiseantrag bereits eingereicht
     destroyed: Dienstreiseantrag wurde erfolgreich gelöscht

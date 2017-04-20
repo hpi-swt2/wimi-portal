@@ -4,13 +4,13 @@ class DashboardController < ApplicationController
 
     @ending_contracts = contracts.ends_soon
 
-    @missing_timesheets = contracts.map do |contract|
+    @missing_timesheets = contracts.limit(50).map do |contract|
       missing = contract.missing_timesheets
       missing.present? ? [missing, contract] : nil
     end
     @missing_timesheets.compact!
 
-    @events = Event.limit(50)
+    @events = Event.limit(25)
       .order(created_at: :desc)
       .select { |e| current_ability.can?(:show, e)}
 

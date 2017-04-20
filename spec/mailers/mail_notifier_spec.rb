@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe ApplicationMailer, type: :mailer do
+  let(:user) { FactoryGirl.create(:user) }
+  
   describe "notification" do
-
-    let(:user) { FactoryGirl.create(:user) }
     let(:event) { FactoryGirl.create(:event, user: user, target_user: user) }
     let(:mail) { ApplicationMailer.notification(event, user) }
 
@@ -26,6 +26,16 @@ RSpec.describe ApplicationMailer, type: :mailer do
     it "finds name of user in email" do
       expect(mail.body.encoded).to match(user.name)
     end
+  end
+
+  describe "notification" do
+    let(:event) { FactoryGirl.create(:event, user: user, target_user: user, type: 'time_sheet_closed') }
+    let(:mail) { ApplicationMailer.notification(event, user) }
+    
+    it "renders extended message" do
+      expect(mail.body.encoded).to match(I18n.t("event.extended_message.time_sheet_closed"))
+    end
+
   end
 
 end
