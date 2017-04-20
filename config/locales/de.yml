@@ -383,7 +383,7 @@ de:
       cancel: Abbrechen
       confirm: Sicher?
       confirm_delete: Sind sie sicher, dass "%{model}" gelöscht werden soll?
-      destroy: Löschen
+      destroy: "%{model} löschen"
       download_pdf: Als PDF herunterladen
       edit: "%{model} bearbeiten"
       edit_short: Bearbeiten 
