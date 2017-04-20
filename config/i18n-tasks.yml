@@ -89,6 +89,7 @@ search:
 ## Do not consider these keys missing:
 ignore_missing:
   - 'datatables'
+  - 'devise.*'
 #  - 'activerecord.attributes.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
