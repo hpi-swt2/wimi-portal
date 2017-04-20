@@ -2,7 +2,7 @@
 
 <%= l @event.created_at %>
 <%= render partial: "shared/event_message", locals: {event: @event, as_html: false} %>
-
 <%= polymorphic_url(@event.object) %>
+<%= t("event.extended_message.#{@event.type}", default: '') %>
 
 <%= t('.your_wimi_portal')  %>

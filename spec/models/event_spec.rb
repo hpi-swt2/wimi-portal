@@ -70,7 +70,8 @@ RSpec.describe Event, type: :model do
       "chair_leave"=>7,
       "chair_add_admin"=>8,
       "contract_create"=>9,
-      "contract_extend"=>10
+      "contract_extend"=>10,
+      "time_sheet_closed"=>11,
     }
     expect(Event.types).to eq(original_enum_order)
   end

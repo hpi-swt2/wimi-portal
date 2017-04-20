@@ -31,7 +31,7 @@ class TimeSheet < ActiveRecord::Base
 
   belongs_to :contract
   has_one :user, through: :contract, source: :hiwi
-  enum status: [:pending, :accepted, :rejected, :created]
+  enum status: [:pending, :accepted, :rejected, :created, :closed]
   # When a time sheet is destroyed, also destroy all of the connected work days
   has_many :work_days, :inverse_of => :time_sheet, dependent: :destroy
   has_many :events, as: :object, :dependent => :destroy
@@ -46,6 +46,10 @@ class TimeSheet < ActiveRecord::Base
 
   after_initialize :set_default_status, :if => :new_record?
 
+  def name
+    I18n.l first_day, format: :short_month_year
+  end
+  
   def hand_in
     # Update also saves, returns false if saving failed
     # http://apidock.com/rails/ActiveRecord/Persistence/update
@@ -213,10 +217,10 @@ class TimeSheet < ActiveRecord::Base
 
   private
 
-  # Initialize the TimeSheet to status "created".
-  # As "pending" is first in the enum definition, it is the standard
+  # Initialize the TimeSheet to status "created", if not other status is set.
+  # As "pending" is first in the enum definition, it is normally the standard
   def set_default_status
-    self.status = "created"
+    self.status = :created if TimeSheet.statuses.keys.first == self.status
   end
 
   def unique_date

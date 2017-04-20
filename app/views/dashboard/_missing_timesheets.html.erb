@@ -1,42 +1,60 @@
 <div class="col-md-12 col-sm-12" id="missing_timesheets">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>
-            <%= t 'dashboard.index.missing_timesheets' %>
-            <label class="checkbox-inline pull-right">
-              <input type="checkbox" value="" checked data-toggle-visibility="true" data-target-class="old-ts">
-              <small><%= t '.toggle_visibility' %></small>
-            </label>
-          </h4>
-          
-        </div>
-        <div class="panel-body panel-scroll">
-          <% if @missing_timesheets.empty? %>
-            <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
-          <% else %>
-            <table class="table table-condensed table-hover">
-              <thead>
-                <tr>
-                  <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
-                  <th><%= t('activerecord.models.contract.one').capitalize %></th>
-                  <th><%= Contract.human_attribute_name(:responsible).capitalize %></th>
+  <div class="display">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>
+          <%= t 'dashboard.index.missing_timesheets' %>
+          <label class="checkbox-inline pull-right">
+            <%# autocomplete="off" prevents Firefox from remembering the checkbox's state on refresh, see http://stackoverflow.com/questions/2486474 %>
+            <input type="checkbox" value="" autocomplete="off" checked data-toggle-visibility="true" data-target-class="old-ts">
+            <small><%= t '.toggle_visibility' %></small>
+          </label>
+        </h4>
+
+      </div>
+      <div class="panel-body panel-scroll">
+        <% if @missing_timesheets.empty? %>
+          <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
+        <% else %>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
+              <th><%= t('activerecord.models.contract.one').capitalize %></th>
+              <th><%= Contract.human_attribute_name(:responsible).capitalize %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @missing_timesheets.each do |dates,contract| %>
+              <% dates.each do |date| %>
+                <% ts = contract.peek_time_sheet(date.month, date.year) %>
+                <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
+                  <td><%= ts.name %></td>
+                  <td><%= linked_name contract %></td>
+                  <td><%= linked_name contract.responsible %></td>
+                  <td>
+                    <% if can? :close, ts %>
+                      <% if ts.new_record? %>
+                        <% ts.status = 'closed' %>
+                        <% if can?(:create, ts) %>
+                          <%# JS button that creates a closed time sheet and removes row %>
+                          <%= button_to t('helpers.links.close'), contract_create_for_month_year_path(contract, ts.month, ts.year, :closed), class: 'btn btn-default btn-xs', :data => { toggle: 'js-submit', row_remove: 'true' } %>
+                        <% end %>
+                        <%# Time sheet is not yet created, user cannot create, do nothing in this case %>
+                      <% else %>
+                        <%# JS button that closes existing time sheet and removes row %>
+                        <%= button_to t('helpers.links.close'), close_time_sheet_path(ts), class: 'btn btn-default btn-xs', :data => { toggle: 'js-submit', row_remove: 'true' } %> 
+                      <% end %>
+                    <% end %>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                <% @missing_timesheets.each do |dates,contract| %>
-                  <% dates.each do |date| %>
-                    <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
-                      <td><%= l date, format: :short_month_year %></td>
-                      <td><%= linked_name contract %></td>
-                      <td><%= linked_name contract.responsible %></td>
-                    </tr>
-                  <% end %>
-                <% end %>
-              </tbody>
-            </table>
-          <% end %>
-        </div>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
       </div>
     </div>
   </div>
+</div>

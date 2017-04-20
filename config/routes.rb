@@ -55,7 +55,8 @@ Rails.application.routes.draw do
 
   resources :contracts do
     resources :time_sheets, only: [:new, :create]
-    post ':month/:year', to: 'time_sheets#create_for_month_year', as: 'create_for_month_year'
+    # parameters in parenthesis are optional
+    post ':month/:year(/status/:status)', to: 'time_sheets#create_for_month_year', as: 'create_for_month_year'
   end
 
   resources :time_sheets, except: [:new, :index] do
@@ -64,6 +65,8 @@ Rails.application.routes.draw do
       patch 'hand_in'
       get 'accept_reject'
       get 'download'
+      post 'close'
+      get 'reopen'
     end
     collection do
       get 'current'

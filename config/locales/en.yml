@@ -71,9 +71,10 @@ en:
         status: Status
         status_enum:
           accepted: accepted
-          created: created
+          created: open
           pending: handed in
           rejected: rejected
+          closed: closed
       trip:
         annotation: Annotations
         created_at: Created at
@@ -308,6 +309,7 @@ en:
     time_sheet_hand_in: "%{user} handed in time sheet %{obj} with responsible %{target_user}"
     time_sheet_accept: "%{user} accepted the time sheet %{obj} of %{target_user}"
     time_sheet_decline: "%{user} rejected the time sheet %{obj} of %{target_user}"
+    time_sheet_closed: "%{user} closed the time sheet %{obj} of %{target_user}, it was handed in manually"
     project_create: "%{user} created project %{obj}"
     project_join: "%{user} added %{target_user} to %{obj}"
     project_leave: "%{user} removed %{target_user} from project %{obj}"
@@ -320,6 +322,7 @@ en:
       time_sheet_hand_in: Time sheet handed in
       time_sheet_accept: Time sheet accepted
       time_sheet_decline: Time sheet declined
+      time_sheet_closed: Time sheet closed
       project_create: Project creation
       project_join: Someone joined project
       project_leave: Someone left project
@@ -328,6 +331,8 @@ en:
       chair_add_admin: Admin rights granted
       contract_create: Contract creation
       contract_extend: Contract extension
+    extended_message:
+      time_sheet_closed: Please make sure that the working hours were entered correctly.
   expense:
     applied: Expense is already applied
     destroyed: Expense was successfully destroyed
@@ -382,6 +387,7 @@ en:
       withdraw: Withdraw
       back: Back
       cancel: Cancel
+      close: Close
       confirm: Are you sure?
       confirm_delete: Are you sure that "%{model}" should be deleted?
       destroy: "Delete %{model}"
@@ -391,6 +397,7 @@ en:
       edit_leave: Edit Leave
       hand_in: Hand in
       new: New
+      reopen: Reopen
       save: Save
       show: Show
       show_details: Show Details
@@ -544,6 +551,10 @@ en:
       signature_info: In order to sign, a signature must be available.
     withdraw:
       flash: Time sheet was successfully withdrawn
+    close:
+        flash: Time sheet was closed.
+    reopen:
+        flash: Time sheet was re-opened.
   trip:
     applied: Trip is already applied
     destroyed: Trip was successfully destroyed
