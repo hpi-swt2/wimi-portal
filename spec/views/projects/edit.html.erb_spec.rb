@@ -32,7 +32,7 @@ RSpec.describe 'projects/edit', type: :view do
     @wimi.projects << project
     visit edit_project_path(project)
     expect(page).to have_delete_link(project)
-    click_on I18n.t('helpers.links.destroy')
+    find('a[data-method="delete"]').click
     expect(page).to have_content(I18n.t 'projects.destroy.success')
     expect(page).to have_no_content(project_title)
   end

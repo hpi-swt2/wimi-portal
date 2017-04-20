@@ -26,7 +26,7 @@ RSpec.describe 'trips/show', type: :view do
     render
     expect(rendered).to have_link(nil, hand_in_trip_path(@trip))
     expect(rendered).to have_link(nil, edit_trip_path(@trip))
-    expect(rendered).to have_link(t('helpers.links.destroy'))
+    expect(rendered).to have_css('a[data-method="delete"]')
   end
 
   it 'does not display links for editing, applying and destroing when status is applied ' do
