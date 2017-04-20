@@ -26,7 +26,7 @@ describe 'project filtering and searching' do
 
   it 'should filter by chair' do
     select @chair1.name, from: 'chair'
-    click_on 'Search'
+    click_on I18n.t('links.search')
 
     expect(page).to have_content(@project10.title)
     expect(page).to have_content(@project11.title)
@@ -35,7 +35,7 @@ describe 'project filtering and searching' do
 
   it 'should search for project title' do
     fill_in 'title', with: '0'
-    click_on 'Search'
+    click_on I18n.t('links.search')
 
     expect(page).to have_content(@project10.title)
     expect(page).to_not have_content(@project11.title)
@@ -45,7 +45,7 @@ describe 'project filtering and searching' do
   it 'should filter by project title and chair name' do
     select @chair1.name, from: 'chair'
     fill_in 'title', with: '0'
-    click_on 'Search'
+    click_on I18n.t('links.search')
 
     expect(page).to have_content(@project10.title)
     expect(page).to_not have_content(@project11.title)
