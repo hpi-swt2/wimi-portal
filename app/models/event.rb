@@ -37,7 +37,7 @@ class Event < ActiveRecord::Base
     if event.save
       return event
     end
-    logger.error 'Could not save event: #{event.inspect}'
+    logger.error "Could not save event: #{event.inspect}"
     return nil
   end
 
@@ -52,8 +52,8 @@ class Event < ActiveRecord::Base
   end
 
   def send_mail
-    self.users_want_mail.each do |user|
-      ApplicationMailer.notification(self, user)
+    users_want_mail.each do |user|
+      ApplicationMailer.notification(self, user).deliver_now
     end
   end
 

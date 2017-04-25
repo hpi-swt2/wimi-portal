@@ -448,7 +448,7 @@ en:
     submit: Submit
   application_mailer:
     notification:
-      hello: 'Hello #{name}'
+      hello: 'Hello %{name}'
       subject: '[WiMi-Portal] %{text}'
       your_wimi_portal: Your WiMi-Portal
   no_entries_yet: There are no %{target} yet.

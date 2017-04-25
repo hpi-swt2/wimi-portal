@@ -10,6 +10,7 @@ class ApplicationMailer < ActionMailer::Base
     subject = t('.subject', locale: user.language,
       text: t("event.user_friendly_name.#{@event.type}", locale: user.language)
     )
+    # default from is configured in environments.
     mail(to: user.email, subject: subject)
   end
 
