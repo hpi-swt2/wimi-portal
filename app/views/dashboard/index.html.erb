@@ -6,9 +6,7 @@
       <div class="panel-body novertpadding">
         <div class="row">
           <div class="col-md-12 col-sm-12">
-            <p>
-              <strong><%= t 'home.index.welcome' %></strong> <%= t 'home.index.user_html', user: (link_to current_user.name, user_path(current_user)) %>
-            </p>
+            <p><strong><%= t 'home.index.welcome', name: current_user.first_name %></strong></p>
             <% project_count, contract_count = current_user.projects.count, current_user.contracts.count %>
             <p>
               <%= t 'home.index.member_status_html',
