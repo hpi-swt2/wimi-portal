@@ -15,7 +15,7 @@
                 contract_count: contract_count,
                 contract: t('activerecord.models.contract', count: contract_count) %>
             </p>
-            <% if project_count == 0 or contract_count == 0 %>
+            <% if (project_count == 0 or contract_count == 0) and current_user.is_student? %>
               <p><%= t 'home.index.new_member' %></p>
             <% end %>
           </div>
