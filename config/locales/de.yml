@@ -271,6 +271,7 @@ de:
       projects: Meine Projekte
     missing_timesheets:
       toggle_visibility: Nur die letzten beiden Monate anzeigen
+      close_tooltip: "%{month} extern eingereicht"
   errors:
     format: "%{attribute} %{message}"
     messages:

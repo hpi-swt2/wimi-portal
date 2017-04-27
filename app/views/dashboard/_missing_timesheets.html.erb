@@ -22,7 +22,7 @@
               <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
               <th><%= t('activerecord.models.contract.one').capitalize %></th>
               <th><%= Contract.human_attribute_name(:responsible).capitalize %></th>
-              <th></th>
+              <th><%= t('helpers.actions') %></th>
             </tr>
           </thead>
           <tbody>
@@ -39,12 +39,16 @@
                         <% ts.status = 'closed' %>
                         <% if can?(:create, ts) %>
                           <%# JS button that creates a closed time sheet and removes row %>
-                          <%= button_to t('helpers.links.close'), contract_create_for_month_year_path(contract, ts.month, ts.year, :closed), class: 'btn btn-default btn-xs', :data => { toggle: 'js-submit', row_remove: 'true' } %>
+                          <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('.close_tooltip', month: ts.name) %>">
+                            <%= button_to t('helpers.links.close'), contract_create_for_month_year_path(contract, ts.month, ts.year, :closed), class: 'btn btn-default btn-xs', :data => { toggle: 'js-submit', row_remove: 'true' } %>
+                          </span>
                         <% end %>
                         <%# Time sheet is not yet created, user cannot create, do nothing in this case %>
                       <% else %>
                         <%# JS button that closes existing time sheet and removes row %>
-                        <%= button_to t('helpers.links.close'), close_time_sheet_path(ts), class: 'btn btn-default btn-xs', :data => { toggle: 'js-submit', row_remove: 'true' } %> 
+                        <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('.close_tooltip', month: ts.name) %>">
+                          <%= button_to t('helpers.links.close'), close_time_sheet_path(ts), class: 'btn btn-default btn-xs', :data => { toggle: 'js-submit', row_remove: 'true' } %>
+                        </span>
                       <% end %>
                     <% end %>
                   </td>
