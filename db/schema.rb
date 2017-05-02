@@ -225,8 +225,8 @@ ActiveRecord::Schema.define(version: 20170403133823) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "include_comments",          default: 2
     t.string   "event_settings"
+    t.integer  "include_comments",          default: 2
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
