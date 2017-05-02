@@ -388,7 +388,8 @@ en:
       withdraw: Withdraw
       back: Back
       cancel: Cancel
-      close: Close
+      close: "Mark %{model} as Handed in Externally"
+      close_short: Close
       confirm: Are you sure?
       confirm_delete: Are you sure that "%{model}" should be deleted?
       destroy: "Delete %{model}"

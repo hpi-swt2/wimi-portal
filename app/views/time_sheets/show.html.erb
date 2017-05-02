@@ -128,7 +128,9 @@
   <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
   <%# Close and Reopen timesheet %>
   <%= action_button :reopen, @time_sheet, class: 'btn-block btn-default' %>
-  <%= action_button :close, @time_sheet, method: :post, class: 'btn-block btn-danger' %>
+  <span class="btn-block" data-toggle="tooltip" data-placement="bottom" title="<%= t('dashboard.missing_timesheets.close_tooltip', month: @time_sheet.name) %>">
+    <%= action_button :close, @time_sheet, method: :post, class: 'btn-block btn-danger' %>
+  </span>
   <%# Month switch buttons %>
   <hr>
   <% if @next_month %>

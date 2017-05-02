@@ -388,7 +388,8 @@ de:
       withdraw: Zurücknehmen
       back: Zurück
       cancel: Abbrechen
-      close: Schließen
+      close: "%{model} als abgegeben markieren"
+      close_short: Schließen
       confirm: Sicher?
       confirm_delete: Sind sie sicher, dass "%{model}" gelöscht werden soll?
       destroy: "%{model} löschen"
