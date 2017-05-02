@@ -15,8 +15,7 @@ describe 'time_sheet#show' do
 
     it 'is possible to close a time sheet as a HiWi' do
       visit time_sheet_path(@time_sheet)
-      expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.close'))
-      click_on I18n.t('helpers.links.close')
+      click_on I18n.t('helpers.links.close', model: TimeSheet.model_name.human.titleize)
       expect(page).to have_current_path(time_sheet_path(@time_sheet))
       expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.closed"))
       expect(page).to have_success_flash_message

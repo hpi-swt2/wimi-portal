@@ -60,24 +60,26 @@ describe 'time_sheets#edit' do
 
   context 'when deleting a work day' do
     before :each do
-      @work_day = FactoryGirl.create(:work_day, time_sheet: @time_sheet_new, date: Date.today.beginning_of_month)
+      @note = 'A record of what was done'
+      @work_day = FactoryGirl.create(:work_day, time_sheet: @time_sheet_new, date: Date.today.beginning_of_month, notes: @note)
     end
 
     it 'is possible to clear a work day by inputting zeros' do
       visit edit_time_sheet_path(@time_sheet_new)
-      
+
       fill_in "time_sheet_work_days_attributes_0_start_time", with: '0'
       fill_in "time_sheet_work_days_attributes_0_break", with: '0'
       fill_in "time_sheet_work_days_attributes_0_end_time", with: '0'
-      fill_in "time_sheet_work_days_attributes_0_notes", with: ''
+      fill_in "time_sheet_work_days_attributes_0_notes", with: @note
 
       find('#hiddensubmit').click
       # No flash error
       expect(page).to_not have_css('div.alert-danger')
       # On successful update the overview is rendered
       # and doesn't list the removed work day
-      expect(page).to_not have_content(I18n.l(@work_day.date, format: :day_month))
-      expect(page).to_not have_content(I18n.l(@work_day.date, format: :weekday_short))
+      within '#main-content' do
+        expect(page).to_not have_content(@note)
+      end
     end
 
     it 'is possible to clear a work day by clearing all inputs' do

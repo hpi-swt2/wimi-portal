@@ -11,7 +11,7 @@ class ApplicationMailer < ActionMailer::Base
       text: t("event.user_friendly_name.#{@event.type}", locale: user.language)
     )
     # default from is configured in environments.
-    mail(to: user.email, subject: subject)
+    mail(to: user.email, subject: subject, content_type: "text/html")
   end
 
   private

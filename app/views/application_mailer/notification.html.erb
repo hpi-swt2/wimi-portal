@@ -1,6 +1,12 @@
 <p><%= t('.hello', name: @user.first_name) %>,</p>
 
-<p><%= l @event.created_at %>:<br> <%= render partial: "shared/event_message", locals: {event: @event} %></p>
+<p>
+<%= l @event.created_at %>:
+<br>
+<%= render partial: "shared/event_message", locals: {event: @event} %>
+<br>
+<%= polymorphic_url(@event.object) %>
+</p>
 
 <% extended = t("event.extended_message.#{@event.type}", default: '') %>
 <%= content_tag :p, extended if extended %>
