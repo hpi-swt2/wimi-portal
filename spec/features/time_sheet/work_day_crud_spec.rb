@@ -70,7 +70,6 @@ describe 'time_sheets#edit' do
       fill_in "time_sheet_work_days_attributes_0_start_time", with: '0'
       fill_in "time_sheet_work_days_attributes_0_break", with: '0'
       fill_in "time_sheet_work_days_attributes_0_end_time", with: '0'
-      fill_in "time_sheet_work_days_attributes_0_notes", with: @note
 
       find('#hiddensubmit').click
       # No flash error
