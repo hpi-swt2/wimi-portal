@@ -34,7 +34,7 @@
           <h4>
             <%= t('activerecord.models.contract.one').titleize %> <%= linked_name contract %>
             <% if @ending_contracts.include? contract %>
-              <span class="label label-danger pull-right"><%= t '.contract_ends_soon' %></span>
+              <span class="label label-danger pull-right"><%= "#{t '.contract_ends_soon'} (#{l(contract.end_date)})" %></span>
             <% end %>
             <%# if can?(:new, TimeSheet.new(contract: contract)) %>
               <%# link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(contract), class: 'btn btn-success btn-sm pull-right' %>
@@ -50,7 +50,7 @@
 <% end %>
 
 <%# Soon-ending contracts %>
-<%# HiWis already see a warning on soone-ending contracts on the contract dashboard panel %>
+<%# HiWis already see a warning on soon-ending contracts on the contract dashboard panel %>
 <% unless current_user.is_hiwi? %>
   <div class="col-md-12 col-sm-12">
     <div class="display">
