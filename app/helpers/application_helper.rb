@@ -67,7 +67,7 @@ module ApplicationHelper
     if(link_args[:confirm].nil?)
       model_class = model.model_name.human.titleize
       identifier = model.respond_to?(:name) ? "#{model_class} #{model.name}" : "#{model_class}"
-      link_args[:data] = {confirm: t("helpers.links.confirm_delete", model: identifier, default: 'Are you sure?')}
+      link_args[:data] = {confirm: t("helpers.links.confirm_action.message", model: identifier, action: t('helpers.links.confirm_action.delete'), default: 'Are you sure?')}
     else
       link_args[:data] = {confirm: link_args[:confirm]}
     end

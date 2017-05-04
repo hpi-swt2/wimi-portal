@@ -391,7 +391,10 @@ de:
       close: "%{model} als abgegeben markieren"
       close_short: Schließen
       confirm: Sicher?
-      confirm_delete: Sind sie sicher, dass "%{model}" gelöscht werden soll?
+      confirm_action:
+        message: Sind sie sicher, dass "%{model}" %{action} werden soll?
+        archive: archiviert
+        delete: gelöscht
       destroy: "%{model} löschen"
       download_pdf: Als PDF herunterladen
       edit: "%{model} bearbeiten"

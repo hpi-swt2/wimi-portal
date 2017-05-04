@@ -391,7 +391,10 @@ en:
       close: "Mark %{model} as Handed in Externally"
       close_short: Close
       confirm: Are you sure?
-      confirm_delete: Are you sure that "%{model}" should be deleted?
+      confirm_action:
+        message: Are you sure that "%{model}" should be %{action}?
+        archive: archived
+        delete: deleted
       destroy: "Delete %{model}"
       download_pdf: Download as PDF
       edit: Edit %{model}

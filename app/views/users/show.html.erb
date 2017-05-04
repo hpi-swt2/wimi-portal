@@ -66,7 +66,7 @@
             <%= link_to I18n.t('helpers.titles.destroy', model: model_class.human_attribute_name(:signature)),
                   delete_signature_path(current_user),
                   method: :post,
-                  data: {confirm: t('helpers.links.confirm_delete', model: model_class.human_attribute_name(:signature))},
+                  data: {confirm: t('helpers.links.confirm_action.message', model: model_class.human_attribute_name(:signature), action: t('helpers.links.confirm_action.delete'))},
                   class: 'btn btn-block btn-danger' %>
           <% end %>
         </div>

@@ -118,20 +118,13 @@ $(document).ready(function() {
    $('*[data-toggle="tooltip"], a[rel~=tooltip], .has-tooltip').tooltip()
 
   /*
-   * Enable making buttons to POST routes (i.e. forms that make POST requests in Rails 4)
-   * created with the 'button_to' helper submit via JS, without reloading the page
-   * The table row the button was in can be optionally also removed
+   * Dashboard: dashboard/_missing_timesheets.html.erb
+   * handle 'remote: true' archive buttons
    */
-  $('input[type="submit"][data-toggle="js-submit"]').click(function(event) {
-    // Do not execute the default action of submitting the form and reloading the page
-    event.preventDefault();
-    // If the 'data-row-remove' attribute is set, get the closest tr, otherwise remove nothing
-    var $rowToRemove = $(this).attr('data-row-remove') ? $(this).closest('tr') : '';
-    $.post($(this.form).attr('action'))
-      .fail(function(e) { console.error('ERROR: ', e) })
-      .done(function() {
-        $rowToRemove.remove();
-      })
+  $('.archive-btn').on('ajax:success', function(e, data, status, xhr){
+    $(e.currentTarget).closest('tr').fadeOut();
+  }).on('ajax:error',function(e, xhr, status, error){
+    console.error(error);
   });
 
 });

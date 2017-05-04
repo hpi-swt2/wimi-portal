@@ -40,14 +40,24 @@
                         <% if can?(:create, ts) %>
                           <%# JS button that creates a closed time sheet and removes row %>
                           <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('.close_tooltip', month: ts.name) %>">
-                            <%= button_to t('helpers.links.close_short'), contract_create_for_month_year_path(contract, ts.month, ts.year, :closed), class: 'btn btn-default btn-xs', :data => { toggle: 'js-submit', row_remove: 'true' } %>
+                            <%= button_to t('helpers.links.close_short'),
+                              contract_create_for_month_year_path(contract, ts.month, ts.year, :closed),
+                              class: 'btn btn-default btn-xs',
+                              form_class: 'archive-btn',
+                              remote: true,
+                              :data => { confirm: t('helpers.links.confirm_action.message', model: ts.name, action: t('helpers.links.confirm_action.archive')) } %>
                           </span>
                         <% end %>
                         <%# Time sheet is not yet created, user cannot create, do nothing in this case %>
                       <% else %>
                         <%# JS button that closes existing time sheet and removes row %>
                         <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('.close_tooltip', month: ts.name) %>">
-                          <%= button_to t('helpers.links.close_short'), close_time_sheet_path(ts), class: 'btn btn-default btn-xs', :data => { toggle: 'js-submit', row_remove: 'true' } %>
+                          <%= button_to t('helpers.links.close_short'),
+                            close_time_sheet_path(ts),
+                            class: 'btn btn-default btn-xs',
+                            form_class: 'archive-btn',
+                            remote: true,
+                            :data => { confirm: t('helpers.links.confirm_action.message', model: ts.name, action: t('helpers.links.confirm_action.archive')) } %>
                         </span>
                       <% end %>
                     <% end %>
