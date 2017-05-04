@@ -388,8 +388,8 @@ de:
       withdraw: Zurücknehmen
       back: Zurück
       cancel: Abbrechen
-      close: "%{model} als abgegeben markieren"
-      close_short: Schließen
+      close: "%{model} archivieren"
+      close_short: Archivieren
       confirm: Sicher?
       confirm_action:
         message: Sind sie sicher, dass "%{model}" %{action} werden soll?
