@@ -39,6 +39,10 @@ module ApplicationHelper
     link_args[:class] = 'btn ' + (link_args[:class] || '')
     i18n_key = link_args[:additional_I18n] ? "_#{link_args[:additional_I18n]}" : ''
     title = t(".#{action}", default: t("helpers.links.#{action}#{i18n_key}", model: model.model_name.human.titleize))
+    if link_args[:animate]
+      link_args[:data] = link_args[:data] || {}
+      link_args[:data][:disable_with] = "<i class='fa fa-spinner fa-spin'></i> #{title}".html_safe
+    end
     can_link title, action, model, link_args
   end
   
@@ -94,6 +98,13 @@ module ApplicationHelper
   
   def linked_name(model)
     entity_link(model.name, model)
+  end
+
+  def animated_button(label, args = {})
+    klass = 'btn ' + (args[:class] || '')
+    args[:data] = args[:data] || {}
+    args[:data][:disable_with] = "<i class='fa fa-spinner fa-spin'></i> #{label}".html_safe
+    button_tag label, class: klass, data: args[:data]
   end
 
   def timespan_human(total_minutes)

@@ -125,7 +125,7 @@
   <%# PDF download link %>
   <%= render partial: 'pdf_link', locals: {time_sheet: @time_sheet, btn_text: t('helpers.links.download_pdf'), btn_class: 'btn btn-block btn-info'} %>
   <%# Withdraw timesheet %>
-  <%= action_button :withdraw, @time_sheet , class: 'btn-block btn-warning'%>
+  <%= action_button :withdraw, @time_sheet, class: 'btn-block btn-warning', animate: true %>
   <%# Close and Reopen timesheet %>
   <%= action_button :reopen, @time_sheet, class: 'btn-block btn-default' %>
   <span class="btn-block" data-toggle="tooltip" data-placement="bottom" title="<%= t('dashboard.missing_timesheets.close_tooltip', month: @time_sheet.name) %>">
