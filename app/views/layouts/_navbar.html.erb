@@ -6,6 +6,7 @@
         <%= menu_item 'Dashboard', dashboard_path %>
       <% end %>
     <% end %>
+
     <%# pull right %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
@@ -30,9 +31,16 @@
           <%= menu_item t('activerecord.models.chair.other').titleize, chairs_path %>
         <% end %>
 
+        <%# Language switcher - pretty version (needs the form below, do not remove it)%>
+        <%= drop_down User::LANGUAGES.detect{ |l,s| s == current_user.language}.first do %>
+          <% User::LANGUAGES.each do |language, short| %>
+            <%= menu_item language, '#', {id: 'language_' + short, onclick: "$('#languageSelect').val('#{short}');$('#languageForm').submit();"} %>
+          <% end %>
+        <% end %>
+
         <%# Language switcher %>
-        <%= form_for current_user, html: {class: 'navbar-form pull-left', id: 'languageForm'} do |f| -%>
-          <%= f.select :language, User::LANGUAGES, {selected: current_user.language}, {class: 'form-control', id: 'languageSelect', onchange: "$('#languageForm').submit();"} %>
+        <%= form_for current_user, html: {class: 'hidden', id: 'languageForm'} do |f| -%>
+            <%= f.select :language, User::LANGUAGES, {selected: current_user.language}, {id: 'languageSelect'} %>
         <% end %>
 
         <%# Profile link %>
@@ -50,5 +58,6 @@
         <%= link_to t('helpers.application_tabs.external_sign_in'), external_login_path, class: 'btn btn-default navbar-btn pull-right' %>
       <% end %>
     <% end %>
+
   <% end %>
 </nav>
