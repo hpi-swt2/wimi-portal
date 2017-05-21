@@ -1,8 +1,6 @@
 class TimeSheetsController < ApplicationController
 #  before_action :set_time_sheet, only: [:show, :edit, :update, :destroy, :accept_reject, :hand_in]
 
-  #layout "action_sidebar"
-
   load_and_authorize_resource
   skip_authorize_resource only: [:download, :create, :current, :create_for_month_year]
   
