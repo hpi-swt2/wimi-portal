@@ -607,6 +607,7 @@ de:
     external_login:
       login: Anmelden
     form:
+      toggle_all: Alle an/abwählen
       event_settings: E-Mail Benachrichtigungen
       user_data: Profilbezogene Daten
     no_email: ist keine gültige Email-Adresse.
