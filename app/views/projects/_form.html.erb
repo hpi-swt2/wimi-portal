@@ -10,26 +10,6 @@
       <% end %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12 col-sm-12">
-      <div class="form-group">
-        <%= f.label :public, t('projects.form.accessibility'),  class: 'control-label' %>
-        <div class='radio'>
-          <div class='col-md-2'>
-            <div style='margin-left: 20px'> <%= f.radio_button :public, true, value: true%>
-              <%= label :public, t('projects.show.public')%>
-            </div>
-          </div>
-          <div class='col-md-2'>
-            <div style='margin-left: 20px'> <%= f.radio_button :public, false, value: false%>
-              <%= label :public, t('projects.show.private')%>
-            </div>
-          </div>
-        </div>
-        <%= error_span(@project[:public]) %>
-      </div>
-    </div>
-  </div>
 
   <% if @project.persisted? %>
     <div class="row">

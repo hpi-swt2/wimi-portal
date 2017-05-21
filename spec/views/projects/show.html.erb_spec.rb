@@ -24,7 +24,6 @@ RSpec.describe 'projects/show', type: :view do
 
     expect(page).to have_content(project.title)
     expect(page).to have_content(project.chair.name)
-    expect(page).to_not have_content(I18n.t('projects.show.public'))
     
     # only because rep is also wimi of the project
     expect(page).to have_content(project.chair.representative.user.name)
@@ -42,7 +41,6 @@ RSpec.describe 'projects/show', type: :view do
     it 'has information about the project on page' do
       expect(page).to have_content(@project.title)
       expect(page).to have_content(@project.chair.name)
-      expect(page).to_not have_content(I18n.t('projects.show.public'))
     end
 
     it 'does not show an add working hours button' do
@@ -65,7 +63,6 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content(@project.title)
       expect(page).to have_content(@project.chair.name)
       expect(page).to have_content(l(@project.created_at))
-      expect(page).to_not have_content(I18n.t('projects.show.public'))
     end
 
     it 'shows no add working hours button' do
