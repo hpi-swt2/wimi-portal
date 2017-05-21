@@ -46,23 +46,14 @@
   </div>
 </div>
 
+<% content_for :actions do %>
+  <%= edit_button @contract, class: 'btn-block' %>
+  <% if can?(:create, TimeSheet.new(contract: @contract)) %>
+    <%= link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(@contract), class: 'btn btn-success btn-block' %>
+  <% end %>
+<% end %>
+
 <% content_for :sidebar do %>
-  <%# actions %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t 'helpers.actions'%> </h4>
-        </div>
-        <div class="panel-body">
-          <%= edit_button @contract, class: 'btn-block' %>
-          <% if can?(:create, TimeSheet.new(contract: @contract)) %>
-            <%= link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(@contract), class: 'btn btn-success btn-block' %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
   <%# filter for datatable %>
   <div class="col-md-12">
     <div class="display">

@@ -262,7 +262,6 @@ de:
     contracts:
       contracts: Meine Verträge
     index:
-      actions: Aktionen
       notifications: Neueste Benachrichtigungen
       ending_contracts: Bald endende Verträge
       missing_timesheets: Fehlende Stundenzettel

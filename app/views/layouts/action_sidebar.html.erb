@@ -1,6 +1,10 @@
-<% content_for :sidebar do %>
-  <%= sidebar_actions do %>
-    <%= yield :actions %>
-  <% end %>
+<% actions = yield :actions %>
+
+<% if actions.present? %>
+	<% content_for :sidebar do %>
+	  <%= sidebar_actions do %>
+	    <%= actions %>
+	  <% end %>
+	<% end %>
 <% end %>
 <%= render template: 'layouts/application' %>

@@ -39,20 +39,11 @@
   </div>
 </div>
 
+<% content_for :actions do %>
+  <%= create_button Contract, class: 'btn-block'%>
+<% end %>
+
 <% content_for :sidebar do %>
-  <%# new contract button %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t 'helpers.actions' %> </h4>
-        </div>
-        <div class="panel-body">
-          <%= create_button Contract, class: 'btn-block'%>
-        </div>
-      </div>
-    </div>
-  </div>
   <%# filter for datatable %>
   <div class="col-md-12">
     <div class="display">

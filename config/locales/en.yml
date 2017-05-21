@@ -262,7 +262,6 @@ en:
     contracts:
       contracts: My Contracts
     index:
-      actions: Actions
       notifications: Newest Notifications
       ending_contracts: Soon-Ending Contracts
       missing_timesheets: Missing Time Sheets
