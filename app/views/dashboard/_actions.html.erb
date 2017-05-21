@@ -1,5 +1,5 @@
 <%# hiwi actions %>
-<% if can? :create, WorkDay %>
+<% if can? :current, TimeSheet %>
   <p>
     <%= link_to( t('.goto_current_time_sheet'), current_time_sheets_path, class: 'btn btn-warning btn-block') %>
   </p>
