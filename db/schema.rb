@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521142631) do
+ActiveRecord::Schema.define(version: 20170521170120) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
