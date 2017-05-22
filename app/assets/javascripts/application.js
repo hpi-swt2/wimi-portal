@@ -112,6 +112,16 @@ $(document).ready(function() {
   });
 
   /*
+   * Enable buttons with data-toggle="checkbox-master" to
+   * toggle multiple checkboxes with the class of
+   * the "data-target-class" attibute.
+   */
+  $('*[data-toggle="checkbox-master"]').click(function () {
+    var $boxes = $('.' + $(this).attr('data-target-class'));
+    $boxes.prop('checked', ! $boxes.first().prop('checked'));
+  });
+
+  /*
    * Enable Bootstrap tooltips
    * http://getbootstrap.com/javascript/#tooltips-usage
    */

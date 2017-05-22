@@ -607,7 +607,7 @@ en:
     external_login:
       login: Log in
     form:
-      toggle_all: toggle all
+      toggle_all: Toggle all
       event_settings: E-Mail notifications
       user_data: User Data
     no_email: is not a valid email address.

@@ -37,7 +37,7 @@
     <div class="panel-heading">
       <h4>
         <%= t('.event_settings') %>
-        <span class="btn btn-xs btn-info pull-right" onclick="toggleAllEventBoxes();"><%= t('.toggle_all') %></span>
+        <%= content_tag("span", t('.toggle_all'), :data => {'toggle' => 'checkbox-master', 'target-class' => 'check-item'}, class: "btn btn-xs btn-info pull-right") %>
       </h4>
     </div>
     <div class="panel-body">
@@ -47,7 +47,7 @@
             <tr>
               <%# .show sets element to display:block using bootstrap stylesheet, making label take up the width of the <td> %>
               <td><%= f.label "event_settings_#{val}", I18n.t('event.user_friendly_name.' + typename), class: "show" %></td>
-              <td><%= f.check_box :event_settings, { multiple: true }, val.to_i, nil %></td>
+              <td><%= f.check_box :event_settings, { multiple: true, class: 'check-item' }, val.to_i, nil %></td>
             </tr>
           <% end %>
         </tbody>
@@ -65,26 +65,3 @@
     </div>
   </div>
 <% end %>
-
-<script>
-  function toggleAllEventBoxes() {
-    var idprefix = "#user_event_settings_";
-    var nr = 0;
-    var box = $(idprefix + nr);
-    var anyOn = false;
-    while(box.length == 1) {
-      anyOn = anyOn || box.is(':checked');
-      nr++;
-      box = $(idprefix + nr);
-    }
-    var setTo = !anyOn;
-    nr = 0;
-    box = $(idprefix + nr);
-
-    while(box.length == 1) {
-      box.prop('checked', setTo);
-      nr++;
-      box = $(idprefix + nr);
-    }
-  }
-</script>
