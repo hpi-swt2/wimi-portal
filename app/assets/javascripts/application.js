@@ -20,6 +20,7 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.de.js
+//= require bootstrap-toggle
 //= require data-confirm-modal
 //= require select2
 //= require canvasjs.min
@@ -118,7 +119,7 @@ $(document).ready(function() {
    */
   $('*[data-toggle="checkbox-master"]').click(function () {
     var $boxes = $('.' + $(this).attr('data-target-class'));
-    $boxes.prop('checked', ! $boxes.first().prop('checked'));
+    $boxes.prop('checked', ! $boxes.first().prop('checked')).change();
   });
 
   /*
