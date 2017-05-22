@@ -20,6 +20,7 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.de.js
+//= require bootstrap-toggle
 //= require data-confirm-modal
 //= require select2
 //= require canvasjs.min
@@ -109,6 +110,16 @@ $(document).ready(function() {
     if ($(this).prop('tagName') != 'INPUT') { event.preventDefault(); }
     // Bootstrap class for visibility
     $('.' + $(this).attr('data-target-class')).toggleClass("hidden");
+  });
+
+  /*
+   * Enable buttons with data-toggle="checkbox-master" to
+   * toggle multiple checkboxes with the class of
+   * the "data-target-class" attibute.
+   */
+  $('*[data-toggle="checkbox-master"]').click(function () {
+    var $boxes = $('.' + $(this).attr('data-target-class'));
+    $boxes.prop('checked', ! $boxes.first().prop('checked')).change();
   });
 
   /*

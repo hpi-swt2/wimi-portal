@@ -475,7 +475,6 @@ de:
     destroy:
       success: Projekt wurde erfolgreich gelöscht.
     form:
-      accessibility: Sichtbarkeit
       hiwi: Studentische Hilfskräfte
       show_current_timesheet: Aktuellen Stundenzettel anzeigen
       sign_out_of_project: Entfernen
@@ -491,10 +490,7 @@ de:
       add_working_hours: Stundenzettel hinzufügen
       chair: Fachgebiet
       inactive: "(inaktiv)"
-      private: privat
       project_team: Projekt Team
-      project_visibility: Sichtbarkeit
-      public: "öffentlich"
       set_active: aktiv schalten
       set_inactive: 'inaktiv schalten '
     update:
@@ -610,6 +606,7 @@ de:
     external_login:
       login: Anmelden
     form:
+      toggle_all: Alle an/abwählen
       event_settings: E-Mail Benachrichtigungen
       user_data: Profilbezogene Daten
     no_email: ist keine gültige Email-Adresse.

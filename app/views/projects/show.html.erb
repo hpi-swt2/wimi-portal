@@ -14,10 +14,6 @@
           <dd><%= @project.chair.name %></dd>
           <dt><%= model_class.human_attribute_name(:created_at) %>:</dt>
           <dd><%= l @project.created_at %></dd>
-          <% unless @project.public %>
-            <dt><%= t('.project_visibility', default:'Visibility') %>:</dt>
-            <dd><%= @project.public ? t('.public', default:'Public') : t('.private', default:'private') %></dd>
-          <% end %>
         </dl>
       </div>
     </div>

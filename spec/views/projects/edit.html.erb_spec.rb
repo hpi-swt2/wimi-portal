@@ -59,31 +59,9 @@ RSpec.describe 'projects/edit', type: :view do
     expect(project.status).to be true
   end
 
-  it 'can be set private by a wimi' do
-    login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: true)
-    @wimi.projects << project
-    visit edit_project_path(project)
-    find(:css, '#project_public_false').set(true)
-    click_on I18n.t('helpers.submit.update', model: project.model_name.human)
-    project.reload
-    expect(project.public).to be false
-  end
-
-  it 'can be set public by a wimi' do
-    login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
-    @wimi.projects << project
-    visit edit_project_path(project)
-    find(:css, '#project_public_true').set(true)
-    click_on I18n.t('helpers.submit.update', model: project.model_name.human)
-    project.reload
-    expect(project.public).to be true
-  end
-
   it 'is possible for a wimi to sign himself out of the project' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    project = FactoryGirl.create(:project, chair: @wimi.chair)
     @wimi.projects << project
     @wimi2.projects << project
     visit edit_project_path(project)
@@ -95,7 +73,7 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'is not possible for a wimi to sign himself out of the project when he is the last one' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    project = FactoryGirl.create(:project, chair: @wimi.chair)
     @wimi.projects << project
     @wimi2.projects << project
     visit edit_project_path(project)
@@ -105,7 +83,7 @@ RSpec.describe 'projects/edit', type: :view do
   it 'is possible for a wimi to sign a hiwi out of the project' do
     user = FactoryGirl.create(:user)
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, public: false)
+    project = FactoryGirl.create(:project, chair: @wimi.chair)
     @wimi.projects << project
     user.projects << project
     visit edit_project_path(project)

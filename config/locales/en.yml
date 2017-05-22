@@ -475,7 +475,6 @@ en:
     destroy:
       success: Project was successfully destroyed.
     form:
-      accessibility: Accessibility
       hiwi: Student Assistants
       show_current_timesheet: Show current time sheet
       sign_out_of_project: Remove
@@ -491,10 +490,7 @@ en:
       add_working_hours: Add working hours
       chair: Research Group
       inactive: "(inactive)"
-      private: private
       project_team: Project Team
-      project_visibility: Visibility
-      public: public
       set_active: set active
       set_inactive: set inactive
     update:
@@ -610,6 +606,7 @@ en:
     external_login:
       login: Log in
     form:
+      toggle_all: Toggle all
       event_settings: E-Mail notifications
       user_data: User Data
     no_email: is not a valid email address.

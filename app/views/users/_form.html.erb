@@ -33,9 +33,12 @@
       <% end %>
     </div>
   </div>
-  <div class="panel panel-default">
+  <div class="panel panel-default" style="width: 60%">
     <div class="panel-heading">
-      <h4><%= t('.event_settings') %></h4>
+      <h4>
+        <%= t('.event_settings') %>
+        <%= content_tag("span", t('.toggle_all'), :data => {'toggle' => 'checkbox-master', 'target-class' => 'check-item'}, class: "btn btn-xs btn-default pull-right") %>
+      </h4>
     </div>
     <div class="panel-body">
       <table class="table table-condensed table-hover">
@@ -43,8 +46,22 @@
           <% Event.types.each do |typename, val| %>
             <tr>
               <%# .show sets element to display:block using bootstrap stylesheet, making label take up the width of the <td> %>
-              <td><%= f.label "event_settings_#{val}", I18n.t('event.user_friendly_name.' + typename), class: "show" %></td>
-              <td><%= f.check_box :event_settings, { multiple: true }, val.to_i, nil %></td>
+              <td style="vertical-align: bottom;">
+                <%= f.label "event_settings_#{val}", I18n.t('event.user_friendly_name.' + typename), class: "show" %>
+              </td>
+              <td>
+                <%= f.check_box :event_settings,
+                  { multiple: true, class: 'check-item',
+                    :data => {
+                      toggle: "toggle",
+                      size: 'small',
+                      style: 'pull-right',
+                      on: "<i class='fa fa-check'></i>",
+                      off: "<i class='fa fa-times'></i>"
+                    }
+                  },
+                  val.to_i, nil %>
+              </td>
             </tr>
           <% end %>
         </tbody>

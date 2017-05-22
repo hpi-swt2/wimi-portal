@@ -17,36 +17,6 @@ RSpec.describe 'projects/index', type: :view do
     expect(rendered).to match @proj2.title
   end
 
-  it 'does not show private projects that I do not belong to' do
-    chair2 = FactoryGirl.create(:chair)
-    @user.update(chair: @chair)
-    not_my_project = FactoryGirl.create(:project, title: 'I should not see this project', public: false, chair: chair2)
-
-    visit projects_path
-
-    expect(page).to_not have_content(not_my_project.title)
-  end
-
-  it 'shows private projects that I do not belong to if I am representative of the chair' do
-    @user.update(chair: @chair)
-    FactoryGirl.create(:wimi, user: @user, representative: true)
-    not_my_project = FactoryGirl.create(:project, title: 'I should not see this project', public: false, chair: @chair)
-
-    visit projects_path
-
-    expect(page).to have_content(not_my_project.title)
-  end
-
-  it 'shows private projects that I belong to' do
-    @user.update(chair: @chair)
-    my_project = FactoryGirl.create(:project, title: 'I should see this project', public: false, chair: @chair)
-    my_project.users << @user
-
-    visit projects_path
-
-    expect(page).to have_content(my_project.title)
-  end
-
   it 'shows all details about a project' do
     # In case of only a single project, projects_path redirects to
     # that project's project#show page.
