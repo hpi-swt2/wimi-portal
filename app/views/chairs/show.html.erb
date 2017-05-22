@@ -84,31 +84,21 @@
   </div>
 </div>
 
+<% content_for :actions do %>
+  <%= edit_button @chair, class: 'btn-block' %>
+  <% if can?(:add_user, @chair) %>
+    <hr>
+    <%= link_to t('chair.user.add_prompt'), "",
+          id: "open-popup",
+          data: { toggle: "modal", target: "#add-users-modal" },
+          class: 'btn btn-block btn-success'%>
+  <% end %>
+<% end %>
+
 <% content_for :sidebar do %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t 'helpers.actions'%> </h4>
-        </div>
-        <div class="panel-body">
-          <p>
-            <%= edit_button @chair, class: 'btn-block' %>
-            <% content_for :modals do %>
-                <%= render 'add_user_to_chair' %>
-            <% end %>
-            <% if can?(:add_user, @chair) %>
-              <hr>
-              <%= link_to t('chair.user.add_prompt'), "",
-                    id: "open-popup",
-                    data: { toggle: "modal", target: "#add-users-modal" },
-                    class: 'btn btn-block btn-success'%>
-            <% end %>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
   <%# Recent activity %>
   <%= render partial: "shared/recent_events", locals: {recent_events: @recent_events} %>
+<% end %>
+<% content_for :modals do %>
+  <%= render 'add_user_to_chair' %>
 <% end %>

@@ -30,17 +30,6 @@
   </div>
 </div>
 
-<% content_for :sidebar do %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t 'helpers.actions'%> </h4>
-        </div>
-        <div class="panel-body">
-          <%= create_button Chair, class: 'btn-block' %>
-        </div>
-      </div>
-    </div>
-  </div>
+<% content_for :actions do %>
+  <%= create_button Chair, class: 'btn-block' %>
 <% end %>
