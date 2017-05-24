@@ -119,4 +119,8 @@ module ApplicationHelper
   def status_label_css(status)
     {"created" => "default", "pending" => "primary", "accepted" => "success", "rejected" => "danger", "closed" => "success"}[status]
   end
+
+  def fa(icon_name)
+    "<i class=\"fa fa-#{icon_name}\" aria-hidden=\"true\"></i> ".html_safe
+  end
 end
