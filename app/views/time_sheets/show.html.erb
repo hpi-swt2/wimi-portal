@@ -6,69 +6,85 @@
         <%= model_class.model_name.human.titleize %> <%= @time_sheet.user.last_name %> <%= l @time_sheet.first_day , format: :short_month_year %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <p>
-          <strong><%= model_class.human_attribute_name(:status) %>:</strong>
-          <span class="label label-<%= status_label_css(@time_sheet.status) %>">
-            <%= t("activerecord.attributes.time_sheet.status_enum.#{@time_sheet.status}") %>
-          </span>
-        </p>
-        <% if @time_sheet.status.in?(['accepted', 'rejected']) %>
-          <p>
-            <%# i18n-tasks-use t('time_sheets.show.accepted_by') %>
-            <%# i18n-tasks-use t('time_sheets.show.rejected_by') %>
-            <strong><%= t(".#{@time_sheet.status}_by") %>:</strong>
-            <%# TimeSheet#signer is simple integer, no belongs_to %>
-            <%= linked_name User.find(@time_sheet.signer) %>
-            <%= t('.at').downcase %>
-            <%= content_tag :span, l(@time_sheet.last_modified) %>
-          </p>
-          <% if @time_sheet.status == 'rejected' %>
-            <p>
-              <strong><%= t('.reject_reason') %>:</strong>
-              <%= content_tag :span, @time_sheet.rejection_message %>
-            </p>
-          <% end %>
-        <% end %>
-        <p>
-          <strong><%= model_class.human_attribute_name(:handed_in) %>:</strong>
-          <%= t @time_sheet.handed_in.to_s %> <%= "(#{l @time_sheet.hand_in_date})" if @time_sheet.handed_in and @time_sheet.hand_in_date %>
-        </p>
-        <% if @time_sheet.status.in? ['pending', 'accepted'] %>
-          <p>
-            <%# signed by hiwi status %>
-            <%= t(".hiwi_signed_#{@time_sheet.signed}_html") %>
-          </p>
-        <% end %>
-        <hr>
-        <p>
-          <%# Amount of hours worked this month %>
-          <strong><%= t('.total_work_time')%>:</strong>
-          <%= timespan_human(@time_sheet.sum_minutes) %>
-        </p>
-        <% monthly_minutes = @time_sheet.monthly_work_minutes %>
-        <% if monthly_minutes %>
-          <p>
-            <%# Amount of hours required by the contract per month %>
-            <strong><%= t('.expected_work_time') %>:</strong>
-            <%= timespan_human(monthly_minutes) %>
-            (<%= number_to_percentage(@time_sheet.percentage_hours_worked, precision: 0) %>
-            <%= t('.achieved') %>)
-          </p>
-          <p>
-            <%# Amount of hours that still need to be worked this month %>
-            <strong><%= t('.open_work_time') %>:</strong>
-            <%= timespan_human(monthly_minutes - @time_sheet.sum_minutes) %>
-          </p>
-        <% end %>
+
+    <div class="row bot-buffer-5">
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, model_class.human_attribute_name(:status) %>:
+        <span class="label label-<%= status_label_css(@time_sheet.status) %>">
+          <%= t("activerecord.attributes.time_sheet.status_enum.#{@time_sheet.status}") %>
+        </span>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, t('time_sheet.month_year') %>:
+        <%= l @time_sheet.first_day , format: :without_day %>
+      </div>
+
+      <% if @time_sheet.status.in?(['accepted', 'rejected']) %>
+        <div class="col-md-6 col-sm-12">
+          <%# i18n-tasks-use t('time_sheets.show.accepted_by') %>
+          <%# i18n-tasks-use t('time_sheets.show.rejected_by') %>
+          <%= content_tag :strong, t(".#{@time_sheet.status}_by") %>:
+          <%# TimeSheet#signer is simple integer, no belongs_to %>
+          <%= linked_name User.find(@time_sheet.signer) %>
+          <%= t('.at').downcase %>
+          <%= content_tag :span, l(@time_sheet.last_modified) %>
+        </div>
+      <% end %>
+
+      <% if @time_sheet.status == 'rejected' %>
+        <div class="col-md-6 col-sm-12">
+          <%= content_tag :strong, t('.reject_reason') %>:
+          <%= content_tag :span, @time_sheet.rejection_message %>
+        </div>
+      <% end %>
+
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, model_class.human_attribute_name(:handed_in) %>:
+        <%= t @time_sheet.handed_in.to_s %> <%= "(#{l @time_sheet.hand_in_date})" if @time_sheet.handed_in and @time_sheet.hand_in_date %>
+      </div>
+
+      <% if @time_sheet.status.in? ['pending', 'accepted'] %>
+        <div class="col-md-6 col-sm-12">
+          <%# signed by hiwi status %>
+          <%= content_tag :strong, t('.signatures') %>:
+          <%= t(".hiwi_signed_#{@time_sheet.signed}_html") %>
+        </div>
+      <% end %>
+
+      <div class="col-md-6 col-sm-12">
+        <%= content_tag :strong, @time_sheet.contract.model_name.human.capitalize %>:
+        <%= linked_name(@time_sheet.contract) %>
       </div>
     </div>
 
-    <p>
-      <strong><%= t('time_sheet.month_year')%>:</strong>
-      <%= l @time_sheet.first_day , format: :without_day %>
-    </p>
+    <hr>
+
+    <div class="row bot-buffer-5">
+      <div class="col-md-6 col-sm-12">
+        <%# Amount of hours worked this month %>
+        <%= content_tag :strong, t('.total_work_time') %>:
+        <%= timespan_human(@time_sheet.sum_minutes) %>
+      </div>
+
+      <% monthly_minutes = @time_sheet.monthly_work_minutes %>
+      <% if monthly_minutes %>
+        <div class="col-md-6 col-sm-12">
+          <%# Amount of hours required by the contract per month %>
+          <%= content_tag :strong, t('.expected_work_time') %>:
+          <%= timespan_human(monthly_minutes) %>
+          (<%= number_to_percentage(@time_sheet.percentage_hours_worked, precision: 0) %>
+          <%= t('.achieved') %>)
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <%# Amount of hours that still need to be worked this month %>
+          <%= content_tag :strong, t('.open_work_time') %>:
+          <%= timespan_human(monthly_minutes - @time_sheet.sum_minutes) %>
+        </div>
+      <% end %>
+    </div>
+
+    <hr>
     
     <% if @time_sheet.work_days.any? %>
       <div class="row">
@@ -101,7 +117,7 @@
         </div>
       </div>
     <% else %>
-      <%= t('time_sheets.show.empty_work_days') %>
+      <%= content_tag :strong, t('time_sheets.show.empty_work_days') %>
     <% end %>
   </div>
 </div>
