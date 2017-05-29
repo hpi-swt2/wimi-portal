@@ -1,5 +1,9 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-offset navbar-shadow">
-  <%= nav_bar fixed: :top, brand: 'HPI WiMi-Portal', responsive: true do %>
+  <%= nav_bar fixed: :top, responsive: true do %>
+    <a class="navbar-brand" href="/" style="margin-top: -5px;">
+      <span><%= image_tag("logo.jpg", alt: 'HPI logo', height: '30') %></span>
+      WiMi-Portal
+    </a>
     <%# pull left %>
     <%= menu_group pull: :left do %>
       <% if user_signed_in? %>
