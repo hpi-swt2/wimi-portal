@@ -25,6 +25,33 @@
   </div>
 </div>
 
+<%# Notifications %>
+<div class="col-md-12 col-sm-12">
+  <div class="display">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%= t '.notifications' %></h4>
+      </div>
+      <div class="panel-body panel-scroll" style="max-height: 10em;">
+        <% if @events.empty? %>
+          <%= t 'no_entries_yet', target: t('activerecord.models.event.other') %>
+        <% else %>
+          <table class="table table-condensed table-hover">
+            <tbody>
+              <% @events.each do |event| %>
+                <tr>
+                  <td style="min-width: 100px;"><%= content_tag :strong, l(event.created_at, format: :full) %></td>
+                  <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%# Time Sheets %>
 <% @own_contracts.each do |contract| %>
   <div class="col-md-12 col-sm-12">
@@ -92,39 +119,6 @@
 <% unless current_user.is_hiwi? %>
   <%= render partial: 'missing_timesheets' %>
 <% end %>
-
-<%# Notifications %>
-<div class="col-md-12 col-sm-12">
-  <div class="display">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%= t '.notifications' %></h4>
-      </div>
-      <div class="panel-body panel-scroll">
-        <% if @events.empty? %>
-          <%= t 'no_entries_yet', target: t('activerecord.models.event.other') %>
-        <% else %>
-          <table class="table table-condensed table-hover">
-            <thead>
-              <tr>
-                <th style="min-width: 100px;"><%= Event.human_attribute_name(:created_at) %></th>
-                <th><%= Event.human_attribute_name(:message) %></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @events.each do |event| %>
-                <tr>
-                  <td><%= content_tag :strong, l(event.created_at, format: :full) %></td>
-                  <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
 
 <% content_for :actions do %>
   <%= render partial: 'actions' %>
