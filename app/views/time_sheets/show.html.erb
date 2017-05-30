@@ -56,35 +56,28 @@
         <%= content_tag :strong, @time_sheet.contract.model_name.human.capitalize %>:
         <%= linked_name(@time_sheet.contract) %>
       </div>
-    </div>
 
-    <hr>
-
-    <div class="row bot-buffer-5">
-      <div class="col-md-6 col-sm-12">
+      <div class="col-md-12 col-sm-12">
         <%# Amount of hours worked this month %>
         <%= content_tag :strong, t('.total_work_time') %>:
         <%= timespan_human(@time_sheet.sum_minutes) %>
-      </div>
 
-      <% monthly_minutes = @time_sheet.monthly_work_minutes %>
-      <% if monthly_minutes %>
-        <div class="col-md-6 col-sm-12">
-          <%# Amount of hours required by the contract per month %>
-          <%= content_tag :strong, t('.expected_work_time') %>:
-          <%= timespan_human(monthly_minutes) %>
-          (<%= number_to_percentage(@time_sheet.percentage_hours_worked, precision: 0) %>
-          <%= t('.achieved') %>)
-        </div>
-        <div class="col-md-6 col-sm-12">
-          <%# Amount of hours that still need to be worked this month %>
-          <%= content_tag :strong, t('.open_work_time') %>:
-          <%= timespan_human(monthly_minutes - @time_sheet.sum_minutes) %>
-        </div>
-      <% end %>
+        <%# If contract is not flexible, show info on expected hours %>
+        <% monthly_minutes = @time_sheet.monthly_work_minutes %>
+        <% if monthly_minutes %>
+            <%= content_tag :span, ' / ' %>
+            <%# Amount of hours required by the contract per month %>
+            <%= timespan_human(monthly_minutes) %>
+            <%# Percentage achieved %>
+            (<%= number_to_percentage(@time_sheet.percentage_hours_worked, precision: 0) %> <%= t('.achieved') %>,
+            <%# Amount of hours that still need to be worked this month %>
+            <%= timespan_human(monthly_minutes - @time_sheet.sum_minutes) %> <%= t('.open') %> )
+        <% end %>
+      </div>
     </div>
 
-    <hr>
+
+    <hr style="margin-top: 0;">
     
     <% if @time_sheet.work_days.any? %>
       <div class="row">

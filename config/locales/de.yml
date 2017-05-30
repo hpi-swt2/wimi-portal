@@ -527,9 +527,8 @@ de:
       next_month: Nächsten Monat anzeigen
       previous_month: Vorherigen Monat anzeigen
       total_work_time: Geleistete Arbeitszeit
-      expected_work_time: Arbeitszeit Vertrag
       achieved: erfüllt
-      open_work_time: Offene Arbeitszeit
+      open: offen
       hiwi_signed_true_html: Vom Arbeitnehmer unterschrieben
       hiwi_signed_false_html: Vom Arbeitnehmer <strong>nicht</strong> unterschrieben
       accepted_by: Angenommen von

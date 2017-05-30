@@ -527,9 +527,8 @@ en:
       next_month: Show next month
       previous_month: Show previous month
       total_work_time: Total time worked
-      expected_work_time: Contract hours
       achieved: achieved
-      open_work_time: Open hours
+      open: open
       hiwi_signed_true_html: Signed by the employee
       hiwi_signed_false_html: <strong>Not</strong> signed by the employee
       accepted_by: Accepted by

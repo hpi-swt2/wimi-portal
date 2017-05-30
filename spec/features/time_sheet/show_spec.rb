@@ -24,22 +24,18 @@ describe 'time_sheets#show' do
       expect(page).to have_content(I18n.t('helpers.timespan.hours', hours: @work_hours))
     end
 
-    it 'display the hours that are required every month by the contract' do
-      expect(page).to have_content(I18n.t('time_sheets.show.expected_work_time'))
-      # 2*4.5 = 9
+    it 'displays the hours that are required every month by the contract' do
       expect(page).to have_content(I18n.t('helpers.timespan.hours', hours: @expected_monthly_work_time))
     end
 
-    it 'display percentage of achieved hours' do
+    it 'displays percentage of achieved hours' do
       percentage = ((@work_hours/@expected_monthly_work_time.to_f)*100).floor
       expect(page).to have_content("#{percentage}%")
       expect(page).to have_content(I18n.t('time_sheets.show.achieved'))
     end
 
-    it 'display still open work hours' do
-      expect(page).to have_content(I18n.t('time_sheets.show.open_work_time'))
-      expect(page).to have_content(I18n.t('helpers.timespan.hours',
-        hours: @expected_monthly_work_time - @work_hours))
+    it 'displays still open work hours' do
+      expect(page).to have_content(I18n.t('helpers.timespan.hours', hours: @expected_monthly_work_time - @work_hours))
     end
 
     it 'displays a table of work_days' do
@@ -59,9 +55,7 @@ describe 'time_sheets#show' do
     end
 
     it 'display all work hours as still open' do
-      expect(page).to have_content(I18n.t('time_sheets.show.open_work_time'))
-      expect(page).to have_content(I18n.t('helpers.timespan.hours',
-        hours: @expected_monthly_work_time))
+      expect(page).to have_content(I18n.t('helpers.timespan.hours', hours: @expected_monthly_work_time))
     end
 
     it 'does not display a table of work_days if none are available' do
