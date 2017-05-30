@@ -39,8 +39,11 @@
           <table class="table table-condensed table-hover">
             <tbody>
               <% @events.each do |event| %>
-                <tr>
-                  <td style="min-width: 100px;"><%= content_tag :strong, l(event.created_at, format: :full) %></td>
+                <% event_today = event.created_at.to_date == Date.today %>
+                <tr class="<%= 'warning' if event_today %>">
+                  <td style="min-width: 100px;">
+                    <%= content_tag :strong, event_today ? "#{t('.today')} #{l(event.created_at, format: :hours_minutes)}" : l(event.created_at, format: :full) %>
+                  </td>
                   <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
                 </tr>
               <% end %>

@@ -266,6 +266,7 @@ en:
       ending_contracts: Soon-Ending Contracts
       missing_timesheets: Missing Time Sheets
       contract_ends_soon: Contract ends soon
+      today: Today
     projects:
       projects: My Projects
     missing_timesheets:
