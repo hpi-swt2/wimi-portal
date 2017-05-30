@@ -68,10 +68,13 @@
             <%= content_tag :span, ' / ' %>
             <%# Amount of hours required by the contract per month %>
             <%= timespan_human(monthly_minutes) %>
-            <%# Percentage achieved %>
-            (<%= number_to_percentage(@time_sheet.percentage_hours_worked, precision: 0) %> <%= t('.achieved') %>,
-            <%# Amount of hours that still need to be worked this month %>
-            <%= timespan_human(monthly_minutes - @time_sheet.sum_minutes) %> <%= t('.open') %> )
+            <%= content_tag :span, class: 'text-muted' do -%>
+              <%# Percentage achieved %>
+              <% percenage = number_to_percentage(@time_sheet.percentage_hours_worked, precision: 0) %>
+              <%# Amount of hours that still need to be worked this month %>
+              <% open_hours = timespan_human(monthly_minutes - @time_sheet.sum_minutes) %>
+              <%= "(#{percenage} #{t('.achieved')}, #{open_hours} #{t('.open')})" %>
+            <% end %>
         <% end %>
       </div>
     </div>
