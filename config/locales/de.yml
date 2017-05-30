@@ -310,7 +310,7 @@ de:
     time_sheet_hand_in: "%{user} hat den Stundenzettel %{obj} eingereicht, Verantwortlicher: %{target_user}"
     time_sheet_accept: "%{user} hat den Stundenzettel %{obj} von %{target_user} akzeptiert"
     time_sheet_decline: "%{user} hat den Stundenzettel %{obj} von %{target_user} abgelehnt"
-    time_sheet_closed: "%{user} hat den Stundenzettel %{obj} von %{target_user} geschlossen, in Papierform abgegeben"
+    time_sheet_closed: "%{user} hat den Stundenzettel %{obj} von %{target_user} archiviert, in Papierform abgegeben"
     project_create: "%{user} hat das Projekt %{obj} erstellt"
     project_join: "%{user} hat %{target_user} zu %{obj} hinzugefügt"
     project_leave: "%{user} hat %{target_user} aus dem Projekt %{obj} entfernt"
@@ -323,7 +323,7 @@ de:
       time_sheet_hand_in: Stundenzettel eingereicht
       time_sheet_accept: Stundenzettel angenommen
       time_sheet_decline: Stundenzettel abgelehnt
-      time_sheet_closed: Stundenzettel geschlossen
+      time_sheet_closed: Stundenzettel archiviert
       project_create: Neues Projekt erstellt
       project_join: Neues Projektmitglied
       project_leave: Projektmitglied entfernt
