@@ -1,23 +1,23 @@
 <script>
-  $(document).ready(function() {
+  var enableActionBarScroll = function () {
     var s = $("#sticker");
     var pos = s.position();
     var width = s.css("width");                    
     $(window).scroll(function() {
         var windowpos = $(window).scrollTop();
         if (windowpos >= pos.top) {
-            s.addClass("stick");
+            s.addClass("action-bar-stick");
             s.css("width",width);
         } else {
-            s.removeClass("stick");
+            s.removeClass("action-bar-stick");
             s.css("width","");
         }
     });
-});
+  };
 </script>
 
 <style>
-  .stick {
+  .action-bar-stick {
     position:fixed;
   }
 </style>
