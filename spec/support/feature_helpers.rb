@@ -38,3 +38,18 @@ RSpec::Matchers.define :have_delete_link do |model|
     "expected no element matching \"#{css_match}\" in \"#{page.text}\"."
   end
 end
+
+RSpec::Matchers.define :have_link_href do |href|
+  match do |page|
+    css_match = "a[href='#{href}']"
+    page.has_css?(css_match, visible: true, count: 1)
+  end
+  failure_message do |page|
+    css_match = "a[href='#{href}']"
+    "expected one element matching \"#{css_match}\" in \"#{page.text}\"."
+  end
+  failure_message_when_negated do |page|
+    css_match = "a[href='#{href}']"
+    "expected no element matching \"#{css_match}\" in \"#{page.text}\"."
+  end
+end
