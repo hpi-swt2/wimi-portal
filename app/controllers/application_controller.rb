@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
     if current_user.nil?
       if requested_path != new_user_session_path && requested_path != external_login_path
         session[:previous_url] = request.fullpath
-        flash[:error] = 'Please login first'
         redirect_to new_user_session_path
       end
     else
