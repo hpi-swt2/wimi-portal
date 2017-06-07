@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
     requested_path = request.env['PATH_INFO']
     if current_user.nil?
       if requested_path != new_user_session_path && requested_path != external_login_path
+        session[:previous_url] = request.fullpath
         flash[:error] = 'Please login first'
         redirect_to new_user_session_path
       end
@@ -47,5 +48,9 @@ class ApplicationController < ActionController::Base
     else
       I18n.locale = I18n.default_locale
     end
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
   end
 end
