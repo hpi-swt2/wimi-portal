@@ -5,13 +5,12 @@ class ApplicationMailer < ActionMailer::Base
   def notification(event, user)
     @event = event
     @user = user
-    # locale needs to be set manually, as the ApplicationMailer 
+    # locale needs to be set manually, as the ApplicationMailer
     # is not aware of the user's language settings
     subject = t('.subject', locale: user.language,
-      text: t("event.user_friendly_name.#{@event.type}", locale: user.language)
-    )
+      text: t("event.user_friendly_name.#{@event.type}", locale: user.language))
     # default from is configured in environments.
-    mail(to: user.email, subject: subject, content_type: "text/html")
+    mail(to: user.email, subject: subject, content_type: 'text/html')
   end
 
   private

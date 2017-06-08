@@ -41,8 +41,8 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   # Default URL for ActionMailer
-  config.action_mailer.default_url_options = { :host => "example.com" }
+  config.action_mailer.default_url_options = { host: 'example.com' }
 
   # From email address
-  config.action_mailer.default_options = {from: 'HPI WiMi Portal <hpi.wimiportal@localhost>'}
+  config.action_mailer.default_options = { from: 'HPI WiMi Portal <hpi.wimiportal@localhost>' }
 end

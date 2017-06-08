@@ -64,24 +64,24 @@ class Event < ActiveRecord::Base
   # Some events are only relevant for people in a project
   def related_projects
     case self.object
-      when Project
-        [self.object]
-      when TimeSheet
-        self.object.projects
-      else
-        []
+    when Project
+      [self.object]
+    when TimeSheet
+      self.object.projects
+    else
+      []
     end
   end
 
   # Some events are only relevant admins of a chair
   def related_chair
     case self.object
-      when Chair
-        self.object
-      when Contract
-        self.object.chair
-      else
-        nil
+    when Chair
+      self.object
+    when Contract
+      self.object.chair
+    else
+      nil
     end
   end
 end

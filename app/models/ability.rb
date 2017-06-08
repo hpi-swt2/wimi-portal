@@ -30,7 +30,7 @@ class Ability
     can [:index, :show], Chair
 
     can [:index, :show], Contract, hiwi_id: user.id
-    
+
     can [:index, :show, :leave], Project, users: { id: user.id }
 
     can [:new], TimeSheet if user.current_contracts.any?
@@ -55,20 +55,20 @@ class Ability
 
   def initialize_wimi(user)
     initialize_user user
-    
+
     can :create, Project
     can :read, Project, chair: { chair_wimis: {user_id: user.id} }
     can :manage, Project, users: { id: user.id }
     cannot :leave, Project do |project|
       project.wimis.size == 1
     end
-    
+
     alias_action :read, :accept, :reject, :accept_reject, to: :ts_wimi_actions
-    
+
     can [:read, :create, :update], Contract, responsible_id: user.id
     can :ts_wimi_actions, TimeSheet, contract: { responsible_id: user.id }
     can :see_wimi_actions, TimeSheet, contract: { responsible_id: user.id }, handed_in: true
-    
+
     # allow access to time sheets and contracts of other wimis if time sheet is 'pending'
     can [:ts_wimi_actions, :see_wimi_actions], TimeSheet, status: 'pending', contract: { chair_id: user.chair.id }
     can :read, Contract, chair_id: user.chair.id, time_sheets: { status: 'pending' }
@@ -80,7 +80,7 @@ class Ability
 
   def initialize_admin(user)
     initialize_wimi user
-    
+
     can :manage, Chair, chair_wimis: { user_id: user.id }
     can :manage, Contract, chair_id: user.chair.id
     can :manage, Project, chair_id: user.chair.id

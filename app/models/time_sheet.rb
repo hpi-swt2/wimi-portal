@@ -116,7 +116,7 @@ class TimeSheet < ActiveRecord::Base
     work_time = sum_minutes
     minutes = work_time % 60
     hours = (work_time - minutes) / 60
-    format("%d:%02d", hours, minutes)
+    format('%d:%02d', hours, minutes)
   end
 
   def monthly_work_minutes
@@ -127,7 +127,7 @@ class TimeSheet < ActiveRecord::Base
     if self.monthly_work_minutes
       minutes = self.monthly_work_minutes % 60
       hours = (self.monthly_work_minutes - minutes) / 60
-      format("%d:%02d", hours, minutes)
+      format('%d:%02d', hours, minutes)
     else
       self.monthly_work_minutes
     end
@@ -135,14 +135,14 @@ class TimeSheet < ActiveRecord::Base
 
   def percentage_hours_worked
     if self.monthly_work_minutes
-      (self.sum_minutes / self.monthly_work_minutes.to_f)*100
+      (self.sum_minutes / self.monthly_work_minutes.to_f) * 100
     else
       self.monthly_work_minutes
     end
   end
 
   def first_day
-    Date.new(year,month,1)
+    Date.new(year, month, 1)
   end
 
   def last_day
@@ -212,7 +212,7 @@ class TimeSheet < ActiveRecord::Base
   end
 
   def name
-    I18n.l(Date.new(year,month,1), format: :short_month_year)
+    I18n.l(Date.new(year, month, 1), format: :short_month_year)
   end
 
   private
