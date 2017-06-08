@@ -3,9 +3,12 @@
 AllCops:
   Exclude:
     - db/**/*
+    - config/**/*
+    - bin/**/*
   Include:
     - db/migrate/*.rb
     - db/seeds.rb
+    - config/environments/*.rb
 
 Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
@@ -154,6 +157,15 @@ Style/RegexpLiteral:
 Style/SpaceBeforeFirstArg:
   Enabled: true
 
+Style/RedundantSelf:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
 
@@ -179,7 +191,8 @@ Lint/DeprecatedClassMethods:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 120
+  # This will disable the rule completely, regardless what other options you put
+  Enabled: false
 
 Metrics/BlockNesting:
   Enabled: false
