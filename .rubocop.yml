@@ -124,8 +124,11 @@ Style/SingleLineMethods:
 Style/SpecialGlobalVars:
   Enabled: false
 
-Style/TrailingComma:
-  Enabled: false
+Style/TrailingCommaInLiteral:
+  Enabled: true
+
+Style/TrailingCommaInArguments:
+  Enabled: true
 
 Style/ClassAndModuleChildren:
   Enabled: false
@@ -148,8 +151,8 @@ Style/NonNilCheck:
 Style/RegexpLiteral:
   Enabled: false
 
-Style/SingleSpaceBeforeFirstArg:
-  Enabled: false
+Style/SpaceBeforeFirstArg:
+  Enabled: true
 
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
