@@ -48,7 +48,7 @@
         <% end %>
 
         <%# Profile link %>
-        <%= menu_item fa('user') + truncate(current_user.name), url_for(current_user) %>
+        <%= menu_item fa('user') + truncate(current_user.first_name, length: 19), url_for(current_user) %>
 
         <%# Logout link %>
         <%= menu_item fa('sign-out') + t('helpers.application_tabs.logout'), destroy_user_session_path %>
