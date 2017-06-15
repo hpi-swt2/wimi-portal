@@ -3,18 +3,26 @@ class DocumentsController < ApplicationController
     if !params[:doc_type] or !params[:doc_id]
       raise ArgumentError, 'doc_type or doc_id is not set'
     else
-      init_params
-      # WickedPDF looks for stylesheet files in app/assets/stylesheets
-      @tmp_vars[:css_file] = 'document.css'
-      @tmp_vars[:hpi_logo] = "#{Rails.root}/app/assets/images/HPI-Logo.jpg"
-
-      pdf = WickedPdf.new.pdf_from_string(render_to_string(
-                                            'documents/' << @doc_type << '.html.erb',
-        layout: false,
-        locals: @tmp_vars))
+      pdf = build_pdf(params)
       send_data(pdf, filename: build_file_name << '.pdf',  type: 'application/pdf')
     end
+  end 
+
+  def build_pdf(params)
+    init_params(params)
+    # WickedPDF looks for stylesheet files in app/assets/stylesheets
+    @tmp_vars[:css_file] = 'document.css'
+    @tmp_vars[:hpi_logo] = "#{Rails.root}/app/assets/images/HPI-Logo.jpg"
+
+    pdf = WickedPdf.new.pdf_from_string(render_to_string(
+                                          'documents/' << @doc_type << '.html.erb',
+      layout: false,
+      locals: @tmp_vars))
+
+    return pdf
   end
+
+  private
 
   def build_file_name
     if @doc_type == 'Timesheet'
@@ -24,7 +32,7 @@ class DocumentsController < ApplicationController
     end
   end
 
-  def init_params
+  def init_params(params)
     @doc_type = params[:doc_type]
     @tmp_vars = {}
     case @doc_type

@@ -93,6 +93,27 @@ class TimeSheet < ActiveRecord::Base
     return success
   end
 
+  def send_to(user, sender)
+    event = Event.add(:time_sheet_admin_mail, sender, self, user)
+    mail = ApplicationMailer.notification(event, user)
+    # uuh this sends mail twice
+    # how to integrate attachments into event model ?
+
+    mail.attachments[self.user.name + ' ' + self.name + '.pdf'] = self.make_pdf
+    mail.deliver_now
+    # TODO: write tests
+  end
+
+  def make_pdf
+    params = {}
+    params[:doc_type] = 'Timesheet'
+    params[:doc_id] = self.id
+    # TODO: how should we handle this? ask the responsible instead?
+    params[:include_comments] = self.user.include_comments == 'always' ? 1 : 0
+    pdf = DocumentsController.build_pdf(params)
+    return pdf
+  end
+
   def reject_work_day(attributes)
     exists = attributes['id'].present?
     empty = attributes.slice(:start_time, :end_time).values.all?(&:blank?)

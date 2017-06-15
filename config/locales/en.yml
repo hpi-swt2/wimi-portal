@@ -330,6 +330,7 @@ en:
       time_sheet_accept: Time sheet accepted
       time_sheet_decline: Time sheet declined
       time_sheet_closed: Time sheet archived
+      time_sheet_admin_mail: Time sheet Admin Mail
       project_create: Project creation
       project_join: Someone joined project
       project_leave: Someone left project
@@ -549,6 +550,7 @@ en:
       accept: Accept
       reject: Reject
       add_signature: Add Signature
+      send_to_admin: Send PDF to Admin
     accept_reject:
       flash:
         rejected: Time sheet was successfully rejected

@@ -37,6 +37,8 @@
   <hr>
 <% end %> <%# if @time_sheet.status.include? 'pending' %>
 
+<%= can_link t('.send_to_admin'), :send_to_admin, @time_sheet,  class: 'btn btn-success btn-block', style: "margin-bottom: 5px;" %>
+
 <script type="text/javascript">
 (function( $btn ) {
   $btn.on('click', function(event) {

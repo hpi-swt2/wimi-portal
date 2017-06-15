@@ -330,6 +330,7 @@ de:
       time_sheet_accept: Stundenzettel angenommen
       time_sheet_decline: Stundenzettel abgelehnt
       time_sheet_closed: Stundenzettel archiviert
+      time_sheet_admin_mail: Stundenzettel Admin Mail
       project_create: Neues Projekt erstellt
       project_join: Neues Projektmitglied
       project_leave: Projektmitglied entfernt
@@ -549,6 +550,7 @@ de:
       accept: Annehmen
       reject: Ablehnen
       add_signature: Unterschrift hinzufügen
+      send_to_admin: PDF an Admin senden
     accept_reject:
       flash:
         rejected: Stundenzettel wurde erfolgreich abgelehnt

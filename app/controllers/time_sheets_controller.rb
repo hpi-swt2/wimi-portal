@@ -115,6 +115,13 @@ class TimeSheetsController < ApplicationController
     end
   end
 
+  def send_to_admin
+    set_time_sheet
+    @time_sheet.contract.chair.admin_users.each do |user|
+      @time_sheet.send_to(user,current_user)
+    end
+  end
+
   def download
     set_time_sheet
     authorize! :show, @time_sheet
