@@ -19,23 +19,28 @@ RSpec.describe ApplicationMailer, type: :mailer do
       expect(ApplicationMailer.default[:from]).to include(mail.from.first)
     end
 
-    it "renders the body" do
+    it "renders a greeting in the body" do
       expect(mail.body.encoded).to match(I18n.t("application_mailer.notification.hello", name: user.first_name))
     end
 
-    it "finds name of user in email" do
+    it "renders the name of the user in the body of the email" do
       expect(mail.body.encoded).to match(user.name)
     end
-  end
 
-  describe "notification" do
-    let(:event) { FactoryGirl.create(:event, user: user, target_user: user, type: 'time_sheet_closed') }
-    let(:mail) { ApplicationMailer.notification(event, user) }
-    
-    it "renders extended message" do
-      expect(mail.body.encoded).to match(I18n.t("event.extended_message.time_sheet_closed"))
+    context "extended message" do
+      let(:event) { FactoryGirl.create(:event, user: user, target_user: user) }
+      let(:mail) { ApplicationMailer.notification(event, user) }
+      let(:time_sheet_closed_event) { FactoryGirl.create(:event, user: user, target_user: user, type: 'time_sheet_closed') }
+      let(:closed_mail) { ApplicationMailer.notification(time_sheet_closed_event, user) }
+      
+      it "is rendered for time_sheet_closed events" do
+        expect(closed_mail.body.encoded).to match(I18n.t("event.extended_message.time_sheet_closed"))
+      end
+
+      it "is not rendered for for other events" do
+        expect(mail.body.encoded).to_not match(I18n.t("event.extended_message.time_sheet_closed"))
+      end
     end
 
   end
-
 end
