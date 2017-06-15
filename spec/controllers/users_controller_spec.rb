@@ -38,6 +38,18 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'PUT #update' do
+    context 'with language param' do
+      before :each do
+        @user = FactoryGirl.create(:user)
+      end
+      it 'does not clear all event settings' do
+        put :update, {id: @user.to_param, user: { language: User::LANGUAGES.first}}
+
+        @user.reload
+        expect(@user.event_settings).not_to be_empty
+      end
+    end
+
     context 'with valid params' do
       let(:new_attributes) {
         {email: 'person2@example.com'}
