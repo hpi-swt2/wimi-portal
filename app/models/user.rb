@@ -223,6 +223,13 @@ class User < ActiveRecord::Base
     self.event_settings.include?(event_int)
   end
 
+  # Allow querying user's abilities directly
+  # http://wiki.github.com/ryanb/cancan/ability-for-other-users
+  def ability
+    @ability ||= Ability.new(self)
+  end
+  delegate :can?, :cannot?, :to => :ability
+
   private
 
   def validate_event_settings

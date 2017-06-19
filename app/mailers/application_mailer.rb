@@ -12,12 +12,4 @@ class ApplicationMailer < ActionMailer::Base
     # default from is configured in environments.
     mail(to: user.email, subject: subject, content_type: 'text/html')
   end
-
-  private
-
-  # Ensure that the function 'current_user' returns the user in the context
-  # so that application helpers using cancan work, e.g. 'linked_name'
-  def current_user
-    @current_user
-  end
 end

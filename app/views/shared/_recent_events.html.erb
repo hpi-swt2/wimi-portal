@@ -12,7 +12,7 @@
               <tr>
                 <td>
                   <%= content_tag(:strong, l(event.created_at, format: :full)) %> 
-                  <%= render partial: "shared/event_message", locals: {event: event} %>
+                  <%= render partial: 'shared/event_message', locals: {event: event, user: current_user} %>
                 </td>
               </tr>
             <% end %>

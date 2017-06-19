@@ -44,7 +44,7 @@
                   <td style="min-width: 100px;">
                     <%= content_tag :strong, event_today ? "#{t('.today')} #{l(event.created_at, format: :hours_minutes)}" : l(event.created_at, format: :full) %>
                   </td>
-                  <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
+                  <td><%= render partial: 'shared/event_message', locals: {event: event, user: current_user} %></td>
                 </tr>
               <% end %>
             </tbody>
