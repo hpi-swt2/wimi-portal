@@ -452,9 +452,11 @@ en:
     submit: Submit
   application_mailer:
     notification:
-      hello: 'Hello %{name}'
+      hello: 'Hello %{name},'
       subject: '[WiMi-Portal] %{text}'
+      new_notification: 'you have received a new notification (%{date}):'
       your_wimi_portal: Your WiMi-Portal
+      settings_reminder_html: 'Notification settings can be changed in your <a href="%{href}">profile</a>.'
   no_entries_yet: There are no %{target} yet.
   not_authorized: You are not authorized to do that action.
   project:
