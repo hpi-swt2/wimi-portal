@@ -13,10 +13,9 @@
 
     <p>
       <strong><%= t('.projects')%>: </strong>
-      <% @user.projects[0..-2].each do |project| %>
-        <%= link_to(project.title, project) + ', '%>
+      <% @user.projects[0..-1].each do |project| %>
+        <%= entity_link(project.title, project)%><%= ', ' unless project == @user.projects.last%>
       <% end %>
-      <%= link_to(@user.projects.last.title, @user.projects.last) if @user.projects.last  %>
     </p>
 
   </div>
