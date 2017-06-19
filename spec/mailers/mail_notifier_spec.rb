@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe ApplicationMailer, type: :mailer do
   let(:user) { FactoryGirl.create(:user) }
   
-  describe "notification" do
-    let(:event) { FactoryGirl.create(:event, user: user, target_user: user) }
+  describe "notification project_create" do
+    let(:event) { FactoryGirl.create(:event, type: 'project_create', object: FactoryGirl.create(:project), user: user, target_user: user) }
     let(:mail) { ApplicationMailer.notification(event, user) }
 
     it "renders the headers" do
@@ -27,20 +27,35 @@ RSpec.describe ApplicationMailer, type: :mailer do
       expect(mail.body.encoded).to match(user.name)
     end
 
-    context "extended message" do
-      let(:event) { FactoryGirl.create(:event, user: user, target_user: user) }
-      let(:mail) { ApplicationMailer.notification(event, user) }
-      let(:time_sheet_closed_event) { FactoryGirl.create(:event, user: user, target_user: user, type: 'time_sheet_closed') }
-      let(:closed_mail) { ApplicationMailer.notification(time_sheet_closed_event, user) }
-      
-      it "is rendered for time_sheet_closed events" do
-        expect(closed_mail.body.encoded).to match(I18n.t("event.extended_message.time_sheet_closed"))
-      end
+    it "renders links to the concerned entities" do
+      expect(mail.body.encoded).to have_selector(:linkhref, user_url(user))
+    end
+  end
 
-      it "is not rendered for for other events" do
-        expect(mail.body.encoded).to_not match(I18n.t("event.extended_message.time_sheet_closed"))
-      end
+  describe "extended notification messages" do
+    it "is rendered for time_sheet_closed events" do
+      time_sheet_closed_event = FactoryGirl.create(:event, user: user, target_user: user, type: 'time_sheet_closed')
+      closed_mail = ApplicationMailer.notification(time_sheet_closed_event, user)
+      expect(closed_mail.body.encoded).to match(I18n.t("event.extended_message.time_sheet_closed"))
     end
 
+    it "is not rendered for project_create" do
+      event = FactoryGirl.create(:event, type: 'project_create', object: FactoryGirl.create(:project), user: user, target_user: user)
+      mail = ApplicationMailer.notification(event, user)
+      expect(mail.body.encoded).to_not match(I18n.t("event.extended_message.time_sheet_closed"))
+    end
+  end
+
+  describe "notification time_sheet_hand_in" do
+    let(:hiwi) { FactoryGirl.create(:hiwi) }
+    let(:wimi) { FactoryGirl.create(:wimi).user }
+    let(:contract) { FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi) }
+    let(:time_sheet) { FactoryGirl.create(:time_sheet, contract: @contract, handed_in: true, status: 'pending') }
+    let(:event) { FactoryGirl.create(:event, type: 'time_sheet_hand_in', object: time_sheet, user: hiwi, target_user: wimi) }
+    let(:mail) { ApplicationMailer.notification(event, hiwi) }
+
+    it "renders a greeting in the body" do
+      expect(mail.body.encoded).to match(I18n.t("application_mailer.notification.hello", name: hiwi.first_name))
+    end
   end
 end
