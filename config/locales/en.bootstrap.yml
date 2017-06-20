@@ -1,5 +1,13 @@
 ---
 en:
+  number:
+    currency:
+      format:
+        unit: '€'
+        delimiter: ','
+        separator: '.'
+        precision: 2
+        format: '%n %u'
   date:
     abbr_day_names:
     - Sun

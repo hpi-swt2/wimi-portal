@@ -28,7 +28,7 @@
         <%= content_tag :strong, model_class.human_attribute_name(:responsible) %>: <%= linked_name @contract.responsible %>
       </div>
       <div class="col-md-6 col-sm-12">
-        <%= content_tag :strong, model_class.human_attribute_name(:wage_per_hour) %>: <%= @contract.wage_per_hour %> €
+        <%= content_tag :strong, model_class.human_attribute_name(:wage_per_hour) %>: <%= number_to_currency(@contract.wage_per_hour) %>
       </div>
     </div>
   </div>
