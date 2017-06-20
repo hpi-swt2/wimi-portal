@@ -110,7 +110,7 @@ de:
         password_confirmation: Passwort Bestätigen
         personal_data: Benutzerdaten
         personnel_number: Personalnummer
-        personnel_number_help: Optional. Wird auf Stundenzettel PDFs eingetragen
+        personnel_number_help: Optional. Wird auf exportierten Stundenzettel-PDFs eingetragen
         remember_created_at: Erstellungsdatum speichern
         remember_me: Angemeldet bleiben
         reset_password_sent_at: Kennwort zurücksetzen versendet an
