@@ -97,7 +97,7 @@ de:
         current_sign_in_ip: IP letzte Anmeldung
         sign_in_count: Anzahl Anmeldungen
         email: E-Mail
-        email_help: Adresse an die E-Mail Benachrichtigungen verschickt werden
+        email_help: Adresse, an die E-Mail Benachrichtigungen verschickt werden
         email_notification: Email Benachrichtigungen
         first_name: Vorname
         id: Id
