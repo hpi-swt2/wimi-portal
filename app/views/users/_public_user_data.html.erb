@@ -9,7 +9,7 @@
       <p><strong><%= model_class.human_attribute_name(field)%>: </strong><%= @user[field] %></p>
     <% end %>
 
-    <strong><%= model_class.human_attribute_name(:chair)%></strong>: <%= @user.chair ? @user.chair.name : '' %></p>
+    <strong><%= model_class.human_attribute_name(:chair)%></strong>: <%= @user.chair ? linked_name(@user.chair) : '---' %></p>
 
     <p>
       <strong><%= t('.projects')%>: </strong>
