@@ -99,7 +99,7 @@ ignore_unused:
   - 'activerecord.attributes.*'
   - 'activerecord.models.*.{one,other}'
   - 'activerecord.errors.*'
-  - '{date,time,datetime}.*'
+  - '{date,time,datetime, number}.*'
   - '{true,false}'
   - 'helpers.submit.*'
   - 'event.user_friendly_name.*'
