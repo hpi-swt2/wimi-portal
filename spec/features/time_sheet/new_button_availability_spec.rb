@@ -47,6 +47,9 @@ describe 'contracts#index' do
       visit contract_path(@contract)
       
       expect(page).not_to have_selector(:linkhref, new_contract_time_sheet_path(@contract))
+      within("#timesheet_table") do
+        expect(page).not_to have_selector(:submit,"")
+      end
     end
   end
 end

@@ -1,9 +1,7 @@
 <%# hiwi actions %>
 <%# current_time_sheet assumes there is only a single contract %>
 <% if current_user.current_contracts.count == 1 %>
-  <p>
-    <%= link_to( t('.goto_current_time_sheet'), current_time_sheets_path, class: 'btn btn-warning btn-block') %>
-  </p>
+  <%= can_link( t('.goto_current_time_sheet'), :current, TimeSheet, class: 'btn btn-warning btn-block') %>
 <% end %>
 
 <%# wimi actions %>

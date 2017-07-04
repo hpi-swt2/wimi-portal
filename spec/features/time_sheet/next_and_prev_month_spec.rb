@@ -8,6 +8,8 @@ describe 'time_sheet#show' do
     @end_date = (today + 1.month).end_of_month
     @contract = FactoryGirl.create(:contract, hiwi: @user, start_date: @start_date, end_date: @end_date)
     @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, month: today.month)
+    @project = FactoryGirl.create(:project)
+    @user.projects << @project
     login_as @user
   end
 
