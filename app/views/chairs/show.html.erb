@@ -45,7 +45,7 @@
     <% unless @chair.hiwis.blank? %>
       <strong><%= I18n.t('roles.hiwi_long_plural') %>:</strong>
       <br>
-      <table class="table table-striped">
+      <table class="table table-striped" id="hiwi_table">
         <% @chair.hiwis.each do |hiwi| %>
           <tr>
             <td><%= hiwi.name %></td>
