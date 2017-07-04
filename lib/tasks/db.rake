@@ -8,6 +8,8 @@ namespace :db do
     alice = User.create!(first_name: 'Alice', last_name: 'A', email: 'alice@example.com', username: 'alice', password: '1234')
     bob = User.create!(first_name: 'Bob', last_name: 'B', email: 'bob@example.com', username: 'bob', password: '1234')
 
+    charlie = User.create!(first_name: 'Charlie', last_name: 'C', email: 'charlie@example.com', username: 'charlie', password: '1234')
+
     # create! chairs
     chair_epic = Chair.create!(name: 'EPIC', description: 'Enterprise Platform and Integration Concepts')
     chair_www = Chair.create!(name: 'Internet', description: 'Internet-Technologien und -Systeme')
@@ -41,6 +43,16 @@ namespace :db do
     contract_alice = Contract.create(
         hiwi: alice, 
         chair: chair_www, 
+        start_date: Date.today, 
+        end_date: Date.today >> 6, 
+        responsible: epic_wimi,
+        flexible: false, 
+        hours_per_week: 10,
+        wage_per_hour: 12.5)
+
+    contract_charlie = Contract.create(
+        hiwi: charlie, 
+        chair: chair_epic, 
         start_date: Date.today, 
         end_date: Date.today >> 6, 
         responsible: epic_wimi,
