@@ -149,7 +149,7 @@ class TimeSheetsController < ApplicationController
   # Creates that timesheet if it's not there yet and a contract for today's date exists
   def current
     today = Date.today
-    current_time_sheet = current_user.time_sheets.year(today.year).month(today.month)
+    current_time_sheet = TimeSheet.current(current_user)
     if current_time_sheet.any?
       if can? :edit, current_time_sheet.first
         redirect_to edit_time_sheet_path(current_time_sheet.first)
