@@ -46,7 +46,7 @@
       <strong><%= I18n.t('roles.hiwi_long_plural') %>:</strong>
       <br>
       <table class="table table-striped" id="hiwi_table">
-        <% @chair.hiwis.each do |hiwi| %>
+        <% @chair.hiwis.select{|hiwi| current_user.is_wimi? or hiwi.id == current_user.id }.each do |hiwi| %>
           <tr>
             <td><%= hiwi.name %></td>
             <% contracts = hiwi.contract_with(@chair).to_a %>

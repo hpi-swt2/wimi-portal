@@ -17,9 +17,9 @@ RSpec.describe 'chairs/show.html.erb', type: :view do
     @hiwi_two_contracts.projects << @project
 
     login_as @hiwi
+    allow(view).to receive(:current_user).and_return(@hiwi)
     visit chair_path(@chair)
     render
-    expect(@chair.hiwis.count).to eq(3)
   end
   
   context 'as a hiwi' do
