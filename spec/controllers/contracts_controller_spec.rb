@@ -51,8 +51,7 @@ RSpec.describe ContractsController, type: :controller do
 
     context 'with invalid params' do
       it 'renders #new' do
-        post :create, {contract: {start_date: Date.today}}
-        puts response
+        post :create, {contract: invalid_attributes}
         expect(response).to render_template(:new)
         expect(flash[:success]).to be_nil
       end
@@ -62,7 +61,52 @@ RSpec.describe ContractsController, type: :controller do
   describe 'get #index' do
     context 'as a hiwi with one contract' do
       it 'redirects to #show' do
+        login_with @hiwi
+        get :index
+        expect(response).to redirect_to(contract_path(@contract))
+      end
+    end
 
+    context 'as a wimi' do
+      it 'renders #index' do
+        login_with @wimi
+        get :index
+        expect(response).to render_template(:index)
+      end
+    end
+  end
+
+  describe 'put #update' do
+    context 'with invalid params' do
+      it 'renders #edit' do
+        login_with @wimi
+        put :update, {id: @contract.id, contract: invalid_attributes}
+        expect(response).to render_template(:edit)
+        expect(flash[:success]).to be_nil
+      end
+    end
+  end
+
+  describe 'delete #destroy' do
+    context 'as a hiwi' do
+      it 'is not allowed' do
+        login_with @hiwi
+        delete :destroy, {id: @contract.id}
+        expect(response).to redirect_to(contracts_path)
+        expect(flash[:success]).to be_nil
+        expect(flash[:error]).not_to be_nil
+      end
+    end
+
+    context 'as a wimi' do
+      it 'deletes the contract' do
+        login_with @wimi
+        expect {
+          delete :destroy, {id: @contract.id}
+        }.to change(Contract, :count).by -1
+        expect(response).to redirect_to(contracts_path)
+        expect(flash[:success]).not_to be_nil
+        expect(flash[:error]).to be_nil
       end
     end
   end
