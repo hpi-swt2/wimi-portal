@@ -120,6 +120,7 @@ class TimeSheetsController < ApplicationController
     @time_sheet.contract.chair.admin_users.each do |user|
       @time_sheet.send_to(user,current_user)
     end
+    redirect_to time_sheet_path(@time_sheet)
   end
 
   def download

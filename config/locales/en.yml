@@ -317,6 +317,7 @@ en:
     time_sheet_accept: "%{user} accepted the time sheet %{obj} of %{target_user}"
     time_sheet_decline: "%{user} rejected the time sheet %{obj} of %{target_user}"
     time_sheet_closed: "%{user} archived the time sheet %{obj} of %{target_user}, it was handed in manually"
+    time_sheet_admin_mail: "%{user} sent the time sheet %{obj} to %{target_user}"
     project_create: "%{user} created project %{obj}"
     project_join: "%{user} added %{target_user} to %{obj}"
     project_leave: "%{user} removed %{target_user} from project %{obj}"
