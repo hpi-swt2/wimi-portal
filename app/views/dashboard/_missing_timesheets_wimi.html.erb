@@ -1,3 +1,5 @@
+<%- model_class = TimeSheet -%>
+
 <div class="col-md-12 col-sm-12" id="missing_timesheets_wimi">
   <div class="display">
     <div class="panel panel-default">
@@ -32,34 +34,15 @@
                 <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
                   <td><%= ts.name %></td>
                   <td><%= linked_name contract %></td>
-                  <td><%= ts.monthly_work_minutes_formatted %></td>
+                  <td><%= ts.sum_minutes_formatted %> <%= "/ #{ts.monthly_work_minutes_formatted}" if ts.monthly_work_minutes_formatted %></td>
                   <td>
-                    <% if can? :close, ts %>
-                      <% if ts.new_record? %>
-                        <% ts.status = 'closed' %>
-                        <% if can?(:create, ts) %>
-                          <%# JS button that creates a closed time sheet and removes row %>
-                          <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('.close_tooltip', month: ts.name) %>">
-                            <%= button_to t('helpers.links.close_short'),
-                              contract_create_for_month_year_path(contract, ts.month, ts.year, :closed),
-                              class: 'btn btn-default btn-xs',
-                              form_class: 'archive-btn',
-                              remote: true,
-                              :data => { confirm: t('helpers.links.confirm_action.message', model: ts.name, action: t('helpers.links.confirm_action.archive')) } %>
-                          </span>
-                        <% end %>
-                        <%# Time sheet is not yet created, user cannot create, do nothing in this case %>
-                      <% else %>
-                        <%# JS button that closes existing time sheet and removes row %>
-                        <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('.close_tooltip', month: ts.name) %>">
-                          <%= button_to t('helpers.links.close_short'),
-                            close_time_sheet_path(ts),
-                            class: 'btn btn-default btn-xs',
-                            form_class: 'archive-btn',
-                            remote: true,
-                            :data => { confirm: t('helpers.links.confirm_action.message', model: ts.name, action: t('helpers.links.confirm_action.archive')) } %>
-                        </span>
-                      <% end %>
+                    <%# peek timesheet returns unsaved timesheet instances for non-existing timesheets %>
+                    <% unless ts.new_record? %>
+                      <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
+                            time_sheet_path(ts),
+                            class: 'btn btn-default btn-xs' %>
+                      <%# PDF links for all work_sheets, no matter their status %>
+                      <%= render partial: 'time_sheets/pdf_link', locals: {time_sheet: ts, btn_text: 'PDF', btn_class: 'btn btn-info btn-xs'} %>
                     <% end %>
                   </td>
                 </tr>

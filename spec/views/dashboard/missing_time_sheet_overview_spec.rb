@@ -89,7 +89,7 @@ RSpec.describe 'dashboard/index' do
         @timesheet1 = FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
         @wd = FactoryGirl.create(:work_day, time_sheet: @timesheet1)
         visit dashboard_path
-        expect(page).to have_content(@timesheet1.monthly_work_minutes_formatted)
+        expect(page).to have_content(@timesheet1.sum_minutes_formatted)
       end
     end
   end
