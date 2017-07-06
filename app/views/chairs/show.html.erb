@@ -46,18 +46,23 @@
       <strong><%= I18n.t('roles.hiwi_long_plural') %>:</strong>
       <br>
       <table class="table table-striped" id="hiwi_table">
-        <% @chair.hiwis.select{|hiwi| current_user.is_wimi? or hiwi.id == current_user.id }.each do |hiwi| %>
+        <% @chair.hiwis.each do |hiwi| %>
           <tr>
             <td><%= hiwi.name %></td>
-            <% contracts = hiwi.contract_with(@chair).to_a %>
-            <% if contracts.size == 0 %>
-              <td><%= t('chairs.contracts.none') %></td>
-            <% else%>
-              <% if contracts.size == 1 %>
-                <td><%= can_link t('chairs.contracts.one'), :show, contracts[0], class: "btn btn-default btn-xs" %></td>
-              <%else%>
-              <td><%= can_link t('chairs.contracts.several', count: contracts.size), :index, Contract, class: 'btn btn-default btn-xs' %></td>
+            <%# do not display contract buttons to hiwis other than a hiwi herself %>
+            <% if current_user.is_wimi? or current_user.id == hiwi.id %>
+              <% contracts = hiwi.contract_with(@chair).to_a %>
+              <% if contracts.size == 0 %>
+                <td><%= t('chairs.contracts.none') %></td>
+              <% else%>
+                <% if contracts.size == 1 %>
+                  <td><%= can_link t('chairs.contracts.one'), :show, contracts[0], class: "btn btn-default btn-xs" %></td>
+                <%else%>
+                <td><%= can_link t('chairs.contracts.several', count: contracts.size), :index, Contract, class: 'btn btn-default btn-xs' %></td>
+                <% end %>
               <% end %>
+            <% else %>
+              <td></td>
             <% end %>
           </tr>
         <% end %>
