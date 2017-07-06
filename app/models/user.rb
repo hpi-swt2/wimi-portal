@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
 
   # Return all chairs that the user is a HiWi in
   def chair_hiwi
-    projects.collect(&:chair).uniq
+    contracts.collect(&:chair).uniq
   end
 
   def name=(fullname)
