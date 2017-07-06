@@ -59,4 +59,22 @@ RSpec.describe 'users/show', type: :view do
 #    expect(page).to_not have_content(t('users.show.user_data'))
 #    expect(page).to have_content(t('users.show.password'))
 #  end
+
+  context 'event settings' do
+    before :each do
+      visit user_path(@user)
+    end
+
+    it 'are displayed for event types that are mail enabled' do
+      Event.mail_enabled_types.each do |type,v|
+        expect(page).to have_content(I18n.t("event.user_friendly_name.#{type}"))
+      end
+    end
+
+    it 'are hidden for event types that are not mail enabled' do
+      Event::NOMAIL.each do |type|
+        expect(page).not_to have_content(I18n.t("event.user_friendly_name.#{type}"))
+      end
+    end
+  end
 end

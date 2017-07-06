@@ -5,7 +5,7 @@
   <div class="panel panel-body">
     <table class="table table-condensed table-hover" style="width: 60%;">
       <tbody>
-        <% Event.types.each do |typename, val| %>
+        <% Event.mail_enabled_types.each do |typename, val| %>
           <tr>
             <td><%= t "event.user_friendly_name.#{typename}" %></td>
             <td>

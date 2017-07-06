@@ -28,9 +28,13 @@ class Event < ActiveRecord::Base
     :time_sheet_closed, :time_sheet_admin_mail
   ]
 
+  # Events listed here will not send Emails after creation
+  # and will also not appear in Users email settings
+  NOMAIL = [:time_sheet_admin_mail.to_s].freeze
+
   validates_presence_of :user, :target_user, :object
 
-  after_create :send_mail
+  after_create :send_mail, unless: :has_mail_disabled?
 
   def self.add(type, user, object, target_user)
     event = self.new({ type: type, user: user, object: object, target_user: target_user})
@@ -49,6 +53,14 @@ class Event < ActiveRecord::Base
     User.all.select do |u|
       (Ability.new(u).can? :receive_email, self) && u.wants_mail_for(type_id)
     end
+  end
+
+  def has_mail_disabled?
+    NOMAIL.include?(self.type)
+  end
+
+  def self.mail_enabled_types
+    self.types.select { |t,v| !NOMAIL.include?(t) }
   end
 
   def send_mail

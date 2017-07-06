@@ -72,7 +72,26 @@ RSpec.describe Event, type: :model do
       "contract_create"=>9,
       "contract_extend"=>10,
       "time_sheet_closed"=>11,
+      "time_sheet_admin_mail"=>12,
     }
     expect(Event.types).to eq(original_enum_order)
+  end
+
+  context 'has_mail_disabled?' do
+    before :each do
+      @event = FactoryGirl.create(:event)
+    end
+
+    it 'returns false if the type is not contained in NOMAIL' do
+      expect(Event::NOMAIL).to_not include(@event.type)
+      expect(@event).not_to have_mail_disabled
+    end
+
+    it 'returns true if the type is contained in NOMAIL' do
+      @event.update(type: :time_sheet_admin_mail)
+      @event.reload
+      expect(Event::NOMAIL).to include(@event.type)
+      expect(@event).to have_mail_disabled
+    end
   end
 end
