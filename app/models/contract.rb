@@ -79,7 +79,7 @@ class Contract < ActiveRecord::Base
 
   def missing_timesheets(upto_date = Date.today - 1.month)
     upto_date = end_date if upto_date > end_date
-    contract_dates = upto_date.downto(start_date)
+    contract_dates = upto_date.downto(start_date.beginning_of_month)
                               .map { |d| d.change(day: 1) }.uniq
     # accepted and closed are scopes defined by the status enum
     valid_dates = (time_sheets.accepted | time_sheets.closed).map(&:first_day)
