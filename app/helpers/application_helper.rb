@@ -25,6 +25,9 @@ module ApplicationHelper
     if can? action, model
       url_args = { controller: model.model_name.route_key, action: action}
       url_args[:id] = model unless model.is_a? Class
+      if(link_args.key?(:anchor))
+        url_args[:anchor] = link_args[:anchor]
+      end
       link_to(title, url_for(url_args), link_args)
     else
       yield
