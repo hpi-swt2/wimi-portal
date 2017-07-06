@@ -269,8 +269,14 @@ en:
       today: Today
     projects:
       projects: My Projects
-    missing_timesheets:
+    missing_timesheets_admin:
       toggle_visibility: Show only the last two months
+      close_tooltip: "%{month} handed in externally"
+    missing_timesheets_wimi:
+      total_work_time: Total time worked
+      toggle_visibility: Show only the last two months
+      close_tooltip: "%{month} handed in externally"
+    missing_timesheets:
       close_tooltip: "%{month} handed in externally"
   errors:
     format: "%{attribute} %{message}"

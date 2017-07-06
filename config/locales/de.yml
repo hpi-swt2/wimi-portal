@@ -269,8 +269,14 @@ de:
       today: Heute
     projects:
       projects: Meine Projekte
-    missing_timesheets:
+    missing_timesheets_admin:
       toggle_visibility: Nur die letzten beiden Monate anzeigen
+      close_tooltip: "%{month} extern eingereicht"
+    missing_timesheets_wimi:
+      total_work_time: Geleistete Arbeitszeit
+      toggle_visibility: Nur die letzten beiden Monate anzeigen
+      close_tooltip: "%{month} extern eingereicht"
+    missing_timesheets:  
       close_tooltip: "%{month} extern eingereicht"
   errors:
     format: "%{attribute} %{message}"

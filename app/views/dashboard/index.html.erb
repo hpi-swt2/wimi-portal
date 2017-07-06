@@ -119,8 +119,12 @@
 
 <%# Missing Timesheets %>
 <%# HiWis already see their missing time sheets in the contract panel %>
-<% unless current_user.is_hiwi? %>
-  <%= render partial: 'missing_timesheets' %>
+<% if current_user.is_admin? or current_user.is_representative? %>
+  <%= render partial: 'missing_timesheets_admin'%>
+<% else %>
+  <% if current_user.is_wimi? %>
+    <%= render partial: 'missing_timesheets_wimi'%>
+  <% end %>
 <% end %>
 
 <% content_for :actions do %>

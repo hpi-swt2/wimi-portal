@@ -15,5 +15,6 @@ class DashboardController < ApplicationController
       .select { |e| current_ability.can?(:show, e)}
 
     @own_contracts = current_user.contracts
+    byebug
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'chairs/show.html.erb', type: :view do
+RSpec.describe 'chairs/show' do
   before :each do
     @chair = FactoryGirl.create(:chair)
     @contract = FactoryGirl.create(:contract, chair: @chair)
@@ -19,11 +19,9 @@ RSpec.describe 'chairs/show.html.erb', type: :view do
     login_as @hiwi
     allow(view).to receive(:current_user).and_return(@hiwi)
     visit chair_path(@chair)
-    render
   end
   
   context 'as a hiwi' do
-
     it 'does not link contracts for other hiwis' do
       within("#hiwi_table") do
         expect(page).to_not have_selector(:linkhref, contracts_path)
