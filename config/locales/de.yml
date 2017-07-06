@@ -276,7 +276,6 @@ de:
       hiwi: Hiwi
       total_work_time: Geleistete Arbeitszeit
       toggle_visibility: Nur die letzten beiden Monate anzeigen
-      close_tooltip: "%{month} extern eingereicht"
     missing_timesheets:  
       close_tooltip: "%{month} extern eingereicht"
   errors:
