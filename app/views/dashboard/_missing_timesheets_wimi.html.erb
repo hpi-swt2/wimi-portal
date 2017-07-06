@@ -22,8 +22,10 @@
           <thead>
             <tr>
               <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
+              <th><%= t('.hiwi') %></th>
               <th><%= t('activerecord.models.contract.one').capitalize %></th>
               <th><%= t('.total_work_time') %></th>
+              <th><%= model_class.human_attribute_name(:status) %></th>
               <th><%= t('helpers.actions') %></th>
             </tr>
           </thead>
@@ -33,8 +35,23 @@
                 <% ts = contract.peek_time_sheet(date.month, date.year) %>
                 <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
                   <td><%= ts.name %></td>
+                  <td><%= linked_name ts.user %> </td>
                   <td><%= linked_name contract %></td>
-                  <td><%= ts.sum_minutes_formatted %> <%= "/ #{ts.monthly_work_minutes_formatted}" if ts.monthly_work_minutes_formatted %></td>
+                  <td>
+                    <% unless ts.new_record? %>
+                      <%= ts.sum_minutes_formatted %> <%= "/ #{ts.monthly_work_minutes_formatted}" if ts.monthly_work_minutes_formatted %></td>
+                    <% else %>
+                      ---
+                    <% end %>
+                  <td>
+                    <% unless ts.new_record? %>
+                    <span class="label label-<%= status_label_css(ts.status) %>">
+                      <%= t("activerecord.attributes.time_sheet.status_enum.#{ts.status}") %>
+                    </span>
+                    <% else %>
+                      ---
+                    <% end %>
+                  </td>
                   <td>
                     <%# peek timesheet returns unsaved timesheet instances for non-existing timesheets %>
                     <% unless ts.new_record? %>

@@ -91,6 +91,23 @@ RSpec.describe 'dashboard/index' do
         visit dashboard_path
         expect(page).to have_content(@timesheet1.sum_minutes_formatted)
       end
+
+      it 'displays a link to each hiwi' do
+        expect(@page_section).to have_selector(:linkhref, user_path(@contract.hiwi))
+      end
+
+      context 'displays the timesheet status' do
+        it 'if the timesheet exists' do
+          @timesheet1 = FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
+          visit dashboard_path
+          @page_section = page.find('#missing_timesheets_wimi')
+          expect(@page_section).to have_selector(:css, ".label-#{status_label_css(@timesheet1.status)}")
+        end
+
+        it 'as a placeholder if the timesheet does not exist' do
+          expect(@page_section).to have_content("---")
+        end
+      end
     end
   end
 end

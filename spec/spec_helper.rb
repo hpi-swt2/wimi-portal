@@ -34,6 +34,7 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = "spec/rspec_failures.txt"
 
   config.include ControllerHelpers, type: :controller
+  config.include ApplicationHelper
   Warden.test_mode!
 
   # rspec-expectations config goes here. You can use an alternate

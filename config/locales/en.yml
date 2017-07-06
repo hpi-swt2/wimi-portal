@@ -273,6 +273,7 @@ en:
       toggle_visibility: Show only the last two months
       close_tooltip: "%{month} handed in externally"
     missing_timesheets_wimi:
+      hiwi: Hiwi
       total_work_time: Total time worked
       toggle_visibility: Show only the last two months
       close_tooltip: "%{month} handed in externally"
