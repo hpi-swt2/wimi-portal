@@ -1,5 +1,4 @@
 require 'rails_helper'
-#require 'spec_helper'
 require 'cancan/matchers'
 
 describe 'dashboard#index' do
@@ -22,7 +21,7 @@ describe 'dashboard#index' do
       
       expect(page).not_to have_selector(:linkhref, new_contract_time_sheet_path(@contract))
       within("div#contract") do
-        expect(page).not_to have_selector(:submit,"")
+        expect(page).not_to have_selector(:submit)
       end
     end
   end
@@ -48,7 +47,7 @@ describe 'contracts#index' do
       
       expect(page).not_to have_selector(:linkhref, new_contract_time_sheet_path(@contract))
       within("#timesheet_table") do
-        expect(page).not_to have_selector(:submit,"")
+        expect(page).not_to have_selector(:submit)
       end
     end
   end

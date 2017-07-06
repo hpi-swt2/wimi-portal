@@ -4,6 +4,6 @@ module Selectors
   end
 
   Capybara.add_selector(:submit) do
-    xpath {|href| ".//*[@type='submit']"}
+    xpath { ".//*[@type='submit']"}
   end
 end
