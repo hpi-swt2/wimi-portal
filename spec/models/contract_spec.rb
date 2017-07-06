@@ -127,4 +127,30 @@ RSpec.describe Contract, type: :model do
       expect(@contract.time_sheets_including_missing(date_after_contract_end).size).to eq(@month_duration)
     end
   end
+
+  context 'missing timesheets' do
+    before :each do
+      @start_date = Date.today.at_beginning_of_month << 2
+      @end_date = Date.today >> 1
+      @contract = FactoryGirl.create(:contract, start_date: @start_date, end_date: @end_date)
+    end
+
+    context 'without any timesheets' do
+      it 'includes all months prior to the current month' do
+        @dates = @contract.missing_timesheets
+        expect(@dates).to contain_exactly(@start_date, @start_date >> 1)
+      end
+
+      context 'and a contract that has a start date within the last month' do
+        before :each do
+          @contract.update(start_date: Date.today.end_of_month << 1)
+          @contract.reload
+        end
+        it 'includes the first day of the last month' do
+          @dates = @contract.missing_timesheets
+          expect(@dates).to contain_exactly(Date.today.at_beginning_of_month << 1)
+        end
+      end
+    end
+  end
 end
