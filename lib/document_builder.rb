@@ -8,21 +8,25 @@ class DocumentBuilder < ActionController::Base
     # WickedPDF looks for stylesheet files in app/assets/stylesheets
     @tmp_vars[:css_file] = 'document.css'
     @tmp_vars[:hpi_logo] = "#{Rails.root}/app/assets/images/HPI-Logo.jpg"
-    
-    pdf = WickedPdf.new.pdf_from_string(render_to_string(
-    'documents/' << @doc_type << '.html.erb',
-    layout: false,
-    locals: @tmp_vars))
-    
+
+    pdf = WickedPdf.new.pdf_from_string(
+      render_to_string(
+        "documents/#{@doc_type}.html.erb",
+        layout: false,
+        locals: @tmp_vars
+      )
+    )
+
     return pdf
   end
   
   def build_file_name
     if @doc_type == 'Timesheet'
-      @tmp_vars[:timesheet].pdf_export_name
+      file_name = @tmp_vars[:timesheet].pdf_export_name
     else
-      @doc_type
+      file_name = @doc_type
     end
+    file_name + '.pdf'
   end
 
   private

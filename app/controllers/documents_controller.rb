@@ -1,3 +1,4 @@
+# lib/document_builder.rb
 require 'document_builder'
 
 class DocumentsController < ApplicationController
@@ -7,7 +8,7 @@ class DocumentsController < ApplicationController
     else
       builder = DocumentBuilder.new(params)
       pdf = builder.build_pdf
-      send_data(pdf, filename: builder.build_file_name << '.pdf',  type: 'application/pdf')
+      send_data(pdf, filename: builder.build_file_name, type: 'application/pdf')
     end
   end 
 end
