@@ -97,11 +97,9 @@ class TimeSheet < ActiveRecord::Base
 
   def send_to(user, sender)
     event = Event.add(:time_sheet_admin_mail, sender, self, user)
-    mail = ApplicationMailer.notification(event, user)
+    mail = ApplicationMailer.notification_with_pdf(event, user, self.make_pdf, "#{self.pdf_export_name}.pdf")
 
-    mail.attachments[self.user.name + ' ' + self.name + '.pdf'] = self.make_pdf
     mail.deliver_now
-    # TODO: write tests
   end
 
   def make_pdf
