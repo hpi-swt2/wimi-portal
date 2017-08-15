@@ -6,9 +6,7 @@
       <div class="panel-body novertpadding">
         <div class="row">
           <div class="col-md-12 col-sm-12">
-            <p>
-              <strong><%= t 'home.index.welcome' %></strong> <%= t 'home.index.user_html', user: (link_to current_user.name, user_path(current_user)) %>
-            </p>
+            <p><strong><%= t 'home.index.welcome', name: current_user.first_name %></strong></p>
             <% project_count, contract_count = current_user.projects.count, current_user.contracts.count %>
             <p>
               <%= t 'home.index.member_status_html',
@@ -17,7 +15,7 @@
                 contract_count: contract_count,
                 contract: t('activerecord.models.contract', count: contract_count) %>
             </p>
-            <% if project_count == 0 or contract_count == 0 %>
+            <% if (project_count == 0 or contract_count == 0) and current_user.is_student? %>
               <p><%= t 'home.index.new_member' %></p>
             <% end %>
           </div>
@@ -27,44 +25,6 @@
   </div>
 </div>
 
-<%# Soon-ending contracts %>
-<div class="col-md-12 col-sm-12">
-  <div class="display">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4><%= t '.ending_contracts' %></h4>
-      </div>
-      <div class="panel-body panel-scroll">
-        <% if @ending_contracts.empty? %>
-          <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
-        <% else %>
-          <table class="table table-condensed table-hover">
-            <thead>
-              <tr>
-                <th><%= Contract.human_attribute_name(:end_date) %></th>
-                <th><%= Contract.human_attribute_name(:hiwi) %></th>
-                <th><%= Contract.human_attribute_name(:responsible) %></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @ending_contracts.each do |contract| %>
-                <tr>
-                  <td><%= l contract.end_date, format: :short_month_year %></td>
-                  <td><%= linked_name contract.hiwi %></td>
-                  <td><%= linked_name contract.responsible %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<%# Missing Timesheets %>
-<%= render partial: 'missing_timesheets' %>
-
 <%# Notifications %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
@@ -72,22 +32,19 @@
       <div class="panel-heading">
         <h4><%= t '.notifications' %></h4>
       </div>
-      <div class="panel-body panel-scroll">
+      <div class="panel-body panel-scroll" style="max-height: 10em;">
         <% if @events.empty? %>
           <%= t 'no_entries_yet', target: t('activerecord.models.event.other') %>
         <% else %>
           <table class="table table-condensed table-hover">
-            <thead>
-              <tr>
-                <th style="min-width: 100px;"><%= Event.human_attribute_name(:created_at) %></th>
-                <th><%= Event.human_attribute_name(:message) %></th>
-              </tr>
-            </thead>
             <tbody>
               <% @events.each do |event| %>
-                <tr>
-                  <td><%= content_tag :strong, l(event.created_at, format: :full) %></td>
-                  <td><%= render partial: "shared/event_message", locals: {event: event} %></td>
+                <% event_today = event.created_at.to_date == Date.today %>
+                <tr class="<%= 'warning' if event_today %>">
+                  <td style="min-width: 100px;">
+                    <%= content_tag :strong, event_today ? "#{t('.today')} #{l(event.created_at, format: :hours_minutes)}" : l(event.created_at, format: :full) %>
+                  </td>
+                  <td><%= render partial: 'shared/event_message', locals: {event: event, user: current_user} %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -98,32 +55,91 @@
   </div>
 </div>
 
-<% content_for :sidebar do %>
-  <% action_content = render partial: 'actions' %>
-  <% if action_content.present? %>
-    <%# Actions %>
-    <div class="col-md-12 col-sm-12">
-      <div class="display">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4><%=t('.actions')%></h4>
-          </div>
-          <div class="panel-body">
-            <%= action_content %>
-          </div>
+<%# Time Sheets %>
+<% @own_contracts.each do |contract| %>
+  <div class="col-md-12 col-sm-12" id="contract">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>
+            <%= t('activerecord.models.contract.one').titleize %> <%= linked_name contract %>
+            <% if @ending_contracts.include? contract %>
+              <span class="label label-danger pull-right"><%= "#{t '.contract_ends_soon'} (#{l(contract.end_date)})" %></span>
+            <% end %>
+            <%# if can?(:new, TimeSheet.new(contract: contract)) %>
+              <%# link_to t('helpers.titles.new', model: TimeSheet.model_name.human.titleize), new_contract_time_sheet_path(contract), class: 'btn btn-success btn-sm pull-right' %>
+            <%# end %>
+          </h4>
+        </div>
+        <div class="panel-body panel-scroll">
+          <%= render partial: "time_sheets/table", locals: {contract: contract, searching: false, info: false} %>
         </div>
       </div>
     </div>
+  </div>
+<% end %>
+
+<%# Soon-ending contracts %>
+<%# HiWis already see a warning on soon-ending contracts on the contract dashboard panel %>
+<% unless current_user.is_hiwi? %>
+  <div class="col-md-12 col-sm-12">
+    <div class="display">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><%= t '.ending_contracts' %></h4>
+        </div>
+        <div class="panel-body panel-scroll">
+          <% if @ending_contracts.empty? %>
+            <%= t 'no_entries_yet', target: t('activerecord.models.contract.other') %>
+          <% else %>
+            <table class="table table-condensed table-hover">
+              <thead>
+                <tr>
+                  <th><%= Contract.human_attribute_name(:end_date) %></th>
+                  <th><%= Contract.human_attribute_name(:hiwi) %></th>
+                  <th><%= Contract.human_attribute_name(:responsible) %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @ending_contracts.each do |contract| %>
+                  <tr>
+                    <td><%= l contract.end_date, format: :short_month_year %></td>
+                    <td><%= linked_name contract.hiwi %></td>
+                    <td><%= linked_name contract.responsible %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%# Missing Timesheets %>
+<%# HiWis already see their missing time sheets in the contract panel %>
+<% if current_user.is_admin? or current_user.is_representative? %>
+  <%= render partial: 'missing_timesheets_admin'%>
+<% else %>
+  <% if current_user.is_wimi? %>
+    <%= render partial: 'missing_timesheets_wimi'%>
+  <% end %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render partial: 'actions' %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%# My Contracts %>
+  <%# could use "Contract.accessible_by(current_ability)", but  %>
+  <% unless current_user.contracts.blank? %>
+    <%= render partial: 'contracts' %>
   <% end %>
 
   <%# My Projects %>
   <% unless current_user.projects.blank? %>
     <%= render partial: 'projects' %>
-  <% end %>
-
-  <%# My Contracts %>
-  <%# could use "Contract.accessible_by(current_ability)", but  %>
-  <% unless current_user.contracts.blank? %>
-    <%= render partial: 'contracts' %>
   <% end %>
 <% end %>

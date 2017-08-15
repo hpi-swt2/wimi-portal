@@ -15,7 +15,7 @@ describe 'time_sheets#edit' do
     end
 
     it 'has a delete button' do
-      expect(page).to have_content(I18n.t('helpers.links.destroy'))
+      expect(page).to have_delete_link(@time_sheet)
     end
 
     it 'is possible to delete an empty time sheet' do
@@ -45,7 +45,7 @@ describe 'time_sheets#edit' do
     end
 
     it 'does not have a delete button' do
-      expect(page).to_not have_content(I18n.t('helpers.links.destroy'))
+      expect(page).to_not have_delete_link(@time_sheet_handed_in)
     end
   end
 end

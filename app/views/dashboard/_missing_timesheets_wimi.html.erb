@@ -1,0 +1,74 @@
+<%- model_class = TimeSheet -%>
+
+<div class="col-md-12 col-sm-12" id="missing_timesheets_wimi">
+  <div class="display">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>
+          <%= t 'dashboard.index.missing_timesheets' %>
+          <label class="checkbox-inline pull-right">
+            <%# autocomplete="off" prevents Firefox from remembering the checkbox's state on refresh, see http://stackoverflow.com/questions/2486474 %>
+            <input type="checkbox" value="" autocomplete="off" checked data-toggle-visibility="true" data-target-class="old-ts">
+            <small><%= t '.toggle_visibility' %></small>
+          </label>
+        </h4>
+
+      </div>
+      <div class="panel-body panel-scroll">
+        <% if @missing_timesheets.empty? %>
+          <%= t 'no_entries_yet', target: t('activerecord.models.time_sheet.other') %>
+        <% else %>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th><%= TimeSheet.human_attribute_name(:month).capitalize %></th>
+              <th><%= t('.hiwi') %></th>
+              <th><%= t('activerecord.models.contract.one').capitalize %></th>
+              <th><%= t('.total_work_time') %></th>
+              <th><%= model_class.human_attribute_name(:status) %></th>
+              <th><%= t('helpers.actions') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @missing_timesheets.each do |dates,contract| %>
+              <% dates.each do |date| %>
+                <% ts = contract.peek_time_sheet(date.month, date.year) %>
+                <tr <%= 'class="old-ts hidden"'.html_safe if date < Date.today.beginning_of_month - 2.months %>>
+                  <td><%= ts.name %></td>
+                  <td><%= linked_name ts.user %> </td>
+                  <td><%= linked_name contract %></td>
+                  <td>
+                    <% unless ts.new_record? %>
+                      <%= ts.sum_minutes_formatted %> <%= "/ #{ts.monthly_work_minutes_formatted}" if ts.monthly_work_minutes_formatted %></td>
+                    <% else %>
+                      ---
+                    <% end %>
+                  <td>
+                    <% unless ts.new_record? %>
+                    <span class="label label-<%= status_label_css(ts.status) %>">
+                      <%= t("activerecord.attributes.time_sheet.status_enum.#{ts.status}") %>
+                    </span>
+                    <% else %>
+                      ---
+                    <% end %>
+                  </td>
+                  <td>
+                    <%# peek timesheet returns unsaved timesheet instances for non-existing timesheets %>
+                    <% unless ts.new_record? %>
+                      <%= link_to t('helpers.links.show', model: model_class.model_name.human.titleize),
+                            time_sheet_path(ts),
+                            class: 'btn btn-default btn-xs' %>
+                      <%# PDF links for all work_sheets, no matter their status %>
+                      <%= render partial: 'time_sheets/pdf_link', locals: {time_sheet: ts, btn_text: 'PDF', btn_class: 'btn btn-info btn-xs'} %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

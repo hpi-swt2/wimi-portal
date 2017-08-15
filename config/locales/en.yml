@@ -71,9 +71,10 @@ en:
         status: Status
         status_enum:
           accepted: accepted
-          created: created
+          created: open
           pending: handed in
           rejected: rejected
+          closed: archived
       trip:
         annotation: Annotations
         created_at: Created at
@@ -261,13 +262,22 @@ en:
     contracts:
       contracts: My Contracts
     index:
-      actions: Actions
       notifications: Newest Notifications
       ending_contracts: Soon-Ending Contracts
       missing_timesheets: Missing Time Sheets
-      dismissed: Dismissed entry.
+      contract_ends_soon: Contract ends soon
+      today: Today
     projects:
       projects: My Projects
+    missing_timesheets_admin:
+      toggle_visibility: Show only the last two months
+      close_tooltip: "%{month} handed in externally"
+    missing_timesheets_wimi:
+      hiwi: Hiwi
+      total_work_time: Total time worked
+      toggle_visibility: Show only the last two months
+    missing_timesheets:
+      close_tooltip: "%{month} handed in externally"
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -302,9 +312,11 @@ en:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
   event:
+    default: "%{user} interacted with %{target_user} via %{obj}"
     time_sheet_hand_in: "%{user} handed in time sheet %{obj} with responsible %{target_user}"
     time_sheet_accept: "%{user} accepted the time sheet %{obj} of %{target_user}"
     time_sheet_decline: "%{user} rejected the time sheet %{obj} of %{target_user}"
+    time_sheet_closed: "%{user} archived the time sheet %{obj} of %{target_user}, it was handed in manually"
     project_create: "%{user} created project %{obj}"
     project_join: "%{user} added %{target_user} to %{obj}"
     project_leave: "%{user} removed %{target_user} from project %{obj}"
@@ -317,6 +329,7 @@ en:
       time_sheet_hand_in: Time sheet handed in
       time_sheet_accept: Time sheet accepted
       time_sheet_decline: Time sheet declined
+      time_sheet_closed: Time sheet archived
       project_create: Project creation
       project_join: Someone joined project
       project_leave: Someone left project
@@ -325,6 +338,8 @@ en:
       chair_add_admin: Admin rights granted
       contract_create: Contract creation
       contract_extend: Contract extension
+    extended_message:
+      time_sheet_closed: Please make sure that the working hours were entered correctly.
   expense:
     applied: Expense is already applied
     destroyed: Expense was successfully destroyed
@@ -360,7 +375,7 @@ en:
     no_script_message_html: This functionality is only available if <a href="http://enable-javascript.com" target="_blank" class="alert-link">JavaScript is active</a>.
     search:
       title: "Filter %{model}"
-      help_text: Search terms are connected using "or".
+      help_text: Search terms are connected using "and".
     actions: Actions
     recent_activity: Recent Activity
     application_tabs:
@@ -379,14 +394,21 @@ en:
       withdraw: Withdraw
       back: Back
       cancel: Cancel
+      close: "Archive %{model}"
+      close_short: Archive
       confirm: Are you sure?
-      confirm_delete: Are you sure that "%{model}" should be deleted?
-      destroy: Delete
+      confirm_action:
+        message: Are you sure that "%{model}" should be %{action}?
+        archive: archived
+        delete: deleted
+      destroy: "Delete %{model}"
       download_pdf: Download as PDF
-      edit: Edit
+      edit: Edit %{model}
+      edit_short: Edit
       edit_leave: Edit Leave
       hand_in: Hand in
       new: New
+      reopen: Reopen
       save: Save
       show: Show
       show_details: Show Details
@@ -430,16 +452,17 @@ en:
     index:
       member_status_html: You are currently a member of <strong>%{project_count} %{project}</strong> as HiWi or WiMi and have <strong>%{contract_count} %{contract}</strong>.
       new_member: You therefore cannot yet enter working hours. To enter a project or set up a contract, please contact your supervisor via E-Mail.
-      user_html: 'You are logged in as: %{user}.'
-      welcome: Welcome to the HPI HiWi Portal!
+      welcome: 'Welcome to the HPI HiWi Portal, %{name}!'
   links:
     search: Search
     submit: Submit
   application_mailer:
     notification:
-      hello: 'Hello #{name}'
+      hello: 'Hello %{name},'
       subject: '[WiMi-Portal] %{text}'
+      new_notification: 'you have received a new notification (%{date}):'
       your_wimi_portal: Your WiMi-Portal
+      settings_reminder_html: 'Notification settings can be changed in your <a href="%{href}">profile</a>.'
   no_entries_yet: There are no %{target} yet.
   not_authorized: You are not authorized to do that action.
   project:
@@ -452,13 +475,15 @@ en:
       already_member: "%{name} is already a member of this project."
       last_wimi: You are the last research assistant. You can not leave the project.
       successfully_added: "%{name} has been added successfully."
+  contracts:
+    show:
+      time_sheets_heading: Time Sheets of This Contract
   projects:
     create:
       success: Project was successfully created.
     destroy:
       success: Project was successfully destroyed.
     form:
-      accessibility: Accessibility
       hiwi: Student Assistants
       show_current_timesheet: Show current time sheet
       sign_out_of_project: Remove
@@ -474,10 +499,7 @@ en:
       add_working_hours: Add working hours
       chair: Research Group
       inactive: "(inactive)"
-      private: private
       project_team: Project Team
-      project_visibility: Visibility
-      public: public
       set_active: set active
       set_inactive: set inactive
     update:
@@ -507,20 +529,22 @@ en:
     edit:
       note_placeholder: Add a note
     show:
+      time: Time
+      duration: Duration
       empty_work_days: No work days present
       create_next_month: Create sheet for next month
       next_month: Show next month
       previous_month: Show previous month
       total_work_time: Total time worked
-      expected_work_time: Contract hours
       achieved: achieved
-      open_work_time: Open hours
-      hiwi_signed_true_html: The document was signed by the employee
-      hiwi_signed_false_html: The document was <strong>not</strong> signed by the employee
+      open: open
+      hiwi_signed_true_html: Signed by the employee
+      hiwi_signed_false_html: <strong>Not</strong> signed by the employee
       accepted_by: Accepted by
       rejected_by: Rejected by
       at: At
       reject_reason: Rejection reason
+      signatures: Signatures
     wimi_actions:
       accept: Accept
       reject: Reject
@@ -535,6 +559,10 @@ en:
       signature_info: In order to sign, a signature must be available.
     withdraw:
       flash: Time sheet was successfully withdrawn
+    close:
+        flash: Time sheet was archived.
+    reopen:
+        flash: Time sheet was re-opened.
   trip:
     applied: Trip is already applied
     destroyed: Trip was successfully destroyed
@@ -587,6 +615,7 @@ en:
     external_login:
       login: Log in
     form:
+      toggle_all: Toggle all
       event_settings: E-Mail notifications
       user_data: User Data
     no_email: is not a valid email address.

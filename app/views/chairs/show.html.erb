@@ -45,19 +45,24 @@
     <% unless @chair.hiwis.blank? %>
       <strong><%= I18n.t('roles.hiwi_long_plural') %>:</strong>
       <br>
-      <table class="table table-striped">
+      <table class="table table-striped" id="hiwi_table">
         <% @chair.hiwis.each do |hiwi| %>
           <tr>
             <td><%= hiwi.name %></td>
-            <% contracts = hiwi.contract_with(@chair).to_a %>
-            <% if contracts.size == 0 %>
-              <td><%= t('chairs.contracts.none') %></td>
-            <% else%>
-              <% if contracts.size == 1 %>
-                <td><%= can_link t('chairs.contracts.one'), :show, contracts[0], class: "btn btn-default btn-xs" %></td>
-              <%else%>
-              <td><%= can_link t('chairs.contracts.several', count: contracts.size), :index, Contract, class: 'btn btn-default btn-xs' %></td>
+            <%# do not display contract buttons to hiwis other than a hiwi herself %>
+            <% if current_user.is_wimi? or current_user.id == hiwi.id %>
+              <% contracts = hiwi.contract_with(@chair).to_a %>
+              <% if contracts.size == 0 %>
+                <td><%= t('chairs.contracts.none') %></td>
+              <% else%>
+                <% if contracts.size == 1 %>
+                  <td><%= can_link t('chairs.contracts.one'), :show, contracts[0], class: "btn btn-default btn-xs" %></td>
+                <%else%>
+                <td><%= can_link t('chairs.contracts.several', count: contracts.size), :index, Contract, class: 'btn btn-default btn-xs', anchor: hiwi.first_name + '_' + hiwi.last_name %></td>
+                <% end %>
               <% end %>
+            <% else %>
+              <td></td>
             <% end %>
           </tr>
         <% end %>
@@ -66,31 +71,21 @@
   </div>
 </div>
 
+<% content_for :actions do %>
+  <%= edit_button @chair, class: 'btn-block' %>
+  <% if can?(:add_user, @chair) %>
+    <hr>
+    <%= link_to t('chair.user.add_prompt'), "",
+          id: "open-popup",
+          data: { toggle: "modal", target: "#add-users-modal" },
+          class: 'btn btn-block btn-success'%>
+  <% end %>
+<% end %>
+
 <% content_for :sidebar do %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t 'helpers.actions'%> </h4>
-        </div>
-        <div class="panel-body">
-          <p>
-            <%= edit_button @chair, class: 'btn btn-block btn-warning' %>
-            <% content_for :modals do %>
-                <%= render 'add_user_to_chair' %>
-            <% end %>
-            <% if can?(:add_user, @chair) %>
-              <hr>
-              <%= link_to t('chair.user.add_prompt'), "",
-                    id: "open-popup",
-                    data: { toggle: "modal", target: "#add-users-modal" },
-                    class: 'btn btn-block btn-success'%>
-            <% end %>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
   <%# Recent activity %>
   <%= render partial: "shared/recent_events", locals: {recent_events: @recent_events} %>
+<% end %>
+<% content_for :modals do %>
+  <%= render 'add_user_to_chair' %>
 <% end %>

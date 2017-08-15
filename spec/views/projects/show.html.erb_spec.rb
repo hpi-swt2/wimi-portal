@@ -24,7 +24,6 @@ RSpec.describe 'projects/show', type: :view do
 
     expect(page).to have_content(project.title)
     expect(page).to have_content(project.chair.name)
-    expect(page).to_not have_content(I18n.t('projects.show.public'))
     
     # only because rep is also wimi of the project
     expect(page).to have_content(project.chair.representative.user.name)
@@ -42,7 +41,6 @@ RSpec.describe 'projects/show', type: :view do
     it 'has information about the project on page' do
       expect(page).to have_content(@project.title)
       expect(page).to have_content(@project.chair.name)
-      expect(page).to_not have_content(I18n.t('projects.show.public'))
     end
 
     it 'does not show an add working hours button' do
@@ -65,7 +63,6 @@ RSpec.describe 'projects/show', type: :view do
       expect(page).to have_content(@project.title)
       expect(page).to have_content(@project.chair.name)
       expect(page).to have_content(l(@project.created_at))
-      expect(page).to_not have_content(I18n.t('projects.show.public'))
     end
 
     it 'shows no add working hours button' do
@@ -84,8 +81,8 @@ RSpec.describe 'projects/show', type: :view do
     
     it 'not possible for wimi to edit if not a member' do
       visit current_path
-      expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.edit'))
-      expect(page).not_to have_selector(:link_or_button, I18n.t('helpers.links.destroy'))
+      expect(page).not_to have_css("a[href='#{edit_project_path(@project)}']")
+      expect(page).not_to have_delete_link(@project)
       expect(page).not_to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
     end
   end

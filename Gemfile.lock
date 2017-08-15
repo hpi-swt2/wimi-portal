@@ -58,6 +58,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-datepicker-rails (1.5.0)
       railties (>= 3.0)
+    bootstrap-toggle-rails (2.2.1.0)
     bootstrap-tooltip-rails (0.1)
       rails (>= 3.1)
       thor
@@ -323,6 +324,7 @@ DEPENDENCIES
   better_errors (~> 2.1.1)
   binding_of_caller (~> 0.7.2)
   bootstrap-datepicker-rails
+  bootstrap-toggle-rails
   bootstrap-tooltip-rails
   business_time
   byebug
@@ -379,4 +381,4 @@ RUBY VERSION
    ruby 2.2.2p95
 
 BUNDLED WITH
-   1.13.6
+   1.14.6

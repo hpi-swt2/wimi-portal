@@ -10,12 +10,12 @@ RSpec.describe 'chairs/edit.html.erb', type: :view do
   end
 
   it 'expects buttons for superadmin' do
-    expect(page).to have_content(t('helpers.links.edit'))
-    expect(page).to have_content(t('helpers.links.destroy'))
+    expect(page).to have_link(nil, edit_chair_path(@chair))
+    expect(page).to have_delete_link(@chair)
   end
 
   it 'tests functionality of Destroy Button' do
-    click_on t('helpers.links.destroy')
+    find('a[data-method="delete"]').click
     expect(page).to have_current_path(chairs_path)
     expect(page).to_not have_content(@chair.name)
   end

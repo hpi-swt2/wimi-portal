@@ -32,7 +32,7 @@
                     <td><%= t(".status_#{project.status.to_s}") %></td>
                     <td>
                       <%= show_button project, class: 'btn-xs' %>
-                      <%= edit_button project, class: 'btn-xs' %>
+                      <%= edit_button_table project %>
                     </td>
                   </tr>
               <% end %>
@@ -44,20 +44,11 @@
   </div>
 </div>
 
-<% content_for :sidebar do %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t 'helpers.actions'%> </h4>
-        </div>
-        <div class="panel-body">
-          <%= create_button Project, class: 'btn-block' %>
-        </div>
-      </div>
-    </div>
-  </div>
+<% content_for :actions do %>
+  <%= create_button Project, class: 'btn-block' %>
+<% end %>
 
+<% content_for :sidebar do %>
   <!--Filter-->
   <%= form_tag projects_path, method: :get, id: 'Form', class: "form-horizontal" do %>
     <div class="col-md-12">

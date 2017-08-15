@@ -1,4 +1,6 @@
-# wimi-portal
+# WiMi-Portal
+A Ruby on Rails app for managing time sheets of [student assistants](https://de.wikipedia.org/wiki/Wissenschaftliche_Hilfskraft)
+
 [![License](http://img.shields.io/badge/license-AGPL-blue.svg)](https://github.com/hpi-swt2/wimi-portal/blob/master/LICENSE)
 
 Branch | Travis CI  | Code Analysis | Heroku Deploy | Errbit
@@ -14,7 +16,7 @@ When TravisCI run all tests successfully, the build is deployed to heroku. This 
 * `cp database.sqlite.yml database.yml` Select database config (for development we recommend SQLite) 
 * `rake db:create db:migrate db:seed` Setup database, run migrations, seed the database with defaults
 * `rails s` Start the Rails development server (By default runs on _localhost:3000_)
-* `rspec` Run all the tests (using the [RSpec](http://rspec.info/) test framework)
+* `bundle exec rspec` Run all the tests (using the [RSpec](http://rspec.info/) test framework)
 
 ## Setup using Vagrant (Virtual Machine)
 

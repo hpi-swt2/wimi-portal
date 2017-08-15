@@ -71,9 +71,10 @@ de:
         status: Status
         status_enum:
           accepted: angenommen
-          created: erstellt
+          created: offen
           pending: eingereicht
           rejected: abgelehnt
+          closed: geschlossen
       trip:
         annotation: Bemerkungen
         created_at: Erstellungsdatum
@@ -96,7 +97,7 @@ de:
         current_sign_in_ip: IP letzte Anmeldung
         sign_in_count: Anzahl Anmeldungen
         email: E-Mail
-        email_help: Adresse an die E-Mail Benachrichtigungen verschickt werden
+        email_help: Adresse, an die E-Mail Benachrichtigungen verschickt werden
         email_notification: Email Benachrichtigungen
         first_name: Vorname
         id: Id
@@ -109,7 +110,7 @@ de:
         password_confirmation: Passwort Bestätigen
         personal_data: Benutzerdaten
         personnel_number: Personalnummer
-        personnel_number_help: Optional. Wird auf Stundenzettel PDFs eingetragen
+        personnel_number_help: Optional. Wird auf exportierten Stundenzettel-PDFs eingetragen
         remember_created_at: Erstellungsdatum speichern
         remember_me: Angemeldet bleiben
         reset_password_sent_at: Kennwort zurücksetzen versendet an
@@ -261,13 +262,22 @@ de:
     contracts:
       contracts: Meine Verträge
     index:
-      actions: Aktionen
       notifications: Neueste Benachrichtigungen
       ending_contracts: Bald endende Verträge
       missing_timesheets: Fehlende Stundenzettel
-      dismissed: Eintrag ausgeblendet.
+      contract_ends_soon: Vertrag endet bald
+      today: Heute
     projects:
       projects: Meine Projekte
+    missing_timesheets_admin:
+      toggle_visibility: Nur die letzten beiden Monate anzeigen
+      close_tooltip: "%{month} extern eingereicht"
+    missing_timesheets_wimi:
+      hiwi: Hiwi
+      total_work_time: Geleistete Arbeitszeit
+      toggle_visibility: Nur die letzten beiden Monate anzeigen
+    missing_timesheets:  
+      close_tooltip: "%{month} extern eingereicht"
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -302,9 +312,11 @@ de:
         one: hat die falsche Länge (muss genau 1 Zeichen haben)
         other: hat die falsche Länge (muss genau %{count} Zeichen haben)
   event:
+    default: "%{user} hat über %{obj} mit %{target_user} interagiert"
     time_sheet_hand_in: "%{user} hat den Stundenzettel %{obj} eingereicht, Verantwortlicher: %{target_user}"
     time_sheet_accept: "%{user} hat den Stundenzettel %{obj} von %{target_user} akzeptiert"
     time_sheet_decline: "%{user} hat den Stundenzettel %{obj} von %{target_user} abgelehnt"
+    time_sheet_closed: "%{user} hat den Stundenzettel %{obj} von %{target_user} archiviert, in Papierform abgegeben"
     project_create: "%{user} hat das Projekt %{obj} erstellt"
     project_join: "%{user} hat %{target_user} zu %{obj} hinzugefügt"
     project_leave: "%{user} hat %{target_user} aus dem Projekt %{obj} entfernt"
@@ -317,6 +329,7 @@ de:
       time_sheet_hand_in: Stundenzettel eingereicht
       time_sheet_accept: Stundenzettel angenommen
       time_sheet_decline: Stundenzettel abgelehnt
+      time_sheet_closed: Stundenzettel archiviert
       project_create: Neues Projekt erstellt
       project_join: Neues Projektmitglied
       project_leave: Projektmitglied entfernt
@@ -325,6 +338,8 @@ de:
       chair_add_admin: Adminrechte gewährt
       contract_create: Vertragserstellung
       contract_extend: Vertragsverlängerung
+    extended_message:
+      time_sheet_closed: Bitte stelle sicher, dass die Arbeitsstunden korrekt eingetragen sind.
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
@@ -379,14 +394,21 @@ de:
       withdraw: Zurücknehmen
       back: Zurück
       cancel: Abbrechen
+      close: "%{model} archivieren"
+      close_short: Archivieren
       confirm: Sicher?
-      confirm_delete: Sind sie sicher, dass "%{model}" gelöscht werden soll?
-      destroy: Löschen
+      confirm_action:
+        message: Sind sie sicher, dass "%{model}" %{action} werden soll?
+        archive: archiviert
+        delete: gelöscht
+      destroy: "%{model} löschen"
       download_pdf: Als PDF herunterladen
-      edit: Bearbeiten
+      edit: "%{model} bearbeiten"
+      edit_short: Bearbeiten 
       edit_leave: Resturlaub bearbeiten
       hand_in: Einreichen
       new: Neu
+      reopen: Wieder eröffnen
       save: Speichern
       show: Anzeigen
       show_details: Details anzeigen
@@ -430,16 +452,17 @@ de:
     index:
       member_status_html: Sie sind momentan für <strong>%{project_count} %{project}</strong> als HiWi oder WiMi registriert und haben <strong>%{contract_count} %{contract}</strong>.
       new_member: Sie können deshalb noch keine Arbeitsstunden eintragen. Um einem Projekt beizutreten oder einen Vertrag zu registrieren kontaktieren Sie bitte ihren zuständigen Betreuer per E-Mail.
-      user_html: 'Sie sind angemeldet als: %{user}.'
-      welcome: Willkommen beim HPI WiMi-Portal!
+      welcome: Willkommen beim HPI WiMi-Portal, %{name}!
   links:
     search: Suchen
     submit: Abschicken
   application_mailer:
     notification:
-      hello: 'Hallo %{name}'
+      hello: 'Hallo %{name},'
       subject: '[WiMi-Portal] %{text}'
+      new_notification: 'Es liegt eine neue Benachrichtigung vor (%{date}):'
       your_wimi_portal: Ihr WiMi-Portal
+      settings_reminder_html: 'Benachrichtigungeinstellungen können <a href="%{href}">im Profil</a> verändert werden.'
   no_entries_yet: Keine %{target} vorhanden.
   not_authorized: Du bist nicht befugt, diese Aktion durchzuführen.
   project:
@@ -452,13 +475,15 @@ de:
       already_member: "%{name} ist bereits Mitglied dieses Projekts."
       last_wimi: Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.
       successfully_added: "%{name} wurde erfolgreich hinzugefügt."
+  contracts:
+    show:
+      time_sheets_heading: Stundenzettel dieses Vertrages
   projects:
     create:
       success: Projekt wurde erfolgreich erstellt.
     destroy:
       success: Projekt wurde erfolgreich gelöscht.
     form:
-      accessibility: Sichtbarkeit
       hiwi: Studentische Hilfskräfte
       show_current_timesheet: Aktuellen Stundenzettel anzeigen
       sign_out_of_project: Entfernen
@@ -474,10 +499,7 @@ de:
       add_working_hours: Stundenzettel hinzufügen
       chair: Fachgebiet
       inactive: "(inaktiv)"
-      private: privat
       project_team: Projekt Team
-      project_visibility: Sichtbarkeit
-      public: "öffentlich"
       set_active: aktiv schalten
       set_inactive: 'inaktiv schalten '
     update:
@@ -507,20 +529,22 @@ de:
     edit:
       note_placeholder: Notiz hinzufügen
     show:
+      time: Zeit
+      duration: Dauer
       empty_work_days: Keine Arbeitsstunden vorhanden
       create_next_month: Nächsten Monat erstellen
       next_month: Nächsten Monat anzeigen
       previous_month: Vorherigen Monat anzeigen
       total_work_time: Geleistete Arbeitszeit
-      expected_work_time: Arbeitszeit Vertrag
       achieved: erfüllt
-      open_work_time: Offene Arbeitszeit
-      hiwi_signed_true_html: Das Dokument wurde vom Arbeitnehmer unterschrieben
-      hiwi_signed_false_html: Das Dokument wurde vom Arbeitnehmer <strong>nicht</strong> unterschrieben
+      open: offen
+      hiwi_signed_true_html: Vom Arbeitnehmer unterschrieben
+      hiwi_signed_false_html: Vom Arbeitnehmer <strong>nicht</strong> unterschrieben
       accepted_by: Angenommen von
       rejected_by: Abgelehnt von
       at: Am
       reject_reason: Ablehnungsgrund
+      signatures: Unterschriften
     wimi_actions:
       accept: Annehmen
       reject: Ablehnen
@@ -535,6 +559,10 @@ de:
       signature_info: Zum Unterschreiben muss eine Unterschrift vorhanden sein.
     withdraw:
       flash: Stundenzettel wurde erfolgreich zurückgenommen
+    close:
+      flash: Stundenzettel wurde geschlossen
+    reopen:
+      flash: Stundenzettel wurde wieder geöffnet
   trip:
     applied: Dienstreiseantrag bereits eingereicht
     destroyed: Dienstreiseantrag wurde erfolgreich gelöscht
@@ -587,6 +615,7 @@ de:
     external_login:
       login: Anmelden
     form:
+      toggle_all: Alle an/abwählen
       event_settings: E-Mail Benachrichtigungen
       user_data: Profilbezogene Daten
     no_email: ist keine gültige Email-Adresse.

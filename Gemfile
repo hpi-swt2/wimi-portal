@@ -64,6 +64,9 @@ gem 'bootstrap-tooltip-rails'
 # Rails' "link_to" helpers with the :confirm option.
 # See: https://github.com/ifad/data-confirm-modal
 gem 'data-confirm-modal'
+# Converts checkboxes into toggles
+# See: https://github.com/rkallensee/bootstrap-toggle-rails
+gem 'bootstrap-toggle-rails'
 # Gem that bundles the jQuery DataTables plugin for
 # the Rails 3.1+ asset pipeline
 # See: https://github.com/rweng/jquery-datatables-rails
@@ -110,13 +113,15 @@ gem 'rubocop', '~> 0.29.1'
 # https://devcenter.heroku.com/articles/rails4
 gem 'rails_12factor', group: :production
 
+# for testing email, also in production
+gem 'factory_girl_rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.2'
   gem 'capybara', '~> 2.5'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
   
   gem 'i18n-tasks', '~> 0.9.5'
 end

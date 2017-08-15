@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
 
   # Return all chairs that the user is a HiWi in
   def chair_hiwi
-    projects.collect(&:chair).uniq
+    contracts.collect(&:chair).uniq
   end
 
   def name=(fullname)
@@ -222,6 +222,13 @@ class User < ActiveRecord::Base
   def wants_mail_for(event_int)
     self.event_settings.include?(event_int)
   end
+
+  # Allow querying user's abilities directly
+  # http://wiki.github.com/ryanb/cancan/ability-for-other-users
+  def ability
+    @ability ||= Ability.new(self)
+  end
+  delegate :can?, :cannot?, :to => :ability
 
   private
 

@@ -22,6 +22,7 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.de.js
+//= require bootstrap-toggle
 //= require data-confirm-modal
 //= require select2
 //= require canvasjs.min
@@ -84,7 +85,7 @@ $(document).ready(function() {
       url: function (params) {
         return '/users/autocomplete/' + params.term;
       },
-      /* query is in the form /users/autocomplete/<query> */
+      // query is in the form /users/autocomplete/<query>
       data: function (params) {return ''},
       dataType: 'json',
       delay: 250,
@@ -99,9 +100,44 @@ $(document).ready(function() {
     }
   });
 
-  /**
+  /*
    * Autosize JQuery plugin configuration
    */
   $('textarea[data-enable-autosize="true"]').autosize();
+
+  /*
+   * Enable toggling visibility with Javascript
+   */
+  $('*[data-toggle-visibility="true"]').click(function(event) {
+    if ($(this).prop('tagName') != 'INPUT') { event.preventDefault(); }
+    // Bootstrap class for visibility
+    $('.' + $(this).attr('data-target-class')).toggleClass("hidden");
+  });
+
+  /*
+   * Enable buttons with data-toggle="checkbox-master" to
+   * toggle multiple checkboxes with the class of
+   * the "data-target-class" attibute.
+   */
+  $('*[data-toggle="checkbox-master"]').click(function () {
+    var $boxes = $('.' + $(this).attr('data-target-class'));
+    $boxes.prop('checked', ! $boxes.first().prop('checked')).change();
+  });
+
+  /*
+   * Enable Bootstrap tooltips
+   * http://getbootstrap.com/javascript/#tooltips-usage
+   */
+   $('*[data-toggle="tooltip"], a[rel~=tooltip], .has-tooltip').tooltip()
+
+  /*
+   * Dashboard: dashboard/_missing_timesheets.html.erb
+   * handle 'remote: true' archive buttons
+   */
+  $('.archive-btn').on('ajax:success', function(e, data, status, xhr){
+    $(e.currentTarget).closest('tr').fadeOut();
+  }).on('ajax:error',function(e, xhr, status, error){
+    console.error(error);
+  });
 
 });

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403133823) do
+ActiveRecord::Schema.define(version: 20170521170120) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -43,17 +43,6 @@ ActiveRecord::Schema.define(version: 20170403133823) do
     t.integer "hours_per_week"
     t.decimal "wage_per_hour",  precision: 5, scale: 2
   end
-
-  create_table "dismissed_missing_timesheets", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "contract_id"
-    t.date     "month"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "dismissed_missing_timesheets", ["contract_id"], name: "index_dismissed_missing_timesheets_on_contract_id"
-  add_index "dismissed_missing_timesheets", ["user_id"], name: "index_dismissed_missing_timesheets_on_user_id"
 
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
@@ -143,7 +132,6 @@ ActiveRecord::Schema.define(version: 20170403133823) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "description",    default: ""
-    t.boolean  "public",         default: true
     t.boolean  "status",         default: true
     t.integer  "chair_id"
     t.string   "project_leader", default: ""
@@ -213,7 +201,7 @@ ActiveRecord::Schema.define(version: 20170403133823) do
     t.datetime "updated_at",                                null: false
     t.string   "identity_url"
     t.string   "language",                  default: "en",  null: false
-    t.integer  "personnel_number",          default: 0
+    t.integer  "personnel_number"
     t.integer  "remaining_leave",           default: 28
     t.integer  "remaining_leave_last_year", default: 0
     t.boolean  "superadmin",                default: false

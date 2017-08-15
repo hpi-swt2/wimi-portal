@@ -89,6 +89,7 @@ search:
 ## Do not consider these keys missing:
 ignore_missing:
   - 'datatables'
+  - 'devise.*'
 #  - 'activerecord.attributes.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
@@ -98,7 +99,7 @@ ignore_unused:
   - 'activerecord.attributes.*'
   - 'activerecord.models.*.{one,other}'
   - 'activerecord.errors.*'
-  - '{date,time,datetime}.*'
+  - '{date,time,datetime, number}.*'
   - '{true,false}'
   - 'helpers.submit.*'
   - 'event.user_friendly_name.*'

@@ -1,10 +1,13 @@
 require 'rails_helper'
+require 'cancan/matchers'
 
 describe 'Using time_sheets#new' do
   before :each do
     @hiwi = FactoryGirl.create(:hiwi)
     @wimi = FactoryGirl.create(:wimi).user
     @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @project = FactoryGirl.create(:project)
+    @hiwi.projects << @project
     login_as @hiwi
     visit new_contract_time_sheet_path(@contract)
   end

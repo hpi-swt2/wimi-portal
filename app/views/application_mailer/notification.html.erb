@@ -1,7 +1,20 @@
-<h2><%= t('.hello', name: @user.first_name) %>,</h2>
+<%= content_tag :p, t('.hello', name: @user.first_name) %>
 
-<p><%= l @event.created_at %></p>
-<p><%= render partial: "shared/event_message", locals: {event: @event} %></p>
+<%= content_tag :p, t('.new_notification', date: l(@event.created_at, format: :full)) %>
 
-<br>
-<p><%= t('.your_wimi_portal') %></p>
+<%= content_tag :p do %>
+  <%= render partial: 'shared/event_message', locals: {event: @event, user: @user} %>
+<% end %>
+
+<% extended = t("event.extended_message.#{@event.type}", default: '') %>
+<%= content_tag :p, extended if extended != '' %>
+
+<%= content_tag :p do %>
+  <%= t('.your_wimi_portal') %>
+  <br>
+  <%= link_to(root_url, root_url) %>
+<% end %>
+
+<hr>
+
+<%= content_tag :p, t('.settings_reminder_html', href: edit_user_url(@user)) %>

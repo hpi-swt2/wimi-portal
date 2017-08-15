@@ -20,6 +20,7 @@
  *= require bootstrap/bootstrap-tooltip
  *= require devise_bootstrap_views
  *= require bootstrap-datepicker
+ *= require bootstrap-toggle
  *= require select2
  *= require select2-bootstrap
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
@@ -58,7 +59,7 @@ body {
 }
 
 .navbar-fixed-top {
-    height:50px;
+    min-height:50px;
 }
 
 .navbar-shadow {
@@ -107,6 +108,10 @@ a.anchor {
     height: inherit;
 }
 
+div.bot-buffer-5 > div {
+    margin-bottom: 5px;
+}
+
 /* select2 */
 .select2-container--bootstrap {
     width: inherit !important;
@@ -143,7 +148,7 @@ tr.highlight {
 
 /* ensure action column can fit at least 2 xs buttons */
 th.action-heading {
-    min-width: 60px;
+    min-width: 120px;
 }
 
 /*

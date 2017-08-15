@@ -28,7 +28,7 @@
               <th class="col-xs-1"><%= t('activerecord.attributes.work_day.start_time') %></th>
               <th class="col-xs-1" style="max-width: 30px;"><%= t('activerecord.attributes.work_day.break') %></th>
               <th class="col-xs-1"><%= t('activerecord.attributes.work_day.end_time') %></th>
-              <th class="col-xs-4"><%= t('activerecord.attributes.work_day.notes') %></th>
+              <th class="col-xs-5"><%= t('activerecord.attributes.work_day.notes') %></th>
               <th class="col-xs-2"><%= t('activerecord.attributes.work_day.project') %></th>
               <th class="col-xs-1"><%= t('activerecord.attributes.work_day.attendance') %></th>
             </tr>
@@ -67,14 +67,14 @@
                     class: 'form-control',
                     :data => {"enable-autosize" => true},
                     placeholder: t('.note_placeholder'),
-                    style: 'max-height: 10em; min-width: 100px; max-width: 300px;'  %>
+                    style: 'max-height: 10em; resize: none; height: 2.5em; border:none; background: transparent;' %>
                 </td>
                 <td <%= 'class=has-error' if t.object.errors[:project_id].any? %>>
                   <%= t.select(:project_id, @projects.collect {|p| [p.title,p.id]}, {}, { :class => 'form-control'}) %>
                   <%= content_tag :span, t.object.errors[:project_id].join(', '), :class => "help-block" if t.object.errors[:project_id].any? %>
                 </td>
                 <td>
-                  <%= t.select(:status, [["",""], [t('activerecord.attributes.work_day.attendance_options.sick'), 'K'], [t('activerecord.attributes.work_day.attendance_options.holiday'), 'F']], {}, {class: 'form-control'}) %>
+                  <%= t.select(:status, [["",""]].concat(WorkDay.status_mapping.map {|k,v| [v,k]}), {}, {class: 'form-control'}) %>
                 </td>
               </tr>
             <% end %>
@@ -100,3 +100,9 @@
   <%= delete_button @time_sheet, class: 'btn-block', confirm: t('time_sheet.delete'), id: "delete" %>
   <%= link_to t('helpers.links.cancel'), time_sheet_path(@time_sheet), class: 'btn btn-block btn-default' %>
 <% end %>
+
+<script>
+  $(function() {
+    enableActionBarScroll();
+  });
+</script>

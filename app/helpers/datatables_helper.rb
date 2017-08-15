@@ -16,9 +16,10 @@ module DatatablesHelper
 
   def datatable_search_input(tag_args = {})
     capture do
+      concat javascript_include_tag "hash_autosearch.js"
       concat noscript_bootstrap_element
-      concat content_tag :input, nil, id: "datatable-search-placeholder", class: 'form-control'
-      concat content_tag :span, t('helpers.search.help_text'), class: "help-block"
+      concat content_tag :input, nil, id: 'datatable-search-placeholder', class: 'form-control'
+      concat content_tag :span, t('helpers.search.help_text'), class: 'help-block'
     end
   end
 end

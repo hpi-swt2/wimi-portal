@@ -28,10 +28,11 @@ class TimeSheet < ActiveRecord::Base
   scope :year, -> year { where(year: year) }
   scope :recent, -> { where('12 * year + month > ?', 12*Date.today.year + Date.today.month - 3) }
   scope :user, -> user { joins(:contract).where('contracts.hiwi_id' => user.id) }
+  scope :current, -> user { user(user).year(Date.today.year).month(Date.today.month)}
 
   belongs_to :contract
   has_one :user, through: :contract, source: :hiwi
-  enum status: [:pending, :accepted, :rejected, :created]
+  enum status: [:pending, :accepted, :rejected, :created, :closed]
   # When a time sheet is destroyed, also destroy all of the connected work days
   has_many :work_days, :inverse_of => :time_sheet, dependent: :destroy
   has_many :events, as: :object, :dependent => :destroy
@@ -46,6 +47,10 @@ class TimeSheet < ActiveRecord::Base
 
   after_initialize :set_default_status, :if => :new_record?
 
+  def name
+    I18n.l first_day, format: :short_month_year
+  end
+  
   def hand_in
     # Update also saves, returns false if saving failed
     # http://apidock.com/rails/ActiveRecord/Persistence/update
@@ -112,7 +117,7 @@ class TimeSheet < ActiveRecord::Base
     work_time = sum_minutes
     minutes = work_time % 60
     hours = (work_time - minutes) / 60
-    format("%d:%02d", hours, minutes)
+    format('%d:%02d', hours, minutes)
   end
 
   def monthly_work_minutes
@@ -123,7 +128,7 @@ class TimeSheet < ActiveRecord::Base
     if self.monthly_work_minutes
       minutes = self.monthly_work_minutes % 60
       hours = (self.monthly_work_minutes - minutes) / 60
-      format("%d:%02d", hours, minutes)
+      format('%d:%02d', hours, minutes)
     else
       self.monthly_work_minutes
     end
@@ -131,14 +136,14 @@ class TimeSheet < ActiveRecord::Base
 
   def percentage_hours_worked
     if self.monthly_work_minutes
-      (self.sum_minutes / self.monthly_work_minutes.to_f)*100
+      (self.sum_minutes / self.monthly_work_minutes.to_f) * 100
     else
       self.monthly_work_minutes
     end
   end
 
   def first_day
-    Date.new(year,month,1)
+    Date.new(year, month, 1)
   end
 
   def last_day
@@ -208,15 +213,15 @@ class TimeSheet < ActiveRecord::Base
   end
 
   def name
-    I18n.l(Date.new(year,month,1), format: :short_month_year)
+    I18n.l(Date.new(year, month, 1), format: :short_month_year)
   end
 
   private
 
-  # Initialize the TimeSheet to status "created".
-  # As "pending" is first in the enum definition, it is the standard
+  # Initialize the TimeSheet to status "created", if not other status is set.
+  # As "pending" is first in the enum definition, it is normally the standard
   def set_default_status
-    self.status = "created"
+    self.status = :created if TimeSheet.statuses.keys.first == self.status
   end
 
   def unique_date

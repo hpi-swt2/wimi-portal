@@ -1,5 +1,12 @@
-<%= I18n.t("event.#{event.type}",
-        user: linked_name(event.user),
-        # The I18n interpolation key cannot be the reserved name 'object'
-        obj: linked_name(event.object),
-        target_user: linked_name(event.target_user)).html_safe %>
+<%# Use explicit can? on user object, as the simple 'can?' uses the current_user method, which is hard to override %>
+<%# This is needed for calling this partial in the ApplicationMailer context, which does not implement current_user %>
+<% user_link = user.can?(:show, event.user) ? link_to(event.user.name, user_url(event.user)) : event.user.name %>
+<% obj_link = user.can?(:show, event.object) ? link_to(event.object.name, polymorphic_url(event.object)) : event.object.name %>
+<% target_user_link = user.can?(:show, event.target_user) ? link_to(event.target_user.name, user_url(event.target_user)) : event.target_user.name %>
+
+<% if event.type %>
+  <%# The I18n interpolation key cannot be the reserved name 'object' %>
+  <%= t("event.#{event.type}", user: user_link, obj: obj_link, target_user: target_user_link).html_safe %>
+<% else %>
+  <%= t("event.default", user: user_link, obj: obj_link, target_user: target_user_link).html_safe %>
+<% end %>

@@ -1,9 +1,12 @@
+<% actions = yield :actions %>
+
 <!DOCTYPE html>
 <html>
   <head>
     <title>WimiPortal</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= favicon_link_tag 'favicon.ico' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -21,6 +24,11 @@
             </div>
             <div class="col-md-4" id="sidebar-content">
               <div class="row">
+                <% if actions.present? %>
+                  <%= sidebar_actions do %>
+                    <%= actions %>
+                  <% end %>
+                <% end %>
                 <%= yield :sidebar%>
               </div>
             </div>

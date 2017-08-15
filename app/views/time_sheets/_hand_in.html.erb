@@ -10,6 +10,7 @@
         <%= f.check_box :signed, disabled: check_box_disable or nil %>
         <%= f.label :signed, t('.add_signature'), class: label_classes %>
       </div>
-    <%= f.submit t('helpers.links.hand_in'), class: 'btn btn-success btn-block' %>
+    <%# input elements created with 'f.submit' do not support showing HTML on disable %>
+    <%= animated_button t('helpers.links.hand_in'), class: 'btn-success btn-block' %> 
   <% end %>
 <% end %>

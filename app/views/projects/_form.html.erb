@@ -10,26 +10,6 @@
       <% end %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12 col-sm-12">
-      <div class="form-group">
-        <%= f.label :public, t('projects.form.accessibility'),  class: 'control-label' %>
-        <div class='radio'>
-          <div class='col-md-2'>
-            <div style='margin-left: 20px'> <%= f.radio_button :public, true, value: true%>
-              <%= label :public, t('projects.show.public')%>
-            </div>
-          </div>
-          <div class='col-md-2'>
-            <div style='margin-left: 20px'> <%= f.radio_button :public, false, value: false%>
-              <%= label :public, t('projects.show.private')%>
-            </div>
-          </div>
-        </div>
-        <%= error_span(@project[:public]) %>
-      </div>
-    </div>
-  </div>
 
   <% if @project.persisted? %>
     <div class="row">
@@ -106,33 +86,22 @@
   <%= f.submit nil, class: 'hidden', id: 'form-submit-btn' %>
 <% end %>
 
-<% content_for :sidebar do %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t 'helpers.actions'%> </h4>
-        </div>
-        <div class="panel-body">
-          <% model_name = model_class.model_name.human.titleize %>
-          <%# Label that triggers the 'form-submit-btn' submit button when clicked.
-              Allows submitting the form with an element not inside the form element %>
-          <%= label_tag 'form-submit-btn',
-              @project.new_record? ? t('helpers.submit.create', model: model_name) : t('helpers.submit.update', model: model_name),
-              class: 'btn btn-block btn-success' %>
-          <%# Button to toggle project's active state %>
-          <% if can? :edit, @project and @project.persisted? %>
-            <hr>
-            <% if @project.status %>
-              <%= link_to t('projects.show.set_inactive'), toggle_status_project_path, method: :get, class: 'btn btn-block btn-warning', id: 'setInactiveButton' %>
-            <% else %>
-              <%= link_to t('projects.show.set_active'), toggle_status_project_path, method: :get, class: 'btn btn-block btn-warning'%>
-            <% end %>
-          <% end %>
-          <%= delete_button @project, class: 'btn-block' if @project.persisted? %>
-          <%= link_to t("helpers.links.cancel"), :back, class: 'btn btn-block btn-default' %>
-        </div>
-      </div>
-    </div>
-  </div>
+<% content_for :actions do %>
+  <% model_name = model_class.model_name.human.titleize %>
+  <%# Label that triggers the 'form-submit-btn' submit button when clicked.
+      Allows submitting the form with an element not inside the form element %>
+  <%= label_tag 'form-submit-btn',
+      @project.new_record? ? t('helpers.submit.create', model: model_name) : t('helpers.submit.update', model: model_name),
+      class: 'btn btn-block btn-success' %>
+  <%# Button to toggle project's active state %>
+  <% if can? :edit, @project and @project.persisted? %>
+    <hr>
+    <% if @project.status %>
+      <%= link_to t('projects.show.set_inactive'), toggle_status_project_path, method: :get, class: 'btn btn-block btn-warning', id: 'setInactiveButton' %>
+    <% else %>
+      <%= link_to t('projects.show.set_active'), toggle_status_project_path, method: :get, class: 'btn btn-block btn-warning'%>
+    <% end %>
+  <% end %>
+  <%= delete_button @project, class: 'btn-block' if @project.persisted? %>
+  <%= link_to t("helpers.links.cancel"), :back, class: 'btn btn-block btn-default' %>
 <% end %>

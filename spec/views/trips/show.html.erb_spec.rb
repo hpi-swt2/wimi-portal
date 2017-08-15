@@ -6,7 +6,7 @@ RSpec.describe 'trips/show', type: :view do
     @trip = assign(:trip, FactoryGirl.create(:trip, user_id: user.id))
     sign_in user
 
-    # I'm a magician ! weeee
+    # https://github.com/ryanb/cancan/wiki/Testing-Abilities#controller-testing
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     allow(controller).to receive(:current_ability) { @ability }
@@ -24,16 +24,16 @@ RSpec.describe 'trips/show', type: :view do
     @ability.can :hand_in, Trip
     @ability.can :destroy, Trip
     render
-    expect(rendered).to have_link(t('helpers.links.hand_in'))
-    expect(rendered).to have_link(t('helpers.links.edit'))
-    expect(rendered).to have_link(t('helpers.links.destroy'))
+    expect(rendered).to have_link(nil, hand_in_trip_path(@trip))
+    expect(rendered).to have_link(nil, edit_trip_path(@trip))
+    expect(rendered).to have_css('a[data-method="delete"]')
   end
 
   it 'does not display links for editing, applying and destroing when status is applied ' do
     @trip.update({status: 'applied'})
     render
     expect(@trip.status).to eq('applied')
-    expect(rendered).not_to have_link(t('helpers.links.hand_in'))
+    expect(rendered).not_to have_css("a[href='#{hand_in_trip_path(@trip)}']")
     expect(rendered).not_to have_link(t('helpers.links.destroy'))
   end
 

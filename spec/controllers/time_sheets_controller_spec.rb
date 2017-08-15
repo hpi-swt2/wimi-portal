@@ -175,4 +175,46 @@ RSpec.describe TimeSheetsController, type: :controller do
       expect(flash.count).to eq(1)
     end
   end
+
+  describe 'current' do
+    before :each do
+      @contract = FactoryGirl.create(:contract, hiwi: @user, chair: @project.chair, start_date: Date.today, end_date: Date.today >> 1)
+    end
+
+    context 'without a timesheet' do
+      it 'redirects to new timesheet if user has valid contract' do
+        get :current
+
+        expect(TimeSheet.count).to eq(1)
+        expect(response).to redirect_to(edit_time_sheet_path(TimeSheet.last))
+      end
+
+      it 'redirects to dashboard if user does not have valid contract' do
+        @contract.destroy
+
+        get :current
+
+        expect(response).to redirect_to(dashboard_path)
+        expect(flash[:error]).to eq(I18n.t('time_sheet.no_contract'))
+      end
+    end
+
+    context 'with a timesheet' do
+      it 'redirects to timesheet#edit if timesheet is not handed in' do
+        @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+
+        get :current
+
+        expect(response).to redirect_to(edit_time_sheet_path(@time_sheet))
+      end
+
+      it 'redirects to timesheet#show if timesheet is accepted' do
+        @time_sheet = FactoryGirl.create(:time_sheet_accepted, contract: @contract)
+
+        get :current
+
+        expect(response).to redirect_to(time_sheet_path(@time_sheet))
+      end
+    end
+  end
 end

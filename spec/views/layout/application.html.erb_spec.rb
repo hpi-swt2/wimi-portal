@@ -74,8 +74,8 @@ RSpec.describe 'navigation bar', type: :view do
       expect(page).to have_link(I18n.t('activerecord.models.project.other').titleize, href: projects_path)
     end
 
-    it 'should link to the overview of time sheets' do
-      expect(page).to have_link(I18n.t('activerecord.models.time_sheet.other').titleize, href: time_sheets_path)
+    it 'should link to the dashboard' do
+      expect(page).to have_link(nil, href: dashboard_path)
     end
   end
 

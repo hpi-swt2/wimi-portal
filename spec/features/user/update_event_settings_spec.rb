@@ -9,7 +9,7 @@ describe 'updating event preferences' do
   it 'should save checked fields' do
     visit edit_user_path(@user)
     find(:css, "#user_event_settings_1").set(true)
-    click_on('Save')
+    click_on(I18n.t('helpers.links.save'))
     @user.reload
     expect(@user.event_settings).to eq([1])
   end
@@ -26,7 +26,7 @@ describe 'updating event preferences' do
     @user.update(event_settings: [event_id])
     visit edit_user_path(@user)
     find(:css, "#user_event_settings_#{event_id}").set(false)
-    click_on('Save')
+    click_on(I18n.t('helpers.links.save'))
     @user.reload
     expect(@user.event_settings).to eq([])
   end

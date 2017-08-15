@@ -24,7 +24,8 @@ class Event < ActiveRecord::Base
   # is responsible for mapping to the correct event type
   enum type: [ :time_sheet_hand_in, :time_sheet_accept, :time_sheet_decline,
     :project_create, :project_join, :project_leave, :chair_join, :chair_leave,
-    :chair_add_admin, :contract_create, :contract_extend
+    :chair_add_admin, :contract_create, :contract_extend,
+    :time_sheet_closed
   ]
 
   validates_presence_of :user, :target_user, :object
@@ -36,7 +37,7 @@ class Event < ActiveRecord::Base
     if event.save
       return event
     end
-    logger.error 'Could not save event: #{event.inspect}'
+    logger.error "Could not save event: #{event.inspect}"
     return nil
   end
 
@@ -51,8 +52,8 @@ class Event < ActiveRecord::Base
   end
 
   def send_mail
-    self.users_want_mail.each do |user|
-      ApplicationMailer.notification(self, user)
+    users_want_mail.each do |user|
+      ApplicationMailer.notification(self, user).deliver_now
     end
   end
 
@@ -63,24 +64,24 @@ class Event < ActiveRecord::Base
   # Some events are only relevant for people in a project
   def related_projects
     case self.object
-      when Project
-        [self.object]
-      when TimeSheet
-        self.object.projects
-      else
-        []
+    when Project
+      [self.object]
+    when TimeSheet
+      self.object.projects
+    else
+      []
     end
   end
 
   # Some events are only relevant admins of a chair
   def related_chair
     case self.object
-      when Chair
-        self.object
-      when Contract
-        self.object.chair
-      else
-        nil
+    when Chair
+      self.object
+    when Contract
+      self.object.chair
+    else
+      nil
     end
   end
 end

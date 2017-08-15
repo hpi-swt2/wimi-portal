@@ -67,6 +67,13 @@ class WorkDay < ActiveRecord::Base
   def month_year
     date.strftime('%Y-%m')
   end
+  
+  def self.status_mapping
+    {
+      'K' => I18n.t('activerecord.attributes.work_day.attendance_options.sick'),
+      'F' => I18n.t('activerecord.attributes.work_day.attendance_options.holiday')
+    }
+  end
 
   private
 

@@ -17,9 +17,9 @@
 class Contract < ActiveRecord::Base
   scope :at_date, -> date { where('start_date <= ? AND end_date >= ?', date, date ) }
   scope :contract_with, -> user, chair { where(hiwi: user, chair: chair)}
-  scope :for_user_in_month, -> user, month, year { where("hiwi_id = ? AND start_date <= ? AND end_date >= ?",
-                                                 user.id, Date.new(year, month, -1), Date.new(year,month,1)) }
-  scope :ends_soon, -> { where("end_date >= ? and end_date <= ?",
+  scope :for_user_in_month, -> user, month, year { where('hiwi_id = ? AND start_date <= ? AND end_date >= ?',
+                                                 user.id, Date.new(year, month, -1), Date.new(year, month, 1)) }
+  scope :ends_soon, -> { where('end_date >= ? and end_date <= ?',
                         Date.today.beginning_of_month, (Date.today + 2.months).end_of_month).order(end_date: :asc) }
 
   belongs_to :chair
@@ -27,7 +27,7 @@ class Contract < ActiveRecord::Base
   belongs_to :responsible, class_name: 'User'
   # If a contract is deleted, delete all of its dependent time sheets
   has_many :time_sheets, -> { order(year: :desc, month: :desc) }, dependent: :destroy
-  has_many :events , as: :object, :dependent => :destroy
+  has_many :events, as: :object, :dependent => :destroy
 
   validates_presence_of :start_date, :end_date, :chair, :hiwi, :responsible, :wage_per_hour
   validates :wage_per_hour, numericality: {greater_than: 0}
@@ -39,14 +39,21 @@ class Contract < ActiveRecord::Base
   WEEKS_PER_MONTH = 4
 
   def time_sheet(month, year)
+    ts = peek_time_sheet(month, year)
+    return nil unless ts.present?
+    ts.save! if ts.new_record?
+    ts
+  end
+
+  def peek_time_sheet(month, year)
     d_start = Date.new(year, month).at_beginning_of_month
     d_end = d_start.at_end_of_month
-    return nil unless start_date < d_end and end_date > d_start
+    return nil unless start_date <= d_end and end_date >= d_start
     # if two contracts in one month, use existing contract's time sheet
     ts = TimeSheet.user(hiwi).month(month).year(year).where(contract: self).first
-    ts || TimeSheet.create!(month: month, year: year, contract: self)
+    ts || TimeSheet.new(month: month, year: year, contract: self)
   end
-  
+
   def name
     if start_date.year == end_date.year
       formatted_start = I18n.l(start_date, format: :short_month)
@@ -70,10 +77,21 @@ class Contract < ActiveRecord::Base
     self.monthly_work_hours ? self.monthly_work_hours * 60 : self.monthly_work_hours
   end
 
-  def missing_timesheets
-    contract_dates = ((start_date.at_beginning_of_month)..((Date.today << 1).at_beginning_of_month)).select{|d| d.day == 1}
-    valid_dates = time_sheets.select{|ts| ts.status = 'accepted'}.collect{|ts| Date.new(ts.year, ts.month)}
+  def missing_timesheets(upto_date = Date.today - 1.month)
+    upto_date = end_date if upto_date > end_date
+    contract_dates = upto_date.downto(start_date.beginning_of_month)
+                              .map { |d| d.change(day: 1) }.uniq
+    # accepted and closed are scopes defined by the status enum
+    valid_dates = (time_sheets.accepted | time_sheets.closed).map(&:first_day)
     contract_dates.delete_if{|date| valid_dates.include? date }
-    contract_dates
+  end
+
+  # Return an ordered collection of time sheets of the contract
+  # including unsaved instances representing missing time sheets
+  def time_sheets_including_missing(upto_date = end_date)
+    upto_date = end_date if upto_date > end_date
+    upto_date.downto(start_date)
+             .map { |d| [d.year, d.month] }.uniq
+             .map { |y, m| time_sheets.find_or_initialize_by(year: y, month: m) }
   end
 end

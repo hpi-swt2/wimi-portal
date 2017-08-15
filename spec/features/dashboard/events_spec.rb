@@ -100,7 +100,7 @@ RSpec.describe 'dashboard/index.html.erb' do
       it 'creation' do
         visit new_project_path
         fill_in('Title', with: "Example Project")
-        click_on('Create project')
+        click_on(I18n.t('helpers.submit.create', model: Project.model_name.human))
 
         expect(Event.all.count).to eq(1)
       end

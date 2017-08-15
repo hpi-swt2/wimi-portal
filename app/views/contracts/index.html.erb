@@ -29,7 +29,7 @@
             <td><%= contract.responsible.name %></td>
             <td>
               <%= show_button contract, class: 'btn-xs' %>
-              <%= edit_button contract, class: 'btn-xs' %>
+              <%= edit_button_table contract %>
             </td>
             </tr>
           <% end %>
@@ -38,6 +38,10 @@
     <% end %>
   </div>
 </div>
+
+<% content_for :actions do %>
+  <%= create_button Contract, class: 'btn-block'%>
+<% end %>
 
 <% content_for :sidebar do %>
   <%# filter for datatable %>
@@ -49,19 +53,6 @@
         </div>
         <div class="panel-body">
           <%= datatable_search_input %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <%# new contract button %>
-  <div class="col-md-12">
-    <div class="display">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4> <%= t 'helpers.actions' %> </h4>
-        </div>
-        <div class="panel-body">
-          <%= create_button Contract, class: 'btn-block'%>
         </div>
       </div>
     </div>
