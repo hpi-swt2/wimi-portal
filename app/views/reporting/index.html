@@ -41,13 +41,18 @@
         type: 'bar',
         url: 'reporting/data',
         mimeType: 'json',
-        keys: {
-          x: 'project',
-          // project: p, month:m, work_minutes:w.sum(&:duration_in_minutes
-          value: ['work_minutes'],
-        }
+        //keys: {
+        //  x: 'project',
+        //  // project: p, month:m, work_minutes:w.sum(&:duration_in_minutes
+        //  value: ['work_minutes'],
+        //}
       },
-      axis: {x: { type: 'category' }}
+      axis: {x: 
+        { 
+          type: 'category',
+          categories: ['Jan', 'Feb' , 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'] 
+        }
+      }
   });
 
   $(function() {

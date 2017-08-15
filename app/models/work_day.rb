@@ -75,6 +75,10 @@ class WorkDay < ActiveRecord::Base
     }
   end
 
+  def salary
+    duration_in_minutes * contract.wage_per_hour / 60
+  end
+
   private
 
   def default_values

@@ -9,8 +9,6 @@ namespace :db do
     bob = User.create!(first_name: 'Bob', last_name: 'B', email: 'bob@example.com', username: 'bob', password: '1234')
     charlie = User.create!(first_name: 'Charlie', last_name: 'C', email: 'charlie@example.com', username: 'charlie', password: '1234')
 
-    charlie = User.create!(first_name: 'Charlie', last_name: 'C', email: 'charlie@example.com', username: 'charlie', password: '1234')
-
     # create! chairs
     chair_epic = Chair.create!(name: 'EPIC', description: 'Enterprise Platform and Integration Concepts')
     chair_www = Chair.create!(name: 'Internet', description: 'Internet-Technologien und -Systeme')
@@ -24,6 +22,7 @@ namespace :db do
     swt2 = Project.create!(title: 'Softwaretechnik II', chair: chair_epic)
     swt2.users << epic_wimi
     swt2.users << alice
+    swt2.users << charlie
 
     hana_project = Project.create!(title: 'HANA Project', chair: chair_epic)
     hana_project.users << epic_representative
@@ -54,22 +53,12 @@ namespace :db do
     contract_charlie = Contract.create(
         hiwi: charlie, 
         chair: chair_epic, 
-        start_date: Date.today, 
+        start_date: Date.today << 6, 
         end_date: Date.today >> 6, 
         responsible: epic_wimi,
         flexible: false, 
         hours_per_week: 12,
         wage_per_hour: 20)
-
-    contract_charlie = Contract.create(
-        hiwi: charlie, 
-        chair: chair_epic, 
-        start_date: Date.today, 
-        end_date: Date.today >> 6, 
-        responsible: epic_wimi,
-        flexible: false, 
-        hours_per_week: 10,
-        wage_per_hour: 12.5)
 
     #time_sheets
 
@@ -107,6 +96,20 @@ namespace :db do
 
     time_sheet_charlie.work_days.create(
         date: time_sheet_charlie.first_day, 
+        start_time: "10:00", 
+        break: 60,
+        end_time: "18:00",
+        notes: "Lorem ipsum dolor sit amet",
+        project: swt2)
+
+    date_prev_month = Date.today << 1
+    time_sheet_charlie2 = TimeSheet.create(
+        contract: contract_charlie,
+        month: date_prev_month.month,
+        year: date_prev_month.year)
+
+    time_sheet_charlie2.work_days.create(
+        date: time_sheet_charlie2.first_day, 
         start_time: "10:00", 
         break: 60,
         end_time: "18:00",
