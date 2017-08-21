@@ -87,7 +87,7 @@ namespace :db do
         break: 60,
         end_time: "15:00",
         notes: "Lorem ipsum dolor sit amet",
-        project: swt2)
+        project: hana_project)
 
     time_sheet_charlie = TimeSheet.create(
         contract: contract_charlie,

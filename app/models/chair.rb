@@ -19,6 +19,7 @@ class Chair < ActiveRecord::Base
   has_many :requests
   has_many :events, as: :object, dependent: :destroy
   has_many :work_days, through: :projects
+  has_many :contracts
 
   validates :name, presence: true
 
@@ -138,5 +139,22 @@ class Chair < ActiveRecord::Base
         @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r.trip}
       end
     end
+  end
+
+  def reporting_for_year(year)
+    all_contract_salaries = self.contracts.collect{|contract| contract.reporting_for_year(year)}
+    reporting_info = {}
+    all_contract_salaries.each do |info|
+      info.each do |projectname, salaries|
+        if reporting_info[projectname]
+          # element-wise addition
+          # see also https://stackoverflow.com/questions/2682411/ruby-sum-corresponding-members-of-two-or-more-arrays
+          reporting_info[projectname] = [reporting_info[projectname],salaries].transpose.map{|x| x.reduce(:+)}
+        else
+          reporting_info[projectname] = salaries
+        end
+      end
+    end
+    return reporting_info
   end
 end

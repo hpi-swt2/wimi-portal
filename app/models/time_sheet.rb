@@ -216,6 +216,18 @@ class TimeSheet < ActiveRecord::Base
     I18n.l(Date.new(year, month, 1), format: :short_month_year)
   end
 
+  def work_time_per_project
+    wt = {}
+    self.work_days.each do |wd|
+      if wt[wd.project.name]
+        wt[wd.project.name] += wd.duration_in_minutes
+      else
+        wt[wd.project.name] = wd.duration_in_minutes
+      end
+    end
+    return wt
+  end
+  
   private
 
   # Initialize the TimeSheet to status "created", if not other status is set.

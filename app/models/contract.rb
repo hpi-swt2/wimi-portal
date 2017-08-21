@@ -77,6 +77,64 @@ class Contract < ActiveRecord::Base
     self.monthly_work_hours ? self.monthly_work_hours * 60 : self.monthly_work_hours
   end
 
+  def salary_for_month(month, year)
+    if self.flexible
+      ts = self.time_sheets.year(year).month(month)
+      if ts
+        return (ts.first.sum_minutes * self.wage_per_hour / 60).round(2)
+      else
+        return 0
+      end
+    else
+      return self.monthly_salary
+    end
+  end
+
+  def salaries_for_year(year)
+    (1..12).collect do |month|
+      self.salary_for_month(month, year)
+    end
+  end
+
+  def monthly_salary
+    if self.flexible
+      return 0
+    else
+      return self.hours_per_week * self.wage_per_hour * 4
+    end
+  end
+  
+  def work_time_per_project(year)
+    work_time_pp = {}
+    if self.flexible
+      self.hiwi.projects.each do |project|
+        work_time_pp[project.name] = Array.new(12,0)
+      end
+      (1..12).each do |month|
+        ts = self.time_sheets.year(year).month(month).first
+        wt = {}
+        if ts
+          wt = ts.work_time_per_project
+        end
+        wt.each do |projectname,time|
+          work_time_pp[projectname][month-1] += time
+        end
+      end
+    else
+      self.hiwi.projects.each do |project|
+        work_time_pp[project.name] = Array.new(12,(self.hours_per_week * 4 / self.hiwi.projects.count * 60).round(2))
+      end
+    end
+    return work_time_pp
+  end
+
+  def reporting_for_year(year)
+    wt = self.work_time_per_project(year)
+    wt.each do |projectname, work_times|
+      work_times.map! { |time| (time * self.wage_per_hour / 60).round(2) }
+    end
+  end
+
   def missing_timesheets(upto_date = Date.today - 1.month)
     upto_date = end_date if upto_date > end_date
     contract_dates = upto_date.downto(start_date.beginning_of_month)

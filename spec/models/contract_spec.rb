@@ -153,4 +153,34 @@ RSpec.describe Contract, type: :model do
       end
     end
   end
+
+  context 'salary_for_month' do
+    before :each do
+      @contract = FactoryGirl.create(:contract)
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      @work_day = FactoryGirl.create(:work_day, time_sheet: @time_sheet)
+    end
+
+    context 'with a flexible contract' do
+      before :each do
+        @contract.update(flexible: true)
+        @contract.reload
+      end
+
+      it 'calculates the correct salary' do
+        expect(@contract.salary_for_month(@time_sheet.month, @time_sheet.year)).to eq(@work_day.duration_in_minutes * @contract.wage_per_hour / 60)
+      end
+    end
+
+    context 'with a non flexible contract' do
+      before :each do
+        @contract.update(flexible: false)
+        @contract.reload
+      end
+
+      it 'calculates the correct salary' do
+        expect(@contract.salary_for_month(@time_sheet.month,@time_sheet.year)).to eq(@contract.hours_per_week * @contract.wage_per_hour * 4)
+      end
+    end
+  end
 end
