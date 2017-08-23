@@ -106,10 +106,13 @@ class Contract < ActiveRecord::Base
   
   def work_time_per_project(year)
     work_time_pp = {}
+    self.hiwi.projects.each do |project|
+      work_time_pp[project.name] = Array.new(12,0)
+    end
+    if self.start_date.year > year
+      return work_time_pp
+    end
     if self.flexible
-      self.hiwi.projects.each do |project|
-        work_time_pp[project.name] = Array.new(12,0)
-      end
       (1..12).each do |month|
         ts = self.time_sheets.year(year).month(month).first
         wt = {}
@@ -121,8 +124,12 @@ class Contract < ActiveRecord::Base
         end
       end
     else
+      start_month = year == self.start_date.year ? self.start_date.month : 1
+      end_month = year == self.end_date.year ? self.end_date.month : 12
       self.hiwi.projects.each do |project|
-        work_time_pp[project.name] = Array.new(12,(self.hours_per_week * 4 / self.hiwi.projects.count * 60).round(2))
+        (start_month..end_month).each do |month|
+          work_time_pp[project.name][month-1] = (self.hours_per_week * 4 / self.hiwi.projects.count * 60).round(2)
+        end
       end
     end
     return work_time_pp

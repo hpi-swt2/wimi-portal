@@ -1,6 +1,6 @@
 class ReportingController < ApplicationController
 
-  before_action :prepare_chair
+  before_action :prepare_chair, :parseParams
 
   def index
     render :layout => 'no_sidebar'
@@ -27,7 +27,7 @@ class ReportingController < ApplicationController
   #         end
   #       end
   #     ] }]
-    render json: @chair.reporting_for_year(Date.today.year)
+    render json: @chair.reporting_for_year(@year)
       
 
   end
@@ -37,6 +37,13 @@ class ReportingController < ApplicationController
   def prepare_chair
     @chair = Chair.find(params[:chair_id])
     authorize! :reporting, @chair
+  end
+
+  def parseParams
+    @year = params[:year].to_i
+    if not params[:year]
+      @year = Date.today.year
+    end
   end
 
 end
