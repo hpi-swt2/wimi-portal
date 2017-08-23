@@ -80,6 +80,10 @@
           data: { toggle: "modal", target: "#add-users-modal" },
           class: 'btn btn-block btn-success'%>
   <% end %>
+  <% if can?(:reporting, @chair) %>
+    <hr/>
+    <%= link_to 'Reporting' , chair_reporting_index_path(@chair), class: 'btn btn-block btn-info' %>
+  <% end %>
 <% end %>
 
 <% content_for :sidebar do %>
