@@ -81,11 +81,21 @@
 
   $(function() {
     $.getJSON('reporting/data', function(data) {
+      var total = 0;
+      var projects = [];
+
+      for(var project in data) {
+        total += data[project].reduce(getSum,0);
+        projects.push(project);
+      }
+      $("#total").text(total);
+
       yearOverviewChart = c3.generate({
         bindto: '#chart',
         data: {
           type: 'bar',
-          json: data
+          json: data,
+          groups: [projects]
         },
         axis: {x: 
           { 
@@ -105,11 +115,6 @@
           }
         }
       });
-      var total = 0;
-      for(var project in data) {
-        total += data[project].reduce(getSum,0);
-      }
-      $("#total").text(total);
 
       var yearlyPerProject = {};
       for(var project in data) {
