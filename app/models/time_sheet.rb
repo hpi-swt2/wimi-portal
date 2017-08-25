@@ -227,6 +227,14 @@ class TimeSheet < ActiveRecord::Base
     end
     return wt
   end
+
+  def projects_worked_on
+    projects = Set.new
+    self.work_days.each do |wd|
+      projects << wd.project
+    end
+    return projects.to_a
+  end
   
   private
 
