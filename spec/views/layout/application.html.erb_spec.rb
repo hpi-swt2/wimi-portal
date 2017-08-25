@@ -65,7 +65,8 @@ RSpec.describe 'navigation bar', type: :view do
     end
 
     it 'should link to a project#show page if the user is part of only one project' do
-      expect(page).to have_link(I18n.t('activerecord.models.project.one').titleize, href: project_path(@project))
+      click_on I18n.t('activerecord.models.project.one').titleize
+      expect(current_path).to eq(project_path(@project))
     end
 
     it 'should link to project#index if the user is part of multiple projects' do
