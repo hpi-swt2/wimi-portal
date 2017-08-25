@@ -52,26 +52,51 @@
 
     <div class="page-header">
       <h3>Monhtly spendings per Project 
-        <div class="dropdown pull-right">
-          <a class="btn btn-secondary btn-default dropdown-toggle" data-toggle="dropdown" href="#">Month<b class="caret"></b></a>
         
-          <ul class="dropdown-menu" id="month-selection">
-            <% (1..12).each do |month| %>
-              <li><a data-month=<%= month %> href="#"> <%= month%></a></li>
-            <% end %>
-          </ul>
-        </div>
       </h3>
-    <div class="row">
-      <div id="mpp"></div>
-    </div>
+    
   </div>
 </div>
+
+<% content_for :modals do %>
+  <div class="modal fade" id="month-detail-modal" role="dialog" aria-labelledby="month-detail-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="month-detail-label">Overview for
+            <div class="dropdown" style="display: inline-block">
+              <a id="month-selection-header" class="btn btn-secondary btn-default dropdown-toggle" data-toggle="dropdown" href="#">Month<b class="caret"></b></a>
+              <ul class="dropdown-menu" id="month-selection">
+                <% (0..11).each do |month| %>
+                  <li><a class=<%="month-#{month}"%> data-month=<%= month %> href="#"> <%= I18n.l(Date.new(1,month+1), format: :without_day_year) %></a></li>
+                <% end %>
+              </ul>
+            </div>
+          </h4>
+        </div>
+        <div class="modal-body" >
+          <div class="row">
+            <div style="display: flex; justify-content: center">
+              <div id="mpp"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 
 <script>
   function getSum(total, num) {
     return total + parseFloat(num);
+  }
+
+  function selectMonth(month) {
+    monthlyPerProjectChart.resize({width: 400, height: 300});
+    monthlyPerProjectChart.load({json: monthlyPerProject[month]});
+    $('#month-selection-header').text($('.month-'+month).text());
   }
 
   var monthlyPerProjectChart;
@@ -95,7 +120,13 @@
         data: {
           type: 'bar',
           json: data,
-          groups: [projects]
+          groups: [projects],
+          onclick: function(d, element) {
+            console.log(d);
+            console.log(element);
+            $('#month-detail-modal').modal();
+            selectMonth(d.index);
+          }
         },
         axis: {x: 
           { 
@@ -178,7 +209,7 @@
     $("#month-selection>li>a").click(function(event) {
       event.preventDefault();
       var month = event.target.dataset.month;
-      monthlyPerProjectChart.load({json: monthlyPerProject[month-1]});
+      selectMonth(month);
     });
 
     $("#year-selection>li>a").click(function(event) {
