@@ -78,15 +78,23 @@
 
     <div class="page-header">
       <h4>Drilldown for <span id="project-drilldown-label"></span></h4>
-
-      <table id="project-drilldown-table" class="table table-striped">
-        <tr>
-          <th>Name</th>
-          <th>Contract</th>
-          <th>Salary</th>
-        </tr>
-      </table>
     </div>
+    <div class="row">
+      <div class="col-md-6">
+        <table id="project-drilldown-table" class="table table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Contract</th>
+            <th>Salary</th>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <div id="pdd"></div>
+      </div>
+    </div>
+      
+    
   </div>
 </div>
 
@@ -172,6 +180,9 @@
             return formatted;
           }
         }
+      },
+      legend: {
+        position: "right"
       }
     });
 
@@ -196,6 +207,9 @@
             return formatted;
           }
         }
+      },
+      legend: {
+        position: "right"
       }
     });
 
@@ -220,6 +234,31 @@
             return formatted;
           }
         }
+      },
+      legend: {
+        position: "right"
+      }
+    });
+
+    drillDownChart = c3.generate({
+      bindto: '#pdd',
+      data: {
+        type: 'pie',
+        json: {}
+      },
+      tooltip: {
+        format: {
+          value: function (value, ratio, id) {
+            var formatted = value + '€';
+            if(ratio != null) {
+              formatted += ' (' + Math.round(ratio*100) + '%)';
+            }
+            return formatted;
+          }
+        }
+      },
+      legend: {
+        position: "right"
       }
     });
   }
@@ -254,6 +293,8 @@
   function loadProjectDrilldown(project, month) {
     var table = $("#project-drilldown-table");
     table.find(".dynamic-data").remove();
+    drillDownData = {};
+
     for(var contractid in masterData[project]) {
       var username = contractinfo[contractid].username;
       var userid = contractinfo[contractid].userid;
@@ -265,6 +306,9 @@
       else {
         salary = masterData[project][contractid][month];
       }
+
+      drillDownData[username] = salary;
+
       table.append(
         $("<tr>")
           .append($("<td>").append(
@@ -275,6 +319,9 @@
         .attr("class", "dynamic-data")
       );
     }
+    drillDownChart.unload();
+    setTimeout(function() {drillDownChart.load({json: drillDownData})}, 300);
+    //drillDownChart.load({json: drillDownData});
 
     text = project;
     if (month > 0 && month < 11) {
@@ -289,6 +336,8 @@
   var masterData;
   var contractinfo;
  
+  var drillDownChart;
+  var drillDownData;
   var monthlyPerProjectChart;
   var monthlyPerProject;
   var selectedMonth = 0;
