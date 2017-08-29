@@ -141,6 +141,8 @@
   }
   
   function initCharts() {
+    $("#total").text(yearTotal);
+
     yearOverviewChart = c3.generate({
       bindto: '#chart',
       data: {
