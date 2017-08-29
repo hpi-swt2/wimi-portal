@@ -142,19 +142,32 @@ class Chair < ActiveRecord::Base
   end
 
   def reporting_for_year(year)
-    all_contract_salaries = self.contracts.collect{|contract| contract.reporting_for_year(year)}
+    all_contract_salaries = Hash[self.contracts.collect{|contract| [contract.id,contract.reporting_for_year(year)]}]
     reporting_info = {}
-    all_contract_salaries.each do |info|
+    all_contract_salaries.each do |contractid, info|
       info.each do |projectname, salaries|
         if reporting_info[projectname]
           # element-wise addition
           # see also https://stackoverflow.com/questions/2682411/ruby-sum-corresponding-members-of-two-or-more-arrays
-          reporting_info[projectname] = [reporting_info[projectname],salaries].transpose.map{|x| x.reduce(:+)}
+          # reporting_info[projectname] = [reporting_info[projectname],salaries].transpose.map{|x| x.reduce(:+)}
+          reporting_info[projectname][contractid] = salaries
         else
-          reporting_info[projectname] = salaries
+          reporting_info[projectname] = Hash[contractid, salaries]
         end
       end
     end
     return reporting_info
+  end
+
+  def reporting_contract_info(year)
+    info = {}
+    self.contracts.year(year).each do |contract|
+      info[contract.id] = {
+        userid: contract.hiwi.id,
+        username: contract.hiwi.name,
+        contractname: contract.name
+      }
+    end
+    return info
   end
 end

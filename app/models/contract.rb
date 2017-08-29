@@ -21,6 +21,7 @@ class Contract < ActiveRecord::Base
                                                  user.id, Date.new(year, month, -1), Date.new(year, month, 1)) }
   scope :ends_soon, -> { where('end_date >= ? and end_date <= ?',
                         Date.today.beginning_of_month, (Date.today + 2.months).end_of_month).order(end_date: :asc) }
+  scope :year, -> year { where('start_date <= ? AND end_date >= ?', Date.new(year,12,31), Date.new(year,1,1))}
 
   belongs_to :chair
   belongs_to :hiwi, class_name: 'User'

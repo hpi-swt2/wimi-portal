@@ -27,7 +27,10 @@ class ReportingController < ApplicationController
   #         end
   #       end
   #     ] }]
-    render json: @chair.reporting_for_year(@year)
+    reporting_data = {data: @chair.reporting_for_year(@year), contractinfo: @chair.reporting_contract_info(@year)};
+
+
+    render json: reporting_data
       
 
   end
