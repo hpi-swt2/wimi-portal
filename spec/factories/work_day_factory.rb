@@ -17,6 +17,9 @@
 
 FactoryGirl.define do
   factory :work_day, class: 'WorkDay' do |f|
+    transient do
+      skip_project_gen false
+    end
     f.start_time Time.now.middle_of_day
     f.break 0
     f.end_time Time.now.middle_of_day + 2.hours
@@ -30,7 +33,7 @@ FactoryGirl.define do
         project = FactoryGirl.create(:project, chair: wd.contract.chair)
         project.users << wd.user
       end
-      wd.project = wd.user.projects.first if wd.project == nil
+      wd.project = wd.user.projects.first if wd.project == nil and not evaluator.skip_project_gen
     end
     after(:create) do |wd, evaluator|
       wd.reload
