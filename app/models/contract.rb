@@ -111,14 +111,12 @@ class Contract < ActiveRecord::Base
     if ts
       projects = ts.projects_worked_on.collect {|p| p.name}
     end
-    if projects.empty?
+    if projects.empty? and month < Date.today.month
       projects << 'Not categorized'
     end
     return projects
   end
   
-  # TODO: make non flexible contracts check whcihc projects are contained within a month
-  # TODO: if there is no timesheet in non flexible contract, assign the cost to an "unknown" project
   def work_time_per_project(year)
     work_time_pp = {}
     if self.start_date.year > year
