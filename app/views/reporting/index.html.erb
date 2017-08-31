@@ -244,7 +244,12 @@
       bindto: '#pdd',
       data: {
         type: 'pie',
-        json: {}
+        json: {},
+        onclick: function(d, element) {
+          console.log(d);
+          console.log(element);
+          window.location = paths.contract + d.id;
+        }
       },
       tooltip: {
         format: {
@@ -293,7 +298,7 @@
   function loadProjectDrilldown(project, month) {
     var table = $("#project-drilldown-table");
     table.find(".dynamic-data").remove();
-    drillDownData = {};
+    drillDownData = {json: {}, names: {}};
 
     for(var contractid in masterData[project]) {
       var username = contractinfo[contractid].username;
@@ -307,7 +312,8 @@
         salary = masterData[project][contractid][month];
       }
 
-      drillDownData[username] = salary;
+      drillDownData.json[contractid] = salary;
+      drillDownData.names[contractid] = contractinfo[contractid].username;
 
       table.append(
         $("<tr>")
@@ -320,7 +326,7 @@
       );
     }
     drillDownChart.unload();
-    setTimeout(function() {drillDownChart.load({json: drillDownData})}, 300);
+    setTimeout(function() {drillDownChart.load(drillDownData, 300)});
     //drillDownChart.load({json: drillDownData});
 
     text = project;
