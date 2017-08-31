@@ -165,7 +165,9 @@ class Chair < ActiveRecord::Base
       info[contract.id] = {
         userid: contract.hiwi.id,
         username: contract.hiwi.name,
-        contractname: contract.name
+        contractname: contract.name,
+        responsible: contract.responsible.name,
+        responsibleid: contract.responsible.id
       }
     end
     return info

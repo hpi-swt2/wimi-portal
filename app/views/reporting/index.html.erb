@@ -85,6 +85,7 @@
           <tr>
             <th>Name</th>
             <th>Contract</th>
+            <th>Responsible Wimi</th>  
             <th>Salary</th>
           </tr>
         </table>
@@ -258,6 +259,7 @@
             if(ratio != null) {
               formatted += ' (' + Math.round(ratio*100) + '%)';
             }
+            formatted += " Responsible: " + contractinfo[id].responsible;
             return formatted;
           }
         }
@@ -291,7 +293,7 @@
       else {
         updateCharts();
       }
-      loadProjectDrilldown(allProjects[1]);
+      loadProjectDrilldown(allProjects[1],-1);
     });
   }
 
@@ -304,6 +306,8 @@
       var username = contractinfo[contractid].username;
       var userid = contractinfo[contractid].userid;
       var contractname = contractinfo[contractid].contractname;
+      var responsiblename = contractinfo[contractid].responsible;
+      var responsibleid = contractinfo[contractid].responsibleid;
       var salary = 0;
       if(month < 0 || month > 11) {
         salary = masterData[project][contractid].reduce(getSum,0);
@@ -321,12 +325,14 @@
             $("<a>").text(username).attr("href", paths.user + userid)))
           .append($("<td>").append(
             $("<a>").text(contractname).attr("href", paths.contract + contractid)))
+          .append($("<td>").append(
+            $("<a>").text(responsiblename).attr("href", paths.contract + responsibleid)))
           .append($("<td>").text(salary))
         .attr("class", "dynamic-data")
       );
     }
     drillDownChart.unload();
-    setTimeout(function() {drillDownChart.load(drillDownData, 300)});
+    setTimeout(function() {drillDownChart.load(drillDownData)}, 300);
     //drillDownChart.load({json: drillDownData});
 
     text = project;
