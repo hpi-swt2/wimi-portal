@@ -4,11 +4,11 @@
 %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
-  <div class="page-header">
-    <h1>
-      Reporting
-    </h1>
-  </div>
+    <div class="page-header">
+      <h1>
+        Reporting
+      </h1>
+    </div>
     <div class="page-header">
       <h3>
         Spendings in <span id="yearspan">2017</span>: <span id="total"></span> €
@@ -43,13 +43,19 @@
       </h3>
     </div>
     <div class="row">
-      <div id="chart"></div>
+      <div class="col-md-9">
+        <div id="chart"></div>
+      </div>
+      <div class="col-md-3">
+        <div id="ypp"></div>
+      </div>
     </div>
+  </div>
+</div>
+<div class="col-md-6 col-sm-6">
+  <div class="display">
     <div class="page-header">
       <div class="row">
-        <div class="col-md-6">
-          <h4>Yearly spendings per Project</h4>
-        </div>
         <div class="col-md-6">
           <h4 id="month-detail-label">Overview for
             <div class="dropdown" style="display: inline-block">
@@ -66,21 +72,24 @@
     </div>
     
     <div class="row">
-      <div class="col-md-6">
-        <div id="ypp"></div>
-      </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div id="mpp"></div>
       </div>
     </div>
-    
-
-
+  </div>
+</div>  
+<div class="col-md-6 col-sm-6">
+  <div class="display">
     <div class="page-header">
       <h4>Drilldown for <span id="project-drilldown-label"></span></h4>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
+        <div id="pdd"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <table id="project-drilldown-table" class="table table-striped">
           <tr>
             <th>Name</th>
@@ -90,12 +99,7 @@
           </tr>
         </table>
       </div>
-      <div class="col-md-6">
-        <div id="pdd"></div>
-      </div>
     </div>
-      
-    
   </div>
 </div>
 
@@ -210,7 +214,8 @@
         }
       },
       legend: {
-        position: "right"
+        position: "right",
+        show: false
       }
     });
 
@@ -271,12 +276,15 @@
   }
 
   function updateCharts() {
-    yearOverviewChart.load({ json: yearOverviewData});
+    yearOverviewChart.load({ json: yearOverviewData, unload: true});
+    yearOverviewChart.groups([allProjects]);
     $("#total").text(yearTotal);
 
-    monthlyPerProjectChart.load({json: monthlyPerProject });
+    monthlyPerProjectChart.load({json: monthlyPerProject[selectedMonth], unload: true });
 
-    yearlyPerProjectChart.load({json: yearlyPerProjectData});
+    yearlyPerProjectChart.load({json: yearlyPerProjectData, unload: true});
+    
+    drillDownChart.unload();
   }
 
   function loadYear(year) {
@@ -313,8 +321,9 @@
         salary = masterData[project][contractid].reduce(getSum,0);
       }
       else {
-        salary = masterData[project][contractid][month];
+        salary = parseInt(masterData[project][contractid][month]);
       }
+      salary = salary.toFixed(2);
 
       drillDownData.json[contractid] = salary;
       drillDownData.names[contractid] = contractinfo[contractid].username;
@@ -326,8 +335,8 @@
           .append($("<td>").append(
             $("<a>").text(contractname).attr("href", paths.contract + contractid)))
           .append($("<td>").append(
-            $("<a>").text(responsiblename).attr("href", paths.contract + responsibleid)))
-          .append($("<td>").text(salary))
+            $("<a>").text(responsiblename).attr("href", paths.user + responsibleid)))
+          .append($("<td>").text(salary + "€"))
         .attr("class", "dynamic-data")
       );
     }
