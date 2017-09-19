@@ -547,11 +547,11 @@ en:
       at: At
       reject_reason: Rejection reason
       signatures: Signatures
+      send_to_admin: Send PDF to Admin
     wimi_actions:
       accept: Accept
       reject: Reject
       add_signature: Add Signature
-      send_to_admin: Send PDF to Admin
     accept_reject:
       flash:
         rejected: Time sheet was successfully rejected

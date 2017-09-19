@@ -229,6 +229,10 @@ class TimeSheet < ActiveRecord::Base
     I18n.l(Date.new(year, month, 1), format: :short_month_year)
   end
 
+  def has_been_sent_to_admin?
+    Event.object(self).type(:time_sheet_admin_mail).any?
+  end
+
   private
 
   # Initialize the TimeSheet to status "created", if not other status is set.

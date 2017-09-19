@@ -547,11 +547,11 @@ de:
       at: Am
       reject_reason: Ablehnungsgrund
       signatures: Unterschriften
+      send_to_admin: PDF an Admin senden
     wimi_actions:
       accept: Annehmen
       reject: Ablehnen
       add_signature: Unterschrift hinzufügen
-      send_to_admin: PDF an Admin senden
     accept_reject:
       flash:
         rejected: Stundenzettel wurde erfolgreich abgelehnt

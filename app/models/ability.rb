@@ -43,6 +43,10 @@ class Ability
       ts.user == user and user.has_contract_for(ts.month, ts.year)
     end
     can :withdraw, TimeSheet, user: {id: user.id}, handed_in: true, status: 'pending'
+    can :send_to_admin, TimeSheet, user: {id: user.id}, status: 'accepted', signed: true, wimi_signed: true
+    cannot :send_to_admin, TimeSheet do |ts|
+      ts.has_been_sent_to_admin?
+    end
 
     can :current, TimeSheet if (TimeSheet.current(user).any? or can?(:create, TimeSheet))
  
@@ -72,6 +76,9 @@ class Ability
     can :ts_wimi_actions, TimeSheet, contract: { responsible_id: user.id }
     can :see_wimi_actions, TimeSheet, contract: { responsible_id: user.id }, handed_in: true
     can :send_to_admin, TimeSheet, contract: { responsible_id: user.id }, status: 'accepted', signed: true, wimi_signed: true
+    cannot :send_to_admin, TimeSheet do |ts|
+      ts.has_been_sent_to_admin?
+    end
 
     # allow access to time sheets and contracts of other wimis if time sheet is 'pending'
     can [:ts_wimi_actions, :see_wimi_actions], TimeSheet, status: 'pending', contract: { chair_id: user.chair.id }

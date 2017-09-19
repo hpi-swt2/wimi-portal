@@ -12,6 +12,9 @@
 #
 
 class Event < ActiveRecord::Base
+  scope :object, -> object { where("object_id=?", object.id) }
+  scope :type, -> sym { where("type=?", self.types[sym])}
+
   # need this to prevent rails from doing single inheritance
   # because we have a field 'type'
   self.inheritance_column = nil
