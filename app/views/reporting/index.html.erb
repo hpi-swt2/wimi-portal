@@ -1,6 +1,6 @@
 <%- model_class = Chair -%>
 <%
-  monthnames = (1..12).collect{ |month| I18n.l(Date.new(1,month), format: :without_day_year)}
+  monthnames = (1..12).collect{ |month| I18n.l(Date.new(1,month), format: :short_month)}
 %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
@@ -81,7 +81,7 @@
 <div class="col-md-6 col-sm-6">
   <div class="display">
     <div class="page-header">
-      <h4>Drilldown for <span id="project-drilldown-label"></span></h4>
+      <h4>Drilldown for <a href="#" id="project-drilldown-label"></a><span id="project-drilldown-label-timespan"></span></h4>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -118,6 +118,7 @@
   function parseData(data) {
     masterData = data["data"];
     contractinfo = data["contractinfo"];
+    projectinfo = data["projectinfo"];
     yearTotal = 0;
     allProjects = [];
 
@@ -344,18 +345,23 @@
     setTimeout(function() {drillDownChart.load(drillDownData)}, 300);
     //drillDownChart.load({json: drillDownData});
 
-    text = project;
+    text = "";
     if (month > 0 && month < 11) {
-      text += " (" + monthlabels[month] + ")";
+      text = " (" + monthlabels[month] + ")";
     }
     else {
-      text += " (All months)";
+      text = " (All months)";
     }
-    $("#project-drilldown-label").text(text);
+    $("#project-drilldown-label-timespan").text(text);
+    $("#project-drilldown-label").text(project);
+    if(project in projectinfo) {
+      $("#project-drilldown-label").attr("href", paths.project + projectinfo[project].id);
+    }
   }
 
   var masterData;
   var contractinfo;
+  var projectinfo;
  
   var drillDownChart;
   var drillDownData;
@@ -372,7 +378,8 @@
   var init = false;
   var paths = {
     user: "<%= user_path(1).to_s[0..-2] %>",
-    contract: "<%= contract_path(1).to_s[0..-2] %>"
+    contract: "<%= contract_path(1).to_s[0..-2] %>",
+    project: "<%= project_path(1).to_s[0..-2] %>"
   }
   var monthlabels = <%= raw monthnames.to_json %>;
 

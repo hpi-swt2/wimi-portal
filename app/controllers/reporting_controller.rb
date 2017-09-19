@@ -7,32 +7,13 @@ class ReportingController < ApplicationController
   end
 
   def data
-    all_months = []
-    date = Date.today.at_beginning_of_year
-    while date < Date.today.at_end_of_year
-      all_months << date
-      date >>= 1
-    end
-
-  #  render json: 
-  #     Hash[Hash[@chair.work_days
-  #     .group_by {|w| w.project.name}
-  #     .map { |p, w| [p,w.group_by{ |w| w.date.at_beginning_of_month } ]}]
-  #     .map { |p, h| [p, 
-  #       all_months.map do |month|
-  #         if h.include? month
-  #           h[month].sum(&:salary)
-  #         else
-  #           0
-  #         end
-  #       end
-  #     ] }]
-    reporting_data = {data: @chair.reporting_for_year(@year), contractinfo: @chair.reporting_contract_info(@year)};
-
+    reporting_data = {
+      data: @chair.reporting_for_year(@year),
+      contractinfo: @chair.reporting_contract_info(@year),
+      projectinfo: @chair.reporting_project_info(@year)
+    };
 
     render json: reporting_data
-      
-
   end
 
   private

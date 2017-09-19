@@ -172,4 +172,16 @@ class Chair < ActiveRecord::Base
     end
     return info
   end
+
+  def reporting_project_info(year)
+    info = {}
+    self.contracts.year(year).each do |contract|
+      contract.hiwi.projects.each do |project|
+        info[project.name] = {
+          id: project.id
+        }
+      end
+    end
+    return info
+  end
 end
