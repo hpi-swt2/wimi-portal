@@ -32,7 +32,7 @@ class Event < ActiveRecord::Base
   # and will also not appear in Users email settings
   NOMAIL = [].freeze
 
-  ATTACHMENT = [:time_sheet_admin_mail.to_s].freeze
+  ATTACHMENT = [:time_sheet_admin_mail.to_s, :time_sheet_accept.to_s].freeze
 
   validates_presence_of :user, :target_user, :object
 
