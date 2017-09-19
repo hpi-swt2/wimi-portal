@@ -95,14 +95,7 @@ class TimeSheet < ActiveRecord::Base
     return success
   end
 
-  def send_to(user, sender)
-    event = Event.add(:time_sheet_admin_mail, sender, self, user)
-    mail = ApplicationMailer.notification_with_pdf(event, user, self.make_pdf, "#{self.pdf_export_name}.pdf")
-
-    mail.deliver_now
-  end
-
-  def make_pdf
+  def make_attachment
     params = {}
     params[:doc_type] = 'Timesheet'
     params[:doc_id] = self.id
@@ -226,7 +219,7 @@ class TimeSheet < ActiveRecord::Base
   # Used by controllers/documents_controller.rb to
   # set the name of exported PDFs of time sheets.
   # Is always in German, as is the exported document
-  def pdf_export_name
+  def attachment_name
     last_name = self.user.last_name
     date = I18n.l(self.first_day, format: "%m %Y")
     return "Arbeitszeitnachweis #{last_name} #{date}"
