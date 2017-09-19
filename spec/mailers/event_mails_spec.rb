@@ -42,6 +42,7 @@ RSpec.describe Event, type: :model do
     end
 
     it 'not sent on creation if the event has mail disabled' do
+      pending 're-enable when NOMAIL is no longer empty'
       @event.type = :time_sheet_admin_mail
       expect(@event).to have_mail_disabled
       expect { @event.save! }.to change(ActionMailer::Base.deliveries, :count).by(0)

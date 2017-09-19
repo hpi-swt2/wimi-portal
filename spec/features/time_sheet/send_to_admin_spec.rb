@@ -29,18 +29,21 @@ RSpec.describe TimeSheetsController, type: :controller do
 	before :each do
     @chair = FactoryGirl.create(:chair)
     @admin = FactoryGirl.create(:user)
-    @contract = FactoryGirl.create(:contract,chair: @chair, responsible: @admin)
-		@timesheet = FactoryGirl.create(:time_sheet_accepted, contract: @contract)
-    FactoryGirl.create(:admin, chair: @chair, user: @admin)
-    login_with @admin
+	@contract = FactoryGirl.create(:contract,chair: @chair)
+	@wimi = @contract.responsible
+	@timesheet = FactoryGirl.create(:time_sheet_accepted, contract: @contract)
+	FactoryGirl.create(:admin, chair: @chair, user: @admin)
+	@admin.update(event_settings: [Event.types[:time_sheet_admin_mail]])
+	@admin.reload
+    login_with @wimi
 	end
   
 	context 'timesheet#send_to_admin' do
 		context 'with an accepted timesheet' do
 			it 'should send a mail to the admin' do
-        expect(Ability.new @admin).to be_able_to(:send_to_admin, @timesheet)
+        		expect(Ability.new @wimi).to be_able_to(:send_to_admin, @timesheet)
 				expect{ get :send_to_admin, {id: @timesheet.id} }.to change(ActionMailer::Base.deliveries, :count).by(1)
-        expect(response).to redirect_to(time_sheet_path(@timesheet))
+        		expect(response).to redirect_to(time_sheet_path(@timesheet))
 			end
 		end
 	end

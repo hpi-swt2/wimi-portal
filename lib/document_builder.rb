@@ -22,7 +22,7 @@ class DocumentBuilder < ActionController::Base
   
   def build_file_name
     if @doc_type == 'Timesheet'
-      file_name = @tmp_vars[:timesheet].pdf_export_name
+      file_name = @tmp_vars[:timesheet].attachment_name
     else
       file_name = @doc_type
     end
