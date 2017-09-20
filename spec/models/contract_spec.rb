@@ -95,7 +95,7 @@ RSpec.describe Contract, type: :model do
       expect(saved.size).to eq(1)
       expect(saved.first).to eq(ts)
     end
-    
+
     it "returns single saved time sheet when time sheet is present in last contract month" do
       ts = FactoryGirl.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
       expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
@@ -146,6 +146,7 @@ RSpec.describe Contract, type: :model do
           @contract.update(start_date: Date.today.end_of_month << 1)
           @contract.reload
         end
+
         it 'includes the first day of the last month' do
           @dates = @contract.missing_timesheets
           expect(@dates).to contain_exactly(Date.today.at_beginning_of_month << 1)
