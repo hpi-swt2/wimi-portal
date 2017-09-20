@@ -11,7 +11,7 @@ feature 'Routes' do
 
   let :check_route do
     lambda do |route|
-      login_as @wimi
+      login_as @representative
       visit route
       # save_and_open_page if page.status_code != 200 
       expect(page.status_code).to be 200 
@@ -63,6 +63,7 @@ feature 'Routes' do
       '/documents/generate_pdf',
       '/users/edit_leave',
       '/time_sheets/:id/accept_reject',
+      '/chairs/:id/reporting',
       # too slow
       '/time_sheets/:id/download'
     ]

@@ -21,6 +21,7 @@ class Contract < ActiveRecord::Base
                                                  user.id, Date.new(year, month, -1), Date.new(year, month, 1)) }
   scope :ends_soon, -> { where('end_date >= ? and end_date <= ?',
                         Date.today.beginning_of_month, (Date.today + 2.months).end_of_month).order(end_date: :asc) }
+  scope :year, -> year { where('start_date <= ? AND end_date >= ?', Date.new(year,12,31), Date.new(year,1,1))}
 
   belongs_to :chair
   belongs_to :hiwi, class_name: 'User'
@@ -103,32 +104,41 @@ class Contract < ActiveRecord::Base
       return self.hours_per_week * self.wage_per_hour * 4
     end
   end
+
+  def projects_worked_on_in(month, year)
+    ts = self.time_sheets.year(year).month(month).accepted().first
+    projects = []
+    if ts
+      projects = ts.projects_worked_on.collect {|p| p.name}
+    end
+    if projects.empty? and month < Date.today.month
+      projects << 'Not categorized'
+    end
+    return projects
+  end
   
   def work_time_per_project(year)
     work_time_pp = {}
-    self.hiwi.projects.each do |project|
-      work_time_pp[project.name] = Array.new(12,0)
-    end
     if self.start_date.year > year
       return work_time_pp
     end
-    if self.flexible
-      (1..12).each do |month|
-        ts = self.time_sheets.year(year).month(month).first
-        wt = {}
-        if ts
-          wt = ts.work_time_per_project
-        end
-        wt.each do |projectname,time|
-          work_time_pp[projectname][month-1] += time
-        end
+    start_month = year == self.start_date.year ? self.start_date.month : 1
+    end_month = year == self.end_date.year ? self.end_date.month : 12
+    (start_month..end_month).each do |month|
+      ts = self.time_sheets.year(year).month(month).accepted().first
+      wt = {}
+      projects = self.projects_worked_on_in(month,year)
+      if ts 
+        wt = ts.work_time_per_project
       end
-    else
-      start_month = year == self.start_date.year ? self.start_date.month : 1
-      end_month = year == self.end_date.year ? self.end_date.month : 12
-      self.hiwi.projects.each do |project|
-        (start_month..end_month).each do |month|
-          work_time_pp[project.name][month-1] = (self.hours_per_week * 4 / self.hiwi.projects.count * 60).round(2)
+      projects.each do |projectname|
+        if not work_time_pp.include? projectname
+          work_time_pp[projectname] = Array.new(12,0)
+        end
+        if flexible
+          work_time_pp[projectname][month-1] += ts ? wt[projectname] : 0
+        else
+          work_time_pp[projectname][month-1] += (self.hours_per_week * 4 / projects.length * 60).round(2)
         end
       end
     end

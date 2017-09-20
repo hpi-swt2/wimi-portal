@@ -29,6 +29,7 @@ class TimeSheet < ActiveRecord::Base
   scope :recent, -> { where('12 * year + month > ?', 12*Date.today.year + Date.today.month - 3) }
   scope :user, -> user { joins(:contract).where('contracts.hiwi_id' => user.id) }
   scope :current, -> user { user(user).year(Date.today.year).month(Date.today.month)}
+  scope :accepted, -> { where(status: 'accepted')}
 
   belongs_to :contract
   has_one :user, through: :contract, source: :hiwi
@@ -226,6 +227,14 @@ class TimeSheet < ActiveRecord::Base
       end
     end
     return wt
+  end
+
+  def projects_worked_on
+    projects = Set.new
+    self.work_days.each do |wd|
+      projects << wd.project
+    end
+    return projects.to_a
   end
   
   private

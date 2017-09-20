@@ -82,7 +82,7 @@
   <% end %>
   <% if can?(:reporting, @chair) %>
     <hr/>
-    <%= link_to 'Reporting' , chair_reporting_index_path(@chair), class: 'btn btn-block btn-info' %>
+    <%= link_to t('.reporting') , chair_reporting_index_path(@chair), class: 'btn btn-block btn-info' %>
   <% end %>
 <% end %>
 

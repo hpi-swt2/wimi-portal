@@ -27,7 +27,7 @@
 
         <%# Project overview %>
         <% if can? :index, Project %>
-          <%= menu_item fa('users') + t('activerecord.models.project.other').titleize, projects_path %>
+          <%= menu_item fa('users') + t('activerecord.models.project', count: current_user.projects.count).titleize, projects_path %>
         <% end %>
 
         <%# Chair links %>
