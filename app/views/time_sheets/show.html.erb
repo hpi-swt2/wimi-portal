@@ -95,7 +95,7 @@
               <th style="width:200px;"><%= WorkDay.human_attribute_name(:project) %></th>
               <th><%# Attendance, e.g. ill or public holiday %></th>
             </tr>
-            <% @time_sheet.work_days.each do |w| %>
+            <% @time_sheet.work_days.order(date: :asc).each do |w| %>
               <tr class="work_day_tr">
                 <td><%= l w.date, format: :weekday_short %></td>
                 <td><%= l w.date, format: :day_month %></td>
