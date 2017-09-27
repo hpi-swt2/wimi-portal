@@ -33,14 +33,22 @@ class Event < ActiveRecord::Base
 
   # Events listed here will not send Emails after creation
   # and will also not appear in Users email settings
-  NOMAIL = [].freeze
+  @@NOMAIL = [].freeze
 
-  ATTACHMENT = [:time_sheet_admin_mail.to_s, :time_sheet_accept.to_s].freeze
+  @@ATTACHMENT = [:time_sheet_admin_mail.to_s, :time_sheet_accept.to_s].freeze
 
   validates_presence_of :user, :target_user, :object
 
   after_create :send_mail, unless: Proc.new { self.has_mail_disabled? or self.has_attachment? }
   after_create :send_mail_with_attachment, if: :has_attachment?
+
+  def self.NOMAIL
+    @@NOMAIL
+  end
+
+  def self.ATTACHMENT
+    @@ATTACHMENT
+  end
 
   def self.add(type, user, object, target_user)
     event = self.new({ type: type, user: user, object: object, target_user: target_user})
@@ -62,11 +70,11 @@ class Event < ActiveRecord::Base
   end
 
   def has_mail_disabled?
-    NOMAIL.include?(self.type)
+    Event.NOMAIL.include?(self.type)
   end
 
   def has_attachment?
-    ATTACHMENT.include?(self.type) and self.object_can_make_attachment?
+    Event.ATTACHMENT.include?(self.type) and self.object_can_make_attachment?
   end
 
   def object_can_make_attachment?
@@ -74,7 +82,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.mail_enabled_types
-    self.types.select { |t,v| !NOMAIL.include?(t) }
+    self.types.select { |t,v| !self.NOMAIL.include?(t) }
   end
 
   def send_mail

@@ -42,8 +42,9 @@ RSpec.describe Event, type: :model do
     end
 
     it 'not sent on creation if the event has mail disabled' do
-      pending 're-enable when NOMAIL is no longer empty'
-      @event.type = :time_sheet_admin_mail
+      # enum mapping is stored in hash, thus first twice
+      allow(Event).to receive(:NOMAIL) {[Event.types.first.first]}
+      @event.type = Event.types.first.first
       expect(@event).to have_mail_disabled
       expect { @event.save! }.to change(ActionMailer::Base.deliveries, :count).by(0)
     end

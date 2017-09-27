@@ -83,15 +83,15 @@ RSpec.describe Event, type: :model do
     end
 
     it 'returns false if the type is not contained in NOMAIL' do
-      expect(Event::NOMAIL).to_not include(@event.type)
+      expect(Event.NOMAIL).to_not include(@event.type)
       expect(@event).not_to have_mail_disabled
     end
 
     it 'returns true if the type is contained in NOMAIL' do
-      pending 're-enable when NOMAIL is no longer empty'
-      @event.update(type: :time_sheet_admin_mail)
+      allow(Event).to receive(:NOMAIL) {[Event.types.first.first]}      
+      @event.update(type: Event.types.first.first)
       @event.reload
-      expect(Event::NOMAIL).to include(@event.type)
+      expect(Event.NOMAIL).to include(@event.type)
       expect(@event).to have_mail_disabled
     end
   end
