@@ -1,6 +1,8 @@
 <%- model_class = Chair -%>
 <%
   monthnames = (1..12).collect{ |month| I18n.l(Date.new(1,month), format: :short_month)}
+  current_year = Date.today.year
+  available_years = current_year-2..current_year
 %>
 <div class="col-md-12 col-sm-12">
   <div class="display">
@@ -11,35 +13,17 @@
     </div>
     <div class="page-header">
       <h3>
-        Spendings in <span id="yearspan">2017</span>: <span id="total"></span> €
-        <div class="dropdown pull-right">
-          <a class="btn btn-secondary btn-default dropdown-toggle" data-toggle="dropdown" href="#">Year<b class="caret"></b></a>
+        Spendings in 
+        <div class="dropdown" style="display: inline-block">
+          <a id="yearspan" class="btn btn-secondary btn-default dropdown-toggle" data-toggle="dropdown" href="#"><%= current_year %><b class="caret"></b></a>
         
           <ul class="dropdown-menu" id="year-selection">
-            <% [2015,2016,2017].each do |year| %>
+            <% available_years.each do |year| %>
               <li><a data-year=<%= year %> href="#"> <%= year%></a></li>
             <% end %>
           </ul>
         </div>
-
-        <div class="dropdown pull-right">
-          <a class="btn btn-secondary btn-default dropdown-toggle" data-toggle="dropdown" href="#">Chart Type <b class="caret"></b></a>
-
-          <ul class="dropdown-menu" id="chart-selection">
-            <li><a data-charttype="line" href="#">line</a></li>
-            <li><a data-charttype="spline" href="#">spline</a></li>
-            <li><a data-charttype="step" href="#">step</a></li>
-            <li><a data-charttype="area" href="#">area</a></li>
-            <li><a data-charttype="area-spline" href="#">area-spline</a></li>
-            <li><a data-charttype="area-step" href="#">area-step</a></li>
-            <li><a data-charttype="bar" href="#">bar</a></li>
-            <li><a data-charttype="scatter" href="#">scatter</a></li>
-            <li><a data-charttype="pie" href="#">pie</a></li>
-            <li><a data-charttype="donut" href="#">donut</a></li>
-            <li><a data-charttype="gauge" href="#">gauge</a></li>
-          </ul>
-        </div>
-        
+        : <span id="total"></span> €
       </h3>
     </div>
     <div class="row">
@@ -292,6 +276,7 @@
     url = yearOverviewUrl;
     if (year != 0) {
       url += "?year=" + year;
+      $('#yearspan').text(year);
     }
     $.getJSON(url, function(data) {
       parseData(data);
@@ -385,12 +370,6 @@
 
   $(function() {
     loadYear(0);
-
-    $("#chart-selection>li>a").click(function(event) {
-      event.preventDefault();
-      var charttype = event.target.dataset.charttype;
-      yearOverviewChart.transform(charttype);
-    });
 
     $("#month-selection>li>a").click(function(event) {
       event.preventDefault();
