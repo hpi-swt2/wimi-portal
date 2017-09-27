@@ -19,7 +19,6 @@ RSpec.describe DocumentsController, type: :controller do
     end
 
     it 'should generate a PDF file for a travel expense report application', :slow => true do
-      pending 'broken after document generation refactor - should have been broken beforehand though'
       report = FactoryGirl.create(:expense)
       params = {doc_type: 'Expense_request', doc_id: report.id}
       get :generate_pdf, params
@@ -28,7 +27,6 @@ RSpec.describe DocumentsController, type: :controller do
     end
 
     it 'should generate a PDF file for a business trip application', :slow => true do
-      pending 'broken after document generation refactor - should have been broken beforehand though'
       trip = FactoryGirl.create(:trip)
       params = {doc_type: 'Trip_request', doc_id: trip.id}
       get :generate_pdf, params
