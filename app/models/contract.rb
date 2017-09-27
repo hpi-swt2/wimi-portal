@@ -138,7 +138,7 @@ class Contract < ActiveRecord::Base
         if flexible
           work_time_pp[projectname][month-1] += ts ? wt[projectname] : 0
         else
-          work_time_pp[projectname][month-1] += (self.hours_per_week * 4 / projects.length * 60).round(2)
+          work_time_pp[projectname][month-1] += (self.hours_per_week * WEEKS_PER_MONTH / projects.length * 60).round(2)
         end
       end
     end

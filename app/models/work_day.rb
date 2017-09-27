@@ -63,10 +63,6 @@ class WorkDay < ActiveRecord::Base
     hours = (work_time - minutes) / 60
     format("%d:%02d", hours, minutes)
   end
-
-  def month_year
-    date.strftime('%Y-%m')
-  end
   
   def self.status_mapping
     {
