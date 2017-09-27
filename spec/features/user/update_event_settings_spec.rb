@@ -33,7 +33,7 @@ describe 'updating event preferences' do
 
   it 'should not show events that have email disabled' do
     visit edit_user_path(@user)
-    Event::NOMAIL.each do |type|
+    Event.NOMAIL.each do |type|
       expect(page).to_not have_content(I18n.t("event.user_friendly_name.#{type}"))
     end
   end

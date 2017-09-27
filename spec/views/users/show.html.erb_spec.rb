@@ -72,7 +72,7 @@ RSpec.describe 'users/show', type: :view do
     end
 
     it 'are hidden for event types that are not mail enabled' do
-      Event::NOMAIL.each do |type|
+      Event.NOMAIL.each do |type|
         expect(page).not_to have_content(I18n.t("event.user_friendly_name.#{type}"))
       end
     end
