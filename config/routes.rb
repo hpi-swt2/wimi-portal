@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       get 'download'
       post 'close'
       get 'reopen'
+      get 'send_to_admin'
     end
     collection do
       get 'current'

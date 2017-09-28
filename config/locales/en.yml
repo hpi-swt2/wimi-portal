@@ -319,6 +319,7 @@ en:
     time_sheet_accept: "%{user} accepted the time sheet %{obj} of %{target_user}"
     time_sheet_decline: "%{user} rejected the time sheet %{obj} of %{target_user}"
     time_sheet_closed: "%{user} archived the time sheet %{obj} of %{target_user}, it was handed in manually"
+    time_sheet_admin_mail: "%{user} sent the time sheet %{obj} to %{target_user}"
     project_create: "%{user} created project %{obj}"
     project_join: "%{user} added %{target_user} to %{obj}"
     project_leave: "%{user} removed %{target_user} from project %{obj}"
@@ -332,6 +333,7 @@ en:
       time_sheet_accept: Time sheet accepted
       time_sheet_decline: Time sheet declined
       time_sheet_closed: Time sheet archived
+      time_sheet_admin_mail: Time sheet Admin Mail
       project_create: Project creation
       project_join: Someone joined project
       project_leave: Someone left project
@@ -341,6 +343,7 @@ en:
       contract_create: Contract creation
       contract_extend: Contract extension
     extended_message:
+      time_sheet_accepted: 'The time sheet can be send to the Admin via the portal. (Via "Send to admin" button on the time sheet page)'
       time_sheet_closed: Please make sure that the working hours were entered correctly.
   expense:
     applied: Expense is already applied
@@ -546,6 +549,7 @@ en:
       at: At
       reject_reason: Rejection reason
       signatures: Signatures
+      send_to_admin: Send PDF to Admin
     wimi_actions:
       accept: Accept
       reject: Reject

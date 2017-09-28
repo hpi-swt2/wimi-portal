@@ -7,6 +7,8 @@ FactoryGirl.define do
     date_end Date.today + 2
     days_abroad 1
     signature true
+    user_signature 'signature'
+    user_signed_at Date.today
     user
   end
 

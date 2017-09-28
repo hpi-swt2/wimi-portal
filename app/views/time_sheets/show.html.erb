@@ -95,7 +95,7 @@
               <th style="width:200px;"><%= WorkDay.human_attribute_name(:project) %></th>
               <th><%# Attendance, e.g. ill or public holiday %></th>
             </tr>
-            <% @time_sheet.work_days.each do |w| %>
+            <% @time_sheet.work_days.order(date: :asc).each do |w| %>
               <tr class="work_day_tr">
                 <td><%= l w.date, format: :weekday_short %></td>
                 <td><%= l w.date, format: :day_month %></td>
@@ -143,6 +143,8 @@
   <span class="btn-block" data-toggle="tooltip" data-placement="bottom" title="<%= t('dashboard.missing_timesheets.close_tooltip', month: @time_sheet.name) %>">
     <%= action_button :close, @time_sheet, method: :post, class: 'btn-block btn-danger', :data => { confirm: t('helpers.links.confirm_action.message', model: @time_sheet.name, action: t('helpers.links.confirm_action.archive')) } %>
   </span>
+  <%# Send to admin button %>
+  <%= can_link t('.send_to_admin'), :send_to_admin, @time_sheet,  class: 'btn btn-success btn-block', style: "margin-bottom: 5px;" %>
   <%# Month switch buttons %>
   <hr>
   <% if @next_month %>
