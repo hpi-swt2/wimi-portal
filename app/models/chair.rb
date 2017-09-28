@@ -17,7 +17,9 @@ class Chair < ActiveRecord::Base
   has_many :users, through: :chair_wimis
   has_many :projects, dependent: :destroy
   has_many :requests
-  has_many :events, as: :object, :dependent => :destroy
+  has_many :events, as: :object, dependent: :destroy
+  has_many :work_days, through: :projects
+  has_many :contracts
 
   validates :name, presence: true
 
@@ -137,5 +139,49 @@ class Chair < ActiveRecord::Base
         @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r.trip}
       end
     end
+  end
+
+  def reporting_for_year(year)
+    all_contract_salaries = Hash[self.contracts.collect{|contract| [contract.id,contract.reporting_for_year(year)]}]
+    reporting_info = {}
+    all_contract_salaries.each do |contractid, info|
+      info.each do |projectname, salaries|
+        if reporting_info[projectname]
+          # element-wise addition
+          # see also https://stackoverflow.com/questions/2682411/ruby-sum-corresponding-members-of-two-or-more-arrays
+          # reporting_info[projectname] = [reporting_info[projectname],salaries].transpose.map{|x| x.reduce(:+)}
+          reporting_info[projectname][contractid] = salaries
+        else
+          reporting_info[projectname] = Hash[contractid, salaries]
+        end
+      end
+    end
+    return reporting_info
+  end
+
+  def reporting_contract_info(year)
+    info = {}
+    self.contracts.year(year).each do |contract|
+      info[contract.id] = {
+        userid: contract.hiwi.id,
+        username: contract.hiwi.name,
+        contractname: contract.name,
+        responsible: contract.responsible.name,
+        responsibleid: contract.responsible.id
+      }
+    end
+    return info
+  end
+
+  def reporting_project_info(year)
+    info = {}
+    self.contracts.year(year).each do |contract|
+      contract.hiwi.projects.each do |project|
+        info[project.name] = {
+          id: project.id
+        }
+      end
+    end
+    return info
   end
 end

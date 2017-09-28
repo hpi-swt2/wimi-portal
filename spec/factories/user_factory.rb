@@ -32,12 +32,16 @@
 
 FactoryGirl.define do
   
-  NAMES = ['Alice', 'Bob', 'Carol', 'Dave', 'Eve', 'Frank']
+  USER_NAMES ||= ['Alice', 'Bob', 'Carol', 'Dave', 'Eve', 'Frank']
   
   factory :user do
-    sequence(:first_name) { |n| NAMES[n.to_i % NAMES.length] }
+    # sequence starts with n=1
+    sequence(:first_name) { |n| USER_NAMES[(n.to_i - 1) % USER_NAMES.length] }
     last_name           'Doe'
-    sequence(:email)    { |n| "user#{n}@example.com" }
+    sequence(:email)    { |n| "#{first_name}#{n}@example.com" }
+    #email { "#{first_name + }@example.com" }
     language            'en'
+    username {first_name}
+    password '1234'
   end
 end

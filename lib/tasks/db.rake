@@ -1,79 +1,75 @@
 namespace :db do
   task add_demo_data: :environment do
+
+    puts 'creating admin, representative and wimi'
     # define users
-    epic_admin = User.create!(first_name: 'Admin', last_name: 'Epic', email: 'epic.admin@example.com', username: 'admin', password: '1234')
-    epic_representative = User.create!(first_name: 'Representative', last_name: 'Epic', email: 'rep@example.com', username: 'representative', password: '1234')
-    epic_wimi = User.create!(first_name: 'Wimi', last_name: 'Epic', email: 'wimi@example.com', username: 'wimi', password: '1234')
+    epic_admin = FactoryGirl.create(:user, first_name: 'Admin', last_name: 'Epic')
+    epic_representative = FactoryGirl.create(:user,first_name: 'Representative', last_name: 'Epic')
+    epic_wimi = FactoryGirl.create(:user,first_name: 'Wimi', last_name: 'Epic')
+    
+    puts 'creating hiwis'
+    epic_hiwis = []
+    5.times{
+        user = FactoryGirl.create(:user)
+        epic_hiwis << user
+    }
 
-    alice = User.create!(first_name: 'Alice', last_name: 'A', email: 'alice@example.com', username: 'alice', password: '1234')
-    bob = User.create!(first_name: 'Bob', last_name: 'B', email: 'bob@example.com', username: 'bob', password: '1234')
-
-    charlie = User.create!(first_name: 'Charlie', last_name: 'C', email: 'charlie@example.com', username: 'charlie', password: '1234')
-
+    puts 'creating chairs'
     # create! chairs
-    chair_epic = Chair.create!(name: 'EPIC', description: 'Enterprise Platform and Integration Concepts')
-    chair_www = Chair.create!(name: 'Internet', description: 'Internet-Technologien und -Systeme')
+    2.times{FactoryGirl.create(:chair, representative: false)}
+    chair_epic = Chair.first
+    chair_www = Chair.second
 
+    puts 'setting user roles'
     # set user roles
-    ChairWimi.create!(chair_id: chair_epic.id, user_id: epic_admin.id, admin: true, application: 'accepted')
-    ChairWimi.create!(chair_id: chair_epic.id, user_id: epic_representative.id, representative: true, application: 'accepted')
-    ChairWimi.create!(chair_id: chair_epic.id, user_id: epic_wimi.id, application: 'accepted')
+    FactoryGirl.create(:admin, user: epic_admin, chair: chair_epic)
+    FactoryGirl.create(:representative, user: epic_representative, chair: chair_epic)
+    FactoryGirl.create(:wimi, user: epic_wimi, chair: chair_epic)
 
+    puts 'setting up projects'
     # projects
-    swt2 = Project.create!(title: 'Softwaretechnik II', chair: chair_epic)
-    swt2.users << epic_wimi
-    swt2.users << alice
+    projects = []
+    4.times {
+        projects << FactoryGirl.create(:project, chair: chair_epic)
+    }
+    4.times { |i|
+        projects[i].users << epic_wimi
+    }
+    project_assignments = [[0,1],[1,2,3],[1,3],[0,2],[3]]
+    5.times do |i|
+        project_assignments[i].each {|p| projects[p].users << epic_hiwis[i]}
+    end
 
-    hana_project = Project.create!(title: 'HANA Project', chair: chair_epic)
-    hana_project.users << epic_representative
-    hana_project.users << bob
-
+    puts 'creating contracts'
     #contracts
+    start_dates = [5.months.ago, 7.months.ago, 10.months.ago, 3.months.ago, 6.months.ago]
+    end_dates = [3.months.since, 3.months.since, 5.months.since, 8.months.since, 4.months.since]
+    flexible = [false,false,true,true,true]
 
-    contract_bob = Contract.create(
-        hiwi: bob, 
-        chair: chair_epic, 
-        start_date: Date.today, 
-        end_date: Date.today >> 6, 
-        responsible: epic_wimi,
-        flexible: false, 
-        hours_per_week: 10,
-        wage_per_hour: 12.5)
+    contracts = []
+    flexible_contracts = []
+    5.times do |i|
+        c = FactoryGirl.create(:contract, chair: chair_epic, hiwi: epic_hiwis[i], responsible: epic_wimi, start_date: start_dates[i], end_date: end_dates[i], flexible: flexible[i])
+        contracts << c
+        if flexible[i]
+            flexible_contracts << c
+        end
+    end
 
-    contract_alice = Contract.create(
-        hiwi: alice, 
-        chair: chair_www, 
-        start_date: Date.today, 
-        end_date: Date.today >> 6, 
-        responsible: epic_wimi,
-        flexible: false, 
-        hours_per_week: 10,
-        wage_per_hour: 12.5)
+    puts 'building timesheets and workdays'
+    # timesheets
 
-    contract_charlie = Contract.create(
-        hiwi: charlie, 
-        chair: chair_epic, 
-        start_date: Date.today, 
-        end_date: Date.today >> 6, 
-        responsible: epic_wimi,
-        flexible: false, 
-        hours_per_week: 10,
-        wage_per_hour: 12.5)
-
-    #time_sheets
-
-    time_sheet_bob = TimeSheet.create(
-        contract: contract_bob,
-        month: Date.today.month,
-        year: Date.today.year)
-
-    time_sheet_bob.work_days.create(
-        date: time_sheet_bob.first_day, 
-        start_time: "12:00", 
-        break: 60,
-        end_time: "15:00",
-        notes: "Lorem ipsum dolor sit amet",
-        project: hana_project)
-
+    contracts.each do |contract|
+        date = contract.start_date
+        while date <= 1.month.ago.to_date
+            ts = FactoryGirl.create(:time_sheet_accepted, year: date.year, month: date.month, contract: contract, create_workdays: true)
+            if contract.hiwi.projects.count > 1
+                contract.hiwi.projects.each do |project|
+                    FactoryGirl.create(:work_day, time_sheet: ts, project: project)
+                end
+            end
+            date = date >> 1
+        end
+    end
   end
 end

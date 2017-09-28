@@ -47,7 +47,7 @@ describe WorkDay, type: :model do
   # end
 
   it 'requires a project to be related to' do
-    workday = FactoryGirl.build(:work_day, project: nil)
+    workday = FactoryGirl.build(:work_day, project: nil, skip_project_gen: true)
     expect(workday).to be_invalid
   end
 

@@ -11,11 +11,16 @@
 #
 
 FactoryGirl.define do
+
+  CHAIR_NAMES ||= ['EPIC', 'INTERNET']
+  CHAIR_DESCRIPTIONS ||= ['Enterprise Platform and Integration Concepts','Internet-Technologien und -Systeme']
+
   factory :chair do
     transient do
       representative true
     end
-    name 'TestChair'
+    sequence(:name) { |n| CHAIR_NAMES[(n.to_i - 1) % CHAIR_NAMES.length] }
+    sequence(:description) { |n| CHAIR_DESCRIPTIONS[(n.to_i - 1) % CHAIR_DESCRIPTIONS.length] }
     after(:create) do |chair, evaluator|
       if evaluator.representative
         r = evaluator.representative

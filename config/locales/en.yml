@@ -253,6 +253,8 @@ en:
       status_filter: Filters by status
       trip_request: Trip request
       type_filter: Filters by type
+    show:
+      reporting: "Reporting"
   dashboard:
     actions:
       goto_current_time_sheet: Go to current time sheet
@@ -492,7 +494,6 @@ en:
       sign_out_of_project: Remove
       wimi: Research Assistants
     index:
-      all_working_hours: Overall student working hours
       projects: Projects
       status: Status
       status_false: Inactive

@@ -253,6 +253,8 @@ de:
       status_filter: Filtern nach Status
       trip_request: Dienstreiseantrag
       type_filter: Filtern nach Art
+    show:
+      reporting: "Statistiken"
   dashboard:
     actions:
       goto_current_time_sheet: Aktuellen Stundenzettel anzeigen
@@ -492,7 +494,6 @@ de:
       sign_out_of_project: Entfernen
       wimi: Wissenschaftliche Mitarbeiter
     index:
-      all_working_hours: Gesamtstunden aller Hiwis für das Fachgebiet
       projects: Projekte
       status: Status
       status_false: Inaktiv

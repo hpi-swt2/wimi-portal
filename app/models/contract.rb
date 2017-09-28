@@ -21,6 +21,7 @@ class Contract < ActiveRecord::Base
                                                  user.id, Date.new(year, month, -1), Date.new(year, month, 1)) }
   scope :ends_soon, -> { where('end_date >= ? and end_date <= ?',
                         Date.today.beginning_of_month, (Date.today + 2.months).end_of_month).order(end_date: :asc) }
+  scope :year, -> year { where('start_date <= ? AND end_date >= ?', Date.new(year,12,31), Date.new(year,1,1))}
 
   belongs_to :chair
   belongs_to :hiwi, class_name: 'User'
@@ -75,6 +76,80 @@ class Contract < ActiveRecord::Base
 
   def monthly_work_minutes
     self.monthly_work_hours ? self.monthly_work_hours * 60 : self.monthly_work_hours
+  end
+
+  def salary_for_month(month, year)
+    if self.flexible
+      ts = self.time_sheets.year(year).month(month)
+      if ts
+        return (ts.first.sum_minutes * self.wage_per_hour / 60).round(2)
+      else
+        return 0
+      end
+    else
+      return self.monthly_salary
+    end
+  end
+
+  def salaries_for_year(year)
+    (1..12).collect do |month|
+      self.salary_for_month(month, year)
+    end
+  end
+
+  def monthly_salary
+    if self.flexible
+      return 0
+    else
+      return self.hours_per_week * self.wage_per_hour * 4
+    end
+  end
+
+  def projects_worked_on_in(month, year)
+    ts = self.time_sheets.year(year).month(month).accepted().first
+    projects = []
+    if ts
+      projects = ts.projects_worked_on.collect {|p| p.name}
+    end
+    if projects.empty? and month < Date.today.month
+      projects << 'Not categorized'
+    end
+    return projects
+  end
+  
+  def work_time_per_project(year)
+    work_time_pp = {}
+    if self.start_date.year > year
+      return work_time_pp
+    end
+    start_month = year == self.start_date.year ? self.start_date.month : 1
+    end_month = year == self.end_date.year ? self.end_date.month : 12
+    (start_month..end_month).each do |month|
+      ts = self.time_sheets.year(year).month(month).accepted().first
+      wt = {}
+      projects = self.projects_worked_on_in(month,year)
+      if ts 
+        wt = ts.work_time_per_project
+      end
+      projects.each do |projectname|
+        if not work_time_pp.include? projectname
+          work_time_pp[projectname] = Array.new(12,0)
+        end
+        if flexible
+          work_time_pp[projectname][month-1] += ts ? wt[projectname] : 0
+        else
+          work_time_pp[projectname][month-1] += (self.hours_per_week * WEEKS_PER_MONTH / projects.length * 60).round(2)
+        end
+      end
+    end
+    return work_time_pp
+  end
+
+  def reporting_for_year(year)
+    wt = self.work_time_per_project(year)
+    wt.each do |projectname, work_times|
+      work_times.map! { |time| (time * self.wage_per_hour / 60).round(2) }
+    end
   end
 
   def missing_timesheets(upto_date = Date.today - 1.month)

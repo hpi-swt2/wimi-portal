@@ -95,7 +95,7 @@ RSpec.describe Contract, type: :model do
       expect(saved.size).to eq(1)
       expect(saved.first).to eq(ts)
     end
-    
+
     it "returns single saved time sheet when time sheet is present in last contract month" do
       ts = FactoryGirl.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
       expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
@@ -146,10 +146,41 @@ RSpec.describe Contract, type: :model do
           @contract.update(start_date: Date.today.end_of_month << 1)
           @contract.reload
         end
+
         it 'includes the first day of the last month' do
           @dates = @contract.missing_timesheets
           expect(@dates).to contain_exactly(Date.today.at_beginning_of_month << 1)
         end
+      end
+    end
+  end
+
+  context 'salary_for_month' do
+    before :each do
+      @contract = FactoryGirl.create(:contract)
+      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      @work_day = FactoryGirl.create(:work_day, time_sheet: @time_sheet)
+    end
+
+    context 'with a flexible contract' do
+      before :each do
+        @contract.update(flexible: true)
+        @contract.reload
+      end
+
+      it 'calculates the correct salary' do
+        expect(@contract.salary_for_month(@time_sheet.month, @time_sheet.year)).to eq(@work_day.duration_in_minutes * @contract.wage_per_hour / 60)
+      end
+    end
+
+    context 'with a non flexible contract' do
+      before :each do
+        @contract.update(flexible: false)
+        @contract.reload
+      end
+
+      it 'calculates the correct salary' do
+        expect(@contract.salary_for_month(@time_sheet.month,@time_sheet.year)).to eq(@contract.hours_per_week * @contract.wage_per_hour * 4)
       end
     end
   end

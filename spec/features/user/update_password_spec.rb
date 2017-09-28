@@ -60,7 +60,7 @@ end
 
 describe 'password updating for other users' do
   it 'should not show the password fields for other users' do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user, username: nil)
     login_as user
     visit edit_user_path(user)
     expect(page).to_not have_content 'Change Password'

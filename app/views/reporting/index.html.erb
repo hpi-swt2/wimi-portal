@@ -1,0 +1,392 @@
+<%- model_class = Chair -%>
+<%
+  monthnames = (1..12).collect{ |month| I18n.l(Date.new(1,month), format: :short_month)}
+  current_year = Date.today.year
+  available_years = current_year-2..current_year
+%>
+<div class="col-md-12 col-sm-12">
+  <div class="display">
+    <div class="page-header">
+      <h1>
+        Reporting
+      </h1>
+    </div>
+    <div class="page-header">
+      <h3>
+        Spendings in 
+        <div class="dropdown" style="display: inline-block">
+          <a id="yearspan" class="btn btn-secondary btn-default dropdown-toggle" data-toggle="dropdown" href="#"><%= current_year %><b class="caret"></b></a>
+        
+          <ul class="dropdown-menu" id="year-selection">
+            <% available_years.each do |year| %>
+              <li><a data-year=<%= year %> href="#"> <%= year%></a></li>
+            <% end %>
+          </ul>
+        </div>
+        : <span id="total"></span> €
+      </h3>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        <div id="chart"></div>
+      </div>
+      <div class="col-md-3">
+        <div id="ypp"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-6 col-sm-6">
+  <div class="display">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 id="month-detail-label">Overview for
+            <div class="dropdown" style="display: inline-block">
+              <a id="month-selection-header" class="btn btn-secondary btn-default dropdown-toggle" data-toggle="dropdown" href="#">Month<b class="caret"></b></a>
+              <ul class="dropdown-menu" id="month-selection">
+                <% (0..11).each do |month| %>
+                  <li><a class=<%="month-#{month}"%> data-month=<%= month %> href="#"> <%= monthnames[month] %></a></li>
+                <% end %>
+              </ul>
+            </div>
+          </h4>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div id="mpp"></div>
+      </div>
+    </div>
+  </div>
+</div>  
+<div class="col-md-6 col-sm-6">
+  <div class="display">
+    <div class="page-header">
+      <h4>Drilldown for <a href="#" id="project-drilldown-label"></a><span id="project-drilldown-label-timespan"></span></h4>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="pdd"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table id="project-drilldown-table" class="table table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Contract</th>
+            <th>Responsible Wimi</th>  
+            <th>Salary</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function getSum(total, num) {
+    return total + parseFloat(num);
+  }
+
+  function selectMonth(month) {
+    selectedMonth = month;
+    monthlyPerProjectChart.resize({width: 400, height: 300});
+    monthlyPerProjectChart.load({json: monthlyPerProject[month]});
+    $('#month-selection-header').text($('.month-'+month).text());
+  }
+
+  function parseData(data) {
+    masterData = data["data"];
+    contractinfo = data["contractinfo"];
+    projectinfo = data["projectinfo"];
+    yearTotal = 0;
+    allProjects = [];
+
+    yearOverviewData = {};
+    for(var project in masterData) {
+      yearOverviewData[project] = []
+      for(var i = 0; i < 12; i++) {
+        yearOverviewData[project].push(0);
+      }
+      for(var contract in masterData[project]) {
+        for(var i = 0 ; i < 12; i++) {
+          yearOverviewData[project][i] += parseInt(masterData[project][contract][i]);
+        }
+      }
+    }
+
+    for(var project in yearOverviewData) {
+      yearTotal += yearOverviewData[project].reduce(getSum,0);
+      allProjects.push(project);
+    }
+
+    yearlyPerProjectData = {};
+    for(var project in yearOverviewData) {
+      yearlyPerProjectData[project] = yearOverviewData[project].reduce(getSum,0);
+    }
+
+    monthlyPerProject = {};
+    for(var i = 0; i < 12; i++) {
+      monthlyPerProject[i] = {};
+      for(var project in yearOverviewData) {
+        monthlyPerProject[i][project] = yearOverviewData[project][i];
+      }
+    }
+  }
+  
+  function initCharts() {
+    $("#total").text(yearTotal);
+
+    yearOverviewChart = c3.generate({
+      bindto: '#chart',
+      data: {
+        type: 'bar',
+        json: yearOverviewData,
+        groups: [allProjects],
+        onclick: function(d, element) {
+          console.log(d);
+          console.log(element);
+          //$('#month-detail-modal').modal();
+          selectMonth(d.index);
+        }
+      },
+      axis: {x: 
+        { 
+          type: 'category',
+          categories: monthlabels
+        }
+      },
+      tooltip: {
+        format: {
+          value: function (value, ratio, id) {
+            var formatted = value + '€';
+            if(ratio != null) {
+              formatted += ' (' + Math.round(ratio*100) + '%)';
+            }
+            return formatted;
+          }
+        }
+      },
+      legend: {
+        position: "right"
+      }
+    });
+
+    yearlyPerProjectChart = c3.generate({
+      bindto: '#ypp',
+      data: {
+        type: 'pie',
+        json: yearlyPerProjectData,
+        onclick: function(d, element) {
+          console.log(d);
+          console.log(element);
+          loadProjectDrilldown(d.id, -1);
+        }
+      },
+      tooltip: {
+        format: {
+          value: function (value, ratio, id) {
+            var formatted = value + '€';
+            if(ratio != null) {
+              formatted += ' (' + Math.round(ratio*100) + '%)';
+            }
+            return formatted;
+          }
+        }
+      },
+      legend: {
+        position: "right",
+        show: false
+      }
+    });
+
+    monthlyPerProjectChart = c3.generate({
+      bindto: '#mpp',
+      data: {
+        type: 'pie',
+        json: monthlyPerProject[selectedMonth],
+        onclick: function(d, element) {
+          console.log(d);
+          console.log(element);
+          loadProjectDrilldown(d.id, selectedMonth);
+        }
+      },
+      tooltip: {
+        format: {
+          value: function (value, ratio, id) {
+            var formatted = value + '€';
+            if(ratio != null) {
+              formatted += ' (' + Math.round(ratio*100) + '%)';
+            }
+            return formatted;
+          }
+        }
+      },
+      legend: {
+        position: "right"
+      }
+    });
+
+    drillDownChart = c3.generate({
+      bindto: '#pdd',
+      data: {
+        type: 'pie',
+        json: {},
+        onclick: function(d, element) {
+          console.log(d);
+          console.log(element);
+          window.location = paths.contract + d.id;
+        }
+      },
+      tooltip: {
+        format: {
+          value: function (value, ratio, id) {
+            var formatted = value + '€';
+            if(ratio != null) {
+              formatted += ' (' + Math.round(ratio*100) + '%)';
+            }
+            formatted += " Responsible: " + contractinfo[id].responsible;
+            return formatted;
+          }
+        }
+      },
+      legend: {
+        position: "right"
+      }
+    });
+  }
+
+  function updateCharts() {
+    yearOverviewChart.load({ json: yearOverviewData, unload: true});
+    yearOverviewChart.groups([allProjects]);
+    $("#total").text(yearTotal);
+
+    monthlyPerProjectChart.load({json: monthlyPerProject[selectedMonth], unload: true });
+
+    yearlyPerProjectChart.load({json: yearlyPerProjectData, unload: true});
+    
+    drillDownChart.unload();
+  }
+
+  function loadYear(year) {
+    url = yearOverviewUrl;
+    if (year != 0) {
+      url += "?year=" + year;
+      $('#yearspan').text(year);
+    }
+    $.getJSON(url, function(data) {
+      parseData(data);
+      if (!init) {
+        initCharts();
+        init = true;
+      }
+      else {
+        updateCharts();
+      }
+      loadProjectDrilldown(allProjects[1],-1);
+    });
+  }
+
+  function loadProjectDrilldown(project, month) {
+    var table = $("#project-drilldown-table");
+    table.find(".dynamic-data").remove();
+    drillDownData = {json: {}, names: {}};
+
+    for(var contractid in masterData[project]) {
+      var username = contractinfo[contractid].username;
+      var userid = contractinfo[contractid].userid;
+      var contractname = contractinfo[contractid].contractname;
+      var responsiblename = contractinfo[contractid].responsible;
+      var responsibleid = contractinfo[contractid].responsibleid;
+      var salary = 0;
+      if(month < 0 || month > 11) {
+        salary = masterData[project][contractid].reduce(getSum,0);
+      }
+      else {
+        salary = parseInt(masterData[project][contractid][month]);
+      }
+      salary = salary.toFixed(2);
+
+      drillDownData.json[contractid] = salary;
+      drillDownData.names[contractid] = contractinfo[contractid].username;
+
+      table.append(
+        $("<tr>")
+          .append($("<td>").append(
+            $("<a>").text(username).attr("href", paths.user + userid)))
+          .append($("<td>").append(
+            $("<a>").text(contractname).attr("href", paths.contract + contractid)))
+          .append($("<td>").append(
+            $("<a>").text(responsiblename).attr("href", paths.user + responsibleid)))
+          .append($("<td>").text(salary + "€"))
+        .attr("class", "dynamic-data")
+      );
+    }
+    drillDownChart.unload();
+    setTimeout(function() {drillDownChart.load(drillDownData)}, 300);
+    //drillDownChart.load({json: drillDownData});
+
+    text = "";
+    if (month > 0 && month < 11) {
+      text = " (" + monthlabels[month] + ")";
+    }
+    else {
+      text = " (All months)";
+    }
+    $("#project-drilldown-label-timespan").text(text);
+    $("#project-drilldown-label").text(project);
+    if(project in projectinfo) {
+      $("#project-drilldown-label").attr("href", paths.project + projectinfo[project].id);
+    }
+  }
+
+  var masterData;
+  var contractinfo;
+  var projectinfo;
+ 
+  var drillDownChart;
+  var drillDownData;
+  var monthlyPerProjectChart;
+  var monthlyPerProject;
+  var selectedMonth = 0;
+  var yearOverviewData;
+  var yearOverviewChart;
+  var yearOverviewUrl = 'reporting/data';
+  var yearlyPerProjectData;
+  var yearlyPerProjectChart;
+  var yearTotal = 0;
+  var allProjects;
+  var init = false;
+  var paths = {
+    user: "<%= user_path(1).to_s[0..-2] %>",
+    contract: "<%= contract_path(1).to_s[0..-2] %>",
+    project: "<%= project_path(1).to_s[0..-2] %>"
+  }
+  var monthlabels = <%= raw monthnames.to_json %>;
+
+  $(function() {
+    loadYear(0);
+
+    $("#month-selection>li>a").click(function(event) {
+      event.preventDefault();
+      var month = event.target.dataset.month;
+      selectMonth(month);
+    });
+
+    $("#year-selection>li>a").click(function(event) {
+      event.preventDefault();
+      var year = event.target.dataset.year;
+      loadYear(year);
+    });
+  });
+</script>
+
+<style>
+  .c3-event-rect {
+    cursor: pointer;
+  }
+</style>

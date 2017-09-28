@@ -63,12 +63,16 @@ class WorkDay < ActiveRecord::Base
     hours = (work_time - minutes) / 60
     format("%d:%02d", hours, minutes)
   end
-
+  
   def self.status_mapping
     {
       'K' => I18n.t('activerecord.attributes.work_day.attendance_options.sick'),
       'F' => I18n.t('activerecord.attributes.work_day.attendance_options.holiday')
     }
+  end
+
+  def salary
+    duration_in_minutes * contract.wage_per_hour / 60
   end
 
   private

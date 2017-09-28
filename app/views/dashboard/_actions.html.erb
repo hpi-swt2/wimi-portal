@@ -22,3 +22,7 @@
     <%= link_to t('.show_trip_requests'), requests_path(current_user.chair.id, trips: true, applied: true, accepted: true, declined: true), method: :post %>
   </p>
 <% end %>
+
+<% if current_user.is_representative? %>
+  <%= link_to t('chairs.show.reporting'), chair_reporting_index_path(current_user.chair), class: "btn btn-block btn-info" %>
+<% end %>

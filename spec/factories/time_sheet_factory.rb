@@ -30,6 +30,8 @@ FactoryGirl.define do
     transient do
       user nil
       chair nil
+      create_workdays false
+      project nil
     end
     month Date.today.month
     year Date.today.year
@@ -42,6 +44,13 @@ FactoryGirl.define do
         args[:hiwi] = evaluator.user if evaluator.user
         args[:chair] = evaluator.chair if evaluator.chair
         ts.contract = FactoryGirl.create(:contract, args)
+      end
+    end
+    after(:create) do |ts, evaluator|
+      if evaluator.create_workdays
+        3.times do |i|
+          FactoryGirl.create(:work_day, time_sheet: ts, project: evaluator.project)
+        end
       end
     end
     factory :time_sheet_accepted do
