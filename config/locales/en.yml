@@ -343,7 +343,7 @@ en:
       contract_create: Contract creation
       contract_extend: Contract extension
     extended_message:
-      time_sheet_accepted: 'The time sheet can be send to the Admin via the portal. (Via "Send to admin" button on the time sheet page)'
+      time_sheet_accept: 'The time sheet can be send to the Admin via the portal. (Via "Send to admin" button on the time sheet page)'
       time_sheet_closed: Please make sure that the working hours were entered correctly.
   expense:
     applied: Expense is already applied
