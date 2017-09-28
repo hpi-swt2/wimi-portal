@@ -49,7 +49,11 @@ FactoryGirl.define do
       hand_in_date { Date.new(year,month) }
       status 'accepted'
       signer { contract.responsible.id }
+      wimi_signed true
       representative_signed_at { Date.new(year,month) }
+      signed true
+      user_signed_at { Date.new(year,month) }
+      user_signature ''
     end
 
   end

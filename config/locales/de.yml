@@ -317,6 +317,7 @@ de:
     time_sheet_accept: "%{user} hat den Stundenzettel %{obj} von %{target_user} akzeptiert"
     time_sheet_decline: "%{user} hat den Stundenzettel %{obj} von %{target_user} abgelehnt"
     time_sheet_closed: "%{user} hat den Stundenzettel %{obj} von %{target_user} archiviert, in Papierform abgegeben"
+    time_sheet_admin_mail: "%{user} hat den Stundenzettel %{obj} an %{target_user} gesendet"
     project_create: "%{user} hat das Projekt %{obj} erstellt"
     project_join: "%{user} hat %{target_user} zu %{obj} hinzugefügt"
     project_leave: "%{user} hat %{target_user} aus dem Projekt %{obj} entfernt"
@@ -330,6 +331,7 @@ de:
       time_sheet_accept: Stundenzettel angenommen
       time_sheet_decline: Stundenzettel abgelehnt
       time_sheet_closed: Stundenzettel archiviert
+      time_sheet_admin_mail: Stundenzettel Admin Mail
       project_create: Neues Projekt erstellt
       project_join: Neues Projektmitglied
       project_leave: Projektmitglied entfernt
@@ -339,6 +341,7 @@ de:
       contract_create: Vertragserstellung
       contract_extend: Vertragsverlängerung
     extended_message:
+      time_sheet_accepted: 'Der Stundenzettel kann auch über das Portal an das Sekretariat gesendet werden. (Via "An Admin senden" auf der Studenzettel Seite)'
       time_sheet_closed: Bitte stelle sicher, dass die Arbeitsstunden korrekt eingetragen sind.
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
@@ -545,6 +548,7 @@ de:
       at: Am
       reject_reason: Ablehnungsgrund
       signatures: Unterschriften
+      send_to_admin: PDF an Admin senden
     wimi_actions:
       accept: Annehmen
       reject: Ablehnen

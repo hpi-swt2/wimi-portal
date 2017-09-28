@@ -28,7 +28,7 @@ RSpec.describe Event, type: :model do
     end
   end
 
-  context 'mails are sent' do
+  context 'mails are' do
     before :each do
       @user = FactoryGirl.create(:user)
       @user2 = FactoryGirl.create(:user)
@@ -36,9 +36,17 @@ RSpec.describe Event, type: :model do
       @user2.update(event_settings: [@event.type_id])
     end
 
-    it 'on event creation' do
+    it 'sent on event creation' do
       expect(@event.users_want_mail).to include(@user2)
       expect { @event.save! }.to change(ActionMailer::Base.deliveries, :count).by(1)
+    end
+
+    it 'not sent on creation if the event has mail disabled' do
+      # enum mapping is stored in hash, thus first twice
+      allow(Event).to receive(:NOMAIL) {[Event.types.first.first]}
+      @event.type = Event.types.first.first
+      expect(@event).to have_mail_disabled
+      expect { @event.save! }.to change(ActionMailer::Base.deliveries, :count).by(0)
     end
   end
 end

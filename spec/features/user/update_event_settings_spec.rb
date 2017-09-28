@@ -30,6 +30,13 @@ describe 'updating event preferences' do
     @user.reload
     expect(@user.event_settings).to eq([])
   end
+
+  it 'should not show events that have email disabled' do
+    visit edit_user_path(@user)
+    Event.NOMAIL.each do |type|
+      expect(page).to_not have_content(I18n.t("event.user_friendly_name.#{type}"))
+    end
+  end
 end
 
 describe 'a new users event settings' do

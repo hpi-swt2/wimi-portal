@@ -50,7 +50,7 @@ RSpec.describe DocumentsController, type: :controller do
       params = {doc_type: 'Timesheet', doc_id: time_sheet.id}
       get :generate_pdf, params
       expect(response.headers['Content-Type']).to eq('application/pdf')
-      expected_content_disposition = "attachment; filename=\"#{time_sheet.pdf_export_name}.pdf\""
+      expected_content_disposition = "attachment; filename=\"#{time_sheet.attachment_name}.pdf\""
       expect(response.headers['Content-Disposition']).to eq(expected_content_disposition)
     end
   end

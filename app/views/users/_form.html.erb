@@ -43,7 +43,7 @@
     <div class="panel-body">
       <table class="table table-condensed table-hover">
         <tbody>
-          <% Event.types.each do |typename, val| %>
+          <% Event.mail_enabled_types.each do |typename, val| %>
             <tr>
               <%# .show sets element to display:block using bootstrap stylesheet, making label take up the width of the <td> %>
               <td style="vertical-align: bottom;">

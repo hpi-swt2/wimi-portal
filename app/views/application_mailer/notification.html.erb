@@ -1,6 +1,6 @@
-<%= content_tag :p, t('.hello', name: @user.first_name) %>
+<%= content_tag :p, t('application_mailer.notification.hello', name: @user.first_name) %>
 
-<%= content_tag :p, t('.new_notification', date: l(@event.created_at, format: :full)) %>
+<%= content_tag :p, t('application_mailer.notification.new_notification', date: l(@event.created_at, format: :full)) %>
 
 <%= content_tag :p do %>
   <%= render partial: 'shared/event_message', locals: {event: @event, user: @user} %>
@@ -10,11 +10,11 @@
 <%= content_tag :p, extended if extended != '' %>
 
 <%= content_tag :p do %>
-  <%= t('.your_wimi_portal') %>
+  <%= t('application_mailer.notification.your_wimi_portal') %>
   <br>
   <%= link_to(root_url, root_url) %>
 <% end %>
 
 <hr>
 
-<%= content_tag :p, t('.settings_reminder_html', href: edit_user_url(@user)) %>
+<%= content_tag :p, t('application_mailer.notification.settings_reminder_html', href: edit_user_url(@user)) %>

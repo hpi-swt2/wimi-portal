@@ -1,3 +1,5 @@
+require 'document_builder'
+
 # == Schema Information
 #
 # Table name: time_sheets
@@ -91,6 +93,17 @@ class TimeSheet < ActiveRecord::Base
       Event.add(:time_sheet_decline, wimi, self, self.user)
     end
     return success
+  end
+
+  def make_attachment
+    params = {}
+    params[:doc_type] = 'Timesheet'
+    params[:doc_id] = self.id
+    # TODO: how should we handle this? ask the responsible instead?
+    params[:include_comments] = self.user.include_comments == 'always' ? 1 : 0
+    builder = DocumentBuilder.new(params)
+    pdf = builder.build_pdf()
+    return pdf
   end
 
   def reject_work_day(attributes)
@@ -206,7 +219,7 @@ class TimeSheet < ActiveRecord::Base
   # Used by controllers/documents_controller.rb to
   # set the name of exported PDFs of time sheets.
   # Is always in German, as is the exported document
-  def pdf_export_name
+  def attachment_name
     last_name = self.user.last_name
     date = I18n.l(self.first_day, format: "%m %Y")
     return "Arbeitszeitnachweis #{last_name} #{date}"
@@ -214,6 +227,10 @@ class TimeSheet < ActiveRecord::Base
 
   def name
     I18n.l(Date.new(year, month, 1), format: :short_month_year)
+  end
+
+  def has_been_sent_to_admin?
+    Event.object(self).type(:time_sheet_admin_mail).any?
   end
 
   private

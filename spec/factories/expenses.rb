@@ -41,6 +41,8 @@ FactoryGirl.define do
     hotel true
     general_advance 2000
     signature true
+    user_signature 'signature'
+    user_signed_at Date.today
     user
     trip
     after(:create) do |report|
