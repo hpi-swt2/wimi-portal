@@ -144,7 +144,9 @@
     <%= action_button :close, @time_sheet, method: :post, class: 'btn-block btn-danger', :data => { confirm: t('helpers.links.confirm_action.message', model: @time_sheet.name, action: t('helpers.links.confirm_action.archive')) } %>
   </span>
   <%# Send to admin button %>
-  <%= can_link t('.send_to_admin'), :send_to_admin, @time_sheet,  class: 'btn btn-success btn-block', style: "margin-bottom: 5px;" %>
+  <% if can? :send_to_admin, @time_sheet %>
+    <%= link_to t('.send_to_admin'), "", id: "open-popup", data: { toggle: "modal", target: "#send-to-admin-modal"}, class:"btn btn-success btn-block" %>
+  <% end %>
   <%# Month switch buttons %>
   <hr>
   <% if @next_month %>
@@ -166,4 +168,5 @@
 
 <% content_for :modals do %>
   <%= render partial: 'download_prompt', locals: {url: download_time_sheet_path(@time_sheet)} %>
+  <%= render partial: 'send_to_admin_prompt', locals: {url: send_to_admin_time_sheet_path(@time_sheet), chair: @time_sheet.contract.chair} %>
 <% end %>

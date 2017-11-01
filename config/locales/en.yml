@@ -396,6 +396,7 @@ en:
     forms:
       required_field: Required field
     links:
+      continue: Continue
       withdraw: Withdraw
       back: Back
       cancel: Cancel
@@ -526,6 +527,7 @@ en:
       setting_reminder: This setting can be globally set for all time sheets in the profile
       with_comments: 'Yes'
       without_comments: 'No'
+    send_to_admin: This will send the signed time sheet to %{user}. Continue?
     month_year: Month/Year
     save: Time Sheet saved successfully.
     no_contract: No contract found for today.

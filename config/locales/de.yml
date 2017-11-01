@@ -396,6 +396,7 @@ de:
     forms:
       required_field: Pflichtfeld
     links:
+      continue: Fortfahren
       withdraw: Zurücknehmen
       back: Zurück
       cancel: Abbrechen
@@ -526,6 +527,7 @@ de:
       setting_reminder: Diese Einstellung kann für alle Stundenzettel im Profil festgelegt werden
       with_comments: Ja
       without_comments: Nein
+    send_to_admin: Das wird den unterschriebenen Stundenzettel an %{user} senden. Fortfahren?
     month_year: Monat/Jahr
     save: Stundenzettel erfolgreich gespeichert.
     no_contract: Kein Vertrag für heute gefunden
