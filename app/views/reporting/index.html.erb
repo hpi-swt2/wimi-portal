@@ -57,7 +57,8 @@
     
     <div class="row">
       <div class="col-md-12">
-        <div id="mpp"></div>
+        <div id="mpp"></div> <%# monthly per project chart%>
+        <span id="mpp_no_data" style="display: none;">No data available</span>
       </div>
     </div>
   </div>
@@ -92,11 +93,30 @@
     return total + parseFloat(num);
   }
 
+  function isDataEmpty(data) {
+    for(var item in data) {
+      if(data[item] != 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   function selectMonth(month) {
     selectedMonth = month;
     monthlyPerProjectChart.resize({width: 400, height: 300});
     monthlyPerProjectChart.load({json: monthlyPerProject[month]});
     $('#month-selection-header').text($('.month-'+month).text());
+
+    console.log(monthlyPerProject[month]);
+    if(isDataEmpty(monthlyPerProject[month])) {
+      $('#mpp').hide();
+      $('#mpp_no_data').show();
+    }
+    else {
+      $('#mpp').show();
+      $('#mpp_no_data').hide();
+    }
   }
 
   function parseData(data) {
@@ -265,7 +285,8 @@
     yearOverviewChart.groups([allProjects]);
     $("#total").text(yearTotal);
 
-    monthlyPerProjectChart.load({json: monthlyPerProject[selectedMonth], unload: true });
+    //monthlyPerProjectChart.load({json: monthlyPerProject[selectedMonth], unload: true });
+    selectMonth(selectedMonth);
 
     yearlyPerProjectChart.load({json: yearlyPerProjectData, unload: true});
     
@@ -284,9 +305,7 @@
         initCharts();
         init = true;
       }
-      else {
-        updateCharts();
-      }
+      updateCharts();
       loadProjectDrilldown(allProjects[1],-1);
     });
   }
@@ -294,7 +313,7 @@
   function loadProjectDrilldown(project, month) {
     var table = $("#project-drilldown-table");
     table.find(".dynamic-data").remove();
-    drillDownData = {json: {}, names: {}};
+    drillDownData = {json: {}, names: {}, unload: true};
 
     for(var contractid in masterData[project]) {
       var username = contractinfo[contractid].username;
@@ -326,9 +345,7 @@
         .attr("class", "dynamic-data")
       );
     }
-    drillDownChart.unload();
-    setTimeout(function() {drillDownChart.load(drillDownData)}, 300);
-    //drillDownChart.load({json: drillDownData});
+    drillDownChart.load(drillDownData);
 
     text = "";
     if (month > 0 && month < 11) {
