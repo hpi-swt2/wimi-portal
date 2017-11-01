@@ -342,6 +342,8 @@ en:
       chair_add_admin: Admin rights granted
       contract_create: Contract creation
       contract_extend: Contract extension
+    email_subject:
+      time_sheet_admin_mail: Time sheet handed in
     extended_message:
       time_sheet_accept: 'The time sheet can be send to the Admin via the portal. (Via "Send to admin" button on the time sheet page)'
       time_sheet_closed: Please make sure that the working hours were entered correctly.

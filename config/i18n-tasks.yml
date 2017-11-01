@@ -103,6 +103,7 @@ ignore_unused:
   - '{true,false}'
   - 'helpers.submit.*'
   - 'event.user_friendly_name.*'
+  - 'event.email_subject.*'
   - 'users.show.include_comments.*'
 # remove these once features are re-enabled
   - '{expenses, holidays, trips}.*'

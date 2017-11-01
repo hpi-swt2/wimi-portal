@@ -23,6 +23,7 @@ class ApplicationMailer < ActionMailer::Base
     # locale needs to be set manually, as the ApplicationMailer
     # is not aware of the user's language settings
     @subject = t('application_mailer.notification.subject', locale: user.language,
-      text: t("event.user_friendly_name.#{@event.type}", locale: user.language))
+      text: t("event.email_subject.#{@event.type}", locale: user.language, 
+        default: t("event.user_friendly_name.#{@event.type}", locale: user.language)))
   end
 end
