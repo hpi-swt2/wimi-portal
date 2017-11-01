@@ -347,6 +347,7 @@ de:
     extended_message:
       time_sheet_accept: 'Der Stundenzettel kann auch über das Portal an das Sekretariat gesendet werden. (Via "An Admin senden" auf der Studenzettel Seite)'
       time_sheet_closed: Bitte stelle sicher, dass die Arbeitsstunden korrekt eingetragen sind.
+      time_sheet_admin_mail: Der Stundenzettel wurde von Hiwi und Wimi unterschrieben und kann weitergeleitet werden.
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
