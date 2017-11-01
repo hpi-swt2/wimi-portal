@@ -23,6 +23,6 @@
   </p>
 <% end %>
 
-<% if current_user.is_representative? %>
+<% if current_user.chair and can? :reporting, current_user.chair %>
   <%= link_to t('chairs.show.reporting'), chair_reporting_index_path(current_user.chair), class: "btn btn-block btn-info" %>
 <% end %>
