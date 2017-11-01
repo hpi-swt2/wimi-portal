@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521170120) do
+ActiveRecord::Schema.define(version: 20171101164051) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -216,8 +216,6 @@ ActiveRecord::Schema.define(version: 20170521170120) do
     t.string   "event_settings"
     t.integer  "include_comments",          default: 2
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
   create_table "work_days", force: :cascade do |t|
     t.date     "date"

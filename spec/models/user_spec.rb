@@ -96,4 +96,8 @@ RSpec.describe User, type: :model do
   it 'sets the correct default value for PDF download prefs' do
     expect(User.create().include_comments).to eq('ask')
   end
+
+  it 'allows the same email for different users' do
+    expect{2.times{FactoryGirl.create(:user, email: "a@example.com")}}.to change(User, :count).by(2)
+  end
 end
