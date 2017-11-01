@@ -7,7 +7,7 @@
           <label class="checkbox-inline pull-right">
             <%# autocomplete="off" prevents Firefox from remembering the checkbox's state on refresh, see http://stackoverflow.com/questions/2486474 %>
             <input type="checkbox" value="" autocomplete="off" checked data-toggle-visibility="true" data-target-class="old-ts">
-            <small><%= t '.toggle_visibility' %></small>
+            <small><%= t 'dashboard.missing_timesheets.toggle_visibility' %></small>
           </label>
         </h4>
 
@@ -39,7 +39,7 @@
                         <% ts.status = 'closed' %>
                         <% if can?(:create, ts) %>
                           <%# JS button that creates a closed time sheet and removes row %>
-                          <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('.close_tooltip', month: ts.name) %>">
+                          <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('dashboard.missing_timesheets.close_tooltip', month: ts.name) %>">
                             <%= button_to t('helpers.links.close_short'),
                               contract_create_for_month_year_path(contract, ts.month, ts.year, :closed),
                               class: 'btn btn-default btn-xs',
@@ -51,7 +51,7 @@
                         <%# Time sheet is not yet created, user cannot create, do nothing in this case %>
                       <% else %>
                         <%# JS button that closes existing time sheet and removes row %>
-                        <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('.close_tooltip', month: ts.name) %>">
+                        <span class="pull-left" data-toggle="tooltip" data-placement="right" title="<%= t('dashboard.missing_timesheets.close_tooltip', month: ts.name) %>">
                           <%= button_to t('helpers.links.close_short'),
                             close_time_sheet_path(ts),
                             class: 'btn btn-default btn-xs',
