@@ -40,13 +40,16 @@ RSpec.describe UsersController, type: :controller do
   describe 'PUT #update' do
     context 'with language param' do
       before :each do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryGirl.create(:user, language: User::LANGUAGES.first.second)
+        login_with @user
+        visit dashboard_path
       end
       it 'does not clear all event settings' do
-        put :update, {id: @user.to_param, user: { language: User::LANGUAGES.first}}
+        prev_event_settings = @user.event_settings
+        put :update, {id: @user.to_param, user: { language: User::LANGUAGES.second.second}}
 
         @user.reload
-        expect(@user.event_settings).not_to be_empty
+        expect(@user.event_settings).to eq(prev_event_settings)
       end
     end
 

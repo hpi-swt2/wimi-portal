@@ -32,7 +32,10 @@ class UsersController < ApplicationController
       @user.update(event_settings: event_params.map(&:to_i))
     else
       # When no notification checkboxes are selected, event_settings is empty
-      @user.clear_event_settings
+      # except when the language is changed
+      unless user_params.has_key?(:language)
+        @user.clear_event_settings
+      end
     end
     if @user.update(user_params)
       I18n.locale = @user.language
