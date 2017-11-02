@@ -20,6 +20,7 @@ en:
         wage_per_hour: Wage per hour
         hiwi: Employee
         responsible: Responsible
+        description: Description
       expense:
         car: Car
         country: Country

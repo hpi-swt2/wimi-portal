@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101164051) do
+ActiveRecord::Schema.define(version: 20171102084616) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20171101164051) do
     t.boolean "flexible"
     t.integer "hours_per_week"
     t.decimal "wage_per_hour",  precision: 5, scale: 2
+    t.text    "description"
   end
 
   create_table "events", force: :cascade do |t|

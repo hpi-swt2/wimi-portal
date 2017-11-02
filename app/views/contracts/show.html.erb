@@ -30,6 +30,9 @@
       <div class="col-md-6 col-sm-12">
         <%= content_tag :strong, model_class.human_attribute_name(:wage_per_hour) %>: <%= number_to_currency(@contract.wage_per_hour) %>
       </div>
+      <div class="col-md-12 col-sm-12">
+        <%= content_tag :strong, model_class.human_attribute_name(:description) %>: <%= @contract.description %>
+      </div>
     </div>
   </div>
 </div>

@@ -20,6 +20,7 @@ de:
         wage_per_hour: Stundenlohn
         hiwi: Angestellter
         responsible: Verantwortlicher
+        description: Beschreibung
       expense:
         car: PKW
         country: Land

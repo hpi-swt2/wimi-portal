@@ -48,6 +48,15 @@
         </div> <!-- col-md-6 col-sm-6 -->
       </div> <!-- row -->
 
+      <div class="row">
+        <div class="col-md-12">
+          <%= bootstrap_form_group(f, :description) do %>
+            <%= f.text_field :description, value: @contract.description, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+      
+
       <div align="right">
         <span>* <%= t'helpers.forms.required_field'%></span>
       </div>
