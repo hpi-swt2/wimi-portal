@@ -28,8 +28,10 @@
 //= require canvasjs.min
 //= require_tree .
 
-$(document).ready(function() {
-
+// https://stackoverflow.com/questions/22811654/ruby-on-rails-4-javascript-not-executed
+// thats why we need ready page:load
+$(document).on('ready page:load', function() {
+  console.log("test gros");
   /*
    * Datatables configuration
    */
@@ -136,6 +138,21 @@ $(document).ready(function() {
    */
   $('.archive-btn').on('ajax:success', function(e, data, status, xhr){
     $(e.currentTarget).closest('tr').fadeOut();
+  }).on('ajax:error',function(e, xhr, status, error){
+    console.error(error);
+  });
+
+  /*
+   * Time sheet table: time_sheets/_table.html.erb
+   * handle 'remote: true' archive buttons
+   */
+  
+  $('.archive-btn-replace').on('ajax:success', function(e, data, status, xhr){
+    console.log("test");
+    var trElement = $(e.currentTarget).closest('.missing-timesheet-tr');
+    trElement.find('.archived-status').show();
+    trElement.find('.no-status').hide();
+    trElement.find('.missing-timesheet-buttons').html("");
   }).on('ajax:error',function(e, xhr, status, error){
     console.error(error);
   });
