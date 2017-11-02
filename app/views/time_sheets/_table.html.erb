@@ -33,7 +33,7 @@
             <td class="missing-timesheet-buttons">
               <% if can?(:create, TimeSheet.new(contract: contract)) %>
                 <%# needs post in order to create the timesheet with a given month %>
-                <%= link_to t('helpers.titles.new', model: "#{l time_sheet.first_day, format: :short_month_year}"),
+                <%= button_to t('helpers.titles.new', model: "#{l time_sheet.first_day, format: :short_month_year}"),
                   contract_create_for_month_year_path(contract, time_sheet.month, time_sheet.year), class: 'btn btn-success btn-xs' %>
               <% end %>
               <% if can?(:create, TimeSheet.new(contract: contract)) %>
