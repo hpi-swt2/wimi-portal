@@ -6,6 +6,11 @@
   <div class="panel panel-default">
     <div class="panel-body panel-compact">
       <div class="row">
+        <div class="col-md-12">
+          <%= bootstrap_form_group(f, :description) do %>
+            <%= f.text_field :description, value: @contract.description, class: 'form-control' %>
+          <% end %>
+        </div>
         <div class="col-md-6 col-sm-6">
           <%= bootstrap_form_group(f, :start_date) do %>
             <% I18n.locale.to_s == 'en' ? format = 'mm/dd/yyyy' : format = 'dd.mm.yyyy' %>
@@ -47,14 +52,6 @@
           <% end %>
         </div> <!-- col-md-6 col-sm-6 -->
       </div> <!-- row -->
-
-      <div class="row">
-        <div class="col-md-12">
-          <%= bootstrap_form_group(f, :description) do %>
-            <%= f.text_field :description, value: @contract.description, class: 'form-control' %>
-          <% end %>
-        </div>
-      </div>
       
 
       <div align="right">
