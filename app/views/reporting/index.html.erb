@@ -105,7 +105,7 @@
   function selectMonth(month) {
     selectedMonth = month;
     monthlyPerProjectChart.resize({width: 400, height: 300});
-    monthlyPerProjectChart.load({json: monthlyPerProject[month]});
+    monthlyPerProjectChart.load({json: monthlyPerProject[month], unload: true});
     $('#month-selection-header').text($('.month-'+month).text());
 
     console.log(monthlyPerProject[month]);
