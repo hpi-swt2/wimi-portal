@@ -35,9 +35,7 @@ class User < ActiveRecord::Base
     %w[English en],
     %w[Deutsch de],
   ]
-
-  INVALID_EMAIL = 'invalid_email'
-
+  
   devise :trackable, :openid_authenticatable, :database_authenticatable, :registerable, authentication_keys: [:username]
 
   has_many :contracts, foreign_key: :hiwi_id
@@ -61,7 +59,7 @@ class User < ActiveRecord::Base
   validate :validate_event_settings
   validates :first_name, length: {minimum: 1}
   validates :last_name, length: {minimum: 1}
-  validates :email, length: {minimum: 1}, user_email: true
+  validates :email, user_email: true
   validates :personnel_number, numericality: {only_integer: true}, inclusion: 0..999999999, allow_blank: true
   validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
@@ -193,11 +191,11 @@ class User < ActiveRecord::Base
         value = value.first
       end
       
-      # if no email is saved yet and we receive no address, set INVALID_EMAIL as address, otherwise save the received value
+      # if no email is saved yet and we receive no address, set "" as address, otherwise save the received value
       if key.to_s == 'http://axschema.org/contact/email'
         if email.blank?
           if value.blank?
-            update_attribute(:email, INVALID_EMAIL)
+            update_attribute(:email, "")
           else
             update_attribute(:email, value)
           end

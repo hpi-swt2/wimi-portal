@@ -11,19 +11,6 @@ feature 'Login' do
       expect(page).to have_current_path(new_user_session_path)
     end
   end
-
-  context 'via OpenID' do
-    it 'should be obligatory to insert a valid email before visiting all sites' do
-      current_user = FactoryGirl.create(:user)
-      login_as current_user
-      current_user.update_attribute(:email, 'invalid_email')
-      @routes.each do |route|
-        visit route
-        expect(page).to have_danger_flash_message
-        expect(page).to have_content 'Please set a valid email address first'
-      end
-    end
-  end
   
   context 'via username/password' do
     before :each do

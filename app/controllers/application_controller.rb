@@ -27,12 +27,11 @@ class ApplicationController < ActionController::Base
         redirect_to new_user_session_path
       end
     else
-      has_invalid_email = (current_user.email == User::INVALID_EMAIL)
+      has_invalid_email = (current_user.email == "")
       allowed_paths = [destroy_user_session_path, edit_user_path(current_user), user_path(current_user)]
       visits_allowed_path = allowed_paths.include?(requested_path)
       if has_invalid_email && !visits_allowed_path
-        flash[:error] = 'Please set a valid email address first'
-        redirect_to edit_user_path(current_user)
+        flash[:error] = I18n.t('users.empty_email')
       end
     end
   end

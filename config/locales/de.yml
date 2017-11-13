@@ -618,6 +618,7 @@ de:
       remaining_leave_fly: Verbleibender Resturlaub vom letzten Jahr
       save: Resturlaub Speichern
       title: Resturlaub bearbeiten
+    empty_email: "Achtung: Momentan ist keine E-Mail Adresse im Profil gesetzt. Diese wird für E-Mail Benachrichtigungen benötigt."
     event_settings:
       event_settings: E-Mail Benachrichtigungen
     external_login:

@@ -618,6 +618,7 @@ en:
       remaining_leave_fly: Remaining Leave from last year
       save: Save Leave
       title: Edit Leave
+    empty_email: "Warning: You have not set an E-Mail Address in your profile yet. It is required for receiving E-Mail notifications."
     event_settings:
       event_settings: E-Mail Notifications
     external_login:
