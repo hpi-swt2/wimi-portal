@@ -33,6 +33,10 @@ RSpec.describe ApplicationMailer, type: :mailer do
     it "renders a link to User#edit to change notification settings " do
       expect(mail.body.encoded).to have_selector(:linkhref, edit_user_url(user), count: 1)
     end
+
+    it "has content type text/html" do
+      expect(mail.content_type).to match("text/html")
+    end
   end
 
   describe "extended notification messages" do
@@ -61,6 +65,19 @@ RSpec.describe ApplicationMailer, type: :mailer do
       expect(mail.body.encoded).to have_selector(:linkhref, user_url(hiwi), count: 1)
       expect(mail.body.encoded).to have_selector(:linkhref, user_url(wimi), count: 1)
       expect(mail.body.encoded).to have_selector(:linkhref, time_sheet_url(time_sheet), count: 1)
+    end
+  end
+
+  describe "notification time_sheet_accept" do
+    let(:hiwi) { FactoryGirl.create(:hiwi) }
+    let(:wimi) { FactoryGirl.create(:wimi).user }
+    let(:contract) { FactoryGirl.create(:contract, hiwi: hiwi, responsible: wimi) }
+    let(:time_sheet) { FactoryGirl.create(:time_sheet, contract: contract, handed_in: true, status: 'accepted') }
+    let(:event) { FactoryGirl.create(:event, type: 'time_sheet_accept', object: time_sheet, user: hiwi, target_user: wimi) }
+    let(:mail) { ApplicationMailer.notification_with_pdf(event, hiwi, time_sheet.make_attachment, "test.pdf") }
+
+    it "has content type multipart/mixed" do
+      expect(mail.content_type).to match("multipart/mixed")
     end
   end
 end
