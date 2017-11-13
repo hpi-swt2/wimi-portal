@@ -71,6 +71,7 @@
     <div class="row">
       <div class="col-md-12">
         <div id="pdd"></div>
+        <span id="pdd_no_data" style="display: none;">No data available</span>
       </div>
     </div>
     <div class="row">
@@ -102,21 +103,25 @@
     return true;
   }
 
+  function toggleChart(chart_id, replacement_id, chartData) {
+    if(isDataEmpty(chartData)) {
+      $(chart_id).hide();
+      $(replacement_id).show();
+    }
+    else {
+      $(chart_id).show();
+      $(replacement_id).hide();
+    }
+  }
+
   function selectMonth(month) {
     selectedMonth = month;
     monthlyPerProjectChart.resize({width: 400, height: 300});
     monthlyPerProjectChart.load({json: monthlyPerProject[month], unload: true});
+    monthlyPerProjectChart.flush();
     $('#month-selection-header').text($('.month-'+month).text());
 
-    console.log(monthlyPerProject[month]);
-    if(isDataEmpty(monthlyPerProject[month])) {
-      $('#mpp').hide();
-      $('#mpp_no_data').show();
-    }
-    else {
-      $('#mpp').show();
-      $('#mpp_no_data').hide();
-    }
+    toggleChart('#mpp', '#mpp_no_data', monthlyPerProject[month])
   }
 
   function parseData(data) {
@@ -289,8 +294,6 @@
     selectMonth(selectedMonth);
 
     yearlyPerProjectChart.load({json: yearlyPerProjectData, unload: true});
-    
-    drillDownChart.unload();
   }
 
   function loadYear(year) {
@@ -306,7 +309,7 @@
         init = true;
       }
       updateCharts();
-      loadProjectDrilldown(allProjects[1],-1);
+      loadProjectDrilldown(allProjects[0],-1);
     });
   }
 
@@ -345,6 +348,8 @@
         .attr("class", "dynamic-data")
       );
     }
+    toggleChart('#project-drilldown-table','#pdd_no_data', drillDownData.json);
+    toggleChart('#pdd', '#pdd_no_data', drillDownData.json);
     drillDownChart.load(drillDownData);
 
     text = "";
@@ -405,5 +410,8 @@
 <style>
   .c3-event-rect {
     cursor: pointer;
+  }
+  #pdd {
+    max-height: 200px !important;
   }
 </style>
