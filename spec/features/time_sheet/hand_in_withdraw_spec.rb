@@ -80,6 +80,18 @@ describe 'time_sheet#show' do
       expect(page).to_not have_danger_flash_message
     end
 
+    it 'is possible to resubmit a withdrawn time sheet' do
+      @time_sheet_handed_in.update(signed: true)
+      visit time_sheet_path(@time_sheet_handed_in)
+      click_on I18n.t('helpers.links.withdraw')
+      expect(page).to have_selector(:link_or_button, I18n.t('helpers.links.hand_in'))
+      click_on I18n.t('helpers.links.hand_in')
+      expect(page).to have_current_path(time_sheet_path(@time_sheet_handed_in))
+      expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.pending"))
+      expect(page).to have_success_flash_message
+      expect(page).to_not have_danger_flash_message
+    end
+
     it 'renders information on HiWi signature in the main panel for handed in sheets' do
       visit time_sheet_path(@time_sheet_handed_in)
       within '#main-content' do

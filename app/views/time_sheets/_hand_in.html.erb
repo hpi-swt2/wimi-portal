@@ -1,4 +1,4 @@
-<% unless @time_sheet.signed %>
+<% if can? :hand_in, @time_sheet %>
   <%= form_for @time_sheet, url: hand_in_time_sheet_path(@time_sheet) do |f| %>
       <% if current_user.signature.nil? %>
         <%= t('.signature_info') %>
