@@ -16,6 +16,7 @@
 
 class Contract < ActiveRecord::Base
   scope :at_date, -> date { where('start_date <= ? AND end_date >= ?', date, date ) }
+  scope :month, -> month,year { where('start_date <= ? AND end_date >= ?', Date.new(year,month).at_end_of_month, Date.new(year,month).at_beginning_of_month)}
   scope :contract_with, -> user, chair { where(hiwi: user, chair: chair)}
   scope :for_user_in_month, -> user, month, year { where('hiwi_id = ? AND start_date <= ? AND end_date >= ?',
                                                  user.id, Date.new(year, month, -1), Date.new(year, month, 1)) }
