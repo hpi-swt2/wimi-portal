@@ -6,17 +6,18 @@
 </head>
 
 <body class='pdf-document timesheet-document'>
-<div class='logo' style='right:-70px'>
+<div class="wrapper">
+<div class='logo'>
   <img src='<%= hpi_logo %>'>
 </div>
 <table class='pdf-costs-table'>
   <tr>
-    <td style='padding-bottom: 4px'>
-      <span class='headline' style='font-size: 16.0pt'>Arbeitszeitnachweis</span>
+    <td style='padding-bottom: 10px;text-align: left;font-weight: bold;'>
+      Arbeitszeitnachweis
     </td>
   </tr>
   <tr>
-    <td style='text-align: left'>
+    <td style='text-align: left; font-weight: bold;'>
       Name des Mitarbeiters:
     </td>
     <td colspan=3 style='border: solid 1.0pt'>
@@ -27,34 +28,36 @@
     </td>
   </tr>
   <tr>
-    <td style='text-align: left'>
+    <td style='text-align: left;font-weight: bold;'>
       Wochenarbeitszeit lt. Vertrag:
     </td>
     <td style='border: solid 1.0pt'>
-      <span class='text-field'><%= timesheet.contract.hours_per_week %></span>
+      <span class='text-field'>
+        <%= timesheet.contract.flexible ? 'flexibel' : timesheet.contract.hours_per_week %>
+      </span>
     </td>
     <td width=40>
       &nbsp;
     </td>
   </tr>
   <tr>
-    <td style='text-align: left'>
+    <td style='text-align: left;font-weight: bold;'>
       Monat/Jahr:
     </td>
     <td style='border: solid 1.0pt' width=130>
       <span class='text-field'><%= timesheet.month %> / <%= timesheet.year %></span>
     </td>
-    <td style='padding-left:15px'>
+    <td style='padding-left:15px;font-weight: bold;'>
       Pers.-Nr.:
     </td>
-    <td style='border: solid 1.0pt' rowspan=2 width=60>
+    <td style='border: solid 1.0pt' width=60>
       <span class='text-field'><%= timesheet.user.personnel_number %></span>
     </td>
   </tr>
 </table>
 
 <table class='workdays_table' cellspacing='0'>
-  <tr style='height:17pt; background-color: #AAA'>
+  <tr style='height:17pt; background-color: #bbbbbb'>
     <th><b>Kalendertag</b></th>
     <th><b>Beginn</b> (Uhrzeit)</th>
     <th><b>Pause</b> (Dauer)</th>
@@ -120,6 +123,7 @@
 </table>
 <div style="font-size:10pt; margin-top: -5px">
   Der Zeitnachweis ist bis zum 10.Tag des Folgemonats über das FG oder Postfach Buchhaltung einzureichen!
+</div>
 </div>
 </body>
 </html>

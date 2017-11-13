@@ -1,19 +1,21 @@
+.wrapper {
+  /* margin-left: 50px;
+  margin-right: 50px; */
+}
 .pdf-document * {
-  font-size: 12.0pt;
-  font-family: "Times New Roman", serif;
+  font-size: 9.0pt;
+  font-family: Calibri, Verdana, sans-serif;
 }
 
 .pdf-document .big-headline {
   font-size: 26.0pt;
   font-weight: bold;
   text-decoration: underline;
-  font-family: "Times New Roman", serif;
 }
 
 .pdf-document .headline {
   font-size: 20.0pt;
   font-weight: bold;
-  font-family: "Times New Roman", serif;
 }
 
 .pdf-document .small {
@@ -31,13 +33,11 @@
 }
 
 .pdf-document div.logo {
-  position: absolute;
-  top: 10px;
-  right: 0px;
+  float: right;
 }
 
 .pdf-document div.logo img {
-  width: 170px;
+  height: 100px;
 }
 
 .pdf-document div.input-block {
@@ -76,17 +76,15 @@
 }
 
 .pdf-document table.workdays_table td {
-  border: 1.0px solid;
+  border: 1px solid black;
   padding: 1 10;
-  font-size: 12pt;
   text-align: center;
 }
 
 .pdf-document table.workdays_table th {
-  border: 1.0px solid;
+  border: 1px solid black;
   padding: 3 10;
   text-align: center;
-  font-size: 10pt;
   font-weight: normal;
 }
 
