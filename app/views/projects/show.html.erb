@@ -11,7 +11,7 @@
       <div class="col-md-6 col-sm-6">
         <dl>
           <dt><%= t('.chair', default:'Chair') %>:</dt>
-          <dd><%= @project.chair.name %></dd>
+          <dd><%= linked_name @project.chair %></dd>
           <dt><%= model_class.human_attribute_name(:created_at) %>:</dt>
           <dd><%= l @project.created_at %></dd>
         </dl>
@@ -50,13 +50,25 @@
             <tbody>
               <% @project.hiwis.sort_by {|u| u[:last_name]}.each do |user| %>
                 <tr>
-                  <td class="col-md-8">
+                  <td class="col-md-6">
                     <%= linked_name(user)  %>
                   </td>
-                  <td>
+                  <td class="col-md-3">
                     <% time_sheets = user.time_sheets.select {|sheet| sheet.containsDate(Date.today) && sheet.contract.chair == @project.chair} %>
                     <% if time_sheets.any? %>
                         <%= can_link t('projects.form.show_current_timesheet'), :show, time_sheets[0], class: 'btn btn-default btn-xs' %>
+                    <% end %>
+                  </td>
+                  <td class="col-md-3">
+                    <% contracts = user.contract_with(@project.chair).to_a %>
+                    <% if contracts.size == 0 %>
+                      <%= t('chairs.contracts.none') %>
+                    <% else%>
+                      <% if contracts.size == 1 %>
+                        <%= can_link t('chairs.contracts.one'), :show, contracts[0], class: "btn btn-default btn-xs" %>
+                      <%else%>
+                        <%= can_link t('chairs.contracts.several', count: contracts.size), :index, Contract, class: 'btn btn-default btn-xs', anchor: hiwi.first_name + '_' + hiwi.last_name %>
+                      <% end %>
                     <% end %>
                   </td>
                 </tr>
