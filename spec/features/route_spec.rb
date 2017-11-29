@@ -59,7 +59,6 @@ feature 'Routes' do
       '/documents/generate_pdf',
       '/users/edit_leave',
       '/time_sheets/:id/accept_reject',
-      '/chairs/:id/reporting',
       # too slow
       '/time_sheets/:id/download'
     ]

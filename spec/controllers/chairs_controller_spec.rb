@@ -187,48 +187,6 @@ RSpec.describe ChairsController, type: :controller do
       expect project == nil
     end
   end
-
-  describe 'GET #requests' do
-    it 'does not show requests for users' do
-      sign_in @user
-      get :requests, {id: @chair}
-
-      expect(response).to have_http_status(302)
-    end
-
-    it 'shows request page for chairs representative' do
-      sign_in @representative
-      get :requests, {id: @chair}
-
-      expect(response).to have_http_status(:success)
-    end
-
-    it 'does not show request page for another chair' do
-      chair1 = FactoryGirl.create(:chair)
-      sign_in @representative
-      get :requests, {id: chair1}
-
-      expect(response).to have_http_status(302)
-    end
-
-    describe 'tests error' do
-      before(:each) do
-        @superadmin = FactoryGirl.create(:user, superadmin: true)
-      end
-
-      let(:invalid_attributes) {
-        {id: @chair, name: ''}
-      }
-      let(:valid_session) { {} }
-
-      it 'if chair could not be created' do
-        sign_in @superadmin
-        post :create, {chair: invalid_attributes}, valid_session
-
-        expect(response).to render_template('new')
-      end
-    end
-  end
   
   describe 'POST' do
 
