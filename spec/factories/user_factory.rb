@@ -44,4 +44,26 @@ FactoryGirl.define do
     username {first_name}
     password '1234'
   end
+
+  factory :hiwi, parent: :user do
+    transient do
+      chair nil
+      responsible nil
+      create_contract true
+    end
+    projects {build_list :project, 1}
+    after(:create) do |user, evaluator|
+      if evaluator.create_contract
+        chair = evaluator.chair
+        if not chair
+          chair = FactoryGirl.create(:chair)
+        end
+        if evaluator.responsible and evaluator.responsible.is_a? User
+          FactoryGirl.create(:contract, hiwi: user, chair: chair, responsible: evaluator.responsible)
+        else
+          FactoryGirl.create(:contract, hiwi: user, chair: chair)
+        end
+      end
+    end
+  end
 end
