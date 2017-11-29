@@ -21,42 +21,6 @@ de:
         hiwi: Angestellter
         responsible: Verantwortlicher
         description: Beschreibung
-      expense:
-        car: PKW
-        country: Land
-        date_start: Startdatum
-        general_advance: Vorschuss
-        hotel: Hotel
-        inland: Inlandsreise
-        location_from: Startort
-        location_to: Zielort
-        location_via: Zwischenhalt
-        public_transport: Bus/Bahn/Flug
-        reason: Grund
-        signature: Unterschreiben
-        time_end: Ankunftszeit
-        time_start: Abfahrtszeit
-        vehicle: Fahrzeug
-        vehicle_advance: vom HPI im Voraus bezahlt
-      expense_item:
-        annotation: Tätigkeit
-        breakfast: Frühstück
-        date: Datum
-        dinner: Abendessen
-        lunch: Mittagessen
-      holiday:
-        annotations: Anmerkungen
-        created_at: Erstellungsdatum
-        duration: Dauer
-        end: Ende
-        id: Id
-        length: Dauer
-        reason: Grund für Sonderurlaub
-        replacement: Vertretung
-        signature: Unterschreiben
-        start: Beginn
-        status: Status
-        user_id: Benutzer
       project:
         created_at: Erstellungsdatum
         id: Id
@@ -76,18 +40,6 @@ de:
           pending: eingereicht
           rejected: abgelehnt
           closed: geschlossen
-      trip:
-        annotation: Bemerkungen
-        created_at: Erstellungsdatum
-        date_end: Ende
-        date_start: Start
-        days_abroad: Auslandstage
-        destination: Ziel
-        id: Id
-        reason: Grund
-        signature: Unterschreiben
-        status: Status
-        user_id: Benutzer
       user:
         chair: Lehrstuhl
         city: Wohnort
@@ -132,32 +84,6 @@ de:
         start_time: Start
     errors:
       models:
-        expense:
-          attributes:
-            general_advance:
-              blank: darf nicht leer sein.
-              greater_than_or_equal_to: darf nicht negativ sein.
-              not_a_number: muss eine ganze Zahl sein.
-            location_from:
-              blank: darf nicht leer sein.
-            location_to:
-              blank: darf nicht leer sein.
-            time:
-              format: muss im Format HH:MM sein.
-            time_end:
-              blank: darf nicht leer sein.
-            time_start:
-              blank: darf nicht leer sein.
-        holiday:
-          attributes:
-            end:
-              blank: darf nicht leer sein.
-            length:
-              not_a_number: muss eine ganze Zahl sein.
-            start:
-              blank: darf nicht leer sein.
-          duration_geq_length: " darf nicht größer als der angegebene Zeitraum sein."
-          too_far_in_the_future: " ist zu weit in der Zukunft."
         project:
           cannot_delete: löschen fehlgeschlagen, es gibt bereits Arbeitsstunden
         time_sheet:
@@ -186,21 +112,12 @@ de:
       contract:
         one: Vertrag
         other: Verträge
-      expense:
-        one: Reisekostenabrechnung
-        other: Reisekostenabrechnungen
-      holiday:
-        one: Urlaubsantrag
-        other: Urlaubsanträge
       project:
         one: Projekt
         other: Projekte
       time_sheet:
         one: Stundenzettel
         other: Stundenzettel
-      trip:
-        one: Geschäftsreise
-        other: Geschäftsreisen
       user:
         one: Benutzer
         other: Benutzer
@@ -213,10 +130,6 @@ de:
     remove_from_chair:
       error: Nutzer konnte nicht entfernt werden
       success: Benutzer erfolgreich entfernt
-    requests:
-      expense_request: Reisekostenabrechnung
-      holiday_request: Urlaubsantrag
-      trip_request: Dienstreiseantrag
     set_admin:
       error: User konnte nicht zum Admin ernannt werden
       success: User wurde erfolgreich zum Admin ernannt
@@ -248,20 +161,14 @@ de:
       applied_plural: Offene Anfragen
       apply_filter: Filter anwenden
       declined: Abgelehnt
-      expense_request: Reisekostenabrechnung
-      holiday_request: Urlaubsantrag
       requests: Anfragen
       status_filter: Filtern nach Status
-      trip_request: Dienstreiseantrag
       type_filter: Filtern nach Art
     show:
       reporting: "Statistiken"
   dashboard:
     actions:
       goto_current_time_sheet: Aktuellen Stundenzettel anzeigen
-      show_expense_requests: Ausgabenanträge anzeigen
-      show_holiday_requests: Urlaubsanträge anzeigen
-      show_trip_requests: Dienstreiseanträge anzeigen
     contracts:
       contracts: Meine Verträge
     index:
@@ -346,36 +253,6 @@ de:
       time_sheet_accept: 'Der Stundenzettel kann auch über das Portal an das Sekretariat gesendet werden. (Via "An Admin senden" auf der Studenzettel Seite)'
       time_sheet_closed: Bitte stelle sicher, dass die Arbeitsstunden korrekt eingetragen sind.
       time_sheet_admin_mail: Der Stundenzettel wurde von Hiwi und Wimi unterschrieben und kann weitergeleitet werden.
-  expense:
-    applied: Reisekostenabrechnung bereits eingereicht
-    destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht
-    no_trip: Bevor die Reisekostenabrechnung eingereicht werden kann, müssen Sie den Dienstreiseantrag einreichen
-    save: Reisekostenabrechnung wurde erfolgreich erstellt
-    update: Reisekostenabrechnung wurde erfolgreich aktualisiert
-  expenses:
-    expense:
-      car: PKW
-      country: Reiseland
-      date_end: Enddatum
-      general_advance: Vorschuss
-      hotel: Hotel?
-      inland: Inlandsreise
-      location_from: Startort
-      location_to: Zielort
-      location_via: Zwischenhalt
-      public_transport: Bus/Bahn/Flug
-      reason: Grund
-      signature: Unterschreiben
-      time_end: Ankunftszeit
-      time_start: Abfahrtszeit
-      vehicle: Fahrzeug
-      vehicle_advance: vom HPI im Voraus bezahlt
-    form:
-      accommodation: Unterkunft
-      catering: Geben Sie hier für jeden Tag an, welche Mahlzeiten nicht aus privaten Mitteln bezahlt wurden. (z.B. Frühstück im Hotel)
-      hotel_false: Privat
-      hotel_true: Hotel
-      travel_by: Reise mit
   'false': Nein
   helpers:
     no_script_message_html: Diese Funktion steht nur mit <a href="http://enable-javascript.com" target="_blank" class="alert-link">aktiviertem JavaScript</a> zur Verfügung.
@@ -432,29 +309,6 @@ de:
     timespan:
       hours: "%{hours} Std."
       hours_minutes: "%{hours} Std. %{minutes} Min."
-  holiday:
-    applied: Urlaubsantrag bereits eingereicht
-    created: Urlaub wurde erfolgreich erstellt.
-    destroyed: Urlaub wurde erfolreich gelöscht.
-    not_authorized: Sie sind nicht befugt, diesen Urlaubsantrag einzusehen.
-    not_enough_leave: Nicht genug Resturlaub übrig!
-    updated: Urlaub wurde erfolgreich bearbeitet.
-  holidays:
-    form:
-      auto_calculation: Für automatische Berechnung leer lassen.
-    show:
-      accept: Antrag annehmen
-      days: Tag(e)
-      filed_request_cant_be_edited: Ein eingereichter Antrag kann nicht bearbeitet werden.
-      hand_in: Antrag einreichen
-      reject: Antrag ablehnen
-      reject_reason: Ablehnungsgrund
-      status:
-        accepted: 'Akzeptiert am '
-        applied: 'Eingereicht am '
-        declined: 'Abgelehnt am '
-        saved: 'Gespeichert am '
-      reject_reason: Ablehnungsgrund
   home:
     index:
       member_status_html: Sie sind momentan für <strong>%{project_count} %{project}</strong> als HiWi oder WiMi registriert und haben <strong>%{contract_count} %{contract}</strong>.
@@ -571,42 +425,6 @@ de:
       flash: Stundenzettel wurde geschlossen
     reopen:
       flash: Stundenzettel wurde wieder geöffnet
-  trip:
-    applied: Dienstreiseantrag bereits eingereicht
-    destroyed: Dienstreiseantrag wurde erfolgreich gelöscht
-    save: Dienstreiseantrag wurde erfolgreich erstellt
-    update: Dienstreiseantrag wurde erfolgreich aktualisiert
-  trips:
-    form:
-      annotation: Sonstige Bemerkungen
-      date: TT.MM.JJJJ
-      destination: Zielort der Geschätsreise
-      reason: Kurze Begründung
-    show:
-      accept: Antrag annehmen
-      annotation: Bemerkungen
-      create_expense: Reisekosten eintragen
-      created_at: Erstellungsdatum
-      days: Tag(e)
-      destination: Ziel
-      duration: 'Dauer: %{days} Tag(e)'
-      expense: Reisekostenabrechnung
-      filed_request_cant_be_edited: Ein eingereichter Antrag kann nicht bearbeitet werden.
-      hand_in: Antrag einreichen
-      id: Id
-      reason: Grund
-      reject: Antrag ablehnen
-      reject_reason: Ablehnungsgrund
-      signature: Unterschreiben
-      status:
-        accepted: 'Akzeptiert am '
-        applied: 'Eingereicht am '
-        declined: 'Abgelehnt am '
-        saved: 'Gespeichert am '
-      user_id: Benutzer
-      rejected_by: Abgelehnt von
-      at: Am
-      reject_reason: Ablehnungsgrund
   'true': Ja
   users:
     delete_signature:
@@ -639,10 +457,8 @@ de:
     index:
       current_contract: Aktueller Vertrag
     show:
-      business_trips: Geschäftsreisen
       days: Tag(e)
       download_settings: Stundenzettel PDF Einstellungen
-      holiday_requests: Urlaubsanfragen
       include_comments:
         always: Kommentare immer drucken
         never: Kommentare immer weglassen
@@ -651,8 +467,6 @@ de:
       password: Passwort ändern
       remaining_leave: 'Verbleibender Resturlaub: %{leave} Tag(e)'
       remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
-      request_holiday: Urlaub anfragen
-      request_trip: Geschäftsreise beantragen
       signature: Unterschrift
       status:
         accepted: Akzeptiert

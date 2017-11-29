@@ -76,25 +76,6 @@ class ChairsController < ApplicationController
     @recent_events = Event.recent_events_for(@chair)
   end
 
-  # Show requests (Representative tasks):
-  def requests
-    @types = %w[holidays expenses trips]
-    @statuses = %w[applied accepted declined]
-
-    @allrequests = @chair.create_allrequests(@types, @statuses)
-  end
-
-  def requests_filtered # TODO: merge with #requests action
-    @types = %w[holidays expenses trips]
-    @statuses = %w[applied accepted declined]
-
-    @types.delete_if { |type| !params.has_key?(type) }
-    @statuses.delete_if { |status| !params.has_key?(status) }
-
-    @allrequests = @chair.create_allrequests(@types, @statuses)
-    render 'requests'
-  end
-
   def add_user
     user = User.find_by_id params[:add_user_to_chair][:id]
     redirect_to chair_path(@chair)

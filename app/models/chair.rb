@@ -43,18 +43,6 @@ class Chair < ActiveRecord::Base
     chair_wimis.find(&:is_representative?)
   end
 
-  def create_allrequests(types, statuses)
-    @allrequests = []
-
-    users.each do |user|
-      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays, statuses) if types.include?('holidays') || types.empty?
-      add_expense_requests(I18n.t('chair.requests.expense_request'), user.expenses, statuses) if types.include?('expenses') || types.empty?
-      add_requests(I18n.t('chair.requests.trip_request'), user.trips, statuses) if types.include?('trips') || types.empty?
-    end
-
-    @allrequests.sort_by { |v| v[:handed_in] }.reverse
-  end
-
   def check_correct_user(id)
     user = User.find_by(id: id)
     if !user || user.is_superadmin?
@@ -121,22 +109,6 @@ class Chair < ActiveRecord::Base
         end
       else
         ChairWimi.create!(chair: self, user: new_representative, representative: true, application: 'accepted')
-      end
-    end
-  end
-
-  def add_requests(type, array, statuses)
-    array.each do |r|
-      if statuses.include?(r.status) || (statuses.empty? && r.status != 'saved')
-        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r}
-      end
-    end
-  end
-
-  def add_expense_requests(type, array, statuses)
-    array.each do |r|
-      if statuses.include?(r.status) || (statuses.empty? && r.status != 'saved')
-        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r.trip}
       end
     end
   end

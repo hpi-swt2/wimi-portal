@@ -51,33 +51,5 @@ RSpec.describe 'dashboard/index.html.erb', type: :view do
     FactoryGirl.create(:wimi, chair: chair, user: @user, representative: true)
     login_as @user
     visit dashboard_path
-
-    # currently out of order
-#    expect(page).to have_link('Show holiday requests')
-#    expect(page).to have_link('Show expense requests')
-#    expect(page).to have_link('Show trip requests')
   end
-
-  # holidays are currently out of order
-#  it 'shows notifications for representative' do
-#    chair = FactoryGirl.create(:chair, name: 'Chair')
-#    FactoryGirl.create(:wimi, chair: chair, user: @user)
-#    holiday = FactoryGirl.create(:holiday, user: @user, signature: true)
-#    login_as @user
-#    visit holiday_path(holiday)
-#    expect(page).to have_link t('holidays.show.hand_in')
-#
-#    click_on t('holidays.show.hand_in')
-#    expect(page).to have_content t('users.show.status.applied')
-#
-#    FactoryGirl.create(:wimi, chair: chair, user: @user, representative: true)
-#    notification = t('events.event_request.holiday', trigger: @user.name)
-#
-#    login_as @user
-#    visit dashboard_path
-#
-#    expect(page).to have_content(notification)
-#    expect(page).to have_link('Show')
-#    expect(page).to have_link('Hide')
-#  end
 end

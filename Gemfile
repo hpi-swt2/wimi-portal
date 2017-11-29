@@ -95,8 +95,8 @@ gem 'select2-rails'
 gem 'searchlight'
 # for nested forms
 #gem 'cocoon'
-gem 'business_time'
-gem 'holidays'
+gem 'business_time'#TODO:remove
+gem 'holidays' #TODO:remove
 gem 'bootstrap-datepicker-rails'
 gem 'whenever'
 

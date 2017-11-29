@@ -64,13 +64,6 @@ RSpec.describe User, type: :model do
     expect(User.find(user.id).is_hiwi?).to eq(true)
   end
 
-  it 'returns trips in the right order' do
-    user = FactoryGirl.create(:user)
-    trip_a = FactoryGirl.create(:trip, date_start: Date.today + 5, date_end: Date.today + 6, days_abroad: 0, user: user)
-    trip_b = FactoryGirl.create(:trip, date_start: Date.today + 10, date_end: Date.today + 16, days_abroad: 0, user: user)
-    expect(user.get_desc_sorted_trips[0]).to eq(trip_b)
-  end
-
   it 'is valid with no personnel_number' do
     expect(FactoryGirl.build(:user, personnel_number: nil)).to be_valid
   end

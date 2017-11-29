@@ -105,10 +105,6 @@ ignore_unused:
   - 'event.user_friendly_name.*'
   - 'event.email_subject.*'
   - 'users.show.include_comments.*'
-# remove these once features are re-enabled
-  - '{expenses, holidays, trips}.*'
-  - '*.{expense, holiday, trip}.*'
-  - '*.{event_travel_request_accepted, event_travel_request_declined}.*'
 # TODO: fix this at some point
   - '{errors}.*'
 # TODO: use this in create timesheet for next month button

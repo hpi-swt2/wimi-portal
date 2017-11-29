@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Login' do
   before :each do
-    @routes = [projects_path, dashboard_path, chairs_path, contracts_path] #'/holidays', '/trips'
+    @routes = [projects_path, dashboard_path, chairs_path, contracts_path]
   end
 
   it 'should not show any page as long as you are not logged in' do
