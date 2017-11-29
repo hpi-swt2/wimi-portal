@@ -53,12 +53,19 @@ FactoryGirl.define do
     end
     projects {build_list :project, 1}
     after(:create) do |user, evaluator|
+      if evaluator.responsible and evaluator.responsible.is_a? User
+        responsible = evaluator.responsible
+      end
       if evaluator.create_contract
         chair = evaluator.chair
         if not chair
-          chair = FactoryGirl.create(:chair)
+          if responsible
+            chair = responsible.chair
+          else
+            chair = FactoryGirl.create(:chair)
+          end
         end
-        if evaluator.responsible and evaluator.responsible.is_a? User
+        if responsible
           FactoryGirl.create(:contract, hiwi: user, chair: chair, responsible: evaluator.responsible)
         else
           FactoryGirl.create(:contract, hiwi: user, chair: chair)

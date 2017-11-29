@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'contracts#index' do
   before :each do
-    @hiwi = FactoryGirl.create(:hiwi)
     @wimi = FactoryGirl.create(:wimi).user
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @hiwi = FactoryGirl.create(:hiwi, responsible: @wimi)
+    @contract = @wimi.chair
   end
 
   context "with a single contract" do
