@@ -156,14 +156,6 @@ en:
       no_results: No results
     navigation:
       not_authorized: You are not allowed to do this action for this research group.
-    requests:
-      accepted: Accepted
-      applied_plural: Open requests
-      apply_filter: Apply Filters
-      declined: Declined
-      requests: Requests
-      status_filter: Filters by status
-      type_filter: Filters by type
     show:
       reporting: "Reporting"
   dashboard:
@@ -289,13 +281,11 @@ en:
       download_pdf: Download as PDF
       edit: Edit %{model}
       edit_short: Edit
-      edit_leave: Edit Leave
       hand_in: Hand in
       new: New
       reopen: Reopen
       save: Save
       show: Show
-      show_details: Show Details
       upload: Upload
     submit:
       create: Create %{model}
@@ -372,7 +362,6 @@ en:
     wimi_long_plural: Employees
   signature_warning: You have to upload a signature before you can accept the request.
   signatures:
-    signature_not_found: You have selected to sign the document, but there was no signature found
     signature_not_found_time_sheet: The document was not handed in, because you have selected to sign the document, but there was no signature found
   time_sheet:
     confirm_reject: "No rejection reason was given. Reject the time sheet anyway?"
@@ -457,7 +446,6 @@ en:
     index:
       current_contract: Current Contract
     show:
-      days: Day(s)
       download_settings: Time Sheet PDF Settings
       include_comments:
         always: Always include comments
@@ -465,18 +453,10 @@ en:
         ask: Always ask me
       information: Please choose a *.bmp, *.jpeg, *.jpg or *.png file
       password: Change Password
-      remaining_leave: 'Remaining Leave: %{leave} Day(s)'
-      remaining_leave_last_year: ", thereof %{leave_last_year} Day(s) from %{last_year}"
       signature: Signature
-      status:
-        accepted: Accepted
-        applied: Applied
-        declined: Rejected
-        saved: Saved
       update_password: Update Password
       user_data: User Data
       warning: 'ATTENTION: Your signature will be stored as an image and not be encrypted additionally.'
-      warning_label: Warning! Your remaining leave from %{last_year} expires March 31, %{year}!
     update:
       user_updated: Profile was updated successfully
       user_updated_language: Language was updated successfully

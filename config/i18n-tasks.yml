@@ -105,6 +105,9 @@ ignore_unused:
   - 'event.user_friendly_name.*'
   - 'event.email_subject.*'
   - 'users.show.include_comments.*'
+# keep these, might come in handy
+  - 'helpers.links.edit'
+  - 'helpers.links.destroy'
 # TODO: fix this at some point
   - '{errors}.*'
 # TODO: use this in create timesheet for next month button

@@ -156,14 +156,6 @@ de:
       no_results: Keine Ergebnisse
     navigation:
       not_authorized: Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen.
-    requests:
-      accepted: Angenommen
-      applied_plural: Offene Anfragen
-      apply_filter: Filter anwenden
-      declined: Abgelehnt
-      requests: Anfragen
-      status_filter: Filtern nach Status
-      type_filter: Filtern nach Art
     show:
       reporting: "Statistiken"
   dashboard:
@@ -289,13 +281,11 @@ de:
       download_pdf: Als PDF herunterladen
       edit: "%{model} bearbeiten"
       edit_short: Bearbeiten 
-      edit_leave: Resturlaub bearbeiten
       hand_in: Einreichen
       new: Neu
       reopen: Wieder eröffnen
       save: Speichern
       show: Anzeigen
-      show_details: Details anzeigen
       upload: Hochladen
     submit:
       create: "%{model} erstellen"
@@ -372,7 +362,6 @@ de:
     wimi_long_plural: Wissenschaftliche Mitarbeiter
   signature_warning: Bevor Sie das Dokument akzeptieren, müssen Sie eine Unterschrift hochladen.
   signatures:
-    signature_not_found: Sie haben ausgewählt, das Dokument zu unterschreiben, haben aber noch keine Unterschrift hinzugefügt
     signature_not_found_time_sheet: Das Dokument wurde nicht eingereicht, da Sie ausgewählt haben, das Dokument zu unterschreiben, aber noch keine Unterschrift hinzugefügt wurde
   time_sheet:
     confirm_reject: "Es wurde kein Ablehnungsgrund angegeben. Stundenzettel trotzdem ablehnen?"
@@ -457,7 +446,6 @@ de:
     index:
       current_contract: Aktueller Vertrag
     show:
-      days: Tag(e)
       download_settings: Stundenzettel PDF Einstellungen
       include_comments:
         always: Kommentare immer drucken
@@ -465,18 +453,10 @@ de:
         ask: Jedesmal nachfragen
       information: Bitte wählen Sie eine *.bmp, *.jpeg, *.jpg oder *.png Datei aus
       password: Passwort ändern
-      remaining_leave: 'Verbleibender Resturlaub: %{leave} Tag(e)'
-      remaining_leave_last_year: ", davon %{leave_last_year} Tag(e) aus %{last_year}"
       signature: Unterschrift
-      status:
-        accepted: Akzeptiert
-        applied: Eingereicht
-        declined: Abgelehnt
-        saved: Gespeichert
       update_password: Passwort aktualisieren
       user_data: Profilbezogene Daten
       warning: 'ACHTUNG: Ihre Unterschrift wird als Bild gespeichert und nicht zusätzlich verschlüsselt.'
-      warning_label: Achtung! Ihr Resturlaub aus %{last_year} verfällt am 31. März %{year}!
     update:
       user_updated: Profil erfolgreich aktualisiert.
       user_updated_language: Sprache erfolgreich aktualisiert.
