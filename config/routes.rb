@@ -41,9 +41,6 @@ Rails.application.routes.draw do
     end
   end
 
-  #get 'projects/typeahead/:query', to: 'projects#typeahead', constraints: {query: /[^\/]+/}
-  get 'projects/hiwi_working_hours/:month_year', to: 'projects#hiwi_working_hours'
-
   resources :contracts do
     resources :time_sheets, only: [:new, :create]
     # parameters in parenthesis are optional

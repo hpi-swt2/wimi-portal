@@ -117,26 +117,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def hiwi_working_hours
-    month = params[:month_year].split('-')[0].to_i
-    year = params[:month_year].split('-')[1].to_i
-    
-    map = {}
-    WorkDay.month(month, year).each do |wd|
-      map[wd.project] = wd.duration + (map[wd.project] || 0)
-    end
-    
-    data = []
-    map.each do |project, total_work_time|
-      t = project ? project.title : 'Other'
-      data.push(name: t, y: total_work_time.round)
-    end
-    
-    render json: {msg: data}
-    rescue
-      render json: {msg: {y: 42, name: I18n.t('activerecord.errors.try_again_later')}}
-  end
-
   private
 
   def set_project
