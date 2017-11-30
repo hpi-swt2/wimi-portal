@@ -20,9 +20,9 @@ RSpec.describe Contract, type: :model do
 
   context "scope for_user_in_month" do
     before(:each) do
-      @sheet = FactoryGirl.create(:time_sheet)
-      @user = @sheet.user
-      @contract = @sheet.contract
+      @user = FactoryGirl.create(:hiwi)
+      @contract = @user.contracts.first
+      @sheet = FactoryGirl.create(:time_sheet, contract: @contract)
     end
 
     it 'returns all contracts of a user in a given month and year' do
@@ -36,7 +36,7 @@ RSpec.describe Contract, type: :model do
 
   context "deletion" do
     before(:each) do
-      @hiwi = FactoryGirl.create(:hiwi)
+      @hiwi = FactoryGirl.create(:hiwi, create_contract: false)
       start_date = Date.today << 1
       end_date = Date.today >> 5
       @contract = FactoryGirl.create(:contract, hiwi: @hiwi, start_date: start_date, end_date: end_date)

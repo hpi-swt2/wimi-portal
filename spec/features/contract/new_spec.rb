@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'A user' do
   before :each do
-    @hiwi = FactoryGirl.create(:hiwi)
     @wimi = FactoryGirl.create(:wimi).user
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @hiwi = FactoryGirl.create(:hiwi, responsible: @wimi)    
+    @contract = @hiwi.contracts.first
   end
 
   context "can have multiple contracts" do
