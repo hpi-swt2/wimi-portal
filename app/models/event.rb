@@ -37,6 +37,8 @@ class Event < ActiveRecord::Base
 
   @@ATTACHMENT = [:time_sheet_admin_mail.to_s, :time_sheet_accept.to_s].freeze
 
+  @@ALWAYS_SEND = [:time_sheet_admin_mail.to_s].freeze
+
   validates_presence_of :user, :target_user, :object
 
   after_create :send_mail, unless: Proc.new { self.has_mail_disabled? or self.has_attachment? }
@@ -48,6 +50,10 @@ class Event < ActiveRecord::Base
 
   def self.ATTACHMENT
     @@ATTACHMENT
+  end
+
+  def self.ALWAYS_SEND
+    @@ALWAYS_SEND
   end
 
   def self.add(type, user, object, target_user)
@@ -65,8 +71,12 @@ class Event < ActiveRecord::Base
 
   def users_want_mail
     User.all.select do |u|
-      (Ability.new(u).can? :receive_email, self) && u.wants_mail_for(type_id)
+      (Ability.new(u).can? :receive_email, self) && (u.wants_mail_for(type_id) || always_send?)
     end
+  end
+
+  def always_send?
+    Event.ALWAYS_SEND.include?(self.type)
   end
 
   def has_mail_disabled?

@@ -48,5 +48,21 @@ RSpec.describe Event, type: :model do
       expect(@event).to have_mail_disabled
       expect { @event.save! }.to change(ActionMailer::Base.deliveries, :count).by(0)
     end
+
+    it 'not sent if no user wants mail for it' do
+      @user.update(event_settings: [])
+      @user2.update(event_settings: [])
+      expect(@event).not_to have_mail_disabled
+      expect(@event.always_send?).to be false
+      expect { @event.save! }.to change(ActionMailer::Base.deliveries, :count).by(0)
+    end
+
+    it 'always sent if event type is in Event.ALWAYS_SEND' do
+      @user2.update!(event_settings: [])
+      allow(Event).to receive(:ALWAYS_SEND) {[Event.types.first.first]}
+      @event.type = Event.types.first.first
+      expect(@event.always_send?).to be true
+      expect { @event.save! }.to change(ActionMailer::Base.deliveries, :count).by(1)
+    end
   end
 end
