@@ -478,7 +478,9 @@ de:
     user:
       add_error: Der Nutzer konnte nicht zum Projekt hinzugefügt werden.
       add_prompt: Jemanden zum Projekt hinzufügen
+      add_prompt_register: Eine unregistrierte Person hinzufügen
       add_prompt_specific: Jemanden zum Projekt "%{title}" hinzufügen
+      add_prompt_register_specific: Eine unregistrierte Person zum Projekt "%{title}" hinzufügen
       already_member: "%{name} ist bereits Mitglied dieses Projekts."
       last_wimi: Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.
       successfully_added: "%{name} wurde erfolgreich hinzugefügt."
@@ -486,6 +488,9 @@ de:
     show:
       time_sheets_heading: Stundenzettel dieses Vertrages
   projects:
+    add_and_register_user:
+      email: "HPI E-Mail Adresse"
+      create_contract: "Vertrag für diese Person erstellen"
     create:
       success: Projekt wurde erfolgreich erstellt.
     destroy:

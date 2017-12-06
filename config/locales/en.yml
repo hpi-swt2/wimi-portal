@@ -478,7 +478,9 @@ en:
     user:
       add_error: The user could not be added to the project.
       add_prompt: Add someone to the project
+      add_prompt_register: Invite someone unregistered to the project
       add_prompt_specific: Add someone to the project "%{title}"
+      add_prompt_register_specific: Invite someone unregistered to the project "%{title}"
       already_member: "%{name} is already a member of this project."
       last_wimi: You are the last research assistant. You can not leave the project.
       successfully_added: "%{name} has been added successfully."
@@ -486,6 +488,9 @@ en:
     show:
       time_sheets_heading: Time Sheets of This Contract
   projects:
+    add_and_register_user:
+      email: "HPI E-Mail Address"
+      create_contract: "Auto-create a contract for this person"
     create:
       success: Project was successfully created.
     destroy:

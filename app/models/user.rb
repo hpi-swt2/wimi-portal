@@ -183,7 +183,7 @@ class User < ActiveRecord::Base
     regex_match = /\A([a-zA-Z]+\.[a-zA-Z0-9]+)@(student\.){0,1}hpi\.(uni-potsdam\.){0,1}de\z/i.match(email)
     if regex_match
       identity_url_base = 'https://openid.hpi.uni-potsdam.de/user/'
-      user = self.build_from_identity_url(identity_url_base + regex_match[0])
+      user = self.build_from_identity_url(identity_url_base + regex_match[1])
       user.email = email
       return user
     else
