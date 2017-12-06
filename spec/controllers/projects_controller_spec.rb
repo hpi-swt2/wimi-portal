@@ -261,6 +261,12 @@ RSpec.describe ProjectsController, type: :controller do
           expect(Contract.first.responsible).to eq(@user)
         end
       end
+
+      context 'without the create contract flag' do
+        it 'does not create a contract' do
+          expect{post :add_user_from_email, {id: @project.to_param, email: @email}}.not_to change{Contract.count}
+        end
+      end
     end
 
     context 'with an invalid email' do
