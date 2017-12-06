@@ -85,8 +85,8 @@
   <%= edit_button @project, class: 'btn-block' %>
   <% if can?(:edit, @project) %>
     <hr>
-    <%= link_to t('project.user.add_prompt'), "", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }, class: 'btn btn-block btn-success'%>
-    <%= link_to t('project.user.add_prompt_register'), "", id: "open-popup", data: { toggle: "modal", target: "#add-register-user-modal" }, class: 'btn btn-block btn-success'%>
+    <%= link_to t('project.user.add_prompt'), "#", id: "open-popup", data: { toggle: "modal", target: "#add-users-modal" }, class: 'btn btn-block btn-success'%>
+    <%= link_to t('project.user.add_prompt_register'), "#", id: "open-add-register-user", data: { toggle: "modal", target: "#add-register-user-modal" }, class: 'btn btn-block btn-success'%>
   <% end %>
 <% end %>
 
