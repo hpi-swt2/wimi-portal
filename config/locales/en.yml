@@ -478,7 +478,7 @@ en:
     user:
       add_error: The user could not be added to the project.
       add_prompt: Add someone to the project
-      add_prompt_register: Invite someone unregistered to the project
+      add_prompt_register: Invite someone unregistered
       add_prompt_specific: Add someone to the project "%{title}"
       add_prompt_register_specific: Invite someone unregistered to the project "%{title}"
       already_member: "%{name} is already a member of this project."

@@ -53,4 +53,6 @@ Rails.application.configure do
   ## Raises an exception on encountering a missing translation
   ## than falling back to its default behavior
   config.action_view.raise_on_missing_translations = true
+
+  config.identity_url = ENV['IDENTITY_URL']
 end

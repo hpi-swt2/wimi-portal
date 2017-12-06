@@ -140,12 +140,12 @@ class ProjectsController < ApplicationController
   def add_user_from_email
     @user = User.build_from_email(params[:email])
     if @user
-      if @user.save!
+      if @user.save
         if params[:create_contract]
           Contract.create!(hiwi: @user, responsible: current_user, chair: @project.chair, start_date: Date.today, end_date: Date.today >> 3, wage_per_hour: 11.50, flexible: true)
         end
         flash[:success] = I18n.t('projects.add_user_from_email.success')
-        flash[:notice] = I18n.t('projects.add_user_from_email.contract')
+        flash[:warning] = I18n.t('projects.add_user_from_email.contract')
         @project.users << @user
         if @project.save
           #Event.add(:project_join, current_user, @project, @user)
