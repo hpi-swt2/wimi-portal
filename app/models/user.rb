@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
   validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
   validates_confirmation_of :password
+  validates_uniqueness_of :identity_url, allow_nil: true, allow_blank: true
 
   after_initialize :set_event_settings, if: :new_record?
 
@@ -176,6 +177,18 @@ class User < ActiveRecord::Base
 
   def self.openid_required_fields
     ['http://axschema.org/contact/email']
+  end
+
+  def self.build_from_email(email)
+    regex_match = /\A([a-zA-Z]+\.[a-zA-Z0-9]+)@(student\.){0,1}hpi\.(uni-potsdam\.){0,1}de\z/i.match(email)
+    if regex_match
+      identity_url_base = 'https://openid.hpi.uni-potsdam.de/user/'
+      user = self.build_from_identity_url(identity_url_base + regex_match[0])
+      user.email = email
+      return user
+    else
+      return nil
+    end
   end
 
   def self.build_from_identity_url(identity_url)

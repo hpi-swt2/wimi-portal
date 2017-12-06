@@ -510,6 +510,11 @@ de:
       set_inactive: 'inaktiv schalten '
     update:
       success: Projekt wurde erfolgreich bearbeitet.
+    add_user_from_email:
+      success: "Die Person wurde zum Projekt hinzugefügt und per E-Mail benachrichtigt."
+      contract: "Ein Vertrag mit Standardeinstellungen wurde angelegt. Bitte ergänzen Sie die fehlenden Details."
+      error: "Konnte keinen Benutzer mit dieser E-Mail registrieren. Nur HPI Adressen sind erlaubt."
+      user_exists: 'Dieser Benutzer existiert bereits. Benutzen Sie den Button "Jemanden zum Projekt hinzufügen" zum einladen.'
   roles:
     admin_long: Administrator
     admin_long_plural: Administratoren

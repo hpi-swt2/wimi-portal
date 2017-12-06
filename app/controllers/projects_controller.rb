@@ -62,19 +62,19 @@ class ProjectsController < ApplicationController
   end
 
   def add_user
-    user = User.find_by_id params[:add_user_to_project][:id]
+    @user = User.find_by_id params[:add_user_to_project][:id]
     redirect_to @project
-    if user.nil?
+    if @user.nil?
       flash[:error] = I18n.t('project.user.add_error')
       return
-    elsif @project.users.include? user
-      flash[:notice] = I18n.t('project.user.already_member', name: user.name)
+    elsif @project.users.include? @user
+      flash[:notice] = I18n.t('project.user.already_member', name: @user.name)
       return
     end
-    @project.users << user
+    @project.users << @user
     if @project.save
-      Event.add(:project_join, current_user, @project, user)
-      flash[:success] = I18n.t('project.user.successfully_added', name: user.name)
+      Event.add(:project_join, current_user, @project, @user)
+      flash[:success] = I18n.t('project.user.successfully_added', name: @user.name)
     else
       flash[:error] = I18n.t('project.user.add_error')
     end
@@ -135,6 +135,31 @@ class ProjectsController < ApplicationController
     render json: {msg: data}
     rescue
       render json: {msg: {y: 42, name: I18n.t('activerecord.errors.try_again_later')}}
+  end
+
+  def add_user_from_email
+    @user = User.build_from_email(params[:email])
+    if @user
+      if @user.save!
+        if params[:create_contract]
+          Contract.create!(hiwi: @user, responsible: current_user, chair: @project.chair, start_date: Date.today, end_date: Date.today >> 3, wage_per_hour: 11.50, flexible: true)
+        end
+        flash[:success] = I18n.t('projects.add_user_from_email.success')
+        flash[:notice] = I18n.t('projects.add_user_from_email.contract')
+        @project.users << @user
+        if @project.save
+          #Event.add(:project_join, current_user, @project, @user)
+          flash[:success] = I18n.t('project.user.successfully_added', name: @user.name)
+        else
+          flash[:error] = I18n.t('project.user.add_error')
+        end
+      else
+        flash[:error] = I18n.t('projects.add_user_from_email.user_exists')
+      end
+    else
+      flash[:error] = I18n.t('projects.add_user_from_email.error')
+    end
+    redirect_to @project
   end
 
   private
