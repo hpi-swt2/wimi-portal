@@ -53,6 +53,14 @@ FactoryGirl.define do
         end
       end
     end
+    factory :time_sheet_handed_in do
+      handed_in true
+      hand_in_date { Date.new(year,month) }
+      status 'pending'
+      signed true
+      user_signed_at { Date.new(year,month) }
+      user_signature ''
+    end
     factory :time_sheet_accepted do
       handed_in true
       hand_in_date { Date.new(year,month) }
