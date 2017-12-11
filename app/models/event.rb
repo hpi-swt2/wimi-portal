@@ -31,12 +31,14 @@ class Event < ActiveRecord::Base
     :time_sheet_closed, :time_sheet_admin_mail, :register_user_to_project
   ]
 
-  # Events listed here will not send Emails after creation
+  # Events listed here will NOT send Emails after creation
   # and will also not appear in Users email settings
   @@NOMAIL = [].freeze
 
   @@ATTACHMENT = [:time_sheet_admin_mail.to_s, :time_sheet_accept.to_s].freeze
 
+  # Events listed here will ALWAYS send Emails after creation
+  # and will also not appear in Users email settings
   @@ALWAYS_SEND = [:time_sheet_admin_mail.to_s, :register_user_to_project.to_s].freeze
 
   validates_presence_of :user, :target_user, :object
@@ -92,7 +94,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.mail_enabled_types
-    self.types.select { |t,v| !self.NOMAIL.include?(t) }
+    self.types.select { |t,v| !self.NOMAIL.include?(t) and !self.ALWAYS_SEND.include?(t) }
   end
 
   def send_mail
