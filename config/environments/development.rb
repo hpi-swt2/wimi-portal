@@ -54,5 +54,6 @@ Rails.application.configure do
   ## than falling back to its default behavior
   config.action_view.raise_on_missing_translations = true
 
+  # Make sure the Identity URL ends in a slash
   config.identity_url = ENV['IDENTITY_URL']
 end

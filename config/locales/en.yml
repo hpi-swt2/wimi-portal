@@ -326,6 +326,7 @@ en:
     chair_add_admin: "%{user} granted admin rights to %{target_user} for chair %{obj}"
     contract_create: "%{user} created contract %{obj} for %{target_user}"
     contract_extend: "%{user} extended the contract %{obj} of %{target_user}"
+    register_user_to_project: "%{user} registered %{target_user} and added them to %{obj}"
     user_friendly_name:
       time_sheet_hand_in: Time sheet handed in
       time_sheet_accept: Time sheet accepted
@@ -340,12 +341,15 @@ en:
       chair_add_admin: Admin rights granted
       contract_create: Contract creation
       contract_extend: Contract extension
+      register_user_to_project: User registered and added to project
     email_subject:
       time_sheet_admin_mail: Time sheet handed in
+      register_user_to_project: Invitation to the Wimi Portal
     extended_message:
       time_sheet_accept: 'The time sheet can be send to the Admin via the portal. (Via "Send to admin" button on the time sheet page)'
       time_sheet_closed: Please make sure that the working hours were entered correctly.
       time_sheet_admin_mail: The Time sheet was signed by both parties and was submitted for further processing.
+      register_user_to_project: You have been invited to join the above project on the Wimi Portal. Log in at the URL below with your HPI credentials.
   expense:
     applied: Expense is already applied
     destroyed: Expense was successfully destroyed

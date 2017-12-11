@@ -235,15 +235,25 @@ RSpec.describe ProjectsController, type: :controller do
 
     context 'with a valid email' do
       before :each do
-        @email = "test.user@student.hpi.de"
+        @first_name = "test"
+        @last_name = "user"
+        @hpiusername = @first_name + "." + @last_name 
+        @email = @hpiusername + "@student.hpi.de"
       end
 
       it 'creates a new user' do
         expect{post :add_user_from_email, {id: @project.to_param, email: @email}}.to change{User.count}.by(1)
+        expect(User.last.first_name).to eq(@first_name.titleize)
+        expect(User.last.last_name).to eq(@last_name.titleize)
+        expect(User.last.identity_url).to eq(Rails.configuration.identity_url + @hpiusername)
       end
 
       it 'adds the new user to the project' do
         expect{post :add_user_from_email, {id: @project.to_param, email: @email}}.to change{@project.users.count}.by(1)        
+      end
+
+      it 'sends an email to the new user' do
+        expect { post :add_user_from_email, {id: @project.to_param, email: @email} }.to change(ActionMailer::Base.deliveries, :count).by(1)
       end
 
       context 'and the create contract flag' do

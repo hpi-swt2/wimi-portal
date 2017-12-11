@@ -326,6 +326,7 @@ de:
     chair_add_admin: "%{user} hat %{target_user} Adminrechte für den Lehrstuhl %{obj} verliehen"
     contract_create: "%{user} hat den Vertrag %{obj} für %{target_user} erstellt"
     contract_extend: "%{user} hat den Vertrag %{obj} mit %{target_user} verlängert"
+    register_user_to_project: "%{user} hat %{target_user} registriert und zu %{obj} hinzugefügt"
     user_friendly_name:
       time_sheet_hand_in: Stundenzettel eingereicht
       time_sheet_accept: Stundenzettel angenommen
@@ -340,12 +341,15 @@ de:
       chair_add_admin: Adminrechte gewährt
       contract_create: Vertragserstellung
       contract_extend: Vertragsverlängerung
+      register_user_to_project: Benutzer registriert und zu Projekt hinzugefügt
     email_subject:
       time_sheet_admin_mail: Stundenzettel abgegeben
+      register_user_to_project: Einladung zum Wimi Portal
     extended_message:
       time_sheet_accept: 'Der Stundenzettel kann auch über das Portal an das Sekretariat gesendet werden. (Via "An Admin senden" auf der Studenzettel Seite)'
       time_sheet_closed: Bitte stelle sicher, dass die Arbeitsstunden korrekt eingetragen sind.
       time_sheet_admin_mail: Der Stundenzettel wurde von Hiwi und Wimi unterschrieben und kann weitergeleitet werden.
+      register_user_to_project: Sie wurden eingeladen dem Wimi Portal beizutreten. Sie können sich unter der unten angegebenen Adresse mit ihren HPI Benutzerdaten anmelden.
   expense:
     applied: Reisekostenabrechnung bereits eingereicht
     destroyed: Reisekostenabrechnung wurde erfolgreich gelöscht

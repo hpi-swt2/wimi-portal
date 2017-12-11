@@ -46,5 +46,6 @@ Rails.application.configure do
   # From email address
   config.action_mailer.default_options = { from: 'HPI WiMi Portal <hpi.wimiportal@localhost>' }
 
+  # make sure this ends in a slash
   config.identity_url = "test/"
 end

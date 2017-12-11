@@ -148,7 +148,7 @@ class ProjectsController < ApplicationController
         flash[:warning] = I18n.t('projects.add_user_from_email.contract')
         @project.users << @user
         if @project.save
-          #Event.add(:project_join, current_user, @project, @user)
+          Event.add(:register_user_to_project, current_user, @project, @user)
           flash[:success] = I18n.t('project.user.successfully_added', name: @user.name)
         else
           flash[:error] = I18n.t('project.user.add_error')
