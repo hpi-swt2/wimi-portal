@@ -73,6 +73,7 @@ RSpec.describe Event, type: :model do
       "contract_extend"=>10,
       "time_sheet_closed"=>11,
       "time_sheet_admin_mail"=>12,
+      "register_user_to_project"=>13,
     }
     expect(Event.types).to eq(original_enum_order)
   end
