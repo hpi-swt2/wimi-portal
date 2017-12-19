@@ -40,7 +40,7 @@ class Ability
     can :reopen, TimeSheet, status: 'closed', user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
     can :create_next_month, TimeSheet do |ts|
-      ts.user == user and user.has_contract_for(ts.month, ts.year)
+      ts.user == user and ts.contract.valid_in(Date.new(ts.year, ts.month) >> 1)
     end
     can :withdraw, TimeSheet, user: {id: user.id}, handed_in: true, status: 'pending'
     can :send_to_admin, TimeSheet, user: {id: user.id}, status: 'accepted', signed: true, wimi_signed: true
