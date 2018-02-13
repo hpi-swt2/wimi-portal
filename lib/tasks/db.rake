@@ -1,8 +1,9 @@
 namespace :db do
   task add_demo_data: :environment do
 
-    puts 'creating admin, representative and wimi'
+    puts 'creating superadmin, admin, representative and wimi'
     # define users
+    superadmin = FactoryGirl.create(:user, superadmin: true, first_name: 'Superadmin', last_name: '1337')
     epic_admin = FactoryGirl.create(:user, first_name: 'Admin', last_name: 'Epic')
     epic_representative = FactoryGirl.create(:user,first_name: 'Representative', last_name: 'Epic')
     epic_wimi = FactoryGirl.create(:user,first_name: 'Wimi', last_name: 'Epic')
