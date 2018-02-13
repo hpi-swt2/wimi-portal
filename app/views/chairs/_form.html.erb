@@ -30,11 +30,8 @@
           <% end %>
         </div>
 
-        <input id="search-box-admin" name="q" type="text" class="form-control" autocomplete="off"/>
-        <div class="dropdown">
-          <ul id="search-results-admin" class="dropdown-menu">
-          </ul>
-        </div>
+        <select id="search_box_admin" name="q" type="text" class="form-control user-auto-complete" autocomplete="off" onchange="onAdminSelectChange()"></select>
+
       </div>
     </div>
   </div>
@@ -52,10 +49,7 @@
           <% end %>
         </div>
 
-        <input id="search-box-representative" name="q" type="text" class="form-control" autocomplete="off"/>
-        <div class="dropdown">
-          <ul id="search-results-representative" class="dropdown-menu" />
-        </div>
+        <select id="search_box_representative" name="q" type="text" class="form-control user-auto-complete" autocomplete="off" onchange="onRepresentativeSelectChange()"></select>
       </div>
     </div>
   </div>
@@ -85,14 +79,35 @@
 
 var adminArray = [-1<% @chair.admin_users.each do |admin| %>,<%= admin.id %><% end %>];
 var adminDiv = $( "#admins" );
+var adminSelect = $( "#search_box_admin")
+var representativeSelect = $( "#search_box_representative")
+var updateSelect2_admin = false;
+var updateSelect2_representative = false;
+
+function onAdminSelectChange() {
+  if(updateSelect2_admin) {
+    updateSelect2_admin = false;
+    return;
+  }
+  
+  var selected_option = adminSelect.find("option");
+  var id = selected_option.attr("value");
+  console.log(id);
+  var name = selected_option.text();
+  console.log(name);
+
+  addAdmin(id, name);
+
+  selected_option.remove();
+  updateSelect2_admin = true;
+  adminSelect.val(null).trigger('change');
+}
 
 function addAdmin(id, name){
   if($.inArray(id,adminArray) == -1) {
     adminDiv.append("<div id=\"admin_"+id+"\"><li>"+name+" <a onClick=\"removeAdmin("+id+")\"><font color=\"red\">entfernen</font></a></li><input type=\"hidden\" name=\"admins["+id+"]\" value=\""+id+"\" /></div>");
     adminArray.push(id);
   }
-  $('#search-box-admin').val("");
-  $("#search-results-admin").hide();
 }
 
 function removeAdmin(id){
@@ -101,6 +116,25 @@ function removeAdmin(id){
   if(i != -1) {
     adminArray.splice(i, 1);
   }
+}
+
+function onRepresentativeSelectChange() {
+  if(updateSelect2_representative) {
+    updateSelect2_representative = false;
+    return;
+  }
+  
+  var selected_option = representativeSelect.find("option");
+  var id = selected_option.attr("value");
+  console.log(id);
+  var name = selected_option.text();
+  console.log(name);
+
+  addRepresentative(id, name);
+
+  selected_option.remove();
+  updateSelect2_representative = true;
+  representativeSelect.val(null).trigger('change');
 }
 
 function addRepresentative(id, name){
