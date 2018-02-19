@@ -92,9 +92,7 @@ function onAdminSelectChange() {
   
   var selected_option = adminSelect.find("option");
   var id = selected_option.attr("value");
-  console.log(id);
   var name = selected_option.text();
-  console.log(name);
 
   addAdmin(id, name);
 
@@ -126,9 +124,7 @@ function onRepresentativeSelectChange() {
   
   var selected_option = representativeSelect.find("option");
   var id = selected_option.attr("value");
-  console.log(id);
   var name = selected_option.text();
-  console.log(name);
 
   addRepresentative(id, name);
 
