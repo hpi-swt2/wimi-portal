@@ -566,7 +566,7 @@ en:
       at: At
       reject_reason: Rejection reason
       signatures: Signatures
-      send_to_admin: Send PDF to Admin
+      send_to_admin: E-Mail PDF to secretary's office
     wimi_actions:
       accept: Accept
       reject: Reject

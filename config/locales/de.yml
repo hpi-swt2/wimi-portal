@@ -566,7 +566,7 @@ de:
       at: Am
       reject_reason: Ablehnungsgrund
       signatures: Unterschriften
-      send_to_admin: PDF an Admin senden
+      send_to_admin: PDF per E-Mail an Sekretariat senden
     wimi_actions:
       accept: Annehmen
       reject: Ablehnen
