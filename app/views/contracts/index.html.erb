@@ -13,7 +13,7 @@
       <%= datatable_tag(class: "table-striped table-hover") do %>
         <thead>
           <tr>
-            <th><%= model_class.human_attribute_name(:start_date) %></th>
+            <th><%= model_class.human_attribute_name(:description) %></th>
             <th><%= model_class.human_attribute_name(:end_date) %></th>
             <th><%= model_class.human_attribute_name(:hiwi) %></th>
             <th><%= model_class.human_attribute_name(:responsible) %></th>
@@ -23,7 +23,7 @@
         <tbody>
         <% @contracts.each do |contract| %>
           <tr>
-            <td><%= l contract.start_date %></td>
+            <td><%= contract.description %></td>
             <td><%= l contract.end_date %></td>
             <td><%= contract.hiwi.name %></td>
             <td><%= contract.responsible.name %></td>
