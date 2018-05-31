@@ -259,9 +259,6 @@ de:
   dashboard:
     actions:
       goto_current_time_sheet: Aktuellen Stundenzettel anzeigen
-      show_expense_requests: Ausgabenanträge anzeigen
-      show_holiday_requests: Urlaubsanträge anzeigen
-      show_trip_requests: Dienstreiseanträge anzeigen
     contracts:
       contracts: Meine Verträge
     index:

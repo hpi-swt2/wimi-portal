@@ -259,9 +259,6 @@ en:
   dashboard:
     actions:
       goto_current_time_sheet: Go to current time sheet
-      show_expense_requests: Show Expense Requests
-      show_holiday_requests: Show Holiday Requests
-      show_trip_requests: Show Trip Requests
     contracts:
       contracts: My Contracts
     index:
