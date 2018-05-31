@@ -104,9 +104,7 @@ class Ability
   end
 
   def initialize_superadmin(user)
-    initialize_user(user)
-    can :manage, Chair
-    can :index, User
+    can :manage, :all
   end
 
   # Ensure these rules are applied last
