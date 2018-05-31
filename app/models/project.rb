@@ -7,7 +7,6 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  description    :string           default("")
-#  public         :boolean          default(TRUE)
 #  status         :boolean          default(TRUE)
 #  chair_id       :integer
 #  project_leader :string           default("")
