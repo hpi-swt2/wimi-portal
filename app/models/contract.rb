@@ -12,6 +12,7 @@
 #  flexible       :boolean
 #  hours_per_week :integer
 #  wage_per_hour  :decimal(5, 2)
+#  description    :text
 #
 
 class Contract < ActiveRecord::Base
@@ -61,6 +62,9 @@ class Contract < ActiveRecord::Base
   end
 
   def name
+    if description?
+      return description
+    end
     if start_date.year == end_date.year
       formatted_start = I18n.l(start_date, format: :short_month)
     else
