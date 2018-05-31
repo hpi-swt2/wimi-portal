@@ -10,11 +10,4 @@ RSpec.describe 'trips/new', type: :view do
     assert_select 'form[action=?][method=?]', trips_path, 'post' do
     end
   end
-
-  it 'denies the superadmin to create a new trip' do
-    superadmin = FactoryGirl.create(:user, superadmin: true)
-    login_as superadmin
-    visit new_trip_path
-    expect(current_path).to eq(dashboard_path)
-  end
 end
