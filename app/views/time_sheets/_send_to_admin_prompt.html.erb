@@ -1,5 +1,5 @@
 <% url ||= '' %>
-<% admin_emails = chair.admin_users.collect(&:email).join(",") %>
+<% admin_emails = chair.secretary_users.collect(&:email).join(",") %>
 <div class="modal fade" id="send-to-admin-modal" role="dialog" aria-labelledby="add-user-label" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
