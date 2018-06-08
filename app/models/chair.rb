@@ -72,9 +72,9 @@ class Chair < ActiveRecord::Base
 
     admin_array = []
     admins_param.try(:each) do |id|
-      success = check_correct_user(id[1])
+      success = check_correct_user(id)
       return false unless success
-      admin_array << User.find_by(id: id[1])
+      admin_array << User.find_by(id: id)
     end
     success = check_correct_user(representative_param) if representative_param
 

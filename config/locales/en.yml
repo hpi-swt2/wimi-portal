@@ -522,8 +522,8 @@ en:
       error: "Could not create a user from this email. Only HPI Emails are allowed."
       user_exists: 'This User is already registered. Use the "Add someone to the project" button to invite them.'
   roles:
-    admin_long: Assistant
-    admin_long_plural: Assistants
+    admin_long: Admin
+    admin_long_plural: Admins
     chair_representative: Head of department
     hiwi_long_plural: Students
     wimi_long_plural: Employees
