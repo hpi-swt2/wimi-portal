@@ -48,6 +48,19 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="control-group">
+        <!-- Representative -->
+        <%= f.label t('roles.secretary_long_plural'), class: 'control-label' %><br>
+
+        <select id="search_box_secretaries" name="secretaries[]" type="text" class="form-control" multiple="multiple" autocomplete="off">
+          <%= options_from_collection_for_select(User.all, 'id', 'name', @chair.secretary_users.collect(&:id))%>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <div align="right">
     <span>* <%= t'helpers.forms.required_field'%></span>
   </div>
@@ -73,6 +86,10 @@ $(document).ready(function() {
     allowClear: true
   });
   $('#search_box_representative').select2({
+    placeholder: "Choose a person",
+    allowClear: true
+  });
+  $('#search_box_secretaries').select2({
     placeholder: "Choose a person",
     allowClear: true
   });

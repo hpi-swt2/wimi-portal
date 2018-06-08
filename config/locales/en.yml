@@ -526,6 +526,8 @@ en:
     admin_long_plural: Admins
     chair_representative: Head of department
     hiwi_long_plural: Students
+    secretary_long: Secretary
+    secretary_long_plural: Secretaries
     wimi_long_plural: Employees
   signature_warning: You have to upload a signature before you can accept the request.
   signatures:

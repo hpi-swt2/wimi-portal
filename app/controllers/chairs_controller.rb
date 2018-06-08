@@ -51,7 +51,7 @@ class ChairsController < ApplicationController
   end
 
   def update
-    if @chair.set_initial_users(params[:admins], params[:representative]) && @chair.update(chair_params)
+    if @chair.set_initial_users(params[:admins], params[:representative], params[:secretaries]) && @chair.update(chair_params)
       flash[:success] = t('helpers.flash.updated', model: @chair.model_name.human.capitalize)
       redirect_to chair_path(@chair)
     else

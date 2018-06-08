@@ -526,6 +526,8 @@ de:
     admin_long_plural: Administratoren
     chair_representative: Fachgebietsleiter
     hiwi_long_plural: Studentische Hilfskräfte
+    secretary_long: Sekretariat
+    secretary_long_plural: Sekretariat
     wimi_long_plural: Wissenschaftliche Mitarbeiter
   signature_warning: Bevor Sie das Dokument akzeptieren, müssen Sie eine Unterschrift hochladen.
   signatures:
