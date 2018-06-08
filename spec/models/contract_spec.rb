@@ -12,6 +12,7 @@
 #  flexible       :boolean
 #  hours_per_week :integer
 #  wage_per_hour  :decimal(5, 2)
+#  description    :text
 #
 
 require 'rails_helper'
