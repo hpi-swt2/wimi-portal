@@ -8,6 +8,7 @@
 #  application    :string
 #  user_id        :integer
 #  chair_id       :integer
+#  secretary      :boolean
 #
 
 FactoryGirl.define do

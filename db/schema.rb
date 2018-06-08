@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102084616) do
+ActiveRecord::Schema.define(version: 20180608104313) do
 
   create_table "chair_wimis", force: :cascade do |t|
     t.boolean "admin",          default: false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20171102084616) do
     t.string  "application"
     t.integer "user_id"
     t.integer "chair_id"
+    t.boolean "secretary"
   end
 
   add_index "chair_wimis", ["chair_id"], name: "index_chair_wimis_on_chair_id"
