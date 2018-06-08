@@ -24,7 +24,7 @@
         <%= f.label t('roles.admin_long_plural'), class: 'control-label' %>
 
         <select id="search_box_admin" name="admins[]" type="text" class="form-control" multiple="multiple" autocomplete="off">
-          <%= options_from_collection_for_select(User.all, 'id', 'name', @chair.admin_users.collect(&:id))%>
+          <%= options_from_collection_for_select(@chair.users, 'id', 'name', @chair.admin_users.collect(&:id))%>
         </select>
       </div>
     </div>
@@ -42,7 +42,7 @@
         <% end %>
 
         <select id="search_box_representative" name="representative" type="text" class="form-control" autocomplete="off">
-          <%= options_from_collection_for_select(User.all, 'id', 'name', representative_id)%>
+          <%= options_from_collection_for_select(@chair.users, 'id', 'name', representative_id)%>
         </select>
       </div>
     </div>
@@ -55,7 +55,7 @@
         <%= f.label t('roles.secretary_long_plural'), class: 'control-label' %><br>
 
         <select id="search_box_secretaries" name="secretaries[]" type="text" class="form-control" multiple="multiple" autocomplete="off">
-          <%= options_from_collection_for_select(User.all, 'id', 'name', @chair.secretary_users.collect(&:id))%>
+          <%= options_from_collection_for_select(@chair.users, 'id', 'name', @chair.secretary_users.collect(&:id))%>
         </select>
       </div>
     </div>

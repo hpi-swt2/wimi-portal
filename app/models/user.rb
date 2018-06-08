@@ -111,12 +111,35 @@ class User < ActiveRecord::Base
     !chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
   end
 
+  # returns an array of the role names of this user
+  def roles_for_chair(chair)
+    names = []
+    if is_admin?(chair)
+      names << I18n.t('roles.admin_long')
+    end
+    if is_representative?(chair)
+      names << I18n.t('roles.chair_representative')
+    end
+    if is_secretary?(chair)
+      names << I18n.t('roles.secretary_long')
+    end
+    return names
+  end
+
   def is_representative?(opt_chair = false)
     return false if chair_wimi.nil?
     if opt_chair
       return false if opt_chair != chair
     end
     chair_wimi.representative
+  end
+
+  def is_secretary?(opt_chair = false)
+    return false if chair_wimi.nil?
+    if opt_chair
+      return false if opt_chair != chair
+    end
+    chair_wimi.secretary
   end
 
   def is_admin?(opt_chair = false)
