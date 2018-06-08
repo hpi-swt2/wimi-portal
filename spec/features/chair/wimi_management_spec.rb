@@ -25,7 +25,7 @@ describe 'chair user management' do
     # click remove-user link
     click_on I18n.t('chairs.applications.grant_rights')
     
-    expect(page).to have_text(@user1.name + " Assistant")
+    expect(page).to have_text(@user1.name + " " + I18n.t('roles.admin_long'))
     expect(@user1.reload.is_admin?).to be true
   end
   
@@ -36,7 +36,7 @@ describe 'chair user management' do
     # click remove-user link
     click_on I18n.t('chairs.applications.withdraw_rights')
     
-    expect(page).to_not have_text(@admin.name + " Assistant")
+    expect(page).to_not have_text(@admin.name + " " + I18n.t('roles.admin_long'))
     expect(@admin.reload.is_admin?).to be false
   end
 end

@@ -219,18 +219,18 @@ RSpec.describe TimeSheetsController, type: :controller do
     end
   end
 
-  describe '#send_to_admin' do
+  describe '#send_to_secretary' do
     before :each do
-      @admin = FactoryGirl.create(:user)
+      @secretary = FactoryGirl.create(:user)
       @wimi = @contract.responsible
       @timesheet = FactoryGirl.create(:time_sheet_accepted, contract: @contract, year: @contract.start_date.year, month: @contract.start_date.month)
-      FactoryGirl.create(:admin, chair: @chair, user: @admin)
+      FactoryGirl.create(:secretary, chair: @chair, user: @secretary)
       login_with @wimi
     end
     context 'with an accepted timesheet' do
-      it 'should send a mail to the admin' do
-        expect(Ability.new @wimi).to be_able_to(:send_to_admin, @timesheet)
-        expect{ get :send_to_admin, {id: @timesheet.id} }.to change(ActionMailer::Base.deliveries, :count).by(1)
+      it 'should send a mail to the secretary' do
+        expect(Ability.new @wimi).to be_able_to(:send_to_secretary, @timesheet)
+        expect{ get :send_to_secretary, {id: @timesheet.id} }.to change(ActionMailer::Base.deliveries, :count).by(1)
         expect(response).to redirect_to(time_sheet_path(@timesheet))
       end
     end

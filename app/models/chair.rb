@@ -96,6 +96,7 @@ class Chair < ActiveRecord::Base
     update_user_roles(:admin, admins_param) if admins_param
     update_user_roles(:secretary, secretaries_param) if secretaries_param
     set_representative(User.find_by_id(representative_param)) if representative_param
+    return true
   end
 
   # updates chair wimi so that only users in users_with_role have the given role
@@ -109,7 +110,11 @@ class Chair < ActiveRecord::Base
       end
     end
 
-    users_with_role.each do |user|
+    users_with_role.each do |user_id|
+      user = User.find_by(id: user_id)
+      if not user
+        next
+      end
       chair_wimi = ChairWimi.find_by(user: user, chair: self)
       if not chair_wimi
         ChairWimi.create(chair: self, user: user, admin: true, application: 'accepted')

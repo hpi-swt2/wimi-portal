@@ -31,4 +31,11 @@ FactoryGirl.define do
   	representative true
   	application 'accepted'
   end
+
+  factory :secretary, class: 'ChairWimi' do
+  	user 
+  	chair
+  	secretary true
+  	application 'accepted'
+  end
 end

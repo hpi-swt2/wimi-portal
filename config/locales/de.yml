@@ -239,7 +239,6 @@ de:
       one: Vertrag anzeigen
       several: "%{count} Verträge"
     form:
-      no_representative: Kein Fachgebietsleiter ausgewählt
       no_results: Keine Ergebnisse
     navigation:
       not_authorized: Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen.
@@ -541,7 +540,7 @@ de:
       setting_reminder: Diese Einstellung kann für alle Stundenzettel im Profil festgelegt werden
       with_comments: Ja
       without_comments: Nein
-    send_to_admin: Das wird den unterschriebenen Stundenzettel an %{user} senden. Fortfahren?
+    send_to_secretary: Das wird den unterschriebenen Stundenzettel an %{user} senden. Fortfahren?
     month_year: Monat/Jahr
     save: Stundenzettel erfolgreich gespeichert.
     no_contract: Kein Vertrag für heute gefunden
@@ -565,7 +564,7 @@ de:
       at: Am
       reject_reason: Ablehnungsgrund
       signatures: Unterschriften
-      send_to_admin: PDF per E-Mail an Sekretariat senden
+      send_to_secretary: PDF per E-Mail an Sekretariat senden
     wimi_actions:
       accept: Annehmen
       reject: Ablehnen

@@ -27,7 +27,7 @@
                 <% if can?(:withdraw_admin, @chair) && current_user != wimi %>
                   <%= link_to I18n.t('chairs.applications.withdraw_rights'), chair_admin_path(@chair, wimi.chair_wimi), method: :delete, class: 'btn btn-danger btn-xs' %>
                 <% end %>
-              <% elsif can? :set_admin, @chair %>
+              <% elsif can? :set_admin, @chair and not wimi.is_representative?(@chair) %>
                   <%= link_to I18n.t('chairs.applications.grant_rights'), chair_admins_path(@chair, request: wimi.chair_wimi), method: :post, class: 'btn btn-success btn-xs' %>
               <% end %>
             <td>

@@ -239,7 +239,6 @@ en:
       one: Show contract
       several: "%{count} contracts"
     form:
-      no_representative: No head of department selected
       no_results: No results
     navigation:
       not_authorized: You are not allowed to do this action for this research group.
@@ -522,8 +521,8 @@ en:
       error: "Could not create a user from this email. Only HPI Emails are allowed."
       user_exists: 'This User is already registered. Use the "Add someone to the project" button to invite them.'
   roles:
-    admin_long: Admin
-    admin_long_plural: Admins
+    admin_long: Administrator
+    admin_long_plural: Administrators
     chair_representative: Head of department
     hiwi_long_plural: Students
     secretary_long: Secretary
@@ -541,7 +540,7 @@ en:
       setting_reminder: This setting can be globally set for all time sheets in the profile
       with_comments: 'Yes'
       without_comments: 'No'
-    send_to_admin: This will send the signed time sheet to %{user}. Continue?
+    send_to_secretary: This will send the signed time sheet to %{user}. Continue?
     month_year: Month/Year
     save: Time Sheet saved successfully.
     no_contract: No contract found for today.
@@ -565,7 +564,7 @@ en:
       at: At
       reject_reason: Rejection reason
       signatures: Signatures
-      send_to_admin: E-Mail PDF to secretary's office
+      send_to_secretary: E-Mail PDF to secretary's office
     wimi_actions:
       accept: Accept
       reject: Reject

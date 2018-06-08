@@ -12,13 +12,13 @@ describe 'timesheet#show' do
 
     it 'should allow the responsible wimi to send the pdf to the admin' do
       ability = Ability.new(@wimi)
-      expect(ability).to be_able_to(:send_to_admin, @time_sheet)
+      expect(ability).to be_able_to(:send_to_secretary, @time_sheet)
     end
 
     it 'should have a button for sending the pdf to the admin' do
       login_as @wimi
       visit time_sheet_path(@time_sheet)
-      expect(page).to have_selector(:linkhref, send_to_admin_time_sheet_path(@time_sheet))
+      expect(page).to have_selector(:linkhref, send_to_secretary_time_sheet_path(@time_sheet))
     end
   end
 end
