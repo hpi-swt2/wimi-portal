@@ -231,9 +231,9 @@ en:
       success: Admin rights were successfully removed
   chairs:
     applications:
-      grant_rights: Set as assistant
+      grant_rights: Promote to admin
       remove_from_chair: Remove from research group
-      withdraw_rights: Set as employee
+      withdraw_rights: Withdraw admin rights
     contracts:
       none: No contracts
       one: Show contract
