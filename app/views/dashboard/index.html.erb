@@ -57,6 +57,7 @@
 
 <%# Time Sheets %>
 <% @own_contracts.each do |contract| %>
+  <%# contract#{contract.id} is used for testing%>
   <div class="col-md-12 col-sm-12" id=<%= "contract#{contract.id}"%>>
     <div class="display">
       <div class="panel panel-default">
