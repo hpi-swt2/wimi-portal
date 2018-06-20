@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.8'
 # Use Postgresql in production
 gem 'pg', group: :production
 # Use SCSS for stylesheets
@@ -27,7 +27,7 @@ gem 'nokogiri', '1.6.7.rc3', platforms: [:mswin, :mingw, :x64_mingw]
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'newrelic_rpm'
-gem 'airbrake'
+gem 'airbrake', '~> 4.3.4'
 
 # add current schema to models
 gem 'annotate'
