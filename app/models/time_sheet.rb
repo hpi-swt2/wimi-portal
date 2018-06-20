@@ -34,6 +34,7 @@ class TimeSheet < ActiveRecord::Base
   scope :accepted, -> { where(status: 'accepted')}
 
   belongs_to :contract
+  belongs_to :signer, class_name: 'User'
   has_one :user, through: :contract, source: :hiwi
   enum status: [:pending, :accepted, :rejected, :created, :closed]
   # When a time sheet is destroyed, also destroy all of the connected work days
@@ -72,7 +73,7 @@ class TimeSheet < ActiveRecord::Base
     success = self.update(
       status: 'accepted',
       last_modified: Date.today,
-      signer: wimi.id,
+      signer: wimi,
       representative_signature: wimi.signature,
       representative_signed_at: Date.today())
     if success
@@ -86,7 +87,7 @@ class TimeSheet < ActiveRecord::Base
       status: 'rejected',
       handed_in: false,
       last_modified: Date.today(),
-      signer: wimi.id,
+      signer: wimi,
       user_signature: nil,
       signed: false,
       user_signed_at: nil)

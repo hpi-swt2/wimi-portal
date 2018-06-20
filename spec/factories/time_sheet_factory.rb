@@ -38,6 +38,8 @@ FactoryGirl.define do
     last_modified Date.today
     hand_in_date nil
     rejection_message ''
+    contract
+    signer factory: :user
     after(:build) do |ts, evaluator|
       if ts.contract.blank?
         args = {}
@@ -65,7 +67,7 @@ FactoryGirl.define do
       handed_in true
       hand_in_date { Date.new(year,month) }
       status 'accepted'
-      signer { contract.responsible.id }
+      signer { contract.responsible }
       wimi_signed true
       representative_signed_at { Date.new(year,month) }
       signed true

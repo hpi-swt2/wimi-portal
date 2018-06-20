@@ -26,7 +26,7 @@
           <%# i18n-tasks-use t('time_sheets.show.rejected_by') %>
           <%= content_tag :strong, t(".#{@time_sheet.status}_by") %>:
           <%# TimeSheet#signer is simple integer, no belongs_to %>
-          <%= linked_name User.find(@time_sheet.signer) %>
+          <%= linked_name @time_sheet.signer %>
           <%= t('.at').downcase %>
           <%= content_tag :span, l(@time_sheet.last_modified) %>
         </div>
