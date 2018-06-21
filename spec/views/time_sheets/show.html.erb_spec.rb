@@ -14,7 +14,7 @@ RSpec.describe 'time_sheets/show', type: :view do
     context 'with a time sheet in the states "pending", "rejected" and "closed"' do
       it 'cannot be closed' do
         [:rejected, :pending, :closed].each do |status|
-          time_sheet = FactoryGirl.build_stubbed(:time_sheet, status: status)
+          time_sheet = FactoryBot.build_stubbed(:time_sheet, status: status)
           user = time_sheet.contract.hiwi
           prepare_render(time_sheet, user)
           
@@ -28,7 +28,7 @@ RSpec.describe 'time_sheets/show', type: :view do
 
       it 'cannot be reopened' do
         [:rejected, :pending, :closed].each do |status|
-          time_sheet = FactoryGirl.build_stubbed(:time_sheet, status: status)
+          time_sheet = FactoryBot.build_stubbed(:time_sheet, status: status)
           user = time_sheet.contract.hiwi
           prepare_render(time_sheet, user)
 
@@ -45,7 +45,7 @@ RSpec.describe 'time_sheets/show', type: :view do
     context 'with a time sheet in the states "created", "pending", "rejected" and "closed"' do
       it 'cannot be closed' do
         [:created, :rejected, :pending, :closed].each do |status|
-          time_sheet = FactoryGirl.build_stubbed(:time_sheet, status: status)
+          time_sheet = FactoryBot.build_stubbed(:time_sheet, status: status)
           user = time_sheet.contract.responsible
           prepare_render(time_sheet, user)
           
@@ -59,7 +59,7 @@ RSpec.describe 'time_sheets/show', type: :view do
 
       it 'cannot be reopened' do
         [:created, :rejected, :pending, :closed].each do |status|
-          time_sheet = FactoryGirl.build_stubbed(:time_sheet, status: status)
+          time_sheet = FactoryBot.build_stubbed(:time_sheet, status: status)
           user = time_sheet.contract.responsible
           prepare_render(time_sheet, user)
 

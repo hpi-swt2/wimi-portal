@@ -4,7 +4,7 @@ RSpec.describe 'time_sheets/show', type: :view do
   context 'as a student with a contract' do
     context 'with a "created" time sheet' do
       it 'is possible to close it' do
-        time_sheet = FactoryGirl.create(:time_sheet)
+        time_sheet = FactoryBot.create(:time_sheet)
         login_as time_sheet.user
         visit time_sheet_path(time_sheet)
 
