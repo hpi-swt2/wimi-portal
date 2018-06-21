@@ -4,7 +4,7 @@ RSpec.describe 'navigation bar', type: :view do
   shared_examples 'a registered User' do
     it 'should link to home' do
       within('div.navbar-collapse') do
-        expect(page).to have_link(nil, root_path)
+        expect(page).to have_link(nil, href: root_path)
       end
     end
 

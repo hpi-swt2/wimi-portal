@@ -10,8 +10,8 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     login_as(@superadmin, scope: :user)
     visit chairs_path
 
-    expect(page).to have_link(nil, new_chair_path)
-    expect(page).to have_link(nil, edit_chair_path(@chair))
+    expect(page).to have_link(nil, href: new_chair_path)
+    expect(page).to have_link(nil, href: edit_chair_path(@chair))
   end
 
   it 'expects buttons for admin' do
@@ -41,8 +41,8 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
     login_as(user, scope: :user)
     visit chairs_path
 
-    expect(page).to have_link(nil, new_chair_path)
-    expect(page).to have_link(nil, edit_chair_path(@chair))
+    expect(page).to_not have_link(nil, href: new_chair_path)
+    expect(page).to_not have_link(nil, href: edit_chair_path(@chair))
     expect(page).to_not have_delete_link(@chair)
   end
 

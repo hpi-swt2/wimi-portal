@@ -24,8 +24,8 @@ RSpec.describe 'trips/show', type: :view do
     @ability.can :hand_in, Trip
     @ability.can :destroy, Trip
     render
-    expect(rendered).to have_link(nil, hand_in_trip_path(@trip))
-    expect(rendered).to have_link(nil, edit_trip_path(@trip))
+    expect(rendered).to have_link(nil, href: hand_in_trip_path(@trip))
+    expect(rendered).to have_link(nil, href: edit_trip_path(@trip))
     expect(rendered).to have_css('a[data-method="delete"]')
   end
 

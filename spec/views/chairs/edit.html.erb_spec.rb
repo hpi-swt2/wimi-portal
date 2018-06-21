@@ -10,7 +10,6 @@ RSpec.describe 'chairs/edit.html.erb', type: :view do
   end
 
   it 'expects buttons for superadmin' do
-    expect(page).to have_link(nil, edit_chair_path(@chair))
     expect(page).to have_delete_link(@chair)
   end
 

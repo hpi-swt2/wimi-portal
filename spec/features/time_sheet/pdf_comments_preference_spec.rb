@@ -14,14 +14,14 @@ describe 'timesheets#show' do
 
       visit contract_path(@time_sheet.contract)
 
-      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 1))
+      expect(page).to have_link(nil, href: download_time_sheet_path(@time_sheet, include_comments: 1))
     end
 
     it 'never, never includes comments' do
       @user.update({include_comments: 'never'})
       @user.reload
       visit contract_path(@time_sheet.contract)
-      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 0))
+      expect(page).to have_link(nil, href: download_time_sheet_path(@time_sheet, include_comments: 0))
     end
 
     it "'ask' setting toggles a modal if the time sheet has comments" do
@@ -34,7 +34,7 @@ describe 'timesheets#show' do
       expect(page).to have_current_path(contract_path(@time_sheet.contract))
 
       # Link does not include 'include_comments' params 
-      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet))
+      expect(page).to have_link(nil, href: download_time_sheet_path(@time_sheet))
 
       click_on("PDF")
       # Clicking the link did not immediately download a PDF
