@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'trips/show', type: :view do
   before(:each) do
-    user = FactoryGirl.create(:user)
-    @trip = assign(:trip, FactoryGirl.create(:trip, user_id: user.id))
+    user = FactoryBot.create(:user)
+    @trip = assign(:trip, FactoryBot.create(:trip, user_id: user.id))
     sign_in user
 
     # https://github.com/ryanb/cancan/wiki/Testing-Abilities#controller-testing

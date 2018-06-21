@@ -12,7 +12,7 @@
 #  project_leader :string           default("")
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   PROJECT_NAMES ||= ['Website Development', 'Database Maintenance', 'Cooking Coffee', 'Accounting', 'In-Database-Memory']
 

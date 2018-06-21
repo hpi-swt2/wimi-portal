@@ -3,10 +3,10 @@ require 'cancan/matchers'
 
 describe 'Using time_sheets#new' do
   before :each do
-    @hiwi = FactoryGirl.create(:hiwi)
-    @wimi = FactoryGirl.create(:wimi).user
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
-    @project = FactoryGirl.create(:project)
+    @hiwi = FactoryBot.create(:hiwi)
+    @wimi = FactoryBot.create(:wimi).user
+    @contract = FactoryBot.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @project = FactoryBot.create(:project)
     @hiwi.projects << @project
     login_as @hiwi
     visit new_contract_time_sheet_path(@contract)
@@ -45,7 +45,7 @@ describe 'Using time_sheets#new' do
   end
 
   it 'is not possible to add multiple timesheets with the same month/year' do
-    @timesheet = FactoryGirl.create(:time_sheet, contract: @contract, month: Date.today.month, year: Date.today.year)
+    @timesheet = FactoryBot.create(:time_sheet, contract: @contract, month: Date.today.month, year: Date.today.year)
 
     fill_in "time_sheet_month", with: Date.today.month
     fill_in "time_sheet_year", with: Date.today.year

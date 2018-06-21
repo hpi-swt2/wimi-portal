@@ -15,11 +15,11 @@ require 'rails_helper'
 
 RSpec.describe Event, type: :model do
   it 'has a valid factory' do
-    expect(FactoryGirl.build_stubbed(:event)).to be_valid
+    expect(FactoryBot.build_stubbed(:event)).to be_valid
   end
 
   it "can be created using 'add' constructor" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     Event.types.each do |type, value|
       expect {
         Event.add(type, user, user, user)
@@ -28,7 +28,7 @@ RSpec.describe Event, type: :model do
   end
 
   it "requires user, object and target_user to be valid" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     expect(Event.new).to_not be_valid
     event = Event.new(user: user, object: user, target_user: user)
     expect(event).to be_valid
@@ -36,10 +36,10 @@ RSpec.describe Event, type: :model do
 
   context 'cascade deletes when' do
     before :each do
-      @user = FactoryGirl.create(:user)
-      @target_user = FactoryGirl.create(:user)
-      @chair = FactoryGirl.create(:chair)
-      event = FactoryGirl.create(:event, user: @user, object: @chair, target_user: @target_user)
+      @user = FactoryBot.create(:user)
+      @target_user = FactoryBot.create(:user)
+      @chair = FactoryBot.create(:chair)
+      event = FactoryBot.create(:event, user: @user, object: @chair, target_user: @target_user)
     end
 
     it 'the creating user is destroyed' do
@@ -80,7 +80,7 @@ RSpec.describe Event, type: :model do
 
   context 'has_mail_disabled?' do
     before :each do
-      @event = FactoryGirl.create(:event)
+      @event = FactoryBot.create(:event)
     end
 
     it 'returns false if the type is not contained in NOMAIL' do

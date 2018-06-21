@@ -3,12 +3,12 @@ require 'rails_helper'
  # holiday requests currently out of order
 RSpec.describe 'chairs/requests.html.erb', type: :view do
 #  before :each do
-#    @chair = FactoryGirl.create(:chair)
-#    @user = FactoryGirl.create(:wimi, chair: @chair, representative: true).user
-#    holiday = FactoryGirl.create(:holiday, user: @user, status: 1)
-#    trip = FactoryGirl.create(:trip, user: @user)
+#    @chair = FactoryBot.create(:chair)
+#    @user = FactoryBot.create(:wimi, chair: @chair, representative: true).user
+#    holiday = FactoryBot.create(:holiday, user: @user, status: 1)
+#    trip = FactoryBot.create(:trip, user: @user)
 #    trip.status = 3
-#    expense = FactoryGirl.create(:expense, user: @user, status: 1)
+#    expense = FactoryBot.create(:expense, user: @user, status: 1)
 #    @allrequests = assign(:allrequests, [{name: holiday.user.name, type: 'holidays', handed_in: holiday.created_at, status: holiday.status, action: holiday_path(holiday)},
 #                                         {name: trip.user.name, type: 'expenses', handed_in: trip.created_at, status: trip.status, action: trip_path(trip)},
 #                                         {name: expense.user.name, type: 'trips', handed_in: expense.created_at, status: expense.status, action: trip_path(expense.trip)}])

@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe 'updating event preferences' do 
   before :each do
-    @user = FactoryGirl.create(:user, event_settings: [])
+    @user = FactoryBot.create(:user, event_settings: [])
     login_as @user
   end
 
@@ -41,7 +41,7 @@ end
 
 describe 'a new users event settings' do
   it 'include all fields' do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     all_events = Event.types.values
     expect(@user.event_settings).to eq(all_events)
   end

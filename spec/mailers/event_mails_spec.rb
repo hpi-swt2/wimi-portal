@@ -3,11 +3,11 @@ require "rails_helper"
 RSpec.describe Event, type: :model do
   context 'users want mail' do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       @user_ability = Ability.new(@user)
-      @user2 = FactoryGirl.create(:user)
+      @user2 = FactoryBot.create(:user)
       @user2_ability = Ability.new(@user2)
-      @event = FactoryGirl.create(:event, user: @user, target_user: @user2)
+      @event = FactoryBot.create(:event, user: @user, target_user: @user2)
       expect(@user_ability.can? :receive_email, @event).to be false
       expect(@user2_ability.can? :receive_email, @event).to be true
       @user2.update(event_settings: [@event.type_id])
@@ -30,9 +30,9 @@ RSpec.describe Event, type: :model do
 
   context 'mails are' do
     before :each do
-      @user = FactoryGirl.create(:user)
-      @user2 = FactoryGirl.create(:user)
-      @event = FactoryGirl.build(:event, user: @user, target_user: @user2)
+      @user = FactoryBot.create(:user)
+      @user2 = FactoryBot.create(:user)
+      @event = FactoryBot.build(:event, user: @user, target_user: @user2)
       @user2.update(event_settings: [@event.type_id])
     end
 

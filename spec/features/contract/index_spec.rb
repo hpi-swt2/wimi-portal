@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'contracts#index' do
   before :each do
-    @wimi = FactoryGirl.create(:wimi).user
-    @hiwi = FactoryGirl.create(:hiwi, responsible: @wimi)
+    @wimi = FactoryBot.create(:wimi).user
+    @hiwi = FactoryBot.create(:hiwi, responsible: @wimi)
     @contract = @hiwi.contracts.first
   end
 

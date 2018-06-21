@@ -4,7 +4,7 @@ describe 'user#show' do
 
   context 'for a HiWi' do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       login_as(@user)
     end
 
@@ -20,9 +20,9 @@ describe 'user#show' do
 
   context 'for a WiMi' do
     before :each do
-      @chair = FactoryGirl.create(:chair)
-      @user = FactoryGirl.create(:wimi, chair: @chair).user
-      @project = FactoryGirl.create(:project, chair: @chair)
+      @chair = FactoryBot.create(:chair)
+      @user = FactoryBot.create(:wimi, chair: @chair).user
+      @project = FactoryBot.create(:project, chair: @chair)
       @project.users << @user
       login_as(@user)
     end

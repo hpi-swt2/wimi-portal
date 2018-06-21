@@ -2,20 +2,20 @@ require 'rails_helper'
 
 RSpec.describe ChairsController, type: :controller do
   before(:each) do
-    @chair = FactoryGirl.create(:chair)
-    @admin = FactoryGirl.create(:user, first_name: 'Admin')
-    @wimi = FactoryGirl.create(:user, first_name: 'WiMi')
-    @user = FactoryGirl.create(:user, first_name: 'User')
+    @chair = FactoryBot.create(:chair)
+    @admin = FactoryBot.create(:user, first_name: 'Admin')
+    @wimi = FactoryBot.create(:user, first_name: 'WiMi')
+    @user = FactoryBot.create(:user, first_name: 'User')
     @representative = @chair.representative.user
-    @superadmin = FactoryGirl.create(:user, superadmin: true)
-    FactoryGirl.create(:wimi, user: @wimi, chair: @chair, application: 'accepted')
-    FactoryGirl.create(:wimi, user: @admin, chair: @chair, admin: true, application: 'accepted')
+    @superadmin = FactoryBot.create(:user, superadmin: true)
+    FactoryBot.create(:wimi, user: @wimi, chair: @chair, application: 'accepted')
+    FactoryBot.create(:wimi, user: @admin, chair: @chair, admin: true, application: 'accepted')
   end
   
   describe 'GET #index' do
     it 'shows index of all chairs' do
       # If there is only a single chair, there is a redirect to the show page
-      FactoryGirl.create(:chair, description: 'A different chair')
+      FactoryBot.create(:chair, description: 'A different chair')
       login_with @user
       get :index
 
@@ -55,9 +55,9 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'does not edit the chair for another admin' do
-      user = FactoryGirl.create(:user)
-      chair2 = FactoryGirl.create(:chair)
-      chair_wimi = FactoryGirl.create(:wimi, admin: true, user: user, chair: chair2)
+      user = FactoryBot.create(:user)
+      chair2 = FactoryBot.create(:chair)
+      chair_wimi = FactoryBot.create(:wimi, admin: true, user: user, chair: chair2)
 
       login_with user
       get :edit, {id: @chair}
@@ -86,7 +86,7 @@ RSpec.describe ChairsController, type: :controller do
 
   describe 'POST #create' do
     it 'creates a new Chair with admin and representative different' do
-      user1 = FactoryGirl.create(:user)
+      user1 = FactoryBot.create(:user)
 
       login_with @superadmin
 
@@ -115,7 +115,7 @@ RSpec.describe ChairsController, type: :controller do
 
   describe 'POST #update' do
     before(:each) do
-      @user2 = FactoryGirl.create(:user)
+      @user2 = FactoryBot.create(:user)
     end
 
     it 'modifies an existing chair with same admin and representative' do
@@ -173,7 +173,7 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'destroys the projects of the chair' do
-      project = FactoryGirl.create(:project, chair_id: @chair.id)
+      project = FactoryBot.create(:project, chair_id: @chair.id)
       delete :destroy, {id: @chair.id}
       expect project == nil
     end
@@ -195,7 +195,7 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'does not show request page for another chair' do
-      chair1 = FactoryGirl.create(:chair)
+      chair1 = FactoryBot.create(:chair)
       sign_in @representative
       get :requests, {id: chair1}
 
@@ -203,10 +203,10 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'shows all requests of chair' do
-      FactoryGirl.create(:holiday, user: @representative, status: 1)
-      FactoryGirl.create(:trip, user: @representative, status: 1)
-      FactoryGirl.create(:expense, user: @representative, status: 1)
-      FactoryGirl.create(:holiday, user: @user, status: 1)
+      FactoryBot.create(:holiday, user: @representative, status: 1)
+      FactoryBot.create(:trip, user: @representative, status: 1)
+      FactoryBot.create(:expense, user: @representative, status: 1)
+      FactoryBot.create(:holiday, user: @user, status: 1)
 
       sign_in @representative
       get :requests, {id: @chair}
@@ -215,10 +215,10 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'shows some filtered requests of chair' do
-      FactoryGirl.create(:holiday, user_id: @representative.id, status: 1)
-      FactoryGirl.create(:trip, user_id: @representative.id, status: 1)
-      FactoryGirl.create(:expense, user_id: @representative.id, status: 1)
-      FactoryGirl.create(:holiday, user_id: @user.id, status: 1)
+      FactoryBot.create(:holiday, user_id: @representative.id, status: 1)
+      FactoryBot.create(:trip, user_id: @representative.id, status: 1)
+      FactoryBot.create(:expense, user_id: @representative.id, status: 1)
+      FactoryBot.create(:holiday, user_id: @user.id, status: 1)
 
       sign_in @representative
       get :requests_filtered, {id: @chair, holiday: true, applied: true}
@@ -228,7 +228,7 @@ RSpec.describe ChairsController, type: :controller do
 
     describe 'tests error' do
       before(:each) do
-        @superadmin = FactoryGirl.create(:user, superadmin: true)
+        @superadmin = FactoryBot.create(:user, superadmin: true)
       end
 
       let(:invalid_attributes) {

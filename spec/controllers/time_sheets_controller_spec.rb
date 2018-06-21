@@ -4,11 +4,11 @@ require 'cancan/matchers'
 
 RSpec.describe TimeSheetsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     login_with @user
-    @project = FactoryGirl.create(:project)
+    @project = FactoryBot.create(:project)
     @chair = @project.chair
-    @contract = FactoryGirl.create(:contract, hiwi: @user, chair: @chair, start_date: Date.new(2015,1), end_date: Date.new(2016,1))
+    @contract = FactoryBot.create(:contract, hiwi: @user, chair: @chair, start_date: Date.new(2015,1), end_date: Date.new(2016,1))
   end
 
   let(:valid_attributes) {
@@ -169,8 +169,8 @@ RSpec.describe TimeSheetsController, type: :controller do
     end
 
     it 'is not allowed when the user cannot show the timesheet' do
-      other_contract = FactoryGirl.create(:contract)
-      time_sheet = FactoryGirl.create(:time_sheet, contract: other_contract)
+      other_contract = FactoryBot.create(:contract)
+      time_sheet = FactoryBot.create(:time_sheet, contract: other_contract)
       expect(Ability.new @user).to_not be_able_to(:show, time_sheet)
       get :download, {id: time_sheet}
       expect(flash.count).to eq(1)
@@ -179,7 +179,7 @@ RSpec.describe TimeSheetsController, type: :controller do
 
   describe 'current' do
     before :each do
-      @contract = FactoryGirl.create(:contract, hiwi: @user, chair: @project.chair, start_date: Date.today, end_date: Date.today >> 1)
+      @contract = FactoryBot.create(:contract, hiwi: @user, chair: @project.chair, start_date: Date.today, end_date: Date.today >> 1)
     end
 
     context 'without a timesheet' do
@@ -202,7 +202,7 @@ RSpec.describe TimeSheetsController, type: :controller do
 
     context 'with a timesheet' do
       it 'redirects to timesheet#edit if timesheet is not handed in' do
-        @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+        @time_sheet = FactoryBot.create(:time_sheet, contract: @contract)
 
         get :current
 
@@ -210,7 +210,7 @@ RSpec.describe TimeSheetsController, type: :controller do
       end
 
       it 'redirects to timesheet#show if timesheet is accepted' do
-        @time_sheet = FactoryGirl.create(:time_sheet_accepted, contract: @contract)
+        @time_sheet = FactoryBot.create(:time_sheet_accepted, contract: @contract)
 
         get :current
 
@@ -221,10 +221,10 @@ RSpec.describe TimeSheetsController, type: :controller do
 
   describe '#send_to_secretary' do
     before :each do
-      @secretary = FactoryGirl.create(:user)
+      @secretary = FactoryBot.create(:user)
       @wimi = @contract.responsible
-      @timesheet = FactoryGirl.create(:time_sheet_accepted, contract: @contract, year: @contract.start_date.year, month: @contract.start_date.month)
-      FactoryGirl.create(:secretary, chair: @chair, user: @secretary)
+      @timesheet = FactoryBot.create(:time_sheet_accepted, contract: @contract, year: @contract.start_date.year, month: @contract.start_date.month)
+      FactoryBot.create(:secretary, chair: @chair, user: @secretary)
       login_with @wimi
     end
     context 'with an accepted timesheet' do

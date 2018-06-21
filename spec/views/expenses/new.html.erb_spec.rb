@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'expenses/new', type: :view do
   before(:each) do
-    @trip = FactoryGirl.create(:trip)
+    @trip = FactoryBot.create(:trip)
     assign(:expense, Expense.new(
                        inland: true,
                        country: 'MyString',
@@ -15,7 +15,7 @@ RSpec.describe 'expenses/new', type: :view do
                        hotel: false,
                        general_advance: 1,
                        signature: false,
-                       user: FactoryGirl.create(:user),
+                       user: FactoryBot.create(:user),
                        trip: @trip
     ))
   end

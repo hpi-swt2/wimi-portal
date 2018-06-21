@@ -26,7 +26,7 @@
 #  include_comments          :integer          default(2)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   
   USER_NAMES ||= ['Alice', 'Bob', 'Carol', 'Dave', 'Eve', 'Frank']
   
@@ -58,13 +58,13 @@ FactoryGirl.define do
           if responsible
             chair = responsible.chair
           else
-            chair = FactoryGirl.create(:chair)
+            chair = FactoryBot.create(:chair)
           end
         end
         if responsible
-          FactoryGirl.create(:contract, hiwi: user, chair: chair, responsible: evaluator.responsible)
+          FactoryBot.create(:contract, hiwi: user, chair: chair, responsible: evaluator.responsible)
         else
-          FactoryGirl.create(:contract, hiwi: user, chair: chair)
+          FactoryBot.create(:contract, hiwi: user, chair: chair)
         end
       end
     end

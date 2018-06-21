@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe 'chair user management' do
   before :each do
-    @chair = FactoryGirl.create(:chair)
+    @chair = FactoryBot.create(:chair)
     @representative = @chair.representative.user
-    @admin = FactoryGirl.create(:wimi, chair: @chair, admin: true).user
-    @user1 = FactoryGirl.create(:wimi, chair: @chair).user
+    @admin = FactoryBot.create(:wimi, chair: @chair, admin: true).user
+    @user1 = FactoryBot.create(:wimi, chair: @chair).user
   end
   
   it 'should allow representative to remove wimi' do

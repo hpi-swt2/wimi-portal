@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe 'time_sheet#show as a HiWi' do
   before :each do
-    @hiwi = FactoryGirl.create(:hiwi)
-    @wimi = FactoryGirl.create(:wimi).user
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @hiwi = FactoryBot.create(:hiwi)
+    @wimi = FactoryBot.create(:wimi).user
+    @contract = FactoryBot.create(:contract, hiwi: @hiwi, responsible: @wimi)
     login_as @hiwi
   end
 
   context 'with a "created" time sheet' do
     before :each do
-      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      @time_sheet = FactoryBot.create(:time_sheet, contract: @contract)
       visit time_sheet_path(@time_sheet)
     end
 
@@ -31,7 +31,7 @@ describe 'time_sheet#show as a HiWi' do
 
   context 'with a "closed" time sheet' do
     before :each do
-      @time_sheet_closed = FactoryGirl.create(:time_sheet, contract: @contract, status: 'closed')
+      @time_sheet_closed = FactoryBot.create(:time_sheet, contract: @contract, status: 'closed')
       visit time_sheet_path(@time_sheet_closed)
     end
 
@@ -53,7 +53,7 @@ describe 'time_sheet#show as a HiWi' do
 
   context 'with a "pending" time sheet' do
     before :each do
-      @time_sheet_pending = FactoryGirl.create(:time_sheet, contract: @contract, status: 'pending')
+      @time_sheet_pending = FactoryBot.create(:time_sheet, contract: @contract, status: 'pending')
       visit time_sheet_path(@time_sheet_pending)
     end
 
@@ -70,7 +70,7 @@ describe 'time_sheet#show as a HiWi' do
 
   context 'with an "accepted" time sheet' do
     before :each do
-      @time_sheet_accepted = FactoryGirl.create(:time_sheet, contract: @contract)
+      @time_sheet_accepted = FactoryBot.create(:time_sheet, contract: @contract)
       @time_sheet_accepted.accept_as(@wimi)
       visit time_sheet_path(@time_sheet_accepted)
     end
@@ -89,7 +89,7 @@ describe 'time_sheet#show as a HiWi' do
 
   context 'with a "rejected" time sheet' do
     before :each do
-      @time_sheet_rejected = FactoryGirl.create(:time_sheet, contract: @contract)
+      @time_sheet_rejected = FactoryBot.create(:time_sheet, contract: @contract)
       @time_sheet_rejected.reject_as(@wimi)
       visit time_sheet_path(@time_sheet_rejected)
     end
@@ -108,16 +108,16 @@ end
 
 describe 'time_sheet#show as a WiMi' do
   before :each do
-    @hiwi = FactoryGirl.create(:hiwi)
-    @wimi = FactoryGirl.create(:wimi).user
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @hiwi = FactoryBot.create(:hiwi)
+    @wimi = FactoryBot.create(:wimi).user
+    @contract = FactoryBot.create(:contract, hiwi: @hiwi, responsible: @wimi)
     login_as @wimi
   end
 
   context 'with a time sheet in the states "created", "pending" and "closed"' do
     it 'cannot be closed' do
       [:created, :pending, :closed].each do |status|
-        time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, status: status)
+        time_sheet = FactoryBot.create(:time_sheet, contract: @contract, status: status)
         visit time_sheet_path(time_sheet)
         expect(page).to have_content(I18n.t("activerecord.attributes.time_sheet.status_enum.#{status}"))
         expect(page).to_not have_selector(:link_or_button, I18n.t('helpers.links.close', model: TimeSheet.model_name.human.titleize))
@@ -128,7 +128,7 @@ describe 'time_sheet#show as a WiMi' do
 
     it 'cannot be reopened' do
       [:created, :pending, :closed].each do |status|
-        time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, status: status)
+        time_sheet = FactoryBot.create(:time_sheet, contract: @contract, status: status)
         visit time_sheet_path(time_sheet)
         expect(page).to_not have_selector(:link_or_button, I18n.t('helpers.links.reopen'))
         expect(page).to_not have_css("*[href='#{reopen_time_sheet_path(time_sheet)}']")
@@ -139,7 +139,7 @@ describe 'time_sheet#show as a WiMi' do
 
   context 'with an "accepted" time sheet' do
     before :each do
-      @time_sheet_accepted = FactoryGirl.create(:time_sheet, contract: @contract)
+      @time_sheet_accepted = FactoryBot.create(:time_sheet, contract: @contract)
       @time_sheet_accepted.accept_as(@wimi)
       visit time_sheet_path(@time_sheet_accepted)
     end
@@ -157,7 +157,7 @@ describe 'time_sheet#show as a WiMi' do
 
   context 'with a "rejected" time sheet' do
     before :each do
-      @time_sheet_rejected = FactoryGirl.create(:time_sheet, contract: @contract)
+      @time_sheet_rejected = FactoryBot.create(:time_sheet, contract: @contract)
       @time_sheet_rejected.reject_as(@wimi)
       visit time_sheet_path(@time_sheet_rejected)
     end

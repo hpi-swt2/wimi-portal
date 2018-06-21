@@ -3,9 +3,9 @@ require 'rails_helper'
 # expenses currently out of order
 RSpec.describe ExpensesController, type: :controller do
 #  before(:each) do
-#    wimi = FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair))
+#    wimi = FactoryBot.create(:wimi, chair: FactoryBot.create(:chair))
 #    @user = wimi.user
-#    @trip = FactoryGirl.create(:trip)
+#    @trip = FactoryBot.create(:trip)
 #    login_with (@user)
 #  end
 #
@@ -253,7 +253,7 @@ RSpec.describe ExpensesController, type: :controller do
 #    end
 #
 #    it 'normal user can not hand in a expense request' do
-#      user = FactoryGirl.create(:user)
+#      user = FactoryBot.create(:user)
 #      expense = Expense.create! valid_attributes
 #      expense.user = user
 #      login_with(user)

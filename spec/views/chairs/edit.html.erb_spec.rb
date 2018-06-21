@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'chairs/edit.html.erb', type: :view do
   before :each do
-    @superadmin = FactoryGirl.create(:user, superadmin: true, first_name: 'Super', last_name: 'Admin')
-    @user = FactoryGirl.create(:user)
-    @chair = FactoryGirl.create(:chair)
+    @superadmin = FactoryBot.create(:user, superadmin: true, first_name: 'Super', last_name: 'Admin')
+    @user = FactoryBot.create(:user)
+    @chair = FactoryBot.create(:chair)
     login_as(@superadmin, scope: :user)
     visit edit_chair_path(@chair)
   end
@@ -24,7 +24,7 @@ RSpec.describe 'chairs/edit.html.erb', type: :view do
  # TODO: change view to use UsersController#autocomplete and move test accordingly
 #  it 'should not have the superadmin in list of possible chair admins or representatives' do
 #    login_as(@superadmin, scope: :user)
-#    chair = FactoryGirl.create(:chair)
+#    chair = FactoryBot.create(:chair)
 #    visit edit_chair_path(chair)
 #
 #    expect(page).to have_content(@user.name)

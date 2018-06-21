@@ -4,8 +4,8 @@ require 'cancan/matchers'
 describe 'timesheet#show' do
   context 'with an accepted time sheet' do
     before :all do
-      @contract = FactoryGirl.create(:contract)
-      @time_sheet = FactoryGirl.create(:time_sheet_accepted, contract: @contract)
+      @contract = FactoryBot.create(:contract)
+      @time_sheet = FactoryBot.create(:time_sheet_accepted, contract: @contract)
       @user = @time_sheet.user
       @wimi = @time_sheet.contract.responsible
     end

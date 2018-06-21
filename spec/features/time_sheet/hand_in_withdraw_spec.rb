@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe 'time_sheet#show' do
   before :each do
-    @hiwi = FactoryGirl.create(:hiwi)
-    @wimi = FactoryGirl.create(:wimi).user
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @hiwi = FactoryBot.create(:hiwi)
+    @wimi = FactoryBot.create(:wimi).user
+    @contract = FactoryBot.create(:contract, hiwi: @hiwi, responsible: @wimi)
     login_as @hiwi
   end
 
   context 'with new time sheet' do
     before :each do
-      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      @time_sheet = FactoryBot.create(:time_sheet, contract: @contract)
     end
 
     it 'is possible to hand in an (empty) time sheet as a HiWi' do
@@ -61,7 +61,7 @@ describe 'time_sheet#show' do
 
   context 'with handed in time sheet' do
     before :each do
-      @time_sheet_handed_in = FactoryGirl.create(:time_sheet, contract: @contract, handed_in: true, status: 'pending')
+      @time_sheet_handed_in = FactoryBot.create(:time_sheet, contract: @contract, handed_in: true, status: 'pending')
     end
 
     it 'there is no button to hand in an already handed in time sheet' do

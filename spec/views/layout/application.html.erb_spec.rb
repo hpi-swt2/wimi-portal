@@ -31,7 +31,7 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for a superadmin' do
     it_behaves_like 'a registered User'
     before(:each) do
-      @user = FactoryGirl.create(:user, superadmin: true)
+      @user = FactoryBot.create(:user, superadmin: true)
       login_as @user
       visit root_path
     end
@@ -40,9 +40,9 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for a wimi' do
     it_behaves_like 'a registered User'
     before(:each) do
-      chair = FactoryGirl.create(:chair)
-      wimi_user = FactoryGirl.create(:user)
-      @user = FactoryGirl.create(:wimi, user: wimi_user, chair: chair).user
+      chair = FactoryBot.create(:chair)
+      wimi_user = FactoryBot.create(:user)
+      @user = FactoryBot.create(:wimi, user: wimi_user, chair: chair).user
       login_as @user
       visit root_path
     end
@@ -55,10 +55,10 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for a hiwi' do
     it_behaves_like 'a registered User'
     before(:each) do
-      @user = FactoryGirl.create(:user)
-      chair = FactoryGirl.create(:chair)
-      @project = FactoryGirl.create(:project, chair: chair, status: true)
-      @project2 = FactoryGirl.create(:project, chair: chair, status: true)
+      @user = FactoryBot.create(:user)
+      chair = FactoryBot.create(:chair)
+      @project = FactoryBot.create(:project, chair: chair, status: true)
+      @project2 = FactoryBot.create(:project, chair: chair, status: true)
       @user.projects << @project
       login_as @user
       visit root_path
@@ -83,9 +83,9 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for a chair representative' do
     it_behaves_like 'a registered User'
     before(:each) do
-      chair = FactoryGirl.create(:chair)
-      @user = FactoryGirl.create(:user)
-      FactoryGirl.create(:wimi, user: @user, chair: chair, representative: true)
+      chair = FactoryBot.create(:chair)
+      @user = FactoryBot.create(:user)
+      FactoryBot.create(:wimi, user: @user, chair: chair, representative: true)
       login_as @user
       visit root_path
     end
@@ -98,9 +98,9 @@ RSpec.describe 'navigation bar', type: :view do
   context 'for an admin' do
     it_behaves_like 'a registered User'
     before(:each) do
-      chair = FactoryGirl.create(:chair)
-      @user = FactoryGirl.create(:user)
-      FactoryGirl.create(:wimi, user: @user, chair: chair, admin: true)
+      chair = FactoryBot.create(:chair)
+      @user = FactoryBot.create(:user)
+      FactoryBot.create(:wimi, user: @user, chair: chair, admin: true)
       login_as @user
       visit root_path
     end

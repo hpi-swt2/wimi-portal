@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'users/show', type: :view do
   before(:each) do
-    @user = assign(:user, FactoryGirl.create(:user))
+    @user = assign(:user, FactoryBot.create(:user))
     login_as(@user, scope: :user)
   end
 
@@ -13,8 +13,8 @@ RSpec.describe 'users/show', type: :view do
 
   it 'expects handed in time sheets section for wimis' do
     # will be back soon
-#    @wimi = assign(:user, FactoryGirl.create(:user))
-#    @chair = FactoryGirl.create(:chair)
+#    @wimi = assign(:user, FactoryBot.create(:user))
+#    @chair = FactoryBot.create(:chair)
 #    ChairWimi.create(user: @wimi, chair: @chair, application: 'accepted')
 #    
 #    login_as(@wimi, scope: :user)
@@ -25,7 +25,7 @@ RSpec.describe 'users/show', type: :view do
 
   it 'expects time sheets overview section for wimis' do
     # will be back soon
-#    @chair = FactoryGirl.create(:chair)
+#    @chair = FactoryBot.create(:chair)
 #    ChairWimi.create(user: @user, chair: @chair, application: 'accepted')
 #    login_as(@user, scope: :user)
 #    visit user_path(@user)
@@ -33,21 +33,21 @@ RSpec.describe 'users/show', type: :view do
   end
 
   it 'shows the correct chair in profile' do
-    chair = FactoryGirl.create(:chair)
+    chair = FactoryBot.create(:chair)
     ChairWimi.create(user: @user, chair: chair, application: 'accepted')
     visit user_path(@user)
     expect(page).to have_content(chair.name)
   end
 
   it 'allows the superadmin to see his own profile' do
-    superadmin = FactoryGirl.create(:user, superadmin: true)
+    superadmin = FactoryBot.create(:user, superadmin: true)
     login_as(superadmin, scope: :user)
     visit user_path(superadmin)
     expect(current_path).to eq(user_path(superadmin))
   end
 
 #  it 'tests if a superadmin can only change his password in his user profile' do
-#    superadmin = FactoryGirl.create(:user, superadmin: true)
+#    superadmin = FactoryBot.create(:user, superadmin: true)
 #    login_as(superadmin, scope: :user)
 #
 #    visit user_path(superadmin)

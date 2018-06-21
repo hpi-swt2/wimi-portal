@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'time_sheets#show' do
   before :each do
-    @contract = FactoryGirl.create(:contract, hours_per_week: 2)
-    @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+    @contract = FactoryBot.create(:contract, hours_per_week: 2)
+    @time_sheet = FactoryBot.create(:time_sheet, contract: @contract)
     @expected_monthly_work_time = (@contract.hours_per_week * 4).to_i
     hiwi = @contract.hiwi
     login_as hiwi
@@ -12,7 +12,7 @@ describe 'time_sheets#show' do
   context "with existing work days" do
     before :each do
       @work_hours = 2
-      FactoryGirl.create(:work_day, date: @contract.start_date,
+      FactoryBot.create(:work_day, date: @contract.start_date,
         start_time: @contract.start_date.middle_of_day,
         end_time: @contract.start_date.middle_of_day + @work_hours.hours,
         time_sheet: @time_sheet)

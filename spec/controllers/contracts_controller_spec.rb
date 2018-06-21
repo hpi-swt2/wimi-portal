@@ -4,17 +4,17 @@ require 'cancan/matchers'
 
 RSpec.describe ContractsController, type: :controller do
   before(:each) do
-    @hiwi = FactoryGirl.create(:user)
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi)
+    @hiwi = FactoryBot.create(:user)
+    @contract = FactoryBot.create(:contract, hiwi: @hiwi)
     @wimi = @contract.responsible
   end
 
   let(:valid_attributes) {
-    FactoryGirl.attributes_for(:contract, responsible: @wimi, hiwi: @hiwi)
+    FactoryBot.attributes_for(:contract, responsible: @wimi, hiwi: @hiwi)
   }
 
   let(:invalid_attributes) {
-    FactoryGirl.attributes_for(:contract,
+    FactoryBot.attributes_for(:contract,
       responsible: @wimi,
       hiwi: @hiwi,
       start_date: nil,

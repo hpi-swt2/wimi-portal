@@ -107,14 +107,14 @@ gem 'wkhtmltopdf-binary'
 # Create filters easily with scopes
 gem 'has_scope'
 
-gem 'rubocop', '~> 0.29.1'
+gem 'rubocop'
 
 # Logging on Heroku with Rails 4
 # https://devcenter.heroku.com/articles/rails4
 gem 'rails_12factor', group: :production
 
 # for testing email, also in production
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

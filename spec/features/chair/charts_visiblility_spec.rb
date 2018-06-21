@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'chair stats' do
   before :each do
-    @chair = FactoryGirl.create(:chair)
-    @chair2 = FactoryGirl.create(:chair)
+    @chair = FactoryBot.create(:chair)
+    @chair2 = FactoryBot.create(:chair)
     @representative = @chair.representative.user
-    @admin = FactoryGirl.create(:wimi, chair: @chair, admin: true).user
-    @user1 = FactoryGirl.create(:wimi, chair: @chair).user
+    @admin = FactoryBot.create(:wimi, chair: @chair, admin: true).user
+    @user1 = FactoryBot.create(:wimi, chair: @chair).user
   end
 
   it 'can not be seen by representatives or admins from other chairs' do

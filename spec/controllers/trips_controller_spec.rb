@@ -4,9 +4,9 @@ require 'rails_helper'
 # trips currently not supported
 RSpec.describe TripsController, type: :controller do
 #  before(:each) do
-#    @user = FactoryGirl.create(:user, signature: 'Signature')
-#    chair = FactoryGirl.create(:chair)
-#    FactoryGirl.create(:wimi, chair: chair, user: @user)
+#    @user = FactoryBot.create(:user, signature: 'Signature')
+#    chair = FactoryBot.create(:chair)
+#    FactoryBot.create(:wimi, chair: chair, user: @user)
 #    login_with @user
 #  end
 #
@@ -136,7 +136,7 @@ RSpec.describe TripsController, type: :controller do
 #      end
 #
 #      it 'redirects to trips_path for normal user' do
-#        user = FactoryGirl.create(:user)
+#        user = FactoryBot.create(:user)
 #        login_with(user)
 #        expect{
 #          post :create, {trip: valid_attributes_format}, valid_session
@@ -257,7 +257,7 @@ RSpec.describe TripsController, type: :controller do
 #    end
 #
 #    it 'normal user can not hand in a trip request' do
-#      user = FactoryGirl.create(:user)
+#      user = FactoryBot.create(:user)
 #      trip = Trip.create! valid_attributes
 #      trip.user = user
 #      login_with(user)
@@ -270,7 +270,7 @@ RSpec.describe TripsController, type: :controller do
 #    context 'with valid params' do
 #      it 'redirects to the users page' do
 #        ChairWimi.first.update_attributes(user: @user, representative: true)
-#        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+#        trip = FactoryBot.create(:trip, user: @user, status: 'applied')
 #        post :hand_in, {id: trip.id}
 #        get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
 #        expect(response).to redirect_to(@user)
@@ -278,7 +278,7 @@ RSpec.describe TripsController, type: :controller do
 #
 #      it 'redirects to root path if status is not applied' do
 #        ChairWimi.first.update_attributes(user: @user, representative: true)
-#        trip = FactoryGirl.create(:trip, user: @user, status: 'saved')
+#        trip = FactoryBot.create(:trip, user: @user, status: 'saved')
 #        login_with(@user)
 #        get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
 #        expect(response).to redirect_to(root_path)
@@ -286,7 +286,7 @@ RSpec.describe TripsController, type: :controller do
 #
 #      it 'updates the status' do
 #        ChairWimi.first.update_attributes(user: @user, representative: true)
-#        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+#        trip = FactoryBot.create(:trip, user: @user, status: 'applied')
 #        login_with(@user)
 #        post :hand_in, {id: trip.id}
 #        get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
@@ -296,7 +296,7 @@ RSpec.describe TripsController, type: :controller do
 #
 #    context 'with invalid params' do
 #      it 'redirects to the trips path if not chair representative' do
-#        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+#        trip = FactoryBot.create(:trip, user: @user, status: 'applied')
 #        login_with(@user)
 #        post :hand_in, {id: trip.id}
 #        get :accept_reject, {id: trip.to_param, commit: 'Accept Request'}, valid_session
@@ -309,7 +309,7 @@ RSpec.describe TripsController, type: :controller do
 #    context 'with valid params' do
 #      it 'redirects to the users page' do
 #        ChairWimi.first.update_attributes(user: @user, representative: true)
-#        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+#        trip = FactoryBot.create(:trip, user: @user, status: 'applied')
 #        login_with(@user)
 #        post :hand_in, {id: trip.id}
 #        get :accept_reject, {id: trip.to_param, commit: 'Reject Request'}, valid_session
@@ -318,7 +318,7 @@ RSpec.describe TripsController, type: :controller do
 #
 #      it 'redirects to root path if status is not applied' do
 #        ChairWimi.first.update_attributes(user: @user, representative: true)
-#        trip = FactoryGirl.create(:trip, user: @user, status: 'saved')
+#        trip = FactoryBot.create(:trip, user: @user, status: 'saved')
 #        login_with(@user)
 #        get :accept_reject, {id: trip.to_param, commit: 'Reject Request'}, valid_session
 #        expect(response).to redirect_to(root_path)
@@ -326,7 +326,7 @@ RSpec.describe TripsController, type: :controller do
 #
 #      it 'updates the status' do
 #        ChairWimi.first.update_attributes(user: @user, representative: true)
-#        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+#        trip = FactoryBot.create(:trip, user: @user, status: 'applied')
 #        login_with(@user)
 #        post :hand_in, {id: trip.id}
 #        get :accept_reject, {id: trip.to_param, commit: 'Reject Request'}, valid_session
@@ -336,7 +336,7 @@ RSpec.describe TripsController, type: :controller do
 #
 #    context 'with invalid params' do
 #      it 'redirects to the trips path if not chair representative' do
-#        trip = FactoryGirl.create(:trip, user: @user, status: 'applied')
+#        trip = FactoryBot.create(:trip, user: @user, status: 'applied')
 #        login_with(@user)
 #        post :hand_in, {id: trip.id}
 #        get :accept_reject, {id: trip.to_param, commit: 'Reject Request'}, valid_session

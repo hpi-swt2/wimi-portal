@@ -4,26 +4,26 @@ require 'cancan/matchers'
 RSpec.describe 'dashboard/index.html.erb' do
   context 'roles see only their respective events:' do
     before :each do
-      @hiwi = FactoryGirl.create(:user)
-      @hiwi2 = FactoryGirl.create(:user)
-      @wimi = FactoryGirl.create(:user)
-      @representative = FactoryGirl.create(:user)
-      @chair = FactoryGirl.create(:chair)
-      FactoryGirl.create(:wimi, user: @wimi, chair: @chair)
-      FactoryGirl.create(:representative, user: @representative, chair: @chair)
-      @project = FactoryGirl.create(:project, chair: @chair)
+      @hiwi = FactoryBot.create(:user)
+      @hiwi2 = FactoryBot.create(:user)
+      @wimi = FactoryBot.create(:user)
+      @representative = FactoryBot.create(:user)
+      @chair = FactoryBot.create(:chair)
+      FactoryBot.create(:wimi, user: @wimi, chair: @chair)
+      FactoryBot.create(:representative, user: @representative, chair: @chair)
+      @project = FactoryBot.create(:project, chair: @chair)
       @project.users << @hiwi
       @project.users << @wimi
-      @contract = FactoryGirl.create(:contract, chair: @chair, responsible: @wimi, hiwi: @hiwi)
-      @contract2 = FactoryGirl.create(:contract, chair: @chair, responsible: @representative, hiwi: @hiwi2)
+      @contract = FactoryBot.create(:contract, chair: @chair, responsible: @wimi, hiwi: @hiwi)
+      @contract2 = FactoryBot.create(:contract, chair: @chair, responsible: @representative, hiwi: @hiwi2)
 
-      @project2 = FactoryGirl.create(:project, chair: @chair)
+      @project2 = FactoryBot.create(:project, chair: @chair)
       @project2.users << @hiwi2
       @project2.users << @representative
 
-      @chair_other = FactoryGirl.create(:chair)
+      @chair_other = FactoryBot.create(:chair)
       @representative_other = @chair_other.representative.user
-      wimi2 = FactoryGirl.create(:wimi, chair: @chair_other).user
+      wimi2 = FactoryBot.create(:wimi, chair: @chair_other).user
 
       @wimi_adds_hiwi = Event.add(:project_join, @wimi, @project , @hiwi) # all should see this
       @rep_adds_wimi = Event.add(:project_join, @representative, @project, @wimi) # hiwi cant see this
@@ -62,7 +62,7 @@ RSpec.describe 'dashboard/index.html.erb' do
   context 'Events are created on' do
     context 'time_sheet' do
       before :each do
-        @sheet = FactoryGirl.create(:time_sheet)
+        @sheet = FactoryBot.create(:time_sheet)
         @user = @sheet.contract.hiwi
       end
 
@@ -90,10 +90,10 @@ RSpec.describe 'dashboard/index.html.erb' do
 
     context 'project' do
       before :each do
-        @chair = FactoryGirl.create(:chair)
+        @chair = FactoryBot.create(:chair)
         @representative = @chair.representative.user
-        @user = FactoryGirl.create(:user)
-        @contract = FactoryGirl.create(:contract, hiwi: @user, chair: @chair)
+        @user = FactoryBot.create(:user)
+        @contract = FactoryBot.create(:contract, hiwi: @user, chair: @chair)
         login_as @representative
       end
 
@@ -110,9 +110,9 @@ end
 
 RSpec.describe ChairsController, type: :controller do
   before :each do
-    @chair = FactoryGirl.create(:chair)
+    @chair = FactoryBot.create(:chair)
     @representative = @chair.representative.user
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     login_with @representative
   end
 
@@ -127,7 +127,7 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'removing a user' do
-      FactoryGirl.create(:wimi, user: @user, chair: @chair)
+      FactoryBot.create(:wimi, user: @user, chair: @chair)
       delete :remove_user, id: @chair.id, request: @user.chair_wimi.id
 
       expect(Event.all.count).to eq(1)
@@ -135,7 +135,7 @@ RSpec.describe ChairsController, type: :controller do
     end
 
     it 'granting admin rights to a user' do
-      FactoryGirl.create(:wimi, user: @user, chair: @chair)
+      FactoryBot.create(:wimi, user: @user, chair: @chair)
       post :set_admin, id: @chair.id, request: @user.chair_wimi.id
 
       expect(Event.all.count).to eq(1)
@@ -146,10 +146,10 @@ end
 
 RSpec.describe ProjectsController, type: :controller do
   before :each do
-    @chair = FactoryGirl.create(:chair)
+    @chair = FactoryBot.create(:chair)
     @representative = @chair.representative.user
-    @user = FactoryGirl.create(:user)
-    @project = FactoryGirl.create(:project, chair: @chair)
+    @user = FactoryBot.create(:user)
+    @project = FactoryBot.create(:project, chair: @chair)
     @project.users << @representative
     login_with @representative
   end
@@ -176,16 +176,16 @@ end
 
 RSpec.describe ContractsController, type: :controller do
   before :each do
-    @chair = FactoryGirl.create(:chair)
+    @chair = FactoryBot.create(:chair)
     @representative = @chair.representative.user
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
 
     login_with @representative
   end
 
   context 'Events are created on' do
     it 'creating a contract' do
-      @contract = FactoryGirl.build(:contract, chair: @chair, hiwi: @user)
+      @contract = FactoryBot.build(:contract, chair: @chair, hiwi: @user)
       post :create, contract: @contract.attributes
 
       expect(flash[:success]).to eq(I18n.t('helpers.flash.created', model: @contract.model_name.human.titleize))
@@ -194,7 +194,7 @@ RSpec.describe ContractsController, type: :controller do
     end
 
     it 'extending a contract' do
-      @contract = FactoryGirl.create(:contract, chair: @chair, hiwi: @user)
+      @contract = FactoryBot.create(:contract, chair: @chair, hiwi: @user)
       attributes = @contract.attributes
       attributes['end_date'] = attributes['end_date'] >> 1
       patch :update, id: @contract.id , contract: attributes

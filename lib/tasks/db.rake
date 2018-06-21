@@ -3,34 +3,34 @@ namespace :db do
 
     puts 'creating admin, representative and wimi'
     # define users
-    epic_admin = FactoryGirl.create(:user, first_name: 'Admin', last_name: 'Epic')
-    epic_representative = FactoryGirl.create(:user,first_name: 'Representative', last_name: 'Epic')
-    epic_wimi = FactoryGirl.create(:user,first_name: 'Wimi', last_name: 'Epic')
+    epic_admin = FactoryBot.create(:user, first_name: 'Admin', last_name: 'Epic')
+    epic_representative = FactoryBot.create(:user,first_name: 'Representative', last_name: 'Epic')
+    epic_wimi = FactoryBot.create(:user,first_name: 'Wimi', last_name: 'Epic')
     
     puts 'creating hiwis'
     epic_hiwis = []
     5.times{
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         epic_hiwis << user
     }
 
     puts 'creating chairs'
     # create! chairs
-    2.times{FactoryGirl.create(:chair, representative: false)}
+    2.times{FactoryBot.create(:chair, representative: false)}
     chair_epic = Chair.first
     chair_www = Chair.second
 
     puts 'setting user roles'
     # set user roles
-    FactoryGirl.create(:admin, user: epic_admin, chair: chair_epic)
-    FactoryGirl.create(:representative, user: epic_representative, chair: chair_epic)
-    FactoryGirl.create(:wimi, user: epic_wimi, chair: chair_epic)
+    FactoryBot.create(:admin, user: epic_admin, chair: chair_epic)
+    FactoryBot.create(:representative, user: epic_representative, chair: chair_epic)
+    FactoryBot.create(:wimi, user: epic_wimi, chair: chair_epic)
 
     puts 'setting up projects'
     # projects
     projects = []
     4.times {
-        projects << FactoryGirl.create(:project, chair: chair_epic)
+        projects << FactoryBot.create(:project, chair: chair_epic)
     }
     4.times { |i|
         projects[i].users << epic_wimi
@@ -49,7 +49,7 @@ namespace :db do
     contracts = []
     flexible_contracts = []
     5.times do |i|
-        c = FactoryGirl.create(:contract, chair: chair_epic, hiwi: epic_hiwis[i], responsible: epic_wimi, start_date: start_dates[i], end_date: end_dates[i], flexible: flexible[i])
+        c = FactoryBot.create(:contract, chair: chair_epic, hiwi: epic_hiwis[i], responsible: epic_wimi, start_date: start_dates[i], end_date: end_dates[i], flexible: flexible[i])
         contracts << c
         if flexible[i]
             flexible_contracts << c
@@ -62,10 +62,10 @@ namespace :db do
     contracts.each do |contract|
         date = contract.start_date
         while date <= 1.month.ago.to_date
-            ts = FactoryGirl.create(:time_sheet_accepted, year: date.year, month: date.month, contract: contract, create_workdays: true)
+            ts = FactoryBot.create(:time_sheet_accepted, year: date.year, month: date.month, contract: contract, create_workdays: true)
             if contract.hiwi.projects.count > 1
                 contract.hiwi.projects.each do |project|
-                    FactoryGirl.create(:work_day, time_sheet: ts, project: project)
+                    FactoryBot.create(:work_day, time_sheet: ts, project: project)
                 end
             end
             date = date >> 1
