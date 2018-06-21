@@ -32,9 +32,9 @@ describe 'timesheets#show' do
       expect(@time_sheet.has_comments?).to be true
       visit contract_path(@time_sheet.contract)
       expect(page).to have_current_path(contract_path(@time_sheet.contract))
-
-      # Link does not include 'include_comments' params 
-      expect(page).to have_link(nil, href: download_time_sheet_path(@time_sheet))
+      
+      # PDF link is still there
+      expect(page).to have_link('PDF')
 
       click_on("PDF")
       # Clicking the link did not immediately download a PDF
