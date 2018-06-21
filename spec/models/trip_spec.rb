@@ -27,7 +27,7 @@ require 'rails_helper'
 
 RSpec.describe Trip, type: :model do
   before :each do
-    @trip = FactoryGirl.build(:trip)
+    @trip = FactoryBot.build(:trip)
   end
 
   it 'has a valid factory' do

@@ -15,7 +15,7 @@
 #  description    :text
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :contract do
     start_date Date.today.at_beginning_of_month
     end_date Date.today.at_end_of_month
@@ -31,7 +31,7 @@ FactoryGirl.define do
         if contract.responsible
           contract.chair = contract.responsible.chair
         else
-          contract.chair = FactoryGirl.create(:chair)
+          contract.chair = FactoryBot.create(:chair)
         end
       end
       if contract.responsible.blank?
@@ -39,7 +39,7 @@ FactoryGirl.define do
         if rep
           contract.responsible = contract.chair.representative.user
         else
-          u = FactoryGirl.create(:wimi, chair: contract.chair, representative:true).user
+          u = FactoryBot.create(:wimi, chair: contract.chair, representative:true).user
           contract.responsible = u
         end
       end

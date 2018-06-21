@@ -2,21 +2,21 @@ require 'rails_helper'
 
 RSpec.describe 'projects/edit', type: :view do
   before(:each) do
-    @chair = FactoryGirl.create(:chair)
-    @representative = FactoryGirl.create(:user)
-    FactoryGirl.create(:wimi, user: @representative, chair: @chair, representative: true)
-    @wimi = FactoryGirl.create(:user)
-    FactoryGirl.create(:wimi, user: @wimi, chair: @chair)
-    @wimi2 = FactoryGirl.create(:user)
-    FactoryGirl.create(:wimi, user: @wimi2, chair: @chair)
+    @chair = FactoryBot.create(:chair)
+    @representative = FactoryBot.create(:user)
+    FactoryBot.create(:wimi, user: @representative, chair: @chair, representative: true)
+    @wimi = FactoryBot.create(:user)
+    FactoryBot.create(:wimi, user: @wimi, chair: @chair)
+    @wimi2 = FactoryBot.create(:user)
+    FactoryBot.create(:wimi, user: @wimi2, chair: @chair)
   end
 
   it 'can be edited by a wimi' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
+    project = FactoryBot.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
     visit project_path(project)
-    expect(page).to have_link(nil, edit_project_path(project))
+    expect(page).to have_link(nil, href: edit_project_path(project))
     click_on I18n.t('helpers.links.edit_short')
     new_project_title = 'My New Project'
     fill_in 'project_title', with: new_project_title
@@ -27,7 +27,7 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'can be deleted by a wimi' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
+    project = FactoryBot.create(:project, chair: @wimi.chair, status: true)
     project_title = project.title
     @wimi.projects << project
     visit edit_project_path(project)
@@ -39,7 +39,7 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'can be set inactive by a wimi' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, status: true)
+    project = FactoryBot.create(:project, chair: @wimi.chair, status: true)
     @wimi.projects << project
     visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_inactive'))
@@ -50,7 +50,7 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'can be set active by a wimi' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair, status: false)
+    project = FactoryBot.create(:project, chair: @wimi.chair, status: false)
     @wimi.projects << project
     visit edit_project_path(project)
     expect(page).to have_selector(:link_or_button, I18n.t('projects.show.set_active'))
@@ -61,7 +61,7 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'is possible for a wimi to sign himself out of the project' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair)
+    project = FactoryBot.create(:project, chair: @wimi.chair)
     @wimi.projects << project
     @wimi2.projects << project
     visit edit_project_path(project)
@@ -73,7 +73,7 @@ RSpec.describe 'projects/edit', type: :view do
 
   it 'is not possible for a wimi to sign himself out of the project when he is the last one' do
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair)
+    project = FactoryBot.create(:project, chair: @wimi.chair)
     @wimi.projects << project
     @wimi2.projects << project
     visit edit_project_path(project)
@@ -81,9 +81,9 @@ RSpec.describe 'projects/edit', type: :view do
   end
 
   it 'is possible for a wimi to sign a hiwi out of the project' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     login_as @wimi
-    project = FactoryGirl.create(:project, chair: @wimi.chair)
+    project = FactoryBot.create(:project, chair: @wimi.chair)
     @wimi.projects << project
     user.projects << project
     visit edit_project_path(project)

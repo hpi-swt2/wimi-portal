@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'chairs/new.html.erb', type: :view do
   before :each do
-    @superadmin = FactoryGirl.create(:user, superadmin: true, first_name: 'Super', last_name: 'Admin')
-    @user = FactoryGirl.create(:user)
+    @superadmin = FactoryBot.create(:user, superadmin: true, first_name: 'Super', last_name: 'Admin')
+    @user = FactoryBot.create(:user)
   end
 
   it 'does not expect the superadmin in list of possible chair admins or representatives' do

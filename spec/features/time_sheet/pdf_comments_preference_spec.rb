@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'timesheets#show' do
   before :each do
-    @time_sheet = FactoryGirl.create(:time_sheet)
+    @time_sheet = FactoryBot.create(:time_sheet)
     @user = @time_sheet.contract.hiwi
     login_as @user
   end
@@ -14,27 +14,27 @@ describe 'timesheets#show' do
 
       visit contract_path(@time_sheet.contract)
 
-      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 1))
+      expect(page).to have_link(nil, href: download_time_sheet_path(@time_sheet, include_comments: 1))
     end
 
     it 'never, never includes comments' do
       @user.update({include_comments: 'never'})
       @user.reload
       visit contract_path(@time_sheet.contract)
-      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet, include_comments: 0))
+      expect(page).to have_link(nil, href: download_time_sheet_path(@time_sheet, include_comments: 0))
     end
 
     it "'ask' setting toggles a modal if the time sheet has comments" do
       @user.update({include_comments: 'ask'})
-      @workday = FactoryGirl.create(:work_day, notes: "Some notes")
+      @workday = FactoryBot.create(:work_day, notes: "Some notes")
       @time_sheet.work_days << @workday
       @time_sheet.save!
       expect(@time_sheet.has_comments?).to be true
       visit contract_path(@time_sheet.contract)
       expect(page).to have_current_path(contract_path(@time_sheet.contract))
-
-      # Link does not include 'include_comments' params 
-      expect(page).to have_link(nil, download_time_sheet_path(@time_sheet))
+      
+      # PDF link is still there
+      expect(page).to have_link('PDF')
 
       click_on("PDF")
       # Clicking the link did not immediately download a PDF

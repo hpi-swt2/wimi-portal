@@ -26,9 +26,9 @@ require 'rails_helper'
 
 RSpec.describe TimeSheet, type: :model do
   before(:each) do
-    @sheet = FactoryGirl.create(:time_sheet)
+    @sheet = FactoryBot.create(:time_sheet)
     @user = @sheet.user
-    @sheet.user.projects << FactoryGirl.create(:project)
+    @sheet.user.projects << FactoryBot.create(:project)
     @time1 = Time.parse('10:00:00')
     @time2 = @time1 + 1.hour
     @time3 = @time1 + 2.hours
@@ -43,7 +43,7 @@ RSpec.describe TimeSheet, type: :model do
     current_contract = current_contract.first
     no_contract_date = (current_contract.start_date + 1.month).end_of_month
 
-    time_sheet = FactoryGirl.build(:time_sheet,
+    time_sheet = FactoryBot.build(:time_sheet,
       contract: current_contract,
       month: no_contract_date.month,
       year: no_contract_date.year)
@@ -55,7 +55,7 @@ RSpec.describe TimeSheet, type: :model do
     current_contract = @user.current_contracts.first
     no_contract_date = (current_contract.start_date - 1.month).beginning_of_month
 
-    time_sheet = FactoryGirl.build(:time_sheet,
+    time_sheet = FactoryBot.build(:time_sheet,
       contract: current_contract,
       month: no_contract_date.month,
       year: no_contract_date.year)
@@ -67,17 +67,17 @@ RSpec.describe TimeSheet, type: :model do
     before(:each) do
       start_date = Date.new(2000,12).beginning_of_month
       end_date = Date.new(2000,12).end_of_month
-      @contract = FactoryGirl.create(:contract, start_date: start_date, end_date: end_date)
+      @contract = FactoryBot.create(:contract, start_date: start_date, end_date: end_date)
     end
 
     it 'is possible for the start month of a contract' do
-      time_sheet_start = FactoryGirl.create(:time_sheet, contract: @contract,
+      time_sheet_start = FactoryBot.create(:time_sheet, contract: @contract,
         month: @contract.start_date.month, year: @contract.start_date.year)
       expect(time_sheet_start).to be_valid
     end
 
     it 'is possible for the end month of a contract' do
-      time_sheet_end = FactoryGirl.create(:time_sheet, contract: @contract,
+      time_sheet_end = FactoryBot.create(:time_sheet, contract: @contract,
         month: @contract.end_date.month, year: @contract.end_date.year)
       expect(time_sheet_end).to be_valid
     end
@@ -89,8 +89,8 @@ RSpec.describe TimeSheet, type: :model do
 
   context "with connected work days" do
     before(:each) do
-      FactoryGirl.create(:work_day, date: @date1, start_time: @time1, end_time: @time2, time_sheet: @sheet)
-      FactoryGirl.create(:work_day, date: @date2, start_time: @time2, end_time: @time3, time_sheet: @sheet)
+      FactoryBot.create(:work_day, date: @date1, start_time: @time1, end_time: @time2, time_sheet: @sheet)
+      FactoryBot.create(:work_day, date: @date2, start_time: @time2, end_time: @time3, time_sheet: @sheet)
     end
 
     it 'deleting a time sheet also deletes all of its work days' do
@@ -108,8 +108,8 @@ RSpec.describe TimeSheet, type: :model do
     end
 
     it 'determines if a work day has comments' do
-      FactoryGirl.create(:work_day, time_sheet: @sheet, notes: '')
-      FactoryGirl.create(:work_day, time_sheet: @sheet, notes: 'Lorem')
+      FactoryBot.create(:work_day, time_sheet: @sheet, notes: '')
+      FactoryBot.create(:work_day, time_sheet: @sheet, notes: 'Lorem')
       expect(@sheet).to have_comments
     end
   end
@@ -177,13 +177,13 @@ RSpec.describe TimeSheet, type: :model do
 
   context 'same-month validation' do
     it 'returns false when an identical time sheet exists' do
-      duplicate = FactoryGirl.build(:time_sheet, month: @sheet.month, year: @sheet.year, contract: @sheet.contract)
+      duplicate = FactoryBot.build(:time_sheet, month: @sheet.month, year: @sheet.year, contract: @sheet.contract)
 
       expect(duplicate).not_to be_valid
     end
 
     it 'returns true when the time sheet is unique' do
-      unique = FactoryGirl.create(:time_sheet)
+      unique = FactoryBot.create(:time_sheet)
 
       expect(unique).to be_valid
     end

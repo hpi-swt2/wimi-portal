@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe 'time_sheets#edit' do
   before :each do
-    @hiwi = FactoryGirl.create(:hiwi)
-    @wimi = FactoryGirl.create(:wimi).user
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
-    @time_sheet_new = FactoryGirl.create(:time_sheet, contract: @contract)
+    @hiwi = FactoryBot.create(:hiwi)
+    @wimi = FactoryBot.create(:wimi).user
+    @contract = FactoryBot.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @time_sheet_new = FactoryBot.create(:time_sheet, contract: @contract)
     login_as @hiwi
   end
 
@@ -61,7 +61,7 @@ describe 'time_sheets#edit' do
   context 'when deleting a work day' do
     before :each do
       @note = 'A record of what was done'
-      @work_day = FactoryGirl.create(:work_day, time_sheet: @time_sheet_new, date: Date.today.beginning_of_month, notes: @note)
+      @work_day = FactoryBot.create(:work_day, time_sheet: @time_sheet_new, date: Date.today.beginning_of_month, notes: @note)
     end
 
     it 'is possible to clear a work day by inputting zeros' do
@@ -99,7 +99,7 @@ describe 'time_sheets#edit' do
 
   context 'when editing a work day' do
     before :each do
-      @work_day = FactoryGirl.create(:work_day, time_sheet: @time_sheet_new, date: Date.today.beginning_of_month)
+      @work_day = FactoryBot.create(:work_day, time_sheet: @time_sheet_new, date: Date.today.beginning_of_month)
     end
 
     it 'is possible to save the inputs' do

@@ -13,7 +13,7 @@
 #  annotation :text
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :expense_item do
     date '2015-12-03'
     breakfast false

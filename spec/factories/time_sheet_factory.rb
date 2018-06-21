@@ -22,7 +22,7 @@
 #  contract_id              :integer          not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   
   # If no contract is given, a new is created, 
   # using the optional `chair` parameter.
@@ -45,13 +45,13 @@ FactoryGirl.define do
         args = {}
         args[:hiwi] = evaluator.user if evaluator.user
         args[:chair] = evaluator.chair if evaluator.chair
-        ts.contract = FactoryGirl.create(:contract, args)
+        ts.contract = FactoryBot.create(:contract, args)
       end
     end
     after(:create) do |ts, evaluator|
       if evaluator.create_workdays
         3.times do |i|
-          FactoryGirl.create(:work_day, time_sheet: ts, project: evaluator.project)
+          FactoryBot.create(:work_day, time_sheet: ts, project: evaluator.project)
         end
       end
     end

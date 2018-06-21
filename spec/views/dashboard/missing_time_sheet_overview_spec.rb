@@ -3,24 +3,24 @@ require 'rails_helper'
 RSpec.describe 'dashboard/index' do
   before :each do
     # create hiwi, contract
-    @chair = FactoryGirl.create(:chair)
+    @chair = FactoryBot.create(:chair)
     @start_date = Date.today << 1
     @end_date = Date.today
-    @wimi = FactoryGirl.create(:wimi, chair: @chair).user
-    @contract = FactoryGirl.create(:contract, chair: @chair, start_date: @start_date, end_date: @end_date, responsible: @wimi)
+    @wimi = FactoryBot.create(:wimi, chair: @chair).user
+    @contract = FactoryBot.create(:contract, chair: @chair, start_date: @start_date, end_date: @end_date, responsible: @wimi)
   end
 
   describe 'A representatives dashboard' do
     before :each do
       # create representative
-      @representative = FactoryGirl.create(:representative, chair: @chair).user
+      @representative = FactoryBot.create(:representative, chair: @chair).user
       login_as @representative
     end
 
     context "with no missing timesheets" do
       before :each do
-        @timesheet1 = FactoryGirl.create(:time_sheet_accepted, contract: @contract, month: @start_date.month, year: @start_date.year)
-        @timesheet1 = FactoryGirl.create(:time_sheet_accepted, contract: @contract, month: @end_date.month, year: @end_date.year)
+        @timesheet1 = FactoryBot.create(:time_sheet_accepted, contract: @contract, month: @start_date.month, year: @start_date.year)
+        @timesheet1 = FactoryBot.create(:time_sheet_accepted, contract: @contract, month: @end_date.month, year: @end_date.year)
       end
 
       it 'shows the no entries yet message' do
@@ -54,8 +54,8 @@ RSpec.describe 'dashboard/index' do
 
     context 'with no missing timesheets' do
       before :each do
-        @timesheet1 = FactoryGirl.create(:time_sheet_accepted, contract: @contract, month: @start_date.month, year: @start_date.year)
-        @timesheet1 = FactoryGirl.create(:time_sheet_accepted, contract: @contract, month: @end_date.month, year: @end_date.year)
+        @timesheet1 = FactoryBot.create(:time_sheet_accepted, contract: @contract, month: @start_date.month, year: @start_date.year)
+        @timesheet1 = FactoryBot.create(:time_sheet_accepted, contract: @contract, month: @end_date.month, year: @end_date.year)
       end
       
       it 'displays the no entries yet message' do
@@ -66,7 +66,7 @@ RSpec.describe 'dashboard/index' do
 
     context 'with missing timesheets' do
       before :each do
-        @contract_not_responsible = FactoryGirl.create(:contract, start_date: @start_date, end_date: @end_date >> 1, chair: @chair)
+        @contract_not_responsible = FactoryBot.create(:contract, start_date: @start_date, end_date: @end_date >> 1, chair: @chair)
         visit dashboard_path
         @page_section = page.find('#missing_timesheets_wimi')
       end
@@ -86,8 +86,8 @@ RSpec.describe 'dashboard/index' do
       end
 
       it 'displays working time of created but not handed-in timesheets' do
-        @timesheet1 = FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
-        @wd = FactoryGirl.create(:work_day, time_sheet: @timesheet1)
+        @timesheet1 = FactoryBot.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
+        @wd = FactoryBot.create(:work_day, time_sheet: @timesheet1)
         visit dashboard_path
         expect(page).to have_content(@timesheet1.sum_minutes_formatted)
       end
@@ -98,7 +98,7 @@ RSpec.describe 'dashboard/index' do
 
       context 'displays the timesheet status' do
         it 'if the timesheet exists' do
-          @timesheet1 = FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
+          @timesheet1 = FactoryBot.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
           visit dashboard_path
           @page_section = page.find('#missing_timesheets_wimi')
           expect(@page_section).to have_selector(:css, ".label-#{status_label_css(@timesheet1.status)}")

@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'projects/show', type: :view do
   before(:each) do
-    @user = FactoryGirl.create(:user)
-    @chair = FactoryGirl.create(:chair)
-    @project = FactoryGirl.create(:project, chair: @chair)
+    @user = FactoryBot.create(:user)
+    @chair = FactoryBot.create(:chair)
+    @project = FactoryBot.create(:project, chair: @chair)
 
     login_as @user
     allow(view).to receive(:current_user).and_return(@user)
@@ -18,7 +18,7 @@ RSpec.describe 'projects/show', type: :view do
   it 'has information about the project on page as a chair representative' do
     representative = @chair.representative.user
     login_as representative
-    project = FactoryGirl.create(:project, chair: @chair, status: true)
+    project = FactoryBot.create(:project, chair: @chair, status: true)
     representative.projects << project
     visit project_path(project)
 
@@ -51,9 +51,9 @@ RSpec.describe 'projects/show', type: :view do
   context 'as wimi' do
     before(:each) do
       representative = @chair.representative.user
-      @wimi = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair: @chair).user
-      @wimi2 = FactoryGirl.create(:wimi, user: FactoryGirl.create(:user), chair: @chair).user
-      @project = FactoryGirl.create(:project, chair: @chair, status: true)
+      @wimi = FactoryBot.create(:wimi, user: FactoryBot.create(:user), chair: @chair).user
+      @wimi2 = FactoryBot.create(:wimi, user: FactoryBot.create(:user), chair: @chair).user
+      @project = FactoryBot.create(:project, chair: @chair, status: true)
 
       login_as @wimi
       visit project_path(@project)
@@ -72,7 +72,7 @@ RSpec.describe 'projects/show', type: :view do
     end
 
     it "doesn't show a button to inspect a user's working hour report for all wimis" do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       @wimi.projects << @project
       user.projects << @project
       visit current_path

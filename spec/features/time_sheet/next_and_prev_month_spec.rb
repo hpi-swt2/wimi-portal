@@ -2,21 +2,21 @@ require 'rails_helper'
 
 describe 'time_sheet#show' do
   before :each do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     today = Date.today
     @start_date = (today - 1.month).beginning_of_month
     @end_date = (today + 1.month).end_of_month
-    @contract = FactoryGirl.create(:contract, hiwi: @user, start_date: @start_date, end_date: @end_date)
-    @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, month: today.month)
-    @project = FactoryGirl.create(:project)
+    @contract = FactoryBot.create(:contract, hiwi: @user, start_date: @start_date, end_date: @end_date)
+    @time_sheet = FactoryBot.create(:time_sheet, contract: @contract, month: today.month)
+    @project = FactoryBot.create(:project)
     @user.projects << @project
     login_as @user
   end
 
   context "previous and next month's time sheets are available" do
     before :each do
-      @time_sheet_next = FactoryGirl.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
-      @time_sheet_prev = FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
+      @time_sheet_next = FactoryBot.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
+      @time_sheet_prev = FactoryBot.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
     end
 
     it "has a button to navigate to next month's time sheet" do

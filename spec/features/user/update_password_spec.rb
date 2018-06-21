@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'password updating' do
   before :each do
-    @user = FactoryGirl.create(:user, username: 'admin', password: 'myadminpassword')
+    @user = FactoryBot.create(:user, username: 'admin', password: 'myadminpassword')
     @old_encrypted_password = @user.encrypted_password
 
     login_as @user
@@ -60,7 +60,7 @@ end
 
 describe 'password updating for other users' do
   it 'should not show the password fields for other users' do
-    user = FactoryGirl.create(:user, username: nil)
+    user = FactoryBot.create(:user, username: nil)
     login_as user
     visit edit_user_path(user)
     expect(page).to_not have_content 'Change Password'

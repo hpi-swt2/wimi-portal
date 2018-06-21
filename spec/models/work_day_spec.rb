@@ -24,21 +24,21 @@ describe WorkDay, type: :model do
   let(:end_time) { Time.now.at_middle_of_day + 2.hours }
 
   it 'returns the duration of a work_day' do
-    workday = FactoryGirl.create(:work_day, start_time: start_time, end_time: end_time, break: 30)
+    workday = FactoryBot.create(:work_day, start_time: start_time, end_time: end_time, break: 30)
     expect(workday.duration).to eq(1.5)
   end
 
   # date is not chosen by user anymore, times cannot overlap
 
   # it 'is invalid when times overlap' do
-  #   contract = FactoryGirl.create(:contract, hiwi: user)
-  #   project = FactoryGirl.create(:project)
-  #   FactoryGirl.create(:work_day,
+  #   contract = FactoryBot.create(:contract, hiwi: user)
+  #   project = FactoryBot.create(:project)
+  #   FactoryBot.create(:work_day,
   #     date: Date.today,
   #     start_time: '2000-01-01 10:00:00',
   #     end_time: '2000-01-01 15:00:00',
   #     project: project)
-  #   overlapping = FactoryGirl.build(:work_day,
+  #   overlapping = FactoryBot.build(:work_day,
   #     date: Date.today,
   #     start_time: '2000-01-01 12:00:00',
   #     end_time: '2000-01-01 17:00:00',
@@ -47,12 +47,12 @@ describe WorkDay, type: :model do
   # end
 
   it 'requires a project to be related to' do
-    workday = FactoryGirl.build(:work_day, project: nil, skip_project_gen: true)
+    workday = FactoryBot.build(:work_day, project: nil, skip_project_gen: true)
     expect(workday).to be_invalid
   end
 
   it 'only accepts certain values for status' do
-    workday = FactoryGirl.build(:work_day)
+    workday = FactoryBot.build(:work_day)
     workday.status = "blabla"
     expect(workday).to be_invalid
 

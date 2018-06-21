@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'time_sheets/edit', type: :view do
   before(:each) do
-    @time_sheet = assign(:time_sheet, FactoryGirl.create(:time_sheet))
+    @time_sheet = assign(:time_sheet, FactoryBot.create(:time_sheet))
     login_as @time_sheet.contract.hiwi
   end
 

@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe 'project filtering and searching' do
   before :each do
-    @user = FactoryGirl.create(:user)
-    @chair1 = FactoryGirl.create(:chair, name: 'Chair1')
-    @chair2 = FactoryGirl.create(:chair, name: 'Chair2')
-    @project10 = FactoryGirl.create(:project, title: 'Project 1_0', chair: @chair1)
-    @project11 = FactoryGirl.create(:project, title: 'Project 1_1', chair: @chair1)
-    @project20 = FactoryGirl.create(:project, title: 'Project 2_0', chair: @chair2)
+    @user = FactoryBot.create(:user)
+    @chair1 = FactoryBot.create(:chair, name: 'Chair1')
+    @chair2 = FactoryBot.create(:chair, name: 'Chair2')
+    @project10 = FactoryBot.create(:project, title: 'Project 1_0', chair: @chair1)
+    @project11 = FactoryBot.create(:project, title: 'Project 1_1', chair: @chair1)
+    @project20 = FactoryBot.create(:project, title: 'Project 2_0', chair: @chair2)
 
     @project10.users << @user
     @project11.users << @user

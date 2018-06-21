@@ -15,7 +15,7 @@
 #  status        :string
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :work_day, class: 'WorkDay' do |f|
     transient do
       skip_project_gen false
@@ -30,7 +30,7 @@ FactoryGirl.define do
     f.date { Date.new(time_sheet.year, time_sheet.month, 1)}
     after(:build) do |wd, evaluator|
       if wd.user.projects.empty?
-        project = FactoryGirl.create(:project, chair: wd.contract.chair)
+        project = FactoryBot.create(:project, chair: wd.contract.chair)
         project.users << wd.user
       end
       wd.project = wd.user.projects.first if wd.project == nil and not evaluator.skip_project_gen

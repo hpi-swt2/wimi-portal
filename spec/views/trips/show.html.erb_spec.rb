@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'trips/show', type: :view do
   before(:each) do
-    user = FactoryGirl.create(:user)
-    @trip = assign(:trip, FactoryGirl.create(:trip, user_id: user.id))
+    user = FactoryBot.create(:user)
+    @trip = assign(:trip, FactoryBot.create(:trip, user_id: user.id))
     sign_in user
 
     # https://github.com/ryanb/cancan/wiki/Testing-Abilities#controller-testing
@@ -24,8 +24,8 @@ RSpec.describe 'trips/show', type: :view do
     @ability.can :hand_in, Trip
     @ability.can :destroy, Trip
     render
-    expect(rendered).to have_link(nil, hand_in_trip_path(@trip))
-    expect(rendered).to have_link(nil, edit_trip_path(@trip))
+    expect(rendered).to have_link(nil, href: hand_in_trip_path(@trip))
+    expect(rendered).to have_link(nil, href: edit_trip_path(@trip))
     expect(rendered).to have_css('a[data-method="delete"]')
   end
 

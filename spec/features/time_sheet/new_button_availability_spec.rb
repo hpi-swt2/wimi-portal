@@ -3,8 +3,8 @@ require 'cancan/matchers'
 
 describe 'dashboard#index' do
   before :each do
-    @user = FactoryGirl.create(:user)
-    @contract = FactoryGirl.create(:contract, hiwi: @user)
+    @user = FactoryBot.create(:user)
+    @contract = FactoryBot.create(:contract, hiwi: @user)
     login_as @user
   end
 
@@ -28,7 +28,7 @@ describe 'dashboard#index' do
 
   context 'for a hiwi with a contract and a project' do
     before :each do
-      @project = FactoryGirl.create(:project, chair: @contract.chair)
+      @project = FactoryBot.create(:project, chair: @contract.chair)
       @user.projects << @project
       visit dashboard_path
     end
@@ -47,8 +47,8 @@ end
 
 describe 'contracts#index' do
   before :each do
-    @user = FactoryGirl.create(:user)
-    @contract = FactoryGirl.create(:contract, hiwi: @user)
+    @user = FactoryBot.create(:user)
+    @contract = FactoryBot.create(:contract, hiwi: @user)
     login_as @user
   end
 
@@ -72,7 +72,7 @@ describe 'contracts#index' do
 
   context 'for a hiwi with a contract and a project' do
     before :each do
-      @project = FactoryGirl.create(:project, chair: @contract.chair)
+      @project = FactoryBot.create(:project, chair: @contract.chair)
       @user.projects << @project
       visit contract_path(@contract)
     end
@@ -91,8 +91,8 @@ end
 
 describe 'ability for a user without a project' do
   before :each do
-    @user = FactoryGirl.create(:user)
-    @contract = FactoryGirl.create(:contract, hiwi: @user)
+    @user = FactoryBot.create(:user)
+    @contract = FactoryBot.create(:contract, hiwi: @user)
     expect(@user.projects.count).to eq(0)
   end
   
@@ -105,9 +105,9 @@ end
 
 describe 'ability for a user with a contract and a project' do
   before :each do
-    @user = FactoryGirl.create(:user)
-    @contract = FactoryGirl.create(:contract, hiwi: @user)
-    @user.projects << FactoryGirl.create(:project, chair: @contract.chair)
+    @user = FactoryBot.create(:user)
+    @contract = FactoryBot.create(:contract, hiwi: @user)
+    @user.projects << FactoryBot.create(:project, chair: @contract.chair)
     expect(@user.projects.count).to eq(1)
   end
 

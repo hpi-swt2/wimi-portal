@@ -40,7 +40,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'PUT #update' do
     context 'with language param' do
       before :each do
-        @user = FactoryGirl.create(:user, language: User::LANGUAGES.first.second)
+        @user = FactoryBot.create(:user, language: User::LANGUAGES.first.second)
         login_with @user
         visit dashboard_path
       end
@@ -107,7 +107,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'POST #upload_signature' do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
 
       login_with @user
     end
@@ -143,7 +143,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'POST #delete_signature' do
     before(:each) do
-      @user = FactoryGirl.create(:user, signature: 'test')
+      @user = FactoryBot.create(:user, signature: 'test')
       login_with @user
     end
 

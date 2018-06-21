@@ -21,14 +21,14 @@ RSpec.describe Contract, type: :model do
 
   context "scope for_user_in_month" do
     before(:each) do
-      @user = FactoryGirl.create(:hiwi)
+      @user = FactoryBot.create(:hiwi)
       @contract = @user.contracts.first
-      @sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+      @sheet = FactoryBot.create(:time_sheet, contract: @contract)
     end
 
     it 'returns all contracts of a user in a given month and year' do
-      contract1 = FactoryGirl.create(:contract, start_date: Date.new(2016,1), end_date: Date.new(2016,3,15), hiwi: @user)
-      contract1 = FactoryGirl.create(:contract, start_date: Date.new(2016,3, 15), end_date: Date.new(2016,4), hiwi: @user)
+      contract1 = FactoryBot.create(:contract, start_date: Date.new(2016,1), end_date: Date.new(2016,3,15), hiwi: @user)
+      contract1 = FactoryBot.create(:contract, start_date: Date.new(2016,3, 15), end_date: Date.new(2016,4), hiwi: @user)
 
       query = Contract.for_user_in_month(@user, 3, 2016)
       expect(query.size).to eq(2)
@@ -37,10 +37,10 @@ RSpec.describe Contract, type: :model do
 
   context "deletion" do
     before(:each) do
-      @hiwi = FactoryGirl.create(:hiwi, create_contract: false)
+      @hiwi = FactoryBot.create(:hiwi, create_contract: false)
       start_date = Date.today << 1
       end_date = Date.today >> 5
-      @contract = FactoryGirl.create(:contract, hiwi: @hiwi, start_date: start_date, end_date: end_date)
+      @contract = FactoryBot.create(:contract, hiwi: @hiwi, start_date: start_date, end_date: end_date)
     end
 
     it 'is possible when a contract has no time_sheets' do
@@ -48,7 +48,7 @@ RSpec.describe Contract, type: :model do
     end
 
     it 'also deletes all of a contract\'s time sheets' do
-      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, month: @contract.start_date.month, year: @contract.start_date.year)
+      @time_sheet = FactoryBot.create(:time_sheet, contract: @contract, month: @contract.start_date.month, year: @contract.start_date.year)
       expect(@contract.time_sheets.count).to eq(1)
       expect { @contract.destroy }.to change { TimeSheet.count }.from(1).to(0)
       expect(Contract.count).to eq(0)
@@ -57,8 +57,8 @@ RSpec.describe Contract, type: :model do
 
   context "calculating the amount of hours that need to be worked to fulfill the contract" do
     before(:each) do
-      @contract = FactoryGirl.build(:contract, flexible: false, hours_per_week: 9)
-      @flexible_contract = FactoryGirl.build(:contract, flexible: true)
+      @contract = FactoryBot.build(:contract, flexible: false, hours_per_week: 9)
+      @flexible_contract = FactoryBot.build(:contract, flexible: true)
     end
 
     it "returns monthly hours for normal contracts" do
@@ -80,7 +80,7 @@ RSpec.describe Contract, type: :model do
       @month_duration = 3
       @start_date = Date.today.beginning_of_month
       @end_date = (@start_date + @month_duration.months - 1).end_of_month
-      @contract = FactoryGirl.create(:contract, start_date: @start_date, end_date: @end_date)
+      @contract = FactoryBot.create(:contract, start_date: @start_date, end_date: @end_date)
     end
 
     it "returns unsaved time sheets when no time sheets are present" do
@@ -90,7 +90,7 @@ RSpec.describe Contract, type: :model do
     end
 
     it "returns single saved time sheet when time sheet is present in first contract month" do
-      ts = FactoryGirl.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
+      ts = FactoryBot.create(:time_sheet, contract: @contract, month: @start_date.month, year: @start_date.year)
       expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
       saved = @contract.time_sheets_including_missing.select { |ts| ts.persisted? }
       expect(saved.size).to eq(1)
@@ -98,7 +98,7 @@ RSpec.describe Contract, type: :model do
     end
 
     it "returns single saved time sheet when time sheet is present in last contract month" do
-      ts = FactoryGirl.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
+      ts = FactoryBot.create(:time_sheet, contract: @contract, month: @end_date.month, year: @end_date.year)
       expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
       saved = @contract.time_sheets_including_missing.select { |ts| ts.persisted? }
       expect(saved.size).to eq(1)
@@ -107,7 +107,7 @@ RSpec.describe Contract, type: :model do
 
     it "returns missing months when time sheet is present in middle contract month" do
       date = @contract.start_date + 1.month + 1.day
-      ts = FactoryGirl.create(:time_sheet, contract: @contract, month: date.month, year: date.year)
+      ts = FactoryBot.create(:time_sheet, contract: @contract, month: date.month, year: date.year)
       expect(@contract.time_sheets_including_missing.size).to eq(@month_duration)
       saved = @contract.time_sheets_including_missing.select { |ts| ts.persisted? }
       expect(saved.size).to eq(1)
@@ -116,7 +116,7 @@ RSpec.describe Contract, type: :model do
 
     it "returns missing months up to a specified date when time sheet is present" do
       date = @contract.start_date + 1.month + 1.day
-      ts = FactoryGirl.create(:time_sheet, contract: @contract, month: date.month, year: date.year)
+      ts = FactoryBot.create(:time_sheet, contract: @contract, month: date.month, year: date.year)
       expect(@contract.time_sheets_including_missing(date).size).to eq(@month_duration - 1)
       saved = @contract.time_sheets_including_missing(date).select { |ts| ts.persisted? }
       expect(saved.size).to eq(1)
@@ -133,7 +133,7 @@ RSpec.describe Contract, type: :model do
     before :each do
       @start_date = Date.today.at_beginning_of_month << 2
       @end_date = Date.today >> 1
-      @contract = FactoryGirl.create(:contract, start_date: @start_date, end_date: @end_date)
+      @contract = FactoryBot.create(:contract, start_date: @start_date, end_date: @end_date)
     end
 
     context 'without any timesheets' do
@@ -158,9 +158,9 @@ RSpec.describe Contract, type: :model do
 
   context 'salary_for_month' do
     before :each do
-      @contract = FactoryGirl.create(:contract)
-      @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
-      @work_day = FactoryGirl.create(:work_day, time_sheet: @time_sheet)
+      @contract = FactoryBot.create(:contract)
+      @time_sheet = FactoryBot.create(:time_sheet, contract: @contract)
+      @work_day = FactoryBot.create(:work_day, time_sheet: @time_sheet)
     end
 
     context 'with a flexible contract' do

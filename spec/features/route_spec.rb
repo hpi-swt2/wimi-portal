@@ -2,10 +2,10 @@ require 'rails_helper'
 
 feature 'Routes' do  
   scenario 'GET routes load correctly' do
-    @hiwi = FactoryGirl.create(:hiwi)
-    @wimi = FactoryGirl.create(:wimi).user
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
-    @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract)
+    @hiwi = FactoryBot.create(:hiwi)
+    @wimi = FactoryBot.create(:wimi).user
+    @contract = FactoryBot.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @time_sheet = FactoryBot.create(:time_sheet, contract: @contract)
     filtered_routes.each(&check_route)
   end 
 

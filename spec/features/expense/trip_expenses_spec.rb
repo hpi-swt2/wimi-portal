@@ -8,9 +8,9 @@ include RequestMacros
 describe 'trips and expenses', type: feature do
 #  #self.use_transactional_fixtures = false
 #  before :each do
-#    chair = FactoryGirl.create(:chair)
-#    user = FactoryGirl.create(:user)
-#    @current_user = FactoryGirl.create(:wimi, user_id: user.id, chair_id: chair.id).user
+#    chair = FactoryBot.create(:chair)
+#    user = FactoryBot.create(:user)
+#    @current_user = FactoryBot.create(:wimi, user_id: user.id, chair_id: chair.id).user
 #    login_as(@current_user, scope: :user)
 #  end
 #
@@ -35,7 +35,7 @@ describe 'trips and expenses', type: feature do
 #  end
 #
 #  it 'submits the request for a business trip' do #ready
-#    @trip = FactoryGirl.create(:trip, user_id: @current_user.id)
+#    @trip = FactoryBot.create(:trip, user_id: @current_user.id)
 #    visit "/users/#{@current_user.id}/"
 #    click_on(I18n.t('helpers.links.show_details'))
 #    click_on(I18n.t('helpers.links.hand_in'))
@@ -45,7 +45,7 @@ describe 'trips and expenses', type: feature do
 #  end
 #
 #  it 'adds expenses to a business trip'  do
-#    @trip = FactoryGirl.create(:trip, user_id: @current_user.id)
+#    @trip = FactoryBot.create(:trip, user_id: @current_user.id)
 #    visit "/users/#{@current_user.id}/"
 #    click_on(I18n.t('helpers.links.show_details'))
 #    expect(page).to have_content I18n.t('activerecord.attributes.trip.date_start')

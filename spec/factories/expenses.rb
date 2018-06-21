@@ -26,7 +26,7 @@
 #  rejection_message :text
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :expense do
     inland true
     country 'Germany'
@@ -46,7 +46,7 @@ FactoryGirl.define do
     user
     trip
     after(:create) do |report|
-      report.expense_items << FactoryGirl.build(:expense_item, expense: report)
+      report.expense_items << FactoryBot.build(:expense_item, expense: report)
     end
   end
 

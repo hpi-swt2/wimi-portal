@@ -10,7 +10,7 @@
 #  updated_at  :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :dismissed_missing_timesheet do
     user nil
 	contract nil

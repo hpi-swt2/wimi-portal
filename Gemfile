@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.8'
 # Use Postgresql in production
 gem 'pg', group: :production
 # Use SCSS for stylesheets
@@ -27,7 +27,7 @@ gem 'nokogiri', '1.6.7.rc3', platforms: [:mswin, :mingw, :x64_mingw]
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'newrelic_rpm'
-gem 'airbrake'
+gem 'airbrake', '~> 4.3.4'
 
 # add current schema to models
 gem 'annotate'
@@ -107,14 +107,14 @@ gem 'wkhtmltopdf-binary'
 # Create filters easily with scopes
 gem 'has_scope'
 
-gem 'rubocop', '~> 0.29.1'
+gem 'rubocop'
 
 # Logging on Heroku with Rails 4
 # https://devcenter.heroku.com/articles/rails4
 gem 'rails_12factor', group: :production
 
 # for testing email, also in production
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

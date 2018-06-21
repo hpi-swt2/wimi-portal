@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'updating email address' do
   before :each do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     login_as @user
     visit edit_user_path(@user)
   end

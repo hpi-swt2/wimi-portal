@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'time_sheet#show' do
   before :each do
-    @hiwi = FactoryGirl.create(:hiwi)
-    @wimi = FactoryGirl.create(:wimi).user
+    @hiwi = FactoryBot.create(:hiwi)
+    @wimi = FactoryBot.create(:wimi).user
     @wimi.update_attribute(:signature, 'wimi_signature')
-    @contract = FactoryGirl.create(:contract, hiwi: @hiwi, responsible: @wimi)
-    @time_sheet = FactoryGirl.create(:time_sheet, contract: @contract, handed_in: true, status: 'pending')
+    @contract = FactoryBot.create(:contract, hiwi: @hiwi, responsible: @wimi)
+    @time_sheet = FactoryBot.create(:time_sheet, contract: @contract, handed_in: true, status: 'pending')
     login_as @wimi
   end
 

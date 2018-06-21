@@ -3,11 +3,11 @@ require 'rails_helper'
 describe 'project#show' do
   context 'as a wimi' do
     before(:each) do
-      @wimi = FactoryGirl.create(:wimi).user
+      @wimi = FactoryBot.create(:wimi).user
       @chair = @wimi.chair
-      @project = FactoryGirl.create(:project, chair: @chair)
-      @hiwi = FactoryGirl.create(:hiwi, chair: @chair, responsible: @wimi)
-      @timesheet = FactoryGirl.create(:time_sheet, contract: @hiwi.contracts.first)
+      @project = FactoryBot.create(:project, chair: @chair)
+      @hiwi = FactoryBot.create(:hiwi, chair: @chair, responsible: @wimi)
+      @timesheet = FactoryBot.create(:time_sheet, contract: @hiwi.contracts.first)
       @wimi.projects << @project
       @hiwi.projects << @project
       login_as @wimi

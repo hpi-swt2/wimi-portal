@@ -11,7 +11,7 @@
 #  secretary      :boolean
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :wimi, class: 'ChairWimi' do
     user
     chair

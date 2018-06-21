@@ -22,7 +22,7 @@
 #  representative_signed_at :date
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :holiday, class: 'Holiday' do
     user_id 1
     start Date.today.at_beginning_of_week

@@ -11,11 +11,11 @@
 #  type           :integer
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :event do
     user
     target_user { user }
-    object { FactoryGirl.create(:project) }
+    object { FactoryBot.create(:project) }
     type 'project_create'
   end
 end

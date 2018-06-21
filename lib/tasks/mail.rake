@@ -1,4 +1,4 @@
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 
 # Rake task to test email sending capability.
 # Run with 'bundle exec rake mail:smtp_test RAILS_ENV=production'
@@ -55,10 +55,10 @@ namespace :mail do
       end
       puts "Enter E-Mail address to send to:"
       email = get_input
-      wimi = FactoryGirl.create(:user, email: 'a@example.com')
-      chair = FactoryGirl.create(:chair, representative: wimi)
-      hiwi = FactoryGirl.create(:user, email: email)
-      project = FactoryGirl.create(:project, chair: chair)
+      wimi = FactoryBot.create(:user, email: 'a@example.com')
+      chair = FactoryBot.create(:chair, representative: wimi)
+      hiwi = FactoryBot.create(:user, email: email)
+      project = FactoryBot.create(:project, chair: chair)
       puts "Attempting to send email to '#{hiwi.email}'..."
       Event.add('project_join', wimi, project, hiwi)
       puts ""

@@ -10,7 +10,7 @@
 #  updated_at   :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
 
   CHAIR_NAMES ||= ['EPIC', 'INTERNET']
   CHAIR_DESCRIPTIONS ||= ['Enterprise Platform and Integration Concepts','Internet-Technologien und -Systeme']
@@ -25,9 +25,9 @@ FactoryGirl.define do
       if evaluator.representative
         r = evaluator.representative
         if r.is_a? User
-          FactoryGirl.create(:wimi, chair: chair, user: r, representative: true)
+          FactoryBot.create(:wimi, chair: chair, user: r, representative: true)
         else
-          FactoryGirl.create(:wimi, chair: chair, representative: true)
+          FactoryBot.create(:wimi, chair: chair, representative: true)
         end
         chair.reload
       end

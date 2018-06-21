@@ -14,7 +14,7 @@ feature 'Login' do
   
   context 'via username/password' do
     before :each do
-      @user = FactoryGirl.create(:user, username: 'wimi-admin', password: 'wimi-admin-password')
+      @user = FactoryBot.create(:user, username: 'wimi-admin', password: 'wimi-admin-password')
       visit external_login_path
     end
     

@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'projects/index', type: :view do
   before(:each) do
-    @chair = FactoryGirl.create(:chair)
-    @proj1 = FactoryGirl.create(:project, :title => 'Proj1', :chair => @chair)
-    @proj2 = FactoryGirl.create(:project, :title => 'Proj2')
+    @chair = FactoryBot.create(:chair)
+    @proj1 = FactoryBot.create(:project, :title => 'Proj1', :chair => @chair)
+    @proj2 = FactoryBot.create(:project, :title => 'Proj2')
     assign(:projects, [@proj1, @proj2])
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     login_as @user
     allow(view).to receive(:current_user).and_return(@user)
   end
@@ -20,9 +20,9 @@ RSpec.describe 'projects/index', type: :view do
   it 'shows all details about a project' do
     # In case of only a single project, projects_path redirects to
     # that project's project#show page.
-    project = FactoryGirl.create(:project, chair: @chair)
+    project = FactoryBot.create(:project, chair: @chair)
     project.users << @user
-    another_project = FactoryGirl.create(:project, chair: @chair)
+    another_project = FactoryBot.create(:project, chair: @chair)
     another_project.users << @user
     visit projects_path
 

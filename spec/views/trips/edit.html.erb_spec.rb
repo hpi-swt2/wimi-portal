@@ -3,10 +3,10 @@ require 'rails_helper'
 # trips currently out of order
 RSpec.describe 'trips/edit', type: :view do
 #  before(:each) do
-#    @user = FactoryGirl.create(:user)
-#    FactoryGirl.create(:wimi, chair: FactoryGirl.create(:chair), user: @user)
+#    @user = FactoryBot.create(:user)
+#    FactoryBot.create(:wimi, chair: FactoryBot.create(:chair), user: @user)
 #    login_as @user
-#    @trip = assign(:trip, FactoryGirl.create(:trip, user: @user))
+#    @trip = assign(:trip, FactoryBot.create(:trip, user: @user))
 #  end
 #
 #  it 'renders the edit trip form' do
@@ -33,7 +33,7 @@ RSpec.describe 'trips/edit', type: :view do
 #  end
 #
 #  it 'denies the superadmin to edit a trip' do
-#    superadmin = FactoryGirl.create(:user, superadmin: true)
+#    superadmin = FactoryBot.create(:user, superadmin: true)
 #    login_as superadmin
 #    visit edit_trip_path(@trip)
 #    expect(current_path).to eq(dashboard_path)

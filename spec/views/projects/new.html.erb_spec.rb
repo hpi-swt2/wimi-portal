@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'projects/new', type: :view do
   before(:each) do
-    @chair = FactoryGirl.create(:chair)
-    @user = FactoryGirl.create(:user)
-    @wimi = FactoryGirl.create(:user)
-    FactoryGirl.create(:wimi, user: @wimi, chair: @chair)
+    @chair = FactoryBot.create(:chair)
+    @user = FactoryBot.create(:user)
+    @wimi = FactoryBot.create(:user)
+    FactoryBot.create(:wimi, user: @wimi, chair: @chair)
   end
 
   # TODO: move to feature tests

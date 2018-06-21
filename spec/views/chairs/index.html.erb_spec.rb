@@ -2,21 +2,21 @@ require 'rails_helper'
 
 RSpec.describe 'chairs/index.html.erb', type: :view do
   before :each do
-    @superadmin = FactoryGirl.create(:user, superadmin: true)
-    @chair = FactoryGirl.create(:chair)
+    @superadmin = FactoryBot.create(:user, superadmin: true)
+    @chair = FactoryBot.create(:chair)
   end
 
   it 'expects buttons for superadmin' do
     login_as(@superadmin, scope: :user)
     visit chairs_path
 
-    expect(page).to have_link(nil, new_chair_path)
-    expect(page).to have_link(nil, edit_chair_path(@chair))
+    expect(page).to have_link(nil, href: new_chair_path)
+    expect(page).to have_link(nil, href: edit_chair_path(@chair))
   end
 
   it 'expects buttons for admin' do
-    admin = FactoryGirl.create(:user)
-    chairwimi = FactoryGirl.create(:wimi, user: admin, chair: @chair, admin: true)
+    admin = FactoryBot.create(:user)
+    chairwimi = FactoryBot.create(:wimi, user: admin, chair: @chair, admin: true)
     login_as(admin, scope: :user)
     visit chairs_path
 
@@ -26,7 +26,7 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
   end
 
   it 'expects buttons for representative' do
-    representative = FactoryGirl.create(:user)
+    representative = FactoryBot.create(:user)
     chairwimi = ChairWimi.create(user: representative, chair: @chair, representative: true)
     login_as(representative, scope: :user)
     visit chairs_path
@@ -37,12 +37,12 @@ RSpec.describe 'chairs/index.html.erb', type: :view do
   end
 
   it 'expects buttons for users' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     login_as(user, scope: :user)
     visit chairs_path
 
-    expect(page).to have_link(nil, new_chair_path)
-    expect(page).to have_link(nil, edit_chair_path(@chair))
+    expect(page).to_not have_link(nil, href: new_chair_path)
+    expect(page).to_not have_link(nil, href: edit_chair_path(@chair))
     expect(page).to_not have_delete_link(@chair)
   end
 

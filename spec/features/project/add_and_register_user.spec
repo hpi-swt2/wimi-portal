@@ -4,8 +4,8 @@ require 'cancan/matchers'
 
 describe 'project#show: invite someone unregistered to the project button' do
   before :each do
-    @project = FactoryGirl.create(:project)
-    @wimi = FactoryGirl.create(:wimi, chair: @project.chair).user
+    @project = FactoryBot.create(:project)
+    @wimi = FactoryBot.create(:wimi, chair: @project.chair).user
     @project.users << @wimi
     login_as @wimi
     visit project_path(@project)

@@ -30,7 +30,7 @@ require 'rails_helper'
 
 RSpec.describe Expense, type: :model do
   before :each do
-    @report = FactoryGirl.create(:expense, user: FactoryGirl.create(:user))
+    @report = FactoryBot.create(:expense, user: FactoryBot.create(:user))
   end
 
   context 'with valid input' do
@@ -45,7 +45,7 @@ RSpec.describe Expense, type: :model do
 
   context 'with invalid input' do
     it 'rejects negative advances' do
-      expect(FactoryGirl.build(:expense_negative_advance).valid?).to be false
+      expect(FactoryBot.build(:expense_negative_advance).valid?).to be false
     end
   end
 end
