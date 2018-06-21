@@ -47,7 +47,7 @@
             <tr>
               <%# .show sets element to display:block using bootstrap stylesheet, making label take up the width of the <td> %>
               <td style="vertical-align: bottom;">
-                <%= f.label "event_settings_#{val}", I18n.t('event.user_friendly_name.' + typename), class: "show" %>
+                <%= f.label "event_settings_#{val}", I18n.t("event.user_friendly_name.#{typename}"), class: "show" %>
               </td>
               <td>
                 <%= f.check_box :event_settings,
