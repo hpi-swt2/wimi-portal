@@ -1,0 +1,42 @@
+As a student 
+    i want to
+        enter my working hours
+        sign the time sheets
+        have the time sheets signed by my supervisor
+            print the time sheets
+            or
+            send them directly to the secretariat
+    for that i need to
+        know what contracts i have
+        know which time sheets i have
+        know which time sheets are complete
+        know which time sheets i still need to complete
+
+as an employee for a chair
+    i want to
+        add students to the system
+        sign the time sheets of my students
+        view all students that i have
+            what they are working on
+            how many hours they worked
+        get information about my students contracts
+            when they expire
+        extend contracts
+
+as a chair admin < employee
+    i want to
+        add people
+        remove people
+        manage peoples roles
+
+as a chair supervisor < admin
+    i want to
+        see how much the students cost
+        what the students are working on 
+        designate employees as admins
+
+as a secretary
+    i want to
+        receive signed time sheets
+        know which time sheets are missing
+        see all students 
