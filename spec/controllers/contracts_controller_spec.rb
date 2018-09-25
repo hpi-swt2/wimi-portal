@@ -10,16 +10,17 @@ RSpec.describe ContractsController, type: :controller do
   end
 
   let(:valid_attributes) {
-    FactoryBot.attributes_for(:contract, responsible: @wimi, hiwi: @hiwi)
+    FactoryBot.attributes_for(:contract).merge({chair_id: @wimi.chair.id, responsible_id: @wimi.id, hiwi_id: @hiwi.id})
   }
 
   let(:invalid_attributes) {
-    FactoryBot.attributes_for(:contract,
-      responsible: @wimi,
-      hiwi: @hiwi,
+    {
+      chair_id: @wimi.chair.id,
+      responsible_id: @wimi.id,
+      hiwi_id: @hiwi.id,
       start_date: nil,
       end_date: nil
-    )
+    }
   }
 
   describe 'a hiwi' do
@@ -48,6 +49,13 @@ RSpec.describe ContractsController, type: :controller do
     before :each do
       login_with @wimi
     end
+
+    context 'with valid params' do
+      it 'creates a contract' do
+        expect{post :create, {contract: valid_attributes}}.to change(Contract, :count).by(1)
+      end
+    end 
+        
 
     context 'with invalid params' do
       it 'renders #new' do

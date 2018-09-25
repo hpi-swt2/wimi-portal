@@ -23,9 +23,9 @@ FactoryBot.define do
     hours_per_week 10
     wage_per_hour 10
     hiwi factory: :user
-    responsible factory: :user
+    responsible nil
     description nil
-    chair
+    chair nil
     after(:build) do |contract|
       if contract.chair.blank?
         if contract.responsible
