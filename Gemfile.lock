@@ -63,9 +63,6 @@ GEM
       rails (>= 3.1)
       thor
     builder (3.2.2)
-    business_time (0.7.4)
-      activesupport (>= 3.1.0)
-      tzinfo
     byebug (8.2.0)
     c3-rails (0.4.11)
     cancancan (1.13.1)
@@ -125,7 +122,6 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     highline (1.7.8)
-    holidays (2.2.0)
     i18n (0.7.0)
     i18n-tasks (0.9.5)
       activesupport (>= 4.0.2)
@@ -326,7 +322,6 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-toggle-rails
   bootstrap-tooltip-rails
-  business_time
   byebug
   c3-rails
   cancancan
@@ -342,7 +337,6 @@ DEPENDENCIES
   devise_openid_authenticatable
   factory_girl_rails
   has_scope
-  holidays
   i18n-tasks (~> 0.9.5)
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.4.0)
@@ -381,4 +375,4 @@ RUBY VERSION
    ruby 2.2.2p95
 
 BUNDLED WITH
-   1.14.6
+   1.16.2
