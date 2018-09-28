@@ -16,7 +16,6 @@ class Chair < ActiveRecord::Base
   has_many :chair_wimis, dependent: :destroy
   has_many :users, through: :chair_wimis
   has_many :projects, dependent: :destroy
-  has_many :requests
   has_many :events, as: :object, dependent: :destroy
   has_many :work_days, through: :projects
   has_many :contracts
@@ -49,18 +48,6 @@ class Chair < ActiveRecord::Base
 
   def representative
     chair_wimis.find(&:is_representative?)
-  end
-
-  def create_allrequests(types, statuses)
-    @allrequests = []
-
-    users.each do |user|
-      add_requests(I18n.t('chair.requests.holiday_request'), user.holidays, statuses) if types.include?('holidays') || types.empty?
-      add_expense_requests(I18n.t('chair.requests.expense_request'), user.expenses, statuses) if types.include?('expenses') || types.empty?
-      add_requests(I18n.t('chair.requests.trip_request'), user.trips, statuses) if types.include?('trips') || types.empty?
-    end
-
-    @allrequests.sort_by { |v| v[:handed_in] }.reverse
   end
 
   def check_correct_user(id)
@@ -158,22 +145,6 @@ class Chair < ActiveRecord::Base
         end
       else
         ChairWimi.create!(chair: self, user: new_representative, representative: true, application: 'accepted')
-      end
-    end
-  end
-
-  def add_requests(type, array, statuses)
-    array.each do |r|
-      if statuses.include?(r.status) || (statuses.empty? && r.status != 'saved')
-        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r}
-      end
-    end
-  end
-
-  def add_expense_requests(type, array, statuses)
-    array.each do |r|
-      if statuses.include?(r.status) || (statuses.empty? && r.status != 'saved')
-        @allrequests << {name: r.user.name, type: type, handed_in: r.created_at, status: r.status, action: r.trip}
       end
     end
   end

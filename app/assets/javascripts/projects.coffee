@@ -28,59 +28,11 @@ sendLanguageWithButtonToCallback = (clickedButton, callbackWarning) ->
       callbackWarning 'en', clickedButton
       return
 
-renderHiwiWorkingHoursCharts = (data) ->
-  chart = new (CanvasJS.Chart)('hiwiWorkingHoursChart',
-    animationEnabled: true
-    legend:
-      verticalAlign: 'bottom'
-      horizontalAlign: 'center'
-    theme: 'theme1'
-    data: [ {
-      type: 'pie'
-      indexLabelFontFamily: 'Garamond'
-      indexLabelFontSize: 20
-      indexLabelFontWeight: 'bold'
-      startAngle: 0
-      indexLabelFontColor: 'MistyRose'
-      indexLabelLineColor: 'darkgrey'
-      indexLabelPlacement: 'inside'
-      toolTipContent: '{name}: {y}hrs'
-      showInLegend: true
-      indexLabel: '{y}'
-      dataPoints: data
-    } ])
-  chart.render()
-
-sendWorkingHoursForMonthYearToRenderer = (monthYear, callback) ->
-  $.ajax '/projects/hiwi_working_hours/' + monthYear,
-    success: (res, status, xhr) ->
-      callback res["msg"]
-      return
-    error: (xhr, status, err) ->
-      callback JSON.parse "{ \"y\": 0, \"name\": \"Error - Try again later | Fehler - Bitte versuchen Sie es später nochmal\"}"
-      return
-
-refreshWorkingHoursChart = ->
-  month = $('#workingHoursChartMonth').val()
-  year = $('#workingHoursChartYear').val()
-  sendWorkingHoursForMonthYearToRenderer month + "-" + year, renderHiwiWorkingHoursCharts
-
-initWorkingHoursChart = ->
-  today = new Date
-  monthDate = today.getMonth() + 1 + "-" + today.getFullYear()
-  sendWorkingHoursForMonthYearToRenderer monthDate, renderHiwiWorkingHoursCharts
-  $('#workingHoursChartMonth').change ->
-    refreshWorkingHoursChart()
-  $('#workingHoursChartYear').change ->
-    refreshWorkingHoursChart()
-
 ready = ->
   if $('#setInactiveButton').length
     sendLanguageWithButtonToCallback $('#setInactiveButton'), setInactiveWarning
   if $('#SignOutMyself').length
     sendLanguageWithButtonToCallback $('#SignOutMyself'), signOutMyselfWarning
-  if $('#hiwiWorkingHoursChart').length
-    initWorkingHoursChart()
   return
 
 $(document).ready ready

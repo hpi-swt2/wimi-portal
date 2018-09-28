@@ -35,15 +35,6 @@ class DocumentBuilder < ActionController::Base
     @doc_type = params[:doc_type]
     @tmp_vars = {}
     case @doc_type
-    when 'Trip_request'
-      @tmp_vars[:trip] = Trip.find(params[:doc_id])
-      @tmp_vars[:trip].annotation = @tmp_vars[:trip].annotation || ''
-      @tmp_vars[:annotation_splitted] = @tmp_vars[:trip].annotation.split("\n")[0, 4]
-    when 'Holiday_request'
-      @tmp_vars[:holiday] = Holiday.find(params[:doc_id])
-    when 'Expense_request'
-      @tmp_vars[:report] = Expense.find(params[:doc_id])
-      @tmp_vars[:reason_splitted] = @tmp_vars[:report].reason.split("\n")
     when 'Timesheet'
       @tmp_vars[:timesheet] = TimeSheet.find(params[:doc_id])
       @tmp_vars[:days_in_month] = []

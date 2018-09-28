@@ -38,10 +38,7 @@ class User < ActiveRecord::Base
   has_many :time_sheets, through: :contracts
   has_many :responsible_contracts, foreign_key: :responsible_id, class_name: 'Contract'
   has_many :responsible_time_sheets, through: :responsible_contracts, source: :time_sheets, class_name: 'TimeSheet'
-  has_many :holidays
-  has_many :expenses
   has_many :project_applications, dependent: :destroy
-  has_many :trips
   has_many :caused_events , class_name: 'Event', :dependent => :destroy
   has_many :targeted_events, class_name: 'Event', foreign_key: :target_user_id, :dependent => :destroy
   has_and_belongs_to_many :projects
@@ -234,15 +231,6 @@ class User < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def get_desc_sorted_trips
-    all_trips = Trip.where(user_id: id)
-    trips = []
-    all_trips.each do |trip|
-      trips.push(trip)
-    end
-    trips.sort! { |a, b| b.date_start <=> a.date_start }
   end
 
   def clear_event_settings

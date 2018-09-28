@@ -46,6 +46,7 @@ RSpec.describe 'users/show', type: :view do
     expect(current_path).to eq(user_path(superadmin))
   end
 
+# TODO: is this test relevant?
 #  it 'tests if a superadmin can only change his password in his user profile' do
 #    superadmin = FactoryGirl.create(:user, superadmin: true)
 #    login_as(superadmin, scope: :user)

@@ -39,9 +39,7 @@ feature 'Routes' do
     lambda do |route|
       route
         .sub(':id', '1')
-        .sub(':holiday_id', '1')
         .sub(':contract_id', '1')
-        .sub(':trip_id', '1')
         .sub(':query', 'some_query')
     end
   end
@@ -51,8 +49,6 @@ feature 'Routes' do
   let :problematic_prefixes do
     [
       '/chair_applications',
-      '/holidays',
-      '/trips',
       '/project_applications'
     ]
   end
@@ -63,7 +59,6 @@ feature 'Routes' do
       '/documents/generate_pdf',
       '/users/edit_leave',
       '/time_sheets/:id/accept_reject',
-      '/chairs/:id/reporting',
       # too slow
       '/time_sheets/:id/download'
     ]

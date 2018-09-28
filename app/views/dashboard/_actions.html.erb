@@ -6,8 +6,6 @@
 
 <%# wimi actions %>
 <%= create_button Project , class: "btn-block"%>
-<%= create_button Holiday , class: "btn-block"%>
-<%= create_button Trip , class: "btn-block"%>
 
 <% if current_user.chair and can? :reporting, current_user.chair %>
   <%= link_to t('chairs.show.reporting'), chair_reporting_index_path(current_user.chair), class: "btn btn-block btn-info" %>
