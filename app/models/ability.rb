@@ -33,10 +33,10 @@ class Ability
 
     can [:index, :show, :leave], Project, users: { id: user.id }
 
-    can :new, TimeSheet if user.current_contracts.any?    
+    can :new, TimeSheet if user.current_contracts.any?
     can [:index, :show], TimeSheet, user: { id: user.id }
     can [:update, :hand_in, :destroy, :create, :close], TimeSheet, handed_in: false, user: { id: user.id }
-    cannot :create, TimeSheet unless user.current_contracts.any? and user.projects.any?
+    cannot :create, TimeSheet unless user.projects.any?
     can :reopen, TimeSheet, status: 'closed', user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
     can :create_next_month, TimeSheet do |ts|
