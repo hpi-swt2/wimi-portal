@@ -24,7 +24,7 @@ class Chair < ActiveRecord::Base
   validates :name, presence: true
 
   def wimis
-    users.select(&:is_wimi?)
+    users.select(&:is_wimi?) - users.select(&:is_superadmin?)
   end
 
   def hiwis
