@@ -40,7 +40,7 @@ class Project < ActiveRecord::Base
   end
 
   def wimis
-    users.select(&:is_wimi?)
+    chair.users & users
   end
 
   def remove_user(user)
