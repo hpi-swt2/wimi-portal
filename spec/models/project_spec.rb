@@ -24,28 +24,37 @@ RSpec.describe Project, type: :model do
     project.users << wimi2
   end
 
-  it 'can return all wimis in an unique array' do
-    expect(project.wimis).to eq [wimi1, wimi2]
+  context '.wimis' do
+    it 'returns all wimis in an unique array' do
+      expect(project.wimis).to eq [wimi1, wimi2]
+    end
+
+    it 'does not include wimis from other chairs if they have a contract for the project chair' do
+      other_wimi = FactoryGirl.create(:wimi).user
+      FactoryGirl.create(:contract, hiwi: other_wimi, chair: project.chair)
+      project.users << other_wimi
+
+      expect(project.wimis.map(&:name)).not_to include(other_wimi.name)
+    end
   end
 
-  it 'does not include wimis from other chairs in the .wimis array' do
-    other_wimi = FactoryGirl.create(:wimi).user
-    project.users << other_wimi
+  context '.hiwis' do
+    it 'lists all hiwis of a project' do
+      project.users << FactoryGirl.create(:user)
+      project.users << FactoryGirl.create(:user)
+      expect(project.hiwis.size).to eq(2)
+    end
 
-    expect(project.wimis).not_to include(other_wimi)
+    it 'includes wimis from other chairs if they have a contract for the project chair' do
+      other_wimi = FactoryGirl.create(:wimi).user
+      FactoryGirl.create(:contract, hiwi: other_wimi, chair: project.chair)
+      project.users << other_wimi
+
+      expect(project.hiwis.map(&:name)).to include(other_wimi.name)
+    end
   end
 
   it 'has a valid factory' do
     expect(FactoryGirl.create(:project)).to be_valid
-  end
-
-  it 'lists all wimis of a project' do
-    expect(project.wimis.size).to eq(2)
-  end
-
-  it 'lists all hiwis of a project' do
-    project.users << FactoryGirl.create(:user)
-    project.users << FactoryGirl.create(:user)
-    expect(project.hiwis.size).to eq(2)
   end
 end

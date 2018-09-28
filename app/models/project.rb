@@ -36,11 +36,11 @@ class Project < ActiveRecord::Base
   end
 
   def hiwis
-    users.select(&:is_hiwi?)
+    users.select(&:is_hiwi?) | (users.select(&:is_wimi?) & chair.contracts.map(&:hiwi))
   end
 
   def wimis
-    chair.users & users
+    users.select(&:is_wimi?) - chair.contracts.map(&:hiwi)
   end
 
   def remove_user(user)
