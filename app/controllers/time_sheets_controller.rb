@@ -115,9 +115,9 @@ class TimeSheetsController < ApplicationController
     end
   end
 
-  def send_to_admin
+  def send_to_secretary
     set_time_sheet
-    @time_sheet.contract.chair.admin_users.each do |user|
+    @time_sheet.contract.chair.secretary_users.each do |user|
       Event.add(:time_sheet_admin_mail, current_user, @time_sheet, user)
     end
     redirect_to time_sheet_path(@time_sheet)

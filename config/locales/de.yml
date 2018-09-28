@@ -152,7 +152,6 @@ de:
       one: Vertrag anzeigen
       several: "%{count} Verträge"
     form:
-      no_representative: Kein Fachgebietsleiter ausgewählt
       no_results: Keine Ergebnisse
     navigation:
       not_authorized: Du bist nicht befugt, diese Aktion für den Lehrstuhl durchzuführen.
@@ -225,6 +224,7 @@ de:
     chair_add_admin: "%{user} hat %{target_user} Adminrechte für den Lehrstuhl %{obj} verliehen"
     contract_create: "%{user} hat den Vertrag %{obj} für %{target_user} erstellt"
     contract_extend: "%{user} hat den Vertrag %{obj} mit %{target_user} verlängert"
+    register_user_to_project: "%{user} hat %{target_user} registriert und zu %{obj} hinzugefügt"
     user_friendly_name:
       time_sheet_hand_in: Stundenzettel eingereicht
       time_sheet_accept: Stundenzettel angenommen
@@ -239,12 +239,15 @@ de:
       chair_add_admin: Adminrechte gewährt
       contract_create: Vertragserstellung
       contract_extend: Vertragsverlängerung
+      register_user_to_project: Benutzer registriert und zu Projekt hinzugefügt
     email_subject:
       time_sheet_admin_mail: Stundenzettel abgegeben
+      register_user_to_project: Einladung zum Wimi Portal
     extended_message:
       time_sheet_accept: 'Der Stundenzettel kann auch über das Portal an das Sekretariat gesendet werden. (Via "An Admin senden" auf der Studenzettel Seite)'
       time_sheet_closed: Bitte stelle sicher, dass die Arbeitsstunden korrekt eingetragen sind.
       time_sheet_admin_mail: Der Stundenzettel wurde von Hiwi und Wimi unterschrieben und kann weitergeleitet werden.
+      register_user_to_project: Sie wurden eingeladen dem Wimi Portal beizutreten. Sie können sich unter der unten angegebenen Adresse mit ihren HPI Benutzerdaten anmelden.
   'false': Nein
   helpers:
     no_script_message_html: Diese Funktion steht nur mit <a href="http://enable-javascript.com" target="_blank" class="alert-link">aktiviertem JavaScript</a> zur Verfügung.
@@ -322,7 +325,9 @@ de:
     user:
       add_error: Der Nutzer konnte nicht zum Projekt hinzugefügt werden.
       add_prompt: Jemanden zum Projekt hinzufügen
+      add_prompt_register: Eine unregistrierte Person hinzufügen
       add_prompt_specific: Jemanden zum Projekt "%{title}" hinzufügen
+      add_prompt_register_specific: Eine unregistrierte Person zum Projekt "%{title}" hinzufügen
       already_member: "%{name} ist bereits Mitglied dieses Projekts."
       last_wimi: Du bist der letzte WiMi in diesem Projekt und kannst es deshalb nicht verlassen.
       successfully_added: "%{name} wurde erfolgreich hinzugefügt."
@@ -330,6 +335,9 @@ de:
     show:
       time_sheets_heading: Stundenzettel dieses Vertrages
   projects:
+    add_and_register_user:
+      email: "HPI E-Mail Adresse"
+      create_contract: "Vertrag für diese Person erstellen"
     create:
       success: Projekt wurde erfolgreich erstellt.
     destroy:
@@ -354,11 +362,18 @@ de:
       set_inactive: 'inaktiv schalten '
     update:
       success: Projekt wurde erfolgreich bearbeitet.
+    add_user_from_email:
+      success: "Die Person wurde zum Projekt hinzugefügt und per E-Mail benachrichtigt."
+      contract: "Ein Vertrag mit Standardeinstellungen wurde angelegt. Bitte ergänzen Sie die fehlenden Details."
+      error: "Konnte keinen Benutzer mit dieser E-Mail registrieren. Nur HPI Adressen sind erlaubt."
+      user_exists: 'Dieser Benutzer existiert bereits. Benutzen Sie den Button "Jemanden zum Projekt hinzufügen" zum einladen.'
   roles:
     admin_long: Administrator
     admin_long_plural: Administratoren
     chair_representative: Fachgebietsleiter
     hiwi_long_plural: Studentische Hilfskräfte
+    secretary_long: Sekretariat
+    secretary_long_plural: Sekretariat
     wimi_long_plural: Wissenschaftliche Mitarbeiter
   signature_warning: Bevor Sie das Dokument akzeptieren, müssen Sie eine Unterschrift hochladen.
   signatures:
@@ -371,7 +386,7 @@ de:
       setting_reminder: Diese Einstellung kann für alle Stundenzettel im Profil festgelegt werden
       with_comments: Ja
       without_comments: Nein
-    send_to_admin: Das wird den unterschriebenen Stundenzettel an %{user} senden. Fortfahren?
+    send_to_secretary: Das wird den unterschriebenen Stundenzettel an %{user} senden. Fortfahren?
     month_year: Monat/Jahr
     save: Stundenzettel erfolgreich gespeichert.
     no_contract: Kein Vertrag für heute gefunden
@@ -395,7 +410,7 @@ de:
       at: Am
       reject_reason: Ablehnungsgrund
       signatures: Unterschriften
-      send_to_admin: PDF an Admin senden
+      send_to_secretary: PDF per E-Mail an Sekretariat senden
     wimi_actions:
       accept: Annehmen
       reject: Ablehnen

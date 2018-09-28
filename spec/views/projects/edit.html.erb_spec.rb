@@ -92,12 +92,4 @@ RSpec.describe 'projects/edit', type: :view do
     expect(current_path).to eq(edit_project_path(project))
     expect(project.users).not_to include(user)
   end
-
-  it 'denies the superadmin to edit a project' do
-    superadmin = FactoryGirl.create(:user, superadmin: true)
-    project = FactoryGirl.create(:project)
-    login_as superadmin
-    visit edit_project_path(project)
-    expect(current_path).to eq(dashboard_path)
-  end
 end

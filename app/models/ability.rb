@@ -33,17 +33,17 @@ class Ability
 
     can [:index, :show, :leave], Project, users: { id: user.id }
 
-    can :new, TimeSheet if user.current_contracts.any?    
+    can :new, TimeSheet if user.current_contracts.any?
     can [:index, :show], TimeSheet, user: { id: user.id }
     can [:update, :hand_in, :destroy, :create, :close], TimeSheet, handed_in: false, user: { id: user.id }
-    cannot :create, TimeSheet unless user.current_contracts.any? and user.projects.any?
+    cannot :create, TimeSheet unless user.projects.any?
     can :reopen, TimeSheet, status: 'closed', user: { id: user.id }
     can :see_hiwi_actions, TimeSheet, user: { id: user.id }
     can :create_next_month, TimeSheet do |ts|
-      ts.user == user and user.has_contract_for(ts.month, ts.year)
+      ts.user == user and ts.contract.valid_in(Date.new(ts.year, ts.month) >> 1)
     end
     can :withdraw, TimeSheet, user: {id: user.id}, handed_in: true, status: 'pending'
-    can :send_to_admin, TimeSheet, user: {id: user.id}, status: 'accepted', signed: true, wimi_signed: true
+    can :send_to_secretary, TimeSheet, user: {id: user.id}, status: 'accepted', signed: true, wimi_signed: true
 
     can :current, TimeSheet if (TimeSheet.current(user).any? or can?(:create, TimeSheet))
  
@@ -72,7 +72,7 @@ class Ability
     can [:read, :create, :update], Contract, responsible_id: user.id
     can :ts_wimi_actions, TimeSheet, contract: { responsible_id: user.id }
     can :see_wimi_actions, TimeSheet, contract: { responsible_id: user.id }, handed_in: true
-    can :send_to_admin, TimeSheet, contract: { responsible_id: user.id }, status: 'accepted', signed: true, wimi_signed: true
+    can :send_to_secretary, TimeSheet, contract: { responsible_id: user.id }, status: 'accepted', signed: true, wimi_signed: true
 
     # allow access to time sheets and contracts of other wimis if time sheet is 'pending'
     can [:ts_wimi_actions, :see_wimi_actions], TimeSheet, status: 'pending', contract: { chair_id: user.chair.id }
@@ -104,9 +104,7 @@ class Ability
   end
 
   def initialize_superadmin(user)
-    initialize_user(user)
-    can :manage, Chair
-    can :index, User
+    can :manage, :all
   end
 
   # Ensure these rules are applied last
@@ -114,7 +112,7 @@ class Ability
     cannot :receive_email, Event, user: { id: user.id }
     cannot [:hand_in, :destroy, :close], TimeSheet, status: 'closed'
     cannot [:close], TimeSheet, status: 'accepted'
-    cannot :send_to_admin, TimeSheet do |ts|
+    cannot :send_to_secretary, TimeSheet do |ts|
       ts.has_been_sent_to_admin?
     end
   end

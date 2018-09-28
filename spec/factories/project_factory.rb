@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  description    :string           default("")
+#  status         :boolean          default(TRUE)
+#  chair_id       :integer
+#  project_leader :string           default("")
+#
+
 FactoryGirl.define do
 
   PROJECT_NAMES ||= ['Website Development', 'Database Maintenance', 'Cooking Coffee', 'Accounting', 'In-Database-Memory']

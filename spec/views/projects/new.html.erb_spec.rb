@@ -17,11 +17,4 @@ RSpec.describe 'projects/new', type: :view do
 #    click_on I18n.t('projects.form.create_project')
 #    expect(page).to have_content(@wimi.chair.name)
 #  end
-
-  it 'denies the superadmin to create a new project' do
-    superadmin = FactoryGirl.create(:user, superadmin: true)
-    login_as superadmin
-    visit new_project_path
-    expect(current_path).to eq(dashboard_path)
-  end
 end

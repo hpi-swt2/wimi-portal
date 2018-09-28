@@ -48,6 +48,7 @@ The following environment variables should be set:
 * `SECRET_KEY_BASE`
 * `EMAIL_PW`
 * `EMAIL_USER`
+* `IDENTITY_URL`
 
 ## Important Development Commands
 * `bundle exec rake db:migrate && bundle exec rake db:migrate RAILS_ENV=test` Migrate dbs

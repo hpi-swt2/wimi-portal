@@ -8,6 +8,7 @@
 #  application    :string
 #  user_id        :integer
 #  chair_id       :integer
+#  secretary      :boolean
 #
 
 class ChairWimi < ActiveRecord::Base
@@ -37,5 +38,9 @@ class ChairWimi < ActiveRecord::Base
 
   def is_representative?
     representative
+  end
+
+  def is_secretary?
+    secretary
   end
 end

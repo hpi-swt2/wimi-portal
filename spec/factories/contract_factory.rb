@@ -12,6 +12,7 @@
 #  flexible       :boolean
 #  hours_per_week :integer
 #  wage_per_hour  :decimal(5, 2)
+#  description    :text
 #
 
 FactoryGirl.define do
@@ -22,6 +23,7 @@ FactoryGirl.define do
     hours_per_week 10
     wage_per_hour 10
     hiwi factory: :user
+    description nil
     after(:build) do |contract|
       if contract.chair.blank?
         if contract.responsible

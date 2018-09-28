@@ -10,24 +10,20 @@
 #  updated_at                :datetime         not null
 #  identity_url              :string
 #  language                  :string           default("en"), not null
-#  street                    :string
-#  personnel_number          :integer          default(0)
+#  personnel_number          :integer
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
 #  username                  :string
 #  encrypted_password        :string           default(""), not null
-#  city                      :string
-#  zip_code                  :string
 #  signature                 :text
-#  email_notification        :boolean          default(FALSE)
 #  sign_in_count             :integer          default(0), not null
 #  current_sign_in_at        :datetime
 #  last_sign_in_at           :datetime
 #  current_sign_in_ip        :string
 #  last_sign_in_ip           :string
-#  include_comments          :integer
 #  event_settings            :string
+#  include_comments          :integer          default(2)
 #
 
 FactoryGirl.define do

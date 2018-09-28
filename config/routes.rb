@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       post 'add_user'
+      post 'add_user_from_email'
     end
   end
 
@@ -55,7 +56,7 @@ Rails.application.routes.draw do
       get 'download'
       post 'close'
       get 'reopen'
-      get 'send_to_admin'
+      get 'send_to_secretary'
     end
     collection do
       get 'current'

@@ -1,0 +1,32 @@
+<div class="modal fade" id="add-register-user-modal" role="dialog" aria-labelledby="add-register-user-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="add-register-user-label"><%= t('project.user.add_prompt_register_specific', title: @project.title) %></h4>
+      </div>
+      <div class="modal-body" >
+        <div class="row add-user">
+          <div class="col-sm-12">
+            <div class="row">
+            <%= form_tag(add_user_from_email_project_path(@project), method: 'post') do %>
+              <div class="col-md-12">
+                <%= text_field_tag :email, "", class: 'form-control' %>
+                <%= label_tag :email, t('.email'), class: 'control-label' %>
+              </div>
+              <div class="col-md-12">
+                <%= check_box_tag :create_contract, value: true, class: 'form-control' %>
+                <%= label_tag :create_contract, t('.create_contract'), class: 'control-label' %>
+              </div>
+              <div class="col-md-12">
+                <%= submit_tag t('links.submit'), class: "btn btn-primary" %>
+                <span class="btn btn-default" data-dismiss="modal"><%= t("helpers.links.back") %></span>
+              </div>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

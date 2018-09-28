@@ -144,15 +144,14 @@ en:
       success: Admin rights were successfully removed
   chairs:
     applications:
-      grant_rights: Set as assistant
+      grant_rights: Promote to admin
       remove_from_chair: Remove from research group
-      withdraw_rights: Set as employee
+      withdraw_rights: Withdraw admin rights
     contracts:
       none: No contracts
       one: Show contract
       several: "%{count} contracts"
     form:
-      no_representative: No head of department selected
       no_results: No results
     navigation:
       not_authorized: You are not allowed to do this action for this research group.
@@ -225,6 +224,7 @@ en:
     chair_add_admin: "%{user} granted admin rights to %{target_user} for chair %{obj}"
     contract_create: "%{user} created contract %{obj} for %{target_user}"
     contract_extend: "%{user} extended the contract %{obj} of %{target_user}"
+    register_user_to_project: "%{user} registered %{target_user} and added them to %{obj}"
     user_friendly_name:
       time_sheet_hand_in: Time sheet handed in
       time_sheet_accept: Time sheet accepted
@@ -239,12 +239,15 @@ en:
       chair_add_admin: Admin rights granted
       contract_create: Contract creation
       contract_extend: Contract extension
+      register_user_to_project: User registered and added to project
     email_subject:
       time_sheet_admin_mail: Time sheet handed in
+      register_user_to_project: Invitation to the Wimi Portal
     extended_message:
       time_sheet_accept: 'The time sheet can be send to the Admin via the portal. (Via "Send to admin" button on the time sheet page)'
       time_sheet_closed: Please make sure that the working hours were entered correctly.
       time_sheet_admin_mail: The Time sheet was signed by both parties and was submitted for further processing.
+      register_user_to_project: You have been invited to join the above project on the Wimi Portal. Log in at the URL below with your HPI credentials.
   'false': 'no'
   helpers:
     no_script_message_html: This functionality is only available if <a href="http://enable-javascript.com" target="_blank" class="alert-link">JavaScript is active</a>.
@@ -322,7 +325,9 @@ en:
     user:
       add_error: The user could not be added to the project.
       add_prompt: Add someone to the project
+      add_prompt_register: Invite someone unregistered
       add_prompt_specific: Add someone to the project "%{title}"
+      add_prompt_register_specific: Invite someone unregistered to the project "%{title}"
       already_member: "%{name} is already a member of this project."
       last_wimi: You are the last research assistant. You can not leave the project.
       successfully_added: "%{name} has been added successfully."
@@ -330,6 +335,9 @@ en:
     show:
       time_sheets_heading: Time Sheets of This Contract
   projects:
+    add_and_register_user:
+      email: "HPI E-Mail Address"
+      create_contract: "Auto-create a contract for this person"
     create:
       success: Project was successfully created.
     destroy:
@@ -354,11 +362,18 @@ en:
       set_inactive: set inactive
     update:
       success: Project was successfully updated.
+    add_user_from_email:
+      success: "The person was added to the project and has been notified via email. "
+      contract: "A default contract has been created. Please fill in the details."
+      error: "Could not create a user from this email. Only HPI Emails are allowed."
+      user_exists: 'This User is already registered. Use the "Add someone to the project" button to invite them.'
   roles:
-    admin_long: Assistant
-    admin_long_plural: Assistants
+    admin_long: Administrator
+    admin_long_plural: Administrators
     chair_representative: Head of department
     hiwi_long_plural: Students
+    secretary_long: Secretary
+    secretary_long_plural: Secretaries
     wimi_long_plural: Employees
   signature_warning: You have to upload a signature before you can accept the request.
   signatures:
@@ -371,7 +386,7 @@ en:
       setting_reminder: This setting can be globally set for all time sheets in the profile
       with_comments: 'Yes'
       without_comments: 'No'
-    send_to_admin: This will send the signed time sheet to %{user}. Continue?
+    send_to_secretary: This will send the signed time sheet to %{user}. Continue?
     month_year: Month/Year
     save: Time Sheet saved successfully.
     no_contract: No contract found for today.
@@ -395,7 +410,7 @@ en:
       at: At
       reject_reason: Rejection reason
       signatures: Signatures
-      send_to_admin: Send PDF to Admin
+      send_to_secretary: E-Mail PDF to secretary's office
     wimi_actions:
       accept: Accept
       reject: Reject

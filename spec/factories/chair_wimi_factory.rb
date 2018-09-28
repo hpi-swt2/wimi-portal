@@ -8,6 +8,7 @@
 #  application    :string
 #  user_id        :integer
 #  chair_id       :integer
+#  secretary      :boolean
 #
 
 FactoryGirl.define do
@@ -28,6 +29,13 @@ FactoryGirl.define do
   	user 
   	chair
   	representative true
+  	application 'accepted'
+  end
+
+  factory :secretary, class: 'ChairWimi' do
+  	user 
+  	chair
+  	secretary true
   	application 'accepted'
   end
 end

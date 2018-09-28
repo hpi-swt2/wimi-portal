@@ -20,7 +20,7 @@ describe 'dashboard#index' do
     
     it 'does not link to timesheet#new' do
       expect(page).not_to have_selector(:linkhref, new_contract_time_sheet_path(@contract))
-      within("div#contract") do
+      within("div#contract#{@contract.id}") do
         expect(page).not_to have_selector(:submit)
       end
     end
@@ -38,7 +38,7 @@ describe 'dashboard#index' do
     end
 
     it 'links to timesheet#new' do
-      within("div#contract") do
+      within("div#contract#{@contract.id}") do
         expect(page).to have_selector(:submit)
       end
     end

@@ -4,7 +4,7 @@ describe 'contracts#index' do
   before :each do
     @wimi = FactoryGirl.create(:wimi).user
     @hiwi = FactoryGirl.create(:hiwi, responsible: @wimi)
-    @contract = @wimi.chair
+    @contract = @hiwi.contracts.first
   end
 
   context "with a single contract" do

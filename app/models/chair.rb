@@ -23,7 +23,7 @@ class Chair < ActiveRecord::Base
   validates :name, presence: true
 
   def wimis
-    users.select(&:is_wimi?)
+    users.select(&:is_wimi?) - users.select(&:is_superadmin?)
   end
 
   def hiwis
@@ -36,6 +36,14 @@ class Chair < ActiveRecord::Base
 
   def admin_users
     admins.collect(&:user)
+  end
+
+  def secretaries
+    chair_wimis.select(&:is_secretary?)
+  end
+
+  def secretary_users
+    secretaries.collect(&:user)
   end
 
   def representative
@@ -54,23 +62,52 @@ class Chair < ActiveRecord::Base
     true
   end
 
-  def set_initial_users(admins_param, representative_param)
-    success = true
+  def set_initial_users(admins_param, representative_param, secretaries_param)
+    # success = true
 
-    admin_array = []
-    admins_param.try(:each) do |id|
-      success = check_correct_user(id[1])
-      return false unless success
-      admin_array << User.find_by(id: id[1])
+    # admin_array = []
+    # admins_param.try(:each) do |id|
+    #   success = check_correct_user(id)
+    #   return false unless success
+    #   admin_array << User.find_by(id: id)
+    # end
+    # success = check_correct_user(representative_param) if representative_param
+
+    # if success
+    #   set_admins(admin_array)
+    #   set_representative(User.find_by_id(representative_param)) if representative_param
+    #   return true
+    # else
+    #   return false
+    # end
+    update_user_roles(:admin, admins_param) if admins_param
+    update_user_roles(:secretary, secretaries_param) if secretaries_param
+    set_representative(User.find_by_id(representative_param)) if representative_param
+    return true
+  end
+
+  # updates chair wimi so that only users in users_with_role have the given role
+  # role: symbols
+  # users_with_role: array of user ids
+  def update_user_roles(role, users_with_role)
+    current_wimis_with_role = chair_wimis.select(&role);
+    current_wimis_with_role.each do |chair_wimi|
+      if not users_with_role.include?(chair_wimi.user.id)
+        chair_wimi.update(role => false)
+      end
     end
-    success = check_correct_user(representative_param) if representative_param
 
-    if success
-      set_admins(admin_array)
-      set_representative(User.find_by_id(representative_param)) if representative_param
-      return true
-    else
-      return false
+    users_with_role.each do |user_id|
+      user = User.find_by(id: user_id)
+      if not user
+        next
+      end
+      chair_wimi = ChairWimi.find_by(user: user, chair: self)
+      if not chair_wimi
+        ChairWimi.create(chair: self, user: user, admin: true, application: 'accepted')
+      else
+        chair_wimi.update(role => true)
+      end
     end
   end
 

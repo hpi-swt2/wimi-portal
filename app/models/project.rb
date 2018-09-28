@@ -7,7 +7,6 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  description    :string           default("")
-#  public         :boolean          default(TRUE)
 #  status         :boolean          default(TRUE)
 #  chair_id       :integer
 #  project_leader :string           default("")
@@ -37,11 +36,11 @@ class Project < ActiveRecord::Base
   end
 
   def hiwis
-    users.select(&:is_hiwi?)
+    users.select(&:is_hiwi?) | (users.select(&:is_wimi?) & chair.contracts.map(&:hiwi))
   end
 
   def wimis
-    users.select(&:is_wimi?)
+    users.select(&:is_wimi?) - chair.contracts.map(&:hiwi)
   end
 
   def remove_user(user)

@@ -10,24 +10,20 @@
 #  updated_at                :datetime         not null
 #  identity_url              :string
 #  language                  :string           default("en"), not null
-#  street                    :string
-#  personnel_number          :integer          default(0)
+#  personnel_number          :integer
 #  remaining_leave           :integer          default(28)
 #  remaining_leave_last_year :integer          default(0)
 #  superadmin                :boolean          default(FALSE)
 #  username                  :string
 #  encrypted_password        :string           default(""), not null
-#  city                      :string
-#  zip_code                  :string
 #  signature                 :text
-#  email_notification        :boolean          default(FALSE)
 #  sign_in_count             :integer          default(0), not null
 #  current_sign_in_at        :datetime
 #  last_sign_in_at           :datetime
 #  current_sign_in_ip        :string
 #  last_sign_in_ip           :string
-#  include_comments          :integer
 #  event_settings            :string
+#  include_comments          :integer          default(2)
 #
 
 class User < ActiveRecord::Base
@@ -61,6 +57,7 @@ class User < ActiveRecord::Base
   validates_numericality_of :remaining_leave, greater_than_or_equal_to: 0
   validates_numericality_of :remaining_leave_last_year, greater_than_or_equal_to: 0
   validates_confirmation_of :password
+  validates_uniqueness_of :identity_url, allow_nil: true, allow_blank: true
 
   after_initialize :set_event_settings, if: :new_record?
 
@@ -111,12 +108,35 @@ class User < ActiveRecord::Base
     !chair_wimi.nil? and (chair_wimi.admin or chair_wimi.representative or chair_wimi.application == 'accepted')
   end
 
+  # returns an array of the role names of this user
+  def roles_for_chair(chair)
+    names = []
+    if is_admin?(chair)
+      names << I18n.t('roles.admin_long')
+    end
+    if is_representative?(chair)
+      names << I18n.t('roles.chair_representative')
+    end
+    if is_secretary?(chair)
+      names << I18n.t('roles.secretary_long')
+    end
+    return names
+  end
+
   def is_representative?(opt_chair = false)
     return false if chair_wimi.nil?
     if opt_chair
       return false if opt_chair != chair
     end
     chair_wimi.representative
+  end
+
+  def is_secretary?(opt_chair = false)
+    return false if chair_wimi.nil?
+    if opt_chair
+      return false if opt_chair != chair
+    end
+    chair_wimi.secretary
   end
 
   def is_admin?(opt_chair = false)
@@ -173,6 +193,18 @@ class User < ActiveRecord::Base
 
   def self.openid_required_fields
     ['http://axschema.org/contact/email']
+  end
+
+  def self.build_from_email(email)
+    regex_match = /\A([a-zA-Z]+\.[a-zA-Z0-9]+)@(student\.){0,1}hpi\.(uni-potsdam\.){0,1}de\z/i.match(email)
+    if regex_match
+      identity_url_base = Rails.configuration.identity_url
+      user = self.build_from_identity_url(identity_url_base + regex_match[1])
+      user.email = email
+      return user
+    else
+      return nil
+    end
   end
 
   def self.build_from_identity_url(identity_url)
