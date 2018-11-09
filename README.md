@@ -1,7 +1,6 @@
 # WiMi-Portal
-A Ruby on Rails app for managing time sheets of [student assistants](https://de.wikipedia.org/wiki/Wissenschaftliche_Hilfskraft)
-
-[![License](http://img.shields.io/badge/license-AGPL-blue.svg)](https://github.com/hpi-swt2/wimi-portal/blob/master/LICENSE)
+A Ruby on Rails app for managing time sheets of [student assistants](https://de.wikipedia.org/wiki/Wissenschaftliche_Hilfskraft).
+[![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/hpi-swt2/wimi-portal/blob/master/LICENSE)
 
 Branch | Travis CI  | Code Analysis | Heroku Deploy | Errbit
 ------ | ---------- | ------------- | ------------- | ------
